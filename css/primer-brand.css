@@ -335,6 +335,10 @@ pre code {
   box-shadow: var(--brand-shadow-md);
 }
 
+.slide-nav button:first-child {
+  font-size: 1.25rem;
+}
+
 .slide-nav button:disabled {
   opacity: 0.35;
   cursor: default;

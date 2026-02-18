@@ -38,11 +38,14 @@
 
     // Nav buttons
     const nav = el("div", { className: "slide-nav" });
+    const btnHome = el("button", { innerHTML: "&#8962;", title: "Course Navigator (H)" });
     btnPrev = el("button", { innerHTML: "&#8592;", title: "Previous (←)" });
     btnNext = el("button", { innerHTML: "&#8594;", title: "Next (→)" });
     const btnToc = el("button", { innerHTML: "&#9776;", title: "Contents (T)" });
-    nav.append(btnPrev, btnNext, btnToc);
+    nav.append(btnHome, btnPrev, btnNext, btnToc);
     document.body.appendChild(nav);
+
+    btnHome.addEventListener("click", goHome);
 
     // TOC overlay
     tocOverlay = el("div", { className: "toc-overlay" });
@@ -111,6 +114,18 @@
     tocOverlay.classList.toggle("active");
   }
 
+  /* ---- Navigate to course navigator ---- */
+  function goHome() {
+    // Navigate to the site root (index.html)
+    const base = document.querySelector('link[href*="primer-brand.css"]');
+    if (base) {
+      const cssHref = new URL(base.href);
+      window.location.href = cssHref.href.replace(/\/css\/primer-brand\.css.*$/, '/');
+    } else {
+      window.location.href = '/';
+    }
+  }
+
   /* ---- Keyboard ---- */
   function bindEvents() {
     document.addEventListener("keydown", (e) => {
@@ -135,6 +150,10 @@
         case "t":
         case "T":
           if (!e.ctrlKey && !e.metaKey) toggleTOC();
+          break;
+        case "h":
+        case "H":
+          if (!e.ctrlKey && !e.metaKey) goHome();
           break;
         case "Escape":
           if (tocOverlay.classList.contains("active")) toggleTOC();
