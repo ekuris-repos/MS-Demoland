@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "Templates"
+		},
+		{
+			"path": "Developer"
+		},
+		{
+			"path": "Non-Developer"
+		}
+	],
+	"settings": {}
+}
