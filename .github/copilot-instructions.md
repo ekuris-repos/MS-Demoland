@@ -30,7 +30,7 @@ The JSON key is the course path relative to the repo root, without the
 | STATUS.md location | JSON key |
 |---|---|
 | `Developer/Beginner/MCP-for-You-and-Me/Admin/STATUS.md` | `Developer/Beginner/MCP-for-You-and-Me` |
-| `Non-Developer/Enterprise/Security-Proving-Trust-in-the-System/Admin/STATUS.md` | `Non-Developer/Enterprise/Security-Proving-Trust-in-the-System` |
+| `Non-Developer/Enterprise/Proving-Trust-in-the-System/Admin/STATUS.md` | `Non-Developer/Enterprise/Proving-Trust-in-the-System` |
 
 Allowed values: `Not Started`, `In Progress`, `Complete`
 

@@ -1,6 +1,6 @@
-# GitHub One for All — Setup Instructions
+# GitHub Coding Agent Its Alive — Setup Instructions
 
-> **Track:** Non-Developer | **Level:** Beginner
+> **Track:** Developer | **Level:** Intermediate
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Non-Developer\Beginner\GitHub-One-for-All"
+   cd "Developer\Intermediate\Coding-Agent-Its-Alive"
    ```
 2. Install dependencies:
    ```

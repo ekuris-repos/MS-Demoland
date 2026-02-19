@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Developer\Beginner\Prompts-Instructions-Agents-and-Chats"
+   cd "Developer\Beginner\Prompts-Instructions-Skills-and-Agents"
    ```
 2. Install dependencies:
    ```

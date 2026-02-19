@@ -11,7 +11,7 @@ BASE = r"c:\Users\erikkuris\Git Directories\MS Demoland"
 COURSES = [
     # ─── Developer / Beginner ────────────────────────────────────────
     {
-        "path": "Developer/Beginner/Intro-to-VS-Code-and-GitHub-Copilot",
+        "path": "Developer/Beginner/The-Copilot-Awakens",
         "title": "AI Pair Programming - The Copilot Awakens",
         "tagline": "Get hands-on with GitHub Copilot in VS Code, from first activation to configuring your workspace and letting AI accelerate every keystroke",
         "duration": "30 Minutes",
@@ -97,7 +97,7 @@ COURSES = [
         ],
     },
     {
-        "path": "Developer/Beginner/Prompts-Instructions-Agents-and-Chats",
+        "path": "Developer/Beginner/Prompts-Instructions-Skills-and-Agents",
         "title": "Copilot Primitives - Prompts, Instructions, Skills, and Agents",
         "tagline": "Learn the building blocks of Copilot's interaction models, when to reach for each one, and how to craft prompts that deliver reliable results",
         "duration": "30 Minutes",
@@ -257,7 +257,7 @@ COURSES = [
         ],
     },
     {
-        "path": "Developer/Intermediate/GitHub-Coding-Agent-Its-Alive",
+        "path": "Developer/Intermediate/Coding-Agent-Its-Alive",
         "title": "Org Agent Config - Coding Agent: It's Alive!",
         "tagline": "Configure organization-level custom instructions for the GitHub Coding Agent, then establish smooth handoff processes between your IDE and automated agents",
         "duration": "1 Hour",
@@ -310,7 +310,7 @@ COURSES = [
         ],
     },
     {
-        "path": "Developer/Intermediate/GitHub-Copilot-CLI",
+        "path": "Developer/Intermediate/Copilot-CLI-The-Who-the-How-and-the-Why",
         "title": "Terminal AI - Copilot CLI: The Who, the How, and the Why",
         "tagline": "Meet the new Copilot CLI, learn how it differs from chat, and combine both for maximum productivity right in your terminal",
         "duration": "1 Hour",
@@ -664,7 +664,7 @@ COURSES = [
     },
     # ─── Non-Developer / Beginner ────────────────────────────────────
     {
-        "path": "Non-Developer/Beginner/Copilot-and-Azure-DevOps",
+        "path": "Non-Developer/Beginner/Made-Better-Together",
         "title": "Azure DevOps + Copilot - Made Better Together",
         "tagline": "Bridge Azure DevOps and GitHub Copilot so you can manage sprints, tasks, and boards from either platform without switching tools",
         "duration": "1 Hour",
@@ -770,7 +770,7 @@ COURSES = [
         ],
     },
     {
-        "path": "Non-Developer/Beginner/GitHub-One-for-All",
+        "path": "Non-Developer/Beginner/One-for-All",
         "title": "GitHub Platform Tour - One for All",
         "tagline": "Tour GitHub Enterprise, Actions, Issues, Projects, Code Quality, and Secret Scanning to see how the platform works as one unified system",
         "duration": "1 Hour",
@@ -824,7 +824,7 @@ COURSES = [
     },
     # ─── Non-Developer / Intermediate ────────────────────────────────
     {
-        "path": "Non-Developer/Intermediate/Executives-Command-and-Conquer",
+        "path": "Non-Developer/Intermediate/Command-and-Conquer",
         "title": "Executive AI Strategy - Command and Conquer",
         "tagline": "Answer the big questions &mdash; what's possible, where are we, what does it cost &mdash; with on-demand reports and real-time insights powered by Copilot",
         "duration": "1 Hour",
@@ -877,7 +877,7 @@ COURSES = [
         ],
     },
     {
-        "path": "Non-Developer/Intermediate/Operations-Enterprise-Scale",
+        "path": "Non-Developer/Intermediate/Dragon-Scales-You-Need-Enterprise-Scale",
         "title": "Ops at Scale - Dragon Scales? You Need Enterprise Scale!",
         "tagline": "Collate logs, correlate dashboards, and propose fixes at scale, then generate reliability reports that back up your operational plans",
         "duration": "1.5 Hours",
@@ -1004,7 +1004,7 @@ COURSES = [
     },
     # ─── Non-Developer / Enterprise ──────────────────────────────────
     {
-        "path": "Non-Developer/Enterprise/Security-Proving-Trust-in-the-System",
+        "path": "Non-Developer/Enterprise/Proving-Trust-in-the-System",
         "title": "AI Governance - Proving Trust in the System",
         "tagline": "Analyze, limit, and govern AI traffic by using AI to prove itself &mdash; transparency, source tracking, and governance you can show stakeholders",
         "duration": "1 Hour",

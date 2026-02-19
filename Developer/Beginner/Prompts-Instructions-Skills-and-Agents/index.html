@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MCP Integration - MCP for You and Me — MS Demoland</title>
+  <title>Copilot Primitives - Prompts, Instructions, Skills, and Agents — MS Demoland</title>
   <link rel="stylesheet" href="/css/primer-brand.css" />
 </head>
 <body>
@@ -15,8 +15,8 @@
       <div class="slide-inner">
         <img src="/img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Beginner · 30 Minutes</span>
-        <h1>MCP Integration - MCP for You and Me</h1>
-        <p class="subtitle">Discover what the Model Context Protocol is, plug in GitHub's public MCP server, and work issues end-to-end without leaving your editor</p>
+        <h1>Copilot Primitives - Prompts, Instructions, Skills, and Agents</h1>
+        <p class="subtitle">Learn the building blocks of Copilot's interaction models, when to reach for each one, and how to craft prompts that deliver reliable results</p>
       </div>
     </section>
 
@@ -31,11 +31,12 @@
     <!-- Content Slide 1 -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>What Is the Model Context Protocol?</h2>
+        <h2>The Four Primitives</h2>
         <ul>
-          <li>MCP is an open standard for connecting AI assistants to external tools and data</li>
-          <li>Think of it as a USB-C port for AI — one protocol, many integrations</li>
-          <li>MCP servers expose capabilities that Copilot can discover and invoke automatically</li>
+          <li><strong>Prompts</strong> — reusable prompt files (<code>.prompt.md</code>) that capture your best questions</li>
+          <li><strong>Instructions</strong> — persistent guidelines (<code>.instructions.md</code>) that shape every response</li>
+          <li><strong>Skills</strong> — domain knowledge packages agents can invoke on demand</li>
+          <li><strong>Agents</strong> — specialized modes that combine instructions, skills, and tools</li>
         </ul>
       </div>
     </section>
@@ -43,23 +44,28 @@
     <!-- Content Slide 2 -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Connecting GitHub's MCP Server</h2>
-        <ul>
-          <li>Enable the GitHub MCP server in VS Code settings</li>
-          <li>Copilot gains access to issues, PRs, code search, and repository context</li>
-          <li>Work issues end-to-end — read, comment, close — without leaving the editor</li>
-        </ul>
+        <h2>When to Use What</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>One-off task?</h3>
+            <p>Write a prompt — quick, disposable, and shareable with your team.</p>
+          </div>
+          <div class="card">
+            <h3>Ongoing guidance?</h3>
+            <p>Use instructions — they apply automatically to every conversation in your workspace.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Content Slide 3 -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>MCP in Practice</h2>
+        <h2>Crafting Effective Prompts</h2>
         <ul>
-          <li>Ask Copilot to find open issues, summarize PRs, or look up documentation</li>
-          <li>Combine MCP tools with chat for rich, context-aware workflows</li>
-          <li>Explore the ecosystem — community MCP servers for databases, APIs, and more</li>
+          <li>Be specific about the output format you want (code, list, explanation)</li>
+          <li>Provide context — reference files, constraints, and examples</li>
+          <li>Iterate — refine your prompt based on the response and save what works</li>
         </ul>
       </div>
     </section>

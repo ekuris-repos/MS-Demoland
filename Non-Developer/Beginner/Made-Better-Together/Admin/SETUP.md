@@ -1,6 +1,6 @@
-# Intro to VS Code and GitHub Copilot — Setup Instructions
+# Copilot and Azure DevOps — Setup Instructions
 
-> **Track:** Developer | **Level:** Beginner
+> **Track:** Non-Developer | **Level:** Beginner
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Developer\Beginner\Intro-to-VS-Code-and-GitHub-Copilot"
+   cd "Non-Developer\Beginner\Made-Better-Together"
    ```
 2. Install dependencies:
    ```

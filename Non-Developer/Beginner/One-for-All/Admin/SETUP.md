@@ -1,6 +1,6 @@
-# GitHub Copilot CLI — Setup Instructions
+# GitHub One for All — Setup Instructions
 
-> **Track:** Developer | **Level:** Intermediate
+> **Track:** Non-Developer | **Level:** Beginner
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Developer\Intermediate\GitHub-Copilot-CLI"
+   cd "Non-Developer\Beginner\One-for-All"
    ```
 2. Install dependencies:
    ```

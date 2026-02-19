@@ -1,6 +1,6 @@
-# Copilot and Azure DevOps — Setup Instructions
+# Intro to VS Code and GitHub Copilot — Setup Instructions
 
-> **Track:** Non-Developer | **Level:** Beginner
+> **Track:** Developer | **Level:** Beginner
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Non-Developer\Beginner\Copilot-and-Azure-DevOps"
+   cd "Developer\Beginner\The-Copilot-Awakens"
    ```
 2. Install dependencies:
    ```

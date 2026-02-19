@@ -1,6 +1,6 @@
-# GitHub Coding Agent Its Alive — Setup Instructions
+# Operations Enterprise Scale — Setup Instructions
 
-> **Track:** Developer | **Level:** Intermediate
+> **Track:** Non-Developer | **Level:** Intermediate
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Developer\Intermediate\GitHub-Coding-Agent-Its-Alive"
+   cd "Non-Developer\Intermediate\Dragon-Scales-You-Need-Enterprise-Scale"
    ```
 2. Install dependencies:
    ```

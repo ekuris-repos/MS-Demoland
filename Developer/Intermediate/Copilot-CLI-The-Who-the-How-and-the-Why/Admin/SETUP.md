@@ -1,6 +1,6 @@
-# Operations Enterprise Scale — Setup Instructions
+# GitHub Copilot CLI — Setup Instructions
 
-> **Track:** Non-Developer | **Level:** Intermediate
+> **Track:** Developer | **Level:** Intermediate
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Non-Developer\Intermediate\Operations-Enterprise-Scale"
+   cd "Developer\Intermediate\Copilot-CLI-The-Who-the-How-and-the-Why"
    ```
 2. Install dependencies:
    ```

@@ -1,6 +1,6 @@
-# Security Proving Trust in the System — Setup Instructions
+# Executives Command and Conquer — Setup Instructions
 
-> **Track:** Non-Developer | **Level:** Enterprise
+> **Track:** Non-Developer | **Level:** Intermediate
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Non-Developer\Enterprise\Security-Proving-Trust-in-the-System"
+   cd "Non-Developer\Intermediate\Command-and-Conquer"
    ```
 2. Install dependencies:
    ```
