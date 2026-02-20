@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Course Navigator — MS Demoland</title>
-  <link rel="stylesheet" href="/css/primer-brand.css" />
+  <link rel="stylesheet" href="css/primer-brand.css" />
   <style>
     /* ---- Navigation page layout ---- */
     .nav-page {
@@ -224,6 +224,34 @@
       color: #3fb950;
     }
 
+    /* Install Extension pill */
+    .install-extension-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: var(--brand-space-3);
+    }
+
+    .install-extension-btn {
+      padding: var(--brand-space-2) var(--brand-space-4);
+      min-width: 280px;
+      text-align: center;
+      border-radius: 999px;
+      border: 1px solid #30363d;
+      background: transparent;
+      color: #8b949e;
+      font-family: var(--brand-font-family);
+      font-size: var(--brand-body-size-sm);
+      font-weight: var(--brand-font-weight-semibold);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .install-extension-btn:hover {
+      border-color: var(--brand-color-accent-primary);
+      color: #ffffff;
+    }
+
     @media (max-width: 640px) {
       .course-grid {
         grid-template-columns: 1fr;
@@ -237,9 +265,14 @@
 
     <!-- Header -->
     <div class="nav-header">
-      <img src="/img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+      <img src="img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
       <h1>MS Demoland</h1>
       <p>Choose a track and course to get started</p>
+    </div>
+
+    <!-- Install Extension -->
+    <div class="install-extension-bar">
+      <a class="install-extension-btn" href="/lab-guide/index.html">Install Extension</a>
     </div>
 
     <!-- Track Tabs -->
@@ -257,17 +290,17 @@
       <div class="level-group">
         <span class="level-label level-label--beginner">Beginner</span>
         <div class="course-grid">
-          <a class="course-card" href="/Developer/Beginner/The-Copilot-Awakens/index.html" data-status-path="/Developer/Beginner/The-Copilot-Awakens/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Beginner/The-Copilot-Awakens/index.html" data-status-path="Developer/Beginner/The-Copilot-Awakens/Admin/STATUS.md">
             <h3>AI Pair Programming - The Copilot Awakens</h3>
             <p>Get hands-on with GitHub Copilot in VS Code, from first activation to configuring your workspace and letting AI accelerate every keystroke</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Beginner/MCP-for-You-and-Me/index.html" data-status-path="/Developer/Beginner/MCP-for-You-and-Me/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Beginner/MCP-for-You-and-Me/index.html" data-status-path="Developer/Beginner/MCP-for-You-and-Me/Admin/STATUS.md">
             <h3>MCP Integration - MCP for You and Me</h3>
             <p>Discover what the Model Context Protocol is, plug in GitHub's public MCP server, and work issues end-to-end without leaving your editor</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Beginner/Prompts-Instructions-Skills-and-Agents/index.html" data-status-path="/Developer/Beginner/Prompts-Instructions-Skills-and-Agents/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Beginner/Prompts-Instructions-Skills-and-Agents/index.html" data-status-path="Developer/Beginner/Prompts-Instructions-Skills-and-Agents/Admin/STATUS.md">
             <h3>Copilot Primitives - Prompts, Instructions, Skills, and Agents</h3>
             <p>Learn the building blocks of Copilot's interaction models, when to reach for each one, and how to craft prompts that deliver reliable results</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
@@ -279,22 +312,22 @@
       <div class="level-group">
         <span class="level-label level-label--intermediate">Intermediate</span>
         <div class="course-grid">
-          <a class="course-card" href="/Developer/Intermediate/Agent-Potato-License-to-Chat/index.html" data-status-path="/Developer/Intermediate/Agent-Potato-License-to-Chat/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Intermediate/Agent-Potato-License-to-Chat/index.html" data-status-path="Developer/Intermediate/Agent-Potato-License-to-Chat/Admin/STATUS.md">
             <h3>Full AI Stack - Agent Potato: License to Chat</h3>
             <p>Follow Agent Potato on a mission to build a complete React frontend and Node backend, from first feature to deployment, all in one session</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Intermediate/Enterprise-Grade-Marmalade/index.html" data-status-path="/Developer/Intermediate/Enterprise-Grade-Marmalade/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Intermediate/Enterprise-Grade-Marmalade/index.html" data-status-path="Developer/Intermediate/Enterprise-Grade-Marmalade/Admin/STATUS.md">
             <h3>Central Prompt Repos - Enterprise Grade Marmalade</h3>
             <p>Explore how central prompt repositories preserve institutional knowledge, standardize AI-assisted development, and get every developer productive from day one</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Intermediate/Coding-Agent-Its-Alive/index.html" data-status-path="/Developer/Intermediate/Coding-Agent-Its-Alive/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Intermediate/Coding-Agent-Its-Alive/index.html" data-status-path="Developer/Intermediate/Coding-Agent-Its-Alive/Admin/STATUS.md">
             <h3>Org Agent Config - Coding Agent: It's Alive!</h3>
             <p>Configure organization-level custom instructions for the GitHub Coding Agent, then establish smooth handoff processes between your IDE and automated agents</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Intermediate/Copilot-CLI-The-Who-the-How-and-the-Why/index.html" data-status-path="/Developer/Intermediate/Copilot-CLI-The-Who-the-How-and-the-Why/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Intermediate/Copilot-CLI-The-Who-the-How-and-the-Why/index.html" data-status-path="Developer/Intermediate/Copilot-CLI-The-Who-the-How-and-the-Why/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>Terminal AI - Copilot CLI: The Who, the How, and the Why</h3>
             <p>Meet the new Copilot CLI, learn how it differs from chat, and combine both for maximum productivity right in your terminal</p>
@@ -307,23 +340,23 @@
       <div class="level-group">
         <span class="level-label level-label--enterprise">Enterprise</span>
         <div class="course-grid">
-          <a class="course-card" href="/Developer/Enterprise/Agent-HQ-Reporting-for-Duty/index.html" data-status-path="/Developer/Enterprise/Agent-HQ-Reporting-for-Duty/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Enterprise/Agent-HQ-Reporting-for-Duty/index.html" data-status-path="Developer/Enterprise/Agent-HQ-Reporting-for-Duty/Admin/STATUS.md">
             <h3>Agent Coordination - Agent HQ: Reporting for Duty</h3>
             <p>Launch agents from GitHub, Slack, and VS Code, assign them tasks, share context across platforms, and keep humans and AI working side by side</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Enterprise/MCP-Maximizer/index.html" data-status-path="/Developer/Enterprise/MCP-Maximizer/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Enterprise/MCP-Maximizer/index.html" data-status-path="Developer/Enterprise/MCP-Maximizer/Admin/STATUS.md">
             <h3>Advanced MCP - MCP Maximizer</h3>
             <p>Connect MCP to internal and external services with secure authentication, and build seamless integrations between your enterprise tools and AI workflows</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Enterprise/Multi-Agent-Multi-Repo-Roundup/index.html" data-status-path="/Developer/Enterprise/Multi-Agent-Multi-Repo-Roundup/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Enterprise/Multi-Agent-Multi-Repo-Roundup/index.html" data-status-path="Developer/Enterprise/Multi-Agent-Multi-Repo-Roundup/Admin/STATUS.md">
             <span class="course-badge course-badge--departing">⚠ Departing</span>
             <h3>Cross-Repo Agents - Multi-Agent, Multi-Repo Roundup</h3>
             <p>Pull patterns and examples from one repository to shape another, and coordinate multiple agents in your IDE with zero extra infrastructure</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Enterprise/SDK-Have-It-Your-Way/index.html" data-status-path="/Developer/Enterprise/SDK-Have-It-Your-Way/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Enterprise/SDK-Have-It-Your-Way/index.html" data-status-path="Developer/Enterprise/SDK-Have-It-Your-Way/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>Copilot SDK - Have It Your Way</h3>
             <p>Use the Copilot SDK to build AI-powered applications outside the editor, design multi-step workflows, and ship with a production-tested agent runtime</p>
@@ -336,13 +369,13 @@
       <div class="level-group">
         <span class="level-label level-label--addon">Add-Ons</span>
         <div class="course-grid">
-          <a class="course-card" href="/Developer/Add-Ons/Agent-Wars-Return-of-the-Chat-ai/index.html" data-status-path="/Developer/Add-Ons/Agent-Wars-Return-of-the-Chat-ai/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Add-Ons/Agent-Wars-Return-of-the-Chat-ai/index.html" data-status-path="Developer/Add-Ons/Agent-Wars-Return-of-the-Chat-ai/Admin/STATUS.md">
             <span class="course-badge course-badge--departing">⚠ Departing</span>
             <h3>Chat Platform Agents - Agent Wars: Return of the Chat-ai</h3>
             <p>Trigger builds, assign issues, and get summaries without leaving Teams or Slack, bridging chat platforms and development tools through agentic workflows</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Developer/Add-Ons/Review-Me-Review-Me-Not-Review-Me/index.html" data-status-path="/Developer/Add-Ons/Review-Me-Review-Me-Not-Review-Me/Admin/STATUS.md">
+          <a class="course-card" href="Developer/Add-Ons/Review-Me-Review-Me-Not-Review-Me/index.html" data-status-path="Developer/Add-Ons/Review-Me-Review-Me-Not-Review-Me/Admin/STATUS.md">
             <h3>Automated Code Review - Review Me, Review Me Not, Review Me</h3>
             <p>Automate PR reviews, run code quality scans, and remediate vulnerabilities end-to-end so your team ships secure code faster</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
@@ -361,19 +394,19 @@
       <div class="level-group">
         <span class="level-label level-label--beginner">Beginner</span>
         <div class="course-grid">
-          <a class="course-card" href="/Non-Developer/Beginner/Made-Better-Together/index.html" data-status-path="/Non-Developer/Beginner/Made-Better-Together/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Beginner/Made-Better-Together/index.html" data-status-path="Non-Developer/Beginner/Made-Better-Together/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>Azure DevOps + Copilot - Made Better Together</h3>
             <p>Bridge Azure DevOps and GitHub Copilot so you can manage sprints, tasks, and boards from either platform without switching tools</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Non-Developer/Beginner/Copilot-and-the-Thing/index.html" data-status-path="/Non-Developer/Beginner/Copilot-and-the-Thing/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Beginner/Copilot-and-the-Thing/index.html" data-status-path="Non-Developer/Beginner/Copilot-and-the-Thing/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>Unified Tooling - Copilot and the Thing</h3>
             <p>Consolidate scattered repositories, trackers, and knowledge bases into one workflow with Copilot as your central assistant</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Non-Developer/Beginner/One-for-All/index.html" data-status-path="/Non-Developer/Beginner/One-for-All/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Beginner/One-for-All/index.html" data-status-path="Non-Developer/Beginner/One-for-All/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>GitHub Platform Tour - One for All</h3>
             <p>Tour GitHub Enterprise, Actions, Issues, Projects, Code Quality, and Secret Scanning to see how the platform works as one unified system</p>
@@ -386,19 +419,19 @@
       <div class="level-group">
         <span class="level-label level-label--intermediate">Intermediate</span>
         <div class="course-grid">
-          <a class="course-card" href="/Non-Developer/Intermediate/Command-and-Conquer/index.html" data-status-path="/Non-Developer/Intermediate/Command-and-Conquer/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Intermediate/Command-and-Conquer/index.html" data-status-path="Non-Developer/Intermediate/Command-and-Conquer/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>Executive AI Strategy - Command and Conquer</h3>
             <p>Answer the big questions — what's possible, where are we, what does it cost — with on-demand reports and real-time insights powered by Copilot</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Non-Developer/Intermediate/Dragon-Scales-You-Need-Enterprise-Scale/index.html" data-status-path="/Non-Developer/Intermediate/Dragon-Scales-You-Need-Enterprise-Scale/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Intermediate/Dragon-Scales-You-Need-Enterprise-Scale/index.html" data-status-path="Non-Developer/Intermediate/Dragon-Scales-You-Need-Enterprise-Scale/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>Ops at Scale - Dragon Scales? You Need Enterprise Scale!</h3>
             <p>Collate logs, correlate dashboards, and propose fixes at scale, then generate reliability reports that back up your operational plans</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Non-Developer/Intermediate/Project-Manager-Power-Up/index.html" data-status-path="/Non-Developer/Intermediate/Project-Manager-Power-Up/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Intermediate/Project-Manager-Power-Up/index.html" data-status-path="Non-Developer/Intermediate/Project-Manager-Power-Up/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>PM Toolkit - Project Manager: Power Up</h3>
             <p>Know what to look for, ask the right questions, give developers clear direction, and generate leadership-ready reports in minutes</p>
@@ -411,13 +444,13 @@
       <div class="level-group">
         <span class="level-label level-label--enterprise">Enterprise</span>
         <div class="course-grid">
-          <a class="course-card" href="/Non-Developer/Enterprise/Proving-Trust-in-the-System/index.html" data-status-path="/Non-Developer/Enterprise/Proving-Trust-in-the-System/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Enterprise/Proving-Trust-in-the-System/index.html" data-status-path="Non-Developer/Enterprise/Proving-Trust-in-the-System/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>AI Governance - Proving Trust in the System</h3>
             <p>Analyze, limit, and govern AI traffic by using AI to prove itself — transparency, source tracking, and governance you can show stakeholders</p>
             <div class="card-footer"><span class="status-badge">Loading…</span><span class="card-arrow">&#8594;</span></div>
           </a>
-          <a class="course-card" href="/Non-Developer/Enterprise/The-AI-is-Mightier-than-the-Sword/index.html" data-status-path="/Non-Developer/Enterprise/The-AI-is-Mightier-than-the-Sword/Admin/STATUS.md">
+          <a class="course-card" href="Non-Developer/Enterprise/The-AI-is-Mightier-than-the-Sword/index.html" data-status-path="Non-Developer/Enterprise/The-AI-is-Mightier-than-the-Sword/Admin/STATUS.md">
             <span class="course-badge course-badge--new">★ New</span>
             <h3>Multi-Agent Research - The AI is Mightier than the Sword</h3>
             <p>Assemble a fleet of specialized AI agents that research, debate, and surface the best answers to questions beyond any single person's scope</p>
@@ -441,6 +474,39 @@
       });
     });
 
+    // ── Lab Guide integration ────────────────────────────────────
+    // When running inside VS Code's Simple Browser (detected via the
+    // "vscode" query param), course card clicks also trigger the
+    // Lab Guide extension via a vscode:// URI, so the extension can
+    // fetch the lab.json and open the simulated chat panel.
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (!params.has('vscode')) { return; }
+
+      var origin = window.location.origin;
+
+      document.querySelectorAll('.course-card[href]').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          // Extract the course path from the href (/Developer/Beginner/Course-Name/index.html)
+          var href = card.getAttribute('href') || '';
+          var coursePath = href.replace(/^\//, '').replace(/\/index\.html$/, '');
+          if (!coursePath) { return; }
+
+          // Fire the vscode:// URI to tell the extension to load this course's lab
+          var extUri = 'vscode://ms-demoland.lab-guide/start'
+            + '?server=' + encodeURIComponent(origin)
+            + '&course=' + encodeURIComponent(coursePath);
+
+          // Use a hidden iframe to trigger the URI without navigating away
+          var frame = document.createElement('iframe');
+          frame.style.display = 'none';
+          frame.src = extUri;
+          document.body.appendChild(frame);
+          setTimeout(function () { frame.remove(); }, 1000);
+        });
+      });
+    })();
+
     // Fetch all course statuses from the API and apply to cards
     function statusToClass(status) {
       switch (status.toLowerCase()) {
@@ -453,7 +519,7 @@
     // STATUS SYNC: This fetches from a static JSON file.
     // When you change a course's Admin/STATUS.md, you MUST also update
     // api/course-statuses.json to keep the navigator in sync.
-    fetch('/api/course-statuses.json')
+    fetch('api/course-statuses.json')
       .then(res => res.json())
       .then(statuses => {
         document.querySelectorAll('.course-card[data-status-path]').forEach(card => {

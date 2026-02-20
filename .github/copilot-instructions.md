@@ -48,9 +48,13 @@ same commit/change set.
 ## GitHub Pages
 
 This site is designed to run on GitHub Pages as a static site — no build step
-required. The repo root IS the site root. Deploy from branch → `main` → `/ (root)`.
-All course `index.html` files reference shared assets via root-absolute paths
-(`/css/primer-brand.css`, `/js/slides.js`, `/img/ms-github-logo.svg`).
+required. The repo root IS the site root. Deploy from branch → `master` → `/ (root)`.
+
+All HTML files use **relative paths** (not root-absolute) so the site works
+whether served at `/` (local dev) or at a subpath like `/MS-Demoland/` (GitHub Pages).
+
+- Root files (`index.html`, `template.html`): `css/primer-brand.css`, `js/slides.js`, `img/ms-github-logo.svg`
+- Course files (3 levels deep): `../../../css/primer-brand.css`, `../../../js/slides.js`, `../../../img/ms-github-logo.svg`
 
 ## Local development
 
