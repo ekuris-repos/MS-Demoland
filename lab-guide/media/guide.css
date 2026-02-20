@@ -65,6 +65,20 @@ body {
   box-shadow: 0 0 18px 4px var(--glow-color, #8250df);
 }
 
+/* Top edge → pointing toward Editor tabs */
+.edge-glow--top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(
+    to bottom,
+    var(--glow-color, #2ea043),
+    transparent
+  );
+  box-shadow: 0 0 18px 4px var(--glow-color, #2ea043);
+}
+
 /* Bottom edge → pointing toward Terminal */
 .edge-glow--bottom {
   bottom: 0;
@@ -357,6 +371,76 @@ body {
 
 .step-btn--primary:hover {
   background: var(--vscode-button-hoverBackground, #0062a3);
+}
+
+/* ==========================================================================
+   Opening Animation — clockwise edge-glow chase + centre spinner
+   ========================================================================== */
+
+/* Hide step content during opening */
+body.opening .guide-container {
+  opacity: 0;
+}
+
+body:not(.opening) .guide-container {
+  transition: opacity 0.5s ease;
+}
+
+/* Hide arrows during opening */
+body.opening .arrow-zone {
+  display: none !important;
+}
+
+/* Centre overlay with spinner */
+.opening-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+body:not(.opening) .opening-overlay {
+  opacity: 0;
+}
+
+.opening-spinner {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #2ea043 0deg 90deg,
+    #8250df 90deg 180deg,
+    #d29922 180deg 270deg,
+    #58a6ff 270deg 360deg
+  );
+  -webkit-mask: radial-gradient(closest-side, transparent 75%, black 76%);
+  mask: radial-gradient(closest-side, transparent 75%, black 76%);
+  animation: openingSpin 1.6s linear infinite;
+}
+
+@keyframes openingSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Edge-chase: each edge pulses in clockwise sequence */
+.edge-glow.edge-glow--chase {
+  animation: edgeChase 1.6s ease-in-out infinite;
+}
+
+.edge-glow--top.edge-glow--chase    { --glow-color: #2ea043; animation-delay: 0s;    }
+.edge-glow--right.edge-glow--chase  { --glow-color: #8250df; animation-delay: 0.4s;  }
+.edge-glow--bottom.edge-glow--chase { --glow-color: #d29922; animation-delay: 0.8s;  }
+.edge-glow--left.edge-glow--chase   { --glow-color: #58a6ff; animation-delay: 1.2s;  }
+
+@keyframes edgeChase {
+  0%, 100% { opacity: 0.05; }
+  12%      { opacity: 1; }
+  30%      { opacity: 0.05; }
 }
 
 /* ==========================================================================

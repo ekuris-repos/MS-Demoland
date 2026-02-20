@@ -79,9 +79,15 @@ class GuidePanel {
 </head>
 <body>
   <!-- ── Edge glows ── -->
+  <div class="edge-glow edge-glow--top" id="edgeTop"></div>
   <div class="edge-glow edge-glow--left" id="edgeLeft"></div>
   <div class="edge-glow edge-glow--right" id="edgeRight"></div>
   <div class="edge-glow edge-glow--bottom" id="edgeBottom"></div>
+
+  <!-- ── Opening animation ── -->
+  <div class="opening-overlay" id="openingOverlay">
+    <div class="opening-spinner"></div>
+  </div>
 
   <!-- ── Left arrow zone ── -->
   <div class="arrow-zone arrow-left" id="arrowLeft">

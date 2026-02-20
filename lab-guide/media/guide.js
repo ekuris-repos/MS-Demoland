@@ -25,9 +25,15 @@
   var arrowLeftLabel  = document.getElementById('arrowLeftLabel');
   var arrowRightLabel = document.getElementById('arrowRightLabel');
   var arrowDownLabel  = document.getElementById('arrowDownLabel');
+  var edgeTop         = document.getElementById('edgeTop');
   var edgeLeft        = document.getElementById('edgeLeft');
   var edgeRight       = document.getElementById('edgeRight');
   var edgeBottom      = document.getElementById('edgeBottom');
+
+  /* ---- Opening animation state ---- */
+  var isOpening = true;
+  var pendingFocus = null;
+  var chaseEdges = [edgeTop, edgeRight, edgeBottom, edgeLeft];
 
   /* ---- Focus zone → UI mapping ---- */
   var focusMap = {
@@ -49,11 +55,13 @@
     }
   });
 
-  /* ---- Step navigation ---- */
+  /* ---- Step navigation (dismiss opening on user action) ---- */
   prevBtn.addEventListener('click', function () {
+    dismissOpening();
     vscode.postMessage({ type: 'prevStep' });
   });
   nextBtn.addEventListener('click', function () {
+    dismissOpening();
     vscode.postMessage({ type: 'nextStep' });
   });
 
@@ -78,7 +86,11 @@
     nextBtn.disabled = step.index === step.total - 1;
 
     // Focus zone
-    applyFocus(step.focus || 'guide');
+    if (isOpening) {
+      pendingFocus = step.focus || 'guide';
+    } else {
+      applyFocus(step.focus || 'guide');
+    }
   }
 
   /* ---- Apply focus zone: edge glow + arrows ---- */
@@ -113,6 +125,29 @@
       el.classList.remove(cls);
     }
   }
+
+  /* ---- Opening animation ---- */
+  function dismissOpening() {
+    if (!isOpening) { return; }
+    isOpening = false;
+    document.body.classList.remove('opening');
+    chaseEdges.forEach(function (el) {
+      if (el) { el.classList.remove('edge-glow--chase'); }
+    });
+    if (pendingFocus) {
+      applyFocus(pendingFocus);
+      pendingFocus = null;
+    }
+  }
+
+  // Start opening: edge chase + spinner
+  document.body.classList.add('opening');
+  chaseEdges.forEach(function (el) {
+    if (el) { el.classList.add('edge-glow--chase'); }
+  });
+
+  // Auto-dismiss after 2 full rotations (~3.2 s)
+  setTimeout(dismissOpening, 3200);
 
   /* ---- Tell extension we're alive ---- */
   vscode.postMessage({ type: 'ready' });

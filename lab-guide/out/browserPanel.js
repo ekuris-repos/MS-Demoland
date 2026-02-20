@@ -132,16 +132,18 @@ class BrowserPanel {
   var vscode = acquireVsCodeApi();
   console.log('[Catalog] Handler injected, base=${base}');
 
-  // Replace "Open in VS Code" button — we're already in VS Code
-  var openBtn = document.getElementById('openInVscode');
-  if (openBtn) {
-    openBtn.textContent = '\\u2713 Lab Guide Extension Active';
-    openBtn.style.borderColor = '#3fb950';
-    openBtn.style.color = '#3fb950';
-    openBtn.style.cursor = 'default';
-    openBtn.removeAttribute('href');
-    openBtn.addEventListener('click', function(e) { e.preventDefault(); });
+  // Replace setup button — we're already in VS Code
+  var setupBtn = document.getElementById('setupBtn');
+  if (setupBtn) {
+    setupBtn.textContent = '\\u2713 Lab Guide Extension Active';
+    setupBtn.classList.add('install-extension-btn--active');
+    setupBtn.removeAttribute('href');
+    setupBtn.addEventListener('click', function(e) { e.preventDefault(); });
   }
+
+  // Hide the profile link — not needed inside VS Code
+  var profileLink = document.getElementById('profileLink');
+  if (profileLink) { profileLink.style.display = 'none'; }
 
   // Update subtitle
   var subtitle = document.querySelector('.nav-header p');
