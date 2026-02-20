@@ -36,16 +36,22 @@
     counter = el("div", { className: "slide-counter" });
     document.body.appendChild(counter);
 
+    // Notes indicator
+    const notesInd = el("div", { className: "notes-indicator", textContent: "Speaker Notes ON (N)" });
+    document.body.appendChild(notesInd);
+
     // Nav buttons
     const nav = el("div", { className: "slide-nav" });
     const btnHome = el("button", { innerHTML: "&#8962;", title: "Course Navigator (H)" });
     btnPrev = el("button", { innerHTML: "&#8592;", title: "Previous (←)" });
     btnNext = el("button", { innerHTML: "&#8594;", title: "Next (→)" });
     const btnToc = el("button", { innerHTML: "&#9776;", title: "Contents (T)" });
-    nav.append(btnHome, btnPrev, btnNext, btnToc);
+    const btnNotes = el("button", { innerHTML: "&#9998;", title: "Speaker Notes (N)" });
+    nav.append(btnHome, btnPrev, btnNext, btnToc, btnNotes);
     document.body.appendChild(nav);
 
     btnHome.addEventListener("click", goHome);
+    btnNotes.addEventListener("click", toggleNotes);
 
     // TOC overlay
     tocOverlay = el("div", { className: "toc-overlay" });
@@ -114,6 +120,11 @@
     tocOverlay.classList.toggle("active");
   }
 
+  /* ---- Toggle speaker notes ---- */
+  function toggleNotes() {
+    document.body.classList.toggle("show-notes");
+  }
+
   /* ---- Navigate to course navigator ---- */
   function goHome() {
     // Navigate to the site root (index.html)
@@ -150,6 +161,10 @@
         case "t":
         case "T":
           if (!e.ctrlKey && !e.metaKey) toggleTOC();
+          break;
+        case "n":
+        case "N":
+          if (!e.ctrlKey && !e.metaKey) toggleNotes();
           break;
         case "h":
         case "H":

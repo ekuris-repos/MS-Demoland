@@ -3,195 +3,80 @@
   "steps": [
     {
       "title": "Welcome to the Lab",
-      "instruction": "Welcome! In this hands-on lab you'll set up GitHub Copilot and experience <strong>inline completions</strong> and <strong>Copilot Chat</strong> first-hand. Follow the steps in this panel — each one walks you through a real interaction.",
-      "highlights": [
-        { "target": ".chat-header", "effect": "pulse" }
-      ]
+      "instruction": "Welcome! In this hands-on lab you'll set up GitHub Copilot and experience <strong>inline completions</strong> and <strong>Copilot Chat</strong> first-hand.<br><br>Follow the steps in this panel — each one walks you through a real interaction. The glowing edge and arrow will show you where to look.",
+      "focus": "guide"
+    },
+    {
+      "title": "Review the Slides",
+      "instruction": "Start by reading through the first few slides in the presentation on the left. They cover what GitHub Copilot is and how it integrates into VS Code.<br><br>Use the <kbd>→</kbd> arrow key inside the slide panel to advance.",
+      "focus": "slides"
     },
     {
       "title": "Install the Extension",
-      "instruction": "Open the <strong>Extensions</strong> sidebar (<kbd>Ctrl+Shift+X</kbd>), search for <strong>GitHub Copilot</strong>, and click <strong>Install</strong>. A single extension now bundles both inline completions and Copilot Chat.",
-      "highlights": [
-        { "target": ".chat-title", "effect": "glow", "color": "#2ea043" }
-      ]
+      "instruction": "Open the <strong>Extensions</strong> sidebar (<kbd>Ctrl+Shift+X</kbd>), search for <strong>GitHub Copilot</strong>, and click <strong>Install</strong>.<br><br>A single extension now bundles both inline completions and Copilot Chat.",
+      "focus": "guide"
     },
     {
       "title": "Sign In to GitHub",
-      "instruction": "Click the <strong>Copilot icon</strong> in the status bar → <strong>Sign in to GitHub</strong>. Authorize VS Code in your browser, then come back here. The icon should turn into the Copilot sparkle when you're active.",
-      "highlights": [
-        { "target": ".chat-header", "effect": "glow", "color": "#8250df" }
-      ]
+      "instruction": "Click the <strong>Copilot icon</strong> in the status bar → <strong>Sign in to GitHub</strong>. Authorize VS Code in your browser, then come back here.<br><br>The icon should turn into the Copilot sparkle when you're active.",
+      "focus": "guide"
+    },
+    {
+      "title": "Open Copilot Chat",
+      "instruction": "Open the Copilot Chat panel with <kbd>Ctrl+Shift+I</kbd> (or click the chat icon in the Activity Bar). The chat panel will appear on the right side of your screen.",
+      "focus": "chat"
     },
     {
       "title": "Choose Your Model",
-      "instruction": "Click the <strong>model selector</strong> dropdown to see available models. Different models have different strengths — Claude excels at reasoning, GPT-4o is fast and versatile. For this lab, any model works.",
-      "highlights": [
-        { "target": ".model-selector", "effect": "glow", "color": "#8250df" }
-      ]
+      "instruction": "In the Copilot Chat panel, click the <strong>model selector</strong> dropdown at the top. Different models have different strengths — Claude excels at reasoning, GPT-4o is fast and versatile.<br><br>For this lab, any model works. Pick one and continue.",
+      "focus": "chat"
     },
     {
       "title": "Your First Prompt",
-      "instruction": "Type a question in the chat input. Try asking: <kbd>What is GitHub Copilot and how does it help developers?</kbd>",
-      "inputValue": "What is GitHub Copilot and how does it help developers?",
-      "highlights": [
-        { "target": ".chat-input-wrapper", "effect": "glow", "color": "#2ea043" }
-      ]
+      "instruction": "Type a question in the Copilot Chat input box:<br><br><kbd>What is GitHub Copilot and how does it help developers?</kbd><br><br>Press <strong>Enter</strong> and watch the response stream in.",
+      "focus": "chat"
     },
     {
       "title": "Read the Response",
-      "instruction": "Copilot responds with a clear, structured explanation. Notice how it uses <strong>code formatting</strong>, bullet points, and practical examples.",
-      "messages": [
-        {
-          "role": "user",
-          "content": "What is GitHub Copilot and how does it help developers?"
-        },
-        {
-          "role": "assistant",
-          "content": "GitHub Copilot is an <strong>AI-powered coding assistant</strong> that integrates directly into your editor. Here's what it does:<br><br><strong>Inline Completions</strong> — As you type, Copilot suggests whole lines or entire functions as grey \"ghost text.\" Press <code>Tab</code> to accept.<br><br><strong>Chat</strong> — Ask questions in natural language, get explanations, generate code, and refactor existing work.<br><br><strong>Context-Aware</strong> — Copilot reads your open files, comments, and function signatures to give relevant suggestions.<br><br>Think of it as a pair programmer that never gets tired and has read billions of lines of code. 🚀"
-        }
-      ],
-      "autoType": true,
-      "highlights": [
-        { "target": ".message-assistant", "effect": "box" }
-      ]
+      "instruction": "Read Copilot's response carefully. Notice how it uses <strong>code formatting</strong>, bullet points, and practical examples.<br><br>This is the same AI that powers inline completions — but here you can have a full conversation.",
+      "focus": "chat"
     },
     {
       "title": "Try Inline Completions",
-      "instruction": "Open a new file (<kbd>Ctrl+N</kbd>), set the language to <strong>JavaScript</strong>, and type this comment:<br><br><kbd>// Calculate the total price of items in a shopping cart</kbd><br><br>Then press <strong>Enter</strong> and watch Copilot suggest the function body as ghost text. Press <strong>Tab</strong> to accept.",
-      "messages": [
-        {
-          "role": "user",
-          "content": "What is GitHub Copilot and how does it help developers?"
-        },
-        {
-          "role": "assistant",
-          "content": "GitHub Copilot is an <strong>AI-powered coding assistant</strong> that integrates directly into your editor. It provides inline completions and conversational chat to help you code faster."
-        }
-      ],
-      "highlights": [
-        { "target": ".chat-input-wrapper", "effect": "glow", "color": "#d29922" }
-      ]
+      "instruction": "Open a new file (<kbd>Ctrl+N</kbd>), set the language to <strong>JavaScript</strong>, and type this comment:<br><br><kbd>// Calculate the total price of items in a shopping cart</kbd><br><br>Press <strong>Enter</strong> and watch Copilot suggest the function body as ghost text. Press <strong>Tab</strong> to accept.",
+      "focus": "editor"
     },
     {
       "title": "Ask for an Explanation",
-      "instruction": "Select the function you just generated, then type in chat: <kbd>/explain</kbd>. Copilot will break down how the code works step by step.",
-      "inputValue": "/explain",
-      "messages": [
-        {
-          "role": "user",
-          "content": "What is GitHub Copilot and how does it help developers?"
-        },
-        {
-          "role": "assistant",
-          "content": "GitHub Copilot is an AI-powered coding assistant that integrates directly into your editor."
-        },
-        {
-          "role": "user",
-          "content": "/explain"
-        },
-        {
-          "role": "assistant",
-          "content": "Here's a breakdown of your <code>calculateTotal</code> function:<br><br><pre><code>function calculateTotal(items) {\n  return items.reduce((sum, item) => {\n    return sum + (item.price * item.quantity);\n  }, 0);\n}</code></pre><br><strong>Line by line:</strong><br>1. Takes an array of <code>items</code> as input<br>2. Uses <code>.reduce()</code> to iterate through each item<br>3. Multiplies each item's <code>price</code> by its <code>quantity</code><br>4. Accumulates the running total starting from <code>0</code><br>5. Returns the final sum<br><br>This is a clean, functional approach. The accumulator pattern is idiomatic JavaScript. ✅"
-        }
-      ],
-      "autoType": true,
-      "highlights": [
-        { "target": ".message-assistant", "effect": "box" }
-      ]
+      "instruction": "Select the function you just generated, then type in Copilot Chat:<br><br><kbd>/explain</kbd><br><br>Copilot will break down how the code works step by step.",
+      "focus": "chat"
     },
     {
       "title": "Ask for a Fix",
-      "instruction": "Now try <kbd>/fix</kbd> — imagine your function doesn't handle empty arrays or missing prices. Copilot will suggest defensive checks.",
-      "inputValue": "/fix",
-      "messages": [
-        {
-          "role": "user",
-          "content": "/explain"
-        },
-        {
-          "role": "assistant",
-          "content": "Your <code>calculateTotal</code> function uses <code>.reduce()</code> to sum up price × quantity for each item."
-        },
-        {
-          "role": "user",
-          "content": "/fix"
-        },
-        {
-          "role": "assistant",
-          "content": "I found a couple of potential issues. Here's the improved version:<br><br><pre><code>function calculateTotal(items) {\n  if (!Array.isArray(items) || items.length === 0) {\n    return 0;\n  }\n  return items.reduce((sum, item) => {\n    const price = Number(item.price) || 0;\n    const quantity = Number(item.quantity) || 0;\n    return sum + (price * quantity);\n  }, 0);\n}</code></pre><br><strong>Changes made:</strong><br>• Added guard clause for non-array or empty input<br>• Added <code>Number()</code> coercion with <code>|| 0</code> fallback for missing/invalid values<br>• Now handles <code>undefined</code>, <code>null</code>, and string values gracefully"
-        }
-      ],
-      "autoType": true,
-      "highlights": [
-        { "target": ".message-assistant", "effect": "box" }
-      ]
+      "instruction": "Now try <kbd>/fix</kbd> — imagine your function doesn't handle empty arrays or missing prices. Copilot will suggest defensive checks.<br><br>Review the diff it proposes and click <strong>Apply</strong> if you like it.",
+      "focus": "chat"
     },
     {
       "title": "Generate Tests",
-      "instruction": "Select your function and type <kbd>/tests</kbd>. Copilot will generate unit tests covering normal cases, edge cases, and error conditions.",
-      "inputValue": "/tests",
-      "messages": [
-        {
-          "role": "user",
-          "content": "/fix"
-        },
-        {
-          "role": "assistant",
-          "content": "I improved the function with guard clauses and type coercion."
-        },
-        {
-          "role": "user",
-          "content": "/tests"
-        },
-        {
-          "role": "assistant",
-          "content": "Here are unit tests for <code>calculateTotal</code>:<br><br><pre><code>import { describe, it, expect } from 'vitest';\n\ndescribe('calculateTotal', () => {\n  it('calculates total for multiple items', () => {\n    const items = [\n      { price: 10, quantity: 2 },\n      { price: 5, quantity: 3 }\n    ];\n    expect(calculateTotal(items)).toBe(35);\n  });\n\n  it('returns 0 for an empty array', () => {\n    expect(calculateTotal([])).toBe(0);\n  });\n\n  it('returns 0 for non-array input', () => {\n    expect(calculateTotal(null)).toBe(0);\n    expect(calculateTotal(undefined)).toBe(0);\n  });\n\n  it('handles missing price gracefully', () => {\n    const items = [{ quantity: 2 }];\n    expect(calculateTotal(items)).toBe(0);\n  });\n\n  it('handles string values', () => {\n    const items = [{ price: '10', quantity: '3' }];\n    expect(calculateTotal(items)).toBe(30);\n  });\n});</code></pre><br>These tests cover: ✅ normal operation, ✅ empty input, ✅ null/undefined, ✅ missing fields, and ✅ type coercion."
-        }
-      ],
-      "autoType": true,
-      "highlights": [
-        { "target": ".message-assistant", "effect": "box" }
-      ]
+      "instruction": "Select your function and type <kbd>/tests</kbd> in Copilot Chat. It will generate unit tests covering normal cases, edge cases, and error conditions.<br><br>You can click <strong>Insert into New File</strong> to save them.",
+      "focus": "chat"
+    },
+    {
+      "title": "Try the Terminal",
+      "instruction": "Open the integrated terminal (<kbd>Ctrl+`</kbd>). Try asking Copilot about terminal commands — for example, type <kbd>@terminal how do I list all git branches?</kbd> in the chat.<br><br>Copilot can help with CLI tasks too!",
+      "focus": "terminal",
+      "tip": "You can also use <strong>Ctrl+I</strong> inside the terminal for inline Copilot assistance."
     },
     {
       "title": "Configure Copilot Settings",
-      "instruction": "Open your settings (<kbd>Ctrl+,</kbd>) and search for <strong>copilot</strong>. Try toggling <code>github.copilot.enable</code> per language — for example, disable Copilot for Markdown but keep it on for JavaScript and Python.",
-      "messages": [
-        {
-          "role": "user",
-          "content": "/tests"
-        },
-        {
-          "role": "assistant",
-          "content": "Generated 5 unit tests covering normal cases, edge cases, and type coercion."
-        },
-        {
-          "role": "user",
-          "content": "How do I configure Copilot to only work in certain languages?"
-        },
-        {
-          "role": "assistant",
-          "content": "Add this to your <code>.vscode/settings.json</code>:<br><br><pre><code>{\n  \"github.copilot.enable\": {\n    \"*\": true,\n    \"markdown\": false,\n    \"plaintext\": false,\n    \"yaml\": true,\n    \"python\": true,\n    \"javascript\": true\n  }\n}</code></pre><br><strong>How it works:</strong><br>• <code>\"*\": true</code> enables Copilot for all languages by default<br>• Override specific languages with <code>false</code> to disable<br>• Put this in <strong>Workspace Settings</strong> to share with your team via source control<br><br>You can also toggle per-session by clicking the Copilot icon in the status bar."
-        }
-      ],
-      "autoType": true,
-      "highlights": [
-        { "target": ".message-assistant", "effect": "box" }
-      ]
+      "instruction": "Open Settings (<kbd>Ctrl+,</kbd>) and search for <strong>copilot</strong>. Try toggling <code>github.copilot.enable</code> per language — for example, disable Copilot for Markdown but keep it on for JavaScript and Python.",
+      "focus": "guide"
     },
     {
       "title": "Lab Complete!",
-      "instruction": "<strong>Congratulations!</strong> You've activated Copilot, used inline completions, explored Chat commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>), and configured workspace settings. You're ready for the next course: <strong>MCP for You and Me</strong>.",
-      "messages": [
-        {
-          "role": "user",
-          "content": "Thanks Copilot! What should I learn next? 🎉"
-        },
-        {
-          "role": "assistant",
-          "content": "Great job completing the lab! Here's your roadmap:<br><br>🔹 <strong>MCP for You and Me</strong> — Plug in GitHub's MCP server and manage issues without leaving VS Code<br>🔹 <strong>Prompts, Instructions, Skills, and Agents</strong> — Master the four building blocks of Copilot customization<br>🔹 <strong>Agent Potato: License to Chat</strong> — Build a full-stack app with Copilot as your AI pair programmer<br><br>Quick reference for what you learned today:<br>• <code>Tab</code> — Accept inline suggestion<br>• <code>Ctrl+I</code> — Inline chat<br>• <code>Ctrl+Shift+I</code> — Open chat panel<br>• <code>/explain</code> <code>/fix</code> <code>/tests</code> — Chat commands<br>• <code>@workspace</code> — Project-wide questions<br><br>Happy coding! 🚀"
-        }
-      ]
+      "instruction": "<strong>Congratulations!</strong> 🎉 You've activated Copilot, used inline completions, explored Chat commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>), worked with the terminal, and configured settings.<br><br>You're ready for the next course: <strong>MCP for You and Me</strong>.",
+      "focus": "slides",
+      "tip": "Head back to the slides on the left for a recap, or close this panel to explore on your own."
     }
   ]
 }

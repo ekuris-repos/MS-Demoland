@@ -293,6 +293,38 @@ pre code {
   box-shadow: var(--brand-shadow-md);
 }
 
+/* Screenshot with focus highlight box */
+.screenshot {
+  position: relative;
+  display: inline-block;
+}
+
+.screenshot img {
+  display: block;
+}
+
+.screenshot-focus {
+  position: absolute;
+  border: 3px solid #cf222e;
+  border-radius: var(--brand-radius-sm);
+  box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.screenshot-label {
+  position: absolute;
+  top: -1.6em;
+  left: 0;
+  font-size: 0.7rem;
+  font-weight: var(--brand-font-weight-semibold);
+  color: #ffffff;
+  background: #cf222e;
+  padding: 1px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
 /* ---------- Progress bar ---------- */
 .progress-bar {
   position: fixed;
@@ -403,6 +435,62 @@ pre code {
   text-decoration: underline;
 }
 
+/* ---------- Speaker notes ---------- */
+.speaker-notes {
+  display: none;
+  margin-top: var(--brand-space-5);
+  padding: var(--brand-space-4);
+  background: #fffbeb;
+  border: 1px solid #d4a017;
+  border-radius: var(--brand-radius-sm);
+  font-size: var(--brand-body-size-sm);
+  color: #3d3200;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.speaker-notes::before {
+  content: "Speaker Notes";
+  display: block;
+  font-weight: var(--brand-font-weight-semibold);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #856404;
+  margin-bottom: var(--brand-space-2);
+}
+
+/* Title slides have white text; override notes on dark backgrounds */
+.slide--title .speaker-notes {
+  background: rgba(255, 251, 235, 0.95);
+}
+
+body.show-notes .speaker-notes {
+  display: block;
+}
+
+/* Notes toggle indicator */
+.notes-indicator {
+  position: fixed;
+  bottom: var(--brand-space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  font-weight: var(--brand-font-weight-semibold);
+  color: #856404;
+  background: #fffbeb;
+  border: 1px solid #d4a017;
+  border-radius: 999px;
+  padding: 2px 10px;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+body.show-notes .notes-indicator {
+  opacity: 1;
+}
+
 /* ---------- Print ---------- */
 @media print {
   .slide {
@@ -414,7 +502,12 @@ pre code {
   .slide-nav,
   .progress-bar,
   .slide-counter,
-  .toc-overlay {
+  .toc-overlay,
+  .notes-indicator {
     display: none !important;
+  }
+  .speaker-notes {
+    display: block !important;
+    break-inside: avoid;
   }
 }

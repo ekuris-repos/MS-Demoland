@@ -1,0 +1,109 @@
+{
+  "title": "Getting Started with GitHub Copilot Chat",
+  "steps": [
+    {
+      "title": "Welcome to Copilot Chat",
+      "instruction": "This is the <strong>GitHub Copilot Chat</strong> panel. It's where you'll interact with Copilot to get code suggestions, explanations, and more.",
+      "highlights": [
+        { "target": ".chat-header", "effect": "pulse" }
+      ]
+    },
+    {
+      "title": "Choose your model",
+      "instruction": "Click the <strong>model selector</strong> to pick which AI model Copilot uses. Different models have different strengths.",
+      "highlights": [
+        { "target": ".model-selector", "effect": "glow", "color": "#8250df" }
+      ]
+    },
+    {
+      "title": "Type a prompt",
+      "instruction": "Type your question or request in the <strong>chat input</strong> at the bottom. Try: <kbd>Explain what this function does</kbd>",
+      "inputValue": "Explain what this function does",
+      "highlights": [
+        { "target": ".chat-input-wrapper", "effect": "glow", "color": "#2ea043" }
+      ]
+    },
+    {
+      "title": "Send your message",
+      "instruction": "Press <kbd>Enter</kbd> or click the <strong>send button</strong> to submit your prompt.",
+      "inputValue": "Explain what this function does",
+      "highlights": [
+        { "target": ".send-btn", "effect": "pulse", "color": "#2ea043" }
+      ]
+    },
+    {
+      "title": "Read the response",
+      "instruction": "Copilot responds with a detailed explanation. Notice how it uses <strong>code formatting</strong> and clear language.",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain what this function does"
+        },
+        {
+          "role": "assistant",
+          "content": "This function <code>calculateTotal</code> takes an array of cart items and returns the sum of their prices, applying any active discounts.<br><br>Here's how it works:<br><pre><code>function calculateTotal(items) {\n  return items.reduce((sum, item) => {\n    const price = item.discount\n      ? item.price * (1 - item.discount)\n      : item.price;\n    return sum + price;\n  }, 0);\n}</code></pre><br>The <code>.reduce()</code> iterates over each item, checks for a discount, and accumulates the total. If no discount exists, the full price is used."
+        }
+      ],
+      "autoType": true,
+      "highlights": [
+        { "target": ".message-assistant", "effect": "box" }
+      ]
+    },
+    {
+      "title": "Continue the conversation",
+      "instruction": "You can ask follow-up questions — Copilot remembers the conversation context. Try: <kbd>Can you add error handling to it?</kbd>",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain what this function does"
+        },
+        {
+          "role": "assistant",
+          "content": "This function <code>calculateTotal</code> takes an array of cart items and returns the sum of their prices, applying any active discounts."
+        },
+        {
+          "role": "user",
+          "content": "Can you add error handling to it?"
+        },
+        {
+          "role": "assistant",
+          "content": "Sure! Here's the updated version with input validation and error handling:<br><pre><code>function calculateTotal(items) {\n  if (!Array.isArray(items)) {\n    throw new TypeError('Expected an array of items');\n  }\n  return items.reduce((sum, item) => {\n    if (typeof item.price !== 'number') {\n      throw new TypeError(`Invalid price for item: ${item.name}`);\n    }\n    const price = item.discount\n      ? item.price * (1 - item.discount)\n      : item.price;\n    return sum + price;\n  }, 0);\n}</code></pre>I added:<br>• An <code>Array.isArray()</code> check at the top<br>• A type check for each item's <code>price</code> property<br>• Descriptive error messages that include the item name"
+        }
+      ],
+      "highlights": [
+        { "target": ".chat-input-wrapper", "effect": "glow" }
+      ]
+    },
+    {
+      "title": "Attach context",
+      "instruction": "Use the <strong>attach button</strong> to add files, selections, or other context to your prompt. This helps Copilot give more accurate answers.",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain what this function does"
+        },
+        {
+          "role": "assistant",
+          "content": "This function <code>calculateTotal</code> takes an array of cart items and returns the sum of their prices, applying any active discounts."
+        }
+      ],
+      "highlights": [
+        { "target": ".tool-btn", "effect": "pulse", "color": "#cf222e" }
+      ]
+    },
+    {
+      "title": "Lab complete!",
+      "instruction": "You now know the basics of GitHub Copilot Chat. In the next lab, we'll explore <strong>slash commands</strong> and <strong>agents</strong>.",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Thanks Copilot! 🎉"
+        },
+        {
+          "role": "assistant",
+          "content": "You're welcome! You're off to a great start. Here are some tips for your next steps:<br><br>• Use <code>/explain</code> to explain selected code<br>• Use <code>/fix</code> to suggest bug fixes<br>• Use <code>/tests</code> to generate test cases<br>• Use <code>@workspace</code> to ask questions about your entire project<br><br>Happy coding! 🚀"
+        }
+      ]
+    }
+  ]
+}

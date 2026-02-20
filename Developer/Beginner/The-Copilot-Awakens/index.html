@@ -10,74 +10,576 @@
 
   <div class="slide-deck">
 
-    <!-- Title Slide -->
+    <!-- ============================================================
+         SLIDE 1 — Title
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Beginner · 30 Minutes</span>
-        <h1>AI Pair Programming - The Copilot Awakens</h1>
-        <p class="subtitle">Get hands-on with GitHub Copilot in VS Code, from first activation to configuring your workspace and letting AI accelerate every keystroke</p>
+        <h1>AI Pair Programming — The Copilot Awakens</h1>
+        <p class="subtitle">Get hands-on with GitHub Copilot in VS Code — from first activation to configuring your workspace and letting AI accelerate every keystroke</p>
+        <aside class="speaker-notes">
+          Welcome the audience and introduce yourself. Set expectations: this is a 30-minute beginner session that will cover both conceptual material and a live hands-on demo. Mention that attendees do not need prior AI experience, only basic familiarity with VS Code. If the audience is joining via the Lab Guide extension, confirm they can see the simulated chat panel on the right. Pause briefly to let latecomers settle in before advancing.
+        </aside>
       </div>
     </section>
 
-    <!-- Agenda -->
+    <!-- ============================================================
+         SLIDE 2 — Agenda
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Overview</span>
         <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Use this slide as a brief pause. Let the audience read the heading and prepare for the agenda on the next slide. No need to linger here; advance after two to three seconds.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 1 -->
+    <!-- ============================================================
+         SLIDE 3 — Agenda items
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Activating GitHub Copilot</h2>
+        <h2>Today's Journey</h2>
         <ul>
-          <li>Installing the GitHub Copilot extension in VS Code</li>
-          <li>Signing in and verifying your license</li>
-          <li>Choosing between Copilot Individual, Business, and Enterprise plans</li>
+          <li><strong>What is GitHub Copilot?</strong> — AI pair programming at a glance</li>
+          <li><strong>Getting Started</strong> — Installing, signing in, and verifying your license</li>
+          <li><strong>Inline Completions</strong> — Ghost text, Tab to accept, and multi-line suggestions</li>
+          <li><strong>Copilot Chat</strong> — Ask questions, get explanations, generate code</li>
+          <li><strong>Workspace Configuration</strong> — Settings, per-language controls, and team consistency</li>
+          <li><strong>Live Demo</strong> — Build a real function end-to-end with Copilot</li>
         </ul>
+        <aside class="speaker-notes">
+          Walk through each bullet at a measured pace. Emphasize that the session is structured to flow from concept to practice: the first half is informational, and the second half is a live demonstration. Let the audience know they will have an opportunity to follow along in the lab if the hands-on environment is available. Ask whether anyone has used Copilot before; this helps gauge the room and adjust the depth of later explanations.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 2 -->
+    <!-- ============================================================
+         SLIDE 4 — What is GitHub Copilot? (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>What Is GitHub Copilot?</h2>
+        <aside class="speaker-notes">
+          Transition into the conceptual portion of the session. This section divider signals Part 1. Keep it brief and advance promptly.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 — Copilot overview
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
+        <h2>Your AI Pair Programmer</h2>
+        <ul>
+          <li>GitHub Copilot is an <strong>AI-powered code assistant</strong> that lives inside your editor</li>
+          <li>Trained on billions of lines of public code — understands patterns, APIs, and idioms across dozens of languages</li>
+          <li>Suggests whole lines, entire functions, tests, documentation, and even terminal commands</li>
+          <li>Works in <strong>VS Code</strong>, JetBrains IDEs, Neovim, Visual Studio, and <strong>github.com</strong></li>
+        </ul>
+        <aside class="speaker-notes">
+          Explain that Copilot is not a standalone product but an integrated feature within the tools developers already use. Stress the breadth of language support (dozens of languages, not limited to Python or JavaScript). If the audience is enterprise-focused, note that Copilot is backed by GitHub and Microsoft, and that it has been generally available since 2022 with continuous model improvements. Avoid deep technical detail on the model architecture at this point; that comes on the next slide.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 6 — How it works
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>How Copilot Works</h2>
+        <ul>
+          <li><strong>Context gathering</strong> — Copilot reads your open file, neighboring tabs, comments, and function signatures</li>
+          <li><strong>Model inference</strong> — Sends context to a large language model (LLM) hosted by GitHub</li>
+          <li><strong>Suggestion delivery</strong> — Returns completions as grey "ghost text" in your editor, or full answers in chat</li>
+          <li><strong>Your code stays yours</strong> — Copilot Business and Enterprise do not retain prompts or suggestions for model training</li>
+        </ul>
+        <aside class="speaker-notes">
+          Walk through the three-step process: context gathering, model inference, and suggestion delivery. Emphasize that Copilot sends context to a cloud-hosted LLM and returns suggestions in real time. The privacy point is critical for enterprise audiences: on the Business and Enterprise plans, GitHub does not retain prompts or completions for model retraining. If attendees raise concerns about sensitive code, refer them to the Copilot Trust Center documentation. Common question: "Does Copilot see my entire codebase?" The answer is that it sends a limited context window, not the full repository.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 — Plans comparison
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Copilot Plans</h2>
+        <div class="columns">
+          <div class="card" style="display:flex;gap:1em;align-items:flex-start">
+            <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
+              <h3>Free</h3>
+              <p>50 premium requests/mo &bull; 2,000 completions/mo</p>
+              <p>Inline completions, chat, CLI. Great for trying Copilot at zero cost.</p>
+            </div>
+            <div style="text-align:right;white-space:nowrap;width:7em">
+              <p class="price">$0 <span style="font-size:0.6em;opacity:0.7">USD</span></p>
+            </div>
+          </div>
+          <div class="card" style="display:flex;gap:1em;align-items:flex-start">
+            <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
+              <h3>Pro</h3>
+              <p>300 premium requests/mo &bull; Unlimited completions</p>
+              <p>Coding agent, code review, premium model access. Free for students and OSS maintainers.</p>
+            </div>
+            <div style="text-align:right;white-space:nowrap;width:7em">
+              <p class="price">$10 <span style="font-size:0.6em;opacity:0.7">USD/user/mo</span></p>
+            </div>
+          </div>
+          <div class="card" style="display:flex;gap:1em;align-items:flex-start">
+            <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
+              <h3>Business</h3>
+              <p>300 premium requests/user/mo &bull; Unlimited completions</p>
+              <p>Organization management, policy controls, audit logs, IP indemnity. No code retention.</p>
+            </div>
+            <div style="text-align:right;white-space:nowrap;width:7em">
+              <p class="price">$19 <span style="font-size:0.6em;opacity:0.7">USD/seat/mo</span></p>
+            </div>
+          </div>
+          <div class="card" style="display:flex;gap:1em;align-items:flex-start">
+            <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
+              <h3>Enterprise</h3>
+              <p>1,000 premium requests/user/mo &bull; Unlimited completions</p>
+              <p>Everything in Business plus knowledge bases, content exclusion, and organization custom instructions.</p>
+            </div>
+            <div style="text-align:right;white-space:nowrap;width:7em">
+              <p class="price">$39 <span style="font-size:0.6em;opacity:0.7">USD/seat/mo</span></p>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.65rem;opacity:0.6;margin-top:0.5em">Premium requests are consumed by chat messages multiplied by the model multiplier. Additional requests available at $0.04/request.</p>
+        <aside class="speaker-notes">
+          Briefly compare the four tiers. Call out that Premium Request Units (PRUs) are consumed when you send chat messages, with a multiplier based on the model you select. Free gives 50 PRUs per month with 2,000 completions, which is enough to evaluate Copilot. Pro at $10 per month brings that up to 300 PRUs with unlimited completions and adds the coding agent and code review. Business at $19 per seat adds centralized management, audit logs, and IP indemnity. Enterprise at $39 per seat provides 1,000 PRUs and adds knowledge bases, content exclusion, and organization-level custom instructions. All plans allow purchasing additional premium requests at $0.04 each. If you know which plan the audience uses, call it out directly. Do not spend more than 90 seconds on this slide; plan details change and attendees can review them on github.com/features/copilot.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 — Getting Started (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>Getting Started</h2>
+        <aside class="speaker-notes">
+          Transition into the practical setup portion. From this point forward, attendees who have the lab environment can follow along. Confirm that everyone has VS Code open before proceeding.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 — Install and activate
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Installing &amp; Activating Copilot</h2>
+        <div class="columns">
+          <div>
+            <ul>
+              <li>Open VS Code and go to <strong>Extensions</strong> (<code>Ctrl+Shift+X</code>)</li>
+              <li>Search for <strong>"GitHub Copilot"</strong> and click <strong>Install</strong></li>
+              <li>A single extension now bundles both inline completions and Copilot Chat</li>
+              <li>Sign in with your <strong>GitHub account</strong> when prompted</li>
+              <li>Verify activation: look for the <strong>Copilot icon</strong> in the status bar (bottom right)</li>
+            </ul>
+          </div>
+          <div>
+            <div class="screenshot">
+              <img src="img/copilot-extension-install.png" alt="GitHub Copilot extension in the VS Code Extensions panel" />
+              <div class="screenshot-focus" style="top:8%;left:5%;width:40%;height:18%">
+                <span class="screenshot-label">Install the extension</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          If you are demonstrating live, open VS Code and walk through the Extensions panel. Point out that the extension name is simply "GitHub Copilot" and that it bundles both inline completions and chat (previously these were two separate extensions). After installing, call attention to the Copilot icon that appears in the bottom-right status bar. If the icon is greyed out or shows a warning, it typically means the user is not signed in or does not have an active license.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 — Sign-in flow
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Signing In &amp; Verifying Your License</h2>
+        <div class="columns">
+          <div>
+            <ul>
+              <li>Click the <strong>Copilot status bar icon</strong> → "Sign in to GitHub"</li>
+              <li>Authorize the VS Code GitHub extension in your browser</li>
+              <li>If your org uses <strong>Copilot Business/Enterprise</strong>, ensure your admin has granted you a seat</li>
+              <li>Run <code>GitHub Copilot: Check Status</code> from the Command Palette to confirm you're active</li>
+              <li>Troubleshooting: check firewall rules, proxy settings, or SSO requirements</li>
+            </ul>
+          </div>
+          <div>
+            <div class="screenshot">
+              <img src="img/copilot-extension-install.png" alt="GitHub Copilot Chat showing Finish Setup prompt in VS Code" />
+              <div class="screenshot-focus" style="bottom:0;right:1.6%;width:10.5%;height:5.5%">
+                <span class="screenshot-label" style="left:auto;right:0">Finish Setup</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Demonstrate the sign-in flow if possible. Click the Copilot icon, select "Sign in to GitHub," and walk through the browser authorization step. If the audience is in an enterprise environment, note that their organization administrator must have provisioned a Copilot seat for them. The Command Palette command "GitHub Copilot: Check Status" is useful for verifying that everything is connected. Common issues include corporate proxies blocking the connection and SSO tokens that need to be authorized for the organization.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 — Inline Completions (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>Inline Completions</h2>
+        <aside class="speaker-notes">
+          This section covers the core feature most developers encounter first. Signal to the audience that the next few slides explain how ghost text works and how to get the best results from it.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 — Ghost text
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Ghost Text — Your New Superpower</h2>
+        <div class="columns">
+          <div>
+            <ul>
+              <li>As you type, Copilot shows <strong>grey "ghost text"</strong> — predicted completions inline</li>
+              <li>Press <strong>Tab</strong> to accept the full suggestion</li>
+              <li>Press <strong>Ctrl+→</strong> to accept word-by-word</li>
+              <li>Press <strong>Esc</strong> or keep typing to dismiss and get a new suggestion</li>
+              <li>Use <strong>Alt+]</strong> / <strong>Alt+[</strong> to cycle through alternative suggestions</li>
+            </ul>
+          </div>
+          <div>
+            <div class="screenshot">
+              <img src="img/ghost-text-hotkeys.png" alt="VS Code editor showing inline completion ghost text with keyboard shortcuts" />
+              <div class="screenshot-focus" style="top:0;left:5%;width:90%;height:16%">
+                <span class="screenshot-label" style="top:auto;bottom:-1.6em">Ghost text and hotkeys</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          This is typically the most impactful slide for newcomers. If you are presenting live, open a blank JavaScript file and start typing a function signature to trigger ghost text. Walk through each keyboard shortcut as you demonstrate: Tab to accept, Ctrl+Right Arrow for partial acceptance, Escape to dismiss, and Alt+] to cycle alternatives. Emphasize that partial acceptance with Ctrl+Right Arrow is one of the most underused and most valuable shortcuts. Let the audience see the ghost text appear and disappear in real time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 — Multi-line and comment-driven
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Getting Better Suggestions</h2>
+        <ul>
+          <li><strong>Write a comment first</strong> — describe the function in plain English, then let Copilot generate it</li>
+          <li><strong>Meaningful names</strong> — <code>calculateShippingCost</code> gives better results than <code>doStuff</code></li>
+          <li><strong>Open related files</strong> — Copilot uses neighboring tabs as context</li>
+          <li><strong>Type signatures and JSDoc</strong> — the more structure you give, the better the completions</li>
+        </ul>
+        <div class="screenshot">
+          <img src="img/ghost-text-inline.png" alt="VS Code editor showing Copilot ghost text suggesting a function body after a comment" />
+          <div class="screenshot-focus" style="top:0;left:3%;width:94%;height:22%">
+            <span class="screenshot-label" style="top:auto;bottom:-1.6em">Ghost text completing from a comment</span>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Walk through the four techniques for improving suggestion quality. The comment-first approach is especially effective: type a natural-language description of what the function should do, press Enter, and let Copilot generate the implementation. Show the code example on screen and explain that descriptive function names and parameter names act as implicit prompts. If time permits, demonstrate opening a second file tab and showing how Copilot draws context from neighboring files.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 14 — Copilot Chat (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Copilot Chat</h2>
+        <aside class="speaker-notes">
+          Transition to the conversational interface. Note that many developers use inline completions regularly but have not yet explored Chat, so this section may be new even for experienced Copilot users.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 — Chat overview
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Conversational AI in Your Editor</h2>
+        <div class="columns">
+          <div>
+            <ul>
+              <li>Open Copilot Chat with <strong>Ctrl+Shift+I</strong> (or click the chat icon in the sidebar)</li>
+              <li>Ask questions in <strong>natural language</strong> — "How do I read a file in Node?"</li>
+              <li>Copilot responds with explanations, code snippets, and follow-up suggestions</li>
+              <li>Conversations are <strong>context-aware</strong> — Copilot sees your open file and selection</li>
+              <li>Use <strong>inline chat</strong> (<code>Ctrl+I</code>) for quick edits right in the editor</li>
+            </ul>
+          </div>
+          <div>
+            <div class="screenshot">
+              <img src="img/ghost-text-inline.png" alt="VS Code editor showing the Copilot chat icon in the title bar" />
+              <div class="screenshot-focus" style="top:0;left:65%;width:10%;height:8%">
+                <span class="screenshot-label" style="top:auto;bottom:-1.6em;left:50%;transform:translateX(-50%)">Open Chat (Ctrl+Alt+I)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Distinguish between the two chat surfaces. The sidebar chat panel (Ctrl+Shift+I) is a full conversational interface suitable for longer exchanges. Inline chat (Ctrl+I) opens a small input directly in the editor and is designed for quick, targeted edits such as "rename this variable" or "add a try-catch block." Demonstrate both if time allows. Emphasize that Chat is context-aware: it can see the currently open file and any selected text, which means the more precise the context, the better the response.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 — Slash commands
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Useful Chat Commands</h2>
+        <div class="columns">
+          <div>
+            <ul>
+              <li><code>/explain</code> — Explain selected code in plain language</li>
+              <li><code>/fix</code> — Suggest a fix for problems in the selection or file</li>
+              <li><code>/tests</code> — Generate unit tests for the selected code</li>
+              <li><code>/doc</code> — Generate documentation comments</li>
+              <li><code>@workspace</code> — Ask questions about your entire project, not just the active file</li>
+            </ul>
+          </div>
+          <div>
+            <div class="screenshot">
+              <img src="img/chat-interface.png" alt="VS Code Copilot Chat interface with slash commands" />
+              <div class="screenshot-focus" style="bottom:0;right:0;width:44.3%;height:20%">
+                <span class="screenshot-label">Chat interface</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Walk through each command and its use case. The /explain command is excellent for onboarding onto an unfamiliar codebase. The /fix command analyzes the selection and proposes corrections, which can save significant debugging time. The /tests command generates unit tests aligned with the structure and framework of the project. The @workspace participant is especially powerful because it indexes the entire project and can answer questions like "Where is the database connection configured?" or "Which files import this module?" If the audience has specific questions about available commands, mention that typing / in the chat input shows the full list.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 — Workspace Config (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
         <h2>Configuring Your Workspace</h2>
-        <ul>
-          <li>Adjusting Copilot settings for inline suggestions, chat, and completions</li>
-          <li>Enabling or disabling Copilot per language or file type</li>
-          <li>Setting up workspace-level preferences for team consistency</li>
-        </ul>
+        <aside class="speaker-notes">
+          This section addresses workspace-level settings, which are relevant for teams that want to standardize Copilot behavior across their organization. If the audience is primarily individual developers, you can move through this section more quickly and focus on the custom instructions slide.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 3 -->
+    <!-- ============================================================
+         SLIDE 18 — Key settings
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Your First AI-Assisted Workflow</h2>
+        <h2>Key Copilot Settings</h2>
         <ul>
-          <li>Using inline completions to write code faster</li>
-          <li>Asking Copilot Chat for explanations, refactors, and test generation</li>
-          <li>Knowing when to accept, modify, or reject AI suggestions</li>
+          <li><code>github.copilot.enable</code> — Toggle Copilot on/off per language: <code>{"python": true, "markdown": false}</code></li>
+          <li><code>editor.inlineSuggest.enabled</code> — Master switch for inline ghost text</li>
+          <li><code>github.copilot.chat.localeOverride</code> — Force chat responses in a specific language</li>
+          <li>Use <strong>Workspace Settings</strong> (<code>.vscode/settings.json</code>) to enforce team-wide defaults</li>
         </ul>
+        <pre><code>// .vscode/settings.json
+{
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false
+  }
+}</code></pre>
+        <aside class="speaker-notes">
+          Open VS Code Settings (Ctrl+Comma) and search for "copilot" to show the available options. Highlight the per-language enable/disable map, which allows teams to turn off Copilot for file types where it may not add value (for example, Markdown or plain text). Show the example settings.json code on screen. Mention that placing this file inside .vscode/settings.json and committing it to the repository ensures that every team member inherits the same configuration automatically.
+        </aside>
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- ============================================================
+         SLIDE 19 — Custom instructions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Custom Instructions</h2>
+        <ul>
+          <li>Create a <code>.github/copilot-instructions.md</code> file in your repo</li>
+          <li>Copilot reads these instructions and applies them to every interaction</li>
+          <li>Great for enforcing coding standards: "Always use TypeScript strict mode", "Prefer async/await over callbacks"</li>
+          <li>Team consistency — every developer gets the same AI guidance from day one</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is one of the most valuable features for enterprise teams. Explain that the copilot-instructions.md file lives in the .github directory of any repository and is automatically included in every Copilot interaction for that project. Provide concrete examples: "Always use TypeScript strict mode," "Follow our internal API naming conventions," or "Prefer async/await over raw Promises." The key value proposition is that institutional knowledge is codified and applied consistently, which reduces onboarding time and improves code quality across the team. If the audience is interested in deeper customization, mention that the next course in the track covers prompts, instructions, skills, and agents in detail.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 — Demo (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Live Demo</span>
+        <h2>Copilot in Action</h2>
+        <aside class="speaker-notes">
+          Prepare to switch to VS Code for the live demonstration. Ensure that you have a blank file ready (or create one during the demo). If you are using the Lab Guide extension, the simulated chat panel will show pre-scripted responses as a fallback in case the network or Copilot service is slow during the session.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 21 — Demo: inline completion
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo: Writing a Function with Copilot</h2>
+        <ul>
+          <li>Create a new file <code>utils.js</code></li>
+          <li>Write a comment: <code>// Parse a CSV string into an array of objects</code></li>
+          <li>Watch Copilot generate the full function</li>
+          <li>Accept with <strong>Tab</strong>, then ask Chat to add error handling</li>
+        </ul>
+        <pre><code>// Parse a CSV string into an array of objects
+// using the first row as headers
+function parseCSV(csvString) {
+  const lines = csvString.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  return lines.slice(1).map(line => {
+    const values = line.split(',').map(v => v.trim());
+    return headers.reduce((obj, header, i) => {
+      obj[header] = values[i];
+      return obj;
+    }, {});
+  });
+}</code></pre>
+        <aside class="speaker-notes">
+          This is the primary demonstration slide. Create a new file called utils.js. Type the comment slowly so the audience can read it on screen, then pause and let Copilot generate the function body. Narrate what is happening: "Copilot has read the comment and is now generating a complete implementation." After the ghost text appears, press Tab to accept it. Walk through the generated code line by line, pointing out the use of split, map, and reduce. If the suggestion does not match what is shown on the slide, that is expected and can be used as a teaching moment about the nondeterministic nature of LLM output. After accepting, transition to Chat by saying: "Now let us ask Copilot to improve this."
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 — Demo: chat refactor
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo: Using Chat to Refactor</h2>
+        <ul>
+          <li>Select the function → open inline chat (<code>Ctrl+I</code>)</li>
+          <li>Type: <strong>"Add error handling for malformed CSV input"</strong></li>
+          <li>Review the diff — Copilot shows additions in green, removals in red</li>
+          <li>Click <strong>Accept</strong> or <strong>Discard</strong></li>
+          <li>Then ask: <strong>"Generate unit tests for this function"</strong></li>
+        </ul>
+        <aside class="speaker-notes">
+          Select the parseCSV function, then press Ctrl+I to open inline chat. Type the error-handling prompt and show the diff that Copilot produces. Explain that green lines are additions and red lines are removals, and that the developer always has the final say with Accept or Discard. After accepting the refactored version, open the sidebar chat (Ctrl+Shift+I) and type "/tests" to generate unit tests. Walk through the generated test cases and note how Copilot covers normal inputs, edge cases, and error conditions. This sequence demonstrates a complete workflow: generate, explain, refactor, and test.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 — Tips and best practices
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Tips for Getting the Most from Copilot</h2>
+        <ul>
+          <li><strong>Be specific</strong> — "Write a Python function that validates an email address using regex" beats "write code"</li>
+          <li><strong>Iterate</strong> — Accept a suggestion, then refine it with follow-up prompts</li>
+          <li><strong>Review everything</strong> — AI suggestions are starting points, not final answers</li>
+          <li><strong>Use context</strong> — Open related files, add comments, use meaningful names</li>
+          <li><strong>Learn the shortcuts</strong> — Tab, Ctrl+→, Alt+], Ctrl+I, Ctrl+Shift+I</li>
+        </ul>
+        <aside class="speaker-notes">
+          Read through each tip and provide a brief example for each. "Be specific" is the single most impactful piece of advice: vague prompts produce vague results. "Iterate" reinforces that the AI is a collaborator, not a one-shot answer machine. "Review everything" is a professional responsibility point: AI suggestions can contain bugs, outdated APIs, or patterns that do not match organizational standards. "Use context" emphasizes that Copilot performs better when it has more to work with. Close with the shortcuts, which are the most immediately actionable takeaway from the session.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 — Summary (Section)
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
         <h2>Wrap-Up &amp; Next Steps</h2>
+        <aside class="speaker-notes">
+          Signal that the session is nearing its conclusion. Let the audience know that the final slides summarize the key points and provide guidance on where to go next.
+        </aside>
       </div>
     </section>
 
-    <!-- Closing -->
+    <!-- ============================================================
+         SLIDE 25 — Key takeaways
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li>GitHub Copilot is your <strong>AI pair programmer</strong> — inline completions + chat + CLI</li>
+          <li><strong>Ghost text</strong> gives you real-time suggestions as you type — Tab to accept</li>
+          <li><strong>Copilot Chat</strong> lets you ask questions, get explanations, and generate code conversationally</li>
+          <li><strong>Workspace settings</strong> and <strong>custom instructions</strong> keep your team aligned</li>
+          <li>Always <strong>review</strong> AI suggestions — you're the pilot, Copilot is your co-pilot</li>
+        </ul>
+        <aside class="speaker-notes">
+          Reinforce each takeaway with one sentence. Copilot is an AI pair programmer that augments your workflow, not a replacement. Ghost text is the fastest way to get suggestions. Chat is the most flexible way to interact. Settings and custom instructions ensure consistency across teams. The final point is the most important: the developer is always responsible for reviewing and approving what the AI produces. This is both a quality assurance practice and a professional obligation.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 — Where to go next
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Where to Go Next</h2>
+        <ul>
+          <li><strong>MCP for You and Me</strong> — Plug in the Model Context Protocol and work issues without leaving VS Code</li>
+          <li><strong>Prompts, Instructions, Skills, and Agents</strong> — Master the building blocks of Copilot customization</li>
+          <li><strong>Copilot Docs</strong> — <code>docs.github.com/copilot</code></li>
+          <li><strong>VS Code Copilot Tips</strong> — <code>code.visualstudio.com/docs/copilot</code></li>
+        </ul>
+        <aside class="speaker-notes">
+          Point attendees to the next courses in the track. "MCP for You and Me" introduces the Model Context Protocol, which connects Copilot to external tools and services. "Prompts, Instructions, Skills, and Agents" covers the deeper customization primitives. Provide the documentation links for self-paced learning. If the audience is at an event, let them know which sessions are scheduled next and how to access the course materials after the event.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 — Closing
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          Thank the audience for their time and attention. Open the floor for questions. If there is a lab environment available, encourage attendees to continue working through the lab steps at their own pace. Provide your contact information or direct them to the appropriate Teams channel or GitHub repository for follow-up questions.
+        </aside>
       </div>
     </section>
 
