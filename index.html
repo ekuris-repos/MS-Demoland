@@ -499,25 +499,39 @@
         });
       }
 
+      // Detect if running inside an iframe (VS Code BrowserPanel webview)
+      var inIframe = (window !== window.parent);
+      console.log('[Catalog] inIframe=' + inIframe + ', baseUrl=' + baseUrl);
+
       document.querySelectorAll('.course-card[href]').forEach(function (card) {
-        card.addEventListener('click', function () {
+        card.addEventListener('click', function (e) {
           // Extract the course path from the href
           var href = card.getAttribute('href') || '';
           var coursePath = href.replace(/^\.?\.?\//, '').replace(/\/index\.html$/, '');
+          console.log('[Catalog] Card clicked: href=' + href + ', coursePath=' + coursePath + ', inIframe=' + inIframe);
           if (!coursePath) { return; }
 
-          // Fire the vscode:// URI (extension picks it up inside VS Code;
-          // in a regular browser this is a no-op silent failure)
-          var extUri = 'vscode://ms-demoland.lab-guide/start'
-            + '?server=' + encodeURIComponent(baseUrl)
-            + '&course=' + encodeURIComponent(coursePath);
+          if (inIframe) {
+            // Inside VS Code BrowserPanel — use postMessage bridge
+            e.preventDefault();
+            console.log('[Catalog] Posting message to parent: labGuide.startCourse, course=' + coursePath);
+            window.parent.postMessage({
+              type: 'labGuide.startCourse',
+              server: baseUrl,
+              course: coursePath
+            }, '*');
+          } else {
+            // Normal browser — fire vscode:// URI (no-op if VS Code isn't installed)
+            var extUri = 'vscode://ms-demoland.lab-guide/start'
+              + '?server=' + encodeURIComponent(baseUrl)
+              + '&course=' + encodeURIComponent(coursePath);
 
-          var frame = document.createElement('iframe');
-          frame.style.display = 'none';
-          frame.src = extUri;
-          document.body.appendChild(frame);
-          setTimeout(function () { frame.remove(); }, 1000);
-          // Normal href navigation proceeds — slides still open
+            var frame = document.createElement('iframe');
+            frame.style.display = 'none';
+            frame.src = extUri;
+            document.body.appendChild(frame);
+            setTimeout(function () { frame.remove(); }, 1000);
+          }
         });
       });
     })();
