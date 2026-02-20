@@ -103,6 +103,25 @@ export class BrowserPanel {
 (function() {
   var vscode = acquireVsCodeApi();
   console.log('[Catalog] Handler injected, base=${base}');
+
+  // Replace "Open in VS Code" button — we're already in VS Code
+  var openBtn = document.getElementById('openInVscode');
+  if (openBtn) {
+    openBtn.textContent = '\\u2713 Lab Guide Extension Active';
+    openBtn.style.borderColor = '#3fb950';
+    openBtn.style.color = '#3fb950';
+    openBtn.style.cursor = 'default';
+    openBtn.removeAttribute('href');
+    openBtn.addEventListener('click', function(e) { e.preventDefault(); });
+  }
+
+  // Update subtitle
+  var subtitle = document.querySelector('.nav-header p');
+  if (subtitle) {
+    subtitle.textContent = 'Click a course card below to start the hands-on lab';
+  }
+
+  // Intercept course card clicks
   document.querySelectorAll('.course-card[href]').forEach(function(card) {
     card.addEventListener('click', function(e) {
       e.preventDefault();
