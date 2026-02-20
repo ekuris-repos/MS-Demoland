@@ -46,12 +46,14 @@ class LabController {
         this.currentStep = 0;
         this.statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
         context.subscriptions.push(this.statusBarItem);
-        this.browserPanel = new browserPanel_1.BrowserPanel(context);
+        this.browserPanel = new browserPanel_1.BrowserPanel(context, log);
+        this.browserPanel.onMessage(msg => this.onBrowserMessage(msg));
+        this.log.info('LabController: BrowserPanel created with message handler');
     }
     // ── Open catalog in our browser panel ──────────────────────────
-    openCatalog(url) {
+    async openCatalog(url) {
         this.log.info(`openCatalog → ${url}`);
-        this.browserPanel.show(url);
+        await this.browserPanel.showCatalog(url);
     }
     // ── Start lab via URI handler ──────────────────────────────────
     async startLabFromUri(server, coursePath) {
@@ -60,28 +62,36 @@ class LabController {
         const labUrl = `${server}/${coursePath}/lab.json`;
         this.log.info(`Fetching lab → ${labUrl}`);
         vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title: 'Loading lab…' }, async () => {
+            this.log.info(`[startLabFromUri] Fetching JSON from ${labUrl}`);
             const labJson = await this.fetchJson(labUrl);
             if (!labJson) {
-                this.log.error(`Failed to fetch lab from ${labUrl}`);
+                this.log.error(`[startLabFromUri] FAILED to fetch lab from ${labUrl}`);
                 vscode.window.showErrorMessage(`Could not load lab from ${labUrl}`);
                 return;
             }
             this.lab = labJson;
             this.currentStep = 0;
-            this.log.info(`Lab loaded: "${this.lab.title}" — ${this.lab.steps.length} steps`);
+            this.log.info(`[startLabFromUri] Lab loaded: "${this.lab.title}" — ${this.lab.steps.length} steps`);
             // Navigate the browser panel to the course slides (left column)
             const courseUrl = `${server}/${coursePath}/`;
-            this.log.info(`Navigating browser panel → ${courseUrl}`);
-            this.browserPanel.navigate(courseUrl);
+            this.log.info(`[startLabFromUri] Navigating browser panel → ${courseUrl}`);
+            this.browserPanel.showSlides(courseUrl);
             // Open guide panel in column 2 (center)
+            this.log.info('[startLabFromUri] Creating/revealing guide panel in Column 2');
             if (!this.guidePanel) {
+                this.log.info('[startLabFromUri] Creating new GuidePanel');
                 this.guidePanel = new guidePanel_1.GuidePanel(this.context, msg => this.onWebviewMessage(msg));
             }
+            else {
+                this.log.info('[startLabFromUri] Reusing existing GuidePanel');
+            }
             this.guidePanel.show();
-            this.log.info('Guide panel opened');
+            this.log.info('[startLabFromUri] GuidePanel.show() called');
             this.guidePanel.postMessage({ type: 'setTitle', title: this.lab.title });
+            this.log.info(`[startLabFromUri] Sent setTitle: "${this.lab.title}"`);
             this.statusBarItem.show();
             this.showCurrentStep();
+            this.log.info('[startLabFromUri] Lab fully initialized ✓');
         });
     }
     // ── Start lab interactively (command palette) ──────────────────
@@ -191,6 +201,16 @@ class LabController {
             case 'ready':
                 this.showCurrentStep();
                 break;
+        }
+    }
+    onBrowserMessage(msg) {
+        this.log.info(`[LabController] onBrowserMessage: type=${msg.type}`);
+        if (msg.type === 'labGuide.startCourse' && msg.server && msg.course) {
+            this.log.info(`[LabController] Course selected → server=${msg.server}, course=${msg.course}`);
+            this.startLabFromUri(msg.server, msg.course);
+        }
+        else {
+            this.log.warn(`[LabController] Unhandled browser message: ${JSON.stringify(msg)}`);
         }
     }
 }
