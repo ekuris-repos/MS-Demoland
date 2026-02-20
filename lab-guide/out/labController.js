@@ -193,9 +193,58 @@ class LabController {
         if (step.action) {
             const actions = Array.isArray(step.action) ? step.action : [step.action];
             for (const cmd of actions) {
-                this.log.info(`[action] Executing: ${cmd}`);
-                vscode.commands.executeCommand(cmd).then(() => this.log.info(`[action] ✓ ${cmd}`), (err) => this.log.error(`[action] ✗ ${cmd}: ${err.message}`));
+                this.executeAction(cmd);
             }
+        }
+    }
+    /** Run a VS Code command only if its target isn't already visible. */
+    async executeAction(cmd) {
+        const tabs = vscode.window.tabGroups.all.flatMap(g => g.tabs);
+        // Guard: skip if the target is already open
+        switch (cmd) {
+            case 'workbench.action.chat.open': {
+                const hasChat = tabs.some(t => t.label.toLowerCase().includes('copilot') ||
+                    t.label.toLowerCase().includes('chat'));
+                if (hasChat) {
+                    this.log.info(`[action] Skipped (chat already open): ${cmd}`);
+                    return;
+                }
+                break;
+            }
+            case 'workbench.action.files.newUntitledFile': {
+                const hasUntitled = tabs.some(t => t.label.startsWith('Untitled'));
+                if (hasUntitled) {
+                    this.log.info(`[action] Skipped (untitled file exists): ${cmd}`);
+                    return;
+                }
+                break;
+            }
+            case 'workbench.action.terminal.toggleTerminal':
+            case 'workbench.action.terminal.focus': {
+                if (vscode.window.terminals.length > 0) {
+                    // Just focus the existing terminal instead of toggling
+                    this.log.info(`[action] Terminal exists, focusing instead of toggle`);
+                    cmd = 'workbench.action.terminal.focus';
+                }
+                break;
+            }
+            case 'workbench.action.openSettings': {
+                const hasSettings = tabs.some(t => t.label === 'Settings');
+                if (hasSettings) {
+                    this.log.info(`[action] Skipped (settings already open): ${cmd}`);
+                    return;
+                }
+                break;
+            }
+        }
+        this.log.info(`[action] Executing: ${cmd}`);
+        try {
+            await vscode.commands.executeCommand(cmd);
+            this.log.info(`[action] \u2713 ${cmd}`);
+        }
+        catch (err) {
+            const msg = err instanceof Error ? err.message : String(err);
+            this.log.error(`[action] \u2717 ${cmd}: ${msg}`);
         }
     }
     onWebviewMessage(msg) {

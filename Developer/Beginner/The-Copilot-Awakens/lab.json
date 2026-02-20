@@ -31,17 +31,20 @@
     {
       "title": "Choose Your Model",
       "instruction": "In the Copilot Chat panel, click the <strong>model selector</strong> dropdown at the top. Different models have different strengths — Claude excels at reasoning, GPT-4o is fast and versatile.<br><br>For this lab, any model works. Pick one and continue.",
-      "focus": "chat"
+      "focus": "chat",
+      "action": "workbench.action.chat.open"
     },
     {
       "title": "Your First Prompt",
       "instruction": "Type a question in the Copilot Chat input box:<br><br><kbd>What is GitHub Copilot and how does it help developers?</kbd><br><br>Press <strong>Enter</strong> and watch the response stream in.",
-      "focus": "chat"
+      "focus": "chat",
+      "action": "workbench.action.chat.open"
     },
     {
       "title": "Read the Response",
       "instruction": "Read Copilot's response carefully. Notice how it uses <strong>code formatting</strong>, bullet points, and practical examples.<br><br>This is the same AI that powers inline completions — but here you can have a full conversation.",
-      "focus": "chat"
+      "focus": "chat",
+      "action": "workbench.action.chat.open"
     },
     {
       "title": "Try Inline Completions",
@@ -52,17 +55,20 @@
     {
       "title": "Ask for an Explanation",
       "instruction": "Select the function you just generated, then type in Copilot Chat:<br><br><kbd>/explain</kbd><br><br>Copilot will break down how the code works step by step.",
-      "focus": "chat"
+      "focus": "chat",
+      "action": "workbench.action.chat.open"
     },
     {
       "title": "Ask for a Fix",
       "instruction": "Now try <kbd>/fix</kbd> — imagine your function doesn't handle empty arrays or missing prices. Copilot will suggest defensive checks.<br><br>Review the diff it proposes and click <strong>Apply</strong> if you like it.",
-      "focus": "chat"
+      "focus": "chat",
+      "action": "workbench.action.chat.open"
     },
     {
       "title": "Generate Tests",
       "instruction": "Select your function and type <kbd>/tests</kbd> in Copilot Chat. It will generate unit tests covering normal cases, edge cases, and error conditions.<br><br>You can click <strong>Insert into New File</strong> to save them.",
-      "focus": "chat"
+      "focus": "chat",
+      "action": "workbench.action.chat.open"
     },
     {
       "title": "Try the Terminal",
