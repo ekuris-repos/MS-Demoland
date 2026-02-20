@@ -13,7 +13,7 @@
     },
     {
       "title": "Install the Extension",
-      "instruction": "Open the <strong>Extensions</strong> sidebar (<kbd>Ctrl+Shift+X</kbd>), search for <strong>GitHub Copilot</strong>, and click <strong>Install</strong>.<br><br>A single extension now bundles both inline completions and Copilot Chat.",
+      "instruction": "We've opened the <strong>Extensions</strong> panel for you (<kbd>Ctrl+Shift+X</kbd>). Search for <strong>GitHub Copilot</strong> — it should already be installed, but if it isn't you can install it from here.<br><br>A single extension now bundles both inline completions and Copilot Chat.",
       "focus": "guide",
       "action": "workbench.view.extensions"
     },
@@ -24,19 +24,19 @@
     },
     {
       "title": "Open Copilot Chat",
-      "instruction": "Open the Copilot Chat panel with <kbd>Ctrl+Shift+I</kbd> (or click the chat icon in the Activity Bar). The chat panel will appear on the right side of your screen.",
+      "instruction": "We've opened the <strong>Copilot Chat</strong> panel for you (<kbd>Ctrl+Shift+I</kbd>). You'll see the chat interface on the right side of your screen — this is where you'll have conversations with Copilot.",
       "focus": "chat",
       "action": "workbench.action.chat.open"
     },
     {
       "title": "Choose Your Model",
-      "instruction": "In the Copilot Chat panel, click the <strong>model selector</strong> dropdown at the top. Different models have different strengths — Claude excels at reasoning, GPT-4o is fast and versatile.<br><br>For this lab, any model works. Pick one and continue.",
+      "instruction": "The <strong>Copilot Chat</strong> panel is open for you. Click the <strong>model selector</strong> dropdown at the top. Different models have different strengths — Claude excels at reasoning, GPT-4o is fast and versatile.<br><br>For this lab, any model works. Pick one and continue.",
       "focus": "chat",
       "action": "workbench.action.chat.open"
     },
     {
       "title": "Your First Prompt",
-      "instruction": "Type a question in the Copilot Chat input box:<br><br><kbd>What is GitHub Copilot and how does it help developers?</kbd><br><br>Press <strong>Enter</strong> and watch the response stream in.",
+      "instruction": "The <strong>Copilot Chat</strong> panel is ready. Type a question in the input box:<br><br><kbd>What is GitHub Copilot and how does it help developers?</kbd><br><br>Press <strong>Enter</strong> and watch the response stream in.",
       "focus": "chat",
       "action": "workbench.action.chat.open"
     },
@@ -48,38 +48,38 @@
     },
     {
       "title": "Try Inline Completions",
-      "instruction": "Open a new file (<kbd>Ctrl+N</kbd>), set the language to <strong>JavaScript</strong>, and type this comment:<br><br><kbd>// Calculate the total price of items in a shopping cart</kbd><br><br>Press <strong>Enter</strong> and watch Copilot suggest the function body as ghost text. Press <strong>Tab</strong> to accept.",
+      "instruction": "We've opened a <strong>new file</strong> for you (<kbd>Ctrl+N</kbd>). Set the language to <strong>JavaScript</strong> using the language selector in the bottom-right corner, then type this comment:<br><br><kbd>// Calculate the total price of items in a shopping cart</kbd><br><br>Press <strong>Enter</strong> and watch Copilot suggest the function body as ghost text. Press <strong>Tab</strong> to accept.",
       "focus": "editor",
       "action": "workbench.action.files.newUntitledFile"
     },
     {
       "title": "Ask for an Explanation",
-      "instruction": "Select the function you just generated, then type in Copilot Chat:<br><br><kbd>/explain</kbd><br><br>Copilot will break down how the code works step by step.",
+      "instruction": "We've brought <strong>Copilot Chat</strong> back into focus. Select the function you just generated in the editor, then type in the chat input:<br><br><kbd>/explain</kbd><br><br>Copilot will break down how the code works step by step.",
       "focus": "chat",
       "action": "workbench.action.chat.open"
     },
     {
       "title": "Ask for a Fix",
-      "instruction": "Now try <kbd>/fix</kbd> — imagine your function doesn't handle empty arrays or missing prices. Copilot will suggest defensive checks.<br><br>Review the diff it proposes and click <strong>Apply</strong> if you like it.",
+      "instruction": "<strong>Copilot Chat</strong> is ready. Now try <kbd>/fix</kbd> — imagine your function doesn't handle empty arrays or missing prices. Copilot will suggest defensive checks.<br><br>Review the diff it proposes and click <strong>Apply</strong> if you like it.",
       "focus": "chat",
       "action": "workbench.action.chat.open"
     },
     {
       "title": "Generate Tests",
-      "instruction": "Select your function and type <kbd>/tests</kbd> in Copilot Chat. It will generate unit tests covering normal cases, edge cases, and error conditions.<br><br>You can click <strong>Insert into New File</strong> to save them.",
+      "instruction": "<strong>Copilot Chat</strong> is ready. Select your function and type <kbd>/tests</kbd> in the chat input. Copilot will generate unit tests covering normal cases, edge cases, and error conditions.<br><br>You can click <strong>Insert into New File</strong> to save them.",
       "focus": "chat",
       "action": "workbench.action.chat.open"
     },
     {
       "title": "Try the Terminal",
-      "instruction": "Open the integrated terminal (<kbd>Ctrl+`</kbd>). Try asking Copilot about terminal commands — for example, type <kbd>@terminal how do I list all git branches?</kbd> in the chat.<br><br>Copilot can help with CLI tasks too!",
+      "instruction": "We've opened the <strong>integrated terminal</strong> for you (<kbd>Ctrl+`</kbd>). Try asking Copilot about terminal commands — for example, type <kbd>@terminal how do I list all git branches?</kbd> in the chat.<br><br>Copilot can help with CLI tasks too!",
       "focus": "terminal",
       "tip": "You can also use <strong>Ctrl+I</strong> inside the terminal for inline Copilot assistance.",
       "action": "workbench.action.terminal.toggleTerminal"
     },
     {
       "title": "Configure Copilot Settings",
-      "instruction": "Open Settings (<kbd>Ctrl+,</kbd>) and search for <strong>copilot</strong>. Try toggling <code>github.copilot.enable</code> per language — for example, disable Copilot for Markdown but keep it on for JavaScript and Python.",
+      "instruction": "We've opened <strong>Settings</strong> for you (<kbd>Ctrl+,</kbd>). Search for <strong>copilot</strong> and try toggling <code>github.copilot.enable</code> per language — for example, disable Copilot for Markdown but keep it on for JavaScript and Python.",
       "focus": "guide",
       "action": "workbench.action.openSettings"
     },
