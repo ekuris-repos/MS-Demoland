@@ -14,7 +14,8 @@
     {
       "title": "Install the Extension",
       "instruction": "Open the <strong>Extensions</strong> sidebar (<kbd>Ctrl+Shift+X</kbd>), search for <strong>GitHub Copilot</strong>, and click <strong>Install</strong>.<br><br>A single extension now bundles both inline completions and Copilot Chat.",
-      "focus": "guide"
+      "focus": "guide",
+      "action": "workbench.view.extensions"
     },
     {
       "title": "Sign In to GitHub",
@@ -24,7 +25,8 @@
     {
       "title": "Open Copilot Chat",
       "instruction": "Open the Copilot Chat panel with <kbd>Ctrl+Shift+I</kbd> (or click the chat icon in the Activity Bar). The chat panel will appear on the right side of your screen.",
-      "focus": "chat"
+      "focus": "chat",
+      "action": "workbench.action.chat.open"
     },
     {
       "title": "Choose Your Model",
@@ -44,7 +46,8 @@
     {
       "title": "Try Inline Completions",
       "instruction": "Open a new file (<kbd>Ctrl+N</kbd>), set the language to <strong>JavaScript</strong>, and type this comment:<br><br><kbd>// Calculate the total price of items in a shopping cart</kbd><br><br>Press <strong>Enter</strong> and watch Copilot suggest the function body as ghost text. Press <strong>Tab</strong> to accept.",
-      "focus": "editor"
+      "focus": "editor",
+      "action": "workbench.action.files.newUntitledFile"
     },
     {
       "title": "Ask for an Explanation",
@@ -65,12 +68,14 @@
       "title": "Try the Terminal",
       "instruction": "Open the integrated terminal (<kbd>Ctrl+`</kbd>). Try asking Copilot about terminal commands — for example, type <kbd>@terminal how do I list all git branches?</kbd> in the chat.<br><br>Copilot can help with CLI tasks too!",
       "focus": "terminal",
-      "tip": "You can also use <strong>Ctrl+I</strong> inside the terminal for inline Copilot assistance."
+      "tip": "You can also use <strong>Ctrl+I</strong> inside the terminal for inline Copilot assistance.",
+      "action": "workbench.action.terminal.toggleTerminal"
     },
     {
       "title": "Configure Copilot Settings",
       "instruction": "Open Settings (<kbd>Ctrl+,</kbd>) and search for <strong>copilot</strong>. Try toggling <code>github.copilot.enable</code> per language — for example, disable Copilot for Markdown but keep it on for JavaScript and Python.",
-      "focus": "guide"
+      "focus": "guide",
+      "action": "workbench.action.openSettings"
     },
     {
       "title": "Lab Complete!",

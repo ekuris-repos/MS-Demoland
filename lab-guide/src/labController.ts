@@ -9,6 +9,7 @@ export interface LabStep {
   instruction: string;
   tip?: string;
   focus?: 'slides' | 'chat' | 'terminal' | 'editor' | 'guide';
+  action?: string | string[];
 }
 
 export interface Lab {
@@ -176,6 +177,18 @@ export class LabController {
       type: 'setState',
       step: { ...step, index: this.currentStep, total: this.lab.steps.length }
     });
+
+    // Execute step action(s)
+    if (step.action) {
+      const actions = Array.isArray(step.action) ? step.action : [step.action];
+      for (const cmd of actions) {
+        this.log.info(`[action] Executing: ${cmd}`);
+        vscode.commands.executeCommand(cmd).then(
+          () => this.log.info(`[action] ✓ ${cmd}`),
+          (err: Error) => this.log.error(`[action] ✗ ${cmd}: ${err.message}`)
+        );
+      }
+    }
   }
 
   private onWebviewMessage(msg: { type: string }) {

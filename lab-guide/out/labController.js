@@ -189,6 +189,14 @@ class LabController {
             type: 'setState',
             step: { ...step, index: this.currentStep, total: this.lab.steps.length }
         });
+        // Execute step action(s)
+        if (step.action) {
+            const actions = Array.isArray(step.action) ? step.action : [step.action];
+            for (const cmd of actions) {
+                this.log.info(`[action] Executing: ${cmd}`);
+                vscode.commands.executeCommand(cmd).then(() => this.log.info(`[action] ✓ ${cmd}`), (err) => this.log.error(`[action] ✗ ${cmd}: ${err.message}`));
+            }
+        }
     }
     onWebviewMessage(msg) {
         switch (msg.type) {
