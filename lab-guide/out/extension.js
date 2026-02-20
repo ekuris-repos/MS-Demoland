@@ -57,6 +57,9 @@ function activate(context) {
     }), vscode.commands.registerCommand('labGuide.reset', () => {
         log.info('Command: reset');
         return controller.reset();
+    }), vscode.commands.registerCommand('labGuide.refreshBrowser', () => {
+        log.info('Command: refreshBrowser');
+        return controller.refreshBrowser();
     }));
     log.info('Commands registered');
     // ── Auto-open catalog on startup ──────────────────────────────

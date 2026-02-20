@@ -67,6 +67,18 @@ export class BrowserPanel {
 </html>`;
   }
 
+  /** Reload the current content. */
+  async refresh() {
+    if (!this.currentUrl) { return; }
+    this.log.info(`[BrowserPanel] Refreshing: ${this.currentUrl}`);
+    // Determine mode from panel title
+    if (this.panel?.title === 'Course Catalog') {
+      await this.showCatalog(this.currentUrl);
+    } else {
+      this.showSlides(this.currentUrl);
+    }
+  }
+
   dispose() {
     this.panel?.dispose();
   }

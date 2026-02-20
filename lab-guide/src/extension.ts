@@ -28,6 +28,10 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('labGuide.reset', () => {
       log.info('Command: reset');
       return controller!.reset();
+    }),
+    vscode.commands.registerCommand('labGuide.refreshBrowser', () => {
+      log.info('Command: refreshBrowser');
+      return controller!.refreshBrowser();
     })
   );
   log.info('Commands registered');

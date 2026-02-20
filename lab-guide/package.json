@@ -32,8 +32,22 @@
       {
         "command": "labGuide.reset",
         "title": "Lab Guide: Reset Lab"
+      },
+      {
+        "command": "labGuide.refreshBrowser",
+        "title": "Lab Guide: Refresh Browser",
+        "icon": "$(refresh)"
       }
     ],
+    "menus": {
+      "webview/toolbar": [
+        {
+          "command": "labGuide.refreshBrowser",
+          "when": "webviewId == 'labGuide.browser'",
+          "group": "navigation"
+        }
+      ]
+    },
     "keybindings": [
       {
         "command": "labGuide.nextStep",

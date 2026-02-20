@@ -138,6 +138,9 @@ class LabController {
             this.showCurrentStep();
         }
     }
+    refreshBrowser() {
+        return this.browserPanel.refresh();
+    }
     dispose() {
         this.guidePanel?.dispose();
         this.browserPanel.dispose();
