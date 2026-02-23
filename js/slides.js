@@ -77,6 +77,10 @@
     current = index;
     updateUI();
     history.replaceState(null, "", `#slide-${current + 1}`);
+    // Notify parent (VS Code extension) of the slide change
+    if (window !== window.parent) {
+      window.parent.postMessage({ type: 'slideChanged', slide: current + 1 }, '*');
+    }
   }
 
   function next() {
