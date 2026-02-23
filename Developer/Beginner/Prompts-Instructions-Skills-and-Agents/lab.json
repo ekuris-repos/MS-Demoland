@@ -1,11 +1,11 @@
 {
-  "title": "Copilot Primitives — Prompts, Instructions, Skills, and Agents",
+  "title": "Copilot Primitives \u2014 Prompts, Instructions, Skills, and Agents",
   "slides": {
     "1": {
       "steps": [
         {
           "title": "Welcome to the Lab",
-          "instruction": "Welcome! In this hands-on lab you'll create each of the four Copilot customization primitives: <strong>Prompt files</strong>, <strong>Instruction files</strong>, <strong>Skills</strong>, and <strong>Agents</strong>.<br><br>Follow the steps in this panel — the glowing edge and arrow will show you where to look. By the end, you'll have a working set of customization files in your repo.",
+          "instruction": "Welcome! In this hands-on lab you'll create each of the four Copilot customization primitives: <strong>Prompt files</strong>, <strong>Instruction files</strong>, <strong>Skills</strong>, and <strong>Agents</strong>.<br><br>Follow the steps in this panel \u2014 the glowing edge and arrow will show you where to look. By the end, you'll have a working set of customization files in your repo.",
           "focus": "guide"
         }
       ]
@@ -24,31 +24,55 @@
           "focus": ["terminal", "chat"],
           "tip": "You can ask Copilot: <kbd>@terminal how do I create nested directories?</kbd>",
           "action": "workbench.action.terminal.toggleTerminal"
+        },
+        {
+          "title": "Verify With the Explorer",
+          "instruction": "Switch back to the <strong>Explorer</strong> panel and expand the <code>.github/</code> folder. You should see four empty subfolders.<br><br>This structure isn't required \u2014 Copilot discovers files by their extension, not their location \u2014 but the convention keeps your repo organized and signals intent to your team.",
+          "focus": "slides",
+          "action": "workbench.view.explorer"
         }
       ]
     },
     "9": {
       "steps": [
         {
-          "title": "Create Your First Prompt File",
+          "title": "Create a Test-Generation Prompt",
           "instruction": "We've opened a <strong>new file</strong> for you. Save it as <code>.github/prompts/generate-test.prompt.md</code>.<br><br>Type the following YAML frontmatter and prompt body:<br><br><kbd>---<br>mode: ask<br>description: Generate a unit test for the selected function<br>tools:<br>  - changes<br>---<br><br>Write a comprehensive unit test for the function in the current selection.</kbd>",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile"
         },
         {
           "title": "Add Requirements to the Prompt",
-          "instruction": "Below your prompt body, add formatting instructions:<br><br><kbd>**Requirements:**<br>- Use the project's existing test framework<br>- Cover happy path, edge cases, and error conditions<br>- Follow the naming convention: test_&lt;function&gt;_&lt;scenario&gt;</kbd><br><br>This gives Copilot specific guidance every time the prompt runs.",
+          "instruction": "Below your prompt body, add formatting instructions:<br><br><kbd>**Requirements:**<br>- Use the project's existing test framework<br>- Cover happy path, edge cases, and error conditions<br>- Follow the naming convention: test_&lt;function&gt;_&lt;scenario&gt;</kbd><br><br>The more specific your prompt body is, the more consistent the results will be every time you run it.",
           "focus": "editor"
+        },
+        {
+          "title": "Create a Documentation Prompt",
+          "instruction": "Create a <strong>second</strong> prompt file and save it as <code>.github/prompts/document-function.prompt.md</code>:<br><br><kbd>---<br>mode: ask<br>description: Generate documentation for the selected code<br>---<br><br>Write clear documentation for the code in the current selection.<br><br>**Include:**<br>- A one-sentence summary<br>- Parameter descriptions with types<br>- Return value description<br>- One usage example</kbd><br><br>Having multiple prompt files builds a <strong>team library</strong> of reliable, reusable tasks.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "Good prompt libraries grow organically. When someone on the team writes a great prompt, save it as a file and share it."
         }
       ]
     },
     "10": {
       "steps": [
         {
-          "title": "Run Your Prompt File",
-          "instruction": "Open <strong>Copilot Chat</strong> (<kbd>Ctrl+Shift+I</kbd>). In the chat input, type <kbd>/</kbd> to open the prompt picker.<br><br>You should see your <strong>generate-test</strong> prompt in the list. Select it to run it.<br><br>If you have code selected in the editor, Copilot will generate tests for that selection.",
+          "title": "Run From the Prompt Picker",
+          "instruction": "Open <strong>Copilot Chat</strong> (<kbd>Ctrl+Shift+I</kbd>). In the chat input, type <kbd>/</kbd> to open the prompt picker.<br><br>You should see both <strong>generate-test</strong> and <strong>document-function</strong> in the list. Select <strong>generate-test</strong> to run it.",
           "focus": "chat",
           "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Run With a Selection",
+          "instruction": "For prompts that reference <code>${selection}</code>, the selected code matters. Write a small function in a file (or use one from the previous course), <strong>select it</strong>, then run your <strong>document-function</strong> prompt from the picker.<br><br>Notice how the output adapts to the specific code you selected.",
+          "focus": ["editor", "chat"]
+        },
+        {
+          "title": "Compare the Two Prompts",
+          "instruction": "Run both prompts on the <strong>same function</strong> and compare the results. One generates tests, the other generates documentation \u2014 same input, different outputs because the prompt body drives the behavior.<br><br>This is why prompt files are so powerful: they make a complex, multi-paragraph prompt feel like a one-click action.",
+          "focus": "chat",
+          "tip": "You can also run prompts by right-clicking a file in the Explorer \u2192 <strong>Copilot</strong> \u2192 <strong>Run Prompt</strong>."
         }
       ]
     },
@@ -61,45 +85,85 @@
           "action": "workbench.action.files.newUntitledFile"
         },
         {
+          "title": "Add a Testing Section",
+          "instruction": "Instruction files work best when they cover multiple dimensions of your team's standards. Add a testing section:<br><br><kbd>## Testing<br>- Write tests using Vitest, not Jest<br>- Every public function must have at least one test<br>- Use descriptive test names: \"should &lt;behavior&gt; when &lt;condition&gt;\"</kbd><br><br>Start small and grow your instructions over time. If you keep correcting the same thing, that correction belongs in this file.",
+          "focus": "editor"
+        },
+        {
           "title": "Test Your Instructions",
-          "instruction": "Open <strong>Copilot Chat</strong> and ask it to generate some code:<br><br><kbd>Write a function that fetches user data from an API</kbd><br><br>Notice how Copilot follows your instructions — it should use TypeScript, async/await, single quotes, and named exports.",
+          "instruction": "Open <strong>Copilot Chat</strong> and ask it to generate some code:<br><br><kbd>Write a function that fetches user data from an API and returns the parsed response</kbd><br><br>Check the output carefully: Does it use TypeScript? Async/await? Single quotes? Named exports? Your instructions should be shaping every response now.",
           "focus": "chat",
           "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Try Breaking a Rule",
+          "instruction": "Ask Copilot for something that conflicts with your instructions:<br><br><kbd>Write a function using callbacks to read a file</kbd><br><br>Even though you asked for callbacks, Copilot should push toward async/await because your instructions say \"prefer async/await over callbacks.\" This is the power of always-on guidance \u2014 it shapes output even when the request doesn't explicitly mention your standards.",
+          "focus": "chat"
         }
       ]
     },
     "14": {
       "steps": [
         {
-          "title": "Create Scoped Instructions",
+          "title": "Create Test-Scoped Instructions",
           "instruction": "Create a new file at <code>.github/instructions/testing.instructions.md</code>.<br><br>Add an <code>applyTo</code> frontmatter and scoped rules:<br><br><kbd>---<br>applyTo: \"**/*.test.ts\"<br>---<br><br># Testing Instructions<br><br>- Use describe / it blocks (not test)<br>- Mock external services with vi.mock()<br>- Name test cases: \"should &lt;behavior&gt; when &lt;condition&gt;\"</kbd>",
           "focus": "editor",
-          "tip": "Scoped instructions only activate when you're working on files that match the <code>applyTo</code> glob pattern.",
           "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Create Component-Scoped Instructions",
+          "instruction": "Create another scoped file at <code>.github/instructions/react-components.instructions.md</code>:<br><br><kbd>---<br>applyTo: \"src/components/**/*.tsx\"<br>---<br><br># React Component Instructions<br><br>- Use functional components with hooks (no class components)<br>- Colocate styles with components using CSS modules<br>- Export a Props type for every component<br>- Include accessibility attributes (aria-label, role)</kbd><br><br>Different file patterns get different rules \u2014 testing files get testing rules, components get component rules.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "Scoped instructions are <strong>additive</strong> \u2014 they combine with your repo-wide <code>copilot-instructions.md</code>, they don't replace it."
+        },
+        {
+          "title": "Understand the Scoping",
+          "instruction": "Ask Copilot to explain the difference:<br><br><kbd>When I'm editing a .test.ts file, which instruction files does Copilot load? What about when I'm editing a .tsx component?</kbd><br><br>The answer: repo-wide instructions load <strong>always</strong>. Scoped instructions load <strong>only</strong> when the active file matches the <code>applyTo</code> pattern. Both sets combine when applicable.",
+          "focus": "chat",
+          "action": "workbench.action.chat.open"
         }
       ]
     },
     "17": {
       "steps": [
         {
-          "title": "Create a Skill File",
+          "title": "Create an API Design Skill",
           "instruction": "Create a new file at <code>.github/skills/api-patterns/SKILL.md</code>.<br><br>Write a skill that documents your team's API design patterns:<br><br><kbd># API Design Skill<br><br>## Description<br>Use this skill when creating REST API endpoints.<br><br>## Patterns<br>- Use Express Router for route grouping<br>- Return consistent JSON: { data, error, meta }<br>- Validate input with zod schemas<br>- Handle errors with middleware, not try/catch in routes</kbd>",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile"
         },
         {
-          "title": "Understand the Difference",
-          "instruction": "Ask <strong>Copilot Chat</strong> to explain the difference:<br><br><kbd>What's the difference between a .instructions.md file and a SKILL.md file in Copilot?</kbd><br><br>Key insight: Instructions are <strong>always loaded</strong>. Skills are <strong>loaded on demand</strong> when an agent recognizes the need.",
+          "title": "Create a Database Skill",
+          "instruction": "Create a second skill at <code>.github/skills/database/SKILL.md</code>:<br><br><kbd># Database Patterns Skill<br><br>## Description<br>Use this skill when writing database queries or migrations.<br><br>## Patterns<br>- Use Prisma as the ORM<br>- Always use parameterized queries (never string concatenation)<br>- Wrap multi-table operations in transactions<br>- Name migrations descriptively: add_user_email_index</kbd><br><br>Multiple skills let agents draw on the <strong>right</strong> knowledge for the <strong>right</strong> task.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Instructions vs. Skills",
+          "instruction": "Ask <strong>Copilot Chat</strong>:<br><br><kbd>What's the difference between a .instructions.md file and a SKILL.md file in Copilot?</kbd><br><br>Key insight: Instructions are <strong>always loaded</strong> into every conversation. Skills are <strong>loaded on demand</strong> when an agent recognizes the current task matches the skill's description. Skills keep the context window efficient by only appearing when relevant.",
           "focus": "chat",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "tip": "If a rule should apply everywhere (\"use TypeScript\"), make it an instruction. If knowledge is deep but situational (\"how to deploy to Azure\"), make it a skill."
         }
       ]
     },
     "21": {
       "steps": [
         {
-          "title": "Create a Custom Agent",
+          "title": "Create a Code Reviewer Agent",
           "instruction": "Create a new file at <code>.github/agents/code-reviewer.agent.md</code>.<br><br>Define the agent with frontmatter and instructions:<br><br><kbd>---<br>description: Reviews code for quality and best practices<br>tools:<br>  - changes<br>  - codebase<br>---<br><br># Code Reviewer<br><br>You are a senior engineer reviewing code. Focus on:<br>1. Readability and naming<br>2. Error handling<br>3. Performance concerns<br>4. Test coverage gaps<br><br>Be constructive. Suggest improvements, don't just criticize.</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Refine the Agent's Persona",
+          "instruction": "A good agent has a clear <strong>output format</strong>. Add this to the bottom of your agent file:<br><br><kbd>## Output Format<br><br>For each finding:<br>- **Severity:** Critical / Warning / Suggestion<br>- **Location:** File and line reference<br>- **Issue:** What you found<br>- **Fix:** How to resolve it<br><br>End with a summary table of all findings.</kbd><br><br>The more specific the persona, the more consistent the agent's output.",
+          "focus": "editor"
+        },
+        {
+          "title": "Create a Documentation Agent",
+          "instruction": "Create a second agent at <code>.github/agents/docs-writer.agent.md</code>:<br><br><kbd>---<br>description: Generates and maintains project documentation<br>tools:<br>  - codebase<br>  - changes<br>---<br><br># Documentation Writer<br><br>You are a technical writer. When asked to document code:<br>1. Read the source code thoroughly<br>2. Write clear, jargon-free explanations<br>3. Include usage examples<br>4. Note any prerequisites or gotchas<br><br>Match the project's existing documentation style.</kbd><br><br>Each agent is a <strong>virtual team member</strong> with a distinct role and expertise.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile"
         }
@@ -108,15 +172,21 @@
     "22": {
       "steps": [
         {
-          "title": "Use Your Custom Agent",
-          "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>@</kbd> to see the agent picker. Your <strong>code-reviewer</strong> agent should appear in the list.<br><br>Select it and ask:<br><br><kbd>Review the files I've created in this lab for quality.</kbd><br><br>Watch how the agent applies its specialized persona and uses the tools you granted it.",
+          "title": "Use Your Code Reviewer",
+          "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>@</kbd> to see the agent picker. Your <strong>code-reviewer</strong> agent should appear in the list.<br><br>Select it and ask:<br><br><kbd>Review the prompt and instruction files I've created in this lab.</kbd><br><br>Watch how the agent applies its specialized persona \u2014 it should give structured feedback with severity levels.",
           "focus": "chat",
           "action": "workbench.action.chat.open"
         },
         {
-          "title": "Chain with a Prompt",
-          "instruction": "Now combine what you've learned. Run your <strong>generate-test</strong> prompt file (type <kbd>/</kbd> in chat), then switch to your <strong>@code-reviewer</strong> agent and ask it to review the generated tests.<br><br>This is the power of composing primitives: prompts trigger, instructions guide, skills inform, agents execute.",
+          "title": "Switch to the Docs Writer",
+          "instruction": "Now type <kbd>@</kbd> again and select your <strong>docs-writer</strong> agent. Ask:<br><br><kbd>Write a README section explaining the customization files in our .github folder.</kbd><br><br>Notice the difference in tone and output structure compared to the code reviewer. Same codebase, different perspective \u2014 that's the power of specialized agents.",
           "focus": "chat"
+        },
+        {
+          "title": "Chain Primitives Together",
+          "instruction": "Now combine what you've learned. Run your <strong>generate-test</strong> prompt file (type <kbd>/</kbd> in chat), then switch to your <strong>@code-reviewer</strong> agent and ask it to review the generated tests.<br><br>This is the full composition: <strong>Prompts trigger. Instructions guide. Skills inform. Agents execute.</strong>",
+          "focus": "chat",
+          "tip": "You've just experienced the entire customization model. Every piece is a Markdown file committed to your repo."
         }
       ]
     },
@@ -124,8 +194,8 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> 🎉 You've created all four Copilot customization primitives:<br><br>✅ <strong>Prompt file</strong> — <code>.prompt.md</code> for reusable tasks<br>✅ <strong>Instruction files</strong> — repo-wide and scoped rules<br>✅ <strong>Skill</strong> — domain knowledge for agents<br>✅ <strong>Agent</strong> — a custom specialist with its own tools<br><br>Commit these files to your repo and your entire team gets the same AI-powered workflow.",
-          "tip": "Next up: <strong>Agent Potato: License to Chat</strong> — put these primitives to work building a full-stack app."
+          "instruction": "<strong>Congratulations!</strong> \ud83c\udf89 You've created all four Copilot customization primitives:<br><br>\u2705 <strong>Prompt files</strong> \u2014 <code>generate-test</code> and <code>document-function</code><br>\u2705 <strong>Instruction files</strong> \u2014 repo-wide standards, test-scoped rules, and component-scoped rules<br>\u2705 <strong>Skills</strong> \u2014 API design and database pattern knowledge<br>\u2705 <strong>Agents</strong> \u2014 a code reviewer and a documentation writer<br><br>Commit these files to your repo and your entire team gets the same AI-powered workflow from day one.",
+          "tip": "Next up: <strong>Agent Potato: License to Chat</strong> \u2014 put these primitives to work building a full-stack app."
         }
       ]
     }
