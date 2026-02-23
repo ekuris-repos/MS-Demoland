@@ -9,6 +9,8 @@
   let slides = [];
   let progressBar, counter, btnPrev, btnNext, tocOverlay;
 
+  const inExtension = window !== window.parent;
+
   /* ---- Initialise ---- */
   function init() {
     slides = Array.from(document.querySelectorAll(".slide"));
@@ -24,12 +26,29 @@
     show(current);
     bindEvents();
     buildTOC();
+
+    // Extension mode: post total slide count once, listen for nav commands, suppress local keyboard/swipe
+    if (inExtension) {
+      window.parent.postMessage({ type: 'init', total: slides.length }, '*');
+      window.addEventListener('message', function (e) {
+        if (!e.data || !e.data.type) return;
+        switch (e.data.type) {
+          case 'navigate':
+            if (e.data.direction === 'next') next();
+            else if (e.data.direction === 'prev') prev();
+            break;
+          case 'goHome':
+            goHome();
+            break;
+        }
+      });
+    }
   }
 
   /* ---- Inject navigation elements ---- */
   function injectUI() {
     // Extension banner — shown when slides are viewed in a browser, not inside the extension
-    if (window === window.parent) {
+    if (!inExtension) {
       injectExtensionBanner();
     }
 
@@ -45,8 +64,9 @@
     const notesInd = el("div", { className: "notes-indicator", textContent: "Speaker Notes ON (N)" });
     document.body.appendChild(notesInd);
 
-    // Nav buttons
+    // Nav buttons — hidden when inside the extension (parent webview provides its own)
     const nav = el("div", { className: "slide-nav" });
+    if (inExtension) { nav.style.display = 'none'; }
     const btnHome = el("button", { innerHTML: "&#8962;", title: "Course Navigator (H)" });
     btnPrev = el("button", { innerHTML: "&#8592;", title: "Previous (←)" });
     btnNext = el("button", { innerHTML: "&#8594;", title: "Next (→)" });
@@ -77,10 +97,6 @@
     current = index;
     updateUI();
     history.replaceState(null, "", `#slide-${current + 1}`);
-    // Notify parent (VS Code extension) of the slide change
-    if (window !== window.parent) {
-      window.parent.postMessage({ type: 'slideChanged', slide: current + 1 }, '*');
-    }
   }
 
   function next() {
@@ -160,6 +176,11 @@
 
   /* ---- Navigate to course navigator ---- */
   function goHome() {
+    // In extension mode, tell the parent to return to catalog
+    if (inExtension) {
+      window.parent.postMessage({ type: 'goHome' }, '*');
+      return;
+    }
     // Navigate to the site root (index.html)
     const base = document.querySelector('link[href*="primer-brand.css"]');
     if (base) {
@@ -172,6 +193,9 @@
 
   /* ---- Keyboard ---- */
   function bindEvents() {
+    // In extension mode, suppress keyboard and swipe — parent controls navigation
+    if (inExtension) return;
+
     document.addEventListener("keydown", (e) => {
       switch (e.key) {
         case "ArrowRight":
