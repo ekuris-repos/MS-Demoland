@@ -6,7 +6,7 @@
 
 ### Presenter Machine
 
-- [ ] VS Code (latest stable) with the **GitHub Copilot** extension installed and signed in
+- [ ] VS Code (latest stable) with the **GitHub Copilot Chat** extension installed and signed in
 - [ ] A GitHub account with an active Copilot license (Individual, Business, or Enterprise)
 - [ ] Node.js v18+ (for the Vite dev server and demo code)
 - [ ] Git clone of this repository

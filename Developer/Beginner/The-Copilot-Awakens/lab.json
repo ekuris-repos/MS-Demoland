@@ -15,12 +15,12 @@
       "steps": [
         {
           "title": "Install the Extension",
-          "instruction": "We've opened the <strong>Extensions</strong> panel for you (<kbd>Ctrl+Shift+X</kbd>). Search for <strong>GitHub Copilot</strong> \u2014 it should already be installed, but if it isn't you can install it from here.<br><br>A single extension now bundles both inline completions and Copilot Chat.",
+          "instruction": "We've opened the <strong>Extensions</strong> panel for you (<kbd>Ctrl+Shift+X</kbd>). Search for <strong>GitHub Copilot Chat</strong> \u2014 it should already be installed, but if it isn't you can install it from here.<br><br>The inline completions engine is built into the Chat extension, so one install covers everything.",
           "action": "workbench.view.extensions"
         },
         {
           "title": "Check the Extension Details",
-          "instruction": "Click on the <strong>GitHub Copilot</strong> extension in the list to open its details page. Scroll through to see what's included:<br><br>\u2022 Inline completions (ghost text)<br>\u2022 Copilot Chat panel and inline chat<br>\u2022 Terminal integration<br><br>Notice the <strong>Disable</strong> and <strong>Uninstall</strong> buttons \u2014 you won't need those today, but it's good to know where they are."
+          "instruction": "Click on the <strong>GitHub Copilot Chat</strong> extension in the list to open its details page. Scroll through to see what's included:<br><br>\u2022 Inline completions (ghost text)<br>\u2022 Copilot Chat panel and inline chat<br>\u2022 Terminal integration<br><br>Notice the <strong>Disable</strong> and <strong>Uninstall</strong> buttons \u2014 you won't need those today, but it's good to know where they are."
         },
         {
           "title": "Verify the Status Bar",
