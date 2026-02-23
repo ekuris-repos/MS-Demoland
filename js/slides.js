@@ -40,6 +40,9 @@
           case 'goHome':
             goHome();
             break;
+          case 'toggleNotes':
+            toggleNotes();
+            break;
         }
       });
     }
