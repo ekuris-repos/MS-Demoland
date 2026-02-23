@@ -11,6 +11,7 @@
       ]
     },
     "9": {
+      "onLeave": "workbench.action.closeSidebar",
       "steps": [
         {
           "title": "Install the Extension",
@@ -33,7 +34,8 @@
           "title": "Try Inline Completions",
           "instruction": "We've opened a <strong>new file</strong> for you. Set the language to <strong>JavaScript</strong> using the language selector in the bottom-right corner, then type this comment:<br><br><kbd>// Calculate the total price of items in a shopping cart</kbd><br><br>Press <strong>Enter</strong> and watch Copilot suggest the function body as ghost text. Press <strong>Tab</strong> to accept.",
           "focus": "top",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "↻ Re-open New File"
         }
       ]
     },
