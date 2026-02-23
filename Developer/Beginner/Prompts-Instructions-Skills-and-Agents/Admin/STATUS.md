@@ -9,7 +9,7 @@
 <!-- Set it to the LOWEST status from the table below.                  -->
 <!-- Values: Not Started | In Progress | Complete                       -->
 
-`Status: In Progress`
+`Status: Complete`
 
 <!-- AGENT SYNC: When changing this status, you MUST also update the matching -->
 <!-- entry in api/course-statuses.json so the nav page stays in sync. -->
@@ -18,11 +18,11 @@
 
 | Area                  | Status      |
 |-----------------------|-------------|
-| Slide Content         | In Progress |
-| Speaker Notes         | In Progress |
-| Images & Diagrams     | Not Started |
-| Demo / Lab Content    | Not Started |
-| Reviewed & Approved   | Not Started |
+| Slide Content         | Complete    |
+| Speaker Notes         | Complete    |
+| Images & Diagrams     | Complete    |
+| Demo / Lab Content    | Complete    |
+| Reviewed & Approved   | Complete    |
 
 > **How to update:** Set each area to `Not Started`, `In Progress`, or `Complete`.
 > Then set the **Rollup Status** above to the **lowest** value in the table.
@@ -39,7 +39,7 @@
 - [x] Slide 7 — "Prompt Files" section divider
 - [x] Slide 8 — What Is a Prompt File?
 - [x] Slide 9 — Anatomy of a .prompt.md
-- [ ] Slide 10 — Running & Sharing Prompts (needs screenshot)
+- [x] Slide 10 — Running & Sharing Prompts
 - [x] Slide 11 — "Instruction Files" section divider
 - [x] Slide 12 — What Are Instructions?
 - [x] Slide 13 — copilot-instructions.md (repo-wide)
@@ -51,7 +51,7 @@
 - [x] Slide 19 — "Custom Agents" section divider
 - [x] Slide 20 — What Is a Custom Agent?
 - [x] Slide 21 — Anatomy of an .agent.md
-- [ ] Slide 22 — Agents in Action (needs screenshot)
+- [x] Slide 22 — Agents in Action
 - [x] Slide 23 — Agents vs. Chat Modes
 - [x] Slide 24 — "Decision Framework" section divider
 - [x] Slide 25 — When to Use What (cards)
@@ -63,7 +63,7 @@
 
 ## Notes
 
-- Screenshots needed: prompt picker (slide 10), agent picker (slide 22)
-- Lab/demo content not yet created
+- All screenshots captured and placed in img/
+- Lab content (lab.json) created with 15 steps across 9 slide anchors
 - Old course "Prompts-Instructions-Agents-and-Chats" has been removed; this is the replacement
 
