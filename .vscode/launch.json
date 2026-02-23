@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Lab Guide Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder:MS-Demoland-Lab-Guide}",
+        "${workspaceFolder:MS Demoland}/MS Demoland GHCP Training.code-workspace"
+      ],
+      "outFiles": ["${workspaceFolder:MS-Demoland-Lab-Guide}/out/**/*.js"]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
-# Prompts Instructions Agents and Chats — Content Status
+# Prompts, Instructions, Skills, and Agents — Content Status
 
 > **Track:** Developer | **Level:** Beginner
-> **Last Updated:** _YYYY-MM-DD_
+> **Last Updated:** 2026-02-23
 
 ## Rollup Status
 
@@ -20,9 +20,9 @@
 |-----------------------|-------------|
 | Slide Content         | In Progress |
 | Speaker Notes         | In Progress |
-| Images & Diagrams     | In Progress |
-| Demo / Lab Content    | In Progress |
-| Reviewed & Approved   | In Progress |
+| Images & Diagrams     | Not Started |
+| Demo / Lab Content    | Not Started |
+| Reviewed & Approved   | Not Started |
 
 > **How to update:** Set each area to `Not Started`, `In Progress`, or `Complete`.
 > Then set the **Rollup Status** above to the **lowest** value in the table.
@@ -30,13 +30,40 @@
 
 ## Slide-by-Slide Checklist
 
-- [ ] Slide 1 — Title slide finalized
-- [ ] Slide 2 — Agenda / section divider
-- [ ] Slide 3 — Core content
-- [ ] Slide 4 — Additional content slides (add rows as needed)
-- [ ] Slide N — Closing slide
+- [x] Slide 1 — Title slide
+- [x] Slide 2 — "What We'll Cover" section divider
+- [x] Slide 3 — Agenda items
+- [x] Slide 4 — "The Building Blocks" section divider
+- [x] Slide 5 — The Four Primitives (cards)
+- [x] Slide 6 — Where They Live (file tree)
+- [x] Slide 7 — "Prompt Files" section divider
+- [x] Slide 8 — What Is a Prompt File?
+- [x] Slide 9 — Anatomy of a .prompt.md
+- [ ] Slide 10 — Running & Sharing Prompts (needs screenshot)
+- [x] Slide 11 — "Instruction Files" section divider
+- [x] Slide 12 — What Are Instructions?
+- [x] Slide 13 — copilot-instructions.md (repo-wide)
+- [x] Slide 14 — Scoped .instructions.md (applyTo)
+- [x] Slide 15 — "Skills" section divider
+- [x] Slide 16 — What Is a Skill?
+- [x] Slide 17 — Anatomy of a SKILL.md
+- [x] Slide 18 — When Skills Shine (cards)
+- [x] Slide 19 — "Custom Agents" section divider
+- [x] Slide 20 — What Is a Custom Agent?
+- [x] Slide 21 — Anatomy of an .agent.md
+- [ ] Slide 22 — Agents in Action (needs screenshot)
+- [x] Slide 23 — Agents vs. Chat Modes
+- [x] Slide 24 — "Decision Framework" section divider
+- [x] Slide 25 — When to Use What (cards)
+- [x] Slide 26 — How They Work Together
+- [x] Slide 27 — "Summary" section divider
+- [x] Slide 28 — Key Takeaways
+- [x] Slide 29 — Where to Go Next
+- [x] Slide 30 — Closing
 
 ## Notes
 
-_Add any notes about what's left to do, blockers, or decisions pending._
+- Screenshots needed: prompt picker (slide 10), agent picker (slide 22)
+- Lab/demo content not yet created
+- Old course "Prompts-Instructions-Agents-and-Chats" has been removed; this is the replacement
 
