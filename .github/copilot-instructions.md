@@ -56,6 +56,15 @@ whether served at `/` (local dev) or at a subpath like `/MS-Demoland/` (GitHub P
 - Root files (`index.html`, `template.html`): `css/primer-brand.css`, `js/slides.js`, `img/ms-github-logo.svg`
 - Course files (3 levels deep): `../../../css/primer-brand.css`, `../../../js/slides.js`, `../../../img/ms-github-logo.svg`
 
+## Style guide
+
+See `/memories/repo/style-guide.md` for writing conventions (e.g. em dash usage).
+
+## Commit and push
+
+Always commit **and push** in the same operation. Never leave committed changes
+unpushed.
+
 ## Local development
 
 Run `npm run dev` from the repo root to start the Vite dev server. Everything
