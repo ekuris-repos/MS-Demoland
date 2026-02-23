@@ -4,10 +4,12 @@
 			"path": "."
 		},
 		{
+			"name": "lab-guide",
 			"path": "../MS-Demoland-Lab-Guide"
 		}
 	],
 	"settings": {
+		"typescript.tsserver.experimental.enableProjectDiagnostics": false
 	},
 	"extensions": {
 		"recommendations": [
