@@ -11,7 +11,6 @@
       ]
     },
     "9": {
-      "onLeave": "workbench.action.closeSidebar",
       "steps": [
         {
           "title": "Install the Extension",
@@ -25,6 +24,11 @@
         {
           "title": "Verify the Status Bar",
           "instruction": "Look at the <strong>bottom-right</strong> corner of VS Code. You should see a small <strong>Copilot icon</strong> (a sparkle) in the status bar.<br><br>If it's visible and not greyed out, the extension is active. Click it to see quick actions like signing in, checking status, or disabling Copilot temporarily."
+        },
+        {
+          "title": "Close Extensions",
+          "instruction": "We've closed the Extensions panel for you. You explored the Copilot extension, verified it's installed, and checked the status bar icon.<br><br>You can reopen Extensions any time with <kbd>Ctrl+Shift+X</kbd>.",
+          "action": "workbench.action.closeSidebar"
         }
       ]
     },
@@ -42,6 +46,11 @@
           "title": "Check the Output Logs",
           "instruction": "Open the <strong>Output</strong> panel (<kbd>Ctrl+Shift+U</kbd>) and select <strong>GitHub Copilot</strong> from the dropdown.<br><br>This is where Copilot logs connection events and errors. If you ever run into trouble, this panel is your first stop for diagnosing issues.",
           "tip": "Bookmark this in your mind \u2014 the Output panel is the single best debugging tool for Copilot connectivity problems."
+        },
+        {
+          "title": "Close the Panel",
+          "instruction": "We've closed the Output panel for you. You signed into GitHub, verified your license, and found where Copilot logs connection events.<br><br>If you ever hit a connectivity issue, bring the Output panel back with <kbd>Ctrl+Shift+U</kbd> and select <strong>GitHub Copilot</strong> from the dropdown.",
+          "action": "workbench.action.closePanel"
         }
       ]
     },
@@ -121,6 +130,11 @@
           "instruction": "Now try the <kbd>@workspace</kbd> participant. Type:<br><br><kbd>@workspace What files are in this project and what do they do?</kbd><br><br>Unlike regular chat, <code>@workspace</code> indexes your entire project \u2014 not just the open file. It can answer questions about project structure, dependencies, and cross-file relationships.",
           "focus": "right",
           "tip": "Type <kbd>/</kbd> in the chat input to see all available commands. There are more than the four we covered here."
+        },
+        {
+          "title": "Close Chat",
+          "instruction": "We've closed the Chat panel for you. Across these two sections you opened the sidebar chat, chose a model, asked context-aware questions, used inline chat (<kbd>Ctrl+I</kbd>), and tried slash commands like <kbd>/explain</kbd>, <kbd>/fix</kbd>, and <kbd>/tests</kbd>.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Shift+I</kbd>.",
+          "action": "workbench.action.closeAuxiliaryBar"
         }
       ]
     },
@@ -129,16 +143,27 @@
         {
           "title": "Explore Copilot Settings",
           "instruction": "We've opened <strong>Settings</strong> for you (<kbd>Ctrl+,</kbd>). Search for <strong>copilot</strong> to see all available options.<br><br>Find <code>github.copilot.enable</code> and notice it accepts per-language toggles \u2014 you can enable Copilot for Python but disable it for Markdown.",
+          "focus": "left",
+          "focusLabel": "Settings",
           "action": "workbench.action.openSettings"
         },
         {
           "title": "Try a Per-Language Toggle",
           "instruction": "Click <strong>Edit in settings.json</strong> next to the <code>github.copilot.enable</code> setting and add:<br><br><kbd>\"github.copilot.enable\": { \"*\": true, \"markdown\": false }</kbd><br><br>This keeps Copilot active everywhere except Markdown files. Teams often disable it for plain text and config files where suggestions aren't helpful.",
+          "focus": "left",
+          "focusLabel": "Settings",
           "tip": "Put these settings in <code>.vscode/settings.json</code> (not your user settings) and commit the file. Everyone who clones the repo gets the same configuration."
         },
         {
           "title": "Preview Custom Instructions",
-          "instruction": "Search for <strong>copilot instructions</strong> in Settings. You'll see the option to point Copilot at a <code>.github/copilot-instructions.md</code> file.<br><br>This file lets you encode team standards (\"always use async/await\", \"prefer named exports\") so Copilot follows them automatically. The next course in this track covers custom instructions in depth."
+          "instruction": "Search for <strong>copilot instructions</strong> in Settings. You'll see the option to point Copilot at a <code>.github/copilot-instructions.md</code> file.<br><br>This file lets you encode team standards (\"always use async/await\", \"prefer named exports\") so Copilot follows them automatically. The next course in this track covers custom instructions in depth.",
+          "focus": "left",
+          "focusLabel": "Settings"
+        },
+        {
+          "title": "Close Settings",
+          "instruction": "We've closed the Settings tab for you. Remember, you can always bring it back with <kbd>Ctrl+,</kbd> and search for <strong>copilot</strong> to find most Copilot-related settings.",
+          "action": "workbench.action.closeActiveEditor"
         }
       ]
     },
@@ -160,6 +185,11 @@
           "title": "Ask for a Multi-Step Workflow",
           "instruction": "In the Chat panel, try a more complex request:<br><br><kbd>@terminal How do I create a new git branch, make a commit, and push it to origin?</kbd><br><br>Copilot gives you the full sequence of commands with explanations. This is great for CLI workflows you don't use every day.",
           "focus": ["bottom", "right"]
+        },
+        {
+          "title": "Close the Terminal",
+          "instruction": "We've closed the terminal for you. You used <kbd>@terminal</kbd> in Chat to get CLI help, tried inline terminal suggestions with <kbd>Ctrl+I</kbd>, and asked for multi-step command workflows.<br><br>Toggle the terminal back any time with <kbd>Ctrl+`</kbd>.",
+          "action": "workbench.action.closePanel"
         }
       ]
     },
