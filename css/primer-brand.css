@@ -297,6 +297,7 @@ pre code {
 .screenshot {
   position: relative;
   display: inline-block;
+  overflow: hidden;
 }
 
 .screenshot img {
