@@ -1,0 +1,159 @@
+{
+  "title": "MCP Integration - MCP for You and Me",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome! In this hands-on lab you'll enable the GitHub MCP server in VS Code, verify the connection, and work GitHub Issues end-to-end from Copilot Chat.<br><br>The guide panel will update automatically as you advance through the slides. The glowing edge and arrow will show you where to look.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "8": {
+      "steps": [
+        {
+          "title": "Review the Architecture",
+          "instruction": "Take a moment to study the architecture diagram on the slide. Notice the three layers:<br><br>&bull; <strong>Host</strong> - VS Code is acting as the host<br>&bull; <strong>Client</strong> - The MCP client lives inside VS Code and manages connections<br>&bull; <strong>Server</strong> - Each MCP server is a separate process<br><br>VS Code can connect to multiple MCP servers simultaneously. In this lab we'll focus on the GitHub server.",
+          "focus": "slides"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Open VS Code Settings",
+          "instruction": "Let's enable the GitHub MCP server. Open <strong>Settings</strong> by pressing <kbd>Ctrl+,</kbd>.<br><br>In the search box at the top, type <strong>chat.mcp</strong> to filter the settings.",
+          "focus": "top",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings"
+        },
+        {
+          "title": "Enable MCP Support",
+          "instruction": "Find the setting <strong>Chat > MCP: Enabled</strong> and make sure it is <strong>checked</strong>.<br><br>This tells VS Code to allow MCP servers to connect to Copilot Chat. Without this setting, MCP tools will not appear in the chat.",
+          "tip": "If you don't see this setting, make sure you're on the latest version of VS Code."
+        },
+        {
+          "title": "Restart VS Code",
+          "instruction": "After enabling the MCP setting, <strong>restart VS Code</strong> for the changes to take effect.<br><br>Use <kbd>Ctrl+Shift+P</kbd> and type <strong>Reload Window</strong> to restart without closing the application.",
+          "action": "workbench.action.reloadWindow",
+          "actionLabel": "Reload Window"
+        }
+      ]
+    },
+    "13": {
+      "onLeave": "workbench.action.closeSidebar",
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "Open <strong>Copilot Chat</strong> by pressing <kbd>Ctrl+Shift+I</kbd>. The chat panel should appear on the side.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Check for MCP Tools",
+          "instruction": "In the chat input area, look for a <strong>tools icon</strong> (wrench or puzzle piece). Click it to see the list of available MCP tools.<br><br>You should see tools from the GitHub MCP server, such as:<br><br>&bull; <code>create_issue</code><br>&bull; <code>list_issues</code><br>&bull; <code>search_code</code><br>&bull; <code>add_issue_comment</code><br><br>If you see these, the GitHub MCP server is connected successfully!",
+          "focus": "right"
+        },
+        {
+          "title": "Troubleshoot If Needed",
+          "instruction": "If no tools are showing, open the <strong>Output</strong> panel (<kbd>Ctrl+Shift+U</kbd>) and select <strong>GitHub MCP</strong> from the dropdown. This panel logs connection events and errors.<br><br>Common fixes:<br>&bull; Make sure you're signed in to GitHub<br>&bull; Verify <strong>chat.mcp.enabled</strong> is checked<br>&bull; Try reloading the window again",
+          "tip": "The Output panel is your best friend for debugging MCP connectivity. Check it first whenever something isn't working."
+        }
+      ]
+    },
+    "15": {
+      "steps": [
+        {
+          "title": "List Open Issues",
+          "instruction": "In Copilot Chat, type the following prompt:<br><br><kbd>What are the open issues in this repo?</kbd><br><br>Watch Copilot call the <code>list_issues</code> MCP tool. It will fetch data from the GitHub API and format the results for you.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Filter by Label",
+          "instruction": "Try a more targeted query. Type:<br><br><kbd>Show me issues labeled 'bug'</kbd><br><br>Copilot uses the same MCP tool but passes the label filter. Notice how natural language maps to structured API calls behind the scenes.",
+          "focus": "right"
+        }
+      ]
+    },
+    "16": {
+      "steps": [
+        {
+          "title": "Comment on an Issue",
+          "instruction": "Pick any open issue from the previous results. Ask Copilot to add a comment:<br><br><kbd>Add a comment to issue #[number] saying \"Testing MCP integration from VS Code\"</kbd><br><br>Copilot will show you a <strong>confirmation dialog</strong> before taking the write action. Review what it's about to do and approve it.",
+          "focus": "right",
+          "tip": "Write actions always require your confirmation. Copilot will never modify a GitHub resource without your explicit approval."
+        },
+        {
+          "title": "Verify the Comment",
+          "instruction": "After approving the action, check that the comment was posted. You can ask:<br><br><kbd>Show me the comments on issue #[number]</kbd><br><br>Alternatively, open the issue in your browser to verify the comment appears.",
+          "focus": "right"
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Search for Code",
+          "instruction": "Let's try the code search tool. In Copilot Chat, type:<br><br><kbd>Search for files that contain \"slide-deck\" in this repo</kbd><br><br>Copilot calls the <code>search_code</code> MCP tool and returns matching files with line numbers and code snippets.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Combine Search With Reasoning",
+          "instruction": "Now combine search with Copilot's reasoning. Try:<br><br><kbd>Find all HTML files that use speaker notes and tell me which ones are missing them</kbd><br><br>Copilot searches the code, analyzes the results, and gives you an intelligent summary. This is MCP + LLM reasoning working together.",
+          "focus": "right"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Review MCP Configuration",
+          "instruction": "Look at the code example on the slide. This is how you add a third-party MCP server to your project via <code>.vscode/mcp.json</code>.<br><br>Key parts of the configuration:<br>&bull; <strong>servers</strong> - A map of named server entries<br>&bull; <strong>command</strong> - How to start the server process<br>&bull; <strong>args</strong> - Arguments passed to the command<br>&bull; <strong>env</strong> - Environment variables for the server process<br><br>Committing this file shares the configuration with your whole team.",
+          "focus": "slides"
+        }
+      ]
+    },
+    "22": {
+      "steps": [
+        {
+          "title": "Start the Demo Workflow",
+          "instruction": "It's demo time! Open Copilot Chat and start a new conversation.<br><br>Step 1: Ask Copilot to <strong>list open issues</strong>:<br><br><kbd>List the open issues in this repository</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Summarize an Issue",
+          "instruction": "Step 2: Pick an issue from the results and ask for a summary:<br><br><kbd>Summarize issue #[number] including any comments</kbd><br><br>Copilot fetches the full issue details and discussion thread, then provides a concise summary.",
+          "focus": "right"
+        },
+        {
+          "title": "Find Related Code",
+          "instruction": "Step 3: If the issue mentions any code, ask Copilot to find it:<br><br><kbd>Find code related to the problem described in that issue</kbd><br><br>The MCP code search tool will locate relevant files and bring them into the conversation context.",
+          "focus": "right"
+        },
+        {
+          "title": "Complete the Workflow",
+          "instruction": "Step 4-5: Wrap up the workflow:<br><br>&bull; Ask Copilot to <strong>add a comment</strong> to the issue with your findings<br>&bull; If appropriate, ask Copilot to <strong>close</strong> the issue<br><br>You've now completed an end-to-end issue workflow entirely from within VS Code!",
+          "focus": "right",
+          "tip": "In a real workflow, you'd fix the code, push a commit, and link it to the issue before closing. The demo shows the MCP interaction pattern."
+        }
+      ]
+    },
+    "28": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "Congratulations - you've completed the MCP lab! Here's what you accomplished:<br><br>&bull; Enabled the GitHub MCP server in VS Code<br>&bull; Verified the connection and explored available tools<br>&bull; Listed and filtered GitHub Issues from Copilot Chat<br>&bull; Commented on an issue using MCP write tools<br>&bull; Searched code across repos with the code search tool<br>&bull; Completed an end-to-end issue workflow<br><br>Next up: <strong>Prompts, Instructions, Skills, and Agents</strong> to master Copilot customization, or <strong>MCP Maximizer</strong> to build your own MCP servers.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}
