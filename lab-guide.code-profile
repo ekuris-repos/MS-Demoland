@@ -1,0 +1,5 @@
+{
+  "name": "Lab Guide",
+  "settings": "{\"labGuide.profileActive\":true}",
+  "extensions": "[{\"identifier\":{\"id\":\"ms-demoland.lab-guide\"},\"displayName\":\"Lab Guide\"}]"
+}
