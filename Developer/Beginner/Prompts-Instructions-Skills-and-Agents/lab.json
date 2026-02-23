@@ -1,5 +1,6 @@
 {
   "title": "Copilot Primitives \u2014 Prompts, Instructions, Skills, and Agents",
+  "repo": "https://github.com/ekuris-repos/copilot-primitives-lab.git",
   "slides": {
     "1": {
       "steps": [
@@ -14,7 +15,7 @@
       "steps": [
         {
           "title": "Explore Your Repo Structure",
-          "instruction": "We've opened the <strong>Explorer</strong> panel for you. Look at your project's file tree.<br><br>We're going to create a <code>.github/</code> folder with subfolders for each primitive: <code>prompts/</code>, <code>instructions/</code>, <code>skills/</code>, and <code>agents/</code>.",
+          "instruction": "We've cloned a <strong>starter project</strong> for you and opened it in the Explorer. Take a look at the file tree \u2014 it has a small Node/TypeScript app to work with.<br><br>We're going to create a <code>.github/</code> folder with subfolders for each primitive: <code>prompts/</code>, <code>instructions/</code>, <code>skills/</code>, and <code>agents/</code>.",
           "focus": "slides",
           "action": "workbench.view.explorer"
         },
