@@ -296,11 +296,8 @@
 
     <!-- Setup -->
     <div class="install-extension-bar">
-      <a class="install-extension-btn" id="setupBtn" href="#">
-        &#128230; Clone &amp; Open in VS Code
-      </a>
-      <a class="setup-link" id="profileLink" href="#">
-        &#9881; Import training profile (optional)
+      <a class="install-extension-btn" id="setupBtn" href="extension.html">
+        &#128230; Interactive Labs with VS Code Extension
       </a>
     </div>
 
@@ -504,74 +501,36 @@
     });
 
     // ── Lab Guide integration ────────────────────────────────────
-    // Course card clicks fire a vscode:// URI so the Lab Guide
-    // extension can fetch the lab.json and open the simulated chat.
-    // The normal href navigation still happens, so regular browsers
-    // open the slides while VS Code's Simple Browser also triggers
-    // the extension.
+    // When viewed inside the VS Code extension's BrowserPanel,
+    // course-card clicks are intercepted via postMessage so
+    // the extension can load the lab.
+    // In a normal browser, cards just follow their href to the slides.
     (function () {
       // Derive the site base URL (handles GitHub Pages subpaths like /MS-Demoland/)
       var basePath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/+$/, '');
       var baseUrl = window.location.origin + basePath;
 
-      var repoUrl = 'https://github.com/ekuris-repos/MS-Demoland-Lab-Guide.git';
-      var profileUrl = baseUrl + '/api/training-profile.json';
-
-      // Smart setup button
-      var setupBtn = document.getElementById('setupBtn');
-      var profileLink = document.getElementById('profileLink');
-
-      if (setupBtn) {
-        var cloneUri = 'vscode://vscode.git/clone?url=' + encodeURIComponent(repoUrl);
-        setupBtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          window.location.href = cloneUri;
-        });
-      }
-
-      if (profileLink) {
-        var importUri = 'vscode://vscode/profile/import?url=' + encodeURIComponent(profileUrl);
-        profileLink.addEventListener('click', function (e) {
-          e.preventDefault();
-          window.location.href = importUri;
-        });
-      }
-
       // Detect if running inside an iframe (VS Code BrowserPanel webview)
       var inIframe = (window !== window.parent);
       console.log('[Catalog] inIframe=' + inIframe + ', baseUrl=' + baseUrl);
 
-      document.querySelectorAll('.course-card[href]').forEach(function (card) {
-        card.addEventListener('click', function (e) {
-          // Extract the course path from the href
-          var href = card.getAttribute('href') || '';
-          var coursePath = href.replace(/^\.?\.?\//, '').replace(/\/index\.html$/, '');
-          console.log('[Catalog] Card clicked: href=' + href + ', coursePath=' + coursePath + ', inIframe=' + inIframe);
-          if (!coursePath) { return; }
-
-          if (inIframe) {
-            // Inside VS Code BrowserPanel — use postMessage bridge
+      if (inIframe) {
+        document.querySelectorAll('.course-card[href]').forEach(function (card) {
+          card.addEventListener('click', function (e) {
+            var href = card.getAttribute('href') || '';
+            var coursePath = href.replace(/^\.?\.?\//, '').replace(/\/index\.html$/, '');
+            console.log('[Catalog] Card clicked: coursePath=' + coursePath);
+            if (!coursePath) { return; }
             e.preventDefault();
-            console.log('[Catalog] Posting message to parent: labGuide.startCourse, course=' + coursePath);
             window.parent.postMessage({
               type: 'labGuide.startCourse',
               server: baseUrl,
               course: coursePath
             }, '*');
-          } else {
-            // Normal browser — fire vscode:// URI (no-op if VS Code isn't installed)
-            var extUri = 'vscode://ms-demoland.lab-guide/start'
-              + '?server=' + encodeURIComponent(baseUrl)
-              + '&course=' + encodeURIComponent(coursePath);
-
-            var frame = document.createElement('iframe');
-            frame.style.display = 'none';
-            frame.src = extUri;
-            document.body.appendChild(frame);
-            setTimeout(function () { frame.remove(); }, 1000);
-          }
+          });
         });
-      });
+      }
+      // In a normal browser, cards follow their href — no interception needed
     })();
 
     // Fetch all course statuses from the API and apply to cards

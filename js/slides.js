@@ -28,6 +28,11 @@
 
   /* ---- Inject navigation elements ---- */
   function injectUI() {
+    // Extension banner — shown when slides are viewed in a browser, not inside the extension
+    if (window === window.parent) {
+      injectExtensionBanner();
+    }
+
     // Progress bar
     progressBar = el("div", { className: "progress-bar" });
     document.body.prepend(progressBar);
@@ -123,6 +128,30 @@
   /* ---- Toggle speaker notes ---- */
   function toggleNotes() {
     document.body.classList.toggle("show-notes");
+  }
+
+  /* ---- Extension banner for browser viewers ---- */
+  function injectExtensionBanner() {
+    var banner = el("div", { className: "extension-banner" });
+    banner.innerHTML =
+      '<span>These slides are interactive with our ' +
+      '<a href="' + getExtensionPageUrl() + '">VS Code Lab Guide extension</a>' +
+      ' for a hands-on guided experience.</span>' +
+      '<button class="extension-banner-close" title="Dismiss">&times;</button>';
+    document.body.prepend(banner);
+
+    banner.querySelector('.extension-banner-close').addEventListener('click', function () {
+      banner.remove();
+    });
+  }
+
+  function getExtensionPageUrl() {
+    var base = document.querySelector('link[href*="primer-brand.css"]');
+    if (base) {
+      var cssHref = new URL(base.href);
+      return cssHref.href.replace(/\/css\/primer-brand\.css.*$/, '/extension.html');
+    }
+    return '/extension.html';
   }
 
   /* ---- Navigate to course navigator ---- */

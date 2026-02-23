@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab Guide Extension — MS Demoland</title>
+  <link rel="stylesheet" href="css/primer-brand.css" />
+  <style>
+    .ext-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 60%, #0d1117 100%);
+      color: #ffffff;
+      padding: var(--brand-space-7) var(--brand-space-5);
+    }
+
+    .ext-header {
+      text-align: center;
+      margin-bottom: var(--brand-space-7);
+    }
+
+    .ext-header .brand-logo {
+      width: clamp(140px, 20vw, 220px);
+      margin-bottom: var(--brand-space-4);
+    }
+
+    .ext-header h1 {
+      font-size: var(--brand-heading-size-1);
+      font-weight: var(--brand-font-weight-bold);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--brand-space-2);
+    }
+
+    .ext-header p {
+      font-size: var(--brand-heading-size-3);
+      color: #8b949e;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .ext-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--brand-space-3);
+      margin-bottom: var(--brand-space-7);
+    }
+
+    .ext-install-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      background: var(--brand-color-accent-primary);
+      color: #ffffff;
+      font-family: var(--brand-font-family);
+      font-size: 1rem;
+      font-weight: var(--brand-font-weight-semibold);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .ext-install-btn:hover {
+      background: #1a7f37;
+      transform: translateY(-1px);
+    }
+
+    .ext-install-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .ext-back-link {
+      color: #8b949e;
+      font-size: var(--brand-body-size-sm);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .ext-back-link:hover {
+      color: #e6edf3;
+    }
+
+    .ext-content {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .ext-section {
+      margin-bottom: var(--brand-space-6);
+    }
+
+    .ext-section h2 {
+      font-size: var(--brand-heading-size-2);
+      font-weight: var(--brand-font-weight-semibold);
+      margin-bottom: var(--brand-space-3);
+      color: #e6edf3;
+    }
+
+    .ext-section p, .ext-section li {
+      font-size: var(--brand-body-size-md);
+      line-height: 1.7;
+      color: #8b949e;
+    }
+
+    .ext-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .ext-section li {
+      padding: var(--brand-space-2) 0;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .ext-section li .check {
+      position: absolute;
+      left: 0;
+      color: #3fb950;
+      font-weight: bold;
+    }
+
+    .ext-section strong {
+      color: #e6edf3;
+    }
+
+    .ext-section code {
+      font-family: 'Cascadia Code', Consolas, monospace;
+      font-size: 0.9em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(127, 127, 127, 0.15);
+      color: #e6edf3;
+    }
+
+    .ext-divider {
+      border: none;
+      border-top: 1px solid #30363d;
+      margin: var(--brand-space-6) 0;
+    }
+
+    .ext-screenshot {
+      width: 100%;
+      max-width: 720px;
+      border-radius: var(--brand-radius-md);
+      border: 1px solid #30363d;
+      margin: var(--brand-space-4) auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ext-page">
+
+    <!-- Header -->
+    <div class="ext-header">
+      <img src="img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+      <h1>Lab Guide Extension</h1>
+      <p>A VS Code extension that turns slide decks into interactive, guided hands-on labs</p>
+    </div>
+
+    <!-- Install actions -->
+    <div class="ext-actions">
+      <a class="ext-install-btn" id="installBtn" href="#">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.28 3.22a.75.75 0 0 1 0 1.06L7.56 8l3.72 3.72a.75.75 0 0 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"/></svg>
+        Open in VS Code
+      </a>
+      <a class="ext-back-link" href="index.html">&larr; Back to course catalog</a>
+    </div>
+
+    <!-- Content -->
+    <div class="ext-content">
+
+      <div class="ext-section">
+        <h2>What it does</h2>
+        <p>The Lab Guide extension adds a guided panel alongside your course slides that updates automatically as you advance through the deck. It tells you exactly what to do on each slide, highlights which part of VS Code to focus on with directional arrows and edge glows, and executes setup actions like opening files and panels for you.</p>
+      </div>
+
+      <hr class="ext-divider" />
+
+      <div class="ext-section">
+        <h2>Features</h2>
+        <ul>
+          <li><span class="check">&#10003;</span><strong>Slide-coupled guidance</strong> — The guide panel updates automatically when you advance slides</li>
+          <li><span class="check">&#10003;</span><strong>Directional focus</strong> — Glowing edges and animated arrows point you to slides, chat, terminal, or editor</li>
+          <li><span class="check">&#10003;</span><strong>Auto-actions</strong> — Steps can open Copilot Chat, the terminal, settings, or new files automatically</li>
+          <li><span class="check">&#10003;</span><strong>Sub-steps</strong> — Multi-step slides with Previous/Next navigation within each slide</li>
+          <li><span class="check">&#10003;</span><strong>Course catalog</strong> — Browse and launch courses from a built-in catalog view</li>
+          <li><span class="check">&#10003;</span><strong>Profile isolation</strong> — Runs in a dedicated VS Code profile so your personal settings are untouched</li>
+        </ul>
+      </div>
+
+      <hr class="ext-divider" />
+
+      <div class="ext-section">
+        <h2>Getting started</h2>
+        <p>Click <strong>Open in VS Code</strong> above to install the extension. Once installed, the extension will launch automatically and open the course catalog. Pick a course and the lab begins.</p>
+        <p>No configuration needed — the extension detects which slide you're on and loads the matching lab instructions from the course server.</p>
+      </div>
+
+      <hr class="ext-divider" />
+
+      <div class="ext-section">
+        <h2>Requirements</h2>
+        <ul>
+          <li><span class="check">&#10003;</span><strong>VS Code</strong> 1.85 or later (or VS Code Insiders)</li>
+          <li><span class="check">&#10003;</span><strong>GitHub Copilot</strong> extension (for the hands-on labs)</li>
+          <li><span class="check">&#10003;</span>Internet connection (slides are served from GitHub Pages)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var installBtn = document.getElementById('installBtn');
+      if (!installBtn) return;
+
+      // Build vscode:// URI to install the extension
+      // This uses the standard VS Code marketplace extension install URI format
+      var extId = 'ms-demoland.lab-guide';
+      var installUri = 'vscode:extension/' + extId;
+
+      installBtn.href = installUri;
+    })();
+  </script>
+</body>
+</html>
