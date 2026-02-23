@@ -73,7 +73,7 @@
     {
       "title": "Try the Terminal",
       "instruction": "We've opened the <strong>integrated terminal</strong> for you (<kbd>Ctrl+`</kbd>). Try asking Copilot about terminal commands — for example, type <kbd>@terminal how do I list all git branches?</kbd> in the chat.<br><br>Copilot can help with CLI tasks too!",
-      "focus": "terminal",
+      "focus": ["terminal", "chat"],
       "tip": "You can also use <strong>Ctrl+I</strong> inside the terminal for inline Copilot assistance.",
       "action": "workbench.action.terminal.toggleTerminal"
     },

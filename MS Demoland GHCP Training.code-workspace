@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../MS-Demoland-Lab-Guide"
 		}
 	],
 	"settings": {
