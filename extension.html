@@ -167,7 +167,7 @@
     <div class="ext-actions">
       <a class="ext-install-btn" id="installBtn" href="#">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.28 3.22a.75.75 0 0 1 0 1.06L7.56 8l3.72 3.72a.75.75 0 0 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"/></svg>
-        Open in VS Code
+        Install Lab Guide Profile
       </a>
       <a class="ext-back-link" href="index.html">&larr; Back to course catalog</a>
       <a class="ext-back-link" href="https://github.com/ekuris-repos/MS-Demoland-Lab-Guide" target="_blank" rel="noopener">View source on GitHub &rarr;</a>
@@ -228,12 +228,11 @@
       var installBtn = document.getElementById('installBtn');
       if (!installBtn) return;
 
-      // Build vscode:// URI to install the extension
-      // This uses the standard VS Code marketplace extension install URI format
-      var extId = 'ms-demoland.lab-guide';
-      var installUri = 'vscode:extension/' + extId;
+      // Import the Lab Guide profile — includes the extension + profileActive setting
+      var profileUrl = 'https://ekuris-repos.github.io/MS-Demoland/lab-guide.code-profile';
+      var importUri = 'vscode://app/import-profile?url=' + encodeURIComponent(profileUrl);
 
-      installBtn.href = installUri;
+      installBtn.href = importUri;
     })();
   </script>
 </body>
