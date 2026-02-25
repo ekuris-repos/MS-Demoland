@@ -60,7 +60,7 @@
       "steps": [
         {
           "title": "Run From the Prompt Picker",
-          "instruction": "Open <strong>Copilot Chat</strong> (<kbd>Ctrl+Shift+I</kbd>). In the chat input, type <kbd>/</kbd> to open the prompt picker.<br><br>You should see both <strong>generate-test</strong> and <strong>document-function</strong> in the list. Select <strong>generate-test</strong> to run it.",
+          "instruction": "Open <strong>Copilot Chat</strong> using the shortcut <kbd>Ctrl+Shift+I</kbd>, or run the command <strong>Chat: Open Chat</strong> from the Command Palette (<kbd>Ctrl+Shift+P</kbd>). In the chat input, type <kbd>/</kbd> to open the prompt picker.<br><br>You should see both <strong>generate-test</strong> and <strong>document-function</strong> in the list. Select <strong>generate-test</strong> to run it.",
           "focus": "chat",
           "action": "workbench.action.chat.open"
         },
@@ -130,13 +130,14 @@
       "steps": [
         {
           "title": "Create an API Design Skill",
-          "instruction": "Create a new file at <code>.github/skills/api-patterns/SKILL.md</code>.<br><br>Write a skill that documents your team's API design patterns:<br><br><kbd># API Design Skill<br><br>## Description<br>Use this skill when creating REST API endpoints.<br><br>## Patterns<br>- Use Express Router for route grouping<br>- Return consistent JSON: { data, error, meta }<br>- Validate input with zod schemas<br>- Handle errors with middleware, not try/catch in routes</kbd>",
+          "instruction": "Create a new file at <code>.github/skills/api-patterns/SKILL.md</code>.<br><br>Write a skill with YAML frontmatter containing the description, followed by the knowledge payload:<br><br><kbd>---<br>description: Use this skill when creating REST API endpoints.<br>---<br><br># API Design Skill<br><br>## Patterns<br>- Use Express Router for route grouping<br>- Return consistent JSON: { data, error, meta }<br>- Validate input with zod schemas<br>- Handle errors with middleware, not try/catch in routes</kbd><br><br>The <code>description</code> field in the frontmatter is what agents use to decide when to invoke this skill.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "Skills use subfolders (like <code>api-patterns/SKILL.md</code>) because the folder name becomes the skill's identifier and you can include supporting files alongside the SKILL.md. See the Copilot customization spec at code.visualstudio.com/docs/copilot/copilot-customization for details."
         },
         {
           "title": "Create a Database Skill",
-          "instruction": "Create a second skill at <code>.github/skills/database/SKILL.md</code>:<br><br><kbd># Database Patterns Skill<br><br>## Description<br>Use this skill when writing database queries or migrations.<br><br>## Patterns<br>- Use Prisma as the ORM<br>- Always use parameterized queries (never string concatenation)<br>- Wrap multi-table operations in transactions<br>- Name migrations descriptively: add_user_email_index</kbd><br><br>Multiple skills let agents draw on the <strong>right</strong> knowledge for the <strong>right</strong> task.",
+          "instruction": "Create a second skill at <code>.github/skills/database/SKILL.md</code>:<br><br><kbd>---<br>description: Use this skill when writing database queries or migrations.<br>---<br><br># Database Patterns Skill<br><br>## Patterns<br>- Use Prisma as the ORM<br>- Always use parameterized queries (never string concatenation)<br>- Wrap multi-table operations in transactions<br>- Name migrations descriptively: add_user_email_index</kbd><br><br>Multiple skills let agents draw on the <strong>right</strong> knowledge for the <strong>right</strong> task.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile"
         },
@@ -167,6 +168,17 @@
           "instruction": "Create a second agent at <code>.github/agents/docs-writer.agent.md</code>:<br><br><kbd>---<br>description: Generates and maintains project documentation<br>tools:<br>  - codebase<br>  - changes<br>---<br><br># Documentation Writer<br><br>You are a technical writer. When asked to document code:<br>1. Read the source code thoroughly<br>2. Write clear, jargon-free explanations<br>3. Include usage examples<br>4. Note any prerequisites or gotchas<br><br>Match the project's existing documentation style.</kbd><br><br>Each agent is a <strong>virtual team member</strong> with a distinct role and expertise.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Wire Instructions to an Agent",
+          "instruction": "Open your <code>code-reviewer.agent.md</code> and add an <code>instructions</code> field to the frontmatter:<br><br><kbd>---<br>description: Reviews code for quality and best practices<br>instructions:<br>  - .github/instructions/testing.instructions.md<br>tools:<br>  - changes<br>  - codebase<br>---</kbd><br><br>The <code>instructions</code> field explicitly wires instruction files to this agent. When invoked, the agent always loads those guidelines on top of your repo-wide instructions.",
+          "focus": "editor"
+        },
+        {
+          "title": "Explore Available Tools",
+          "instruction": "The <code>tools</code> field controls what an agent can do. Common tools include:<br><br><strong>changes</strong> - see file diffs<br><strong>codebase</strong> - search the project<br><strong>fetch</strong> - read URLs<br><strong>terminal</strong> - run commands<br><strong>problems</strong> - see diagnostics<br><strong>editFiles</strong> - modify files<br><br>For the full and up-to-date list, see <code>code.visualstudio.com/docs/copilot/copilot-customization</code>.",
+          "focus": "guide",
+          "tip": "Restricting tools is how you control an agent's power level. A read-only reviewer might only get <code>changes</code> and <code>codebase</code>."
         }
       ]
     },
@@ -191,11 +203,52 @@
         }
       ]
     },
+    "23": {
+      "steps": [
+        {
+          "title": "Agents Are the New Chat Modes",
+          "instruction": "The <code>.agent.md</code> format is the unified way to create both custom agents and custom chat modes. If you define an agent with restricted tools and a focused workflow, that acts as a custom mode. If you give it broad tool access and a specialized role, that acts as a custom agent.<br><br>Same file format, both use cases.",
+          "focus": "slides"
+        },
+        {
+          "title": "Legacy: .chatmode.md",
+          "instruction": "You may encounter references to a legacy format called <code>.chatmode.md</code>. This was the original file format for defining custom chat modes in VS Code. It is still supported for <strong>backwards compatibility</strong>, but the <code>.agent.md</code> format has replaced it entirely.<br><br>If you have existing <code>.chatmode.md</code> files, they will continue to work, but new customization files should always use the <code>.agent.md</code> extension.",
+          "focus": "guide",
+          "tip": "If you inherit a repo with <code>.chatmode.md</code> files, consider renaming them to <code>.agent.md</code>. The frontmatter and body format are compatible."
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Explore Copilot Memory",
+          "instruction": "Copilot has a <strong>persistent memory system</strong> with three scopes. Ask Copilot in chat:<br><br><kbd>What do you currently have in your memory?</kbd><br><br>Copilot will show you any existing user, repository, or session memories. If this is a fresh workspace, memory may be empty.",
+          "focus": "chat",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Create a User Memory",
+          "instruction": "User memory persists across <strong>all workspaces</strong> and conversations. Tell Copilot:<br><br><kbd>Remember that I prefer Vitest over Jest for testing, and I always want TypeScript strict mode enabled.</kbd><br><br>Copilot stores this preference. From now on, it will factor this into responses in every project you work on.",
+          "focus": "chat"
+        },
+        {
+          "title": "Create a Repository Memory",
+          "instruction": "Repository memory is scoped to the <strong>current workspace</strong>. Tell Copilot:<br><br><kbd>Remember that this project uses Express for the API, Prisma for the database, and deploys with azd up.</kbd><br><br>This fact is stored with the workspace. When other developers open this project, Copilot knows the tech stack without being told.",
+          "focus": "chat"
+        },
+        {
+          "title": "Memory vs. Instructions",
+          "instruction": "Ask Copilot:<br><br><kbd>What is the difference between memory and instruction files?</kbd><br><br>Key insight: <strong>Instructions</strong> are explicit rules you write in files and commit to your repo. <strong>Memory</strong> is knowledge Copilot accumulates through working with you. Instructions say 'always do X.' Memory says 'this developer prefers Y' or 'this project uses Z.' They complement each other.",
+          "focus": "chat",
+          "tip": "Session memory is the third scope. It stores task-specific notes for the current conversation only and clears when the session ends."
+        }
+      ]
+    },
     "30": {
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> \ud83c\udf89 You've created all four Copilot customization primitives:<br><br>\u2705 <strong>Prompt files</strong> \u2014 <code>generate-test</code> and <code>document-function</code><br>\u2705 <strong>Instruction files</strong> \u2014 repo-wide standards, test-scoped rules, and component-scoped rules<br>\u2705 <strong>Skills</strong> \u2014 API design and database pattern knowledge<br>\u2705 <strong>Agents</strong> \u2014 a code reviewer and a documentation writer<br><br>Commit these files to your repo and your entire team gets the same AI-powered workflow from day one.",
+          "instruction": "<strong>Congratulations!</strong> \ud83c\udf89 You've created all four Copilot customization primitives and explored memory:<br><br>\u2705 <strong>Prompt files</strong> \u2014 <code>generate-test</code> and <code>document-function</code><br>\u2705 <strong>Instruction files</strong> \u2014 repo-wide standards, test-scoped rules, and component-scoped rules<br>\u2705 <strong>Skills</strong> \u2014 API design and database pattern knowledge<br>\u2705 <strong>Agents</strong> \u2014 a code reviewer and a documentation writer<br>\u2705 <strong>Memory</strong> \u2014 user preferences and repository context<br><br>Commit these files to your repo and your entire team gets the same AI-powered workflow from day one.",
           "tip": "Next up: <strong>Agent Potato: License to Chat</strong> \u2014 put these primitives to work building a full-stack app."
         }
       ]

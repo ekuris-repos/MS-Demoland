@@ -50,10 +50,11 @@
           <li><strong>Instruction Files</strong> - Persistent guidelines that shape every Copilot response</li>
           <li><strong>Skills</strong> - Domain knowledge packages that agents can invoke on demand</li>
           <li><strong>Custom Agents</strong> - Specialized modes that combine all the pieces</li>
+          <li><strong>Copilot Memory</strong> - Persistent context that makes Copilot smarter over time</li>
           <li><strong>Decision Framework</strong> - When to reach for each primitive</li>
         </ul>
         <aside class="speaker-notes">
-          Here's the plan. We'll cover six topics across thirty minutes. First, we'll look at the four primitives at a high level - what they are and where they live. Then we'll go deep on each one: prompt files, instruction files, skills, and custom agents. We'll wrap up with a decision framework that helps you figure out which one to reach for in any given situation. By the end of this session, you'll know exactly which file to create when you want to customize Copilot. Each primitive is simple on its own - the real power comes when you combine them. Quick question to think about as we go: have you ever created a copilot-instructions.md file? If not, you will today.
+          Here's the plan. We'll cover seven topics across thirty minutes. First, we'll look at the four primitives at a high level - what they are and where they live. Then we'll go deep on each one: prompt files, instruction files, skills, and custom agents. We'll also cover Copilot's memory system, which lets it carry context across conversations. We'll wrap up with a decision framework that helps you figure out which one to reach for in any given situation. By the end of this session, you'll know exactly which file to create when you want to customize Copilot. Each primitive is simple on its own - the real power comes when you combine them. Quick question to think about as we go: have you ever created a copilot-instructions.md file? If not, you will today.
         </aside>
       </div>
     </section>
@@ -124,7 +125,7 @@
 │       └── docs-writer.agent.md
 └── src/</code></pre>
         <aside class="speaker-notes">
-          Let's look at where these files actually live in your repository. Everything goes under the .github directory - the same folder that holds your workflows, issue templates, and other GitHub configuration. At the top, you've got copilot-instructions.md, which is your repo-wide instruction file. Below that, there are subdirectories for prompts, instructions, skills, and agents. These subdirectories are conventions for keeping things organized, but they're not strictly required. Copilot discovers files by their extension - dot-prompt-dot-md, dot-instructions-dot-md, SKILL.md, dot-agent-dot-md - not by which folder they're in. So technically you could put a prompt file anywhere. But the .github convention keeps your repo tidy and signals intent to other developers on your team.
+          Let's look at where these files actually live in your repository. Everything goes under the .github directory - the same folder that holds your workflows, issue templates, and other GitHub configuration. At the top, you've got copilot-instructions.md, which is your repo-wide instruction file. Below that, there are subdirectories for prompts, instructions, skills, and agents. These subdirectories are conventions for keeping things organized, but they're not strictly required. Copilot discovers files by their extension - dot-prompt-dot-md, dot-instructions-dot-md, SKILL.md, dot-agent-dot-md - not by which folder they're in. So technically you could put a prompt file anywhere. But the .github convention keeps your repo tidy and signals intent to other developers on your team. One thing to notice: skills use a subfolder structure, like azure-deploy/SKILL.md, not just SKILL.md at the top level. This is intentional per the Copilot customization spec. The parent folder name becomes the skill's identifier, and you can include supporting files like examples or schemas alongside the SKILL.md. See code.visualstudio.com/docs/copilot/copilot-customization for the full specification.
         </aside>
       </div>
     </section>
@@ -352,11 +353,14 @@ applyTo: "**/*.test.ts"
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Anatomy of a SKILL.md</h2>
-        <pre><code># Azure Deployment Skill
+        <pre><code>---
+description: >
+  Use this skill when deploying services to Azure
+  Container Apps. Covers Bicep templates, azd
+  configuration, and managed identity setup.
+---
 
-## Description
-Use this skill when deploying services to Azure Container Apps.
-Covers Bicep templates, azd configuration, and managed identity setup.
+# Azure Deployment Skill
 
 ## Prerequisites
 - Azure CLI installed and authenticated
@@ -372,7 +376,7 @@ Covers Bicep templates, azd configuration, and managed identity setup.
 - Tag all resources with `environment` and `team`
 - Use Key Vault references for secrets</code></pre>
         <aside class="speaker-notes">
-          Let's look at the structure of a SKILL.md file. Unlike prompts and instructions, there's no YAML frontmatter - the file is pure Markdown. The description at the top is critical: that's what agents use to decide whether to invoke this skill. When an agent sees a task related to deploying services to Azure Container Apps, it reads this description, recognizes the match, and loads the rest of the file. Everything below the description is the knowledge payload: prerequisites, step-by-step deployment procedures, Bicep patterns, best practices. Skills can be as long and detailed as you need - remember, they're only loaded when relevant, so there's no cost to being thorough. Teams commonly create skills for CI/CD pipelines, database migration procedures, API design standards, and security review checklists. Anything that's currently buried in a wiki that nobody reads? That's a great candidate for a skill.
+          Let's look at the structure of a SKILL.md file. Like other primitives, a SKILL.md uses YAML frontmatter. The description field in the frontmatter is critical - that's what agents use to decide whether to invoke this skill. When an agent sees a task related to deploying services to Azure Container Apps, it reads this description, recognizes the match, and loads the rest of the file. Everything below the frontmatter is the knowledge payload: prerequisites, step-by-step deployment procedures, Bicep patterns, best practices. Skills can be as long and detailed as you need - remember, they're only loaded when relevant, so there's no cost to being thorough. Teams commonly create skills for CI/CD pipelines, database migration procedures, API design standards, and security review checklists. Anything that's currently buried in a wiki that nobody reads? That's a great candidate for a skill.
         </aside>
       </div>
     </section>
@@ -443,10 +447,13 @@ Covers Bicep templates, azd configuration, and managed identity setup.
         <h2>Anatomy of an Agent File</h2>
         <pre><code>---
 description: Reviews code for security vulnerabilities and best practices
+instructions:
+  - .github/instructions/security.instructions.md
 tools:
   - changes
   - codebase
   - fetch
+  - problems
 ---
 
 # Security Reviewer
@@ -462,7 +469,7 @@ You are a senior security engineer. When reviewing code:
 **Tone:** Be direct and specific. Reference CWE numbers.
 **Output:** Provide a summary table of findings with severity levels.</code></pre>
         <aside class="speaker-notes">
-          Let's break down the three parts of this agent file. The frontmatter defines the description, which is what shows up in the picker, and the tools the agent is allowed to use. This security reviewer has access to "changes" so it can see diffs, "codebase" so it can search the project, and "fetch" so it can read URLs for reference. You could restrict an agent to fewer tools if you want a more locked-down experience. Below the frontmatter is the agent's body - its persona and methodology. Notice the specificity: "Check for OWASP Top 10 vulnerabilities," "Reference CWE numbers," "Provide a summary table with severity levels." This isn't just telling the agent what to do - it's defining how it thinks. A well-crafted agent feels like a real colleague with a specific skill set, not just a chatbot with different instructions.
+          Let's break down the parts of this agent file. The frontmatter defines the description, the instruction files it pulls in, and the tools the agent is allowed to use. The instructions field lets you explicitly wire instruction files to this agent, so it always loads specific guidelines when invoked. This security reviewer has access to "changes" for diffs, "codebase" for project search, "fetch" for reading URLs, and "problems" for seeing diagnostics. These are just a few examples. The full list of available tools is documented at code.visualstudio.com/docs/copilot/copilot-customization. You could restrict an agent to fewer tools if you want a more locked-down experience. Below the frontmatter is the agent's body - its persona and methodology. Notice the specificity: "Check for OWASP Top 10 vulnerabilities," "Reference CWE numbers," "Provide a summary table with severity levels." This isn't just telling the agent what to do - it's defining how it thinks. A well-crafted agent feels like a real colleague with a specific skill set, not just a chatbot with different instructions.
         </aside>
       </div>
     </section>
@@ -478,7 +485,7 @@ You are a senior security engineer. When reviewing code:
             <ul>
               <li>In chat, type <strong>@</strong> to see all available agents</li>
               <li>Custom agents appear alongside built-in participants like <code>@workspace</code></li>
-              <li>Each agent maintains its own <strong>conversation context</strong></li>
+              <li>Each agent brings its own <strong>persona and instructions</strong> into the current conversation</li>
               <li>Agents can <strong>invoke skills</strong> automatically when they encounter a relevant task</li>
               <li>Chain agents: ask one to generate code, another to review it</li>
             </ul>
@@ -493,7 +500,7 @@ You are a senior security engineer. When reviewing code:
           </div>
         </div>
         <aside class="speaker-notes">
-          In the chat input, type @ and you'll see all your custom agents right alongside built-in participants like @workspace. Each agent maintains its own conversation context, so you can have ongoing dialogues with specialized agents just like chatting with different team members. Here's where it gets really interesting: agents can invoke skills automatically. If your security reviewer encounters code that deploys to Azure, and you have an Azure deployment skill in your repo, the agent can pull in that knowledge without you asking. And you can chain agents together. Ask a code-generation agent to build a feature, then ask a review agent to audit it, then ask a documentation agent to write the README section. Each agent brings its specialized perspective, and they compose naturally through the chat interface.
+          In the chat input, type @ and you'll see all your custom agents right alongside built-in participants like @workspace. When you invoke an agent, it brings its own persona and instructions into the conversation. Context is scoped to the current chat session; when you start a new session, Copilot starts fresh. Here's where it gets really interesting: agents can invoke skills automatically. If your security reviewer encounters code that deploys to Azure, and you have an Azure deployment skill in your repo, the agent can pull in that knowledge without you asking. And you can chain agents together. Ask a code-generation agent to build a feature, then ask a review agent to audit it, then ask a documentation agent to write the README section. Each agent brings its specialized perspective, and they compose naturally through the chat interface.
         </aside>
       </div>
     </section>
@@ -503,29 +510,29 @@ You are a senior security engineer. When reviewing code:
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Agents vs. Chat Modes</h2>
+        <h2>Agents as Chat Modes</h2>
         <div class="columns">
           <div class="card">
-            <h3>Chat Modes</h3>
+            <h3>Built-in Modes</h3>
             <ul>
               <li><strong>Ask</strong> - read-only Q&amp;A, no file changes</li>
               <li><strong>Edit</strong> - can modify files you specify</li>
               <li><strong>Agent</strong> - full autonomy: edit, create, run commands</li>
             </ul>
-            <p>Modes control <em>what Copilot can do</em>.</p>
+            <p>Built-in modes control <em>what Copilot can do</em>.</p>
           </div>
           <div class="card">
-            <h3>Custom Agents</h3>
+            <h3><code>.agent.md</code> = Agents + Custom Modes</h3>
             <ul>
-              <li>Have their own instructions and personality</li>
-              <li>Restricted to specific tools</li>
-              <li>Invoke skills for domain knowledge</li>
+              <li>Define a custom agent with a persona and tools</li>
+              <li>Define a custom mode by restricting tools and workflow</li>
+              <li>One file format for both use cases</li>
             </ul>
-            <p>Agents control <em>how Copilot thinks</em>.</p>
+            <p><code>.agent.md</code> is the unified format for custom agents <em>and</em> custom modes.</p>
           </div>
         </div>
         <aside class="speaker-notes">
-          This distinction trips people up, so let's make it crystal clear. Chat modes - Ask, Edit, and Agent - are the capability levels. They determine what Copilot is allowed to do. Ask mode is read-only, it can answer questions but can't change anything. Edit mode can modify files you specify. Agent mode has full autonomy: it can edit, create, run commands, and more. Custom agents, on the other hand, are the persona and expertise - they determine how Copilot approaches a task. A custom agent runs within a chat mode. So your security reviewer agent might run in Ask mode for a read-only review, or in Agent mode if you want it to automatically apply fixes. The mode is the permission level. The agent is the expertise. You can even create custom chat modes that combine both concepts for advanced workflows.
+          Let's clear up a common point of confusion. VS Code has three built-in modes: Ask, Edit, and Agent. These are capability levels that determine what Copilot is allowed to do. Ask is read-only. Edit can modify files you point at. Agent mode has full autonomy. On top of these built-in modes, the dot-agent-dot-md file format lets you create both custom agents and custom modes. If you define a file with a specific persona, restricted tools, and a focused workflow, that is effectively a custom mode. If you define a file with broad tool access and a specialized role, that is a custom agent. Same file format, both use cases. You may see references to a legacy format called dot-chatmode-dot-md. That format is still supported for backwards compatibility, but dot-agent-dot-md is the current standard and handles everything that dot-chatmode-dot-md used to do.
         </aside>
       </div>
     </section>
@@ -582,18 +589,46 @@ You are a senior security engineer. When reviewing code:
         <ul>
           <li>A <strong>prompt file</strong> kicks off a task: "Generate an API endpoint"</li>
           <li><strong>Instructions</strong> shape the response: "Use TypeScript, async/await, Express patterns"</li>
+          <li>The agent's <strong>instructions</strong> field wires in specific instruction files: "Use these security and API standards"</li>
           <li>The agent <strong>invokes a skill</strong>: "Azure deployment" procedures for hosting the endpoint</li>
           <li>The <strong>agent</strong> orchestrates: reads code, writes files, runs tests, deploys</li>
         </ul>
         <p style="margin-top:1em;opacity:0.85">Prompts trigger. Instructions guide. Skills inform. Agents execute.</p>
         <aside class="speaker-notes">
-          Let me show you how all four primitives work together with one concrete example. A developer runs a prompt file that says "Generate an API endpoint." That starts the task. The repo's instruction files kick in automatically and shape the response: "Use TypeScript, async/await, Express patterns." If the developer is using a custom agent, and the task involves deploying that endpoint, the agent can invoke the Azure deployment skill for hosting procedures and Bicep patterns. The agent orchestrates the whole thing - reading code, writing files, running tests, deploying. The one-liner summary of this entire course: Prompts trigger. Instructions guide. Skills inform. Agents execute. That's the architecture. And every piece of it is just a Markdown file committed to your repo.
+          Let me show you how all four primitives work together with one concrete example. A developer runs a prompt file that says "Generate an API endpoint." That starts the task. The repo's instruction files kick in automatically and shape the response: "Use TypeScript, async/await, Express patterns." If the agent has an instructions field in its frontmatter, those specific instruction files are loaded on top of the repo-wide ones. If the developer is using a custom agent, and the task involves deploying that endpoint, the agent can invoke the Azure deployment skill for hosting procedures and Bicep patterns. The agent orchestrates the whole thing - reading code, writing files, running tests, deploying. The one-liner summary of this entire course: Prompts trigger. Instructions guide. Skills inform. Agents execute. That's the architecture. And every piece of it is just a Markdown file committed to your repo.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 27 - Summary (Section)
+         SLIDE 27 - Copilot Memory
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Copilot Memory</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>User Memory</h3>
+            <p>Preferences and patterns that persist <strong>across all workspaces</strong> and conversations. "I prefer Vitest over Jest."</p>
+          </div>
+          <div class="card">
+            <h3>Repository Memory</h3>
+            <p>Project-specific facts scoped to the <strong>current workspace</strong>. "This project deploys with <code>azd up</code>."</p>
+          </div>
+          <div class="card">
+            <h3>Session Memory</h3>
+            <p>Task-specific notes for the <strong>current conversation</strong> only. Cleared when the session ends.</p>
+          </div>
+        </div>
+        <p style="margin-top:0.8em">Tell Copilot to <strong>remember</strong> something and it persists. Memory makes Copilot smarter the more you use it.</p>
+        <aside class="speaker-notes">
+          Memory is a fundamental part of how Copilot carries context forward. Instead of re-explaining your preferences every session, Copilot remembers what it has learned. There are three scopes. User memory stores personal preferences like "I prefer tabs over spaces" or "always use Vitest." These persist across every workspace and every conversation. Repository memory stores project-specific facts like "this project uses Express for the API" or "the deploy command is npm run deploy:prod." These are scoped to the current workspace and shared through the repo. Session memory is ephemeral: plans, intermediate results, things relevant only to the current task. It clears when the conversation ends. The key insight is that memory complements instruction files. Instructions are explicit rules you define up front in a file. Memory is knowledge Copilot accumulates through working with you. Together, they give Copilot both the rules to follow and the context to apply them intelligently.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Summary (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
@@ -606,7 +641,7 @@ You are a senior security engineer. When reviewing code:
     </section>
 
     <!-- ============================================================
-         SLIDE 28 - Key Takeaways
+         SLIDE 29 - Key Takeaways
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -615,17 +650,18 @@ You are a senior security engineer. When reviewing code:
           <li><strong>Prompt files</strong> (<code>.prompt.md</code>) - save your best prompts and share them with your team</li>
           <li><strong>Instruction files</strong> (<code>.instructions.md</code>) - encode coding standards that Copilot follows automatically</li>
           <li><strong>Skills</strong> (<code>SKILL.md</code>) - package domain knowledge for agents to invoke on demand</li>
-          <li><strong>Agents</strong> (<code>.agent.md</code>) - build specialized virtual team members</li>
-          <li>All four are <strong>just Markdown files</strong> - no build step, committed to your repo, shared with your team</li>
+          <li><strong>Agents</strong> (<code>.agent.md</code>) - build specialized virtual team members and custom modes</li>
+          <li><strong>Memory</strong> - tell Copilot to remember context and it carries it forward across sessions</li>
+          <li>Primitives are <strong>just Markdown files</strong> - no build step, committed to your repo, shared with your team</li>
         </ul>
         <aside class="speaker-notes">
-          Here are the big takeaways. Prompt files let you save your best prompts and share them with your team. Instruction files encode coding standards that Copilot follows automatically - no enforcement overhead. Skills package domain knowledge for agents to invoke on demand, keeping the context window efficient. And agents let you build specialized virtual team members with their own personas and tool access. The most important meta-point I want you to take away: all four of these primitives are plain Markdown files. There's no SDK, no compilation step, no deployment pipeline. You create a file, commit it to your repo, and Copilot finds it. This incredibly low barrier to entry means you can start small - maybe just a single copilot-instructions.md file today - and grow into a full suite of prompts, skills, and agents as your team's needs evolve.
+          Here are the big takeaways. Prompt files let you save your best prompts and share them with your team. Instruction files encode coding standards that Copilot follows automatically, with no enforcement overhead. Skills package domain knowledge for agents to invoke on demand, keeping the context window efficient. Agents let you build specialized virtual team members and custom modes using the same dot-agent-dot-md format. And Copilot's memory system means it gets smarter over time, carrying your preferences and project knowledge across conversations. The most important meta-point: all of these primitives are plain Markdown files. No SDK, no compilation step, no deployment pipeline. You create a file, commit it to your repo, and Copilot finds it. Start small, maybe just a single copilot-instructions.md file today, and grow into a full suite of prompts, skills, agents, and memory as your team's needs evolve.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 29 - Where to Go Next
+         SLIDE 30 - Where to Go Next
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -637,21 +673,7 @@ You are a senior security engineer. When reviewing code:
           <li><strong>VS Code Copilot Chat Docs</strong> - <code>code.visualstudio.com/docs/copilot</code></li>
         </ul>
         <aside class="speaker-notes">
-          If you want to keep building on what we covered today, there are two great next courses. "Agent Potato: License to Chat" is the intermediate course that puts these primitives to work - you'll build a full-stack application using Copilot agents end-to-end. "Enterprise Grade Marmalade" covers the organizational layer: central prompt repositories, cross-repo instructions, and governance at scale. For self-paced learning, the official docs at docs.github.com/copilot/customizing-copilot and code.visualstudio.com/docs/copilot are excellent resources and always up to date.
-        </aside>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SLIDE 30 - Closing
-         ============================================================ -->
-    <section class="slide slide--title">
-      <div class="slide-inner">
-        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
-        <h1>Thank You</h1>
-        <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
-        <aside class="speaker-notes">
-          That's a wrap! Thanks for joining me for "Prompts, Instructions, Skills, and Agents." If you have questions, feel free to reach out on Teams or open an issue in the course repository. And if you have the lab environment set up, I'd encourage you to keep working through the lab steps at your own pace - creating your own prompt files, instruction files, and agents is where the real learning happens. Happy customizing!
+          If you want to keep building on what we covered today, there are two great next courses. "Agent Potato: License to Chat" is the intermediate course that puts these primitives to work, building a full-stack application using Copilot agents end to end. "Enterprise Grade Marmalade" covers the organizational layer: central prompt repositories, cross-repo instructions, and governance at scale. For self-paced learning, the official docs at docs.github.com/copilot/customizing-copilot and code.visualstudio.com/docs/copilot are excellent resources and kept up to date. Thanks for joining this session. If you have the lab environment set up, keep working through the lab steps at your own pace. Happy customizing!
         </aside>
       </div>
     </section>
