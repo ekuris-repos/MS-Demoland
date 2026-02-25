@@ -229,17 +229,17 @@
 
   <script>
     (function () {
-      var profileUrl = 'https://ekuris-repos.github.io/MS-Demoland/lab-guide.code-profile';
+      var profileUrl = 'https://ekuris-repos.github.io/MS-Demoland/lab-guide-profile.json';
       var encoded = encodeURIComponent(profileUrl);
 
       var installBtn = document.getElementById('installBtn');
       if (installBtn) {
-        installBtn.href = 'vscode://app/import-profile?url=' + encoded;
+        installBtn.href = 'vscode://profile/import?url=' + encoded;
       }
 
       var installBtnInsiders = document.getElementById('installBtnInsiders');
       if (installBtnInsiders) {
-        installBtnInsiders.href = 'vscode-insiders://app/import-profile?url=' + encoded;
+        installBtnInsiders.href = 'vscode-insiders://profile/import?url=' + encoded;
       }
     })();
   </script>
