@@ -165,13 +165,13 @@
 
     <!-- Install actions -->
     <div class="ext-actions">
-      <a class="ext-install-btn" id="installBtn" href="#">
+      <a class="ext-install-btn" id="installBtn" href="vscode:extension/ms-demoland.lab-guide">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.28 3.22a.75.75 0 0 1 0 1.06L7.56 8l3.72 3.72a.75.75 0 0 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"/></svg>
-        Install Lab Guide Profile (VS Code)
+        Install Lab Guide (VS Code)
       </a>
-      <a class="ext-install-btn" id="installBtnInsiders" href="#" style="background: #24943e;">
+      <a class="ext-install-btn" id="installBtnInsiders" href="vscode-insiders:extension/ms-demoland.lab-guide" style="background: #24943e;">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.28 3.22a.75.75 0 0 1 0 1.06L7.56 8l3.72 3.72a.75.75 0 0 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"/></svg>
-        Install Lab Guide Profile (Insiders)
+        Install Lab Guide (Insiders)
       </a>
       <a class="ext-back-link" href="index.html">&larr; Back to course catalog</a>
       <a class="ext-back-link" href="https://github.com/ekuris-repos/MS-Demoland-Lab-Guide" target="_blank" rel="noopener">View source on GitHub &rarr;</a>
@@ -227,21 +227,5 @@
     </div>
   </div>
 
-  <script>
-    (function () {
-      var profileUrl = 'https://ekuris-repos.github.io/MS-Demoland/lab-guide-profile.json';
-      var encoded = encodeURIComponent(profileUrl);
-
-      var installBtn = document.getElementById('installBtn');
-      if (installBtn) {
-        installBtn.href = 'vscode://profile/import?url=' + encoded;
-      }
-
-      var installBtnInsiders = document.getElementById('installBtnInsiders');
-      if (installBtnInsiders) {
-        installBtnInsiders.href = 'vscode-insiders://profile/import?url=' + encoded;
-      }
-    })();
-  </script>
 </body>
 </html>
