@@ -27,6 +27,11 @@
     bindEvents();
     buildTOC();
 
+    // Default speaker notes ON when viewed in a browser (the extension provides its own guidance)
+    if (!inExtension) {
+      document.body.classList.add("show-notes");
+    }
+
     // Extension mode: post total slide count once, listen for nav commands, suppress local keyboard/swipe
     if (inExtension) {
       window.parent.postMessage({ type: 'init', total: slides.length }, '*');
