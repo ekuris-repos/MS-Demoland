@@ -1,0 +1,220 @@
+{
+  "title": "PM Toolkit - Project Manager: Power Up",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome! In this hands-on lab you will use <strong>GitHub Copilot Chat</strong> to tackle real project management tasks: summarizing pull requests, writing better issues, generating sprint reports, identifying risks, and drafting stakeholder communications.<br><br>The guide panel will update automatically as you advance through the slides. The glowing edge and arrow will show you where to look.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We have opened the <strong>Copilot Chat</strong> panel for you (<kbd>Ctrl+Alt+I</kbd>). This is your primary tool for everything in this lab. As a project manager, you will use Chat to translate, summarize, draft, and analyze.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Your First PM Prompt",
+          "instruction": "Type this prompt into Copilot Chat:<br><br><kbd>I'm a project manager working with a development team on GitHub. What are the top 5 ways I can use you to be more effective in my role without writing any code?</kbd><br><br>Review the response. These are the capabilities you will practice throughout this lab.",
+          "focus": "right"
+        }
+      ]
+    },
+    "8": {
+      "steps": [
+        {
+          "title": "Plan Custom Fields for a Project Board",
+          "instruction": "Ask Copilot to help you design your project board. Type:<br><br><kbd>I'm setting up a GitHub Project board for a 6-person dev team delivering a web application. Recommend custom fields I should create for sprint planning, including field type and example values for each.</kbd><br><br>Review the recommendations. Note how Copilot suggests fields like Priority, Effort, Sprint, and Team.",
+          "focus": "right"
+        },
+        {
+          "title": "Generate a Sprint Planning Template",
+          "instruction": "Now ask Copilot to create a reusable sprint planning checklist:<br><br><kbd>Create a sprint planning checklist I can use at the start of every sprint. Include steps for backlog grooming, capacity planning, goal setting, and team alignment. Format it as a markdown checklist.</kbd><br><br>This is something you can save and reuse every sprint.",
+          "focus": "right",
+          "tip": "Save prompts that produce useful outputs. Over time you will build a personal prompt library for recurring PM tasks."
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Design a Labeling Strategy",
+          "instruction": "Consistent labels make filtering and reporting reliable. Ask Copilot:<br><br><kbd>Recommend a GitHub issue labeling strategy for a product development team. Include labels for issue type, priority, status, and area. For each label, suggest a name, color hex code, and one-sentence description.</kbd><br><br>Review the output and consider which labels would work for your team.",
+          "focus": "right"
+        },
+        {
+          "title": "Create a Milestone Plan",
+          "instruction": "Ask Copilot to help structure your milestones:<br><br><kbd>I have a product release planned for Q3. Help me break this into monthly milestones with clear goals. The release includes a new dashboard feature, API performance improvements, and mobile app bug fixes.</kbd><br><br>Notice how Copilot organizes work into time-boxed milestones with specific deliverables.",
+          "focus": "right"
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Summarize a Pull Request",
+          "instruction": "We have opened a <strong>new file</strong> for you. Paste the following sample PR description into it:<br><br><kbd>PR #247: Refactored the AuthService to use dependency injection. Removed static method calls in UserController and SessionManager. Added unit tests for token refresh flow. Updated the Docker compose file to include a Redis container for session caching.</kbd><br><br>Now select all the text, then ask Copilot Chat:<br><br><kbd>Summarize this pull request for a non-technical project manager. What changed, why does it matter, and is there any risk?</kbd>",
+          "focus": ["top", "right"],
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Re-open New File"
+        },
+        {
+          "title": "Assess PR Scope and Impact",
+          "instruction": "With the same text selected, ask a follow-up question:<br><br><kbd>How would you categorize this PR: bug fix, new feature, refactor, or infrastructure change? Should I flag this for extra testing?</kbd><br><br>This type of prompt helps you quickly triage PRs during your daily review without needing to understand the code.",
+          "focus": "right"
+        },
+        {
+          "title": "Generate a Standup Talking Point",
+          "instruction": "Ask Copilot to turn the PR into something you can use in a meeting:<br><br><kbd>Write a one-sentence standup update about this PR that I can share with my team tomorrow morning.</kbd><br><br>This is a practical example of how Copilot saves you time every day.",
+          "focus": "right"
+        }
+      ]
+    },
+    "15": {
+      "steps": [
+        {
+          "title": "Draft a Rough Issue",
+          "instruction": "Clear your file and type a rough, informal issue description:<br><br><kbd>Users are complaining that the dashboard loads too slowly. We need to make it faster. Maybe add caching or something. Also the charts sometimes show stale data.</kbd><br><br>This is the kind of rough note a PM might jot down from a customer call.",
+          "focus": "top"
+        },
+        {
+          "title": "Improve the Issue with Copilot",
+          "instruction": "Select all the text, then ask Copilot Chat:<br><br><kbd>Rewrite this as a well-structured GitHub issue. Include a clear title, context section, acceptance criteria, scope boundaries, and any questions that need answers before a developer can start.</kbd><br><br>Compare the before and after. Notice how Copilot adds structure, specificity, and testable criteria.",
+          "focus": "right"
+        },
+        {
+          "title": "Anticipate Developer Questions",
+          "instruction": "Now ask Copilot:<br><br><kbd>What questions would a senior developer ask about this issue before starting work?</kbd><br><br>Review the questions. Each one represents a potential back-and-forth conversation you can preempt by adding the answers to the issue description upfront.",
+          "focus": "right",
+          "tip": "Running this prompt before you publish an issue can save a full day of clarification messages."
+        },
+        {
+          "title": "Break It Down into Sub-Issues",
+          "instruction": "Finally, ask Copilot to decompose the work:<br><br><kbd>Split this issue into 3-4 smaller, independently deliverable sub-issues. Each should be completable in one sprint or less. Format as a markdown list with a title and one-sentence description per sub-issue.</kbd><br><br>This is exactly what you would create as sub-issues linked to an epic in GitHub Issues.",
+          "focus": "right"
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Prepare Sprint Data",
+          "instruction": "Clear your file and paste this sample sprint data:<br><br><kbd>Sprint 14 (Jan 13-24):\nCompleted: 18 issues, 47 story points\nCarried over: 3 issues (8 points)\nBugs fixed: 5\nFeatures shipped: Dashboard export, user notifications, API rate limiting\nBlockers resolved: 2 (CI pipeline fix, staging environment access)\nOutstanding: Mobile header alignment bug (blocked on design review)</kbd><br><br>This is the raw data a PM would collect at the end of a sprint.",
+          "focus": "top"
+        },
+        {
+          "title": "Generate a Sprint Report",
+          "instruction": "Select all the text, then ask Copilot:<br><br><kbd>Write a sprint summary report from this data. Include sections for accomplishments, metrics, risks, and next sprint focus. Tone should be professional and concise.</kbd><br><br>Review the output. This is a report you could send to your engineering lead in minutes instead of hours.",
+          "focus": "right"
+        },
+        {
+          "title": "Adjust for an Executive Audience",
+          "instruction": "Now ask Copilot to create a version for senior leadership:<br><br><kbd>Rewrite this sprint summary for a VP audience. Focus on business outcomes and progress toward quarterly goals. Remove technical details and keep it to one short paragraph.</kbd><br><br>Compare the two versions. Same data, different audiences, both generated in seconds.",
+          "focus": "right",
+          "tip": "Keep both prompt patterns saved. You can reuse them every sprint by swapping in new data."
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Analyze Project Health Data",
+          "instruction": "Clear your file and paste this sample project health snapshot:<br><br><kbd>Current sprint issues: 22 total, 14 in progress, 3 blocked\nAging issues (open 2+ sprints): #102 API migration, #89 Auth refactor, #134 Search redesign\nPRs awaiting review (3+ days): PR #201, PR #215, PR #218\nSprint carryover trend: 15%, 22%, 28% (last 3 sprints)\nTeam member with no commits this sprint: Alex (out sick Mon-Wed)</kbd>",
+          "focus": "top"
+        },
+        {
+          "title": "Surface Risks with Copilot",
+          "instruction": "Select all the data, then ask Copilot:<br><br><kbd>Analyze this project health data and identify the top 3 risks. For each risk, explain why it matters and suggest a specific action I should take as the project manager.</kbd><br><br>Review the risk analysis. Notice how Copilot connects data points to actionable recommendations.",
+          "focus": "right"
+        },
+        {
+          "title": "Prepare Talking Points for Standup",
+          "instruction": "Ask a follow-up:<br><br><kbd>Based on these risks, write 3 bullet points I should raise in tomorrow's standup. Keep each to one sentence.</kbd><br><br>These are ready-to-use talking points that address real problems instead of generic status updates.",
+          "focus": "right"
+        }
+      ]
+    },
+    "21": {
+      "steps": [
+        {
+          "title": "Draft a Risk Escalation Message",
+          "instruction": "Using the risk analysis from the previous exercise, ask Copilot:<br><br><kbd>The sprint carryover trend is increasing (15% to 28% over 3 sprints). Draft a short message to my engineering manager explaining the trend, what I think is causing it, and my recommended next step. Tone should be collaborative, not accusatory.</kbd><br><br>Review the message. Notice how Copilot frames the concern constructively.",
+          "focus": "right"
+        },
+        {
+          "title": "Generate Retro Discussion Topics",
+          "instruction": "Ask Copilot:<br><br><kbd>Based on the project health data I shared, suggest 3 discussion topics for our upcoming sprint retrospective. For each topic, include a framing question that invites team input rather than assigning blame.</kbd><br><br>Good retro topics come from data, not gut feelings. This prompt helps you bring evidence-based discussion items.",
+          "focus": "right",
+          "tip": "Framing questions as \"How might we...\" or \"What would help us...\" encourages problem-solving over finger-pointing."
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Prepare Merged PR Data",
+          "instruction": "Clear your file and paste this list of merged PRs:<br><br><kbd>Merged PRs for v2.4:\n- PR #230: Add CSV export to dashboard\n- PR #231: Fix timezone bug in scheduling module\n- PR #235: Upgrade authentication to OAuth 2.1\n- PR #238: Improve search performance (3x faster queries)\n- PR #240: Add user notification preferences page\n- PR #242: Fix memory leak in background worker\n- PR #245: Update API docs for new endpoints</kbd>",
+          "focus": "top"
+        },
+        {
+          "title": "Generate Release Notes",
+          "instruction": "Select the PR list, then ask Copilot:<br><br><kbd>Write release notes for version 2.4 based on these merged PRs. Organize by category: Features, Bug Fixes, and Improvements. Write in user-facing language that focuses on benefits, not implementation details.</kbd><br><br>Review the output. These release notes are ready to share with customers.",
+          "focus": "right"
+        },
+        {
+          "title": "Create an Internal Version",
+          "instruction": "Now ask for the engineering team's version:<br><br><kbd>Now write an internal version of these release notes for the engineering team. Include technical details, areas of the codebase affected, and any follow-up work needed.</kbd><br><br>Compare the two versions. Same source data, tailored for two different audiences.",
+          "focus": "right"
+        }
+      ]
+    },
+    "24": {
+      "steps": [
+        {
+          "title": "Translate a Technical Update",
+          "instruction": "Clear your file and paste this technical update from a developer:<br><br><kbd>We migrated the session store from in-memory to Redis, which required updating the Docker compose config and refactoring SessionManager to use async/await patterns. The auth token refresh flow now uses a sliding window expiration instead of fixed TTL. We also added circuit breaker logic to the external API calls in PaymentService to handle upstream timeouts gracefully.</kbd><br><br>Select the text and ask Copilot:<br><br><kbd>Rewrite this technical update for a VP who does not write code. Focus on what changed for users and the business. Keep it to 3-4 sentences.</kbd>",
+          "focus": ["top", "right"]
+        },
+        {
+          "title": "Verify Accuracy",
+          "instruction": "Review both versions side by side. Ask Copilot:<br><br><kbd>Did the non-technical version preserve all the important facts from the original? List anything that was lost or oversimplified.</kbd><br><br>This verification step ensures you are not losing critical information when translating between audiences.",
+          "focus": "right",
+          "tip": "Always verify translations for accuracy. Copilot simplifies well, but occasionally it may omit a detail that matters to your stakeholders."
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Turn Metrics into a Narrative",
+          "instruction": "Clear your file and paste these quarterly metrics:<br><br><kbd>Q3 Metrics:\n- Velocity: 42, 48, 51 story points (sprints 12-14)\n- Cycle time: reduced from 6.2 days to 4.1 days\n- Sprint completion rate: 78%, 82%, 88%\n- PR merge time: average 1.8 days (down from 3.2 days in Q2)\n- Bug-to-feature ratio: 30/70 (improved from 45/55 in Q2)\n- Features shipped: 12 (vs. 9 in Q2)</kbd><br><br>Select the data and ask Copilot:<br><br><kbd>Write a one-paragraph executive summary of these metrics for a quarterly business review. Lead with outcomes, show trends, and connect metrics to business impact.</kbd>",
+          "focus": ["top", "right"]
+        },
+        {
+          "title": "Add a Forward-Looking Statement",
+          "instruction": "Ask Copilot:<br><br><kbd>Based on these Q3 trends, write a 2-3 sentence forecast paragraph for Q4. What should leadership expect if these trends continue? Include one specific recommendation.</kbd><br><br>This turns backward-looking data into forward-looking insight, which is what leadership values most from their PMs.",
+          "focus": "right"
+        },
+        {
+          "title": "Create a Slide-Ready Summary",
+          "instruction": "Finally, ask Copilot:<br><br><kbd>Format these Q3 metrics as 4 bullet points for a presentation slide. Each bullet should have a bold metric name, the number, and a short phrase explaining why it matters. Keep each bullet to one line.</kbd><br><br>You now have three outputs from the same data: a narrative paragraph, a forecast, and a slide. All generated in minutes.",
+          "focus": "right"
+        }
+      ]
+    },
+    "31": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the PM Toolkit lab. You used Copilot Chat to:<br><br>&bull; Design project board fields and sprint planning checklists<br>&bull; Summarize pull requests for non-technical audiences<br>&bull; Write well-structured GitHub issues with acceptance criteria<br>&bull; Generate sprint reports tailored to different audiences<br>&bull; Identify project risks and prepare actionable talking points<br>&bull; Draft release notes, stakeholder updates, and executive summaries<br>&bull; Turn raw metrics into leadership-ready narratives<br><br>Start building your personal prompt library with the prompts that worked best for you today.",
+          "tip": "Head back to the slides for key takeaways and your action plan, or close this panel to start applying these techniques to your real projects."
+        }
+      ]
+    }
+  }
+}

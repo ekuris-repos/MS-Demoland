@@ -1,0 +1,208 @@
+{
+  "title": "Cross-Repo Agents - Multi-Agent Multi-Repo Roundup",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the Multi-Agent Multi-Repo Roundup lab. This is an enterprise-level exercise where you will build cross-repo automation patterns using GitHub Copilot, MCP servers, custom instructions, and GitHub Actions.<br><br>You will set up a multi-root workspace, create layered instruction files, configure cross-repo tooling, and design orchestration workflows. This lab assumes you are comfortable with agent mode, custom instructions, and MCP fundamentals from earlier courses.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "8": {
+      "steps": [
+        {
+          "title": "Create a Multi-Root Workspace",
+          "instruction": "To simulate a polyrepo environment, create a multi-root workspace with two project folders. Open the <strong>Command Palette</strong> and run:<br><br><code>Workspaces: Add Folder to Workspace...</code><br><br>Add two separate project folders from your machine (for example, two repos you maintain, or create two empty folders named <code>service-api</code> and <code>service-frontend</code>). You should see both folders listed in the <strong>Explorer</strong> sidebar.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "tip": "Multi-root workspaces let Copilot see files from multiple repos at once. This is the simplest way to bridge the single-repo context boundary."
+        },
+        {
+          "title": "Test the Context Boundary",
+          "instruction": "Open <strong>Copilot Chat</strong> in <strong>Agent</strong> mode. With both folders in your workspace, ask:<br><br><kbd>What projects are in this workspace? Describe the structure and purpose of each folder.</kbd><br><br>Copilot scans across both workspace roots. Now open a file in one folder and ask a question that requires context from the other folder. Notice how Copilot can reference both folders because they share the same workspace.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Observe Indexing Limits",
+          "instruction": "Now ask Copilot about a repository that is <strong>not</strong> in your workspace:<br><br><kbd>What endpoints does our shared authentication library expose?</kbd><br><br>Copilot cannot answer accurately because that code is outside the workspace. This is the cross-repo context gap. The rest of this lab focuses on techniques to bridge it.",
+          "focus": "right"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Create Org-Level Instructions",
+          "instruction": "In one of your workspace folders, create the file <code>.github/copilot-instructions.md</code>. This represents your organization's baseline Copilot configuration. Add the following content:<br><br><kbd># Organization Copilot Instructions<br><br>## Standards<br>- Use TypeScript for all backend services<br>- Follow REST naming: /api/v{n}/{resource}<br>- All API endpoints require authentication by default<br><br>## Error Handling<br>- Use structured error responses with correlation IDs<br>- Log errors using the shared logging library<br><br>## Cross-Service Communication<br>- Reference OpenAPI specs in docs/api/ for contracts<br>- Use the shared API client for inter-service calls</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Create Repo-Level Instructions",
+          "instruction": "In your <strong>second</strong> workspace folder, create another <code>.github/copilot-instructions.md</code> with project-specific rules:<br><br><kbd># Service Frontend Instructions<br><br>## Framework<br>- React 18 with functional components<br>- Use React Query for data fetching<br>- Tailwind CSS for styling<br><br>## API Integration<br>- All API calls go through src/api/client.ts<br>- Handle loading, error, and empty states in every data component</kbd><br><br>This demonstrates the layered approach: org-level baseline plus repo-specific details.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Verify Layered Instructions",
+          "instruction": "Open <strong>Copilot Chat</strong> in agent mode. Ask:<br><br><kbd>What instructions have you loaded for this workspace? List the rules from each instructions file.</kbd><br><br>Copilot should reference both instruction files. Then test the layering by asking it to generate code that should follow both sets of rules:<br><br><kbd>Generate a React component that calls the /api/v1/users endpoint and displays results in a table.</kbd><br><br>Verify the output follows both the org-level REST naming convention and the repo-level React/Tailwind rules.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Create a Cross-Repo Prompt File",
+          "instruction": "Create a reusable prompt file at <code>.github/prompts/cross-repo-api-client.prompt.md</code> in your first workspace folder:<br><br><kbd>---<br>mode: agent<br>description: Generate an API client for an internal service<br>---<br><br>Generate a TypeScript API client for the ${input:serviceName} service.<br><br>Requirements:<br>- Fetch the OpenAPI spec from docs/api/${input:serviceName}.yaml<br>- Generate typed request/response interfaces<br>- Use the shared HTTP client from @org/api-client<br>- Include error handling with structured error responses<br>- Add JSDoc comments referencing the source spec</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "In an enterprise setting, distribute shared prompt files across repos using git submodules, template repos, or a copy-on-clone script in your onboarding automation."
+        },
+        {
+          "title": "Test the Prompt File",
+          "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>/</kbd> to open the prompt picker. Select <strong>cross-repo-api-client</strong> and enter a service name when prompted (for example, <code>payments</code>).<br><br>Review the generated client code. Does it follow the org-level instructions? Does it reference the correct spec path? This is how one team's best practices become a reusable tool for the entire organization.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "19": {
+      "steps": [
+        {
+          "title": "Configure the GitHub MCP Server",
+          "instruction": "The official GitHub MCP Server gives Copilot the ability to search, read, and interact with repositories outside your workspace. Open your VS Code settings JSON and add an MCP server configuration:<br><br><kbd>{<br>  \"mcp\": {<br>    \"servers\": {<br>      \"github\": {<br>        \"command\": \"npx\",<br>        \"args\": [\"-y\", \"@modelcontextprotocol/server-github\"],<br>        \"env\": {<br>          \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"your-token-here\"<br>        }<br>      }<br>    }<br>  }<br>}</kbd><br><br>Replace <code>your-token-here</code> with a GitHub personal access token that has <code>repo</code> scope.",
+          "focus": "editor",
+          "action": "workbench.action.openSettings",
+          "tip": "For enterprise environments, use a fine-grained personal access token scoped to only the repos you need. Never use a classic token with broad permissions."
+        },
+        {
+          "title": "Test Cross-Repo Access",
+          "instruction": "After configuring the MCP server, open <strong>Copilot Chat</strong> in agent mode. Try fetching content from a repo outside your workspace:<br><br><kbd>Search my GitHub organization for repositories related to authentication. List the top results and their descriptions.</kbd><br><br>Then try reading a specific file:<br><br><kbd>Read the README.md from our shared-auth-library repository on GitHub.</kbd><br><br>The GitHub MCP Server provides live, authenticated access to your organization's repositories without adding them to the workspace.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Design a Custom Cross-Repo MCP Tool",
+          "instruction": "Create a new file called <code>cross-repo-spec-server.ts</code> in your workspace. Use agent mode to scaffold a custom MCP server:<br><br><kbd>Create an MCP server in TypeScript using @modelcontextprotocol/sdk that exposes a tool called \"get-service-api-spec\". The tool should accept a service name, construct the repo name as \"{serviceName}-service\", and fetch the file at docs/openapi.yaml from that repo using the GitHub API via Octokit. Return the file contents as text.</kbd><br><br>Review the generated code. Verify it uses parameterized inputs and does not hardcode credentials.",
+          "focus": ["editor", "right"],
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Add a Second Cross-Repo Tool",
+          "instruction": "Extend the MCP server with a second tool. In agent mode, ask:<br><br><kbd>Add another tool called \"get-service-dependencies\" that accepts a service name, fetches package.json from the corresponding repo, extracts the dependencies and devDependencies, and returns them as a formatted list. This helps Copilot understand what packages each service uses.</kbd><br><br>Having multiple tools on one MCP server creates a composable cross-repo context layer. Each tool answers a different question about external repositories.",
+          "focus": ["editor", "right"]
+        },
+        {
+          "title": "Register the Custom Server",
+          "instruction": "Add your custom MCP server to the VS Code MCP configuration alongside the GitHub server. In your settings or <code>.vscode/mcp.json</code>, add:<br><br><kbd>{<br>  \"cross-repo-specs\": {<br>    \"command\": \"npx\",<br>    \"args\": [\"tsx\", \"cross-repo-spec-server.ts\"]<br>  }<br>}</kbd><br><br>Now Copilot can access both the general-purpose GitHub MCP Server and your specialized cross-repo tools simultaneously.",
+          "focus": "editor"
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Write a Multi-Repo Issue Template",
+          "instruction": "The coding agent works per-repo, but well-structured issues bridge the gap. Create a file called <code>.github/ISSUE_TEMPLATE/cross-repo-update.md</code>:<br><br><kbd>---<br>name: Cross-Repo Update<br>about: Propagate a change from an upstream dependency<br>labels: cross-repo, agent-eligible<br>---<br><br>## Source Change<br>- Upstream repo: [repo name]<br>- PR/commit: [link]<br>- Summary: [what changed]<br><br>## Required Changes in This Repo<br>- [ ] Update dependency version in package.json<br>- [ ] Migrate API calls to new interface<br>- [ ] Update tests to match new behavior<br><br>## Context<br>[Paste relevant API diffs, migration notes, or links to specs]</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "Embed as much cross-repo context as possible in the issue body. The coding agent reads the full issue description when planning its work."
+        },
+        {
+          "title": "Simulate Linked Issues",
+          "instruction": "In agent mode, design a set of coordinated issues for a realistic scenario:<br><br><kbd>I need to rename the \"userId\" field to \"accountId\" across three services: auth-service, billing-service, and user-dashboard. For each repo, write a GitHub issue body that explains the change, references the upstream PR, lists the specific files that likely need updating, and includes the before/after code snippets. Use the cross-repo-update issue template format.</kbd><br><br>Review the generated issues. Each should contain enough context for the coding agent to work independently in its repo.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "24": {
+      "steps": [
+        {
+          "title": "Create a Cross-Repo Dispatch Workflow",
+          "instruction": "Create a GitHub Actions workflow that triggers downstream updates when a shared library releases. Create <code>.github/workflows/notify-consumers.yml</code>:<br><br><kbd>name: Notify Consuming Services<br>on:<br>  release:<br>    types: [published]<br><br>jobs:<br>  notify:<br>    runs-on: ubuntu-latest<br>    strategy:<br>      matrix:<br>        repo: [billing-service, user-dashboard, analytics-api]<br>    steps:<br>      - uses: peter-evans/repository-dispatch@v3<br>        with:<br>          token: ${{ secrets.CROSS_REPO_PAT }}<br>          repository: my-org/${{ matrix.repo }}<br>          event-type: upstream-update<br>          client-payload: '{\"version\": \"${{ github.event.release.tag_name }}\", \"source\": \"${{ github.repository }}\"}'</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Create the Receiver Workflow",
+          "instruction": "Now create the workflow that runs in each consuming repo. Create <code>.github/workflows/handle-upstream-update.yml</code>:<br><br><kbd>name: Handle Upstream Update<br>on:<br>  repository_dispatch:<br>    types: [upstream-update]<br><br>jobs:<br>  create-issue:<br>    runs-on: ubuntu-latest<br>    steps:<br>      - uses: actions/github-script@v7<br>        with:<br>          script: |<br>            await github.rest.issues.create({<br>              owner: context.repo.owner,<br>              repo: context.repo.repo,<br>              title: `Update dependency from ${context.payload.client_payload.source} to ${context.payload.client_payload.version}`,<br>              labels: ['agent-eligible', 'cross-repo'],<br>              body: `## Upstream Update\\n- Source: ${context.payload.client_payload.source}\\n- Version: ${context.payload.client_payload.version}\\n\\n## Required Changes\\n- Update package.json dependency\\n- Run tests and fix any breaking changes\\n- Update integration tests if needed`<br>            })</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "The receiver workflow creates an agent-eligible issue. If your org has the coding agent enabled, you can assign it automatically using the GitHub API."
+        },
+        {
+          "title": "Add Agent Auto-Assignment",
+          "instruction": "Extend the receiver workflow to automatically assign the coding agent to the created issue. In agent mode, ask:<br><br><kbd>Modify the handle-upstream-update workflow to also assign Copilot coding agent to the issue after creation. Use the GitHub API to assign the \"copilot\" user as an assignee on the newly created issue. Add error handling in case the agent is not available for this repo.</kbd><br><br>Review the result. This completes the automation chain: library release triggers dispatch, dispatch creates issue, issue is auto-assigned to the coding agent.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Design a Fan-Out Configuration",
+          "instruction": "Create a dependency manifest that drives fan-out automation. Create <code>consumer-registry.json</code> in your workspace:<br><br><kbd>{<br>  \"library\": \"@org/shared-auth\",<br>  \"consumers\": [<br>    { \"repo\": \"billing-service\", \"priority\": \"high\", \"contact\": \"billing-team\" },<br>    { \"repo\": \"user-dashboard\", \"priority\": \"medium\", \"contact\": \"frontend-team\" },<br>    { \"repo\": \"analytics-api\", \"priority\": \"low\", \"contact\": \"data-team\" },<br>    { \"repo\": \"admin-portal\", \"priority\": \"medium\", \"contact\": \"platform-team\" }<br>  ],<br>  \"rollout\": {<br>    \"strategy\": \"priority-ordered\",<br>    \"batchSize\": 2,<br>    \"waitForMerge\": true<br>  }<br>}</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Generate the Fan-Out Workflow",
+          "instruction": "Use agent mode to create a workflow that reads the registry and fans out in priority order:<br><br><kbd>Create a GitHub Actions workflow called fan-out-update.yml that reads consumer-registry.json, groups consumers by priority, and dispatches repository_dispatch events in batches. High-priority repos go first. The workflow should wait for each batch's PRs to merge before dispatching the next batch. Include a tracking issue step that creates a master issue listing all downstream repos and their PR status.</kbd><br><br>Review the generated workflow. This is the coordinator pattern in action: automated, sequenced, and tracked.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "32": {
+      "steps": [
+        {
+          "title": "Audit Agent Permissions",
+          "instruction": "Open <strong>Copilot Chat</strong> and ask it to help you audit your cross-repo automation's permission model:<br><br><kbd>I'm setting up cross-repo automation with GitHub Actions and the coding agent. Help me design a least-privilege permission model. I need: (1) a GitHub App with minimum permissions for creating issues and dispatching events across repos, (2) MCP server token scopes for read-only file access, and (3) a checklist of branch protection rules that should apply to agent-created PRs.</kbd><br><br>Review the output and save it as a governance document in your workspace.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Create a CODEOWNERS File",
+          "instruction": "Create a <code>CODEOWNERS</code> file that ensures agent-generated changes get proper review. Create <code>.github/CODEOWNERS</code>:<br><br><kbd># Default owners for everything<br>* @my-org/platform-team<br><br># API contracts require API team review<br>docs/api/ @my-org/api-governance<br><br># Infrastructure changes require DevOps review<br>.github/workflows/ @my-org/devops<br>terraform/ @my-org/devops<br><br># Cross-repo automation config requires platform lead<br>consumer-registry.json @my-org/platform-lead</kbd><br><br>CODEOWNERS applies to all PRs, including those created by the coding agent. This ensures human review for sensitive changes.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        }
+      ]
+    },
+    "38": {
+      "steps": [
+        {
+          "title": "Build Your Enterprise Action Plan",
+          "instruction": "Use agent mode to generate a prioritized rollout plan for your organization:<br><br><kbd>Based on everything in this workspace (custom instructions, MCP server configs, GitHub Actions workflows, issue templates, CODEOWNERS), generate a 30-60-90 day action plan for rolling out multi-repo Copilot automation across an enterprise with 200+ repositories. Prioritize by effort-to-impact ratio. Include milestones, success metrics, and risks for each phase.</kbd><br><br>Review the plan. It should reference the specific artifacts you created during this lab.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Identify Departing Patterns",
+          "instruction": "Review the artifacts you built in this lab with a critical eye. In agent mode, ask:<br><br><kbd>Which of the patterns and configurations I built in this workspace are most likely to be simplified or replaced by upcoming GitHub Copilot features? Flag any workarounds that exist only because native cross-repo capabilities are not yet available. For each, suggest what to watch for and when to reconsider the approach.</kbd><br><br>This exercise builds the habit of evaluating your automation for long-term maintainability as the platform evolves.",
+          "focus": "right"
+        }
+      ]
+    },
+    "41": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Roundup complete!</strong> You have built a full cross-repo automation toolkit in this session.<br><br>What you accomplished:<br>&bull; Set up a multi-root workspace to bridge Copilot's context boundary<br>&bull; Created layered custom instructions (org-level and repo-level)<br>&bull; Built reusable prompt files for cross-repo tasks<br>&bull; Configured the GitHub MCP Server and designed a custom cross-repo MCP tool<br>&bull; Designed multi-repo issue templates for the coding agent<br>&bull; Created GitHub Actions workflows for cross-repo dispatch and fan-out<br>&bull; Established governance with CODEOWNERS and a least-privilege permission model<br>&bull; Built a 30-60-90 day enterprise rollout plan<br><br>Next courses: <strong>Agent HQ: Reporting for Duty</strong> for centralized agent governance, or <strong>SDK: Have It Your Way</strong> for building custom Copilot integrations.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

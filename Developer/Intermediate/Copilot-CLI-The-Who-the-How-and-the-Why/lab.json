@@ -1,0 +1,228 @@
+{
+  "title": "Terminal AI — Copilot CLI: The Who, the How, and the Why",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome! In this hands-on lab you will install, configure, and master <strong>GitHub Copilot CLI</strong> directly in your terminal.<br><br><strong>Your challenge:</strong> complete a series of real-world terminal tasks using only Copilot CLI. By the end of this session, you will have generated commands, explained unfamiliar syntax, and built a set of productivity aliases; all without searching the web for a single command.<br><br>Follow the steps in this panel as you advance through the slides.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "6": {
+      "steps": [
+        {
+          "title": "Verify GitHub CLI",
+          "instruction": "Open the <strong>Terminal</strong> and check that the GitHub CLI is installed and up to date:<br><br><kbd>gh --version</kbd><br><br>You need version <strong>2.40 or later</strong>. If the command is not found, install it from <code>cli.github.com</code> before proceeding.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal"
+        },
+        {
+          "title": "Confirm Authentication",
+          "instruction": "Verify that you are authenticated with GitHub:<br><br><kbd>gh auth status</kbd><br><br>You should see your username and the scopes granted. If you are not logged in, run <code>gh auth login</code> and follow the prompts.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "7": {
+      "steps": [
+        {
+          "title": "Install the Copilot Extension",
+          "instruction": "Install the Copilot CLI extension:<br><br><kbd>gh extension install github/gh-copilot</kbd><br><br>If you already have it installed, you may see a message saying so. That is fine.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Verify Copilot CLI",
+          "instruction": "Confirm the installation succeeded:<br><br><kbd>gh copilot --version</kbd><br><br>You should see a version number. If you want the latest features, run:<br><br><kbd>gh extension upgrade gh-copilot</kbd>",
+          "focus": "terminal",
+          "tip": "Copilot CLI is lightweight. It does not install background services or modify your shell profile."
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Your First Suggestion",
+          "instruction": "Time to try <code>gh copilot suggest</code>. Ask Copilot to generate a command for you:<br><br><kbd>gh copilot suggest \"list all files in the current directory sorted by size\"</kbd><br><br>Copilot will return a shell command. Review it, then choose <strong>Execute</strong>, <strong>Copy</strong>, or <strong>Revise</strong>.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Specify a Target Type",
+          "instruction": "Now try a git-specific suggestion:<br><br><kbd>gh copilot suggest -t git \"show the last 5 commits with file names\"</kbd><br><br>The <code>-t git</code> flag restricts suggestions to Git commands. Try <code>-t gh</code> as well to see GitHub CLI suggestions.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Challenge: Revise a Suggestion",
+          "instruction": "Run a suggest command, but this time choose <strong>Revise</strong> when the result appears. Add a constraint to your original request and see how Copilot refines the output.<br><br>Hint: start broad (e.g., \"compress this folder\") and then refine with an exclusion or format requirement.",
+          "focus": "terminal",
+          "tip": "The Revise option preserves context from your previous request, so each refinement builds on the last."
+        }
+      ]
+    },
+    "10": {
+      "steps": [
+        {
+          "title": "Explain a Complex Command",
+          "instruction": "Pass a command you want to understand to <code>gh copilot explain</code>:<br><br><kbd>gh copilot explain \"find . -name '*.ts' -exec grep -l 'TODO' {} +\"</kbd><br><br>Read the breakdown. Copilot explains each flag, argument, and operator individually.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Challenge: Explain Something Unfamiliar",
+          "instruction": "Think of a command you have seen but never fully understood. It could be a <code>git</code>, <code>docker</code>, <code>kubectl</code>, or any shell command. Pass it to <code>gh copilot explain</code> and see if the explanation matches your expectations.<br><br>If you need inspiration, try:<br><br><kbd>gh copilot explain \"git rebase -i --autosquash HEAD~5\"</kbd>",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Interactive Mode",
+          "instruction": "Run <code>gh copilot suggest</code> with <strong>no arguments</strong>:<br><br><kbd>gh copilot suggest</kbd><br><br>Copilot will walk you through a guided flow: choose a target type, then enter your description. This is ideal for exploration.",
+          "focus": "terminal"
+        },
+        {
+          "title": "One-Shot Mode",
+          "instruction": "Now run the same request in one-shot mode by passing your description inline:<br><br><kbd>gh copilot suggest \"check which process is using port 3000\"</kbd><br><br>Compare the experience. One-shot is faster when you know exactly what you need.",
+          "focus": "terminal",
+          "tip": "Most experienced users start with interactive mode when learning a new tool, then graduate to one-shot mode."
+        }
+      ]
+    },
+    "13": {
+      "steps": [
+        {
+          "title": "Shell Awareness Challenge",
+          "instruction": "Copilot detects your active shell and tailors suggestions accordingly. Try this request in your current terminal:<br><br><kbd>gh copilot suggest -t shell \"get disk usage for the current drive\"</kbd><br><br>If you are in PowerShell, you should get a PowerShell cmdlet. If you are in bash, you should get a Unix command. Notice how the tool choice changes, not just the syntax.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Target Type Comparison",
+          "instruction": "Run the same natural-language request with different target types and compare the results:<br><br>&bull; <kbd>gh copilot suggest -t shell \"list my open pull requests\"</kbd><br>&bull; <kbd>gh copilot suggest -t gh \"list my open pull requests\"</kbd><br><br>The <code>-t shell</code> version may produce a <code>curl</code> command; the <code>-t gh</code> version will produce a clean <code>gh pr list</code> command. Choosing the right target type matters.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "CLI for the Command, Chat for the Code",
+          "instruction": "Open the <strong>Terminal</strong> and use Copilot CLI to generate a Docker command:<br><br><kbd>gh copilot suggest \"run a node 20 container with the current directory mounted and port 3000 exposed\"</kbd><br><br>Now open <strong>Copilot Chat</strong> and ask it to scaffold the application code that would run inside that container. Notice how each tool handles what it does best.",
+          "focus": ["terminal", "right"],
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Know Your Boundaries",
+          "instruction": "Try asking Copilot CLI something that requires file context:<br><br><kbd>gh copilot suggest \"refactor the server module to use async/await\"</kbd><br><br>The result will be generic because CLI cannot see your files. This is a task for <strong>Copilot Chat</strong>, not CLI. Recognizing when to switch tools is a key skill.",
+          "focus": "terminal",
+          "tip": "Rule of thumb: if the task is about running a command, use CLI. If the task is about writing or understanding code, use Chat."
+        }
+      ]
+    },
+    "19": {
+      "steps": [
+        {
+          "title": "Git Challenge",
+          "instruction": "Use <code>gh copilot suggest -t git</code> to solve these Git tasks. Do not look up the answers; let CLI generate the commands for you:<br><br>&bull; Undo your last commit but keep the changes staged<br>&bull; Show all files changed in the last 7 days<br>&bull; Find which commit introduced a specific string in the codebase<br><br>Try at least two of these. Execute the ones that are safe, and copy the rest for reference.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Explain Before You Execute",
+          "instruction": "Pick the most complex command Copilot suggested in the previous step. Copy it and pass it to <code>gh copilot explain</code>.<br><br>This suggest-then-explain workflow is a safe habit: you generate the command, understand it, and then decide whether to run it.",
+          "focus": "terminal",
+          "tip": "Always review commands involving force-push, reset, or delete before executing them."
+        }
+      ]
+    },
+    "21": {
+      "steps": [
+        {
+          "title": "File System Challenge",
+          "instruction": "Use Copilot CLI to tackle these file-system tasks without searching the web:<br><br>&bull; Find all TypeScript files modified in the last 24 hours<br>&bull; Recursively search for TODO comments, excluding <code>node_modules</code><br>&bull; Count lines of code by file extension in the current directory<br><br>Use <code>gh copilot suggest</code> for each one. Compare the commands Copilot generates with what you would have written manually.",
+          "focus": "terminal"
+        },
+        {
+          "title": "System Detective",
+          "instruction": "Try a system-administration query:<br><br><kbd>gh copilot suggest \"check which process is using port 8080\"</kbd><br><br>If the answer uses a tool you haven't seen before, pass it to <code>gh copilot explain</code> to learn what it does.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "22": {
+      "steps": [
+        {
+          "title": "Discover GitHub CLI Commands",
+          "instruction": "Use the <code>-t gh</code> target type to discover GitHub CLI commands you may not have known existed:<br><br><kbd>gh copilot suggest -t gh \"list all failed workflow runs in the last week\"</kbd><br><br>Try a few more: listing issues, creating releases, or checking Codespaces. The <code>-t gh</code> flag is like having a guided tour of the GitHub CLI.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Challenge: GitHub Workflow Automation",
+          "instruction": "Come up with a real GitHub task you do manually (e.g., labeling issues, listing PRs by reviewer, checking Actions minutes). Use <code>gh copilot suggest -t gh</code> to find the command for it.<br><br>If the suggestion includes flags you do not recognize, explain it before running it.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "31": {
+      "steps": [
+        {
+          "title": "Create Your Aliases",
+          "instruction": "Set up shortcut aliases so Copilot CLI is always at your fingertips. In your terminal, create temporary aliases for this session:<br><br><strong>PowerShell:</strong><br><kbd>function cs { gh copilot suggest @args }</kbd><br><kbd>function ce { gh copilot explain @args }</kbd><br><br><strong>Bash/Zsh:</strong><br><kbd>alias cs='gh copilot suggest'</kbd><br><kbd>alias ce='gh copilot explain'</kbd><br><br>Test them: <kbd>cs \"show current git branch\"</kbd>",
+          "focus": "terminal"
+        },
+        {
+          "title": "Test Your Aliases",
+          "instruction": "Verify your aliases work by running a few quick commands:<br><br><kbd>cs \"list all running docker containers\"</kbd><br><kbd>ce \"docker ps --format 'table {{.Names}}\\t{{.Status}}'\"</kbd><br><br>If the aliases work, you have reduced the friction to near zero.",
+          "focus": "terminal",
+          "tip": "To make aliases permanent, add them to your shell profile: <code>$PROFILE</code> for PowerShell, <code>~/.bashrc</code> for bash, or <code>~/.zshrc</code> for zsh."
+        }
+      ]
+    },
+    "32": {
+      "steps": [
+        {
+          "title": "Challenge: Build a Specialized Function",
+          "instruction": "Create a shell function that combines a target type with your alias. For example, a <code>gitsuggest</code> function that always passes <code>-t git</code>:<br><br><strong>PowerShell:</strong><br><kbd>function gitsuggest { gh copilot suggest -t git @args }</kbd><br><br><strong>Bash:</strong><br><kbd>gitsuggest() { gh copilot suggest -t git \"$*\"; }</kbd><br><br>Test it with a git task of your choice.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Dotfiles Challenge",
+          "instruction": "Think about how you would add these aliases and functions to your dotfiles repository so they follow you across machines. Open a new file and draft your additions.<br><br>Hint: for PowerShell, the profile lives at <code>$PROFILE</code>. For bash/zsh, it is <code>~/.bashrc</code> or <code>~/.zshrc</code>. You can verify the path with:<br><br><kbd>echo $PROFILE</kbd> (PowerShell) or <kbd>echo $HOME/.bashrc</kbd> (bash)",
+          "focus": ["terminal", "editor"]
+        }
+      ]
+    },
+    "33": {
+      "steps": [
+        {
+          "title": "Precision Challenge",
+          "instruction": "Test the impact of prompt specificity. Run two versions of the same request:<br><br>&bull; Vague: <kbd>cs \"list files\"</kbd><br>&bull; Specific: <kbd>cs \"list all .ts files modified in the last 7 days sorted by size descending\"</kbd><br><br>Compare the results. The specific request should produce a significantly more useful command.",
+          "focus": "terminal"
+        },
+        {
+          "title": "Suggest-Then-Explain Loop",
+          "instruction": "Run a suggest command for something you are not sure about. Copy the resulting command and pipe it into <code>ce</code> (your explain alias):<br><br>&bull; Step 1: <kbd>cs \"find all git merge conflicts in the current repo\"</kbd><br>&bull; Step 2: Copy the result<br>&bull; Step 3: <kbd>ce \"&lt;paste the command here&gt;\"</kbd><br><br>This loop is the safest way to use Copilot CLI: generate, understand, then execute.",
+          "focus": "terminal",
+          "tip": "Combine explain with suggest as a habit. You learn new command-line patterns every time."
+        }
+      ]
+    },
+    "34": {
+      "steps": [
+        {
+          "title": "Pitfall Awareness",
+          "instruction": "Before you finish, test your judgment. Use <code>gh copilot suggest</code> for a potentially destructive operation:<br><br><kbd>cs \"remove all untracked files and directories from this git repo\"</kbd><br><br>When the command appears, do <strong>not</strong> execute it immediately. Read it carefully. Does it include flags like <code>-f</code> or <code>-d</code>? Pass it to <code>ce</code> to understand each flag before deciding whether to run it.<br><br>This is the most important habit: always review before executing destructive commands.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "38": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Challenge complete!</strong> You have finished Copilot CLI: The Who, the How, and the Why.<br><br>You now know how to:<br>&bull; Install and configure Copilot CLI with a single command<br>&bull; Generate shell, git, and GitHub CLI commands with <code>suggest</code><br>&bull; Break down unfamiliar commands with <code>explain</code><br>&bull; Choose between interactive and one-shot modes<br>&bull; Combine CLI and Chat for full coverage<br>&bull; Build aliases and shell functions for near-zero friction<br>&bull; Review commands safely before executing<br><br>Next courses: <strong>Enterprise-Grade Marmalade</strong> for governance, or <strong>Agent Potato: License to Chat</strong> for Copilot agent mode.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

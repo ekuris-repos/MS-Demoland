@@ -1,0 +1,243 @@
+{
+  "title": "Azure DevOps + Copilot - Made Better Together",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome! In this hands-on lab you will explore how <strong>Azure DevOps</strong> and <strong>GitHub Copilot</strong> work together to streamline sprint planning, work tracking, and stakeholder reporting.<br><br>No coding experience is needed. The guide panel will update automatically as you advance through the slides. The glowing edge and arrow show you where to look.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We have opened the <strong>Copilot Chat</strong> panel for you. This is where you will interact with Copilot throughout the lab.<br><br>Take a moment to look at the chat interface on the right side of your screen. You will see a text input box at the bottom where you can type questions.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Ask About the Two-Platform Reality",
+          "instruction": "Type the following prompt into the Chat panel:<br><br><kbd>What are the key differences between Azure DevOps and GitHub for project management? Explain in non-technical terms.</kbd><br><br>Read the response. Notice how Copilot gives you a clear comparison without requiring you to search through documentation.",
+          "focus": "right"
+        },
+        {
+          "title": "Ask a Follow-Up Question",
+          "instruction": "Now ask a follow-up question in the same chat:<br><br><kbd>Why would an organization use both Azure DevOps and GitHub at the same time?</kbd><br><br>Copilot remembers the conversation context, so the answer builds on what it already told you. This is how you can use Copilot Chat as a learning tool.",
+          "focus": "right",
+          "tip": "Copilot Chat remembers your conversation history. Each follow-up question builds on the previous answers, so you can explore a topic in depth."
+        }
+      ]
+    },
+    "8": {
+      "steps": [
+        {
+          "title": "Learn About GHAzDO with Copilot",
+          "instruction": "Type the following prompt into the Chat panel:<br><br><kbd>What is GitHub Advanced Security for Azure DevOps (GHAzDO)? Explain the three main features in simple terms a project manager would understand.</kbd><br><br>Read the response. Copilot will break down secret scanning, dependency scanning, and code scanning in plain language.",
+          "focus": "right"
+        },
+        {
+          "title": "Ask About the Business Value",
+          "instruction": "Now ask a more targeted question:<br><br><kbd>How would GHAzDO help me as a PM track security risks without needing a GitHub account?</kbd><br><br>This is the kind of question you might ask when preparing a pitch to your leadership team. Notice how Copilot tailors the answer to your role.",
+          "focus": "right",
+          "tip": "When you include your role in a prompt (e.g., \"as a PM\"), Copilot adjusts its language and recommendations to match your perspective."
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Create a Sample Commit Message",
+          "instruction": "We have opened a <strong>new file</strong> for you. This file will serve as a practice space for learning the AB# syntax that links GitHub activity to Azure Boards work items.<br><br>Type the following into the file:<br><br><kbd>Fixes AB#1234 - Update login page layout per sprint backlog item</kbd><br><br>This is the format developers use in commit messages to link their code changes to Azure Boards work items.",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Re-open Practice File"
+        },
+        {
+          "title": "Practice More AB# Examples",
+          "instruction": "Below your first line, add a few more examples of AB# references. Type each on its own line:<br><br><kbd>AB#5678 - Add error handling to checkout flow</kbd><br><kbd>Resolves AB#9012 - Fix broken pagination on reports page</kbd><br><kbd>Related to AB#3456 - Update API documentation</kbd><br><br>Notice the pattern: the AB# followed by the work item number creates the link. The keywords \"Fixes\" and \"Resolves\" trigger automatic state transitions in Azure Boards.",
+          "focus": "top"
+        },
+        {
+          "title": "Ask Copilot About AB# Syntax",
+          "instruction": "In the Chat panel, type:<br><br><kbd>What keywords can I use with the AB# syntax in GitHub commits to automatically update Azure Boards work items?</kbd><br><br>Copilot will list the supported keywords and explain how each one affects the work item state in Azure Boards.",
+          "focus": "right"
+        },
+        {
+          "title": "Close the Practice File",
+          "instruction": "We have closed the practice file for you. You do not need to save it.<br><br>You now understand the AB# syntax that connects GitHub commits and pull requests to Azure Boards work items. When developers use this syntax, your sprint boards update automatically.",
+          "action": "workbench.action.closeActiveEditor"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Explore Copilot Features in ADO",
+          "instruction": "Type the following prompt into the Chat panel:<br><br><kbd>List all the Copilot features currently available in Azure DevOps. For each feature, explain how a project manager or team lead would benefit from it.</kbd><br><br>Read through the response. Pay special attention to AI-generated PR descriptions, work item suggestions, and test plan generation.",
+          "focus": "right"
+        },
+        {
+          "title": "Draft Acceptance Criteria with Copilot",
+          "instruction": "One of the most useful Copilot features in ADO is generating acceptance criteria. Let's practice. Type:<br><br><kbd>I have a user story: \"As a customer, I want to reset my password so I can regain access to my account.\" Write 5 clear acceptance criteria for this story in a format suitable for Azure DevOps work items.</kbd><br><br>Review the output. This is the kind of assistance Copilot provides directly inside Azure DevOps when you are editing work items.",
+          "focus": "right",
+          "tip": "You can use this same technique to draft acceptance criteria before your sprint planning meetings, then paste them directly into your Azure DevOps work items."
+        },
+        {
+          "title": "Generate a Test Plan Outline",
+          "instruction": "Now ask Copilot to help with test planning:<br><br><kbd>Based on the password reset user story, draft a basic test plan with 4 test cases. Include the test name, steps, and expected result for each.</kbd><br><br>This mirrors the test plan generation feature available in Azure DevOps. Review the output and notice how it covers both normal and edge case scenarios.",
+          "focus": "right"
+        }
+      ]
+    },
+    "16": {
+      "steps": [
+        {
+          "title": "Practice a PR Summary Prompt",
+          "instruction": "On GitHub.com, Copilot can summarize pull requests in plain language. Let's practice the kind of prompt you would use. Type:<br><br><kbd>Imagine a pull request that updates the login form to add two-factor authentication. Write a plain-language summary of this change that a non-technical stakeholder could understand.</kbd><br><br>This is exactly the kind of summary Copilot generates when you click the summarize button on a GitHub pull request.",
+          "focus": "right"
+        },
+        {
+          "title": "Try an Issue Triage Prompt",
+          "instruction": "Copilot Chat on GitHub.com can also help with issue triage. Practice with this prompt:<br><br><kbd>A user reported: \"The app crashes when I click the export button on the reports page.\" Help me classify this issue: what priority level, which team should own it, and what additional information should I ask the user for?</kbd><br><br>Review the response. This kind of analysis helps PMs triage issues faster, even without technical expertise.",
+          "focus": "right"
+        },
+        {
+          "title": "Draft Release Notes",
+          "instruction": "Another powerful Copilot feature is drafting release notes. Type:<br><br><kbd>Draft release notes for version 2.4 of a web application. Include these changes: added two-factor authentication, fixed export button crash, improved page load speed by 30%, and updated the privacy policy page.</kbd><br><br>Review the output. On GitHub.com, Copilot can generate these automatically from merged pull requests.",
+          "focus": "right",
+          "tip": "On GitHub.com, you can ask Copilot to generate release notes from actual merged PRs. The prompt looks like: \"Summarize all PRs merged since the v2.3 tag.\""
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Create a Stakeholder Update",
+          "instruction": "We have opened a <strong>new file</strong> for you. Let's use Copilot to draft a stakeholder communication. In the Chat panel, type:<br><br><kbd>Draft a short stakeholder email update for a sprint review. The team completed 12 of 15 planned items, merged 8 pull requests, and resolved 3 security alerts. Keep the tone professional and concise.</kbd><br><br>When Copilot generates the response, click the <strong>Insert at Cursor</strong> button (or copy and paste) to put it in your file.",
+          "focus": ["top", "right"],
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Re-open New File"
+        },
+        {
+          "title": "Refine the Communication",
+          "instruction": "Now ask Copilot to improve the draft. In the Chat panel, type:<br><br><kbd>Revise this update to add a section about risks and blockers. Mention that one API dependency is behind schedule and the security team needs to review the new authentication flow before release.</kbd><br><br>Notice how Copilot builds on the previous output. This iterative refinement is how you can use Copilot to produce polished communications quickly.",
+          "focus": ["top", "right"]
+        },
+        {
+          "title": "Close the Draft",
+          "instruction": "We have closed the file for you. You do not need to save it.<br><br>You just practiced using Copilot to draft and refine stakeholder communications. This same workflow works on GitHub.com, where Copilot Chat can pull real data from your repositories to generate these updates.",
+          "action": "workbench.action.closeActiveEditor"
+        }
+      ]
+    },
+    "19": {
+      "steps": [
+        {
+          "title": "Map Out Your Integration Points",
+          "instruction": "Let's create a reference document for your team. We have opened a <strong>new file</strong> for you. In the Chat panel, type:<br><br><kbd>Create a checklist for setting up Azure DevOps and GitHub integration. Include steps for: installing the Azure Boards GitHub App, configuring AB# work item linking, setting up cross-platform pipeline triggers, and centralizing secrets in Azure Key Vault. Format it as a markdown checklist.</kbd>",
+          "focus": ["top", "right"],
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Re-open New File"
+        },
+        {
+          "title": "Insert the Checklist",
+          "instruction": "Click the <strong>Insert at Cursor</strong> button in the Chat response (or copy and paste) to place the checklist into your file.<br><br>Review the checklist. This is the kind of document you can share with your DevOps team to ensure all integration points are configured correctly.",
+          "focus": "top"
+        },
+        {
+          "title": "Close the Checklist",
+          "instruction": "We have closed the file for you. You do not need to save it.<br><br>You now have a mental model of the key integration points between Azure DevOps and GitHub, and you know how to use Copilot to generate reference materials for your team.",
+          "action": "workbench.action.closeActiveEditor"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Plan a Combined Dashboard",
+          "instruction": "In the Chat panel, type:<br><br><kbd>I manage a team that uses Azure DevOps for work tracking and GitHub for source code. Suggest a dashboard layout for my ADO project that combines sprint burndown, GHAzDO security alerts, and GitHub PR cycle time data. List the specific widgets I should add.</kbd><br><br>This helps you plan a dashboard that covers both platforms in one view.",
+          "focus": "right"
+        },
+        {
+          "title": "Ask About Power BI Reporting",
+          "instruction": "For executive reporting across both platforms, type:<br><br><kbd>How can I use Power BI to create a unified report that pulls data from both Azure DevOps and GitHub? What connectors are available and what metrics should I include?</kbd><br><br>Review the response. Power BI is a common tool for combining data from multiple sources into a single reporting layer.",
+          "focus": "right",
+          "tip": "Both Azure DevOps and GitHub have Power BI connectors. You can pull sprint data from ADO and PR metrics from GitHub into a single executive dashboard."
+        }
+      ]
+    },
+    "25": {
+      "steps": [
+        {
+          "title": "Walk Through the Sprint Planning Scenario",
+          "instruction": "Let's practice the sprint planning workflow from the demo. In the Chat panel, type:<br><br><kbd>I am a project manager running a two-week sprint. My team uses Azure Boards for work tracking and GitHub for code. Walk me through a step-by-step sprint planning process that uses both platforms and Copilot. Include what I do in ADO, what developers do in GitHub, and where Copilot helps.</kbd>",
+          "focus": "right"
+        },
+        {
+          "title": "Generate a Mid-Sprint Summary",
+          "instruction": "Now practice the mid-sprint check-in. Type:<br><br><kbd>It is day 7 of a 10-day sprint. My team has completed 8 of 14 work items, merged 6 pull requests, and has 2 items blocked by an external API dependency. Draft a mid-sprint status update for my manager that includes progress, risks, and a recommendation.</kbd><br><br>Review the output. This is the kind of summary you could generate in seconds using Copilot Chat on GitHub.com with real repository data.",
+          "focus": "right"
+        },
+        {
+          "title": "Draft Sprint Retro Questions",
+          "instruction": "Type the following to prepare for your sprint retrospective:<br><br><kbd>Generate 5 thoughtful sprint retrospective questions that focus on how well our Azure DevOps and GitHub integration worked this sprint. Include questions about AB# linking adoption, board accuracy, and cross-platform communication.</kbd><br><br>These questions help you evaluate whether the integration is delivering value to your team.",
+          "focus": "right"
+        }
+      ]
+    },
+    "26": {
+      "steps": [
+        {
+          "title": "Build a Stakeholder Report",
+          "instruction": "We have opened a <strong>new file</strong> for you. Let's create a stakeholder report using Copilot. In the Chat panel, type:<br><br><kbd>Draft a one-page stakeholder report for a quarterly business review. Include sections for: sprint velocity trend (improving over 3 sprints), security posture (reduced critical alerts from 12 to 3), release cadence (moved from monthly to bi-weekly releases), and team adoption of Copilot (70% of developers actively using it). Format as a professional document.</kbd>",
+          "focus": ["top", "right"],
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Re-open New File"
+        },
+        {
+          "title": "Insert and Review the Report",
+          "instruction": "Click the <strong>Insert at Cursor</strong> button in the Chat response to place the report into your file.<br><br>Read through the document. Notice how Copilot structures the information with clear sections, data points, and a professional tone. This demonstrates how Copilot can transform raw metrics into executive-ready communications.",
+          "focus": "top"
+        },
+        {
+          "title": "Close the Report",
+          "instruction": "We have closed the file for you. You do not need to save it.<br><br>You just created a polished stakeholder report in under a minute. In a real workflow, Copilot Chat on GitHub.com can pull actual metrics from your repositories, making this process even faster.",
+          "action": "workbench.action.closeActiveEditor"
+        }
+      ]
+    },
+    "29": {
+      "steps": [
+        {
+          "title": "Create Your Action Plan",
+          "instruction": "We have opened a <strong>new file</strong> for you. Let's create a personal action plan based on what you learned. In the Chat panel, type:<br><br><kbd>Create a 30-day action plan for a project manager who wants to integrate Azure DevOps with GitHub. Week 1: install Azure Boards app and enable GHAzDO. Week 2: train the team on AB# syntax. Week 3: add dashboard widgets. Week 4: run a retro and measure results. Format as a checklist.</kbd>",
+          "focus": ["top", "right"],
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Re-open New File"
+        },
+        {
+          "title": "Insert Your Plan",
+          "instruction": "Click the <strong>Insert at Cursor</strong> button to place the action plan into your file. Review the checklist and mentally note which items apply to your specific situation.<br><br>Feel free to save this file if you want to keep it as a reference. Press <kbd>Ctrl+S</kbd> to save.",
+          "focus": "top"
+        },
+        {
+          "title": "Close the Action Plan",
+          "instruction": "We have closed the file for you.<br><br>You now have a concrete plan for bringing Azure DevOps and GitHub together in your organization, with Copilot as your AI assistant along the way.",
+          "action": "workbench.action.closeActiveEditor"
+        }
+      ]
+    },
+    "30": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the Made Better Together lab.<br><br>In this session you explored the <strong>two-platform reality</strong> of Azure DevOps and GitHub, learned about <strong>GHAzDO</strong> security features, practiced the <strong>AB# syntax</strong> for work item linking, used Copilot to draft <strong>acceptance criteria</strong> and <strong>test plans</strong>, created <strong>stakeholder communications</strong> and <strong>reports</strong>, and built a personal <strong>30-day action plan</strong>.<br><br>You are ready to start integrating Azure DevOps and GitHub in your own organization.",
+          "tip": "Head back to the slides on the left for a recap of key takeaways and next steps."
+        }
+      ]
+    }
+  }
+}

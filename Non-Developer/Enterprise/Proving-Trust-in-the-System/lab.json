@@ -1,0 +1,168 @@
+{
+  "title": "AI Governance — Proving Trust in the System",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the <strong>Proving Trust in the System</strong> challenge lab.<br><br>This is a <strong>challenge lab</strong>. You will not be given step-by-step instructions. Instead, you will face governance scenarios and prove your ability to evaluate risk, design controls, and build trust artifacts using GitHub Copilot as your research and drafting partner.<br><br>Your goal: by the end of this session, you will have produced a set of governance artifacts that demonstrate responsible AI oversight to regulators, boards, and stakeholders.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Scenario: Identify Applicable Regulations",
+          "instruction": "You are the governance lead at a mid-size financial services company operating in the US and EU. Your engineering team has just adopted GitHub Copilot Enterprise.<br><br>Open <strong>Copilot Chat</strong> and challenge it with this scenario:<br><br><kbd>We are a financial services company operating in the US and EU. We just deployed GitHub Copilot Enterprise. What AI regulations, frameworks, and compliance standards should we evaluate? Consider both binding regulations and voluntary frameworks that auditors reference.</kbd><br><br>Review the response critically. Does Copilot correctly identify the EU AI Act, NIST AI RMF, SOX, PCI-DSS, and GDPR intersections?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: Spot the Gaps",
+          "instruction": "Copilot's initial response is a starting point, not a final answer. Your challenge: identify at least <strong>two areas</strong> where the response is incomplete or could be more specific.<br><br>Ask a follow-up question that forces deeper analysis. For example:<br><br><kbd>How does the EU AI Act classify a code-generation AI assistant? What risk tier does it fall into, and what are the specific obligations at that tier?</kbd><br><br>A governance professional validates AI-generated analysis; they do not accept it at face value.",
+          "tip": "Compare Copilot's classification against the EU AI Act's four-tier risk system. Code-generation assistants are generally considered limited-risk, but the classification depends on the use case.",
+          "focus": "right"
+        }
+      ]
+    },
+    "6": {
+      "steps": [
+        {
+          "title": "Challenge: Risk Assessment Matrix",
+          "instruction": "Using what you learned about organizational risks on the slides, ask Copilot to help you build a structured risk assessment:<br><br><kbd>Create a risk assessment matrix for ungoverned AI coding tool adoption. Include four risk categories: IP exposure, compliance gaps, reputational damage, and uncontrolled adoption. For each, rate likelihood and impact on a 1-5 scale and suggest a mitigation control from GitHub Copilot's governance features.</kbd><br><br>Your challenge: review the matrix and adjust at least one rating where you disagree with Copilot's assessment. Explain your reasoning.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Refine: Context-Specific Risks",
+          "instruction": "The initial matrix is generic. Make it specific to your scenario:<br><br><kbd>Now adjust this matrix for a company that handles personally identifiable health information (PHI) in some repositories. How do the risk ratings change? What additional controls are needed?</kbd><br><br>Governance is never one-size-fits-all. Proving trust means demonstrating that your risk assessment reflects your actual operating context.",
+          "focus": "right"
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Challenge: Design an Exclusion Strategy",
+          "instruction": "Your organization has 50 repositories. Some contain proprietary algorithms, some contain secrets in configuration files, and three are under active litigation hold.<br><br>Ask Copilot to help you design exclusion rules:<br><br><kbd>Draft content exclusion rules for a GitHub organization with these repository types: proprietary algorithm repos (algo-*), config files containing secrets across all repos, and three repos under litigation hold (case-alpha, case-beta, case-gamma). Use glob patterns.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: Justify Your Exclusions",
+          "instruction": "An auditor asks: \"Why did you exclude these specific paths, and how do you ensure the exclusion list stays current?\"<br><br>Draft a one-paragraph justification for each exclusion category. Then ask Copilot:<br><br><kbd>Write a quarterly review checklist for maintaining content exclusion rules. Include triggers for when exclusions should be added, modified, or removed.</kbd><br><br>Your artifact: an exclusion policy with rationale and a maintenance process.",
+          "tip": "Strong governance documentation always answers \"why\" alongside \"what.\" An exclusion without a documented rationale is an audit finding waiting to happen.",
+          "focus": "right"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Challenge: Design an Audit Monitoring Plan",
+          "instruction": "You need to demonstrate to auditors that Copilot usage is actively monitored. Ask Copilot:<br><br><kbd>Design an audit monitoring plan for GitHub Copilot in an enterprise organization. Cover three event categories: seat assignment events, policy change events, and content exclusion events. For each, specify what to monitor, the review frequency, who is responsible, and what constitutes an anomaly requiring escalation.</kbd><br><br>Review the plan. Does it cover the scenario where a policy change is made outside a change management window?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: SIEM Alert Rules",
+          "instruction": "Now translate monitoring into actionable alerts. Ask Copilot:<br><br><kbd>Write three SIEM alert rules in plain language for Copilot audit events: one for unauthorized policy changes, one for seat assignments to non-human identities, and one for exclusion rule removals. Include the trigger condition, severity level, and response action for each.</kbd><br><br>Your challenge: evaluate whether the severity levels are appropriate. Would you escalate the same way?",
+          "focus": "right"
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Challenge: Evaluate IP Risk Controls",
+          "instruction": "Your legal team asks: \"What protections do we have against Copilot suggesting code that infringes a third-party copyright?\"<br><br>Using what you learned about the duplicate detection filter and IP indemnity, ask Copilot:<br><br><kbd>Summarize the IP risk controls available in GitHub Copilot Enterprise. Cover the duplicate detection filter, code referencing, and IP indemnity. For each control, explain what it does, its limitations, and whether it is enabled by default.</kbd><br><br>Verify: does Copilot accurately describe the indemnity conditions?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: Draft a Legal FAQ",
+          "instruction": "Your legal team wants a one-page FAQ they can share with executives. Ask Copilot to help draft it:<br><br><kbd>Draft a 5-question FAQ about GitHub Copilot IP risk for executive stakeholders. Cover: Does Copilot copy code? What is the duplicate detection filter? What does IP indemnity cover? What are our obligations? What happens if we receive an IP claim?</kbd><br><br>Review each answer. Flag any statement that overpromises or oversimplifies the actual indemnity terms.",
+          "tip": "IP indemnity requires that the customer used the product as intended. Make sure the FAQ does not imply blanket coverage regardless of usage patterns.",
+          "focus": "right"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Challenge: Configure a Policy Matrix",
+          "instruction": "Your enterprise has three organizations: <strong>engineering-core</strong> (general development), <strong>engineering-regulated</strong> (healthcare applications), and <strong>engineering-experimental</strong> (R&D sandbox).<br><br>Ask Copilot:<br><br><kbd>Create a policy configuration matrix for three GitHub organizations with different risk profiles. For each, recommend settings for: public code suggestions, Copilot Chat, CLI access, and seat management approach. The organizations are: engineering-core (general dev), engineering-regulated (healthcare/HIPAA), and engineering-experimental (R&D sandbox).</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: Defend Your Choices",
+          "instruction": "A department head argues that the regulated organization should get the same settings as the core organization to avoid slowing developers down.<br><br>Draft a rebuttal in Copilot Chat:<br><br><kbd>Write a brief justification for why the engineering-regulated organization needs stricter Copilot policies than engineering-core. Reference specific regulatory requirements (HIPAA, PHI handling) and explain the risk of relaxing controls.</kbd><br><br>Governance professionals must be able to defend their policy decisions clearly.",
+          "focus": "right"
+        }
+      ]
+    },
+    "24": {
+      "steps": [
+        {
+          "title": "Challenge: Complete the Governance Mapping",
+          "instruction": "The slides showed how Transparency and Privacy map to Copilot controls. Your challenge: complete the mapping for the remaining four principles.<br><br>Ask Copilot:<br><br><kbd>Map Microsoft's six Responsible AI principles to specific GitHub Copilot governance controls. I already have Transparency and Privacy mapped. Complete the mapping for Fairness, Reliability and Safety, Inclusiveness, and Accountability. For each principle, list 2-3 concrete Copilot features or policies that support it.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: Validate the Mapping",
+          "instruction": "Review Copilot's mapping critically. Some principles are harder to map than others.<br><br>Identify at least one mapping that feels like a stretch. Ask Copilot:<br><br><kbd>For the principle you mapped to [weakest control], is this a genuine product control or more of an organizational process? What gap does this reveal, and how would you address it with a supplementary policy?</kbd><br><br>Honest governance acknowledges gaps rather than hiding them.",
+          "tip": "Fairness and Inclusiveness are often the hardest to map to technical controls. These typically require organizational processes rather than product features.",
+          "focus": "right"
+        }
+      ]
+    },
+    "26": {
+      "steps": [
+        {
+          "title": "Challenge: Draft a Playbook Section",
+          "instruction": "You have been asked to write the incident response section of your organization's AI Governance Playbook. Ask Copilot to help:<br><br><kbd>Draft an incident response procedure for AI governance events. Cover three scenarios: a potential IP claim related to Copilot-generated code, a suspected data exposure through an improperly excluded repository, and a policy violation where a user bypasses controls. For each, include detection method, escalation path, response actions, and documentation requirements.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: Add Training Requirements",
+          "instruction": "Your CISO wants mandatory training before any developer gets a Copilot seat. Draft the training framework:<br><br><kbd>Outline a mandatory responsible AI training program for Copilot users. Include: learning objectives, key topics to cover, assessment criteria for completion, and a process for tracking compliance. Training should be completable in under 30 minutes.</kbd><br><br>Your artifact: two playbook sections ready for stakeholder review.",
+          "focus": "right"
+        },
+        {
+          "title": "Challenge: Define the Review Cadence",
+          "instruction": "A playbook without maintenance is a dead document. Define your governance rhythm:<br><br><kbd>Create a governance review calendar covering weekly, monthly, quarterly, and annual activities for AI tool oversight. Include what is reviewed, who is responsible, and what decisions or outputs each review produces.</kbd><br><br>Evaluate: is the cadence realistic for your organization's size, or does it create review fatigue?",
+          "focus": "right"
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Challenge: Build a Board Report Outline",
+          "instruction": "The board of directors wants a quarterly AI governance report. Ask Copilot to help structure it:<br><br><kbd>Create an outline for a quarterly AI governance board report. Include sections for: executive summary, AI tools in production, risk posture update, control effectiveness metrics, incident summary, regulatory horizon scan, and recommended actions. For each section, list 2-3 specific data points or artifacts to include.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Challenge: Create a Regulator-Ready Package",
+          "instruction": "A regulator has requested evidence of your AI governance controls. Ask Copilot:<br><br><kbd>List the evidence artifacts a regulator would expect to see when auditing an organization's use of AI coding tools. Organize them by control category: preventive controls, detective controls, corrective controls, and administrative controls. For each artifact, note whether GitHub Copilot provides it natively or whether it requires organizational effort to produce.</kbd><br><br>Final challenge: identify which artifacts you produced during this lab session.",
+          "tip": "Throughout this lab, you created risk assessments, exclusion policies, audit plans, policy matrices, governance mappings, a playbook section, and a board report outline. These are real governance artifacts.",
+          "focus": "right"
+        }
+      ]
+    },
+    "30": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You have completed the Proving Trust in the System challenge lab.<br><br>During this session, you produced governance artifacts that demonstrate real competence:<br><br>&bull; Regulatory applicability analysis for a cross-border financial services scenario<br>&bull; Risk assessment matrix tailored to a specific operating context<br>&bull; Content exclusion strategy with documented rationale<br>&bull; Audit monitoring plan with SIEM alert rules<br>&bull; IP risk FAQ for executive stakeholders<br>&bull; Multi-organization policy configuration matrix<br>&bull; Responsible AI principles-to-controls mapping with gap analysis<br>&bull; Governance playbook sections covering incident response, training, and review cadence<br>&bull; Board report outline and regulator evidence package<br><br>These are the artifacts that prove trust in the system. Take them back to your organization and build on them.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

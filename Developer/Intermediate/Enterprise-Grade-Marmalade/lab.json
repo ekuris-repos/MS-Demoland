@@ -1,0 +1,201 @@
+{
+  "title": "Central Prompt Repos — Enterprise Grade Marmalade",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to <strong>Enterprise Grade Marmalade</strong>. In this lab you will build a central prompt repository from scratch.<br><br>Your challenge: design and populate a shared prompt repo that standardizes AI-assisted development across an organization. By the end, you will have instruction files, prompt templates, a skill, an agent, governance configuration, and a distribution plan.<br><br>Follow the guide panel as you advance through the slides. The slides teach the concepts; the lab challenges you to apply them.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Audit the Current State",
+          "instruction": "Before building the solution, you need to understand the problem. Open <strong>Copilot Chat</strong> and investigate your own workspace.<br><br><kbd>Do any projects in this workspace have .instructions.md, .prompt.md, or .agent.md files? Summarize what Copilot configuration exists today.</kbd><br><br>Think about what the slides describe: inconsistent output, duplicated effort, slow onboarding, knowledge loss. Which of these would affect a team using this codebase?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Identify the Gaps",
+          "instruction": "Now consider what is missing. In <strong>Copilot Chat</strong>, ask:<br><br><kbd>What coding conventions, architectural decisions, and team-specific knowledge would a new developer need to learn about this project? List at least five things that are not documented anywhere.</kbd><br><br>Keep this list handy. You will encode these gaps into your central prompt repo throughout the lab.",
+          "focus": "right"
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Map File Types to Your Needs",
+          "instruction": "The slides introduced four file types: <code>.prompt.md</code>, <code>.instructions.md</code>, <code>SKILL.md</code>, and <code>.agent.md</code>. Your challenge: decide which file type fits each item from your gap list.<br><br>Open a new file and draft a quick mapping. For example:<br><br>&bull; \"Always use parameterized SQL queries\" = instruction<br>&bull; \"How to deploy to staging\" = skill<br>&bull; \"Security review checklist\" = agent<br>&bull; \"Generate API endpoint boilerplate\" = prompt template<br><br>This mapping becomes your build plan for the rest of the lab.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "If an item could fit more than one type, choose the type that delivers the most value with the least maintenance."
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Scaffold the Folder Structure",
+          "instruction": "Create the folder structure for your central prompt repo. The slide shows a recommended layout, but your challenge is to adapt it to your organization's needs.<br><br>Use <strong>Copilot Chat</strong> in agent mode:<br><br><kbd>Create a folder structure for a central prompt repository. I need directories for instructions (organized by languages, frameworks, and practices), prompts, skills, and agents. Include a root README.md that explains the repo's purpose.</kbd><br><br>Review what the agent creates. Does the structure match the recommendations from the slide, or did you customize it?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Verify Discoverability",
+          "instruction": "Open the <strong>Explorer</strong> and review the folder tree the agent created. Ask yourself:<br><br>&bull; Can a new developer find what they need in under 30 seconds?<br>&bull; Are the folder names descriptive enough without READMEs?<br>&bull; Is there a clear place for every file type?<br><br>If anything feels hard to find, reorganize now. Discoverability is the top priority for a shared repo.",
+          "focus": "left",
+          "action": "workbench.view.explorer"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Apply Naming Conventions",
+          "instruction": "Review the files and folders you created. Check them against the naming rules from the slide:<br><br>&bull; Are all file names in kebab-case?<br>&bull; Does every file include the correct type suffix (<code>.prompt.md</code>, <code>.instructions.md</code>, <code>.agent.md</code>)?<br>&bull; Does each file address a single concern?<br><br>Rename anything that does not follow the conventions. Consider: why does the slide recommend kebab-case over camelCase or PascalCase for these files?",
+          "focus": "left",
+          "action": "workbench.view.explorer"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Plan Your Distribution Model",
+          "instruction": "The slides present four distribution approaches: git submodules, npm packages, symlinks, and copy-on-clone. Your challenge: choose the best approach for a team of your size and stack.<br><br>Open <strong>Copilot Chat</strong> and explore the trade-offs:<br><br><kbd>Compare git submodules vs npm packages for distributing shared prompt files across 10 repositories. My team uses Node.js and TypeScript. Which approach would you recommend and why?</kbd><br><br>There is no single right answer. The best choice depends on your team's existing workflows.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Write a Distribution Script",
+          "instruction": "Whichever model you chose, write the setup command or script. For example, if you chose git submodules, create the <code>git submodule add</code> command. If you chose copy-on-clone, draft a sync script.<br><br>Add the setup instructions to your repo's <code>README.md</code> so consuming teams know exactly how to integrate.<br><br>Hint: the slide shows example commands for each approach. Adapt one to your repo structure.",
+          "focus": "editor",
+          "tip": "Many organizations start with copy-on-clone for simplicity and migrate to submodules or npm packages as the prompt library matures."
+        }
+      ]
+    },
+    "18": {
+      "steps": [
+        {
+          "title": "Set Up CODEOWNERS",
+          "instruction": "Governance starts with ownership. Create a <code>.github/CODEOWNERS</code> file that assigns review responsibility for each directory in your central prompt repo.<br><br>Think about who should own each area:<br><br>&bull; Language instructions: language standards team<br>&bull; Framework instructions: framework leads<br>&bull; Agents: platform engineering<br>&bull; Skills: architecture team<br><br>Write the CODEOWNERS file. Use GitHub team handles or placeholder names if you do not have real teams yet.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Create a PR Template",
+          "instruction": "Create a <code>.github/PULL_REQUEST_TEMPLATE.md</code> that enforces the review process from the slide. Your template should ask contributors to provide:<br><br>&bull; A description of what changed<br>&bull; The intended audience for this prompt or instruction<br>&bull; Before/after evidence showing how Copilot output changed<br><br>Challenge: can you write a template that makes it easy for contributors to include test evidence?",
+          "focus": "editor"
+        }
+      ]
+    },
+    "21": {
+      "steps": [
+        {
+          "title": "Build a Prompt Template",
+          "instruction": "Create your first <code>.prompt.md</code> file. Choose the most common task your team performs (code review, test generation, or documentation are good starting points).<br><br>Your prompt template should include:<br>&bull; YAML frontmatter with <code>description</code> and <code>mode</code><br>&bull; A clear structure with numbered expectations<br>&bull; At least one <code>${input:variable}</code> placeholder<br>&bull; Rules that enforce your team's standards<br><br>Save it in your <code>prompts/</code> directory with a descriptive kebab-case name.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "The slide's code review template is a strong reference. Study its structure, then adapt it for your team's specific review criteria."
+        },
+        {
+          "title": "Test Your Prompt Template",
+          "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>/</kbd> to open the prompt picker. Find your new template and run it with sample input.<br><br>Evaluate the output:<br>&bull; Does it follow the structure you defined?<br>&bull; Does it enforce your team's standards?<br>&bull; Would a junior developer get value from this template?<br><br>Iterate on the template until you are satisfied with the output quality.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "25": {
+      "steps": [
+        {
+          "title": "Write a Language Instruction File",
+          "instruction": "Create a scoped instruction file for your team's primary language. Save it in <code>instructions/languages/</code> with the correct naming pattern.<br><br>Your instruction file must include:<br>&bull; An <code>applyTo</code> glob pattern in the YAML frontmatter<br>&bull; At least five rules that encode your team's coding standards<br>&bull; Rules that are specific to your organization, not generic best practices<br><br>Challenge: can you write rules that would catch the most common code review feedback your team gives?",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Add a Framework Instruction File",
+          "instruction": "Create a second instruction file scoped to your team's primary framework. Save it in <code>instructions/frameworks/</code>.<br><br>Remember from the slide: scoped instructions are additive. A developer working on a React TypeScript file would get both the TypeScript language instructions and the React framework instructions applied simultaneously.<br><br>Make sure your framework instructions do not duplicate rules already in the language file. Each file should address a single concern.",
+          "focus": "editor"
+        },
+        {
+          "title": "Verify Layered Instructions",
+          "instruction": "Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>What instructions are active for this workspace? List them and summarize their rules.</kbd><br><br>Confirm that both your language and framework instruction files are loaded. Then test them: ask Copilot to generate a small piece of code and verify the output follows both sets of rules.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "28": {
+      "steps": [
+        {
+          "title": "Encode Institutional Knowledge",
+          "instruction": "Create a <code>SKILL.md</code> file that captures one piece of tribal knowledge your team relies on. The slide uses a deployment pipeline as an example, but choose something relevant to your organization:<br><br>&bull; Your CI/CD pipeline stages and requirements<br>&bull; Your database migration process<br>&bull; Your API versioning strategy<br>&bull; Your incident response procedure<br><br>Save it in the <code>skills/</code> directory. Include enough detail that a new developer could understand the process without asking a senior engineer.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Test the Skill",
+          "instruction": "Ask <strong>Copilot Chat</strong> a question that your skill should be able to answer. For example, if you wrote a deployment pipeline skill:<br><br><kbd>How do I deploy a new service to production? What approvals are needed?</kbd><br><br>Does Copilot reference your skill file and provide organization-specific guidance? Or does it give generic advice? If it misses your skill, check that the file is in the correct location and has a clear description at the top.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "29": {
+      "steps": [
+        {
+          "title": "Create a Custom Agent",
+          "instruction": "Design an <code>.agent.md</code> file for a role your team frequently needs. The slide shows a security reviewer; consider what role would deliver the most value for your team:<br><br>&bull; A security reviewer that checks for OWASP vulnerabilities<br>&bull; A DevOps assistant that helps with CI/CD configuration<br>&bull; An accessibility reviewer that audits UI components<br>&bull; A documentation writer that enforces consistency<br><br>Your agent definition should include a description, tool access, behavioral instructions, and references to relevant skills.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Invoke the Agent",
+          "instruction": "Open <strong>Copilot Chat</strong> and switch to your new agent using the <kbd>@</kbd> mention or the mode selector. Give it a task that exercises its specialty.<br><br>Evaluate the response:<br>&bull; Does it stay in character for its defined role?<br>&bull; Does it reference the skills and instructions you linked?<br>&bull; Would this agent save your team time compared to a generic Copilot prompt?<br><br>Refine the agent definition until its output consistently meets your expectations.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "33": {
+      "steps": [
+        {
+          "title": "Add CI Validation",
+          "instruction": "Your central prompt repo needs automated quality checks. Create a GitHub Actions workflow at <code>.github/workflows/validate-prompts.yml</code> that validates your prompt and instruction files.<br><br>The slide shows a starting point. Your challenge: extend it to check for:<br>&bull; Valid YAML frontmatter in all <code>.prompt.md</code> and <code>.instructions.md</code> files<br>&bull; Kebab-case naming conventions<br>&bull; Required fields like <code>description</code> in prompt files<br><br>Use Copilot to help you write the validation scripts, but make sure the checks match your team's conventions.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "Start with simple checks you can trust, then add more sophisticated validation over time. A CI pipeline that catches real issues is worth more than one that checks everything but nobody trusts."
+        }
+      ]
+    },
+    "36": {
+      "steps": [
+        {
+          "title": "Final Challenge: The Getting Started Checklist",
+          "instruction": "The slide presents an eight-item getting started checklist. Review your work against it:<br><br>&bull; Repository with recommended folder structure<br>&bull; <code>copilot-instructions.md</code> with org-wide baseline rules<br>&bull; 2-3 instruction files for languages and frameworks<br>&bull; At least one prompt template<br>&bull; At least one SKILL.md file<br>&bull; CODEOWNERS and PR template<br>&bull; Distribution model documented in README<br>&bull; Baseline metrics defined for measuring impact<br><br>How many items can you check off? Fill in any gaps now.",
+          "focus": "slides"
+        },
+        {
+          "title": "Define Your Metrics",
+          "instruction": "The one item teams most often skip: baseline metrics. Open your <code>README.md</code> and add a <strong>Measuring Impact</strong> section.<br><br>Define at least three metrics you will track before and after rolling out your central prompt repo. The slide suggests: acceptance rate, code review cycle time, onboarding time-to-first-PR, style violation rate, and developer satisfaction.<br><br>Choose the metrics that matter most to your team and write down how you will measure them.",
+          "focus": "editor"
+        }
+      ]
+    },
+    "37": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You have completed Enterprise Grade Marmalade.<br><br>You built a central prompt repository from scratch, including:<br><br>&bull; A folder structure organized for discoverability<br>&bull; Scoped instruction files for languages and frameworks<br>&bull; Reusable prompt templates for common tasks<br>&bull; A skill file encoding institutional knowledge<br>&bull; A custom agent with a specialized role<br>&bull; Governance with CODEOWNERS and PR templates<br>&bull; CI validation for prompt file quality<br>&bull; A distribution plan and measurement strategy<br><br>Next steps: <strong>MCP Maximizer</strong> to extend Copilot's tool capabilities, or <strong>Multi-Agent Multi-Repo Roundup</strong> for orchestrating agents across repositories.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

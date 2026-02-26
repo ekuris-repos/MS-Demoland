@@ -1,0 +1,195 @@
+{
+  "title": "Executive AI Strategy - Command and Conquer",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome! In this hands-on lab you will use <strong>Copilot Chat</strong> to build the executive toolkit for measuring, governing, and scaling GitHub Copilot across your organization.<br><br>You will draft real artifacts: an ROI model, a usage policy, a board report, and a rollout plan. Each one is something you can take back to your team on Monday morning.<br><br>The guide panel will update automatically as you advance through the slides.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "8": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We have opened <strong>Copilot Chat</strong> for you. This is where you will draft executive documents and analyze data throughout the lab.<br><br>If it ever closes, press <kbd>Ctrl+Alt+I</kbd> to bring it back.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Explore the Metrics API",
+          "instruction": "Ask Copilot to summarize the Copilot Metrics API for a non-technical audience. Type:<br><br><kbd>Summarize the GitHub Copilot Metrics API in 5 bullet points for a CTO who does not write code. Focus on what data it provides, how it is accessed, and what business questions it can answer.</kbd><br><br>Review the response. This is the kind of summary you would include in a slide deck for your leadership team.",
+          "focus": "right",
+          "tip": "Copilot is excellent at translating technical documentation into executive-friendly language. Use this technique any time you need to brief a non-technical stakeholder."
+        },
+        {
+          "title": "Generate a Sample API Call",
+          "instruction": "Now ask Copilot to show you what the data looks like. Type:<br><br><kbd>Show me an example JSON response from the Copilot usage metrics API at the organization level, with sample values for seats, active users, acceptance rate, and language breakdown.</kbd><br><br>You do not need to run this call. The goal is to understand the shape of the data your engineering team will pull for you.",
+          "focus": "right"
+        }
+      ]
+    },
+    "10": {
+      "steps": [
+        {
+          "title": "Create a Metrics Worksheet",
+          "instruction": "We have opened a new file for you. Set the language to <strong>Markdown</strong> using the language selector in the bottom-right corner of the editor.<br><br>Type the following header:<br><br><kbd># Copilot Usage Data - Executive Summary</kbd><br><br>This file will become your working worksheet for the rest of the lab.",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Interpret Sample Metrics",
+          "instruction": "In <strong>Copilot Chat</strong>, ask it to generate a realistic data table you can analyze. Type:<br><br><kbd>Create a markdown table showing 4 weeks of Copilot usage data for a 200-person engineering org. Include columns for: Week, Total Seats, Active Users, Suggestions, Acceptances, and Acceptance Rate. Make the numbers realistic with a gradual adoption curve.</kbd><br><br>Copy the table from Chat and paste it into your worksheet file.",
+          "focus": "right"
+        },
+        {
+          "title": "Analyze the Trends",
+          "instruction": "With the table in your file, ask Copilot to play analyst. Type in Chat:<br><br><kbd>Look at the usage data in my open file. What trends do you see? What would you flag as a concern for the VP of Engineering? Write 3 bullet points suitable for a leadership standup.</kbd><br><br>Paste the analysis below the table in your worksheet. This is how you turn raw metrics into talking points.",
+          "focus": "right",
+          "tip": "Executives rarely need raw data. They need interpreted data with a recommendation. Train yourself to always ask Copilot for the \"so what\" alongside the numbers."
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Calculate Developer Hours Saved",
+          "instruction": "In <strong>Copilot Chat</strong>, ask it to build a calculation using the data from your worksheet. Type:<br><br><kbd>Using the most recent week of data in my open file, calculate the estimated developer hours saved per week. Use 55 seconds as the average time saved per accepted suggestion. Show your math step by step.</kbd><br><br>Review the calculation and paste the result into your worksheet under a new heading: <kbd>## Hours Saved Estimate</kbd>",
+          "focus": "right"
+        },
+        {
+          "title": "Annualize the Impact",
+          "instruction": "Now ask Copilot to scale the number for an annual view. Type:<br><br><kbd>Take the weekly hours saved number and annualize it (assume 48 working weeks). Then calculate the dollar value using a fully loaded developer cost of $95 per hour. Format the result as a brief executive summary paragraph.</kbd><br><br>Paste this into your worksheet. You now have the core of your CFO pitch.",
+          "focus": "right"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Build an ROI Model",
+          "instruction": "Ask Copilot to build a complete ROI comparison. Type in Chat:<br><br><kbd>Create a markdown ROI model for Copilot Business licenses for 200 developers. Include: annual license cost at $19 per user per month, estimated annual hours saved, dollar value of those hours at $95/hour, and the resulting ROI multiple. Format it as a clean table with a summary line.</kbd><br><br>Review the model and paste it into your worksheet under a new heading: <kbd>## ROI Model</kbd>",
+          "focus": "right"
+        },
+        {
+          "title": "Add a Sensitivity Analysis",
+          "instruction": "A good executive presentation anticipates questions. Type:<br><br><kbd>Add a sensitivity analysis table to my ROI model. Show the ROI at three scenarios: conservative (25 accepted suggestions per day, 40 seconds each), baseline (30 suggestions, 55 seconds), and optimistic (40 suggestions, 70 seconds). Keep the same 200 developers and $95/hour rate.</kbd><br><br>Paste the table into your worksheet. This shows your board you have considered a range of outcomes.",
+          "focus": "right",
+          "tip": "Always present ROI with a range, not a single number. Boards trust conservative estimates more than optimistic ones."
+        },
+        {
+          "title": "Draft the CFO Talking Points",
+          "instruction": "Ask Copilot to translate your model into executive language. Type:<br><br><kbd>Based on the ROI model in my open file, write 4 concise talking points I can use when presenting to the CFO. Focus on cost justification, risk mitigation, and competitive advantage. No jargon.</kbd><br><br>Paste these into your worksheet under: <kbd>## CFO Talking Points</kbd>",
+          "focus": "right"
+        }
+      ]
+    },
+    "16": {
+      "steps": [
+        {
+          "title": "Draft a Usage Policy",
+          "instruction": "Open a new file for your policy document. Set the language to <strong>Markdown</strong> and type:<br><br><kbd># GitHub Copilot Usage Policy</kbd><br><br>Then ask Copilot Chat to draft the policy. Type:<br><br><kbd>Draft a one-page GitHub Copilot usage policy for a mid-size enterprise. Include sections for: Approved Use Cases, Restricted Use Cases, Code Review Requirements, and Data Handling. Keep it concise and suitable for distribution to all engineering staff.</kbd>",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Review and Apply the Policy",
+          "instruction": "Review the policy Copilot generated in Chat. Click the <strong>Insert at Cursor</strong> icon (or copy and paste) to place the content into your file.<br><br>Read through each section. Does it match your organization's posture? If something needs adjusting, highlight a section and press <kbd>Ctrl+I</kbd> to use <strong>inline chat</strong> to refine it.",
+          "focus": "top"
+        },
+        {
+          "title": "Add Compliance Language",
+          "instruction": "In <strong>Copilot Chat</strong>, ask it to add regulatory considerations. Type:<br><br><kbd>Add a section to the usage policy for organizations that handle sensitive or regulated data. Include guidance for HIPAA, SOC 2, and GDPR considerations when using AI coding tools. Keep it to 4-5 bullet points.</kbd><br><br>Paste the result into your policy document. Your legal team will appreciate having this as a starting point.",
+          "focus": "right"
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Design Content Exclusion Patterns",
+          "instruction": "In <strong>Copilot Chat</strong>, ask for help designing exclusion patterns. Type:<br><br><kbd>I need to configure Copilot content exclusions for a GitHub organization. Suggest 8-10 glob patterns that would exclude common sensitive directories like secrets, credentials, proprietary algorithms, and third-party code with restrictive licenses. Format each pattern with a comment explaining what it protects.</kbd><br><br>Review the list. These are the patterns you would give to your GitHub org admin to configure.",
+          "focus": "right"
+        },
+        {
+          "title": "Create an Exclusion Checklist",
+          "instruction": "Ask Copilot to turn this into a process document. Type:<br><br><kbd>Create a quarterly review checklist for Copilot content exclusions. Include steps for: auditing current patterns, checking for new sensitive repositories, validating that exclusions are working, and documenting any changes. Format as a numbered checklist.</kbd><br><br>This is the kind of operational artifact that keeps governance current quarter over quarter.",
+          "focus": "right",
+          "tip": "Content exclusions are only effective if they are reviewed regularly. Add a quarterly calendar reminder as part of your governance cadence."
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Draft a Board Report",
+          "instruction": "Open a new file and set the language to <strong>Markdown</strong>. Type:<br><br><kbd># AI Adoption Report - Board of Directors</kbd><br><br>Then ask Copilot Chat to draft the report. Type:<br><br><kbd>Draft a one-page AI adoption report for a board of directors. Use the ROI data and usage metrics from my other open files if available. Include sections for: Executive Summary, Investment vs. Value, Adoption Metrics, Governance Controls, and Recommendations. Use a professional, concise tone.</kbd>",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Apply the Report Content",
+          "instruction": "Review the draft Copilot generated and insert it into your file. Scan the report for anything that feels generic or vague.<br><br>Highlight the <strong>Recommendations</strong> section and press <kbd>Ctrl+I</kbd>. Type:<br><br><kbd>Make these recommendations more specific and action-oriented. Each one should name a responsible party and a deadline.</kbd><br><br>This is the level of specificity boards expect.",
+          "focus": "top"
+        },
+        {
+          "title": "Draft an Engineering Leadership Report",
+          "instruction": "In <strong>Copilot Chat</strong>, ask for the companion report. Type:<br><br><kbd>Now draft a more detailed AI adoption report for engineering leadership. Include: team-by-team adoption breakdown (use placeholder team names), acceptance rates by language, feature usage comparison (completions vs. Chat vs. PR summaries), and 3 recommended actions for the next quarter.</kbd><br><br>Compare the two reports side by side. Notice how the same data is framed differently depending on the audience.",
+          "focus": "right"
+        }
+      ]
+    },
+    "22": {
+      "steps": [
+        {
+          "title": "Build a Rollout Plan",
+          "instruction": "In <strong>Copilot Chat</strong>, ask it to generate a structured plan. Type:<br><br><kbd>Create a 3-phase rollout plan for scaling GitHub Copilot from a 50-person pilot to a 500-person enterprise deployment. For each phase, include: timeline, scope, success criteria, decision gate to proceed, and key risks. Format as a markdown document with clear headings.</kbd>",
+          "focus": "right"
+        },
+        {
+          "title": "Add the Rollout Plan to Your Files",
+          "instruction": "Open a new file, set the language to <strong>Markdown</strong>, and paste the rollout plan from Chat.<br><br>Review the decision gates between phases. These are the moments where you present data to leadership and get approval to expand. If any gate feels wrong for your organization, highlight it and use <kbd>Ctrl+I</kbd> to refine it.",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Generate a RACI Matrix",
+          "instruction": "Ask Copilot to add accountability structure. Type in Chat:<br><br><kbd>Create a RACI matrix for the Copilot rollout plan. Include these roles: Executive Sponsor, Engineering VP, Security Lead, Copilot Champion, and IT Admin. Cover these activities: license procurement, policy creation, content exclusion setup, training delivery, metrics reporting, and vendor evaluation. Format as a markdown table.</kbd><br><br>Paste the matrix into your rollout plan document. Clear ownership prevents rollout delays.",
+          "focus": "right",
+          "tip": "A rollout plan without named owners is just a wish list. The RACI matrix turns strategy into accountability."
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Personalize Your Action Plan",
+          "instruction": "Ask Copilot to help you prioritize based on your role. Type in Chat:<br><br><kbd>I am a VP of Engineering responsible for a 200-person developer organization. Based on the Monday morning action plan from this session, create a personalized 90-day checklist with specific tasks, owners, and milestones. Group tasks by week 1, week 2-4, and month 2-3.</kbd><br><br>Adjust the prompt to match your actual title and organization size.",
+          "focus": "right"
+        },
+        {
+          "title": "Save Your Action Plan",
+          "instruction": "Open a new file, set the language to <strong>Markdown</strong>, and paste your personalized action plan.<br><br>You now have a complete set of executive artifacts from this lab:<br><br>&bull; A metrics worksheet with usage analysis<br>&bull; An ROI model with sensitivity analysis<br>&bull; A Copilot usage policy<br>&bull; A board-level adoption report<br>&bull; A phased rollout plan with RACI matrix<br>&bull; A personalized 90-day action plan",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        }
+      ]
+    },
+    "28": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the Command and Conquer lab.<br><br>You built a full executive toolkit using Copilot Chat: a <strong>metrics worksheet</strong> with trend analysis, an <strong>ROI model</strong> with sensitivity analysis and CFO talking points, a <strong>usage policy</strong> with compliance language, a <strong>board report</strong> and an <strong>engineering leadership report</strong>, a <strong>phased rollout plan</strong> with a RACI matrix, and a <strong>personalized 90-day action plan</strong>.<br><br>Every artifact you created today is something you can refine and use with your own organization's data. The next step: pull real metrics from your GitHub org and replace the sample numbers with your actual data.",
+          "tip": "Head back to the slides on the left for a recap of key takeaways, or close this panel to continue exploring on your own."
+        }
+      ]
+    }
+  }
+}

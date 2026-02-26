@@ -1,0 +1,194 @@
+{
+  "title": "Multi-Agent Research — The AI is Mightier than the Sword",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to <strong>The AI is Mightier than the Sword</strong>. In this challenge lab you will design and orchestrate a team of specialized AI agents to tackle complex enterprise research questions.<br><br>This is a <strong>challenge lab</strong>. You will be given scenarios and goals, not step-by-step recipes. Your job is to prove you can assemble multi-agent workflows, evaluate their output, and make sound decisions based on the results.<br><br>Follow the steps in this panel as you advance through the slides.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Experience the Single-Agent Ceiling",
+          "instruction": "Open <strong>Copilot Chat</strong> and ask a complex, multi-domain question. For example:<br><br><kbd>Evaluate the trade-offs of adopting a multi-cloud strategy for an enterprise with strict data residency requirements, considering cost, security, compliance, operational complexity, and vendor lock-in.</kbd><br><br>Read the response critically. Note where the answer stays surface-level, repeats itself, or fails to weigh competing concerns.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Identify the Gaps",
+          "instruction": "Without prompting further, write down (mentally or in a scratch file) <strong>three specific weaknesses</strong> you spotted in the single-agent answer:<br><br>&bull; Did it give equal depth to all five domains?<br>&bull; Did it acknowledge uncertainty or cite sources?<br>&bull; Did it challenge its own assumptions?<br><br>These gaps are exactly what multi-agent research is designed to fill.",
+          "focus": "guide",
+          "tip": "Keep this question handy. You will revisit it later with a multi-agent approach and compare the results."
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Set Up a Debate",
+          "instruction": "You are going to run the <strong>debate pattern</strong> manually. Pick a strategic question relevant to your organization, or use this one:<br><br><kbd>Should our enterprise invest in building a proprietary AI platform or adopt a managed AI service from a major cloud provider?</kbd><br><br>In <strong>Copilot Chat</strong>, prompt the advocate side first:<br><br><kbd>You are an AI strategy advocate for building a proprietary platform. Make the strongest possible case: control, differentiation, long-term cost, IP ownership. Be specific and cite concrete advantages.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Argue the Other Side",
+          "instruction": "Now start a <strong>new chat session</strong> and prompt the opposing side:<br><br><kbd>You are an AI strategy advocate for adopting managed AI services. Make the strongest possible case: speed to market, reduced operational burden, access to latest models, scalability. Be specific and cite concrete advantages.</kbd><br><br>Compare both outputs. Notice how each side surfaces trade-offs the other ignores.",
+          "focus": "right",
+          "tip": "Starting a new chat session prevents the model from anchoring on its first position. Each perspective needs a clean slate."
+        },
+        {
+          "title": "Synthesize as the Judge",
+          "instruction": "Open a <strong>third chat session</strong>. Paste both arguments (or summarize them) and prompt:<br><br><kbd>You are a neutral judge evaluating two positions on build vs. buy for an enterprise AI platform. Review both arguments, identify the strongest and weakest claims in each, flag areas of agreement, and produce a balanced recommendation with conditions.</kbd><br><br>Evaluate the synthesis. Is it more nuanced than the single-agent answer from Slide 5?",
+          "focus": "right"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Create Your First Agent",
+          "instruction": "Create a <code>.github/agents/</code> folder in your workspace if one does not exist. Inside it, create a file named <code>security-auditor.agent.md</code>.<br><br>Your challenge: write an agent definition that includes a name, description, and clear instructions. The agent should specialize in evaluating security posture and risk. Define a structured methodology (at least four steps) that the agent follows for every question.<br><br>Refer to the slide for the YAML frontmatter format.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Test Your Agent",
+          "instruction": "Save the file and open <strong>Copilot Chat</strong>. Invoke your agent with <strong>@security-auditor</strong> and ask it a question:<br><br><kbd>@security-auditor What are the top security risks of adopting a multi-tenant SaaS platform for sensitive financial data?</kbd><br><br>Does the response follow the methodology you defined? If not, refine the instructions in your agent file and try again.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "tip": "Agent quality is directly proportional to instruction quality. Vague instructions produce vague output."
+        }
+      ]
+    },
+    "13": {
+      "steps": [
+        {
+          "title": "Design a Compliance Researcher",
+          "instruction": "Create a second agent file: <code>.github/agents/compliance-researcher.agent.md</code>.<br><br>Your challenge: design this agent to analyze regulatory requirements and identify compliance gaps. It should:<br><br>&bull; Identify relevant regulatory frameworks before answering<br>&bull; Search for applicable requirements<br>&bull; Compare current state against requirements<br>&bull; Present findings with citations<br>&bull; Flag areas of uncertainty for human review<br><br>Write the full agent definition yourself. The slide shows an example; adapt it to your organization's regulatory landscape.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Cross-Reference Two Agents",
+          "instruction": "Now test both agents against the <strong>same question</strong>:<br><br><kbd>Our company is considering storing European customer data in a US-based cloud region. What should we consider?</kbd><br><br>Ask <strong>@security-auditor</strong> first, then ask <strong>@compliance-researcher</strong> the same question in a separate session. Compare their outputs: where do they overlap? Where does each agent surface concerns the other missed?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Build Your Research Team",
+          "instruction": "Create at least <strong>two more agents</strong> to round out a research team. Choose from these roles, or invent your own:<br><br>&bull; <code>cost-analyst.agent.md</code> for financial impact and TCO<br>&bull; <code>architecture-reviewer.agent.md</code> for technical design<br>&bull; <code>research-lead.agent.md</code> for decomposing complex questions<br>&bull; <code>report-writer.agent.md</code> for executive summaries<br><br>Each agent needs a clear role, a structured methodology, and an output format.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Verify the Team",
+          "instruction": "Open <strong>Copilot Chat</strong> and verify that all of your agents are available by typing <strong>@</strong> and checking the agent list.<br><br>Pick any agent and ask it a question within its domain. Confirm that it follows its defined methodology and stays within its area of expertise.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "tip": "A good specialist agent should decline or flag questions outside its domain rather than guessing. Test this by asking a security question to your cost analyst."
+        }
+      ]
+    },
+    "16": {
+      "steps": [
+        {
+          "title": "Decompose a Research Question",
+          "instruction": "Here is your scenario:<br><br><em>Your CEO wants to know whether the company should acquire a smaller AI startup to accelerate your AI strategy, or build an internal AI team from scratch.</em><br><br>Your challenge: decompose this into <strong>3-5 focused sub-questions</strong>, each assigned to the most appropriate specialist agent from your team. Write your decomposition in a scratch file or note which agent handles which sub-question.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Execute the Workflow",
+          "instruction": "Invoke each specialist agent with its assigned sub-question. Collect the outputs. For example, your security auditor might evaluate the startup's security posture, while your cost analyst models the total cost of acquisition vs. internal hiring.<br><br>After collecting all outputs, feed them to a synthesis prompt:<br><br><kbd>You are a strategic advisor. Here are findings from four specialist analysts on the build vs. acquire decision: [paste findings]. Identify areas of agreement, flag contradictions, and produce a recommendation with clear conditions and risks.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Evaluate Your Process",
+          "instruction": "Review the final synthesis. Ask yourself:<br><br>&bull; Did the multi-agent approach surface trade-offs a single prompt would have missed?<br>&bull; Were there contradictions between specialists? How were they resolved?<br>&bull; Would you trust this analysis enough to present it to the CEO as draft research?<br><br>If the answer is no, identify which agent's instructions need improvement and refine them.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Plan Your MCP Configuration",
+          "instruction": "MCP servers connect your agents to real data sources. Your challenge: identify <strong>three internal data sources</strong> in your organization that would make your research agents more effective.<br><br>For each data source, note:<br>&bull; What type of data it provides (documents, metrics, records)<br>&bull; Which agent(s) would benefit from access<br>&bull; How it would improve the quality of research output<br><br>Write your plan in a scratch file.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Configure an MCP Server",
+          "instruction": "Open your VS Code settings (<code>settings.json</code>) and add an MCP server configuration. You can use a publicly available MCP server for practice, or define a placeholder for an internal server:<br><br>Refer to the slide for the configuration format. The key fields are: command, arguments, and environment variables. Your agent's <code>tools</code> list in its YAML frontmatter determines which MCP tools it can invoke.",
+          "focus": "editor",
+          "action": "workbench.action.openSettings",
+          "tip": "Start with one MCP server connected to one agent. Verify the connection works before scaling to multiple servers."
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Stress-Test Agent Output",
+          "instruction": "Return to the synthesis you produced in the earlier workflow challenge. Your task: apply the <strong>verification checklist</strong> from this slide to the output.<br><br>For each major claim in the synthesis:<br>&bull; Is there a citation or source reference?<br>&bull; Is the source authoritative and current?<br>&bull; Did multiple agents agree on this point, or is it from a single perspective?<br>&bull; Are there claims stated with high confidence but no supporting evidence?<br><br>Mark at least <strong>two claims</strong> that need independent verification.",
+          "focus": "guide"
+        },
+        {
+          "title": "Deploy a Fact-Checker",
+          "instruction": "Create (or invoke) a <strong>@fact-checker</strong> agent. Feed it one of the claims you flagged:<br><br><kbd>@fact-checker Verify the following claim from a research synthesis: \"[paste claim here]\". Check whether this claim is supported, partially supported, or unsupported. Explain your reasoning and rate your confidence.</kbd><br><br>Does the fact-checker's assessment change your confidence in the original finding?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "26": {
+      "steps": [
+        {
+          "title": "Enterprise Scenario Challenge",
+          "instruction": "Choose one of these enterprise scenarios (or bring your own):<br><br>&bull; <strong>Due Diligence:</strong> Evaluate a fictional acquisition target across technology, security, and compliance<br>&bull; <strong>Vendor Evaluation:</strong> Compare two competing vendors for a critical platform decision<br>&bull; <strong>Incident Post-Mortem:</strong> Analyze a hypothetical outage from technical, process, and communication angles<br><br>Your challenge: design and execute a complete multi-agent research workflow for your chosen scenario using the agents you have built.",
+          "focus": "guide"
+        },
+        {
+          "title": "Execute and Document",
+          "instruction": "Run your workflow end to end. Use your specialist agents, collect findings, synthesize, and verify. Create a brief <strong>executive summary</strong> (5-10 bullet points) that you would present to a leadership audience.<br><br>Your summary should include: the question, methodology, key findings, areas of disagreement, confidence levels, and a clear recommendation with conditions.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "tip": "The quality of your executive summary is the measure of the lab. A strong summary demonstrates mastery of the multi-agent research pattern."
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Document Your Playbook",
+          "instruction": "Create a file called <code>research-playbook.md</code> in your workspace. Document your multi-agent research methodology:<br><br>&bull; Which agents you created and their roles<br>&bull; Which patterns worked best (debate, consensus, specialization, orchestration)<br>&bull; How you decompose complex questions into sub-tasks<br>&bull; Your verification checklist for evaluating agent output<br>&bull; Lessons learned from the lab exercises<br><br>This playbook is your reference for applying multi-agent research in your real work.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Plan Your First Real Workflow",
+          "instruction": "Identify one <strong>real research question</strong> in your organization that would benefit from multi-agent research. It does not need to be high-stakes; it just needs to involve multiple domains or perspectives.<br><br>Write a brief plan: which agents would you use, what pattern would you apply, what data sources would you connect, and how would you verify the output?",
+          "focus": "guide"
+        }
+      ]
+    },
+    "30": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You have completed The AI is Mightier than the Sword.<br><br>In this lab you:<br><br>&bull; Experienced the single-agent ceiling firsthand<br>&bull; Ran a debate pattern with advocate, critic, and judge roles<br>&bull; Created specialist agents with structured methodologies<br>&bull; Built and tested a multi-agent research team<br>&bull; Executed a full orchestration workflow with synthesis<br>&bull; Applied verification strategies to evaluate agent output<br>&bull; Tackled a real enterprise scenario end to end<br>&bull; Documented a reusable research playbook<br><br>Next courses: <strong>Proving Trust in the System</strong> for governance and compliance, or explore the Developer track's <strong>Multi-Agent Multi-Repo Roundup</strong> for technical orchestration.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

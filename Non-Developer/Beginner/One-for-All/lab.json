@@ -1,0 +1,218 @@
+{
+  "title": "GitHub Platform Tour - One for All",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome! In this hands-on lab you will explore the GitHub platform from inside VS Code. Each section of the tour includes guided steps that reinforce what the slides cover.<br><br>The guide panel will update automatically as you advance through the slides. The glowing edge and arrow will show you where to look.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Open the Explorer",
+          "instruction": "We have opened the <strong>Explorer</strong> panel for you (<kbd>Ctrl+Shift+E</kbd>). This is the file browser built into VS Code.<br><br>Notice how the project's files and folders are displayed in a tree structure. This is a direct view of a <strong>GitHub repository</strong> on your local machine. Every file you see here is tracked by Git and stored on GitHub.",
+          "focus": "left",
+          "action": "workbench.view.explorer"
+        },
+        {
+          "title": "Open Source Control",
+          "instruction": "Now click the <strong>Source Control</strong> icon in the left sidebar (it looks like a branching line), or press <kbd>Ctrl+Shift+G</kbd>.<br><br>This panel shows how VS Code connects to GitHub. You can see the current <strong>branch</strong>, any files you have changed, and options to commit and push. This is where collaboration begins: every change flows from here to the shared repository on GitHub.",
+          "focus": "left",
+          "action": "workbench.view.scm"
+        },
+        {
+          "title": "Done Exploring",
+          "instruction": "We have closed the sidebar for you. You just saw the two most important panels for understanding how GitHub connects to your local workspace: the <strong>Explorer</strong> for files and the <strong>Source Control</strong> view for changes and branches.<br><br>You can reopen them any time with <kbd>Ctrl+Shift+E</kbd> (Explorer) or <kbd>Ctrl+Shift+G</kbd> (Source Control).",
+          "action": "workbench.action.closeSidebar"
+        }
+      ]
+    },
+    "8": {
+      "steps": [
+        {
+          "title": "Navigate the File Tree",
+          "instruction": "We have opened the <strong>Explorer</strong> again. Expand a few folders by clicking the arrows next to them.<br><br>Notice the folder structure: files are organized into directories, just like folders on your desktop. In a GitHub repository, this structure is shared with every team member. When someone adds a file on GitHub, it appears here after you pull the latest changes.",
+          "focus": "left",
+          "action": "workbench.view.explorer"
+        },
+        {
+          "title": "Check the Current Branch",
+          "instruction": "Look at the <strong>bottom-left corner</strong> of VS Code. You will see the name of the current <strong>branch</strong> (usually <code>main</code> or <code>master</code>).<br><br>Click on it to see a list of all available branches. Branches let teams work on different features in parallel without interfering with each other. You do not need to switch branches; just notice that the option is there.",
+          "tip": "Think of branches like drafts of a document. Everyone works on their own draft, and when it is ready, they merge it into the final version."
+        },
+        {
+          "title": "View File History",
+          "instruction": "Open any file by clicking it in the Explorer. Then look at the bottom of the Explorer panel for the <strong>Timeline</strong> section. If it is collapsed, click to expand it.<br><br>The Timeline shows every change that has been made to this file over time, including who made the change and when. This is the \"time machine\" that Git provides: a complete, searchable history of every edit.",
+          "focus": "left"
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Ask Copilot About Issues",
+          "instruction": "We have opened <strong>Copilot Chat</strong> for you. Type the following question:<br><br><kbd>What are GitHub Issues and how do teams use them to track work?</kbd><br><br>Read Copilot's response. Notice how it explains Issues in the context of software development, including labels, assignees, and linking to pull requests.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Learn About Traceability",
+          "instruction": "Now ask a follow-up question:<br><br><kbd>How does closing an issue automatically when a pull request merges work?</kbd><br><br>This traceability is one of the most powerful features for non-developers. It means every code change can be traced back to the business need that requested it. Compliance and audit teams benefit greatly from this built-in connection.",
+          "focus": "right"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Explore Project Views",
+          "instruction": "Still in Copilot Chat, ask:<br><br><kbd>What are the different views available in GitHub Projects, and when would I use each one?</kbd><br><br>Copilot will explain the Board, Table, and Roadmap views. Think about which view would be most useful for your role. Boards are great for daily standups, Tables for filtering and sorting, and Roadmaps for executive reporting.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Close Chat",
+          "instruction": "We have closed the Chat panel for you. You used Copilot to learn about GitHub Issues and Projects, two key planning tools that connect business needs to development work.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Alt+I</kbd>.",
+          "action": "workbench.action.closeAuxiliaryBar"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Look for Workflow Files",
+          "instruction": "We have opened the <strong>Explorer</strong> for you. Look for a folder called <code>.github</code> at the top of the file tree. If it exists, expand it and look for a <code>workflows</code> subfolder inside.<br><br>Workflow files are YAML files that define automated tasks. Each file describes what triggers the automation (like a pull request being opened) and what steps to run (like building and testing the code). If the folder is not present, that means this repository does not have Actions configured yet.",
+          "focus": "left",
+          "action": "workbench.view.explorer"
+        },
+        {
+          "title": "Ask About Actions",
+          "instruction": "Open Copilot Chat and ask:<br><br><kbd>Explain GitHub Actions in simple terms. What is a workflow, a job, and a step?</kbd><br><br>Understanding these three concepts is enough to read any Actions workflow file. A <strong>workflow</strong> is the entire automation. A <strong>job</strong> is a group of tasks that run on the same machine. A <strong>step</strong> is a single task within a job.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Close the Panels",
+          "instruction": "We have closed the panels for you. You explored where automation files live in a repository and learned the three building blocks of GitHub Actions.<br><br>Even though you may not write workflow files yourself, understanding what they are helps you follow conversations about CI/CD with your development team.",
+          "action": ["workbench.action.closeAuxiliaryBar", "workbench.action.closeSidebar"]
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Open the Problems Panel",
+          "instruction": "We have opened the <strong>Problems</strong> panel for you. This panel shows errors and warnings in your code, similar to how spell-check highlights issues in a document.<br><br>On GitHub, automated tools called <strong>required status checks</strong> perform these inspections on every pull request. If problems are found, the pull request cannot be merged until they are fixed.",
+          "focus": "bottom",
+          "action": "workbench.action.problems.focus"
+        },
+        {
+          "title": "Explore Code Quality Settings",
+          "instruction": "We have opened <strong>Settings</strong> for you. Type <kbd>editor.formatOnSave</kbd> in the search bar at the top.<br><br>This is an example of a code quality rule that can be enforced at the workspace level. When enabled, files are automatically formatted every time you save. On GitHub, similar rules are enforced through <strong>branch protection</strong> and <strong>rulesets</strong> that apply across entire teams and organizations.",
+          "focus": "left",
+          "action": "workbench.action.openSettings"
+        },
+        {
+          "title": "Close Settings",
+          "instruction": "We have closed Settings for you. You saw how VS Code surfaces code problems and how settings enforce quality rules. On GitHub, these concepts scale up to entire organizations through branch protection rules and rulesets.",
+          "action": "workbench.action.closeActiveEditor"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Ask About Security Scanning",
+          "instruction": "We have opened Copilot Chat for you. Ask:<br><br><kbd>What is the difference between Dependabot, secret scanning, code scanning, and push protection on GitHub?</kbd><br><br>Read through the response carefully. Each tool covers a different type of risk: vulnerable dependencies, leaked credentials, insecure code patterns, and preventing secrets from being committed in the first place.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Understand Push Protection",
+          "instruction": "Ask a follow-up:<br><br><kbd>Why is push protection better than detecting secrets after they have been committed?</kbd><br><br>This is a key concept for compliance: prevention is always stronger than detection. Push protection stops a secret from ever reaching the repository, eliminating the need for costly incident response.",
+          "focus": "right"
+        },
+        {
+          "title": "Close Chat",
+          "instruction": "We have closed the Chat panel for you. You learned about the four layers of GitHub security: Dependabot for dependencies, secret scanning for leaked credentials, code scanning for vulnerabilities, and push protection to prevent problems before they happen.",
+          "action": "workbench.action.closeAuxiliaryBar"
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We have opened <strong>Copilot Chat</strong> for you (<kbd>Ctrl+Alt+I</kbd>). This is the same AI assistant you have been using throughout this lab. Notice that it appears in the right sidebar of VS Code.<br><br>Copilot Chat works across the entire GitHub platform: in VS Code, on github.com, in the terminal, and in mobile apps.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Explore the Model Selector",
+          "instruction": "Look at the <strong>top of the Chat panel</strong>. Click the <strong>model selector</strong> dropdown to see which AI models are available.<br><br>Different models have different strengths. Some are faster; others are better at complex reasoning. The <strong>multiplier</strong> next to each model shows how many premium requests a single message consumes. For most questions, the default model works well.",
+          "focus": "right"
+        },
+        {
+          "title": "Try the Mode Selector",
+          "instruction": "Next to the model picker, find the <strong>mode selector</strong>. Click it to see the three modes:<br><br>&bull; <strong>Ask</strong> answers questions without changing your files<br>&bull; <strong>Edit</strong> proposes changes you can review and accept<br>&bull; <strong>Agent</strong> plans and executes multi-step tasks autonomously<br><br>For exploring and learning, <strong>Ask</strong> mode is the safest choice. Select it now if it is not already active.",
+          "focus": "right",
+          "tip": "As a non-developer, Ask mode is your best friend. It lets you learn and explore without any risk of accidentally changing files."
+        },
+        {
+          "title": "Ask a Platform Question",
+          "instruction": "Type a question that connects to today's tour:<br><br><kbd>Summarize how GitHub Issues, pull requests, Actions, and security scanning work together as a single workflow.</kbd><br><br>Copilot draws on its knowledge of the GitHub platform to give you a connected answer. This is a great way to reinforce what you learned in the slides.",
+          "focus": "right"
+        }
+      ]
+    },
+    "25": {
+      "steps": [
+        {
+          "title": "Ask About Enterprise Controls",
+          "instruction": "In Copilot Chat, ask:<br><br><kbd>What enterprise governance features does GitHub provide for large organizations?</kbd><br><br>Read through the response and look for the features mentioned in the slides: audit logs, SAML SSO, repository policies, IP allow lists, and license management. These are the controls that make GitHub suitable for regulated industries.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Learn About Audit Logs",
+          "instruction": "Ask a follow-up:<br><br><kbd>What kinds of events are captured in the GitHub audit log, and how do compliance teams use this data?</kbd><br><br>The audit log is often the single most important feature for compliance officers. It records every significant action across the organization, creating the paper trail that auditors require.",
+          "focus": "right"
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Open Source Control",
+          "instruction": "We have opened <strong>Source Control</strong> for you. This is where the end-to-end workflow begins and ends on your local machine.<br><br>Think of the flow: a stakeholder creates an Issue, a developer makes changes here in Source Control, opens a pull request, reviewers approve it, Actions runs automated checks, and the code is deployed. Every step is connected and recorded.",
+          "focus": "left",
+          "action": "workbench.view.scm"
+        },
+        {
+          "title": "Trace the Full Workflow",
+          "instruction": "In Copilot Chat, ask:<br><br><kbd>Walk me through a complete GitHub workflow step by step, from filing an issue to deploying to production. Include how security and quality checks fit in.</kbd><br><br>Compare Copilot's response to the six-step workflow on the slide. Notice how each tool (Issues, PRs, Actions, security scanning) plays a specific role in the chain.",
+          "focus": ["left", "right"],
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Close the Panels",
+          "instruction": "We have closed the panels for you. You traced the full end-to-end GitHub workflow, from capturing a business need in an Issue through code changes and reviews, automated security checks, and deployment to production.<br><br>This connected flow is what makes GitHub more than the sum of its parts.",
+          "action": ["workbench.action.closeAuxiliaryBar", "workbench.action.closeSidebar"]
+        }
+      ]
+    },
+    "31": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> \ud83c\udf89 You have completed the GitHub Platform Tour lab. You explored the <strong>Explorer</strong> and <strong>Source Control</strong> panels, navigated the file tree, viewed file history in the <strong>Timeline</strong>, and used <strong>Copilot Chat</strong> to learn about Issues, Projects, Actions, code quality, security scanning, enterprise governance, and the end-to-end workflow.<br><br>You now have a solid mental map of how GitHub works as a unified platform. Explore the other Beginner courses in the Non-Developer track to go deeper.",
+          "tip": "Head back to the slides on the left for a recap, or close this panel to explore on your own."
+        }
+      ]
+    }
+  }
+}

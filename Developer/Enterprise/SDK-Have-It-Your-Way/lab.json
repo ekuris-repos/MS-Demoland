@@ -1,0 +1,200 @@
+{
+  "title": "Copilot SDK — Have It Your Way",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the <strong>Copilot SDK</strong> enterprise lab. You will scaffold a production-grade Copilot-powered application, wire up streaming and tool integration, configure Bring Your Own Model, and deploy to Azure Container Apps.<br><br>This lab assumes you are comfortable with TypeScript, Express, and Azure fundamentals. Follow the steps in this panel as you advance through the slides.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Scaffold the SDK Project",
+          "instruction": "Open a terminal and scaffold a new Copilot SDK project using the Azure Developer CLI template:<br><br><kbd>azd init --template azure-samples/copilot-sdk-service</kbd><br><br>When prompted, choose a name for your project (e.g., <code>my-copilot-app</code>). Accept the default settings for the Azure region and subscription.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal"
+        },
+        {
+          "title": "Install Dependencies",
+          "instruction": "Navigate into your new project directory and install the dependencies:<br><br><kbd>cd my-copilot-app</kbd><br><kbd>npm install</kbd><br><br>Verify that <code>@github/copilot-sdk</code> appears in your <code>package.json</code> dependencies. This is the core package you will use for every integration point in this lab.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Explore the Project Structure",
+          "instruction": "Open the <strong>Explorer</strong> and review the scaffolded project. Locate these key areas:<br><br>&bull; <code>src/api/</code> - Express server and SDK integration<br>&bull; <code>src/web/</code> - React-based front end<br>&bull; <code>infra/</code> - Bicep infrastructure definitions<br>&bull; <code>azure.yaml</code> - azd deployment manifest<br><br>Open the main API entry point and identify where the <code>CopilotClient</code> is imported and configured.",
+          "focus": "left",
+          "action": "workbench.view.explorer"
+        },
+        {
+          "title": "Identify the SDK Entry Point",
+          "instruction": "Find the file in <code>src/api/</code> where the SDK is initialized. Look for the <code>CopilotClient</code> import and the <code>createSession()</code> call.<br><br>Review how the template connects the SDK to the Express app. Note the authentication pattern: the token is read from environment variables, not hardcoded. This is the foundation you will build on for the rest of the lab.",
+          "focus": "editor"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Create a Standalone SDK Script",
+          "instruction": "Create a new file called <code>src/test-client.ts</code>. Write a minimal SDK script that:<br><br>&bull; Imports <code>CopilotClient</code> from <code>@github/copilot-sdk</code><br>&bull; Creates a client instance using <code>process.env.GITHUB_TOKEN</code><br>&bull; Opens a session with <code>createSession()</code><br>&bull; Sends a prompt using <code>sendAndWait()</code><br>&bull; Logs the response to the console<br><br>Use the code on the slide as a reference, but write it yourself.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "Set your GITHUB_TOKEN environment variable before running the script. Use a personal access token with the copilot scope."
+        },
+        {
+          "title": "Run the Test Script",
+          "instruction": "Execute your test script from the terminal:<br><br><kbd>npx tsx src/test-client.ts</kbd><br><br>You should see a model response printed to the console. If you get an authentication error, verify that your <code>GITHUB_TOKEN</code> environment variable is set correctly.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal"
+        }
+      ]
+    },
+    "15": {
+      "steps": [
+        {
+          "title": "Build a Chat Endpoint",
+          "instruction": "Open the main API router file and add a <code>POST /chat</code> endpoint. Your endpoint should:<br><br>&bull; Parse a <code>message</code> field from the request body<br>&bull; Create a new session with <code>client.createSession()</code><br>&bull; Call <code>session.sendAndWait(message)</code><br>&bull; Return the response and session ID as JSON<br><br>Follow the Express patterns already established in the template code.",
+          "focus": "editor"
+        },
+        {
+          "title": "Test the Chat Endpoint",
+          "instruction": "Start the development server and test your endpoint. In a terminal, run:<br><br><kbd>npm run dev</kbd><br><br>Then open a second terminal and send a test request:<br><br><kbd>curl -X POST http://localhost:3000/chat -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"What is the Copilot SDK?\\\"}\"</kbd><br><br>Verify you receive a JSON response with <code>reply</code> and <code>sessionId</code> fields.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal"
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Add a Streaming Endpoint",
+          "instruction": "Create a new <code>POST /chat/stream</code> endpoint that uses Server-Sent Events for real-time token delivery. Your endpoint should:<br><br>&bull; Set the <code>Content-Type</code> header to <code>text/event-stream</code><br>&bull; Call <code>session.send(message)</code> instead of <code>sendAndWait()</code><br>&bull; Iterate with <code>for await</code> over the stream<br>&bull; Write each chunk as an SSE <code>data:</code> event<br>&bull; Send a <code>[DONE]</code> event when the stream completes",
+          "focus": "editor"
+        },
+        {
+          "title": "Verify Streaming Behavior",
+          "instruction": "Test the streaming endpoint from the terminal:<br><br><kbd>curl -N -X POST http://localhost:3000/chat/stream -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"Explain streaming in 3 sentences\\\"}\"</kbd><br><br>You should see individual chunks arriving in real time, followed by the <code>[DONE]</code> event. Compare the perceived latency to your non-streaming <code>/chat</code> endpoint.",
+          "focus": "terminal",
+          "tip": "The -N flag disables curl's output buffering so you can see chunks as they arrive."
+        }
+      ]
+    },
+    "18": {
+      "steps": [
+        {
+          "title": "Define a Tool Schema",
+          "instruction": "Create a tools array with at least one tool definition. Build a <code>lookup_order</code> tool with the following JSON Schema:<br><br>&bull; Name: <code>lookup_order</code><br>&bull; Description: \"Look up an order by its ID\"<br>&bull; Parameters: an <code>orderId</code> string (required)<br><br>You can add a second tool if you like, such as <code>cancel_order</code> or <code>list_recent_orders</code>. Define the tools in a separate file like <code>src/tools.ts</code> to keep your codebase organized.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Register Tools with a Session",
+          "instruction": "Update your <code>/chat</code> endpoint to pass the tools array when creating a session:<br><br><kbd>const session = await client.createSession({ tools });</kbd><br><br>The SDK will handle tool orchestration automatically. When the model decides to invoke a tool, it calls your handler and feeds the result back into the conversation.",
+          "focus": "editor"
+        },
+        {
+          "title": "Test Tool Invocation",
+          "instruction": "Send a request that should trigger tool use:<br><br><kbd>curl -X POST http://localhost:3000/chat -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"What is the status of order ORD-1234?\\\"}\"</kbd><br><br>Check your server logs to confirm the tool was invoked. If the model does not call the tool, adjust your prompt to be more direct, or verify your tool schema is correctly registered.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "21": {
+      "steps": [
+        {
+          "title": "Implement Session Persistence",
+          "instruction": "Your current <code>/chat</code> endpoint creates a new session for every request, which means the model has no memory of previous turns. Fix this by:<br><br>&bull; Creating an in-memory map of session IDs to session objects<br>&bull; Accepting an optional <code>sessionId</code> in the request body<br>&bull; Reusing an existing session when a valid ID is provided<br>&bull; Creating a new session only when no ID is supplied<br><br>This gives your API multi-turn conversation support.",
+          "focus": "editor"
+        },
+        {
+          "title": "Test Multi-Turn Conversations",
+          "instruction": "Send a sequence of messages that reference previous context. For example:<br><br>Turn 1: <kbd>\"What is the status of order ORD-1234?\"</kbd><br>Turn 2 (same sessionId): <kbd>\"Can you cancel it?\"</kbd><br>Turn 3 (same sessionId): <kbd>\"How long until the refund is processed?\"</kbd><br><br>Verify that the model resolves pronouns correctly (\"it\" refers to ORD-1234) and retains context from earlier turns. Check your session map to confirm sessions are being stored and retrieved.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Configure Azure OpenAI Provider",
+          "instruction": "Create a BYOM configuration that points to an Azure OpenAI endpoint. Add a new session creation path that accepts a <code>provider</code> option:<br><br>&bull; Set <code>type</code> to <code>\"azure\"</code><br>&bull; Set <code>baseUrl</code> from <code>process.env.AZURE_OPENAI_ENDPOINT</code><br>&bull; Use <code>DefaultAzureCredential</code> to fetch a bearer token<br>&bull; Set <code>wireApi</code> to <code>\"completions\"</code><br>&bull; Specify the <code>apiVersion</code><br><br>Wrap this in an environment check so your app falls back to GitHub Models when Azure credentials are not available.",
+          "focus": "editor",
+          "tip": "DefaultAzureCredential from @azure/identity handles managed identity in production and developer credentials locally."
+        },
+        {
+          "title": "Verify BYOM Fallback",
+          "instruction": "Test both paths. First, ensure the app works with GitHub Models when no Azure environment variables are set. Then set <code>AZURE_OPENAI_ENDPOINT</code> and verify the provider configuration is picked up.<br><br>If you do not have an Azure OpenAI deployment available, confirm the fallback logic works correctly by logging which provider is active at startup. The key outcome is that your code cleanly supports both backends.",
+          "focus": "terminal"
+        }
+      ]
+    },
+    "26": {
+      "steps": [
+        {
+          "title": "Review Infrastructure as Code",
+          "instruction": "Open the <code>infra/</code> directory and review the Bicep files. Identify the resources being provisioned:<br><br>&bull; Azure Container Apps Environment<br>&bull; Container App (your service)<br>&bull; Container Registry<br>&bull; Application Insights<br>&bull; Log Analytics Workspace<br><br>Check the <code>azure.yaml</code> manifest to see how the deployment pipeline maps your source code to infrastructure. Note how environment variables and secrets are configured.",
+          "focus": "editor",
+          "action": "workbench.view.explorer"
+        },
+        {
+          "title": "Deploy with azd",
+          "instruction": "Deploy your application to Azure:<br><br><kbd>azd up</kbd><br><br>The CLI will provision infrastructure, build your application, and deploy it. This may take several minutes on the first run. When it completes, note the endpoint URL printed in the output.<br><br>Test your deployed endpoint with curl to confirm it is working in the cloud.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "tip": "Use azd up --environment staging to deploy to a separate environment for testing before production."
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Add Custom Telemetry",
+          "instruction": "The template configures Application Insights automatically, but production Copilot apps need custom metrics. Add telemetry for:<br><br>&bull; <strong>Token usage:</strong> Log prompt and completion token counts per session<br>&bull; <strong>Latency:</strong> Measure time-to-first-token and total response time<br>&bull; <strong>Tool calls:</strong> Track which tools are invoked and their success/failure rate<br><br>Use <code>applicationinsights</code> custom events or your preferred logging framework.",
+          "focus": "editor"
+        },
+        {
+          "title": "Verify Telemetry in the Portal",
+          "instruction": "Send several requests to your deployed endpoint, then open <strong>Application Insights</strong> in the Azure Portal. Navigate to <strong>Transaction search</strong> and verify that:<br><br>&bull; Request traces appear for your <code>/chat</code> and <code>/chat/stream</code> endpoints<br>&bull; Custom events include token usage metrics<br>&bull; Dependency calls to the Copilot service are tracked<br><br>If custom events are missing, check that your telemetry client is flushing before the process exits.",
+          "focus": "slides"
+        }
+      ]
+    },
+    "29": {
+      "steps": [
+        {
+          "title": "Secure Token Storage",
+          "instruction": "Move your GitHub token from environment variables to Azure Key Vault. Update your application to:<br><br>&bull; Use <code>@azure/identity</code> with <code>DefaultAzureCredential</code><br>&bull; Fetch the token from Key Vault at startup using <code>@azure/keyvault-secrets</code><br>&bull; Cache the token in memory to avoid repeated Key Vault calls<br>&bull; Implement a refresh mechanism for token rotation<br><br>Verify that no secrets appear in your source code or deployment configuration.",
+          "focus": "editor"
+        },
+        {
+          "title": "Add Rate Limiting",
+          "instruction": "Implement per-user rate limiting on your <code>/chat</code> and <code>/chat/stream</code> endpoints. Your rate limiter should:<br><br>&bull; Identify users by API key or JWT claims<br>&bull; Limit requests to a configurable threshold (e.g., 60 requests per minute)<br>&bull; Return HTTP 429 with a <code>Retry-After</code> header when the limit is exceeded<br>&bull; Log rate-limit events for monitoring<br><br>Use a middleware pattern so the rate limiter applies consistently across all chat endpoints.",
+          "focus": "editor",
+          "tip": "For production, use a distributed rate limiter backed by Redis. For this lab, an in-memory implementation is sufficient."
+        },
+        {
+          "title": "Validate Input and Output",
+          "instruction": "Add input validation and output filtering to your chat endpoints:<br><br>&bull; Validate that incoming messages are non-empty strings under a maximum length<br>&bull; Validate tool-call arguments against your JSON schemas before executing<br>&bull; Filter model responses to strip any sensitive patterns (e.g., tokens, connection strings)<br>&bull; Log all validation failures for security auditing<br><br>Test with malformed requests to ensure your validation returns appropriate HTTP 400 responses.",
+          "focus": "editor"
+        }
+      ]
+    },
+    "34": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You have completed the Copilot SDK enterprise lab.<br><br>You built a production-grade Copilot-powered application from the ground up:<br><br>&bull; Scaffolded a project with the <code>azd</code> template<br>&bull; Created synchronous and streaming chat endpoints<br>&bull; Integrated tool definitions with automatic orchestration<br>&bull; Implemented multi-turn conversation persistence<br>&bull; Configured Bring Your Own Model with Azure OpenAI fallback<br>&bull; Deployed to Azure Container Apps with <code>azd up</code><br>&bull; Added custom telemetry for token usage and latency<br>&bull; Secured the application with Key Vault, rate limiting, and input validation<br><br>Next up: <strong>MCP Maximizer</strong> to extend your SDK app with external tool servers, or <strong>Multi-Agent Multi-Repo Roundup</strong> for orchestrating agents across repositories.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

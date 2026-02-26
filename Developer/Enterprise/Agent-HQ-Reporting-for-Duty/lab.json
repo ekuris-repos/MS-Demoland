@@ -1,0 +1,209 @@
+{
+  "title": "Agent Coordination — Agent HQ: Reporting for Duty",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the Agent HQ lab. In this hands-on session you will build the coordination infrastructure that lets AI agents operate across your entire development toolchain: VS Code, GitHub.com, CLI, and beyond.<br><br>You will create enterprise-grade custom instructions, build GitHub Actions workflows for automated triage, scaffold a Copilot Extension endpoint, and design multi-agent coordination pipelines. This lab assumes you are comfortable with agent mode, custom instructions, and GitHub Actions from earlier courses.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Audit Your Agent Surfaces",
+          "instruction": "Before coordinating agents, you need to know what surfaces are available. Open <strong>Copilot Chat</strong> and switch to <strong>Agent</strong> mode.<br><br>Type:<br><br><kbd>List every surface where GitHub Copilot agents can operate. For each surface, describe what actions the agent can take and what limitations exist.</kbd><br><br>Compare the agent's answer against the slide content. Verify it covers VS Code, GitHub.com, CLI, and Slack.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Map Your Organization's Surfaces",
+          "instruction": "Create a new file called <code>agent-surface-inventory.md</code> and use agent mode to populate it:<br><br><kbd>Create a markdown table with columns: Surface, Capabilities, Access Requirements, and Current Status. Include rows for VS Code Agent Mode, GitHub.com Copilot Chat, Copilot CLI, Copilot in Slack, and Copilot Extensions. Fill in realistic values for an enterprise team.</kbd><br><br>This inventory is the first step in any agent coordination rollout.",
+          "focus": ["editor", "right"],
+          "action": "workbench.action.files.newUntitledFile"
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Configure Agent Mode Auto-Approve",
+          "instruction": "Enterprise workflows often require configuring auto-approve settings for trusted operations. Open VS Code <strong>Settings</strong> and search for <kbd>chat.agent.autoApprove</kbd>.<br><br>Review the available options. In a production environment, you would set per-tool approval policies. For this lab, leave the default (manual approval) so you can observe every action the agent takes.",
+          "focus": "editor",
+          "action": "workbench.action.openSettings",
+          "tip": "Auto-approve is powerful but should be enabled selectively. Start with read-only tools and expand as trust is established."
+        },
+        {
+          "title": "Stress-Test Agent Mode Recovery",
+          "instruction": "Agent mode's error recovery is critical for autonomous workflows. Open <strong>Copilot Chat</strong> in agent mode and type:<br><br><kbd>Create a Node.js script at test-recovery.js that intentionally has a syntax error. Run it with node, read the error output, fix the issue, and run it again until it succeeds. The script should print \"Agent recovery test passed.\"</kbd><br><br>Watch the agent plan, fail, diagnose, and recover. Approve each terminal command as it appears.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Clean Up",
+          "instruction": "Delete the test file by telling agent mode:<br><br><kbd>Delete test-recovery.js, it was just a recovery test.</kbd><br><br>Approve the deletion. In production workflows, agent cleanup is part of the coordination pipeline.",
+          "focus": "right"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Try Copilot CLI Suggest",
+          "instruction": "Open the <strong>Terminal</strong> and use the Copilot CLI to generate a command:<br><br><kbd>gh copilot suggest \"find all GitHub Actions workflow files in this repository and list them with their trigger events\"</kbd><br><br>Review the suggested command. The CLI surface is ideal for DevOps engineers who need quick command lookups without leaving the terminal.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "tip": "If you don't have the gh copilot extension installed, run: gh extension install github/gh-copilot"
+        },
+        {
+          "title": "Try Copilot CLI Explain",
+          "instruction": "Now use the explain command on a complex pipeline:<br><br><kbd>gh copilot explain \"git log --oneline --graph --all --decorate | head -20\"</kbd><br><br>The CLI surface provides plain-language breakdowns of complex commands. This is especially valuable for onboarding new team members who encounter unfamiliar scripts.",
+          "focus": "bottom"
+        }
+      ]
+    },
+    "16": {
+      "steps": [
+        {
+          "title": "Create a Coding Agent Issue Template",
+          "instruction": "The Coding Agent works best with well-structured issues. Use agent mode to create an issue template:<br><br><kbd>Create a GitHub issue template at .github/ISSUE_TEMPLATE/coding-agent-task.yml that includes fields for: task description, acceptance criteria (checklist), files likely affected, testing requirements, and a label \"copilot\" that signals this issue is a Coding Agent candidate. Use YAML form syntax.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Review the Template",
+          "instruction": "Open the generated template file in the editor and verify it includes:<br><br>&bull; A clear description field with placeholder text<br>&bull; An acceptance criteria checklist<br>&bull; A files-affected text area<br>&bull; A testing requirements section<br>&bull; The <code>copilot</code> label in the template metadata<br><br>Well-structured issue templates are the foundation of reliable Coding Agent workflows. Ambiguous issues produce unreliable results.",
+          "focus": "editor",
+          "action": "workbench.view.explorer"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Scaffold an Automated Triage Workflow",
+          "instruction": "Now build the GitHub Actions workflow that powers automated triage. In agent mode, type:<br><br><kbd>Create a GitHub Actions workflow at .github/workflows/auto-triage.yml that triggers when a new issue is opened. The workflow should: 1) Use the gh CLI to post a comment mentioning @copilot asking it to classify the issue type (bug, feature, docs, question), suggest priority (P0-P3), and recommend which team should own it. 2) Apply initial labels based on the issue body keywords. Include appropriate permissions for issues: write.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Add Duplicate Detection",
+          "instruction": "Extend the workflow with a duplicate detection step. Tell agent mode:<br><br><kbd>Add a second job to the auto-triage workflow that uses gh issue list to fetch the 20 most recent issues for the repository. Post a follow-up comment mentioning @copilot asking it to compare the new issue against those recent issues and flag potential duplicates with links. Gate this job behind a condition that the issue has more than 50 words.</kbd>",
+          "focus": "right"
+        },
+        {
+          "title": "Review the Workflow",
+          "instruction": "Open <code>.github/workflows/auto-triage.yml</code> in the editor. Verify:<br><br>&bull; The trigger is <code>issues: [opened]</code><br>&bull; Permissions are scoped to <code>issues: write</code><br>&bull; The @copilot mention is in a <code>gh issue comment</code> command<br>&bull; The duplicate detection job has the word-count condition<br>&bull; No secrets or tokens are hardcoded<br><br>This workflow turns every new issue into a pre-triaged, labeled, prioritized item before a human even sees it.",
+          "focus": "editor",
+          "tip": "In production, add a concurrency group to prevent multiple triage runs on the same issue if it is edited quickly."
+        }
+      ]
+    },
+    "22": {
+      "steps": [
+        {
+          "title": "Design a Fan-Out Coordination Pipeline",
+          "instruction": "Build a coordination workflow that demonstrates the fan-out/fan-in pattern. In agent mode, type:<br><br><kbd>Create a GitHub Actions workflow at .github/workflows/fan-out-update.yml that is triggered by workflow_dispatch with an input for \"library_version\". The workflow should have three parallel jobs: update-api (updates backend dependencies), update-frontend (updates frontend dependencies), and update-tests (updates test fixtures). Each job should create a separate branch, make a commit, and open a draft PR. Add a final \"reconcile\" job that depends on all three and posts a summary comment to a tracking issue.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Add Human-in-the-Loop Checkpoints",
+          "instruction": "Extend the workflow with approval gates. Tell agent mode:<br><br><kbd>Add an environment called \"production-review\" to the reconcile job in fan-out-update.yml so it requires manual approval before running. Also add a step at the end that uses gh issue comment to post a status table showing which update jobs succeeded and which failed.</kbd><br><br>This combines the fan-out pattern with human-in-the-loop governance.",
+          "focus": "right"
+        }
+      ]
+    },
+    "26": {
+      "steps": [
+        {
+          "title": "Scaffold a Copilot Extension",
+          "instruction": "Build a minimal Copilot Extension that connects to an internal system. In agent mode, type:<br><br><kbd>Create a Node.js Express project for a Copilot Extension at copilot-extension/. Include: 1) A package.json with express and @octokit/auth-app dependencies. 2) An index.js with a POST /agent endpoint that receives Copilot messages, queries a mock internal status API, and returns a server-sent events (SSE) response. 3) Include proper SSE formatting with data: prefixed lines and a [DONE] terminator. 4) Add request signature verification middleware for security.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Review the Extension Architecture",
+          "instruction": "Open <code>copilot-extension/index.js</code> and verify the architecture:<br><br>&bull; The handler extracts the latest user message from the conversation array<br>&bull; The response uses SSE format (<code>data:</code> prefix on each line)<br>&bull; The stream ends with <code>data: [DONE]</code><br>&bull; Request signature verification is in place<br>&bull; The mock internal API call is clearly separated for easy replacement<br><br>This is the pattern every enterprise Copilot Extension follows.",
+          "focus": "editor",
+          "action": "workbench.view.explorer"
+        },
+        {
+          "title": "Test the Extension Locally",
+          "instruction": "Use agent mode to create a test script:<br><br><kbd>Create a test-extension.js script that sends a POST request to http://localhost:3000/agent with a sample Copilot message payload and prints the SSE response. Include a sample messages array with a user message asking about deployment status.</kbd><br><br>Start the server in one terminal and run the test in another to verify the SSE stream.",
+          "focus": "right",
+          "tip": "In production, register the extension in your organization settings under Copilot > Extensions. Only organization owners can register private extensions."
+        }
+      ]
+    },
+    "28": {
+      "steps": [
+        {
+          "title": "Create Enterprise-Wide Instructions",
+          "instruction": "Build a comprehensive <code>.github/copilot-instructions.md</code> that governs agent behavior across all surfaces. In agent mode, type:<br><br><kbd>Create a .github/copilot-instructions.md file with enterprise-grade instructions covering: 1) Code standards (TypeScript strict, ESLint, Prettier). 2) Security rules (no hardcoded secrets, parameterized queries, input validation). 3) Testing requirements (minimum coverage, test naming conventions). 4) Architecture constraints (microservices boundaries, API versioning). 5) Agent-specific rules (always run tests before opening PRs, include migration scripts for DB changes).</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Add Scoped Instructions",
+          "instruction": "Create a folder-scoped instructions file. In agent mode, type:<br><br><kbd>Create .github/instructions/api-routes.instructions.md with an applyTo glob for \"api/routes/**/*.ts\". Include rules specific to API development: use Zod for request validation, return RFC 7807 problem details for errors, version all endpoints under /api/v{n}/, include OpenAPI JSDoc annotations, and wrap database calls in try-catch with proper error logging.</kbd>",
+          "focus": "right"
+        },
+        {
+          "title": "Verify Multi-Surface Consistency",
+          "instruction": "These instructions will govern agent behavior in VS Code, on GitHub.com, and for the Coding Agent. Verify the setup by asking agent mode:<br><br><kbd>What instructions are loaded for this workspace? List the repo-level and scoped instruction files you found, and summarize the key rules from each.</kbd><br><br>Confirm that both the repo-wide and scoped files are detected. This is the single source of truth for consistent agent behavior across every surface.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "30": {
+      "steps": [
+        {
+          "title": "Build a Usage Metrics Dashboard Script",
+          "instruction": "Create a script that pulls Copilot usage data via the REST API. In agent mode, type:<br><br><kbd>Create a script at scripts/copilot-metrics.sh that uses the gh api command to fetch Copilot usage metrics for the organization. It should call GET /orgs/{org}/copilot/usage and format the output as a markdown table showing: date, total active users, total suggestions, total acceptances, and acceptance rate. Accept the org name as a command-line argument.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Create an Audit Log Query",
+          "instruction": "Build a companion script for audit log analysis:<br><br><kbd>Create scripts/coding-agent-audit.sh that uses gh api to query the organization audit log filtered to copilot events. It should list recent Coding Agent sessions showing: timestamp, repository, issue number, and outcome (PR opened or failed). Format the output as a markdown table. Accept org name and number of days to look back as arguments.</kbd><br><br>These scripts give enterprise teams visibility into agent activity without a third-party dashboard.",
+          "focus": "right",
+          "tip": "In production, schedule these scripts as GitHub Actions cron jobs and post the reports to a Slack channel or tracking issue."
+        }
+      ]
+    },
+    "32": {
+      "steps": [
+        {
+          "title": "Build a Security Remediation Pipeline",
+          "instruction": "Wire up the full security remediation scenario from the slides. In agent mode, type:<br><br><kbd>Create a GitHub Actions workflow at .github/workflows/security-remediation.yml that triggers on the \"dependabot\" label being added to an issue. The workflow should: 1) Post a comment mentioning @copilot asking it to assess the severity and identify affected files. 2) If the issue title contains \"critical\" or \"high\", automatically assign the issue to Copilot so the Coding Agent picks it up. 3) Add a notification step that posts a summary to a Slack webhook URL stored in a repository secret called SLACK_WEBHOOK.</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Add the Review Gate",
+          "instruction": "Extend the workflow with a review enforcement step:<br><br><kbd>Add a second workflow at .github/workflows/security-review-gate.yml that triggers on pull_request with the \"security-fix\" label. The workflow should: 1) Post a comment mentioning @copilot asking it to review the PR for completeness, verify that tests pass, and check that no new vulnerabilities are introduced. 2) Require the \"security-team\" team as a reviewer using gh pr edit. 3) Add a checklist comment with items: dependency updated, breaking changes addressed, tests pass, security review approved.</kbd>",
+          "focus": "right"
+        },
+        {
+          "title": "Review the Full Pipeline",
+          "instruction": "Open <strong>Explorer</strong> and navigate to <code>.github/workflows/</code>. You should now have four workflow files:<br><br>&bull; <code>auto-triage.yml</code> - classifies and labels incoming issues<br>&bull; <code>fan-out-update.yml</code> - parallel dependency updates<br>&bull; <code>security-remediation.yml</code> - automated security response<br>&bull; <code>security-review-gate.yml</code> - enforced review for security PRs<br><br>Together, these form a coordinated agent pipeline that handles issues from creation through remediation to merge.",
+          "focus": "left",
+          "action": "workbench.view.explorer"
+        }
+      ]
+    },
+    "37": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Mission accomplished!</strong> You have completed Agent HQ: Reporting for Duty.<br><br>In this lab you built:<br><br>&bull; An agent surface inventory for enterprise rollout planning<br>&bull; A Coding Agent issue template for well-structured autonomous tasks<br>&bull; Automated triage and duplicate detection workflows<br>&bull; A fan-out/fan-in coordination pipeline with approval gates<br>&bull; A Copilot Extension with SSE streaming and signature verification<br>&bull; Enterprise-wide and scoped custom instructions<br>&bull; Audit log and usage metrics scripts for observability<br>&bull; A complete security remediation pipeline from detection to merge<br><br>You now have the patterns to coordinate AI agents across every surface in your organization.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "title": "Chat Platform Agents — Agent Wars: Return of the Chat-ai",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the Agent Wars lab! In this session you will compare ChatOps integrations across platforms, evaluate how different agents handle the same queries, and build your own Copilot Extension endpoint.<br><br>This is a challenge lab. You will receive hints and goals rather than step-by-step instructions. Draw on your knowledge from prior courses to fill in the gaps. Follow the steps in this panel as you advance through the slides.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "6": {
+      "steps": [
+        {
+          "title": "Map Your Context-Switch Pain Points",
+          "instruction": "Open <strong>Copilot Chat</strong> and use <strong>Ask</strong> mode.<br><br>Describe your team's current workflow to Copilot and ask it to identify where context switching costs you the most time:<br><br><kbd>My team uses GitHub for source control, Actions for CI/CD, and Teams for communication. Where are the biggest context-switching bottlenecks, and which ones could ChatOps eliminate?</kbd><br><br>Evaluate the response. Does Copilot correctly identify the bottlenecks from the slide's comparison table?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Rank the Opportunities",
+          "instruction": "Now challenge Copilot to prioritize. Ask it to rank the ChatOps opportunities by effort vs. impact:<br><br><kbd>Rank those ChatOps opportunities by implementation effort (low/medium/high) and developer time saved. Which should we adopt first?</kbd><br><br>Compare the ranking to your own intuition. Note where Copilot's assessment matches your experience and where it diverges.",
+          "focus": "right"
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Probe Copilot's Platform Knowledge",
+          "instruction": "Let's test how well Copilot understands the Teams integration. In <strong>Ask</strong> mode, type:<br><br><kbd>What can GitHub Copilot do inside Microsoft Teams? List specific capabilities and any limitations compared to Copilot Chat in VS Code.</kbd><br><br>Cross-reference the response against the capabilities listed on this slide. Flag any inaccuracies or missing items.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "tip": "Copilot may conflate the Teams integration with VS Code capabilities. Part of the challenge is spotting those differences."
+        },
+        {
+          "title": "Draft a Teams Query Playbook",
+          "instruction": "Create a new file called <code>chatops-playbook.md</code>. Write a short playbook section for Teams that lists five queries your team would use most often.<br><br>For each query, note: the natural language prompt, what data it returns, and whether it requires any special permissions. Use the slide content and Copilot's response to inform your list.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        }
+      ]
+    },
+    "10": {
+      "steps": [
+        {
+          "title": "Simulate a Teams Conversation",
+          "instruction": "Using <strong>Copilot Chat</strong> in <strong>Ask</strong> mode, simulate the Teams conversation flow shown on this slide. Ask Copilot to summarize a hypothetical PR:<br><br><kbd>Pretend you are the GitHub Copilot Teams bot. Summarize a PR titled \"Add user profile caching\" that introduces a Redis caching layer, reduces response time from 320ms to 45ms, and includes 12 passing unit tests.</kbd><br><br>Compare the format and detail level of Copilot's response to the example on the slide. Which version is more useful to a reviewer?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Battle: Structured vs. Freeform Queries",
+          "instruction": "Try two versions of the same question, one structured and one freeform:<br><br>Structured: <kbd>List open PRs in contoso/web-app. For each, show: title, author, review status, and CI status.</kbd><br><br>Freeform: <kbd>What PRs need attention in contoso/web-app?</kbd><br><br>Note the differences in output quality, completeness, and actionability. Which prompt style would you standardize for your team's playbook?",
+          "focus": "right"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Compare Slash Commands vs. Natural Language",
+          "instruction": "The GitHub for Slack app uses slash commands while Copilot in Teams uses natural language. Open your <code>chatops-playbook.md</code> file and add a Slack section.<br><br>For three common actions (subscribe to a repo, close an issue, check deploy status), write both the Slack slash command and the equivalent Teams natural-language prompt. Which approach is faster? Which is more discoverable for new team members?",
+          "focus": "editor"
+        },
+        {
+          "title": "Design a Channel Subscription Strategy",
+          "instruction": "Using the subscription commands from this slide, design a channel layout for a team with three repos: a frontend app, a backend API, and an infrastructure repo.<br><br>In your playbook, answer: How many channels do you need? Which event types should each subscribe to? How do you prevent notification fatigue without missing critical events?",
+          "focus": "editor",
+          "tip": "Over-subscribing is the most common ChatOps mistake. Fewer, targeted subscriptions beat an \"everything\" firehose."
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Evaluate Extension Candidates",
+          "instruction": "Review the marketplace and custom extension examples on this slide. Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>If my team manages a microservices platform with 15 repos, Kubernetes deployments, and PagerDuty for on-call, which Copilot Extensions (marketplace or custom) would deliver the most value? Justify each choice.</kbd><br><br>Evaluate whether Copilot recommends extensions that actually exist vs. ones it invented. Verify marketplace extensions against the GitHub Marketplace.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Scope a Custom Extension",
+          "instruction": "Pick one custom extension idea from the slide (oncall, deploy, or wiki) and sketch its design. In your <code>chatops-playbook.md</code>, document:<br><br>&bull; What internal API it calls<br>&bull; What input it expects from the user<br>&bull; What output it returns<br>&bull; What GitHub App permissions it needs<br><br>Keep it brief. You will build the endpoint in a later step.",
+          "focus": "editor"
+        },
+        {
+          "title": "Battle: Built-in vs. Extension",
+          "instruction": "Ask Copilot to compare approaches:<br><br><kbd>For checking deployment status, compare: (1) using the built-in GitHub Copilot Teams integration, (2) using a marketplace Copilot Extension, (3) building a custom Copilot Extension. What are the tradeoffs in setup time, flexibility, and maintenance?</kbd><br><br>Rate the response. Did Copilot accurately distinguish the three tiers?",
+          "focus": "right"
+        }
+      ]
+    },
+    "19": {
+      "steps": [
+        {
+          "title": "Design a Deployment Trigger Flow",
+          "instruction": "The slide shows a custom integration that triggers GitHub Actions from chat. Using <strong>Agent</strong> mode, ask Copilot to help you design a workflow dispatch integration:<br><br><kbd>Design a Node.js webhook handler that receives a Slack slash command, validates the user, and triggers a GitHub Actions workflow via the REST API. Include authentication with a GitHub App installation token. Outline the code structure; do not implement the full solution yet.</kbd><br><br>Review the architecture Copilot proposes. Does it handle authentication correctly? Does it address error cases?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Identify the Security Gaps",
+          "instruction": "Look at Copilot's proposed architecture and identify at least three security concerns that are not addressed. Consider: input validation, authorization scope, rate limiting, secret storage, and audit logging.<br><br>Ask Copilot to address your concerns:<br><br><kbd>What security gaps exist in this design? How would you mitigate each one?</kbd><br><br>Score Copilot's security awareness. Did it catch the gaps you identified, or did it miss some?",
+          "focus": "right",
+          "tip": "A good ChatOps integration is only as secure as its weakest authorization check. The bot should never have more permissions than the user invoking it."
+        }
+      ]
+    },
+    "24": {
+      "steps": [
+        {
+          "title": "Scaffold the Extension Endpoint",
+          "instruction": "Time to build. Switch to <strong>Agent</strong> mode and ask Copilot to scaffold a Copilot Extension endpoint based on the pattern shown on this slide:<br><br><kbd>Create a minimal Express.js Copilot Extension endpoint in a file called extension-server.js. It should receive a prompt, query a mock internal status API, and return a formatted response. Include signature verification for the GitHub webhook payload.</kbd><br><br>Let the agent create the file. Review the output before accepting.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Battle: Two Response Formats",
+          "instruction": "Now challenge the extension to return data in two different formats. Ask the agent:<br><br><kbd>Add two response modes to the extension: a \"summary\" mode that returns a one-line status and a \"detailed\" mode that returns a formatted table with timestamps, status, and links. The user's prompt should determine which mode is used.</kbd><br><br>Test both by simulating prompts. Which format would your team prefer for a busy channel? Which for an incident war room?",
+          "focus": ["editor", "right"]
+        },
+        {
+          "title": "Evaluate the Generated Code",
+          "instruction": "Switch to <strong>Ask</strong> mode and paste the generated server code. Ask:<br><br><kbd>Review this Copilot Extension endpoint for production readiness. Check for: proper error handling, input sanitization, response streaming compliance, and graceful shutdown. Rate it on a scale of 1-5 for each category.</kbd><br><br>Compare Copilot's self-assessment to your own review. Would you ship this code as-is?",
+          "focus": "right"
+        }
+      ]
+    },
+    "26": {
+      "steps": [
+        {
+          "title": "Security Audit Challenge",
+          "instruction": "Using the security checklist from this slide, audit the extension endpoint you built. Open the file in the editor and ask Copilot in <strong>Edit</strong> mode:<br><br><kbd>Add identity mapping, scoped token validation, and audit logging to this endpoint. Every action should be logged with the authenticated user's GitHub handle and a timestamp.</kbd><br><br>Review the proposed diffs. Are the security additions sufficient, or did Copilot miss an attack vector?",
+          "focus": ["editor", "right"]
+        },
+        {
+          "title": "Least Privilege Check",
+          "instruction": "Open your <code>chatops-playbook.md</code> and add a security section. For the extension you built, document:<br><br>&bull; The minimum GitHub App permissions required<br>&bull; Which permissions are read-only vs. read-write<br>&bull; What happens if the token is compromised<br>&bull; How you would rotate credentials without downtime<br><br>Challenge yourself: can you reduce the permission set further without losing functionality?",
+          "focus": "editor"
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Draft a Rollout Plan",
+          "instruction": "The slide describes a phased adoption strategy. Using your playbook file, draft a 3-phase rollout plan for introducing ChatOps to a 50-person engineering org:<br><br>&bull; Phase 1: which read-only workflows, which channels, which team<br>&bull; Phase 2: when to enable write operations, what approval gates<br>&bull; Phase 3: custom extensions, governance policies, success metrics<br><br>Be specific. Name the tools, channels, and policies for each phase.",
+          "focus": "editor"
+        },
+        {
+          "title": "Battle: Governance Models",
+          "instruction": "Ask Copilot to compare governance approaches:<br><br><kbd>Compare two ChatOps governance models: (1) centralized, where a platform team controls all integrations and extensions, vs. (2) federated, where each team can install and build their own. What are the risks and benefits of each for a 200-person org?</kbd><br><br>Add the key points to your rollout plan. Which model fits your organization better?",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "30": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Mission accomplished, Commander!</strong> You have completed Agent Wars: Return of the Chat-ai.<br><br>In this lab you:<br><br>&bull; Compared ChatOps strategies across Teams and Slack<br>&bull; Evaluated structured vs. freeform query styles<br>&bull; Scoped and scaffolded a custom Copilot Extension<br>&bull; Audited your integration for security and least privilege<br>&bull; Drafted a phased enterprise rollout plan<br><br>Your <code>chatops-playbook.md</code> is a reusable artifact. Refine it as you roll out ChatOps with your team.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}
