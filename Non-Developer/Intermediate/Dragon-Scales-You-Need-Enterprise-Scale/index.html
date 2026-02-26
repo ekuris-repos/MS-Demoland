@@ -10,62 +10,464 @@
 
   <div class="slide-deck">
 
-    <!-- Title Slide -->
+    <!-- SLIDE 1 - Title -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
-        <span class="badge">Intermediate · 1.5 Hours</span>
+        <span class="badge">Intermediate · 45 Minutes</span>
         <h1>Ops at Scale - Dragon Scales? You Need Enterprise Scale!</h1>
         <p class="subtitle">Collate logs, correlate dashboards, and propose fixes at scale, then generate reliability reports that back up your operational plans</p>
+        <aside class="speaker-notes">
+          Welcome to "Dragon Scales? You Need Enterprise Scale!" In the next 45 minutes we are going to explore how GitHub Copilot and the broader GitHub platform help operations teams manage infrastructure at enterprise scale. Whether you are an SRE, a platform engineer, an ops manager, or an IT leader, the patterns we cover today will change the way you think about day-to-day operational work. We will move from manual firefighting to AI-assisted automation, observability, incident response, and reliability reporting. Let's get started.
+        </aside>
       </div>
     </section>
 
-    <!-- Agenda -->
+    <!-- SLIDE 2 - Agenda section divider -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Overview</span>
         <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Before we dive in, let's take a quick look at the agenda so you know what to expect over the next 45 minutes.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 1 -->
+    <!-- SLIDE 3 - Agenda items -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>AI-Powered Operations at Scale</h2>
+        <h2>Today's Agenda</h2>
         <ul>
-          <li>Collating logs, perusing dashboards, and proposing fixes based on live data</li>
-          <li>Protecting your systems while leveraging AI's ability to correlate problems at scale</li>
-          <li>Communicate issues effectively across your organization</li>
+          <li><strong>The Scale Challenge</strong> - Why manual operations break down as you grow</li>
+          <li><strong>Infrastructure Automation</strong> - GitHub Actions for IaC and deployment pipelines</li>
+          <li><strong>Copilot for Ops Tasks</strong> - Generating scripts, analyzing logs, writing runbooks</li>
+          <li><strong>Monitoring &amp; Observability</strong> - Writing queries for KQL, Prometheus, and Grafana</li>
+          <li><strong>Incident Response</strong> - Correlating alerts, suggesting root causes, drafting postmortems</li>
+          <li><strong>Reliability &amp; Cost Reporting</strong> - SLA/SLO reports and cloud spend analysis</li>
+          <li><strong>Scaling GitHub Across the Enterprise</strong> - Org structure, innersource, and GHAS</li>
         </ul>
+        <aside class="speaker-notes">
+          Here is our roadmap. We will start by framing the problem: what happens when manual ops can no longer keep up with growth. Then we will look at infrastructure automation with GitHub Actions. From there, we will see how Copilot accelerates everyday ops tasks like script generation, log analysis, and runbook creation. Next, we tackle monitoring and observability, followed by incident response. We will close with reliability and cost reporting, and then discuss how to scale GitHub itself across the enterprise. Each section includes practical examples you can take back to your teams immediately.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 2 -->
+    <!-- SLIDE 4 - Section: The Scale Challenge -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>The Scale Challenge</h2>
+        <aside class="speaker-notes">
+          Let's start with the fundamental problem. Why do traditional ops practices fall apart at scale?
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 - When manual ops breaks down -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Single Pane &amp; Reliability Reporting</h2>
+        <h2>When Manual Operations Break Down</h2>
         <ul>
-          <li>Integration and analysis of operational systems in a single plane</li>
-          <li>Generate reports to back up your plans for reliability</li>
-          <li>From data collection to actionable insights - all in one view</li>
+          <li>Hundreds of services, thousands of alerts, and millions of log lines per day</li>
+          <li>Tribal knowledge locked in individual engineers' heads</li>
+          <li>Runbooks that are outdated before the ink dries</li>
+          <li>Alert fatigue leads to missed incidents and slower response times</li>
+          <li>Manual reporting consumes hours that should go to engineering work</li>
         </ul>
+        <aside class="speaker-notes">
+          Let's paint the picture. In a mid-to-large enterprise you might have hundreds of micro-services, each emitting logs, metrics, and traces. Your monitoring stack generates thousands of alerts per week and your team is drowning in noise. Critical operational knowledge lives in the heads of one or two senior engineers. When they are on vacation, incidents take longer to resolve. Runbooks exist, but they were written for last year's architecture and nobody has had time to update them. Alert fatigue is real: when everything is urgent, nothing is. And on top of all this, leadership wants monthly reliability reports, cost projections, and capacity plans. The math stops working. Manual processes simply do not scale linearly with infrastructure growth.
+        </aside>
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- SLIDE 6 - The AI-assisted ops model -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The AI-Assisted Ops Model</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Before: Manual</h3>
+            <ul>
+              <li>SSH into servers, grep through logs</li>
+              <li>Copy-paste from old runbooks</li>
+              <li>Manually build dashboards</li>
+              <li>Write postmortems from memory</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>After: AI-Assisted</h3>
+            <ul>
+              <li>Copilot generates log queries on demand</li>
+              <li>Runbooks auto-updated via pull requests</li>
+              <li>Dashboard queries generated in seconds</li>
+              <li>Postmortem drafts assembled from incident data</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Here is the shift we are proposing. On the left, the traditional model: SSH into machines, grep through log files line by line, copy from runbooks that may or may not be current, manually assemble dashboards, and write postmortems from memory days after the incident. On the right, the AI-assisted model. Copilot generates the exact log query you need in seconds. Runbooks live in a repository and get updated automatically through pull requests. Dashboard queries for KQL, PromQL, or Grafana are generated conversationally. Postmortem drafts are assembled from the actual incident timeline, alerts, and resolution steps. This is not about replacing engineers. It is about freeing engineers from repetitive toil so they can focus on architecture, reliability, and strategy.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 - Section: Infrastructure Automation -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>Infrastructure Automation</h2>
+        <aside class="speaker-notes">
+          With the problem framed, let's talk about the foundation of scalable ops: infrastructure automation with GitHub Actions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 - GitHub Actions for IaC -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>GitHub Actions for IaC Workflows</h2>
+        <ul>
+          <li><strong>Infrastructure as Code</strong> - Terraform, Bicep, and Pulumi definitions stored in version control</li>
+          <li><strong>Plan-on-PR</strong> - Automatically run <code>terraform plan</code> or <code>bicep build</code> on every pull request</li>
+          <li><strong>Gated deployments</strong> - Required reviews, environment protection rules, and approval workflows</li>
+          <li><strong>Drift detection</strong> - Scheduled Actions that compare desired state to actual state</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Actions is your automation engine. For infrastructure as code, the pattern is straightforward. Store your Terraform, Bicep, or Pulumi definitions in a repository. Configure a workflow that runs a plan or build step on every pull request so reviewers can see exactly what will change. Use environment protection rules to gate production deployments behind required approvals. Schedule nightly drift-detection runs that compare your desired state to the actual state of your cloud resources and open issues when they diverge. This is not new, but it is the baseline that everything else builds on. Without IaC in version control and automated pipelines, scaling ops is nearly impossible.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 - Copilot for pipeline authoring -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Using Copilot to Author Pipelines</h2>
+        <ul>
+          <li>Ask Copilot Chat: "Write a GitHub Actions workflow that deploys Terraform to Azure with plan-on-PR and manual apply"</li>
+          <li>Copilot generates the full YAML, including environment secrets, concurrency guards, and caching</li>
+          <li>Iterate conversationally: "Add a Slack notification on failure" or "Pin the Terraform version"</li>
+          <li>Review the generated workflow just as you would review any code contribution</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here is where Copilot starts adding value immediately. Writing GitHub Actions YAML from scratch is tedious and error-prone. Instead, open Copilot Chat and describe what you need in plain language. For example: "Write a GitHub Actions workflow that deploys Terraform to Azure with a plan step on pull requests and a manual apply step on merge to main." Copilot will generate the full YAML, including references to repository secrets, concurrency guards to prevent parallel runs, and caching for the Terraform provider plugins. If you need adjustments, just ask: "Add a Slack notification on failure," or "Pin the Terraform version to 1.7.5." The key point is that you should still review the generated workflow carefully. Treat it exactly like a code contribution from a colleague. Copilot accelerates authoring; you retain ownership of correctness.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 - Section: Copilot for Ops Tasks -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>Copilot for Ops Tasks</h2>
+        <aside class="speaker-notes">
+          Now let's look at the everyday operational tasks that Copilot can accelerate: scripting, log analysis, and runbook creation.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 - Script generation -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Generating Ops Scripts</h2>
+        <ul>
+          <li>Copilot writes Bash, PowerShell, and Python scripts from natural-language descriptions</li>
+          <li>Common use cases: rotating secrets, cleaning up orphaned resources, bulk-tagging assets</li>
+          <li>Add guardrails by asking: "Include a dry-run flag and logging to a file"</li>
+          <li>Store generated scripts in a shared repository for reuse across teams</li>
+        </ul>
+        <aside class="speaker-notes">
+          One of the most immediate wins for ops teams is script generation. Think about the scripts you write every week: rotating secrets, cleaning up orphaned cloud resources, bulk-tagging assets for cost allocation, restarting services in a specific order. Instead of writing these from scratch, describe what you need to Copilot and let it produce a first draft. You can specify the language (Bash, PowerShell, Python) and ask for specific features like a dry-run flag, structured logging, or error handling with retry logic. Once the script is reviewed and tested, store it in a shared ops repository so other engineers on the team can find and reuse it. Over time, you build a library of vetted automation scripts with minimal manual effort.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 12 - Log analysis -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Analyzing Logs with Copilot</h2>
+        <ul>
+          <li>Paste a log snippet into Copilot Chat and ask: "What is the root cause of this error?"</li>
+          <li>Copilot identifies patterns: stack traces, error codes, repeated failures, and timing correlations</li>
+          <li>Generate filtered queries: "Write a KQL query to find all 5xx errors from the payment service in the last 4 hours"</li>
+          <li>Summarize large log outputs into concise, stakeholder-friendly explanations</li>
+        </ul>
+        <aside class="speaker-notes">
+          Log analysis is one of the most time-consuming parts of incident response. You can paste a log snippet directly into Copilot Chat and ask for analysis. Copilot will identify stack traces, error codes, repeated failure patterns, and timing correlations. It can also generate the filtered queries you need to pull more data. For example, ask it to "Write a KQL query to find all 5xx errors from the payment service in the last 4 hours" and it will produce a query ready to paste into Azure Monitor or Log Analytics. Beyond query generation, Copilot can summarize large log outputs into concise explanations suitable for stakeholders who do not need the technical details. This is especially valuable during active incidents when you need to communicate upward quickly.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 13 - Runbook authoring -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Writing and Maintaining Runbooks</h2>
+        <ul>
+          <li>Ask Copilot to generate a runbook for a specific failure scenario</li>
+          <li>Include structured sections: symptoms, diagnosis steps, resolution actions, escalation paths</li>
+          <li>Store runbooks as Markdown in a GitHub repository with version history</li>
+          <li>Use pull requests to keep runbooks current when architecture changes</li>
+        </ul>
+        <aside class="speaker-notes">
+          Runbooks are critical for operational consistency, but they are notoriously difficult to keep up to date. Copilot can help in two ways. First, it can generate new runbooks from a description of the failure scenario. Ask for structured sections such as symptoms, diagnosis steps, resolution actions, and escalation paths. The output is Markdown, ready to commit directly to a repository. Second, and more importantly, is the maintenance angle. When your architecture changes, open a pull request to update the affected runbooks. You can even ask Copilot to review an existing runbook against the current architecture and flag sections that may be outdated. The goal is to treat runbooks as living documentation, versioned and reviewed with the same rigor as application code.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 14 - Section: Monitoring & Observability -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Monitoring &amp; Observability</h2>
+        <aside class="speaker-notes">
+          Automation and scripting are great, but you need visibility into what is happening across your systems. Let's talk about monitoring and observability.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 15 - Query generation for monitoring tools -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Copilot-Generated Monitoring Queries</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>KQL (Azure Monitor)</h3>
+            <p>"Show me the p95 latency for the orders API, grouped by region, for the last 24 hours."</p>
+            <p>Copilot produces a ready-to-run KQL query with <code>summarize</code>, <code>percentile</code>, and <code>bin</code> functions.</p>
+          </div>
+          <div class="card">
+            <h3>PromQL (Prometheus)</h3>
+            <p>"Alert me when memory usage exceeds 85% for more than 5 minutes on any production node."</p>
+            <p>Copilot outputs a PromQL expression with <code>histogram_quantile</code> and alert rule YAML.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          One of the biggest friction points in observability is writing the right query. KQL, PromQL, and Grafana query languages each have their own syntax, and it is easy to spend 20 minutes getting a query right. With Copilot, you describe what you need in plain English. For Azure Monitor, you might say: "Show me the p95 latency for the orders API, grouped by region, for the last 24 hours." Copilot produces a KQL query using summarize, percentile, and bin functions. For Prometheus, you might ask: "Alert me when memory usage exceeds 85% for more than 5 minutes on any production node." Copilot generates both the PromQL expression and the alert-rule YAML. You still need to validate these queries against your actual data, but the time savings are significant. Engineers report cutting query-authoring time by 60 to 80 percent.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 16 - Dashboard creation -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Building Dashboards Faster</h2>
+        <ul>
+          <li>Describe the dashboard layout in natural language: panels, time ranges, variables</li>
+          <li>Copilot generates Grafana JSON or Azure Workbook definitions</li>
+          <li>Store dashboard-as-code in version control alongside your infrastructure</li>
+          <li>Use templates for consistency: every team's service dashboard follows the same pattern</li>
+        </ul>
+        <aside class="speaker-notes">
+          Beyond individual queries, you can use Copilot to scaffold entire dashboards. Describe the layout you want: "Create a Grafana dashboard with four panels showing CPU, memory, disk I/O, and network throughput for the checkout service. Add a variable selector for environment." Copilot generates the Grafana JSON model, which you can import directly. The same approach works for Azure Monitor Workbooks. The real power, though, is dashboard-as-code. Store these definitions in version control so they are versioned, reviewable, and reproducible. Create a standard template: every team's service dashboard follows the same layout with the same panels. This consistency makes it much easier for on-call engineers to context-switch between services during an incident.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 17 - Section: Incident Response -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Incident Response</h2>
+        <aside class="speaker-notes">
+          Monitoring tells you something is wrong. Now let's talk about what happens next: incident response, root-cause analysis, and postmortems with AI assistance.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 18 - Alert correlation -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Correlating Alerts with AI</h2>
+        <ul>
+          <li>During an incident, dozens of alerts fire simultaneously across services</li>
+          <li>Paste the alert timeline into Copilot Chat: "Which of these alerts are related, and what is the likely root cause?"</li>
+          <li>Copilot identifies upstream/downstream dependencies and suggests where to look first</li>
+          <li>Reduces mean-time-to-identify (MTTI) by focusing engineers on the right signals</li>
+        </ul>
+        <aside class="speaker-notes">
+          During a major incident, your alerting system may fire dozens of notifications across multiple services. The challenge is figuring out which alerts are symptoms and which one points to the actual root cause. You can paste the alert timeline into Copilot Chat and ask: "Which of these alerts are related, and what is the likely root cause?" Copilot uses the service names, error messages, and timing to identify upstream and downstream dependencies. It will suggest where to start your investigation. For example, it might say: "The database connection pool exhaustion on service-db-01 started 2 minutes before the HTTP 503 errors on the API gateway. Start there." This reduces your mean-time-to-identify by helping engineers focus on the right signals from the start rather than chasing symptoms across multiple dashboards.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 19 - Root cause and remediation -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Root Cause Suggestions &amp; Remediation</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Root Cause Analysis</h3>
+            <ul>
+              <li>Feed Copilot the error logs, metrics, and deployment history</li>
+              <li>"Was this caused by the deployment at 14:32, or by the config change at 14:28?"</li>
+              <li>Copilot cross-references timestamps and highlights suspicious changes</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Remediation Steps</h3>
+            <ul>
+              <li>"Generate a rollback plan for the Kubernetes deployment named checkout-v2"</li>
+              <li>Copilot produces kubectl commands with the correct namespace and revision</li>
+              <li>Include verification steps to confirm the rollback succeeded</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Once you have a direction, Copilot can help with deeper root-cause analysis. Feed it the relevant error logs, metrics trends, and recent deployment history. Ask specific questions: "Was this caused by the deployment at 14:32, or by the config change at 14:28?" Copilot cross-references timestamps and highlights suspicious changes. On the remediation side, you can ask for a rollback plan. For example: "Generate a rollback plan for the Kubernetes deployment named checkout-v2." Copilot produces the kubectl commands with the correct namespace, deployment name, and revision number. It can also include verification steps so you can confirm the rollback succeeded. Always validate these commands before executing them in production. Copilot provides a strong starting point, but human judgment is essential for production changes.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 20 - Postmortem drafting -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Drafting Postmortems</h2>
+        <ul>
+          <li>After resolution, provide Copilot with the incident timeline, Slack messages, and resolution notes</li>
+          <li>Copilot structures a blameless postmortem: summary, timeline, root cause, impact, action items</li>
+          <li>Review and refine the draft collaboratively via a pull request</li>
+          <li>Action items become GitHub Issues, tracked to completion with assignees and deadlines</li>
+        </ul>
+        <aside class="speaker-notes">
+          Postmortems are one of the most valuable artifacts an ops team produces, but they are also one of the most dreaded to write. After an exhausting incident, the last thing anyone wants to do is spend two hours assembling a document. Copilot can help. Provide it with the incident timeline, key Slack messages from the response channel, and your resolution notes. Ask it to structure a blameless postmortem with the standard sections: summary, detailed timeline, root cause analysis, customer impact, and action items. The output is a Markdown draft that you can refine collaboratively through a pull request. The action items can be converted directly into GitHub Issues with assignees and due dates, ensuring that follow-up work is tracked and completed. This approach gets postmortems published faster and with higher quality, while they are still fresh in everyone's memory.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 21 - Section: Reliability & Cost Reporting -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>Reliability &amp; Cost Reporting</h2>
+        <aside class="speaker-notes">
+          With incidents under control, let's talk about the reporting side: communicating reliability and cost to stakeholders.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 22 - SLA/SLO reporting -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Generating SLA/SLO Reports</h2>
+        <ul>
+          <li>Define your Service Level Objectives: availability, latency, error rate</li>
+          <li>Use Copilot to generate queries that calculate error budgets from monitoring data</li>
+          <li>Automate weekly or monthly report generation with GitHub Actions</li>
+          <li>Output Markdown reports that render directly in the repository for stakeholder review</li>
+        </ul>
+        <aside class="speaker-notes">
+          Reliability reporting is essential for building trust with business stakeholders, but it is often manual and inconsistent. Start by defining your Service Level Objectives clearly: what is your target for availability, latency, and error rate? Then use Copilot to generate the monitoring queries that calculate your error budget consumption over a given period. These queries pull data from your observability stack, whether that is Azure Monitor, Datadog, or Prometheus. Automate the report generation with a scheduled GitHub Actions workflow that runs weekly or monthly, executes the queries, and produces a Markdown report committed directly to the repository. Stakeholders can review the report in the browser on GitHub without needing access to your monitoring tools. This creates a transparent, auditable history of your reliability performance.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 23 - Cost management -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Cloud Cost Management</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Analyze Spend</h3>
+            <ul>
+              <li>Export cloud billing data to a repository as CSV or JSON</li>
+              <li>Ask Copilot: "Summarize the top 5 cost drivers this month vs. last month"</li>
+              <li>Identify anomalies: unexpected spikes, orphaned resources, over-provisioned instances</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Right-Size Recommendations</h3>
+            <ul>
+              <li>"Based on this CPU utilization data, suggest right-sized VM SKUs"</li>
+              <li>Copilot cross-references usage patterns with available instance types</li>
+              <li>Generate cost-savings proposals formatted for leadership review</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Cost management is a constant challenge at scale. One practical approach is to export your cloud billing data to a repository on a regular schedule. Once the data is available, you can ask Copilot to analyze it: "Summarize the top 5 cost drivers this month compared to last month." Copilot can identify anomalies like unexpected spending spikes, orphaned resources that are still incurring charges, or instances that are significantly over-provisioned. For right-sizing, provide Copilot with CPU and memory utilization data and ask for recommendations. It can cross-reference your usage patterns with available instance types and suggest appropriate SKUs. The output can be formatted as a cost-savings proposal ready for leadership review. This is not a replacement for dedicated FinOps tooling, but it is a powerful complement that lets ops engineers generate insights without switching contexts.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 24 - Section: Scaling GitHub Across the Enterprise -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>Scaling GitHub Across the Enterprise</h2>
+        <aside class="speaker-notes">
+          We have covered how Copilot helps with operational tasks. Now let's zoom out and talk about scaling the GitHub platform itself across a large organization.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 25 - Org structure and innersource -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Organization Structure &amp; Innersource</h2>
+        <ul>
+          <li><strong>Multi-org vs. single-org</strong> - Choose a structure that balances autonomy with governance</li>
+          <li><strong>Team-based permissions</strong> - Map org teams to repository access, with base permissions set to "read"</li>
+          <li><strong>Innersource practices</strong> - Internal repositories discoverable across groups, with contribution guidelines and CODEOWNERS</li>
+          <li><strong>Repository templates</strong> - Standardize project setup: CI/CD, linting, security scanning, and documentation</li>
+        </ul>
+        <aside class="speaker-notes">
+          At enterprise scale, how you structure your GitHub organization matters enormously. The choice between multiple organizations and a single organization depends on regulatory needs, billing, and team autonomy. Within your organization, use team-based permissions to control access. Set the base permission to "read" and layer on write or admin access through team membership. Innersource is a powerful practice: make internal repositories discoverable across business groups. Add contribution guidelines and CODEOWNERS files so that anyone in the company can contribute, with clear ownership and review processes. Repository templates let you standardize the setup for new projects. Every new repo starts with CI/CD, linting, security scanning, and documentation scaffolding already in place. This consistency reduces onboarding time and ensures best practices are followed from day one.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 26 - GHAS at scale -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>GitHub Advanced Security at Scale</h2>
+        <ul>
+          <li><strong>Code scanning</strong> - CodeQL analysis integrated into CI pipelines across all repositories</li>
+          <li><strong>Secret scanning</strong> - Detect leaked credentials, tokens, and keys before they reach production</li>
+          <li><strong>Dependabot</strong> - Automated dependency updates with grouped pull requests to reduce noise</li>
+          <li><strong>Security overview dashboard</strong> - Org-level visibility into vulnerability trends and open alerts</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Advanced Security, or GHAS, is a critical component of enterprise-scale operations. Code scanning with CodeQL can be rolled out across all repositories through a centralized GitHub Actions workflow. Secret scanning detects leaked credentials, API tokens, and keys in commits before they reach production, and push protection can block the commit entirely. Dependabot handles automated dependency updates, and the grouped pull request feature reduces the noise by batching related updates together. The security overview dashboard provides org-level visibility into vulnerability trends and open alerts across all your repositories. For ops teams, this means security is not a separate concern; it is embedded in the platform you already use. You can track your security posture with the same tools you use for code review and deployment.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 27 - Section: Summary -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
         <h2>Wrap-Up &amp; Next Steps</h2>
+        <aside class="speaker-notes">
+          Let's bring it all together and talk about what you can do starting this week.
+        </aside>
       </div>
     </section>
 
-    <!-- Closing -->
+    <!-- SLIDE 28 - Key takeaways -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li><strong>Automate the foundation</strong> - Infrastructure as Code in GitHub with Actions pipelines is the baseline</li>
+          <li><strong>Accelerate with Copilot</strong> - Scripts, log queries, runbooks, and dashboards in minutes, not hours</li>
+          <li><strong>Respond faster</strong> - AI-assisted alert correlation and root cause analysis reduce MTTI and MTTR</li>
+          <li><strong>Report with confidence</strong> - SLA/SLO and cost reports generated automatically from real data</li>
+          <li><strong>Scale the platform</strong> - Org structure, innersource, GHAS, and templates ensure consistency at scale</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's recap the key takeaways. First, automate the foundation. Infrastructure as Code stored in GitHub with Actions pipelines is the baseline for scalable ops. Without it, everything else is built on sand. Second, accelerate with Copilot. Scripts, log queries, runbooks, and dashboards that used to take hours can be produced in minutes. Third, respond faster. AI-assisted alert correlation and root-cause analysis reduce both your mean-time-to-identify and mean-time-to-resolve. Fourth, report with confidence. Automated SLA/SLO and cost reports generated from real monitoring data replace manual spreadsheets and guesswork. Fifth, scale the platform itself. Organization structure, innersource practices, Advanced Security, and repository templates ensure consistency and governance as you grow. Each of these areas reinforces the others. Automation frees up time for observability. Observability improves incident response. Incident response data feeds into reliability reporting. It is a virtuous cycle.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 29 - Closing -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          Thank you for your time today. We covered a lot of ground, from the challenges of manual ops at scale through AI-assisted automation, observability, incident response, and reporting. The tools and patterns we discussed are available to you right now. Start with one area, build confidence, and expand from there. If you have questions, feel free to reach out on Teams or open an issue in the training repository. Good luck scaling those dragon-sized operations!
+        </aside>
       </div>
     </section>
 

@@ -10,62 +10,574 @@
 
   <div class="slide-deck">
 
-    <!-- Title Slide -->
+    <!-- ============================================================
+         SLIDE 1 - Title
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
-        <span class="badge">Intermediate · 1.5 Hours</span>
+        <span class="badge">Intermediate · 45 Minutes</span>
         <h1>PM Toolkit - Project Manager: Power Up</h1>
         <p class="subtitle">Know what to look for, ask the right questions, give developers clear direction, and generate leadership-ready reports in minutes</p>
+        <aside class="speaker-notes">
+          Welcome to "Project Manager: Power Up." This session is built specifically for project managers, scrum masters, and delivery managers who work alongside development teams every day. Over the next 45 minutes, we will show you how GitHub and GitHub Copilot can transform the way you plan sprints, understand technical work, communicate with stakeholders, and track project health. You do not need to write code. Everything we cover today uses the tools your developers already rely on, and we will teach you how to get more value from them in your role.
+        </aside>
       </div>
     </section>
 
-    <!-- Agenda -->
+    <!-- ============================================================
+         SLIDE 2 - Agenda (section divider)
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Overview</span>
         <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Before we jump in, let's take a quick look at the roadmap for this session.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 1 -->
+    <!-- ============================================================
+         SLIDE 3 - Agenda items
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Knowing What to Look For</h2>
+        <h2>Today's Agenda</h2>
         <ul>
-          <li>What should I be looking for as a Project Manager?</li>
-          <li>How you can contribute and educate yourself on projects</li>
-          <li>Know what questions to ask and where to find the answers</li>
+          <li><strong>The PM's new toolkit:</strong> how AI changes project management</li>
+          <li><strong>GitHub Issues and Projects:</strong> planning sprints, tracking milestones</li>
+          <li><strong>Understanding technical work:</strong> reading PRs and code changes with Copilot</li>
+          <li><strong>Writing better issues:</strong> using Copilot to clarify requirements</li>
+          <li><strong>Stakeholder reporting:</strong> status reports, sprint summaries, velocity charts</li>
+          <li><strong>Risk identification:</strong> analyzing project health signals</li>
+          <li><strong>Communication:</strong> release notes, stakeholder updates, technical summaries</li>
+          <li><strong>Metrics that matter:</strong> what to track and how to present it</li>
         </ul>
+        <aside class="speaker-notes">
+          Here is the plan. We will start with the big picture: how AI is shifting the project management landscape. Then we will get practical with GitHub Issues and Projects for sprint planning. After that, we will walk through how Copilot helps you make sense of pull requests and code changes without needing to be a developer yourself. We will cover writing better issue descriptions, generating stakeholder reports, identifying risk signals, drafting communications for different audiences, and finally, choosing the right metrics. Each section builds on the last, so by the end you will have a complete playbook for your day-to-day workflow.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 2 -->
+    <!-- ============================================================
+         SLIDE 4 - Section: The PM's New Toolkit
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>The PM's New Toolkit</h2>
+        <aside class="speaker-notes">
+          Let's start with the foundational shift. What does AI actually change for project managers?
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - How AI changes PM work
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Clear Direction &amp; Reporting</h2>
+        <h2>How AI Changes Project Management</h2>
         <ul>
-          <li>Provide clear direction for developers to pick up work</li>
-          <li>Generate clear reports for leadership on project status</li>
-          <li>It's all here for you to Power Up your project management!</li>
+          <li>AI reduces the <strong>time-to-insight</strong> gap: answers in seconds, not hours of manual digging</li>
+          <li>Copilot acts as your <strong>translator</strong> between technical and business language</li>
+          <li>Repetitive reporting tasks become <strong>prompt-and-generate</strong> workflows</li>
+          <li>You stay in the loop on code changes <strong>without needing to read code</strong></li>
         </ul>
+        <aside class="speaker-notes">
+          The biggest change AI brings to project management is speed. Tasks that used to take an hour of digging through Jira boards, Slack threads, and spreadsheets can now be answered in seconds with the right prompt. Copilot also serves as a translator. You can paste a pull request diff into Copilot Chat and ask "what does this change do in plain English?" and get a summary you can forward to stakeholders. Repetitive work like writing sprint reports or status updates becomes a prompt-and-generate workflow. You provide the data points; Copilot drafts the narrative. And critically, you can stay informed about what your developers are building without needing to understand the code itself. That is a game-changer for PMs who want to be engaged partners, not just ticket-shufflers.
+        </aside>
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- ============================================================
+         SLIDE 6 - Before and After
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Before and After: The PM Workflow</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Before AI</h3>
+            <ul>
+              <li>Manually review every ticket for status</li>
+              <li>Ask developers to explain PRs in meetings</li>
+              <li>Spend hours formatting reports</li>
+              <li>Risk surfaces only when things break</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>With Copilot + GitHub</h3>
+            <ul>
+              <li>Query project boards with natural language</li>
+              <li>Get PR summaries in seconds</li>
+              <li>Generate draft reports from live data</li>
+              <li>Spot risk signals proactively</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Let's make this concrete. On the left, the traditional PM workflow: you open your project board, go ticket by ticket, chase developers for updates, spend an hour in a spreadsheet building a status report, and only discover risks when something visibly breaks. On the right, the AI-powered version: you ask Copilot to summarize the state of your current sprint, get a plain-English breakdown of every PR merged this week, draft a stakeholder report based on actual velocity data, and proactively surface issues like stalled PRs or aging issues. The tools are the same; GitHub Issues, Projects, and pull requests. The difference is how quickly you can extract value from them. That is the power-up we are here to deliver.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 - Section: GitHub Issues and Projects
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>GitHub Issues &amp; Projects</h2>
+        <aside class="speaker-notes">
+          Now let's get into the primary tools you will use every day: GitHub Issues and GitHub Projects.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 - Issues and Projects overview
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Planning Sprints with GitHub Projects</h2>
+        <ul>
+          <li><strong>GitHub Issues</strong> are your work items: bugs, features, tasks, and discussions</li>
+          <li><strong>GitHub Projects</strong> provide board, table, and roadmap views for organizing work</li>
+          <li>Custom fields let you track <strong>priority, effort, sprint, and team</strong> in one place</li>
+          <li>Built-in automations move issues through columns based on PR status</li>
+          <li>Everything stays connected: issues link to PRs, PRs link to code, code links to deployments</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Issues are your fundamental work items. Every bug, feature request, task, or spike lives as an issue. GitHub Projects sits on top of issues and gives you flexible views: a kanban board for daily standups, a table view for bulk editing and filtering, and a roadmap view for timeline-based planning. You can add custom fields for priority, story points, sprint number, team assignment, and anything else your process needs. Built-in automations can move issues to "In Progress" when a linked PR is opened, and to "Done" when it merges. The real power is traceability. An issue links to a PR, the PR links to code changes, and those changes link to a deployment. As a PM, you get end-to-end visibility from requirement to production.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 - Milestone tracking
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Tracking Milestones and Progress</h2>
+        <ul>
+          <li>Use <strong>Milestones</strong> to group issues by release or deadline</li>
+          <li>The milestone progress bar shows percentage complete at a glance</li>
+          <li>Combine milestones with <strong>Project views</strong> to filter by sprint or release train</li>
+          <li>Use <strong>labels</strong> consistently: <code>bug</code>, <code>feature</code>, <code>blocked</code>, <code>needs-review</code></li>
+        </ul>
+        <aside class="speaker-notes">
+          Milestones let you group related issues under a release or deadline. Each milestone includes a progress bar that shows how many issues are open versus closed, giving you an instant snapshot of where things stand. Pair milestones with Project views and you can filter your board to show only Sprint 12 issues, or only items tagged for the Q3 release. Labels are equally important for a PM. Establish a consistent labeling strategy with your team: bug, feature, blocked, needs-review, and so on. When labels are consistent, you can filter, search, and report on them reliably. Inconsistent labels create noise; consistent labels create insight.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 - Section: Understanding Technical Work
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>Understanding Technical Work</h2>
+        <aside class="speaker-notes">
+          This is where Copilot becomes your secret weapon. Let's talk about understanding what your developers are actually building.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - Reading PRs with Copilot
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Reading Pull Requests with Copilot</h2>
+        <ul>
+          <li>Pull requests (PRs) show every code change before it goes live</li>
+          <li>Copilot generates <strong>PR summaries</strong> automatically on github.com</li>
+          <li>Ask Copilot Chat: <em>"Summarize this PR for a non-technical audience"</em></li>
+          <li>Identify scope: <em>"How many files changed and what areas of the app are affected?"</em></li>
+          <li>Assess risk: <em>"Does this PR touch any security-sensitive files?"</em></li>
+        </ul>
+        <aside class="speaker-notes">
+          Pull requests are where code changes live before they go into production. Every PR has a diff showing exactly what changed, but you do not need to read the diff yourself. Copilot can generate PR summaries automatically on github.com, and you can also paste a PR link into Copilot Chat and ask for a plain-English summary. Try prompts like "Summarize this PR for a non-technical audience" or "How many files changed and what areas of the app are affected?" You can even ask risk-oriented questions: "Does this PR touch any security-sensitive files?" or "Is this a large change that might need extra testing?" These answers used to require a developer to explain things in a meeting. Now you can get them in seconds.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 - Understanding code changes
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Understanding Code Changes Without Writing Code</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>What to Ask Copilot</h3>
+            <ul>
+              <li>"What does this change do?"</li>
+              <li>"Why might this take longer than expected?"</li>
+              <li>"What could break if this is wrong?"</li>
+              <li>"Is this a refactor or new functionality?"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>What You Get Back</h3>
+            <ul>
+              <li>Plain-language explanations</li>
+              <li>Impact and scope assessments</li>
+              <li>Risk factors and dependencies</li>
+              <li>Context for standup and retro conversations</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          You do not need to understand code to understand the impact of a change. The left column shows questions you can ask Copilot about any PR or commit. The right column shows what you get back. "What does this change do?" gives you a summary you can use in a standup. "Why might this take longer than expected?" helps you anticipate delays. "What could break if this is wrong?" gives you risk context for your stakeholder report. "Is this a refactor or new functionality?" tells you whether to count it as feature progress or tech debt reduction. These questions turn you from a passive observer of development into an informed, engaged partner.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 - Section: Writing Better Issues
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Writing Better Issues</h2>
+        <aside class="speaker-notes">
+          Now that you understand how to read what developers produce, let's improve what you give them. Good issues save everyone time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 14 - Anatomy of a great issue
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Anatomy of a Great Issue</h2>
+        <ul>
+          <li><strong>Clear title:</strong> action-oriented, specific, and searchable</li>
+          <li><strong>Context:</strong> why this work matters and who it serves</li>
+          <li><strong>Acceptance criteria:</strong> concrete, testable conditions for "done"</li>
+          <li><strong>Scope boundaries:</strong> what is included and, equally important, what is not</li>
+          <li><strong>Resources:</strong> links to designs, specs, related issues, or relevant PRs</li>
+        </ul>
+        <aside class="speaker-notes">
+          A well-written issue saves hours of back-and-forth. The title should be specific and action-oriented: "Add export button to dashboard" is better than "Dashboard improvements." Context explains why the work matters: who requested it, what problem it solves, and how it connects to broader goals. Acceptance criteria define "done" in testable terms: "User can click Export and receive a CSV file within 5 seconds." Scope boundaries are just as important. State what is not included to prevent scope creep. Finally, link to relevant designs, specs, or related issues so the developer has everything in one place.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 - Using Copilot to improve issues
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Using Copilot to Clarify Requirements</h2>
+        <ul>
+          <li>Draft an issue, then ask Copilot: <em>"Improve this issue description for clarity"</em></li>
+          <li>Generate acceptance criteria: <em>"Write acceptance criteria for this feature"</em></li>
+          <li>Identify missing details: <em>"What questions would a developer ask about this issue?"</em></li>
+          <li>Break down large features: <em>"Split this epic into smaller, independently deliverable issues"</em></li>
+          <li>Standardize language: Copilot helps keep terminology consistent across your backlog</li>
+        </ul>
+        <aside class="speaker-notes">
+          Copilot is excellent at refining issue descriptions. Start with a rough draft of what you want built, paste it into Copilot Chat, and ask it to improve the description for clarity. It will tighten the language, add structure, and flag ambiguity. You can also ask it to generate acceptance criteria based on your description. One of the most valuable prompts is "What questions would a developer ask about this issue?" This surfaces gaps you might not have noticed. For larger features, ask Copilot to break an epic into smaller, independently deliverable issues. This produces better sprint planning and more predictable delivery. Over time, Copilot also helps standardize how you write issues, keeping terminology consistent across the entire backlog.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 - Section: Stakeholder Reporting
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Stakeholder Reporting</h2>
+        <aside class="speaker-notes">
+          Reporting is one of the areas where Copilot delivers the most immediate time savings. Let's look at how to generate leadership-ready reports in minutes.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 - Status reports and sprint summaries
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Status Reports and Sprint Summaries</h2>
+        <ul>
+          <li>Ask Copilot to summarize completed work from your <strong>closed issues and merged PRs</strong></li>
+          <li>Generate <strong>sprint summary narratives</strong> from raw data points</li>
+          <li>Create <strong>executive summaries</strong> that highlight outcomes, not implementation details</li>
+          <li>Adjust tone and detail level: technical for engineering leads, strategic for VPs</li>
+        </ul>
+        <aside class="speaker-notes">
+          Status reports used to mean an afternoon of copying ticket titles into a slide deck. With Copilot, you gather your data points, such as the list of closed issues, merged PRs, and outstanding blockers, then ask Copilot to draft a sprint summary. The key is adjusting for your audience. For engineering leads, include technical details: which services were updated, which bugs were resolved, and what remains. For VPs and executives, focus on outcomes: features shipped, user-facing improvements, and progress toward quarterly goals. You can literally run the same data through two different prompts and get two perfectly tailored reports. That flexibility is what makes this so powerful.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Velocity and charts
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Velocity Charts and Visual Reporting</h2>
+        <ul>
+          <li>GitHub Projects provides built-in <strong>insights</strong> with burndown and velocity charts</li>
+          <li>Export project data to CSV for further analysis or custom dashboards</li>
+          <li>Use Copilot to <strong>interpret trends:</strong> <em>"What does this velocity trend suggest?"</em></li>
+          <li>Generate chart descriptions for reports: <em>"Write a paragraph explaining this burndown chart"</em></li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Projects includes built-in insights that provide burndown charts and velocity tracking out of the box. If your team uses story points or issue counts, these charts update automatically as work progresses. You can also export your project data as a CSV and build custom charts in Excel or Google Sheets. Where Copilot adds value is in interpretation. Paste your velocity numbers into Copilot Chat and ask "What does this velocity trend suggest about our release timeline?" or "Write a paragraph explaining this burndown chart for my weekly stakeholder update." Copilot turns raw numbers into narratives that stakeholders can understand and act on. This is especially useful for PMs who present data regularly but want to ensure the narrative is clear and consistent.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 19 - Section: Risk Identification
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>Risk Identification</h2>
+        <aside class="speaker-notes">
+          Great PMs do not just report on what happened. They anticipate what might go wrong. Let's talk about using Copilot for proactive risk identification.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 - Project health signals
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Analyzing Project Health Signals</h2>
+        <ul>
+          <li><strong>Aging issues:</strong> issues open for 2+ sprints may signal unclear requirements or hidden complexity</li>
+          <li><strong>Blocked items:</strong> look for the <code>blocked</code> label or stalled PR reviews</li>
+          <li><strong>PR review bottlenecks:</strong> PRs waiting 3+ days for review slow the entire team</li>
+          <li><strong>Sprint carryover:</strong> consistently carrying work forward suggests estimation problems</li>
+          <li><strong>Inactive contributors:</strong> team members with no commits may need support or reassignment</li>
+        </ul>
+        <aside class="speaker-notes">
+          Every project has health signals hiding in plain sight. Aging issues, those sitting open for two or more sprints, are a red flag. They often indicate unclear requirements, underestimated complexity, or a feature nobody wants to tackle. Blocked items are another signal: look for the "blocked" label or PRs that have been waiting for review for days. PR review bottlenecks deserve special attention. If PRs sit for three or more days without a review, the entire team slows down. Sprint carryover is a planning signal: if you consistently carry 20% of your sprint into the next one, your estimation process needs adjustment. Finally, watch for inactive contributors. Someone with no commits for a sprint might be stuck, underloaded, or overwhelmed with meetings. Each of these signals is actionable if you catch them early.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 21 - Copilot for risk analysis
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Using Copilot to Surface Risks</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Prompts to Try</h3>
+            <ul>
+              <li>"List all issues labeled 'blocked' and suggest next steps"</li>
+              <li>"Which PRs have been open for more than 5 days?"</li>
+              <li>"Summarize the top 3 risks for this sprint"</li>
+              <li>"What patterns do you see in our overdue items?"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Actions to Take</h3>
+            <ul>
+              <li>Escalate blocked items in standup</li>
+              <li>Reassign stalled PR reviews</li>
+              <li>Add risk items to the sprint retrospective</li>
+              <li>Adjust upcoming sprint scope proactively</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          The left column shows prompts you can use with Copilot to surface risks. Feed it your issue list or project board data and ask targeted questions. "Which PRs have been open for more than 5 days?" gives you a concrete list to act on. "Summarize the top 3 risks for this sprint" generates a risk narrative you can share in your standup or steering meeting. The right column shows what to do with those insights. Escalate blockers immediately. Reassign stalled reviews so PRs keep moving. Add systemic risk patterns to your retrospective so the team can address root causes. And when the data says your sprint is overcommitted, adjust scope proactively rather than waiting for things to slip. The difference between a reactive PM and a proactive one is often just having the right data at the right time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - Section: Communication
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>Communication</h2>
+        <aside class="speaker-notes">
+          PMs are the communication hub of a project. Let's look at how Copilot helps you draft the right message for every audience.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - Release notes and stakeholder updates
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Drafting Release Notes and Updates</h2>
+        <ul>
+          <li>Use merged PRs and closed issues as <strong>source material</strong> for release notes</li>
+          <li>Ask Copilot: <em>"Write release notes for version 2.4 based on these merged PRs"</em></li>
+          <li>Separate entries by category: <strong>Features, Bug Fixes, Improvements, Breaking Changes</strong></li>
+          <li>Generate both <strong>internal</strong> (detailed, technical) and <strong>external</strong> (user-facing, benefit-oriented) versions</li>
+        </ul>
+        <aside class="speaker-notes">
+          Release notes are a communication touchpoint that reaches multiple audiences. Developers want to know what changed technically. Product owners want to see feature progress. End users want to understand what is new and what is fixed. Start by gathering your merged PRs and closed issues for the release. Paste that list into Copilot Chat and ask it to write release notes organized by category: Features, Bug Fixes, Improvements, and Breaking Changes. You can generate two versions: an internal one with technical details for the engineering team, and an external one with user-friendly language focused on benefits. This dual-output approach saves you from writing the same information twice in different styles.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Technical summaries for non-technical audiences
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Technical Summaries for Non-Technical Audiences</h2>
+        <ul>
+          <li>Ask Copilot to <strong>translate technical jargon</strong> into business language</li>
+          <li>Prompt: <em>"Rewrite this technical update for a VP who does not write code"</em></li>
+          <li>Focus on <strong>impact and outcomes</strong> rather than implementation details</li>
+          <li>Include: what shipped, what it means for users, and what is next</li>
+          <li>Copilot preserves accuracy while adjusting the level of abstraction</li>
+        </ul>
+        <aside class="speaker-notes">
+          One of the hardest parts of a PM's job is translating between technical and business audiences. Developers think in terms of APIs, database migrations, and refactors. Executives think in terms of revenue impact, user experience, and risk. Copilot bridges this gap. Take a technical update from your engineering lead and prompt Copilot with "Rewrite this for a VP who does not write code." The result focuses on impact and outcomes: what shipped, how it affects users, and what comes next. Copilot preserves the factual accuracy while adjusting the level of abstraction. This means fewer misunderstandings, fewer follow-up questions, and more credibility for you as the person who always delivers clear, audience-appropriate communication.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Section: Metrics That Matter
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 8</span>
+        <h2>Metrics That Matter</h2>
+        <aside class="speaker-notes">
+          Not everything that can be measured should be measured. Let's focus on the metrics that actually drive decisions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 - Key PM metrics
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What to Track and Why</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Delivery Metrics</h3>
+            <ul>
+              <li><strong>Velocity:</strong> story points or issues completed per sprint</li>
+              <li><strong>Cycle time:</strong> time from "In Progress" to "Done"</li>
+              <li><strong>Sprint completion rate:</strong> percentage of planned work delivered</li>
+              <li><strong>PR merge time:</strong> time from PR open to merge</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Health Metrics</h3>
+            <ul>
+              <li><strong>Carryover rate:</strong> work that spills into the next sprint</li>
+              <li><strong>Bug-to-feature ratio:</strong> time spent on fixes vs. new work</li>
+              <li><strong>Blocker frequency:</strong> how often work gets stuck</li>
+              <li><strong>Review turnaround:</strong> time waiting for PR reviews</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Not all metrics are equal. On the left, we have delivery metrics. Velocity tells you how much work the team completes per sprint, which is essential for forecasting. Cycle time measures how long it takes from when work starts to when it is done, and shorter cycle times generally mean better flow. Sprint completion rate shows whether you are planning accurately. PR merge time reveals how quickly code moves from review to production. On the right, health metrics. Carryover rate flags persistent overcommitment. Bug-to-feature ratio shows whether the team spends too much time on reactive fixes versus proactive development. Blocker frequency tells you how often work stalls. And review turnaround highlights bottlenecks in the code review process. Track these metrics consistently and you will have the foundation for data-driven conversations with your team and leadership.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - Presenting metrics effectively
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Presenting Metrics to Leadership</h2>
+        <ul>
+          <li><strong>Lead with the story,</strong> not the data: "We shipped 12 features this quarter" beats a raw velocity chart</li>
+          <li>Use <strong>trends over snapshots:</strong> show direction, not just a single number</li>
+          <li>Connect metrics to <strong>business outcomes:</strong> "Faster cycle time means features reach users sooner"</li>
+          <li>Highlight <strong>actions taken,</strong> not just observations: "We identified a review bottleneck and reduced wait time by 40%"</li>
+          <li>Ask Copilot: <em>"Turn these metrics into an executive summary paragraph"</em></li>
+        </ul>
+        <aside class="speaker-notes">
+          Data without context is just numbers. When presenting to leadership, lead with the story. "We shipped 12 features this quarter, a 25% increase from Q2" is more compelling than a velocity chart with no commentary. Use trends rather than snapshots. A single sprint's velocity is noise; a six-sprint trend line is a signal. Always connect metrics to business outcomes. Executives do not care about cycle time as an abstract concept, but they care when you say "Faster cycle time means features reach users two weeks sooner." Highlight actions, not just observations. Saying "We identified a review bottleneck and reduced PR wait time by 40%" demonstrates that you use data to drive improvement, not just to report. Copilot can help with all of this: paste your metrics and ask it to generate an executive summary paragraph.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Section: Summary
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
         <h2>Wrap-Up &amp; Next Steps</h2>
+        <aside class="speaker-notes">
+          Let's bring it all together and talk about what to do next.
+        </aside>
       </div>
     </section>
 
-    <!-- Closing -->
+    <!-- ============================================================
+         SLIDE 29 - Key takeaways
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li><strong>GitHub Issues + Projects</strong> give you end-to-end visibility from requirement to deployment</li>
+          <li><strong>Copilot translates</strong> technical work into language every stakeholder can understand</li>
+          <li><strong>Better issues</strong> mean better estimates, faster delivery, and fewer surprises</li>
+          <li><strong>Reports and summaries</strong> that used to take hours now take minutes</li>
+          <li><strong>Proactive risk identification</strong> keeps you ahead of problems, not behind them</li>
+          <li><strong>Metrics drive decisions</strong> when you present them with context and narrative</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's recap. GitHub Issues and Projects give you a complete view of your project from planning through delivery. Copilot serves as your translator, turning code changes and technical details into something every audience can understand. Writing better issues saves the entire team time and reduces the back-and-forth that slows delivery. Reporting tasks that used to consume an afternoon can be done in minutes with the right prompts. Proactive risk identification is the difference between managing a project and being managed by it. And metrics are only powerful when you present them with context, narrative, and a clear connection to business outcomes. This is your new toolkit. Start with one area, build confidence, and expand from there.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 30 - Next steps
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Your Next Steps</h2>
+        <ul>
+          <li><strong>Today:</strong> Try summarizing one PR with Copilot Chat</li>
+          <li><strong>This week:</strong> Use Copilot to draft your next sprint report or stakeholder update</li>
+          <li><strong>This sprint:</strong> Set up a GitHub Project board with custom fields for priority and effort</li>
+          <li><strong>This month:</strong> Establish a consistent labeling strategy and review your key metrics</li>
+          <li><strong>Ongoing:</strong> Build a personal prompt library for the tasks you repeat most often</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here is your action plan, broken into time horizons. Today, pick one PR from your team and ask Copilot Chat to summarize it in plain English. It takes 30 seconds, and you will immediately see the value. This week, use Copilot to draft your next sprint report or stakeholder update instead of writing it from scratch. This sprint, set up or refine your GitHub Project board with custom fields for priority and effort so you have better data for planning. This month, work with your team to establish a consistent labeling strategy and start tracking the delivery and health metrics we discussed. Ongoing, build a personal prompt library. Every time you write a prompt that works well, save it. Over time, you will have a collection of go-to prompts that make every task faster. The goal is not to learn everything at once; it is to build habits that compound over time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 31 - Closing
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          Thank you for your time today. If you have questions after this session, reach out on Teams or open an issue in the training repository. Now go power up your project management.
+        </aside>
       </div>
     </section>
 

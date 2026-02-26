@@ -9,20 +9,20 @@
 <!-- Set it to the LOWEST status from the table below.                  -->
 <!-- Values: Not Started | In Progress | Complete                       -->
 
-`Status: In Progress`
+`Status: Ready for Review`
 
 <!-- AGENT SYNC: When changing this status, you MUST also update the matching -->
 <!-- entry in api/course-statuses.json so the nav page stays in sync. -->
 
 ## Overall Completion
 
-| Area                  | Status      |
-|-----------------------|-------------|
-| Slide Content         | In Progress |
-| Speaker Notes         | In Progress |
-| Images & Diagrams     | In Progress |
-| Demo / Lab Content    | In Progress |
-| Reviewed & Approved   | In Progress |
+| Area                  | Status           |
+|-----------------------|------------------|
+| Slide Content         | Ready for Review |
+| Speaker Notes         | Ready for Review |
+| Images & Diagrams     | In Progress      |
+| Demo / Lab Content    | In Progress      |
+| Reviewed & Approved   | Not Started      |
 
 > **How to update:** Set each area to `Not Started`, `In Progress`, or `Complete`.
 > Then set the **Rollup Status** above to the **lowest** value in the table.

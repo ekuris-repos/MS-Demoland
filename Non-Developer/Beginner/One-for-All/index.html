@@ -10,62 +10,552 @@
 
   <div class="slide-deck">
 
-    <!-- Title Slide -->
+    <!-- ============================================================
+         SLIDE 1 - Title
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
-        <span class="badge">Beginner · 1 Hour</span>
+        <span class="badge">Beginner · 30 Minutes</span>
         <h1>GitHub Platform Tour - One for All</h1>
         <p class="subtitle">Tour GitHub Enterprise, Actions, Issues, Projects, Code Quality, and Secret Scanning to see how the platform works as one unified system</p>
+        <aside class="speaker-notes">
+          Welcome to "One for All," a guided tour of the GitHub platform designed for anyone in the organization, not just developers. Over the next 30 minutes we will walk through the major capabilities GitHub offers: repositories, Issues, Projects, Actions, code quality controls, security scanning, Copilot, and Enterprise administration. The goal is to show how these features connect into a single, end-to-end system that takes work from idea all the way to production. By the end, you will have a clear mental map of what GitHub does and how each piece reinforces the others.
+        </aside>
       </div>
     </section>
 
-    <!-- Agenda -->
+    <!-- ============================================================
+         SLIDE 2 - Agenda (Section Divider)
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Overview</span>
         <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Let's preview the stops on our tour so you know what to expect.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 1 -->
+    <!-- ============================================================
+         SLIDE 3 - Agenda Items
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>The GitHub Enterprise Platform</h2>
+        <h2>Today's Agenda</h2>
         <ul>
-          <li>GitHub Enterprise, Actions, Issues, and Projects - if you use them, you're fully engaged</li>
-          <li>Code Quality and Secret Scanning for secure, reliable code</li>
-          <li>Understanding how these tools work together as a unified platform</li>
+          <li><strong>More Than Code</strong> - Why GitHub is a complete development platform, not just a code host</li>
+          <li><strong>Repositories &amp; Collaboration</strong> - How teams store, share, and review work together</li>
+          <li><strong>Issues &amp; Projects</strong> - Planning, tracking, and prioritizing work in one place</li>
+          <li><strong>GitHub Actions</strong> - Automating builds, tests, and deployments with CI/CD</li>
+          <li><strong>Code Quality</strong> - Branch protection, required reviews, and status checks</li>
+          <li><strong>Security</strong> - Dependabot, secret scanning, code scanning, and push protection</li>
+          <li><strong>GitHub Copilot</strong> - AI assistance across the entire platform</li>
+          <li><strong>Enterprise Controls</strong> - Admin features, audit logs, and compliance</li>
+          <li><strong>End-to-End Workflow</strong> - How it all connects from idea to production</li>
         </ul>
+        <aside class="speaker-notes">
+          Here is our roadmap. We will start by reframing what GitHub actually is, then walk through each major area: collaboration, planning, automation, quality, security, AI, and enterprise governance. We will close by connecting all of these pieces into a single workflow so you can see how they reinforce each other. Each section is designed to be high-level and accessible. We are focused on the "what" and "why," not the technical implementation details.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 2 -->
+    <!-- ============================================================
+         SLIDE 4 - Section: More Than Code
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>More Than Code</h2>
+        <aside class="speaker-notes">
+          Most people first encounter GitHub as a place where developers store source code. That is true, but it barely scratches the surface. Let's reframe what the platform really is.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - GitHub Is a Platform
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Review &amp; Commit Your Work</h2>
-        <ul>
-          <li>How to use these tools to review your work effectively</li>
-          <li>Committing changes with confidence using built-in safeguards</li>
-          <li>Practical demonstrations of the end-to-end workflow</li>
-        </ul>
+        <h2>GitHub Is a Complete Platform</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>What People Think</h3>
+            <p>GitHub is where developers store and share code. It is a code hosting service with version control.</p>
+          </div>
+          <div class="card">
+            <h3>What It Actually Is</h3>
+            <p>GitHub is an end-to-end software delivery platform: plan, build, test, secure, deploy, and govern, all in one place.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          The most common misconception about GitHub is that it is "just a code host." In reality, GitHub has grown into a full software delivery platform that covers the entire lifecycle. Planning happens in Issues and Projects. Building and testing happen through Actions. Security is built into every pull request through scanning tools. Deployment pipelines run directly from the repository. And enterprise controls give administrators visibility and governance across the entire organization. Understanding this broader picture is the purpose of today's session.
+        </aside>
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- ============================================================
+         SLIDE 6 - Platform at a Glance
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Platform at a Glance</h2>
+        <ul>
+          <li><strong>Plan</strong> - Issues, Projects, Milestones, and Discussions</li>
+          <li><strong>Build</strong> - Repositories, Pull Requests, Code Review, and Copilot</li>
+          <li><strong>Test &amp; Automate</strong> - GitHub Actions with CI/CD workflows</li>
+          <li><strong>Secure</strong> - Dependabot, Secret Scanning, Code Scanning, and Push Protection</li>
+          <li><strong>Deploy</strong> - Environments, deployment protection rules, and release management</li>
+          <li><strong>Govern</strong> - Audit logs, policies, SAML/SCIM, and compliance reporting</li>
+        </ul>
+        <aside class="speaker-notes">
+          This slide gives you the full map. GitHub covers six major areas of the software lifecycle. Planning tools let you capture and prioritize work. Build tools give teams a shared workspace with AI assistance. Automation handles testing and deployment through Actions. Security tools scan for vulnerabilities, leaked secrets, and risky dependencies automatically. Deployment features add approval gates and environment protection. And governance features give enterprise administrators the visibility and control they need for compliance. Each of these areas is integrated, meaning data and context flow between them without manual handoffs.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 - Section: Repositories & Collaboration
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>Repositories &amp; Collaboration</h2>
+        <aside class="speaker-notes">
+          Now let's look at the foundational layer: repositories and how teams collaborate within them.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 - Repositories Explained
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Repositories: The Foundation</h2>
+        <ul>
+          <li>A repository is a project folder that tracks every change over time</li>
+          <li>Every file, every edit, and every contributor is recorded in a complete history</li>
+          <li>Teams work in <strong>branches</strong>: isolated copies where changes can be developed safely</li>
+          <li><strong>Pull requests</strong> are proposals to merge a branch back into the main project</li>
+          <li>Code review happens directly inside the pull request before changes are accepted</li>
+        </ul>
+        <aside class="speaker-notes">
+          Think of a repository as a project folder with a built-in time machine. Every change that anyone makes is recorded, so you can always see who changed what and when. When someone wants to make a change, they create a branch, which is an isolated copy of the project. They do their work in the branch, then open a pull request to propose merging those changes back. The pull request is where collaboration happens: teammates review the code, leave comments, suggest improvements, and ultimately approve or request changes. This model ensures that nothing reaches the main project without being reviewed first.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 - Pull Requests and Review
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Pull Requests: Where Collaboration Happens</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>For Contributors</h3>
+            <p>Describe what you changed, link to the related issue, and request specific reviewers. The pull request becomes a living document of the conversation around the change.</p>
+          </div>
+          <div class="card">
+            <h3>For Reviewers</h3>
+            <p>See exactly what changed, leave inline comments on specific lines, suggest edits, and approve or request revisions. Every decision is documented and searchable.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Pull requests are arguably the most important collaboration feature on GitHub. For the person making the change, the pull request is where they explain their work, link it to a tracked issue, and request feedback from the right people. For reviewers, it provides a clear view of every line that changed, with the ability to comment directly on specific code. Conversations, decisions, and approvals are all captured in the pull request history. This is valuable not just for quality; it also creates an audit trail that compliance and governance teams appreciate. Months later, anyone can look at a pull request and understand why a change was made and who approved it.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 - Section: Issues & Projects
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>Issues &amp; Projects</h2>
+        <aside class="speaker-notes">
+          Next, let's look at how teams plan and track their work using Issues and Projects.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - GitHub Issues
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>GitHub Issues: Capturing Work</h2>
+        <ul>
+          <li>Issues are lightweight work items: bugs, feature requests, tasks, or questions</li>
+          <li>Each issue has a title, description, labels, assignees, and a full comment thread</li>
+          <li>Issues link directly to pull requests, so you can trace a change back to the reason it was made</li>
+          <li>Templates standardize how teams file issues, reducing back-and-forth</li>
+          <li>Sub-issues and task lists break large work items into smaller, trackable pieces</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Issues are the starting point for tracking work. An issue can be anything: a bug report, a feature request, a compliance task, or a question that needs resolution. Every issue has a clear structure with labels for categorization, assignees for ownership, and a comment thread for discussion. One of the most powerful aspects is the link between issues and pull requests. When a developer opens a pull request that fixes issue number 42, closing the pull request automatically closes the issue. This traceability is critical for auditing and governance because you can always trace a code change back to the business need that drove it. Issue templates let teams standardize the information they need, which reduces confusion and speeds up triage.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 - GitHub Projects
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>GitHub Projects: Planning at Scale</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Board View</h3>
+            <p>Kanban-style columns (To Do, In Progress, Done) give teams a visual workflow. Drag issues and pull requests between columns to update status instantly.</p>
+          </div>
+          <div class="card">
+            <h3>Table &amp; Roadmap Views</h3>
+            <p>Switch to a spreadsheet-style table for sorting and filtering, or use the roadmap view to see work plotted on a timeline with start and target dates.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          GitHub Projects takes issues and pull requests and organizes them into flexible views. The board view is familiar to anyone who has used Kanban: columns represent stages of work, and you move cards across as work progresses. But Projects also offers table views, which work like spreadsheets where you can sort, filter, and group by any custom field. The roadmap view plots work items on a timeline, making it easy for project managers and leadership to see delivery progress. The key advantage is that Projects pulls data directly from your repositories. When a pull request is merged, the corresponding issue moves automatically. There is no manual status updating or syncing between separate tools.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 - Section: GitHub Actions
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>GitHub Actions</h2>
+        <aside class="speaker-notes">
+          Now we move into automation. GitHub Actions is the engine that powers CI/CD on the platform.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 14 - What Are GitHub Actions?
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>GitHub Actions: Automation Built In</h2>
+        <ul>
+          <li>Actions automate tasks that run in response to events in your repository</li>
+          <li>Common uses: build the application, run tests, check for vulnerabilities, and deploy</li>
+          <li><strong>Workflows</strong> are defined in YAML files that live in the repository alongside the code</li>
+          <li>A marketplace of 20,000+ pre-built actions means teams rarely start from scratch</li>
+          <li>Results appear directly on pull requests, so reviewers see pass/fail status immediately</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Actions is the platform's built-in automation system. When something happens in a repository, such as a pull request being opened, code being pushed, or a release being created, Actions can automatically run tasks in response. The most common use case is CI/CD: continuously building, testing, and deploying your application. Workflows are defined in simple YAML files that live right in the repository, so they are versioned and reviewed just like any other code. The GitHub Marketplace offers over 20,000 pre-built actions for common tasks like deploying to Azure, sending notifications, or running security scans. Teams can assemble sophisticated automation pipelines by combining these building blocks without writing everything from scratch.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 - Actions in Practice
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Actions in Practice</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Continuous Integration</h3>
+            <p>Every pull request triggers automated builds and tests. Broken code is caught before it reaches the main branch, reducing risk and rework.</p>
+          </div>
+          <div class="card">
+            <h3>Continuous Deployment</h3>
+            <p>After code is merged, Actions can deploy it automatically to staging or production environments with approval gates and rollback capabilities.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          In practice, Actions typically splits into two phases. Continuous integration runs on every pull request: the application is built, tests are executed, and the results are posted directly on the pull request. If anything fails, the team sees it immediately and can fix the issue before merging. Continuous deployment happens after a merge. Actions can automatically deploy the updated application to staging environments, run additional validation, and then promote to production. Deployment protection rules let you require manual approvals for sensitive environments. If something goes wrong, the same pipeline can handle rollback. The key takeaway for non-developers is that this automation replaces manual, error-prone processes with repeatable, auditable workflows.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 - Section: Code Quality
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Code Quality</h2>
+        <aside class="speaker-notes">
+          Automation is powerful, but it needs guardrails. Let's look at the code quality features that protect the main branch.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 - Code Quality Controls
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Protecting Quality at Every Step</h2>
+        <ul>
+          <li><strong>Branch protection rules</strong> prevent direct changes to the main branch</li>
+          <li><strong>Required reviews</strong> ensure at least one (or more) teammates approve every change</li>
+          <li><strong>Required status checks</strong> block merging until automated tests pass</li>
+          <li><strong>CODEOWNERS</strong> files automatically assign reviewers based on which files are changed</li>
+          <li><strong>Rulesets</strong> let administrators define and enforce policies across many repositories at once</li>
+        </ul>
+        <aside class="speaker-notes">
+          Code quality on GitHub is enforced through a layered system of rules. Branch protection prevents anyone from pushing code directly to the main branch; all changes must go through a pull request. Required reviews mean that at least one other person must approve the change before it can be merged. Required status checks integrate with Actions so that failing tests block the merge entirely. CODEOWNERS files allow teams to define which people or groups must review changes to specific parts of the codebase. And rulesets are a newer, more powerful way for enterprise administrators to define policies that apply across dozens or hundreds of repositories at once. Together, these features ensure that quality is enforced systematically, not through willpower or hope.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Code Review Culture
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Code Review: More Than a Checkbox</h2>
+        <ul>
+          <li>Code review shares knowledge: reviewers learn about changes across the codebase</li>
+          <li>It catches bugs, security issues, and design problems before they ship</li>
+          <li>Review comments create a searchable record of decisions and trade-offs</li>
+          <li>Suggested changes let reviewers propose edits that authors can accept with one click</li>
+        </ul>
+        <aside class="speaker-notes">
+          It is easy to think of code review as a gate to slow things down, but it serves a much deeper purpose. Reviews spread knowledge across the team so that no single person is the only one who understands a given area. They catch bugs and security issues that automated tests might miss. The conversation in a review creates a written record of the reasoning behind design decisions, which is invaluable when revisiting code months later. GitHub's suggested changes feature makes the process efficient: a reviewer can propose a specific edit, and the author can accept it with a single click. For leaders and stakeholders, the key point is that code review is one of the highest-value quality investments a team can make.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 19 - Section: Security
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>Security</h2>
+        <aside class="speaker-notes">
+          Security is not an afterthought on GitHub. It is built into the developer workflow. Let's look at the four main security features.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 - Security Features Overview
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Security Built Into the Workflow</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Dependabot</h3>
+            <p>Monitors third-party dependencies for known vulnerabilities and automatically opens pull requests with updated, patched versions.</p>
+          </div>
+          <div class="card">
+            <h3>Secret Scanning</h3>
+            <p>Detects leaked credentials (API keys, tokens, passwords) in code and alerts the team before the secret can be exploited.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          GitHub provides four interconnected security features. Dependabot watches the open-source libraries your code depends on. When a vulnerability is disclosed in one of those libraries, Dependabot alerts the team and automatically opens a pull request with the updated version. This turns a manual, error-prone audit into an automated, ongoing process. Secret scanning continuously monitors the codebase for leaked credentials like API keys, database passwords, and access tokens. If a secret is found, the team is alerted immediately for remediation. For compliance officers, these features mean that vulnerability management and credential hygiene are automated rather than relying on periodic manual reviews.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 21 - Code Scanning & Push Protection
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Proactive Security Controls</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Code Scanning</h3>
+            <p>Automatically analyzes code for security vulnerabilities and coding errors on every pull request, powered by CodeQL and third-party tools.</p>
+          </div>
+          <div class="card">
+            <h3>Push Protection</h3>
+            <p>Blocks developers from pushing code that contains known secret patterns. Prevention is stronger than detection after the fact.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Code scanning takes security analysis a step further by examining the code itself, not just its dependencies. Powered by CodeQL, GitHub's semantic analysis engine, it identifies patterns that lead to vulnerabilities such as SQL injection, cross-site scripting, and insecure data handling. Results appear directly on pull requests so developers can fix issues before merging. Push protection is the most proactive control: it stops a push from completing if the code contains a recognized secret pattern. Instead of alerting after a secret has been committed, push protection prevents the leak entirely. For organizations concerned about data breaches and regulatory compliance, push protection is a significant risk reduction measure. Together, these four security features create a defense-in-depth strategy that operates continuously and automatically.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - Section: GitHub Copilot
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>GitHub Copilot</h2>
+        <aside class="speaker-notes">
+          Now let's look at how AI fits into the platform. GitHub Copilot is more than an autocomplete tool.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - GitHub Copilot Overview
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>AI Assistance Across the Platform</h2>
+        <ul>
+          <li><strong>Code suggestions</strong> in the editor help developers write code faster and with fewer errors</li>
+          <li><strong>Copilot Chat</strong> answers questions about the codebase, explains unfamiliar code, and suggests fixes</li>
+          <li><strong>Pull request summaries</strong> automatically generate descriptions of what changed and why</li>
+          <li><strong>Copilot in the CLI</strong> helps with command-line tasks, Git operations, and shell scripting</li>
+          <li><strong>Copilot for security</strong> suggests fixes for vulnerabilities found by code scanning</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Copilot is an AI assistant that works across the entire platform, not just inside the code editor. In the editor, it provides real-time code suggestions that help developers write code faster. Copilot Chat acts as an interactive assistant that can answer questions about the codebase, explain complex logic, and suggest solutions to bugs. On pull requests, Copilot can automatically generate summaries that explain what changed, which saves time during code review. In the command line, it helps with Git commands and shell scripts. It can even suggest fixes for security vulnerabilities that code scanning identifies. For leaders, the key benefit is that Copilot accelerates work at every stage of the development process while keeping humans in control of every decision.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Section: Enterprise Controls
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 8</span>
+        <h2>Enterprise Controls</h2>
+        <aside class="speaker-notes">
+          For organizations that need governance, compliance, and administrative oversight, GitHub Enterprise provides a robust control plane.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Enterprise Features
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Governance and Compliance</h2>
+        <ul>
+          <li><strong>Audit log</strong> records every significant action across the organization: who did what, when, and where</li>
+          <li><strong>SAML SSO &amp; SCIM</strong> integrate with your identity provider for centralized authentication and provisioning</li>
+          <li><strong>Repository policies</strong> enforce naming conventions, visibility rules, and default branch settings</li>
+          <li><strong>IP allow lists</strong> restrict access to your GitHub organization from approved networks only</li>
+          <li><strong>License management</strong> provides visibility into seat usage and Copilot adoption across teams</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub Enterprise gives administrators the controls that large organizations require. The audit log is a comprehensive record of every action: repository creation, permission changes, policy updates, and more. It integrates with SIEM tools for security monitoring. SAML single sign-on and SCIM provisioning let you manage access through your existing identity provider, such as Entra ID or Okta. Repository policies enforce organizational standards automatically. IP allow lists add network-level access controls. And license management dashboards give clear visibility into how many seats are in use and how actively teams are using Copilot. For IT leaders and compliance officers, these features mean that GitHub fits into your existing security and governance framework rather than operating as a separate silo.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 - Section: End-to-End Workflow
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 9</span>
+        <h2>How It All Connects</h2>
+        <aside class="speaker-notes">
+          We have toured each area individually. Now let's connect the dots and see how an idea becomes production-ready software on GitHub.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - The Connected Workflow
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>From Idea to Production</h2>
+        <ul>
+          <li><strong>1. Capture</strong> - A stakeholder files an Issue describing the need; the Issue is added to a Project board</li>
+          <li><strong>2. Build</strong> - A developer creates a branch, writes code with Copilot, and opens a pull request linked to the Issue</li>
+          <li><strong>3. Review</strong> - Teammates review the code; branch protection ensures required approvals and passing checks</li>
+          <li><strong>4. Secure</strong> - Code scanning, secret scanning, and Dependabot run automatically on the pull request</li>
+          <li><strong>5. Deploy</strong> - Actions deploys the merged code to staging, then production with approval gates</li>
+          <li><strong>6. Govern</strong> - Every step is recorded in the audit log; the Issue closes automatically when the PR merges</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is the "One for All" moment: seeing how every feature we discussed works together as a single system. It starts when a stakeholder creates an Issue to capture a need. That Issue appears on a Project board for prioritization. A developer picks it up, creates a branch, and writes code with Copilot's assistance. When they open a pull request, it links back to the original Issue. Branch protection rules ensure the right people review it and all automated checks pass. Security scans run automatically on the pull request. Once approved and merged, Actions deploys the change through staging and production environments with appropriate approval gates. The Issue closes automatically, the Project board updates, and every action is recorded in the audit log. No manual handoffs, no context switching between tools, no gaps in traceability. This connected workflow is why GitHub is more than the sum of its individual features.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Section: Summary
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
         <h2>Wrap-Up &amp; Next Steps</h2>
+        <aside class="speaker-notes">
+          Let's bring it all together and talk about where to go from here.
+        </aside>
       </div>
     </section>
 
-    <!-- Closing -->
+    <!-- ============================================================
+         SLIDE 29 - Key Takeaways
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li>GitHub is a unified platform that covers planning, building, testing, securing, deploying, and governing software</li>
+          <li>Issues and Projects connect business needs to the code changes that address them</li>
+          <li>Actions automates repetitive work, reducing human error and increasing delivery speed</li>
+          <li>Security is not a separate step; it is embedded in every pull request through scanning and push protection</li>
+          <li>Copilot accelerates work at every stage while keeping humans in control</li>
+          <li>Enterprise controls provide the audit trails, access management, and policy enforcement that organizations require</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here are the core messages to take away from today's session. First, GitHub is not just code hosting; it is a complete delivery platform. Second, the planning and tracking tools create direct links between business goals and the code that achieves them. Third, automation through Actions eliminates manual steps and reduces risk. Fourth, security is built into the developer workflow, not bolted on afterward. Fifth, Copilot brings AI assistance to every stage of the process. And sixth, enterprise governance features ensure that all of this works within your organization's compliance requirements. The real power comes from the integration between these areas, not from any one feature in isolation.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 30 - Next Steps
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Next Steps</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Explore Further</h3>
+            <ul>
+              <li>Try the other Beginner courses in the Non-Developer track</li>
+              <li>Review your organization's GitHub Enterprise settings and policies</li>
+              <li>Look at a real repository's pull request history to see collaboration in action</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Go Deeper</h3>
+            <ul>
+              <li>Intermediate: "Command and Conquer" for hands-on GitHub administration</li>
+              <li>Enterprise: "Proving Trust in the System" for compliance and governance deep-dives</li>
+              <li>Visit <strong>github.com/features</strong> for detailed documentation on every capability</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          For your next steps, start by exploring the other Beginner courses in the Non-Developer track if you have not already. "Copilot and the Thing" gives you a hands-on introduction to using Copilot, and "Made Better Together" covers the Azure DevOps integration story. Once you are comfortable with the basics, the Intermediate and Enterprise courses go deeper. "Command and Conquer" covers GitHub administration in more detail, and "Proving Trust in the System" is designed specifically for compliance officers and IT leaders who need to understand GitHub's governance capabilities. If you want to explore on your own, pick a repository in your organization and look at a few recent pull requests to see how the team collaborates. Thank you for joining today's tour.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 31 - Closing
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          Thank you for your time today. If you have questions, feel free to reach out on Teams or open an issue in the training repository. We are happy to help you get started with any of the features we covered.
+        </aside>
       </div>
     </section>
 
