@@ -1,11 +1,14 @@
 {
-  "title": "Central Prompt Repos — Enterprise Grade Marmalade",
+  "title": "CCPR — Enterprise Grade Marmalade",
+  "repos": [
+    "https://github.com/ekuris-repos/ccpr_root"
+  ],
   "slides": {
     "1": {
       "steps": [
         {
           "title": "Welcome to the Lab",
-          "instruction": "Welcome to <strong>Enterprise Grade Marmalade</strong>. In this lab you will build a central prompt repository from scratch.<br><br>Your challenge: design and populate a shared prompt repo that standardizes AI-assisted development across an organization. By the end, you will have instruction files, prompt templates, a skill, an agent, governance configuration, and a distribution plan.<br><br>Follow the guide panel as you advance through the slides. The slides teach the concepts; the lab challenges you to apply them.",
+          "instruction": "Welcome to <strong>Enterprise Grade Marmalade</strong>. In this lab you will explore and extend a Central Code Prompt Repository (CCPR).<br><br>The lab has pre-cloned the <strong>ccpr_root</strong> template into your workspace. This is a real CCPR template that provides the folder structure, file conventions, and starter content for building your organization's AI playbook.<br><br>Your challenge: explore the template, understand its structure, then customize it with your own organization's standards, prompts, skills, and agents. Follow the guide panel as you advance through the slides.",
           "focus": "guide"
         }
       ]
@@ -13,15 +16,16 @@
     "5": {
       "steps": [
         {
-          "title": "Audit the Current State",
-          "instruction": "Before building the solution, you need to understand the problem. Open <strong>Copilot Chat</strong> and investigate your own workspace.<br><br><kbd>Do any projects in this workspace have .instructions.md, .prompt.md, or .agent.md files? Summarize what Copilot configuration exists today.</kbd><br><br>Think about what the slides describe: inconsistent output, duplicated effort, slow onboarding, knowledge loss. Which of these would affect a team using this codebase?",
-          "focus": "right",
-          "action": "workbench.action.chat.open"
+          "title": "Explore the CCPR Template",
+          "instruction": "The <strong>ccpr_root</strong> template has been pre-cloned into your workspace. Open the <strong>Explorer</strong> sidebar and expand the <code>ccpr_root</code> folder. Browse its directory structure: instructions, prompts, skills, and agents directories.<br><br>This is the starting point for every organization's CCPR. Notice how it already has starter files and a clear organizational structure.",
+          "focus": "left",
+          "action": "workbench.view.explorer"
         },
         {
-          "title": "Identify the Gaps",
-          "instruction": "Now consider what is missing. In <strong>Copilot Chat</strong>, ask:<br><br><kbd>What coding conventions, architectural decisions, and team-specific knowledge would a new developer need to learn about this project? List at least five things that are not documented anywhere.</kbd><br><br>Keep this list handy. You will encode these gaps into your central prompt repo throughout the lab.",
-          "focus": "right"
+          "title": "Identify Your Gaps",
+          "instruction": "Now compare the CCPR template to your actual needs. In <strong>Copilot Chat</strong>, ask:<br><br><kbd>Look at the ccpr_root folder in my workspace. Then consider: what coding conventions, architectural decisions, and team-specific knowledge would a new developer need to learn about a typical project? List at least five things that are not yet captured in this CCPR template.</kbd><br><br>Keep this list handy. You will encode these gaps into the CCPR throughout the lab.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
         }
       ]
     },
@@ -29,7 +33,7 @@
       "steps": [
         {
           "title": "Map File Types to Your Needs",
-          "instruction": "The slides introduced four file types: <code>.prompt.md</code>, <code>.instructions.md</code>, <code>SKILL.md</code>, and <code>.agent.md</code>. Your challenge: decide which file type fits each item from your gap list.<br><br>Open a new file and draft a quick mapping. For example:<br><br>&bull; \"Always use parameterized SQL queries\" = instruction<br>&bull; \"How to deploy to staging\" = skill<br>&bull; \"Security review checklist\" = agent<br>&bull; \"Generate API endpoint boilerplate\" = prompt template<br><br>This mapping becomes your build plan for the rest of the lab.",
+          "instruction": "The slides introduced four file types: <code>.prompt.md</code>, <code>.instructions.md</code>, <code>SKILL.md</code>, and <code>.agent.md</code>. Open the CCPR template and find examples of each type. Note how each is structured.<br><br>Now map your gap list items to these file types. Open a new file and draft a quick mapping. For example:<br><br>&bull; \"Always use parameterized SQL queries\" = instruction<br>&bull; \"How to deploy to staging\" = skill<br>&bull; \"Security review checklist\" = agent<br>&bull; \"Generate API endpoint boilerplate\" = prompt template<br><br>This mapping becomes your build plan for the rest of the lab.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "If an item could fit more than one type, choose the type that delivers the most value with the least maintenance."
@@ -39,14 +43,14 @@
     "11": {
       "steps": [
         {
-          "title": "Scaffold the Folder Structure",
-          "instruction": "Create the folder structure for your central prompt repo. The slide shows a recommended layout, but your challenge is to adapt it to your organization's needs.<br><br>Use <strong>Copilot Chat</strong> in agent mode:<br><br><kbd>Create a folder structure for a central prompt repository. I need directories for instructions (organized by languages, frameworks, and practices), prompts, skills, and agents. Include a root README.md that explains the repo's purpose.</kbd><br><br>Review what the agent creates. Does the structure match the recommendations from the slide, or did you customize it?",
-          "focus": "right",
-          "action": "workbench.action.chat.open"
+          "title": "Review the CCPR Structure",
+          "instruction": "Open the <strong>Explorer</strong> and review the ccpr_root folder structure. The slide shows the recommended layout, which the template already implements.<br><br>Consider: does the template structure work for your organization, or would you need to customize it? Common customizations include adding subdirectories for team-specific content or removing categories your org does not use.<br><br>If you want to customize, use <strong>Copilot Chat</strong> in agent mode:<br><br><kbd>Look at the ccpr_root folder structure. Add a new subdirectory under instructions/ for our organization's API design patterns. Include a README explaining the directory's purpose.</kbd>",
+          "focus": "left",
+          "action": "workbench.view.explorer"
         },
         {
           "title": "Verify Discoverability",
-          "instruction": "Open the <strong>Explorer</strong> and review the folder tree the agent created. Ask yourself:<br><br>&bull; Can a new developer find what they need in under 30 seconds?<br>&bull; Are the folder names descriptive enough without READMEs?<br>&bull; Is there a clear place for every file type?<br><br>If anything feels hard to find, reorganize now. Discoverability is the top priority for a shared repo.",
+          "instruction": "Review the folder tree. Ask yourself:<br><br>&bull; Can a new developer find what they need in under 30 seconds?<br>&bull; Are the folder names descriptive enough without READMEs?<br>&bull; Is there a clear place for every file type?<br><br>If anything feels hard to find, reorganize now. Discoverability is the top priority for a shared repo.",
           "focus": "left",
           "action": "workbench.view.explorer"
         }
@@ -56,7 +60,7 @@
       "steps": [
         {
           "title": "Apply Naming Conventions",
-          "instruction": "Review the files and folders you created. Check them against the naming rules from the slide:<br><br>&bull; Are all file names in kebab-case?<br>&bull; Does every file include the correct type suffix (<code>.prompt.md</code>, <code>.instructions.md</code>, <code>.agent.md</code>)?<br>&bull; Does each file address a single concern?<br><br>Rename anything that does not follow the conventions. Consider: why does the slide recommend kebab-case over camelCase or PascalCase for these files?",
+          "instruction": "Review the files in the ccpr_root template. Check them against the naming rules from the slide:<br><br>&bull; Are all file names in kebab-case?<br>&bull; Does every file include the correct type suffix (<code>.prompt.md</code>, <code>.instructions.md</code>, <code>.agent.md</code>)?<br>&bull; Does each file address a single concern?<br><br>The template should already follow these conventions. If you added new files in the previous step, make sure they follow the same pattern.",
           "focus": "left",
           "action": "workbench.view.explorer"
         }
@@ -81,8 +85,8 @@
     "18": {
       "steps": [
         {
-          "title": "Set Up CODEOWNERS",
-          "instruction": "Governance starts with ownership. Create a <code>.github/CODEOWNERS</code> file that assigns review responsibility for each directory in your central prompt repo.<br><br>Think about who should own each area:<br><br>&bull; Language instructions: language standards team<br>&bull; Framework instructions: framework leads<br>&bull; Agents: platform engineering<br>&bull; Skills: architecture team<br><br>Write the CODEOWNERS file. Use GitHub team handles or placeholder names if you do not have real teams yet.",
+          "title": "Review or Create CODEOWNERS",
+          "instruction": "Check whether the ccpr_root template already includes a <code>.github/CODEOWNERS</code> file. If it does, review it and customize the team handles for your organization. If not, create one that assigns review responsibility for each directory.<br><br>Think about who should own each area:<br><br>&bull; Language instructions: language standards team<br>&bull; Framework instructions: framework leads<br>&bull; Agents: platform engineering<br>&bull; Skills: architecture team<br><br>Use GitHub team handles or placeholder names.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile"
         },
@@ -96,8 +100,8 @@
     "21": {
       "steps": [
         {
-          "title": "Build a Prompt Template",
-          "instruction": "Create your first <code>.prompt.md</code> file. Choose the most common task your team performs (code review, test generation, or documentation are good starting points).<br><br>Your prompt template should include:<br>&bull; YAML frontmatter with <code>description</code> and <code>mode</code><br>&bull; A clear structure with numbered expectations<br>&bull; At least one <code>${input:variable}</code> placeholder<br>&bull; Rules that enforce your team's standards<br><br>Save it in your <code>prompts/</code> directory with a descriptive kebab-case name.",
+          "title": "Explore Existing Prompt Templates",
+          "instruction": "Browse the <code>prompts/</code> directory in the ccpr_root template. Open the existing prompt files and examine their structure: YAML frontmatter, input variables, and requirement sections.<br><br>Now create your own <code>.prompt.md</code> file. Choose the most common task your team performs (code review, test generation, or documentation are good starting points).<br><br>Your prompt template should include:<br>&bull; YAML frontmatter with <code>description</code> and <code>mode</code><br>&bull; A clear structure with numbered expectations<br>&bull; At least one <code>${input:variable}</code> placeholder<br>&bull; Rules that enforce your team's standards<br><br>Save it in the <code>prompts/</code> directory with a descriptive kebab-case name.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "The slide's code review template is a strong reference. Study its structure, then adapt it for your team's specific review criteria."
@@ -178,7 +182,7 @@
       "steps": [
         {
           "title": "Final Challenge: The Getting Started Checklist",
-          "instruction": "The slide presents an eight-item getting started checklist. Review your work against it:<br><br>&bull; Repository with recommended folder structure<br>&bull; <code>copilot-instructions.md</code> with org-wide baseline rules<br>&bull; 2-3 instruction files for languages and frameworks<br>&bull; At least one prompt template<br>&bull; At least one SKILL.md file<br>&bull; CODEOWNERS and PR template<br>&bull; Distribution model documented in README<br>&bull; Baseline metrics defined for measuring impact<br><br>How many items can you check off? Fill in any gaps now.",
+          "instruction": "The slide presents an eight-item getting started checklist. Review your work against it:<br><br>&bull; CCPR forked from the ccpr_root template<br>&bull; <code>copilot-instructions.md</code> customized with org-wide baseline rules<br>&bull; 2-3 instruction files for languages and frameworks<br>&bull; At least one prompt template<br>&bull; At least one SKILL.md file<br>&bull; CODEOWNERS and PR template<br>&bull; Distribution model documented in README<br>&bull; Baseline metrics defined for measuring impact<br><br>How many items can you check off? Fill in any gaps now.",
           "focus": "slides"
         },
         {
@@ -192,7 +196,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> You have completed Enterprise Grade Marmalade.<br><br>You built a central prompt repository from scratch, including:<br><br>&bull; A folder structure organized for discoverability<br>&bull; Scoped instruction files for languages and frameworks<br>&bull; Reusable prompt templates for common tasks<br>&bull; A skill file encoding institutional knowledge<br>&bull; A custom agent with a specialized role<br>&bull; Governance with CODEOWNERS and PR templates<br>&bull; CI validation for prompt file quality<br>&bull; A distribution plan and measurement strategy<br><br>Next steps: <strong>MCP Maximizer</strong> to extend Copilot's tool capabilities, or <strong>Multi-Agent Multi-Repo Roundup</strong> for orchestrating agents across repositories.",
+          "instruction": "<strong>Congratulations!</strong> You have completed Enterprise Grade Marmalade.<br><br>You explored and customized a CCPR (Central Code Prompt Repository), including:<br><br>&bull; Exploring the ccpr_root template structure<br>&bull; Customizing scoped instruction files for languages and frameworks<br>&bull; Creating reusable prompt templates for common tasks<br>&bull; Adding a skill file encoding institutional knowledge<br>&bull; Building a custom agent with a specialized role<br>&bull; Configuring governance with CODEOWNERS and PR templates<br>&bull; Adding CI validation for prompt file quality<br>&bull; Planning distribution and measurement strategies<br><br>Next steps: <strong>MCP Maximizer</strong> to extend Copilot's tool capabilities, or <strong>Multi-Agent Multi-Repo Roundup</strong> for applying your CCPR across repositories.",
           "focus": "guide"
         }
       ]

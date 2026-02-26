@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central Prompt Repos - Enterprise Grade Marmalade - MS Demoland</title>
+  <title>CCPR - Enterprise Grade Marmalade - MS Demoland</title>
   <link rel="stylesheet" href="../../../css/primer-brand.css" />
 </head>
 <body>
@@ -17,10 +17,10 @@
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Intermediate · 1 Hour</span>
-        <h1>Central Prompt Repos - Enterprise Grade Marmalade</h1>
-        <p class="subtitle">Explore how central prompt repositories preserve institutional knowledge, standardize AI-assisted development, and get every developer productive from day one</p>
+        <h1>CCPR - Enterprise Grade Marmalade</h1>
+        <p class="subtitle">Build a Central Code Prompt Repository (CCPR) that preserves institutional knowledge, standardizes AI-assisted development, and gets every developer productive from day one</p>
         <aside class="speaker-notes">
-          Welcome to "Enterprise Grade Marmalade," where we dig into one of the most impactful practices for scaling AI-assisted development across an organization: the central prompt repository. Over the next hour, we will cover what central prompt repos are, how to build and maintain them, and why they are the secret ingredient for getting every developer productive with Copilot from day one. Whether your organization has ten developers or ten thousand, the patterns we discuss today will help you standardize, share, and scale your AI-assisted workflows.
+          Welcome to "Enterprise Grade Marmalade," where we dig into one of the most impactful practices for scaling AI-assisted development across an organization: the CCPR, or Central Code Prompt Repository. Over the next hour, we will cover what a CCPR is, how to build and maintain one using the ccpr_root template, and why it is the secret ingredient for getting every developer productive with Copilot from day one. Whether your organization has ten developers or ten thousand, the patterns we discuss today will help you standardize, share, and scale your AI-assisted workflows.
         </aside>
       </div>
     </section>
@@ -46,7 +46,7 @@
         <h2>Today's Agenda</h2>
         <ul>
           <li><strong>The Problem</strong> - Why inconsistent AI-assisted development hurts enterprise teams</li>
-          <li><strong>Central Prompt Repositories</strong> - What they are and the four key file types</li>
+          <li><strong>Central Code Prompt Repositories</strong> - What a CCPR is and the four key file types</li>
           <li><strong>Organization &amp; Structure</strong> - Folder layouts, naming conventions, and best practices</li>
           <li><strong>Distribution Models</strong> - Git submodules, npm packages, symlinks, and copy-on-clone</li>
           <li><strong>Governance</strong> - Ownership, PR review processes, and versioning strategies</li>
@@ -56,7 +56,7 @@
           <li><strong>Onboarding, Measurement &amp; CI/CD</strong> - Putting it all together</li>
         </ul>
         <aside class="speaker-notes">
-          Here is our roadmap. We will start by understanding the problem: what happens when teams adopt AI-assisted development without any shared standards. Then we will define what a central prompt repository actually is and walk through the four file types that power it. From there, we cover the practical concerns: how to organize the repo, how to distribute it to developers, and how to govern changes over time. The second half of the session is all about patterns and impact. We will look at real template examples, scoped instructions for different tech stacks, skills that encode institutional knowledge, and agents that serve as virtual team members. We will wrap up by connecting central prompt repos to onboarding, measurement, and CI/CD integration.
+          Here is our roadmap. We will start by understanding the problem: what happens when teams adopt AI-assisted development without any shared standards. Then we will define what a CCPR actually is and walk through the four file types that power it. From there, we cover the practical concerns: how to organize the repo, how to distribute it to developers, and how to govern changes over time. The second half of the session is all about patterns and impact. We will look at real template examples, scoped instructions for different tech stacks, skills that encode institutional knowledge, and agents that serve as virtual team members. We will wrap up by connecting the CCPR to onboarding, measurement, and CI/CD integration.
         </aside>
       </div>
     </section>
@@ -131,9 +131,9 @@
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge">Part 2</span>
-        <h2>Central Prompt Repositories</h2>
+        <h2>The CCPR Pattern</h2>
         <aside class="speaker-notes">
-          Now that we understand the problem, let's talk about the solution. Enter the central prompt repository.
+          Now that we understand the problem, let's talk about the solution. Enter the CCPR: the Central Code Prompt Repository.
         </aside>
       </div>
     </section>
@@ -143,16 +143,17 @@
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>What Is a Central Prompt Repository?</h2>
+        <h2>What Is a CCPR?</h2>
         <ul>
-          <li>A <strong>dedicated GitHub repository</strong> that stores shared prompt files, instructions, skills, and agent definitions</li>
+          <li>A <strong>CCPR (Central Code Prompt Repository)</strong> is a dedicated GitHub repository that stores shared prompt files, instructions, skills, and agent definitions</li>
           <li>Owned and maintained like any other critical piece of infrastructure</li>
           <li>Version-controlled, reviewed through pull requests, and distributed to every project</li>
           <li>The single source of truth for "how AI-assisted development works at our organization"</li>
           <li>Think of it as your company's <strong>AI playbook</strong>, encoded in files that Copilot can read</li>
+          <li>The <code>ccpr_root</code> template provides a ready-made starting structure that you customize for your organization</li>
         </ul>
         <aside class="speaker-notes">
-          A central prompt repository is exactly what it sounds like: a GitHub repository dedicated to storing all of the files that configure and standardize how your organization uses AI-assisted development tools. It contains .prompt.md files, .instructions.md files, SKILL.md files, and .agent.md files. We will walk through each of these in a moment. The key idea is that this repo is treated as shared infrastructure. Changes go through pull requests. Releases are tagged and versioned. Every project in the organization pulls from this single source of truth. Think of it as the codified version of all those unwritten rules that senior developers carry in their heads. Once it's in the central repo, Copilot can read it, and every developer benefits from it automatically.
+          A CCPR, or Central Code Prompt Repository, is exactly what it sounds like: a GitHub repository dedicated to storing all of the files that configure and standardize how your organization uses AI-assisted development tools. It contains .prompt.md files, .instructions.md files, SKILL.md files, and .agent.md files. We will walk through each of these in a moment. The key idea is that this repo is treated as shared infrastructure. Changes go through pull requests. Releases are tagged and versioned. Every project in the organization pulls from this single source of truth. Think of it as the codified version of all those unwritten rules that senior developers carry in their heads. Once it is in the CCPR, Copilot can read it, and every developer benefits from it automatically. The ccpr_root template on GitHub provides a proven starting structure you can fork and customize for your organization rather than building from scratch.
         </aside>
       </div>
     </section>
@@ -207,8 +208,8 @@
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Recommended Folder Structure</h2>
-        <pre><code>central-prompts/
+        <h2>Recommended CCPR Folder Structure</h2>
+        <pre><code>ccpr_root/
 ├── .github/
 │   └── copilot-instructions.md    # Org-wide defaults
 ├── instructions/
@@ -233,7 +234,7 @@
     ├── security-reviewer.agent.md
     └── devops-assistant.agent.md</code></pre>
         <aside class="speaker-notes">
-          Here is a recommended folder structure that has worked well across organizations of various sizes. At the root, you have a .github folder with a copilot-instructions.md file that defines organization-wide defaults. These are the baseline rules that apply everywhere. Under the instructions folder, you organize by category: languages, frameworks, and practices. This makes it easy for a team working in TypeScript with React to pull in the relevant instruction files without getting Python or C# rules mixed in. The prompts folder contains reusable prompt templates for common tasks like code review, test generation, and migration assistance. Skills and agents each get their own top-level folder. The key principle here is discoverability: a developer should be able to browse the repo and quickly find what they need. Keep names descriptive and group related files together.
+          Here is the recommended CCPR folder structure, which the ccpr_root template implements. At the root, you have a .github folder with a copilot-instructions.md file that defines organization-wide defaults. These are the baseline rules that apply everywhere. Under the instructions folder, you organize by category: languages, frameworks, and practices. This makes it easy for a team working in TypeScript with React to pull in the relevant instruction files without getting Python or C# rules mixed in. The prompts folder contains reusable prompt templates for common tasks like code review, test generation, and migration assistance. Skills and agents each get their own top-level folder. The key principle here is discoverability: a developer should be able to browse the repo and quickly find what they need. Keep names descriptive and group related files together.
         </aside>
       </div>
     </section>
@@ -266,7 +267,7 @@
         <span class="badge">Part 4</span>
         <h2>Distribution Models</h2>
         <aside class="speaker-notes">
-          You have a well-organized central prompt repo. Now, how do you get those files into every project that needs them? Let's look at the distribution options.
+          You have a well-organized CCPR. Now, how do you get those files into every project that needs them? Let's look at the distribution options.
         </aside>
       </div>
     </section>
@@ -389,7 +390,7 @@ central-prompts/archive/v2.1.0.tar.gz \
         <span class="badge">Part 5</span>
         <h2>Governance</h2>
         <aside class="speaker-notes">
-          Distribution gets the files to developers. Governance makes sure those files are trustworthy, well-maintained, and evolving in the right direction.
+          Distribution gets the files to developers. Governance makes sure the CCPR is trustworthy, well-maintained, and evolving in the right direction.
         </aside>
       </div>
     </section>
@@ -831,7 +832,7 @@ jobs:
       - name: Check file naming conventions
         run: node scripts/check-naming.js</code></pre>
         <aside class="speaker-notes">
-          The central prompt repo should be part of your CI/CD pipeline, both for its own quality and for distributing updates. On the quality side, add validation steps to every PR: check that YAML frontmatter is valid, file names follow naming conventions, and required fields like description and applyTo are present. On the distribution side, use GitHub Actions to automatically push updates to consuming repositories when a new version is released. You can publish the npm package, update submodule references, or trigger sync scripts across projects. Version compatibility checks help you catch situations where a consuming project pins to an old, unsupported version of the central repo. And automated changelog generation from PR titles gives you release notes without manual effort. The goal is to make the central prompt repo feel like any other well-maintained library: tested, versioned, and reliably delivered.
+          The CCPR should be part of your CI/CD pipeline, both for its own quality and for distributing updates. On the quality side, add validation steps to every PR: check that YAML frontmatter is valid, file names follow naming conventions, and required fields like description and applyTo are present. On the distribution side, use GitHub Actions to automatically push updates to consuming repositories when a new version is released. You can publish the npm package, update submodule references, or trigger sync scripts across projects. Version compatibility checks help you catch situations where a consuming project pins to an old, unsupported version of the CCPR. And automated changelog generation from PR titles gives you release notes without manual effort. The goal is to make the CCPR feel like any other well-maintained library: tested, versioned, and reliably delivered.
         </aside>
       </div>
     </section>
@@ -856,8 +857,9 @@ jobs:
       <div class="slide-inner">
         <h2>Key Takeaways</h2>
         <ul>
-          <li><strong>Centralize to standardize:</strong> a shared prompt repo eliminates inconsistency and duplication across teams</li>
+          <li><strong>Centralize to standardize:</strong> a CCPR eliminates inconsistency and duplication across teams</li>
           <li><strong>Four file types:</strong> .prompt.md, .instructions.md, SKILL.md, and .agent.md cover every aspect of AI-assisted development</li>
+          <li><strong>Start from a template:</strong> fork <code>ccpr_root</code> and customize it rather than building from scratch</li>
           <li><strong>Organize for discoverability:</strong> use clear folder structures, kebab-case naming, and one concern per file</li>
           <li><strong>Distribute through existing workflows:</strong> git submodules, npm packages, symlinks, or copy-on-clone</li>
           <li><strong>Govern like infrastructure:</strong> CODEOWNERS, PR reviews with test evidence, semantic versioning, and quarterly audits</li>
@@ -865,7 +867,7 @@ jobs:
           <li><strong>Measure and iterate:</strong> track acceptance rates, review cycle times, and onboarding metrics to prove value and improve</li>
         </ul>
         <aside class="speaker-notes">
-          Here are the seven takeaways I want you to walk away with today. First, centralizing your prompt files eliminates the inconsistency and duplicated effort that plague organizations where every developer builds their own Copilot setup. Second, the four file types give you complete coverage: prompt templates for tasks, instructions for always-on rules, skills for deep knowledge, and agents for specialized roles. Third, organization matters. A well-structured repo with clear naming and README files makes it easy for developers to find and use what they need. Fourth, distribution should fit your existing workflows. You don't need to invent a new delivery mechanism. Fifth, governance keeps the repo trustworthy. Treat it like any other critical piece of infrastructure with code owners, reviews, and versioning. Sixth, skills and agents are your competitive advantage. They encode the deep organizational knowledge that no generic tool can provide. Seventh, measure everything. Data tells you what's working, what's not, and where to invest next.
+          Here are the key takeaways I want you to walk away with today. First, centralizing your prompt files in a CCPR eliminates the inconsistency and duplicated effort that plague organizations where every developer builds their own Copilot setup. Second, the four file types give you complete coverage: prompt templates for tasks, instructions for always-on rules, skills for deep knowledge, and agents for specialized roles. Third, you do not have to start from scratch; fork the ccpr_root template and customize it for your organization. Fourth, organization matters. A well-structured repo with clear naming and README files makes it easy for developers to find and use what they need. Fifth, distribution should fit your existing workflows. You don't need to invent a new delivery mechanism. Sixth, governance keeps the repo trustworthy. Treat it like any other critical piece of infrastructure with code owners, reviews, and versioning. Seventh, skills and agents are your competitive advantage. They encode the deep organizational knowledge that no generic tool can provide. Eighth, measure everything. Data tells you what's working, what's not, and where to invest next.
         </aside>
       </div>
     </section>
@@ -877,8 +879,8 @@ jobs:
       <div class="slide-inner">
         <h2>Getting Started Checklist</h2>
         <ul>
-          <li>&#9744; Create a new GitHub repository with the recommended folder structure</li>
-          <li>&#9744; Write a <code>copilot-instructions.md</code> with your org-wide baseline rules</li>
+          <li>&#9744; Fork the <code>ccpr_root</code> template repository as your starting point</li>
+          <li>&#9744; Customize <code>copilot-instructions.md</code> with your org-wide baseline rules</li>
           <li>&#9744; Add 2-3 instruction files for your most-used languages and frameworks</li>
           <li>&#9744; Create one prompt template for your most common task (code review is a great start)</li>
           <li>&#9744; Encode one piece of tribal knowledge as a SKILL.md file</li>
@@ -887,7 +889,7 @@ jobs:
           <li>&#9744; Measure baseline metrics before rollout so you can show impact afterward</li>
         </ul>
         <aside class="speaker-notes">
-          If you're ready to get started, here is a practical checklist you can follow. You don't need to build the entire central prompt repo on day one. Start small: create the repository, add a copilot-instructions.md with your baseline rules, and write instruction files for your most-used languages and frameworks. Create one prompt template for the task your team performs most frequently; code review is a great starting point because every team does it. Then encode one piece of tribal knowledge as a SKILL.md file. Maybe it's your deployment pipeline, your database migration process, or your API design patterns. Set up governance early with CODEOWNERS and a PR template so that good habits form from the beginning. Choose one distribution model and wire it into a single pilot project. Finally, measure your baselines before you roll out so you have data to show the impact later. Start small, prove value, then expand.
+          If you're ready to get started, here is a practical checklist you can follow. You don't need to build the entire CCPR on day one. Fork the ccpr_root template to get a proven structure, then customize the copilot-instructions.md with your baseline rules and add instruction files for your most-used languages and frameworks. Create one prompt template for the task your team performs most frequently; code review is a great starting point because every team does it. Then encode one piece of tribal knowledge as a SKILL.md file. Maybe it's your deployment pipeline, your database migration process, or your API design patterns. Set up governance early with CODEOWNERS and a PR template so that good habits form from the beginning. Choose one distribution model and wire it into a single pilot project. Finally, measure your baselines before you roll out so you have data to show the impact later. Start small, prove value, then expand.
         </aside>
       </div>
     </section>
@@ -901,7 +903,7 @@ jobs:
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
         <aside class="speaker-notes">
-          Thank you for spending this hour with us. Central prompt repositories are one of the highest-impact investments an organization can make when scaling AI-assisted development. The patterns we covered today are battle-tested across enterprises of all sizes. If you have questions, reach out on Teams, open an issue in the course repository, or connect with your platform engineering team to discuss how to get started. Good luck building your organization's AI playbook.
+          Thank you for spending this hour with us. The CCPR pattern is one of the highest-impact investments an organization can make when scaling AI-assisted development. The patterns we covered today are battle-tested across enterprises of all sizes. Fork the ccpr_root template to get started, customize it for your organization, and begin distributing it to your teams. If you have questions, reach out on Teams, open an issue in the course repository, or connect with your platform engineering team to discuss how to get started. Good luck building your organization's AI playbook.
         </aside>
       </div>
     </section>
