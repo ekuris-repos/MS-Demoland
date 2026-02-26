@@ -18,7 +18,8 @@
           "instruction": "Open the <strong>Explorer</strong> panel and take a look at the project. You should see:<br><br>• <code>frontend/</code> — React 18 + TypeScript + Tailwind<br>• <code>api/</code> — Express.js + TypeScript + SQLite<br>• <code>Makefile</code> — Unified build commands<br>• <code>docker-compose.yml</code> — Multi-service setup<br><br>Don't dive into the files yet. We're going to let agent mode do the reconnaissance for us.",
           "focus": "slides",
           "action": "workbench.view.explorer",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
         },
         {
           "title": "Panels Closed",
@@ -33,7 +34,8 @@
           "title": "Agent Mode Reconnaissance",
           "instruction": "Open <strong>Copilot Chat</strong> and make sure the <strong>Agent</strong> mode is selected from the mode dropdown at the top of the chat panel.<br><br>Type:<br><br><kbd>What does this project do? Walk me through the folder structure, tech stack, and how to run it locally.</kbd><br><br>Watch as agent mode searches your codebase, reads key files, and assembles a comprehensive overview.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Drill Into the API",
@@ -61,11 +63,20 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "You can configure auto-approve in settings, but start with manual approval to understand what commands the agent runs.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Check Auto-Approve Settings",
+          "instruction": "Open <strong>Settings</strong> and search for <code>github.copilot.chat.agent.autoApprove</code>. This controls whether agent mode runs terminal commands without asking.<br><br>Leave it off for now — manual approval teaches you what commands the agent wants to run.",
+          "focus": "top",
+          "action": "workbench.action.openSettings",
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open Settings"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and settings tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
           "focus": "slides"
         }
       ]
@@ -73,10 +84,19 @@
     "12": {
       "steps": [
         {
+          "title": "Discover Mode Commands",
+          "instruction": "Open the <strong>Command Palette</strong> and type <code>Chat: Change Mode</code> to see the available commands for switching between Ask, Edit, and Agent modes.<br><br>Close the palette — we'll switch modes using the dropdown next.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "onLeave": "workbench.action.closeQuickOpen",
+          "actionLabel": "Open Command Palette"
+        },
+        {
           "title": "Try Ask Mode",
           "instruction": "Switch to <strong>Ask</strong> mode using the mode dropdown. Type:<br><br><kbd>What testing framework does this project use? Where do the tests live?</kbd><br><br>Notice that Ask mode gives you an answer but <strong>does not create or modify any files</strong>. This is the safe exploration mode.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Try Edit Mode",
@@ -94,7 +114,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -105,7 +125,8 @@
           "title": "Create the Instructions File",
           "instruction": "We're going to create a <code>.github/copilot-instructions.md</code> file that encodes this project's conventions. Open a <strong>new file</strong> and save it as <code>.github/copilot-instructions.md</code>.<br><br>Type the following:<br><br><kbd># Copilot Instructions — OctoCAT Supply<br><br>## Language & Framework<br>- TypeScript with strict mode for both frontend and backend<br>- React 18 with functional components and hooks<br>- Express.js for the API layer<br><br>## Testing<br>- Use Vitest for all tests<br>- Run tests with make test</kbd>",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Add Database Rules",
@@ -118,7 +139,8 @@
           "instruction": "Open <strong>Copilot Chat</strong> in agent mode and ask:<br><br><kbd>What instructions have you loaded for this workspace?</kbd><br><br>Copilot should reference your new copilot-instructions.md file. From here on, every response will follow your project's conventions.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -135,7 +157,8 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Scoped instructions are additive. They combine with your repo-wide instructions, they don't replace them.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Panels Closed",
@@ -150,7 +173,8 @@
           "title": "Build the Backend Endpoint",
           "instruction": "Time to build. In <strong>agent mode</strong>, type:<br><br><kbd>Create a new GET /api/reports/inventory endpoint that returns current stock levels grouped by category. Follow the route pattern in api/routes/products.ts. Register the route in the API entry point. Create a Vitest test file. Run make test to verify everything passes.</kbd><br><br>Watch agent mode plan the task, create files, register the route, write tests, and run them.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Review the Output",
@@ -168,8 +192,24 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Verify Tests in Terminal",
+          "instruction": "Open the <strong>Terminal</strong> and run <code>make test</code> yourself to confirm the test suite passes independently of agent mode.<br><br>Verifying outside the agent's loop builds confidence that the code is genuinely working, not just passing within the agent's session.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
+        },
+        {
+          "title": "Review Changes in Source Control",
+          "instruction": "Open the <strong>Source Control</strong> panel to see every file agent mode created or modified. Review the diffs — this is the same view you would use before committing.<br><br>Look for files you didn't expect. Agent mode sometimes creates helper files or modifies configuration files beyond what you asked for.",
+          "focus": "left",
+          "action": "workbench.view.scm",
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Source Control"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -180,7 +220,8 @@
           "title": "Build the Frontend Component",
           "instruction": "Stay in <strong>agent mode</strong> and type:<br><br><kbd>Create a React component at frontend/src/pages/InventoryReport.tsx that fetches data from GET /api/reports/inventory and displays it in a table. Use the same data fetching pattern as the existing pages. Add a route for /reports/inventory in the router config and a navigation link in the sidebar.</kbd><br><br>Agent mode will read an existing page component, create the new file, update the router, and add navigation.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Verify the Frontend",
@@ -202,7 +243,8 @@
           "title": "Write Comprehensive Tests",
           "instruction": "Ask agent mode to improve the test coverage:<br><br><kbd>Write additional unit tests for the inventory endpoint. Test the happy path with valid data, the empty result case, and the case where the database query fails. Follow the testing patterns in the existing test files.</kbd><br><br>Let agent mode write the tests, run them, and iterate on failures.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Run the Full Test Suite",
@@ -211,8 +253,24 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Run Tests Independently",
+          "instruction": "Open the <strong>Terminal</strong> and run <code>make test</code> yourself. Compare the output to what agent mode reported.<br><br>This double-check catches cases where the agent's test run succeeded in a modified environment but fails in a clean one.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
+        },
+        {
+          "title": "Check Copilot Logs",
+          "instruction": "If agent mode ever gets stuck or produces unexpected output, the <strong>Output</strong> panel is your diagnostic tool. Select <strong>GitHub Copilot</strong> from the output dropdown to see the extension's logs.<br><br>Look for tool call errors, context length warnings, or model fallback messages.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Output Panel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]
@@ -224,7 +282,8 @@
           "instruction": "Time to refine. Review the code agent mode generated and provide feedback. For example:<br><br><kbd>The error handling in the inventory route should return a 400 status for invalid query parameters instead of a 500. Also, add input validation for the category parameter.</kbd><br><br>Agent mode will make the targeted fix and re-run the tests.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Try Edit Mode for a Surgical Fix",
@@ -247,7 +306,8 @@
           "title": "Cross-Stack Rename",
           "instruction": "Let's test agent mode's cross-file coordination. In <strong>agent mode</strong>, type:<br><br><kbd>Rename the response field 'stock_level' to 'quantity_available' across the entire inventory feature. Update the API response, TypeScript types, frontend component display, and all test assertions. Run make test after to verify nothing broke.</kbd><br><br>Watch agent mode coordinate changes across multiple files in a single loop.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Review All Changed Files",
@@ -257,8 +317,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Inspect the Diff in Source Control",
+          "instruction": "Open <strong>Source Control</strong> and click through the changed files. The diff view shows exactly what was renamed and whether any references were missed.<br><br>This is a habit worth building: agent mode proposes, Source Control verifies.",
+          "focus": "left",
+          "action": "workbench.view.scm",
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Source Control"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -270,7 +338,8 @@
           "instruction": "Let's save the endpoint scaffolding pattern as a reusable prompt file. Create a new file at <code>.github/prompts/new-api-endpoint.prompt.md</code>:<br><br><kbd>---<br>mode: agent<br>description: Scaffold a new API endpoint with tests<br>---<br><br>Create a new Express route that handles requests to /api/${input:routePath}.<br><br>**Requirements:**<br>- Follow the pattern in api/routes/products.ts<br>- Register the route in the API entry point<br>- Create a Vitest test file<br>- Run make test to verify</kbd><br><br>Save the file.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Run the Prompt File",
@@ -278,7 +347,8 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Prompt files turn your best agent mode workflows into repeatable, team-shared actions. Build a library over time.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",

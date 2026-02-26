@@ -1,5 +1,5 @@
 {
-  "title": "AI Pair Programming - The Copilot Awakens",
+  "title": "AI Pair Programming — The Copilot Awakens",
   "slides": {
     "1": {
       "steps": [
@@ -15,7 +15,8 @@
         {
           "title": "Install the Extension",
           "instruction": "We've opened the <strong>Extensions</strong> panel for you (<kbd>Ctrl+Shift+X</kbd>). Since VS Code 1.96, Copilot ships built into VS Code; just sign in with your GitHub account. If <strong>GitHub Copilot</strong> is not pre-installed, you can search for it here and click Install.<br><br>All features (completions, chat, agent mode) are in the single <strong>GitHub Copilot</strong> extension.",
-          "action": "workbench.view.extensions"
+          "action": "workbench.view.extensions",
+          "actionLabel": "Open Extensions"
         },
         {
           "title": "Check the Extension Details",
@@ -99,7 +100,8 @@
           "title": "Open Copilot Chat",
           "instruction": "We've opened the <strong>Copilot Chat</strong> panel for you (<kbd>Ctrl+Alt+I</kbd>). You'll see the chat interface on the right side of your screen.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Choose Your Model",
@@ -131,7 +133,8 @@
           "title": "Find the Model Selector",
           "instruction": "Look at the <strong>top of the Chat panel</strong>. You’ll see a dropdown showing the current model name (e.g., GPT-4o or Claude Sonnet).<br><br>Click it to open the model selector.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Browse Available Models",
@@ -161,7 +164,8 @@
           "title": "Explain Your Code",
           "instruction": "Select one of the functions you wrote earlier, then type in the chat input:<br><br><kbd>/explain</kbd><br><br>Copilot breaks down how the code works step by step — great for understanding unfamiliar code or verifying your own logic.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Fix a Problem",
@@ -197,7 +201,8 @@
           "title": "Find the Mode Selector",
           "instruction": "Look at the <strong>top of the Chat panel</strong>, next to the model picker. You’ll see a dropdown for the current <strong>mode</strong> (Ask, Edit, or Agent).<br><br>It may default to <strong>Ask</strong>. Click it to see all three options.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Try Ask Mode",
@@ -234,7 +239,8 @@
           "instruction": "We've opened <strong>Settings</strong> for you (<kbd>Ctrl+,</kbd>). Search for <strong>copilot</strong> to see all available options.<br><br>Find <code>github.copilot.enable</code> and notice it accepts per-language toggles — you can enable Copilot for Python but disable it for Markdown.",
           "focus": "left",
           "focusLabel": "Settings",
-          "action": "workbench.action.openSettings"
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings"
         },
         {
           "title": "Try a Per-Language Toggle",
@@ -262,7 +268,8 @@
           "title": "Open the Terminal",
           "instruction": "We've opened the <strong>integrated terminal</strong> for you (<kbd>Ctrl+`</kbd>).<br><br>Copilot isn't just for code files — it works in the terminal too. Try asking in the Chat panel:<br><br><kbd>@terminal how do I list all git branches, including remote ones?</kbd>",
           "focus": "bottom",
-          "action": "workbench.action.terminal.toggleTerminal"
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Try Inline Terminal Help",
@@ -290,7 +297,8 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You’ve activated Copilot, explored <strong>Next Edit Suggestions</strong>, browsed the <strong>model selector</strong>, used all three <strong>chat modes</strong> (Ask, Edit, Agent), tried <strong>Vision</strong>, worked with slash commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>, <code>/doc</code>, <code>@workspace</code>), used both sidebar and inline chat, worked in the terminal, and configured settings.<br><br>You’re ready for the next course: <strong>Prompts, Instructions, Skills, and Agents</strong>.",
-          "tip": "Head back to the slides on the left for a recap, or close this panel to explore on your own."
+          "tip": "Head back to the slides on the left for a recap, or close this panel to explore on your own.",
+          "focus": "guide"
         }
       ]
     }

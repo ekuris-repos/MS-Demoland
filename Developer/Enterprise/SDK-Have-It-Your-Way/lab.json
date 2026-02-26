@@ -17,12 +17,13 @@
           "instruction": "Open a terminal and scaffold a new Copilot SDK project using the Azure Developer CLI template:<br><br><kbd>azd init --template azure-samples/copilot-sdk-service</kbd><br><br>When prompted, choose a name for your project (e.g., <code>my-copilot-app</code>). Accept the default settings for the Azure region and subscription.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
-          "onLeave": "workbench.action.closePanel"
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Install Dependencies",
           "instruction": "Navigate into your new project directory and install the dependencies:<br><br><kbd>cd my-copilot-app</kbd><br><kbd>npm install</kbd><br><br>Verify that <code>@github/copilot-sdk</code> appears in your <code>package.json</code> dependencies. This is the core package you will use for every integration point in this lab.",
-          "focus": "terminal"
+          "focus": "terminal",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Panels Closed",
@@ -38,7 +39,16 @@
           "instruction": "Open the <strong>Explorer</strong> and review the scaffolded project. Locate these key areas:<br><br>&bull; <code>src/api/</code> - Express server and SDK integration<br>&bull; <code>src/web/</code> - React-based front end<br>&bull; <code>infra/</code> - Bicep infrastructure definitions<br>&bull; <code>azure.yaml</code> - azd deployment manifest<br><br>Open the main API entry point and identify where the <code>CopilotClient</code> is imported and configured.",
           "focus": "left",
           "action": "workbench.view.explorer",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
+        },
+        {
+          "title": "Discover Project Tasks",
+          "instruction": "Open the <strong>Command Palette</strong> and type <code>Tasks: Run Task</code> to see what build and run tasks are available in the scaffolded project. This shows npm scripts and other configured tasks.<br><br>Dismiss the palette when done exploring. Understanding the available tasks helps you run, build, and test the project throughout this lab.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
         },
         {
           "title": "Identify the SDK Entry Point",
@@ -47,7 +57,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -60,14 +70,16 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Set your GITHUB_TOKEN environment variable before running the script. Use a personal access token with the copilot scope.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Run the Test Script",
           "instruction": "Execute your test script from the terminal:<br><br><kbd>npx tsx src/test-client.ts</kbd><br><br>You should see a model response printed to the console. If you get an authentication error, verify that your <code>GITHUB_TOKEN</code> environment variable is set correctly.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
-          "onLeave": "workbench.action.closePanel"
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Panels Closed",
@@ -88,7 +100,8 @@
           "instruction": "Start the development server and test your endpoint. In a terminal, run:<br><br><kbd>npm run dev</kbd><br><br>Then open a second terminal and send a test request:<br><br><kbd>curl -X POST http://localhost:3000/chat -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"What is the Copilot SDK?\\\"}\"</kbd><br><br>Verify you receive a JSON response with <code>reply</code> and <code>sessionId</code> fields.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
-          "onLeave": "workbench.action.closePanel"
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Panels Closed",
@@ -108,7 +121,15 @@
           "title": "Verify Streaming Behavior",
           "instruction": "Test the streaming endpoint from the terminal:<br><br><kbd>curl -N -X POST http://localhost:3000/chat/stream -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"Explain streaming in 3 sentences\\\"}\"</kbd><br><br>You should see individual chunks arriving in real time, followed by the <code>[DONE]</code> event. Compare the perceived latency to your non-streaming <code>/chat</code> endpoint.",
           "focus": "terminal",
-          "tip": "The -N flag disables curl's output buffering so you can see chunks as they arrive."
+          "action": "workbench.action.terminal.toggleTerminal",
+          "tip": "The -N flag disables curl's output buffering so you can see chunks as they arrive.",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -118,7 +139,8 @@
           "title": "Define a Tool Schema",
           "instruction": "Create a tools array with at least one tool definition. Build a <code>lookup_order</code> tool with the following JSON Schema:<br><br>&bull; Name: <code>lookup_order</code><br>&bull; Description: \"Look up an order by its ID\"<br>&bull; Parameters: an <code>orderId</code> string (required)<br><br>You can add a second tool if you like, such as <code>cancel_order</code> or <code>list_recent_orders</code>. Define the tools in a separate file like <code>src/tools.ts</code> to keep your codebase organized.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Register Tools with a Session",
@@ -129,11 +151,22 @@
         {
           "title": "Test Tool Invocation",
           "instruction": "Send a request that should trigger tool use:<br><br><kbd>curl -X POST http://localhost:3000/chat -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"What is the status of order ORD-1234?\\\"}\"</kbd><br><br>Check your server logs to confirm the tool was invoked. If the model does not call the tool, adjust your prompt to be more direct, or verify your tool schema is correctly registered.",
-          "focus": "terminal"
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
+        },
+        {
+          "title": "Check for TypeScript Errors",
+          "instruction": "Open the <strong>Problems</strong> panel to check for any TypeScript compile errors in your tool definitions. Common issues include incorrect JSON Schema types, missing required fields, or import errors.<br><br>Fix any errors before proceeding. Clean tool schemas are essential — the SDK validates them at session creation time.",
+          "focus": "bottom",
+          "action": "workbench.action.problems.focus",
+          "actionLabel": "Open Problems Panel",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Problems Panel</strong>: <kbd>Ctrl+Shift+M</kbd>",
           "focus": "slides"
         }
       ]
@@ -155,15 +188,39 @@
     "23": {
       "steps": [
         {
+          "title": "Ask Copilot for BYOM Guidance",
+          "instruction": "Open <strong>Copilot Chat</strong> and ask for help scaffolding the Bring Your Own Model configuration:<br><br><kbd>How do I configure the Copilot SDK CopilotClient to use an Azure OpenAI endpoint with DefaultAzureCredential? Show me the provider options and environment variables I need.</kbd><br><br>Use the response as a reference for the next step.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Configure Azure OpenAI Provider",
           "instruction": "Create a BYOM configuration that points to an Azure OpenAI endpoint. Add a new session creation path that accepts a <code>provider</code> option:<br><br>&bull; Set <code>type</code> to <code>\"azure\"</code><br>&bull; Set <code>baseUrl</code> from <code>process.env.AZURE_OPENAI_ENDPOINT</code><br>&bull; Use <code>DefaultAzureCredential</code> to fetch a bearer token<br>&bull; Set <code>wireApi</code> to <code>\"completions\"</code><br>&bull; Specify the <code>apiVersion</code><br><br>Wrap this in an environment check so your app falls back to GitHub Models when Azure credentials are not available.",
           "focus": "editor",
           "tip": "DefaultAzureCredential from @azure/identity handles managed identity in production and developer credentials locally."
         },
         {
+          "title": "Set Environment Variables in Settings",
+          "instruction": "Open <strong>Settings</strong> and search for <code>terminal.integrated.env</code> to configure environment variables for your integrated terminal. Add <code>AZURE_OPENAI_ENDPOINT</code> and <code>GITHUB_TOKEN</code> so they are available every time you open a terminal in this workspace.<br><br>Alternatively, create a <code>.env</code> file in your project root. The key point is that secrets live in configuration, never in source code.",
+          "focus": "editor",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Verify BYOM Fallback",
           "instruction": "Test both paths. First, ensure the app works with GitHub Models when no Azure environment variables are set. Then set <code>AZURE_OPENAI_ENDPOINT</code> and verify the provider configuration is picked up.<br><br>If you do not have an Azure OpenAI deployment available, confirm the fallback logic works correctly by logging which provider is active at startup. The key outcome is that your code cleanly supports both backends.",
-          "focus": "terminal"
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -174,7 +231,8 @@
           "instruction": "Open the <code>infra/</code> directory and review the Bicep files. Identify the resources being provisioned:<br><br>&bull; Azure Container Apps Environment<br>&bull; Container App (your service)<br>&bull; Container Registry<br>&bull; Application Insights<br>&bull; Log Analytics Workspace<br><br>Check the <code>azure.yaml</code> manifest to see how the deployment pipeline maps your source code to infrastructure. Note how environment variables and secrets are configured.",
           "focus": "editor",
           "action": "workbench.view.explorer",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
         },
         {
           "title": "Deploy with azd",
@@ -182,7 +240,8 @@
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
           "tip": "Use azd up --environment staging to deploy to a separate environment for testing before production.",
-          "onLeave": "workbench.action.closePanel"
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Panels Closed",
@@ -199,8 +258,21 @@
           "focus": "editor"
         },
         {
+          "title": "Check Server Output Logs",
+          "instruction": "Open the <strong>Output</strong> panel and select your development server channel. Send a few test requests to your local server and watch for telemetry events being logged. Verify that token counts, latency measurements, and tool-call tracking appear in the output.<br><br>Local output verification ensures your telemetry pipeline works before deploying to Azure.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "actionLabel": "Open Output Panel",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Verify Telemetry in the Portal",
           "instruction": "Send several requests to your deployed endpoint, then open <strong>Application Insights</strong> in the Azure Portal. Navigate to <strong>Transaction search</strong> and verify that:<br><br>&bull; Request traces appear for your <code>/chat</code> and <code>/chat/stream</code> endpoints<br>&bull; Custom events include token usage metrics<br>&bull; Dependency calls to the Copilot service are tracked<br><br>If custom events are missing, check that your telemetry client is flushing before the process exits.",
+          "focus": "slides"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]

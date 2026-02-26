@@ -1,5 +1,5 @@
 {
-  "title": "Ops at Scale - Dragon Scales? You Need Enterprise Scale!",
+  "title": "Ops at Scale — Dragon Scales? You Need Enterprise Scale!",
   "slides": {
     "1": {
       "steps": [
@@ -16,7 +16,8 @@
           "title": "Open Copilot Chat",
           "instruction": "We've opened <strong>Copilot Chat</strong> for you. This is your primary tool for the rest of the lab. You will use conversational prompts to generate ops artifacts instead of writing them by hand.<br><br>Take a moment to confirm the chat panel is visible on the right side of your screen.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Explore the AI-Assisted Ops Shift",
@@ -37,7 +38,8 @@
           "title": "Generate an IaC Pipeline",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>Write a GitHub Actions workflow that runs terraform plan on pull requests and terraform apply on merge to main. Include environment protection rules for production.</kbd><br><br>Review the generated YAML. Notice how Copilot structures the workflow with triggers, jobs, and steps.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Iterate on the Pipeline",
@@ -64,7 +66,8 @@
           "title": "Generate a Cleanup Script",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>Write a PowerShell script that finds and lists orphaned Azure resources (unattached disks, unused public IPs, empty resource groups). Include a dry-run flag that only reports without deleting.</kbd><br><br>Review the generated script. Notice the safety features like dry-run mode and logging.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Add Guardrails",
@@ -91,7 +94,8 @@
           "title": "Analyze a Log Snippet",
           "instruction": "In <strong>Copilot Chat</strong>, paste the following simulated log and ask for analysis:<br><br><kbd>Analyze this log and identify the root cause:\n\n2026-02-26T08:12:01Z ERROR payment-svc Connection pool exhausted, max connections: 50\n2026-02-26T08:12:03Z WARN api-gateway Upstream timeout: payment-svc (30s)\n2026-02-26T08:12:05Z ERROR api-gateway HTTP 503 returned to client, path: /checkout\n2026-02-26T08:12:06Z WARN order-svc Retry attempt 3/3 failed for payment-svc</kbd><br><br>Review how Copilot identifies the sequence of failures and traces them to the source.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Generate a KQL Query",
@@ -117,7 +121,8 @@
           "title": "Generate a Runbook",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>Generate a runbook in Markdown for handling a database connection pool exhaustion incident. Include these sections: Symptoms, Diagnosis Steps, Resolution Actions, Escalation Paths, and Post-Incident Checklist.</kbd><br><br>Review the structure. A well-organized runbook reduces mean-time-to-resolve by giving on-call engineers a clear playbook.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Review an Existing Runbook",
@@ -139,7 +144,8 @@
           "title": "Generate a KQL Monitoring Query",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>Write a KQL query for Azure Monitor that shows the p95 latency for the orders API grouped by region for the last 24 hours. Include a time bin of 1 hour.</kbd><br><br>Review the generated query. Notice how Copilot uses <code>summarize</code>, <code>percentile</code>, and <code>bin</code> functions correctly.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Generate a PromQL Alert Rule",
@@ -166,7 +172,8 @@
           "title": "Correlate Alerts",
           "instruction": "In <strong>Copilot Chat</strong>, paste this simulated alert timeline and ask for correlation:<br><br><kbd>Which of these alerts are related, and what is the likely root cause?\n\n08:10 - WARN: High CPU on db-primary-01 (92%)\n08:11 - CRITICAL: Connection pool exhausted on payment-svc\n08:12 - WARN: Upstream timeout on api-gateway to payment-svc\n08:12 - CRITICAL: HTTP 503 spike on api-gateway\n08:13 - WARN: Queue depth increasing on order-processing\n08:14 - CRITICAL: SLA breach on checkout flow (p99 > 5s)</kbd><br><br>Review how Copilot traces the cascade from database CPU to SLA breach.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Generate Remediation Steps",
@@ -187,7 +194,8 @@
           "title": "Draft a Postmortem",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>Draft a blameless postmortem in Markdown for the following incident:\n\nIncident: Payment service outage on 2026-02-26\nDuration: 08:10 to 08:45 (35 minutes)\nImpact: 12% of checkout transactions failed\nRoot cause: Database connection pool exhaustion due to a config change at 08:05\nResolution: Reverted config change and increased pool size\n\nInclude sections for Summary, Timeline, Root Cause, Impact, Lessons Learned, and Action Items.</kbd><br><br>Review the structure. A good postmortem captures lessons without assigning blame.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Convert Action Items to Issues",
@@ -214,7 +222,8 @@
           "title": "Generate an SLO Report",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>Generate a monthly SLO report template in Markdown for a payment service with these objectives:\n- Availability: 99.95% target\n- p99 Latency: under 500ms\n- Error Rate: below 0.1%\n\nInclude sections for current performance, error budget remaining, trend analysis, and recommended actions.</kbd><br><br>Review the template. This is the kind of report that builds credibility with stakeholders when generated consistently from real data.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Analyze Cloud Spend",
@@ -236,7 +245,8 @@
           "title": "Design an Org Structure",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>We are a 500-person engineering org adopting GitHub Enterprise. Recommend an organization structure: should we use a single org or multiple orgs? How should we set base permissions, team structure, and repository visibility to support innersource while meeting compliance requirements?</kbd><br><br>Review the recommendations. Notice how Copilot balances autonomy with governance, the central tension of enterprise GitHub adoption.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Generate a Repository Template Checklist",
@@ -256,7 +266,8 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the Dragon Scales lab. Throughout this session you used <strong>Copilot Chat</strong> to:<br><br>&bull; Generate and iterate on <strong>IaC pipelines</strong> with GitHub Actions<br>&bull; Create <strong>ops scripts</strong> with dry-run flags and safety guardrails<br>&bull; Analyze <strong>logs</strong> and generate <strong>KQL and PromQL queries</strong><br>&bull; Write and review <strong>runbooks</strong> as living documentation<br>&bull; Scaffold <strong>monitoring dashboards</strong> as code<br>&bull; Correlate <strong>alerts</strong> and generate <strong>remediation plans</strong><br>&bull; Draft <strong>blameless postmortems</strong> and convert action items to Issues<br>&bull; Build <strong>SLO reports</strong> and analyze <strong>cloud spend</strong><br>&bull; Design <strong>org structure</strong> and <strong>repository templates</strong> for enterprise scale<br><br>Take these patterns back to your team and start with the area that will save you the most time this week.",
-          "tip": "Head back to the slides on the left for a recap of key takeaways."
+          "tip": "Head back to the slides on the left for a recap of key takeaways.",
+          "focus": "guide"
         }
       ]
     }

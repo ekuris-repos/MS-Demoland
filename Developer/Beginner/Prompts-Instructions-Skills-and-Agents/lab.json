@@ -18,7 +18,8 @@
           "instruction": "We've cloned a <strong>starter project</strong> for you and opened it in the Explorer. Take a look at the file tree — it has a small Node/TypeScript app to work with.<br><br>We're going to create a <code>.github/</code> folder with subfolders for each primitive: <code>prompts/</code>, <code>instructions/</code>, <code>skills/</code>, and <code>agents/</code>.",
           "focus": "slides",
           "action": "workbench.view.explorer",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
         },
         {
           "title": "Create the Folder Structure",
@@ -29,14 +30,16 @@
           ],
           "tip": "You can ask Copilot: <kbd>@terminal how do I create nested directories?</kbd>",
           "action": "workbench.action.terminal.toggleTerminal",
-          "onLeave": "workbench.action.closePanel"
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Verify With the Explorer",
           "instruction": "Switch back to the <strong>Explorer</strong> panel and expand the <code>.github/</code> folder. You should see four empty subfolders.<br><br>This structure isn't required — Copilot discovers files by their extension, not their location — but the convention keeps your repo organized and signals intent to your team.",
           "focus": "slides",
           "action": "workbench.view.explorer",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
         },
         {
           "title": "Panels Closed",
@@ -51,7 +54,8 @@
           "title": "Create a Test-Generation Prompt",
           "instruction": "We've opened a <strong>new file</strong> for you. Save it as <code>.github/prompts/generate-test.prompt.md</code>.<br><br>Type the following YAML frontmatter and prompt body:<br><br><kbd>---<br>mode: ask<br>description: Generate a unit test for the selected function<br>tools:<br>  - changes<br>---<br><br>Write a comprehensive unit test for the function in the current selection.</kbd>",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Add Requirements to the Prompt",
@@ -64,7 +68,8 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Good prompt libraries grow organically. When someone on the team writes a great prompt, save it as a file and share it.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Panels Closed",
@@ -80,7 +85,8 @@
           "instruction": "Open <strong>Copilot Chat</strong> using the shortcut <kbd>Ctrl+Shift+I</kbd>, or run the command <strong>Chat: Open Chat</strong> from the Command Palette (<kbd>Ctrl+Shift+P</kbd>). In the chat input, type <kbd>/</kbd> to open the prompt picker.<br><br>You should see both <strong>generate-test</strong> and <strong>document-function</strong> in the list. Select <strong>generate-test</strong> to run it.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Run With a Selection",
@@ -109,7 +115,8 @@
           "title": "Create Repo-Wide Instructions",
           "instruction": "Create a new file and save it as <code>.github/copilot-instructions.md</code>.<br><br>Add your team's coding standards:<br><br><kbd># Copilot Instructions<br><br>## Language &amp; Framework<br>- Always use TypeScript with strict mode<br>- Prefer async/await over callbacks<br><br>## Style<br>- Use single quotes for strings<br>- Prefer named exports over default exports</kbd>",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Add a Testing Section",
@@ -122,7 +129,8 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask it to generate some code:<br><br><kbd>Write a function that fetches user data from an API and returns the parsed response</kbd><br><br>Check the output carefully: Does it use TypeScript? Async/await? Single quotes? Named exports? Your instructions should be shaping every response now.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Try Breaking a Rule",
@@ -142,7 +150,8 @@
           "title": "Create Test-Scoped Instructions",
           "instruction": "Create a new file at <code>.github/instructions/testing.instructions.md</code>.<br><br>Add an <code>applyTo</code> frontmatter and scoped rules:<br><br><kbd>---<br>applyTo: \"**/*.test.ts\"<br>---<br><br># Testing Instructions<br><br>- Use describe / it blocks (not test)<br>- Mock external services with vi.mock()<br>- Name test cases: \"should &lt;behavior&gt; when &lt;condition&gt;\"</kbd>",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Create Component-Scoped Instructions",
@@ -150,14 +159,16 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Scoped instructions are <strong>additive</strong> — they combine with your repo-wide <code>copilot-instructions.md</code>, they don't replace it.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Understand the Scoping",
           "instruction": "Ask Copilot to explain the difference:<br><br><kbd>When I'm editing a .test.ts file, which instruction files does Copilot load? What about when I'm editing a .tsx component?</kbd><br><br>The answer: repo-wide instructions load <strong>always</strong>. Scoped instructions load <strong>only</strong> when the active file matches the <code>applyTo</code> pattern. Both sets combine when applicable.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -173,14 +184,16 @@
           "instruction": "Create a new file at <code>.github/skills/api-patterns/SKILL.md</code>.<br><br>Write a skill with YAML frontmatter containing the description, followed by the knowledge payload:<br><br><kbd>---<br>description: Use this skill when creating REST API endpoints.<br>---<br><br># API Design Skill<br><br>## Patterns<br>- Use Express Router for route grouping<br>- Return consistent JSON: { data, error, meta }<br>- Validate input with zod schemas<br>- Handle errors with middleware, not try/catch in routes</kbd><br><br>The <code>description</code> field in the frontmatter is what agents use to decide when to invoke this skill.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "tip": "Skills use subfolders (like <code>api-patterns/SKILL.md</code>) because the folder name becomes the skill's identifier and you can include supporting files alongside the SKILL.md. See the Copilot customization spec at code.visualstudio.com/docs/copilot/copilot-customization for details."
+          "tip": "Skills use subfolders (like <code>api-patterns/SKILL.md</code>) because the folder name becomes the skill's identifier and you can include supporting files alongside the SKILL.md. See the Copilot customization spec at code.visualstudio.com/docs/copilot/copilot-customization for details.",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Create a Database Skill",
           "instruction": "Create a second skill at <code>.github/skills/database/SKILL.md</code>:<br><br><kbd>---<br>description: Use this skill when writing database queries or migrations.<br>---<br><br># Database Patterns Skill<br><br>## Patterns<br>- Use Prisma as the ORM<br>- Always use parameterized queries (never string concatenation)<br>- Wrap multi-table operations in transactions<br>- Name migrations descriptively: add_user_email_index</kbd><br><br>Multiple skills let agents draw on the <strong>right</strong> knowledge for the <strong>right</strong> task.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Instructions vs. Skills",
@@ -188,7 +201,8 @@
           "focus": "chat",
           "action": "workbench.action.chat.open",
           "tip": "If a rule should apply everywhere (\"use TypeScript\"), make it an instruction. If knowledge is deep but situational (\"how to deploy to Azure\"), make it a skill.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -203,7 +217,8 @@
           "title": "Create a Code Reviewer Agent",
           "instruction": "Create a new file at <code>.github/agents/code-reviewer.agent.md</code>.<br><br>Define the agent with frontmatter and instructions:<br><br><kbd>---<br>description: Reviews code for quality and best practices<br>tools:<br>  - changes<br>  - codebase<br>---<br><br># Code Reviewer<br><br>You are a senior engineer reviewing code. Focus on:<br>1. Readability and naming<br>2. Error handling<br>3. Performance concerns<br>4. Test coverage gaps<br><br>Be constructive. Suggest improvements, don't just criticize.</kbd>",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Refine the Agent's Persona",
@@ -214,7 +229,8 @@
           "title": "Create a Documentation Agent",
           "instruction": "Create a second agent at <code>.github/agents/docs-writer.agent.md</code>:<br><br><kbd>---<br>description: Generates and maintains project documentation<br>tools:<br>  - codebase<br>  - changes<br>---<br><br># Documentation Writer<br><br>You are a technical writer. When asked to document code:<br>1. Read the source code thoroughly<br>2. Write clear, jargon-free explanations<br>3. Include usage examples<br>4. Note any prerequisites or gotchas<br><br>Match the project's existing documentation style.</kbd><br><br>Each agent is a <strong>virtual team member</strong> with a distinct role and expertise.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Wire Instructions to an Agent",
@@ -242,7 +258,8 @@
           "instruction": "Open <strong>Copilot Chat</strong>. At the top of the chat panel, click the <strong>chat mode selector dropdown</strong> (where it shows the current mode like Ask, Edit, or Agent). Your <strong>code-reviewer</strong> agent should appear in the list.<br><br>Select it and ask:<br><br><kbd>Review the prompt and instruction files I've created in this lab.</kbd><br><br>Watch how the agent applies its specialized persona — it should give structured feedback with severity levels.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Switch to the Docs Writer",
@@ -284,7 +301,8 @@
           "instruction": "Copilot has a <strong>persistent memory system</strong> with three scopes. Ask Copilot in chat:<br><br><kbd>What do you currently have in your memory?</kbd><br><br>Copilot will show you any existing user, repository, or session memories. If this is a fresh workspace, memory may be empty.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Create a User Memory",
@@ -314,7 +332,8 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You've created all four Copilot customization primitives and explored memory:<br><br>✅ <strong>Prompt files</strong> — <code>generate-test</code> and <code>document-function</code><br>✅ <strong>Instruction files</strong> — repo-wide standards, test-scoped rules, and component-scoped rules<br>✅ <strong>Skills</strong> — API design and database pattern knowledge<br>✅ <strong>Agents</strong> — a code reviewer and a documentation writer<br>✅ <strong>Memory</strong> — user preferences and repository context<br><br>Commit these files to your repo and your entire team gets the same AI-powered workflow from day one.",
-          "tip": "Next up: <strong>Agent Potato: License to Chat</strong> — put these primitives to work building a full-stack app."
+          "tip": "Next up: <strong>Agent Potato: License to Chat</strong> — put these primitives to work building a full-stack app.",
+          "focus": "guide"
         }
       ]
     }

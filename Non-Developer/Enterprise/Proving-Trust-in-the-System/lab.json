@@ -16,7 +16,8 @@
           "title": "Scenario: Identify Applicable Regulations",
           "instruction": "You are the governance lead at a mid-size financial services company operating in the US and EU. Your engineering team has just adopted GitHub Copilot Enterprise.<br><br>Open <strong>Copilot Chat</strong> and challenge it with this scenario:<br><br><kbd>We are a financial services company operating in the US and EU. We just deployed GitHub Copilot Enterprise. What AI regulations, frameworks, and compliance standards should we evaluate? Consider both binding regulations and voluntary frameworks that auditors reference.</kbd><br><br>Review the response critically. Does Copilot correctly identify the EU AI Act, NIST AI RMF, SOX, PCI-DSS, and GDPR intersections?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: Spot the Gaps",
@@ -38,7 +39,8 @@
           "title": "Challenge: Risk Assessment Matrix",
           "instruction": "Using what you learned about organizational risks on the slides, ask Copilot to help you build a structured risk assessment:<br><br><kbd>Create a risk assessment matrix for ungoverned AI coding tool adoption. Include four risk categories: IP exposure, compliance gaps, reputational damage, and uncontrolled adoption. For each, rate likelihood and impact on a 1-5 scale and suggest a mitigation control from GitHub Copilot's governance features.</kbd><br><br>Your challenge: review the matrix and adjust at least one rating where you disagree with Copilot's assessment. Explain your reasoning.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Refine: Context-Specific Risks",
@@ -59,7 +61,8 @@
           "title": "Challenge: Design an Exclusion Strategy",
           "instruction": "Your organization has 50 repositories. Some contain proprietary algorithms, some contain secrets in configuration files, and three are under active litigation hold.<br><br>Ask Copilot to help you design exclusion rules:<br><br><kbd>Draft content exclusion rules for a GitHub organization with these repository types: proprietary algorithm repos (algo-*), config files containing secrets across all repos, and three repos under litigation hold (case-alpha, case-beta, case-gamma). Use glob patterns.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: Justify Your Exclusions",
@@ -81,7 +84,8 @@
           "title": "Challenge: Design an Audit Monitoring Plan",
           "instruction": "You need to demonstrate to auditors that Copilot usage is actively monitored. Ask Copilot:<br><br><kbd>Design an audit monitoring plan for GitHub Copilot in an enterprise organization. Cover three event categories: seat assignment events, policy change events, and content exclusion events. For each, specify what to monitor, the review frequency, who is responsible, and what constitutes an anomaly requiring escalation.</kbd><br><br>Review the plan. Does it cover the scenario where a policy change is made outside a change management window?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: SIEM Alert Rules",
@@ -102,7 +106,8 @@
           "title": "Challenge: Evaluate IP Risk Controls",
           "instruction": "Your legal team asks: \"What protections do we have against Copilot suggesting code that infringes a third-party copyright?\"<br><br>Using what you learned about the duplicate detection filter and IP indemnity, ask Copilot:<br><br><kbd>Summarize the IP risk controls available in GitHub Copilot Enterprise. Cover the duplicate detection filter, code referencing, and IP indemnity. For each control, explain what it does, its limitations, and whether it is enabled by default.</kbd><br><br>Verify: does Copilot accurately describe the indemnity conditions?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: Draft a Legal FAQ",
@@ -124,7 +129,8 @@
           "title": "Challenge: Configure a Policy Matrix",
           "instruction": "Your enterprise has three organizations: <strong>engineering-core</strong> (general development), <strong>engineering-regulated</strong> (healthcare applications), and <strong>engineering-experimental</strong> (R&D sandbox).<br><br>Ask Copilot:<br><br><kbd>Create a policy configuration matrix for three GitHub organizations with different risk profiles. For each, recommend settings for: public code suggestions, Copilot Chat, CLI access, and seat management approach. The organizations are: engineering-core (general dev), engineering-regulated (healthcare/HIPAA), and engineering-experimental (R&D sandbox).</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: Defend Your Choices",
@@ -145,7 +151,8 @@
           "title": "Challenge: Complete the Governance Mapping",
           "instruction": "The slides showed how Transparency and Privacy map to Copilot controls. Your challenge: complete the mapping for the remaining four principles.<br><br>Ask Copilot:<br><br><kbd>Map Microsoft's six Responsible AI principles to specific GitHub Copilot governance controls. I already have Transparency and Privacy mapped. Complete the mapping for Fairness, Reliability and Safety, Inclusiveness, and Accountability. For each principle, list 2-3 concrete Copilot features or policies that support it.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: Validate the Mapping",
@@ -167,7 +174,8 @@
           "title": "Challenge: Draft a Playbook Section",
           "instruction": "You have been asked to write the incident response section of your organization's AI Governance Playbook. Ask Copilot to help:<br><br><kbd>Draft an incident response procedure for AI governance events. Cover three scenarios: a potential IP claim related to Copilot-generated code, a suspected data exposure through an improperly excluded repository, and a policy violation where a user bypasses controls. For each, include detection method, escalation path, response actions, and documentation requirements.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: Add Training Requirements",
@@ -193,7 +201,8 @@
           "title": "Challenge: Build a Board Report Outline",
           "instruction": "The board of directors wants a quarterly AI governance report. Ask Copilot to help structure it:<br><br><kbd>Create an outline for a quarterly AI governance board report. Include sections for: executive summary, AI tools in production, risk posture update, control effectiveness metrics, incident summary, regulatory horizon scan, and recommended actions. For each section, list 2-3 specific data points or artifacts to include.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Challenge: Create a Regulator-Ready Package",

@@ -1,5 +1,5 @@
 {
-  "title": "Unified Tooling - Copilot and the Thing",
+  "title": "Unified Tooling — Copilot and the Thing",
   "slides": {
     "1": {
       "steps": [
@@ -16,7 +16,8 @@
           "title": "Open the Explorer Sidebar",
           "instruction": "We have opened the <strong>Explorer</strong> sidebar for you. This panel shows every file and folder in the current project.<br><br>Take a moment to browse the folder structure. Notice folders, configuration files, and files like <code>README.md</code>. In a unified platform, all of these live alongside the code in one place.",
           "focus": "left",
-          "action": "workbench.view.explorer"
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer"
         },
         {
           "title": "Open the README",
@@ -39,7 +40,8 @@
           "title": "Open Copilot Chat",
           "instruction": "We have opened <strong>Copilot Chat</strong> for you. You will see the chat panel on the right side of your screen.<br><br>This is where you will ask Copilot questions in plain English. No special syntax or commands are needed; just type what you want to know.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Ask Your First Question",
@@ -66,7 +68,8 @@
           "title": "Ask About GitHub.com Features",
           "instruction": "In Copilot Chat, type:<br><br><kbd>What are GitHub Issues and how would a project manager use them?</kbd><br><br>Copilot explains the feature in plain language. This is the same kind of question you can ask on GitHub.com using the chat icon in the navigation bar.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Ask for a How-To",
@@ -93,7 +96,8 @@
           "title": "Ask for a Summary",
           "instruction": "Summarizing long content is one of Copilot's most useful skills. In the Chat panel, type:<br><br><kbd>Summarize the README file in this project in three bullet points</kbd><br><br>Copilot reads the file and distills it into key points. On GitHub.com, the same capability works for pull request threads and issue conversations with dozens of comments.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Translate Technical Content",
@@ -114,7 +118,8 @@
           "title": "Explore Without Editing",
           "instruction": "Ask Copilot to help you understand the project:<br><br><kbd>@workspace What does this project do? Give me a high-level overview.</kbd><br><br>Notice that Copilot reads the code, configuration files, and documentation to build an answer. You did not need to open or read any files yourself.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Find Specific Information",
@@ -143,7 +148,8 @@
             "editor",
             "right"
           ],
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Copy and Paste the Response",
@@ -171,7 +177,8 @@
           "title": "Ask a Status Question",
           "instruction": "Imagine you need to report on a project. In Copilot Chat, type:<br><br><kbd>@workspace What is the current state of this project? List any open tasks or areas that still need work.</kbd><br><br>Copilot scans the project files and documentation to build a picture. On GitHub.com, this same question could draw from Issues, pull requests, and milestones across your entire organization.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Format for Stakeholders",
@@ -193,7 +200,8 @@
           "title": "Simulate Onboarding",
           "instruction": "Pretend you just joined this team. In Copilot Chat, type:<br><br><kbd>@workspace I am new to this project. What do I need to know to get started?</kbd><br><br>Read the response carefully. Copilot gives you a starting guide based on the project's actual content. This is the experience a new hire would have if your documentation lives in GitHub.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Dig Deeper",
@@ -220,7 +228,8 @@
           "title": "Plan Your First Steps",
           "instruction": "Let's use Copilot to create a simple action plan. In the Chat panel, type:<br><br><kbd>Help me write a 5-step plan for moving my team's issue tracking from Jira to GitHub Issues</kbd><br><br>Read the plan Copilot generates. Notice how it gives you practical, actionable steps you can share with your team.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Customize the Plan",
@@ -240,7 +249,8 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You have explored the VS Code interface, opened <strong>Copilot Chat</strong>, asked natural-language questions about GitHub features, used <code>@workspace</code> to explore a project, drafted and refined professional text, practiced status reporting and onboarding workflows, and planned your first consolidation steps.<br><br>You are ready for the next course in this track: <strong>Made Better Together</strong>.",
-          "tip": "Head back to the slides on the left for a recap of key takeaways, or close this panel to continue exploring on your own."
+          "tip": "Head back to the slides on the left for a recap of key takeaways, or close this panel to continue exploring on your own.",
+          "focus": "guide"
         }
       ]
     }

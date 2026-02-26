@@ -1,5 +1,5 @@
 {
-  "title": "Executive AI Strategy - Command and Conquer",
+  "title": "Executive AI Strategy — Command and Conquer",
   "slides": {
     "1": {
       "steps": [
@@ -16,7 +16,8 @@
           "title": "Open Copilot Chat",
           "instruction": "We have opened <strong>Copilot Chat</strong> for you. This is where you will draft executive documents and analyze data throughout the lab.<br><br>If it ever closes, press <kbd>Ctrl+Alt+I</kbd> to bring it back.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Explore the Metrics API",
@@ -223,7 +224,8 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the Command and Conquer lab.<br><br>You built a full executive toolkit using Copilot Chat: a <strong>metrics worksheet</strong> with trend analysis, an <strong>ROI model</strong> with sensitivity analysis and CFO talking points, a <strong>usage policy</strong> with compliance language, a <strong>board report</strong> and an <strong>engineering leadership report</strong>, a <strong>phased rollout plan</strong> with a RACI matrix, and a <strong>personalized 90-day action plan</strong>.<br><br>Every artifact you created today is something you can refine and use with your own organization's data. The next step: pull real metrics from your GitHub org and replace the sample numbers with your actual data.",
-          "tip": "Head back to the slides on the left for a recap of key takeaways, or close this panel to continue exploring on your own."
+          "tip": "Head back to the slides on the left for a recap of key takeaways, or close this panel to continue exploring on your own.",
+          "focus": "guide"
         }
       ]
     }

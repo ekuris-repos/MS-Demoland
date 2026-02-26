@@ -1,5 +1,5 @@
 {
-  "title": "Cross-Repo Agents - Multi-Agent Multi-Repo Roundup",
+  "title": "Cross-Repo Agents — Multi-Agent Multi-Repo Roundup",
   "slides": {
     "1": {
       "steps": [
@@ -13,17 +13,28 @@
     "8": {
       "steps": [
         {
+          "title": "Open the Command Palette",
+          "instruction": "We've opened the <strong>Command Palette</strong> for you. Type <code>Workspaces: Add Folder to Workspace</code> and press Enter to add your first project folder to the workspace.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
           "title": "Create a Multi-Root Workspace",
           "instruction": "To simulate a polyrepo environment, create a multi-root workspace with two project folders. Open the <strong>Command Palette</strong> and run:<br><br><code>Workspaces: Add Folder to Workspace...</code><br><br>Add two separate project folders from your machine (for example, two repos you maintain, or create two empty folders named <code>service-api</code> and <code>service-frontend</code>). You should see both folders listed in the <strong>Explorer</strong> sidebar.",
           "focus": "left",
           "action": "workbench.view.explorer",
-          "tip": "Multi-root workspaces let Copilot see files from multiple repos at once. This is the simplest way to bridge the single-repo context boundary."
+          "tip": "Multi-root workspaces let Copilot see files from multiple repos at once. This is the simplest way to bridge the single-repo context boundary.",
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
         },
         {
           "title": "Test the Context Boundary",
           "instruction": "Open <strong>Copilot Chat</strong> in <strong>Agent</strong> mode. With both folders in your workspace, ask:<br><br><kbd>What projects are in this workspace? Describe the structure and purpose of each folder.</kbd><br><br>Copilot scans across both workspace roots. Now open a file in one folder and ask a question that requires context from the other folder. Notice how Copilot can reference both folders because they share the same workspace.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Observe Indexing Limits",
@@ -32,8 +43,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Check Git Status Across Roots",
+          "instruction": "Open a <strong>Terminal</strong> and run <code>git status</code> in each workspace root to verify both folders are recognized as independent repositories:<br><br><kbd>cd service-api && git status && cd ../service-frontend && git status</kbd><br><br>Multi-root workspaces preserve each folder's own Git context. This is critical for the Source Control panel, which shows changes per root.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -44,21 +63,24 @@
           "title": "Create Org-Level Instructions",
           "instruction": "In one of your workspace folders, create the file <code>.github/copilot-instructions.md</code>. This represents your organization's baseline Copilot configuration. Add the following content:<br><br><kbd># Organization Copilot Instructions<br><br>## Standards<br>- Use TypeScript for all backend services<br>- Follow REST naming: /api/v{n}/{resource}<br>- All API endpoints require authentication by default<br><br>## Error Handling<br>- Use structured error responses with correlation IDs<br>- Log errors using the shared logging library<br><br>## Cross-Service Communication<br>- Reference OpenAPI specs in docs/api/ for contracts<br>- Use the shared API client for inter-service calls</kbd>",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Create Repo-Level Instructions",
           "instruction": "In your <strong>second</strong> workspace folder, create another <code>.github/copilot-instructions.md</code> with project-specific rules:<br><br><kbd># Service Frontend Instructions<br><br>## Framework<br>- React 18 with functional components<br>- Use React Query for data fetching<br>- Tailwind CSS for styling<br><br>## API Integration<br>- All API calls go through src/api/client.ts<br>- Handle loading, error, and empty states in every data component</kbd><br><br>This demonstrates the layered approach: org-level baseline plus repo-specific details.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Verify Layered Instructions",
           "instruction": "Open <strong>Copilot Chat</strong> in agent mode. Ask:<br><br><kbd>What instructions have you loaded for this workspace? List the rules from each instructions file.</kbd><br><br>Copilot should reference both instruction files. Then test the layering by asking it to generate code that should follow both sets of rules:<br><br><kbd>Generate a React component that calls the /api/v1/users endpoint and displays results in a table.</kbd><br><br>Verify the output follows both the org-level REST naming convention and the repo-level React/Tailwind rules.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -75,14 +97,16 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "In an enterprise setting, distribute shared prompt files across repos using git submodules, template repos, or a copy-on-clone script in your onboarding automation.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Test the Prompt File",
           "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>/</kbd> to open the prompt picker. Select <strong>cross-repo-api-client</strong> and enter a service name when prompted (for example, <code>payments</code>).<br><br>Review the generated client code. Does it follow the org-level instructions? Does it reference the correct spec path? This is how one team's best practices become a reusable tool for the entire organization.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -99,14 +123,16 @@
           "focus": "editor",
           "action": "workbench.action.openSettings",
           "tip": "For enterprise environments, use a fine-grained personal access token scoped to only the repos you need. Never use a classic token with broad permissions.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open Settings"
         },
         {
           "title": "Test Cross-Repo Access",
           "instruction": "After configuring the MCP server, open <strong>Copilot Chat</strong> in agent mode. Try fetching content from a repo outside your workspace:<br><br><kbd>Search my GitHub organization for repositories related to authentication. List the top results and their descriptions.</kbd><br><br>Then try reading a specific file:<br><br><kbd>Read the README.md from our shared-auth-library repository on GitHub.</kbd><br><br>The GitHub MCP Server provides live, authenticated access to your organization's repositories without adding them to the workspace.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -125,7 +151,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Add a Second Cross-Repo Tool",
@@ -133,7 +159,8 @@
           "focus": [
             "editor",
             "right"
-          ]
+          ],
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Register the Custom Server",
@@ -141,8 +168,16 @@
           "focus": "editor"
         },
         {
+          "title": "Check MCP Server Output",
+          "instruction": "Open the <strong>Output</strong> panel and select <strong>GitHub Copilot</strong> from the dropdown. Look for log entries confirming that both MCP servers (the GitHub server and your custom cross-repo-specs server) have been detected and initialized.<br><br>If a server fails to start, the Output panel shows the error. Common issues include missing dependencies or incorrect <code>command</code> paths.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "actionLabel": "Open Output Panel",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]
@@ -155,14 +190,16 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Embed as much cross-repo context as possible in the issue body. The coding agent reads the full issue description when planning its work.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Simulate Linked Issues",
           "instruction": "In agent mode, design a set of coordinated issues for a realistic scenario:<br><br><kbd>I need to rename the \"userId\" field to \"accountId\" across three services: auth-service, billing-service, and user-dashboard. For each repo, write a GitHub issue body that explains the change, references the upstream PR, lists the specific files that likely need updating, and includes the before/after code snippets. Use the cross-repo-update issue template format.</kbd><br><br>Review the generated issues. Each should contain enough context for the coding agent to work independently in its repo.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -177,7 +214,8 @@
           "title": "Create a Cross-Repo Dispatch Workflow",
           "instruction": "Create a GitHub Actions workflow that triggers downstream updates when a shared library releases. Create <code>.github/workflows/notify-consumers.yml</code>:<br><br><kbd>name: Notify Consuming Services<br>on:<br>  release:<br>    types: [published]<br><br>jobs:<br>  notify:<br>    runs-on: ubuntu-latest<br>    strategy:<br>      matrix:<br>        repo: [billing-service, user-dashboard, analytics-api]<br>    steps:<br>      - uses: peter-evans/repository-dispatch@v3<br>        with:<br>          token: ${{ secrets.CROSS_REPO_PAT }}<br>          repository: my-org/${{ matrix.repo }}<br>          event-type: upstream-update<br>          client-payload: '{\"version\": \"${{ github.event.release.tag_name }}\", \"source\": \"${{ github.repository }}\"}'</kbd>",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Create the Receiver Workflow",
@@ -185,18 +223,28 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "The receiver workflow creates an agent-eligible issue. If your org has the coding agent enabled, you can assign it automatically using the GitHub API.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Add Agent Auto-Assignment",
           "instruction": "Extend the receiver workflow to automatically assign the coding agent to the created issue. In agent mode, ask:<br><br><kbd>Modify the handle-upstream-update workflow to also assign Copilot coding agent to the issue after creation. Use the GitHub API to assign the \"copilot\" user as an assignee on the newly created issue. Add error handling in case the agent is not available for this repo.</kbd><br><br>Review the result. This completes the automation chain: library release triggers dispatch, dispatch creates issue, issue is auto-assigned to the coding agent.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Validate Workflow Syntax",
+          "instruction": "Open a <strong>Terminal</strong> and validate your workflow files with a YAML lint check:<br><br><kbd>npx yaml-lint .github/workflows/notify-consumers.yml .github/workflows/handle-upstream-update.yml</kbd><br><br>In production, use <code>actionlint</code> for full GitHub Actions validation. Catching syntax errors early prevents failed dispatches across your repo network.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -208,14 +256,16 @@
           "instruction": "Create a dependency manifest that drives fan-out automation. Create <code>consumer-registry.json</code> in your workspace:<br><br><kbd>{<br>  \"library\": \"@org/shared-auth\",<br>  \"consumers\": [<br>    { \"repo\": \"billing-service\", \"priority\": \"high\", \"contact\": \"billing-team\" },<br>    { \"repo\": \"user-dashboard\", \"priority\": \"medium\", \"contact\": \"frontend-team\" },<br>    { \"repo\": \"analytics-api\", \"priority\": \"low\", \"contact\": \"data-team\" },<br>    { \"repo\": \"admin-portal\", \"priority\": \"medium\", \"contact\": \"platform-team\" }<br>  ],<br>  \"rollout\": {<br>    \"strategy\": \"priority-ordered\",<br>    \"batchSize\": 2,<br>    \"waitForMerge\": true<br>  }<br>}</kbd>",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Generate the Fan-Out Workflow",
           "instruction": "Use agent mode to create a workflow that reads the registry and fans out in priority order:<br><br><kbd>Create a GitHub Actions workflow called fan-out-update.yml that reads consumer-registry.json, groups consumers by priority, and dispatches repository_dispatch events in batches. High-priority repos go first. The workflow should wait for each batch's PRs to merge before dispatching the next batch. Include a tracking issue step that creates a master issue listing all downstream repos and their PR status.</kbd><br><br>Review the generated workflow. This is the coordinator pattern in action: automated, sequenced, and tracked.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -231,18 +281,28 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask it to help you audit your cross-repo automation's permission model:<br><br><kbd>I'm setting up cross-repo automation with GitHub Actions and the coding agent. Help me design a least-privilege permission model. I need: (1) a GitHub App with minimum permissions for creating issues and dispatching events across repos, (2) MCP server token scopes for read-only file access, and (3) a checklist of branch protection rules that should apply to agent-created PRs.</kbd><br><br>Review the output and save it as a governance document in your workspace.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Create a CODEOWNERS File",
           "instruction": "Create a <code>CODEOWNERS</code> file that ensures agent-generated changes get proper review. Create <code>.github/CODEOWNERS</code>:<br><br><kbd># Default owners for everything<br>* @my-org/platform-team<br><br># API contracts require API team review<br>docs/api/ @my-org/api-governance<br><br># Infrastructure changes require DevOps review<br>.github/workflows/ @my-org/devops<br>terraform/ @my-org/devops<br><br># Cross-repo automation config requires platform lead<br>consumer-registry.json @my-org/platform-lead</kbd><br><br>CODEOWNERS applies to all PRs, including those created by the coding agent. This ensures human review for sensitive changes.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Review Changes in Source Control",
+          "instruction": "Open the <strong>Source Control</strong> panel. In a multi-root workspace, you see each repo's changes listed separately under its folder name. Review the files you have created or modified across both workspace roots.<br><br>This is how teams audit agent-generated changes before committing. Each root is an independent Git repository with its own staging area and commit history.",
+          "focus": "left",
+          "action": "workbench.view.scm",
+          "actionLabel": "Open Source Control",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -253,7 +313,8 @@
           "title": "Build Your Enterprise Action Plan",
           "instruction": "Use agent mode to generate a prioritized rollout plan for your organization:<br><br><kbd>Based on everything in this workspace (custom instructions, MCP server configs, GitHub Actions workflows, issue templates, CODEOWNERS), generate a 30-60-90 day action plan for rolling out multi-repo Copilot automation across an enterprise with 200+ repositories. Prioritize by effort-to-impact ratio. Include milestones, success metrics, and risks for each phase.</kbd><br><br>Review the plan. It should reference the specific artifacts you created during this lab.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Identify Departing Patterns",

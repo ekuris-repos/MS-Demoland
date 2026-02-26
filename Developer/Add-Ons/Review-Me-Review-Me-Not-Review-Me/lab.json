@@ -16,7 +16,8 @@
           "title": "Diagnose Your Review Bottleneck",
           "instruction": "Open <strong>Copilot Chat</strong> and ask it to help you think through code review pain points in a real or hypothetical project.<br><br><kbd>I have a team of 8 developers with 2 senior reviewers. We average 15 PRs per day. Help me estimate how much reviewer time is spent on mechanical checks vs. architecture feedback.</kbd><br><br>Use the response to identify which review tasks are best suited for automation.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Quantify the Cost",
@@ -37,7 +38,8 @@
           "title": "Plan Your Review Strategy",
           "instruction": "The slides describe two trigger modes: auto-review and on-demand. Use Copilot to help you draft a CODEOWNERS file that assigns Copilot as a reviewer.<br><br><kbd>Write a CODEOWNERS file for a project with src/api/, src/frontend/, and src/shared/ directories. Assign Copilot as a reviewer for all paths and add human team leads for their respective areas.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Compare the Approaches",
@@ -60,7 +62,8 @@
           "instruction": "Create a new file and intentionally write code with common vulnerabilities. Try to include at least three different issue types.<br><br>Hint: think about SQL injection, missing input validation, hardcoded credentials, and unsafe deserialization. Write 3-4 short functions that each contain a different flaw.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Review Your Own Code",
@@ -69,7 +72,8 @@
             "editor",
             "right"
           ],
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Iterate on the Fixes",
@@ -92,14 +96,16 @@
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Good guidelines are specific and actionable. \"Write clean code\" is too vague. \"All public API functions must include JSDoc with @param and @returns tags\" is enforceable.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Test Your Guidelines",
           "instruction": "Paste your guidelines into <strong>Copilot Chat</strong> and ask it to review a code sample against them:<br><br><kbd>Here are my team's coding guidelines: [paste guidelines]. Now review this code against those guidelines and flag any violations.</kbd><br><br>Write or paste a code snippet that intentionally violates one or two of your guidelines. Verify Copilot catches the violations.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -114,7 +120,8 @@
           "title": "Trace a Taint Path",
           "instruction": "CodeQL tracks tainted data from user input to dangerous sinks. Use Copilot to explore this concept:<br><br><kbd>Show me an example of a taint path in a Node.js Express application where user input from req.query flows through two helper functions before reaching a shell exec call. Include the source, each intermediate step, and the sink.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Break the Taint Chain",
@@ -137,7 +144,8 @@
           "instruction": "Create a new file and write a Python Flask route with a reflected XSS vulnerability, similar to the slide example but with a different scenario. Try a template rendering flaw or an unsafe redirect.<br><br>Do not copy the slide code directly; write your own variation.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Generate the Fix Explanation",
@@ -146,7 +154,8 @@
             "editor",
             "right"
           ],
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Try Multiple Languages",
@@ -168,7 +177,8 @@
           "instruction": "Create a new file named <code>codeql-analysis.yml</code> and write a GitHub Actions workflow that runs CodeQL analysis. The slide shows a basic example; extend it.<br><br>Your workflow should:<br>&bull; Trigger on push, PR, and a weekly schedule<br>&bull; Scan at least two languages<br>&bull; Use the latest CodeQL action versions<br><br>Try writing it from memory first, then check against the slide.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Add Custom Query Packs",
@@ -177,7 +187,8 @@
             "editor",
             "right"
           ],
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Validate the Workflow",
@@ -200,7 +211,8 @@
           "instruction": "Secret scanning supports custom patterns via regex. Ask Copilot to help you design one:<br><br><kbd>My organization uses internal API tokens that follow the pattern ACME-[A-Z0-9]{32}. Write a custom secret scanning pattern definition that detects these tokens, including a test string that should match and one that should not.</kbd><br><br>Think about what organization-specific secrets your team uses that the default patterns would not catch.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Test Push Protection Awareness",
@@ -210,7 +222,8 @@
             "right"
           ],
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Panels Closed",
@@ -225,7 +238,8 @@
           "title": "Design a Ruleset",
           "instruction": "Ask Copilot to help you design an organization-level ruleset that combines all the tools from this session:<br><br><kbd>Design a GitHub repository ruleset for an organization that requires: Copilot code review approval, passing CodeQL scans with no high-severity alerts, at least one human reviewer from CODEOWNERS, and signed commits. Format it as a summary table with the rule name, type, and enforcement level.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Map to Compliance Frameworks",

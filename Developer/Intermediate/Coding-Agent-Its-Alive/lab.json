@@ -18,14 +18,16 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Think about async vs. interactive, access to local tools vs. cloud isolation, and fire-and-forget vs. real-time guidance.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Map Your Team's Workflow",
           "instruction": "Open a <strong>new file</strong> and sketch out where each agent experience fits in your team's development flow. Consider which tasks you would delegate to the Coding Agent overnight and which you would tackle interactively in VS Code.<br><br>This mental model will guide the configuration work ahead.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Panels Closed",
@@ -45,6 +47,19 @@
           "title": "Identify Your Configuration Surface",
           "instruction": "Look at your lifecycle outline. Three configuration files shape the agent's behavior:<br><br>&bull; <code>copilot-instructions.md</code> (organization level)<br>&bull; <code>copilot-instructions.md</code> (repository level)<br>&bull; <code>copilot-setup-steps.yml</code><br><br>Mark which lifecycle step each file influences. Keep this as your checklist for the rest of the lab.",
           "focus": "editor"
+        },
+        {
+          "title": "Locate the Configuration Directory",
+          "instruction": "Open the <strong>Explorer</strong> and look for a <code>.github/</code> folder in the project. If one exists, check whether <code>copilot-instructions.md</code> is already present.<br><br>Challenge: What other configuration files live in <code>.github/</code>? How would the Coding Agent interact with them?",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -55,7 +70,8 @@
           "instruction": "Open a <strong>new file</strong> and draft a GitHub Issue description for a realistic task you would assign to the Coding Agent. Choose something concrete: adding a REST endpoint, writing tests for an existing module, or updating documentation.<br><br>Your issue needs a clear title, the desired outcome, acceptance criteria, and references to specific files or functions.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Stress-Test Your Issue",
@@ -65,7 +81,8 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Apply the Scoping Test",
@@ -87,7 +104,8 @@
           "instruction": "Create a new file. This will be your organization-level <code>copilot-instructions.md</code>, the file that applies to every repository in your org.<br><br>Challenge: Write instructions covering universal standards. Think about:<br>&bull; Default language and framework preferences<br>&bull; Security rules (secrets, queries, input validation)<br>&bull; Testing requirements<br>&bull; Pull request conventions<br><br>Be specific. \"Write clean code\" is not actionable. \"Always include unit tests for new functions\" is.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Audit for Specificity",
@@ -95,7 +113,8 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Great org instructions are short and universal. If a rule only applies to some projects, it belongs at the repo level instead.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Test the Security Section",
@@ -103,8 +122,16 @@
           "focus": "editor"
         },
         {
+          "title": "Check Extension Output",
+          "instruction": "Open the <strong>Output</strong> panel and select <strong>GitHub Copilot</strong> from the dropdown. The extension logs show how Copilot processes your instruction files.<br><br>Challenge: Can you spot where your instruction files are loaded? This log is invaluable when debugging why instructions are not being followed.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Output Panel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]
@@ -115,7 +142,8 @@
           "title": "Design Repo-Level Instructions",
           "instruction": "Create another new file for repository-level <code>copilot-instructions.md</code>. Pick a real or hypothetical project and write instructions that specialize the org-level baseline.<br><br>Challenge: Cover at least four areas:<br>&bull; Framework and architecture patterns<br>&bull; File naming and placement conventions<br>&bull; Testing framework and file locations<br>&bull; Styling or documentation standards<br><br>These rules should make sense only for this project, not your whole org.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Check for Layer Conflicts",
@@ -137,7 +165,8 @@
           "title": "Create the Setup Steps File",
           "instruction": "Create a new file named <code>copilot-setup-steps.yml</code>. This file uses GitHub Actions step syntax to tell the agent how to prepare the build environment.<br><br>Challenge: Write setup steps for the same project you used in your repo-level instructions. Without this file, the agent <strong>cannot build, test, or verify</strong> its own work.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Include the Essentials",
@@ -153,11 +182,20 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Test Your Setup Steps Locally",
+          "instruction": "Open the <strong>Terminal</strong> and try running the commands from your setup steps file. Do they work? Does the test suite pass?<br><br>Challenge: The Coding Agent's environment mirrors a fresh GitHub Actions runner. If your commands depend on local state, the agent will fail. Identify any assumptions baked into your steps.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -168,7 +206,8 @@
           "title": "Build a PR Review Checklist",
           "instruction": "The agent opens a pull request. You review it. But what should you look for in agent-generated code specifically?<br><br>Open a new file and create a <strong>review checklist</strong> for Coding Agent PRs. Consider:<br>&bull; Does the code solve the issue's acceptance criteria?<br>&bull; Does it follow your instruction files?<br>&bull; Are tests present and meaningful, not just boilerplate?<br>&bull; Are there security concerns?<br>&bull; Did it handle edge cases or just the happy path?",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Practice Writing Review Comments",
@@ -178,13 +217,29 @@
           "onLeave": "workbench.action.closeActiveEditor"
         },
         {
+          "title": "Preview Changes in Source Control",
+          "instruction": "Open the <strong>Source Control</strong> panel. This is the same diff view you would use to review a Coding Agent PR locally after checking out its branch.<br><br>Challenge: Practice reading diffs critically. What patterns signal that agent-generated code needs closer review?",
+          "focus": "left",
+          "action": "workbench.view.scm",
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Source Control"
+        },
+        {
+          "title": "Search for Agent Commands",
+          "instruction": "Open the <strong>Command Palette</strong> and type <code>Copilot</code> to explore available Copilot commands. Note the ones related to agent configuration and instructions.<br><br>Challenge: Which commands would help you debug why the Coding Agent is not following your instructions?",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "onLeave": "workbench.action.closeQuickOpen",
+          "actionLabel": "Open Command Palette"
+        },
+        {
           "title": "Spot the Strengths and Risks",
           "instruction": "The slide identifies what the agent does well and where it needs extra scrutiny. Challenge: For the task in your sample issue, predict which parts the agent will handle confidently and which parts you should review line by line.<br><br>Write your predictions in the file. When you try the agent for real, compare your predictions to the actual output.",
           "focus": "slides"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -196,12 +251,29 @@
           "instruction": "You have been prototyping a feature in VS Code agent mode. Now you want to hand it off to the Coding Agent to finish.<br><br>Open <strong>Copilot Chat</strong> and ask it to help you write a handoff issue:<br><br><kbd>I've been exploring a feature locally. Help me write a detailed GitHub Issue that captures my findings so the Coding Agent can complete the implementation. The feature is: [describe a realistic feature].</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Review Agent Settings",
+          "instruction": "Open <strong>Settings</strong> and search for <code>copilot</code>. Explore the configuration options that affect how Copilot Chat and the Coding Agent interact with your workspace.<br><br>Challenge: Which settings would you change before handing off work to the Coding Agent versus working interactively in agent mode?",
+          "focus": "top",
+          "action": "workbench.action.openSettings",
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open Settings"
         },
         {
           "title": "Plan an Agent-to-IDE Handoff",
           "instruction": "Now consider the reverse: the Coding Agent opened a PR, and you want to refine it locally in VS Code.<br><br>Challenge: Write down a step-by-step handoff checklist covering:<br>&bull; How you check out the agent's branch<br>&bull; How you use VS Code agent mode to refine the code<br>&bull; How you push refinements back to the same PR<br>&bull; When you would use Edit mode vs. Agent mode for the refinements",
           "focus": "editor"
+        },
+        {
+          "title": "Simulate a Branch Checkout",
+          "instruction": "Open the <strong>Terminal</strong> and run <code>git branch -a</code> to see all available branches. In a real handoff, you would check out the agent's branch with <code>git checkout copilot/fix-...</code> and review its work locally.<br><br>Challenge: What is the first thing you would check after switching to the agent's branch?",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel",
+          "actionLabel": "Open Terminal"
         },
         {
           "title": "Choose Your Workflow Pattern",
@@ -211,7 +283,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -223,7 +295,8 @@
           "instruction": "The Coding Agent consumes GitHub Actions minutes. For your team's expected usage, estimate the monthly cost.<br><br>Ask <strong>Copilot Chat</strong>:<br><br><kbd>If a team of 10 developers assigns an average of 4 issues per week to the Coding Agent, and each session uses roughly 15 minutes of Actions time, what is the monthly Actions minute consumption?</kbd><br><br>Challenge: How does this compare to your current Actions usage? Is the ROI worth it?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Define Access Controls",
@@ -245,15 +318,24 @@
           "focus": "guide"
         },
         {
+          "title": "Review Your File Structure",
+          "instruction": "Open the <strong>Explorer</strong> and verify the files you have created. A complete configuration package should show <code>.github/copilot-instructions.md</code> and <code>.github/copilot-setup-steps.yml</code> in the tree.<br><br>Challenge: Is the file layout clean enough for a teammate to understand immediately?",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Explorer"
+        },
+        {
           "title": "Final Quality Check",
           "instruction": "Challenge: Could a teammate pick up your configuration files and start using the Coding Agent effectively today? Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>I created a Coding Agent configuration package with org instructions, repo instructions, and setup steps. What is missing that could cause problems for a new team adopting the agent?</kbd><br><br>Fill any gaps the review identifies.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

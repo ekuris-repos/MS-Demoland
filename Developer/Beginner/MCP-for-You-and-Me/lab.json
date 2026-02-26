@@ -1,5 +1,5 @@
 {
-  "title": "MCP Integration - MCP for You and Me",
+  "title": "MCP Integration — MCP for You and Me",
   "slides": {
     "1": {
       "steps": [
@@ -103,7 +103,10 @@
           "focus": "bottom",
           "action": "workbench.action.output.toggleOutput",
           "actionLabel": "Open Output Panel",
-          "onLeave": ["workbench.action.closePanel", "workbench.action.closeSidebar"],
+          "onLeave": [
+            "workbench.action.closePanel",
+            "workbench.action.closeSidebar"
+          ],
           "tip": "The Output panel is your best friend for debugging MCP connectivity. Check it first whenever something isn't working."
         },
         {
@@ -249,7 +252,10 @@
           "focus": "bottom",
           "action": "workbench.action.output.toggleOutput",
           "actionLabel": "Open Output Panel",
-          "onLeave": ["workbench.action.closePanel", "workbench.action.closeSidebar"],
+          "onLeave": [
+            "workbench.action.closePanel",
+            "workbench.action.closeSidebar"
+          ],
           "tip": "Make checking the Output panel a habit when testing new MCP servers. It shows every tool call, including the parameters sent and data returned."
         },
         {

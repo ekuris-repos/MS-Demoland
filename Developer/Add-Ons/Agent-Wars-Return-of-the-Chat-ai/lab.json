@@ -16,7 +16,8 @@
           "title": "Map Your Context-Switch Pain Points",
           "instruction": "Open <strong>Copilot Chat</strong> and use <strong>Ask</strong> mode.<br><br>Describe your team's current workflow to Copilot and ask it to identify where context switching costs you the most time:<br><br><kbd>My team uses GitHub for source control, Actions for CI/CD, and Teams for communication. Where are the biggest context-switching bottlenecks, and which ones could ChatOps eliminate?</kbd><br><br>Evaluate the response. Does Copilot correctly identify the bottlenecks from the slide's comparison table?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Rank the Opportunities",
@@ -39,14 +40,16 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Copilot may conflate the Teams integration with VS Code capabilities. Part of the challenge is spotting those differences.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Draft a Teams Query Playbook",
           "instruction": "Create a new file called <code>chatops-playbook.md</code>. Write a short playbook section for Teams that lists five queries your team would use most often.<br><br>For each query, note: the natural language prompt, what data it returns, and whether it requires any special permissions. Use the slide content and Copilot's response to inform your list.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Panels Closed",
@@ -61,7 +64,8 @@
           "title": "Simulate a Teams Conversation",
           "instruction": "Using <strong>Copilot Chat</strong> in <strong>Ask</strong> mode, simulate the Teams conversation flow shown on this slide. Ask Copilot to summarize a hypothetical PR:<br><br><kbd>Pretend you are the GitHub Copilot Teams bot. Summarize a PR titled \"Add user profile caching\" that introduces a Redis caching layer, reduces response time from 320ms to 45ms, and includes 12 passing unit tests.</kbd><br><br>Compare the format and detail level of Copilot's response to the example on the slide. Which version is more useful to a reviewer?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Battle: Structured vs. Freeform Queries",
@@ -97,7 +101,8 @@
           "title": "Evaluate Extension Candidates",
           "instruction": "Review the marketplace and custom extension examples on this slide. Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>If my team manages a microservices platform with 15 repos, Kubernetes deployments, and PagerDuty for on-call, which Copilot Extensions (marketplace or custom) would deliver the most value? Justify each choice.</kbd><br><br>Evaluate whether Copilot recommends extensions that actually exist vs. ones it invented. Verify marketplace extensions against the GitHub Marketplace.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Scope a Custom Extension",
@@ -123,7 +128,8 @@
           "title": "Design a Deployment Trigger Flow",
           "instruction": "The slide shows a custom integration that triggers GitHub Actions from chat. Using <strong>Agent</strong> mode, ask Copilot to help you design a workflow dispatch integration:<br><br><kbd>Design a Node.js webhook handler that receives a Slack slash command, validates the user, and triggers a GitHub Actions workflow via the REST API. Include authentication with a GitHub App installation token. Outline the code structure; do not implement the full solution yet.</kbd><br><br>Review the architecture Copilot proposes. Does it handle authentication correctly? Does it address error cases?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Identify the Security Gaps",
@@ -145,7 +151,8 @@
           "title": "Scaffold the Extension Endpoint",
           "instruction": "Time to build. Switch to <strong>Agent</strong> mode and ask Copilot to scaffold a Copilot Extension endpoint based on the pattern shown on this slide:<br><br><kbd>Create a minimal Express.js Copilot Extension endpoint in a file called extension-server.js. It should receive a prompt, query a mock internal status API, and return a formatted response. Include signature verification for the GitHub webhook payload.</kbd><br><br>Let the agent create the file. Review the output before accepting.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Battle: Two Response Formats",
@@ -197,7 +204,8 @@
           "instruction": "Ask Copilot to compare governance approaches:<br><br><kbd>Compare two ChatOps governance models: (1) centralized, where a platform team controls all integrations and extensions, vs. (2) federated, where each team can install and build their own. What are the risks and benefits of each for a 200-person org?</kbd><br><br>Add the key points to your rollout plan. Which model fits your organization better?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",

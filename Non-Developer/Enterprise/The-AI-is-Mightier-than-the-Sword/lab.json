@@ -17,7 +17,8 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask a complex, multi-domain question. For example:<br><br><kbd>Evaluate the trade-offs of adopting a multi-cloud strategy for an enterprise with strict data residency requirements, considering cost, security, compliance, operational complexity, and vendor lock-in.</kbd><br><br>Read the response critically. Note where the answer stays surface-level, repeats itself, or fails to weigh competing concerns.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Identify the Gaps",
@@ -38,7 +39,8 @@
           "title": "Set Up a Debate",
           "instruction": "You are going to run the <strong>debate pattern</strong> manually. Pick a strategic question relevant to your organization, or use this one:<br><br><kbd>Should our enterprise invest in building a proprietary AI platform or adopt a managed AI service from a major cloud provider?</kbd><br><br>In <strong>Copilot Chat</strong>, prompt the advocate side first:<br><br><kbd>You are an AI strategy advocate for building a proprietary platform. Make the strongest possible case: control, differentiation, long-term cost, IP ownership. Be specific and cite concrete advantages.</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Argue the Other Side",
@@ -66,7 +68,8 @@
           "instruction": "Create a <code>.github/agents/</code> folder in your workspace if one does not exist. Inside it, create a file named <code>security-auditor.agent.md</code>.<br><br>Your challenge: write an agent definition that includes a name, description, and clear instructions. The agent should specialize in evaluating security posture and risk. Define a structured methodology (at least four steps) that the agent follows for every question.<br><br>Refer to the slide for the YAML frontmatter format.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Test Your Agent",
@@ -74,7 +77,8 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Agent quality is directly proportional to instruction quality. Vague instructions produce vague output.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -90,14 +94,16 @@
           "instruction": "Create a second agent file: <code>.github/agents/compliance-researcher.agent.md</code>.<br><br>Your challenge: design this agent to analyze regulatory requirements and identify compliance gaps. It should:<br><br>&bull; Identify relevant regulatory frameworks before answering<br>&bull; Search for applicable requirements<br>&bull; Compare current state against requirements<br>&bull; Present findings with citations<br>&bull; Flag areas of uncertainty for human review<br><br>Write the full agent definition yourself. The slide shows an example; adapt it to your organization's regulatory landscape.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Cross-Reference Two Agents",
           "instruction": "Now test both agents against the <strong>same question</strong>:<br><br><kbd>Our company is considering storing European customer data in a US-based cloud region. What should we consider?</kbd><br><br>Ask <strong>@security-auditor</strong> first, then ask <strong>@compliance-researcher</strong> the same question in a separate session. Compare their outputs: where do they overlap? Where does each agent surface concerns the other missed?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -113,7 +119,8 @@
           "instruction": "Create at least <strong>two more agents</strong> to round out a research team. Choose from these roles, or invent your own:<br><br>&bull; <code>cost-analyst.agent.md</code> for financial impact and TCO<br>&bull; <code>architecture-reviewer.agent.md</code> for technical design<br>&bull; <code>research-lead.agent.md</code> for decomposing complex questions<br>&bull; <code>report-writer.agent.md</code> for executive summaries<br><br>Each agent needs a clear role, a structured methodology, and an output format.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Verify the Team",
@@ -121,7 +128,8 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "A good specialist agent should decline or flag questions outside its domain rather than guessing. Test this by asking a security question to your cost analyst.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -137,14 +145,16 @@
           "instruction": "Here is your scenario:<br><br><em>Your CEO wants to know whether the company should acquire a smaller AI startup to accelerate your AI strategy, or build an internal AI team from scratch.</em><br><br>Your challenge: decompose this into <strong>3-5 focused sub-questions</strong>, each assigned to the most appropriate specialist agent from your team. Write your decomposition in a scratch file or note which agent handles which sub-question.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Execute the Workflow",
           "instruction": "Invoke each specialist agent with its assigned sub-question. Collect the outputs. For example, your security auditor might evaluate the startup's security posture, while your cost analyst models the total cost of acquisition vs. internal hiring.<br><br>After collecting all outputs, feed them to a synthesis prompt:<br><br><kbd>You are a strategic advisor. Here are findings from four specialist analysts on the build vs. acquire decision: [paste findings]. Identify areas of agreement, flag contradictions, and produce a recommendation with clear conditions and risks.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Evaluate Your Process",
@@ -164,7 +174,8 @@
           "title": "Plan Your MCP Configuration",
           "instruction": "MCP servers connect your agents to real data sources. Your challenge: identify <strong>three internal data sources</strong> in your organization that would make your research agents more effective.<br><br>For each data source, note:<br>&bull; What type of data it provides (documents, metrics, records)<br>&bull; Which agent(s) would benefit from access<br>&bull; How it would improve the quality of research output<br><br>Write your plan in a scratch file.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Configure an MCP Server",
@@ -172,7 +183,8 @@
           "focus": "editor",
           "action": "workbench.action.openSettings",
           "tip": "Start with one MCP server connected to one agent. Verify the connection works before scaling to multiple servers.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open Settings"
         },
         {
           "title": "Panels Closed",
@@ -193,7 +205,8 @@
           "instruction": "Create (or invoke) a <strong>@fact-checker</strong> agent. Feed it one of the claims you flagged:<br><br><kbd>@fact-checker Verify the following claim from a research synthesis: \"[paste claim here]\". Check whether this claim is supported, partially supported, or unsupported. Explain your reasoning and rate your confidence.</kbd><br><br>Does the fact-checker's assessment change your confidence in the original finding?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -215,7 +228,8 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "The quality of your executive summary is the measure of the lab. A strong summary demonstrates mastery of the multi-agent research pattern.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
@@ -231,7 +245,8 @@
           "instruction": "Create a file called <code>research-playbook.md</code> in your workspace. Document your multi-agent research methodology:<br><br>&bull; Which agents you created and their roles<br>&bull; Which patterns worked best (debate, consensus, specialization, orchestration)<br>&bull; How you decompose complex questions into sub-tasks<br>&bull; Your verification checklist for evaluating agent output<br>&bull; Lessons learned from the lab exercises<br><br>This playbook is your reference for applying multi-agent research in your real work.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor",
+          "actionLabel": "Open New File"
         },
         {
           "title": "Plan Your First Real Workflow",

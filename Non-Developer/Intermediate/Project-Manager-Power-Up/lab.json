@@ -1,5 +1,5 @@
 {
-  "title": "PM Toolkit - Project Manager: Power Up",
+  "title": "PM Toolkit — Project Manager: Power Up",
   "slides": {
     "1": {
       "steps": [
@@ -16,7 +16,8 @@
           "title": "Open Copilot Chat",
           "instruction": "We have opened the <strong>Copilot Chat</strong> panel for you (<kbd>Ctrl+Alt+I</kbd>). This is your primary tool for everything in this lab. As a project manager, you will use Chat to translate, summarize, draft, and analyze.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Your First PM Prompt",
@@ -233,7 +234,8 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the PM Toolkit lab. You used Copilot Chat to:<br><br>&bull; Design project board fields and sprint planning checklists<br>&bull; Summarize pull requests for non-technical audiences<br>&bull; Write well-structured GitHub issues with acceptance criteria<br>&bull; Generate sprint reports tailored to different audiences<br>&bull; Identify project risks and prepare actionable talking points<br>&bull; Draft release notes, stakeholder updates, and executive summaries<br>&bull; Turn raw metrics into leadership-ready narratives<br><br>Start building your personal prompt library with the prompts that worked best for you today.",
-          "tip": "Head back to the slides for key takeaways and your action plan, or close this panel to start applying these techniques to your real projects."
+          "tip": "Head back to the slides for key takeaways and your action plan, or close this panel to start applying these techniques to your real projects.",
+          "focus": "guide"
         }
       ]
     }

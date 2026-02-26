@@ -1,5 +1,5 @@
 {
-  "title": "Azure DevOps + Copilot - Made Better Together",
+  "title": "Azure DevOps + Copilot — Made Better Together",
   "slides": {
     "1": {
       "steps": [
@@ -16,7 +16,8 @@
           "title": "Open Copilot Chat",
           "instruction": "We have opened the <strong>Copilot Chat</strong> panel for you. This is where you will interact with Copilot throughout the lab.<br><br>Take a moment to look at the chat interface on the right side of your screen. You will see a text input box at the bottom where you can type questions.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Ask About the Two-Platform Reality",
@@ -256,7 +257,8 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the Made Better Together lab.<br><br>In this session you explored the <strong>two-platform reality</strong> of Azure DevOps and GitHub, learned about <strong>GHAzDO</strong> security features, practiced the <strong>AB# syntax</strong> for work item linking, used Copilot to draft <strong>acceptance criteria</strong> and <strong>test plans</strong>, created <strong>stakeholder communications</strong> and <strong>reports</strong>, and built a personal <strong>30-day action plan</strong>.<br><br>You are ready to start integrating Azure DevOps and GitHub in your own organization.",
-          "tip": "Head back to the slides on the left for a recap of key takeaways and next steps."
+          "tip": "Head back to the slides on the left for a recap of key takeaways and next steps.",
+          "focus": "guide"
         }
       ]
     }
