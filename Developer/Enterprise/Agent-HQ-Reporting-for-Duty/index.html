@@ -214,7 +214,7 @@
           <li><strong>Pull request summaries</strong>: auto-generated descriptions that explain what changed and why</li>
           <li><strong>Code review assistance</strong>: Copilot can review PRs, suggest improvements, and identify potential bugs</li>
           <li><strong>Issue understanding</strong>: Copilot helps break down issues, suggest implementation approaches, and estimate scope</li>
-          <li><strong>Knowledge search</strong>: query organizational knowledge bases indexed by Copilot</li>
+          <li><strong>Knowledge search</strong>: query repositories using Copilot's repository-indexed search and Bing web search</li>
           <li>All interactions respect repository permissions and organization policies</li>
         </ul>
         <aside class="speaker-notes">
@@ -462,10 +462,10 @@
           <li><strong>4. Review agent</strong>: Copilot reviews the PR for correctness, style, and test coverage</li>
           <li><strong>5. CI pipeline</strong>: automated tests and checks run on the PR; if they fail, the Coding Agent iterates</li>
           <li><strong>6. Human review</strong>: a developer reviews the PR, approves, and merges</li>
-          <li><strong>7. Slack notification</strong>: Copilot in Slack posts a summary to the team channel</li>
+          <li><strong>7. Slack follow-up</strong>: team members query Copilot in Slack for a summary of the fix</li>
         </ul>
         <aside class="speaker-notes">
-          Let's trace a complete workflow from issue to merge. A bug report comes in with clear reproduction steps. A GitHub Action fires and invokes Copilot to triage the issue: it applies labels, sets priority, and suggests an assignee. The team decides to assign it to the Coding Agent. The agent spins up a secure environment, analyzes the codebase, creates a fix branch, implements the change, writes a test, and opens a pull request. Copilot then reviews the PR, flagging any style issues or missing test coverage. The CI pipeline runs, and if something fails, the Coding Agent reads the error and iterates. Once CI passes, a human developer reviews the PR, provides final approval, and merges. After the merge, a Slack notification powered by Copilot posts a summary to the team channel. The entire flow involves multiple agents across multiple surfaces, all coordinated through standard GitHub events and workflows.
+          Let's trace a complete workflow from issue to merge. A bug report comes in with clear reproduction steps. A GitHub Action fires and invokes Copilot to triage the issue: it applies labels, sets priority, and suggests an assignee. The team decides to assign it to the Coding Agent. The agent spins up a secure environment, analyzes the codebase, creates a fix branch, implements the change, writes a test, and opens a pull request. Copilot then reviews the PR, flagging any style issues or missing test coverage. The CI pipeline runs, and if something fails, the Coding Agent reads the error and iterates. Once CI passes, a human developer reviews the PR, provides final approval, and merges. After the merge, team members can query Copilot in Slack for a summary of the fix. The entire flow involves multiple agents across multiple surfaces, all coordinated through standard GitHub events and workflows.
         </aside>
       </div>
     </section>
@@ -630,11 +630,11 @@ app.post("/agent", async (req, res) =&gt; {
           <li><strong>Triage</strong>: a GitHub Action invokes @copilot to assess severity, identify affected files, and suggest a remediation plan</li>
           <li><strong>Fix</strong>: the issue is assigned to the Coding Agent, which updates the vulnerable dependency, adjusts any breaking API calls, and runs tests</li>
           <li><strong>Review</strong>: Copilot reviews the PR for completeness; a security engineer gives final approval</li>
-          <li><strong>Notification</strong>: Copilot in Slack notifies the security channel with a summary of the fix</li>
+          <li><strong>Slack follow-up</strong>: the security team queries Copilot in Slack for a summary of the fix</li>
           <li><strong>Result</strong>: mean time to remediation drops from days to hours</li>
         </ul>
         <aside class="speaker-notes">
-          Security vulnerability remediation is one of the most compelling use cases for multi-agent coordination. The flow begins when Dependabot or an external security scanner creates an issue for a critical vulnerability. A GitHub Action triggers and invokes @copilot to assess the severity, identify which files and modules are affected, and suggest a remediation plan. If the remediation is straightforward, such as a dependency version bump with minor API adjustments, the issue is assigned to the Coding Agent. The agent updates the dependency, modifies any code that relies on changed APIs, runs the test suite, and opens a pull request. Copilot reviews the PR for completeness, and a human security engineer gives the final sign-off. After the merge, Copilot in Slack posts a summary to the security channel. The entire process, which typically takes days of developer time, can be compressed to hours.
+          Security vulnerability remediation is one of the most compelling use cases for multi-agent coordination. The flow begins when Dependabot or an external security scanner creates an issue for a critical vulnerability. A GitHub Action triggers and invokes @copilot to assess the severity, identify which files and modules are affected, and suggest a remediation plan. If the remediation is straightforward, such as a dependency version bump with minor API adjustments, the issue is assigned to the Coding Agent. The agent updates the dependency, modifies any code that relies on changed APIs, runs the test suite, and opens a pull request. Copilot reviews the PR for completeness, and a human security engineer gives the final sign-off. After the merge, the security team can query Copilot in Slack for a summary of the remediation. The entire process, which typically takes days of developer time, can be compressed to hours.
         </aside>
       </div>
     </section>

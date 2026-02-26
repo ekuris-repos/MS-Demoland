@@ -229,12 +229,12 @@ gh copilot explain "docker run --rm -v $(pwd):/app -w /app node:18 npm test"</co
           </div>
           <div class="card">
             <h3>One-Shot Mode</h3>
-            <p>Pass your description inline: <code>gh copilot suggest "your request"</code>. Get a result immediately with no extra prompts.</p>
-            <p>Best for: <strong>speed</strong>, scripting, and when you know exactly what you need.</p>
+            <p>Pass your description inline: <code>gh copilot suggest "your request"</code>. Copilot accepts the initial prompt directly, reducing interactive steps, but may still offer follow-up options like Revise, Execute, or Copy.</p>
+            <p>Best for: <strong>speed</strong> and when you know exactly what you need.</p>
           </div>
         </div>
         <aside class="speaker-notes">
-          Copilot CLI supports two interaction patterns. In interactive mode, you run the command with no arguments, and Copilot walks you through a guided flow: it asks you to pick a target type, then enter your description. This is great when you are exploring or not sure exactly what you need. In one-shot mode, you pass everything inline. You give it your description as a quoted string, and you get your answer immediately. One-shot mode is faster and works better in scripts or when you are chaining commands. Most experienced users start in interactive mode when learning a new tool, then graduate to one-shot mode once they know the patterns.
+          Copilot CLI supports two interaction patterns. In interactive mode, you run the command with no arguments, and Copilot walks you through a guided flow: it asks you to pick a target type, then enter your description. This is great when you are exploring or not sure exactly what you need. In one-shot mode, you pass your description inline as a quoted string, which skips the initial prompts. You may still see follow-up options like Execute, Copy, or Revise, so it is not fully non-interactive. One-shot mode is faster and most experienced users start in interactive mode when learning a new tool, then graduate to one-shot mode once they know the patterns.
         </aside>
       </div>
     </section>
@@ -480,13 +480,13 @@ gh copilot suggest -t gh "add a label to all open issues matching a search query
       <div class="slide-inner">
         <h2>Model Selection</h2>
         <ul>
-          <li>Copilot CLI uses the model configured in your GitHub Copilot settings</li>
-          <li>Enterprise administrators can configure which models are available at the <strong>organization level</strong></li>
-          <li>Different models offer trade-offs between speed, accuracy, and capability</li>
-          <li>The CLI uses the model assigned by GitHub's backend and organizational policy; there is no user-facing model picker in the CLI itself</li>
+          <li>Copilot CLI uses a <strong>fixed model</strong> assigned by GitHub; users cannot select or change the model</li>
+          <li>Enterprise administrators can configure organizational policies that influence model availability across Copilot surfaces</li>
+          <li>The CLI does not expose a model picker or model configuration option</li>
+          <li>The model may change over time as GitHub updates its backend, but this is not user-controlled</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot CLI uses the same model infrastructure as the rest of the Copilot platform. The model you interact with depends on your Copilot settings. Organizations on Business or Enterprise plans can configure which models are available. The CLI uses the model assigned by GitHub's backend and organizational policy; there is no user-facing model picker in the CLI. If your organization restricts model choices for compliance or cost reasons, those restrictions apply to CLI just as they do to Chat and inline completions. The key takeaway is that CLI is not a separate system; it is part of the unified Copilot platform.
+          Copilot CLI uses a fixed model assigned by GitHub's backend. Unlike VS Code Chat, which offers a model picker, the CLI does not let you choose or configure which model you use. Organizations on Business or Enterprise plans can set policies that influence model availability across Copilot surfaces, but there is no per-user model selection in the CLI. The model may change over time as GitHub updates its infrastructure, but that is not something you control. The key takeaway is that CLI is part of the unified Copilot platform, but its model selection is fully managed by GitHub.
         </aside>
       </div>
     </section>

@@ -146,13 +146,13 @@
         <ul>
           <li><strong>Search repositories</strong>: find code, files, and documentation across your org</li>
           <li><strong>Pull request summaries</strong>: get a natural language overview of any PR</li>
-          <li><strong>Issue management</strong>: create, search, and assign issues from the chat</li>
+          <li><strong>Issue queries</strong>: search issues, look up status, and filter by label or milestone</li>
           <li><strong>Action status</strong>: check workflow run results without leaving Teams</li>
           <li><strong>Code explanations</strong>: available in Copilot Chat within IDEs and github.com (the Teams integration focuses on GitHub-specific queries like repos, PRs, issues, and Actions)</li>
           <li><strong>Link previews</strong>: GitHub links posted in Teams automatically unfurl with rich details</li>
         </ul>
         <aside class="speaker-notes">
-          Once the app is installed, there's a lot you can do without ever opening github.com. You can search across your repos for code or documentation. You can ask for a summary of a pull request, and Copilot will give you a natural language description of what changed, which is great for managers or reviewers who want a quick overview. You can create and assign issues directly from chat. If someone reports a bug in a Teams channel, you can say "create an issue for this in the frontend repo" and it happens immediately. You can check the status of your GitHub Actions workflows, and in Copilot Chat within IDEs and github.com, you can paste code and ask Copilot to explain it (note that the Teams integration is centered on GitHub-specific queries rather than general code explanation). There's also automatic link unfurling: when someone pastes a GitHub link, Teams renders a rich preview with details about the PR, issue, or file.
+          Once the app is installed, there's a lot you can do without ever opening github.com. You can search across your repos for code or documentation. You can ask for a summary of a pull request, and Copilot will give you a natural language description of what changed, which is great for managers or reviewers who want a quick overview. You can search and query issues directly from chat. If someone asks about a bug in a Teams channel, you can look up open issues, check their status, and see who is assigned. You can check the status of your GitHub Actions workflows, and in Copilot Chat within IDEs and github.com, you can paste code and ask Copilot to explain it (note that the Teams integration is centered on GitHub-specific queries rather than general code explanation). There's also automatic link unfurling: when someone pastes a GitHub link, Teams renders a rich preview with details about the PR, issue, or file.
         </aside>
       </div>
     </section>
@@ -339,10 +339,10 @@ Bot: ✅ Workflow "Build and Test" triggered on contoso/api (main).
           <div class="card">
             <h3>Issue Workflows</h3>
             <ul>
-              <li>Create issues from conversation context</li>
-              <li>Assign issues to team members</li>
               <li>Search and filter issues by label or milestone</li>
-              <li>Close issues with a comment</li>
+              <li>Look up issue details, assignees, and status</li>
+              <li>Query issues across repos by keyword</li>
+              <li>Surface recent activity on tracked issues</li>
             </ul>
           </div>
           <div class="card">
@@ -350,13 +350,13 @@ Bot: ✅ Workflow "Build and Test" triggered on contoso/api (main).
             <ul>
               <li>Get PR summaries and diff overviews</li>
               <li>List open PRs for a repo or author</li>
-              <li>Request reviews from specific people</li>
-              <li>Merge PRs after approval</li>
+              <li>Check review and approval status</li>
+              <li>See which checks have passed or failed</li>
             </ul>
           </div>
         </div>
         <aside class="speaker-notes">
-          Issue and PR management are the bread and butter of ChatOps. On the issue side, you can create issues directly from a conversation. Someone reports a bug in your team channel? Just ask Copilot to create an issue, and it captures the details. You can assign it, label it, and tie it to a milestone, all without leaving the chat. On the PR side, you can ask for summaries of open PRs, which is amazing for daily standups. You can request reviews, check who has approved, and even merge once everything is green. The point is that the administrative overhead of managing issues and PRs drops significantly when you can do it all conversationally.
+          Issue and PR queries are the bread and butter of ChatOps. On the issue side, you can search and filter issues directly from a conversation. Someone asks about a bug in your team channel? Ask Copilot about open issues in that repo, check who is assigned, and see the latest status. On the PR side, you can ask for summaries of open PRs, which is amazing for daily standups. You can check who has approved, see which checks passed, and get a quick overview of what is ready to merge. The point is that the overhead of tracking issues and PRs drops significantly when you can query it all conversationally.
         </aside>
       </div>
     </section>

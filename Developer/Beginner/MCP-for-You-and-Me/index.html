@@ -102,10 +102,10 @@
           <li>Think of it as a <strong>USB-C port for AI</strong>: one protocol, many integrations</li>
           <li>MCP servers expose <strong>tools</strong> (actions), <strong>resources</strong> (data), and <strong>prompts</strong> (templates) that any MCP-compatible host can use</li>
           <li>Originally created by Anthropic, now adopted across the industry by Microsoft, OpenAI, Google, and hundreds of tool providers</li>
-          <li>Thousands of pre-built MCP servers are available in the <strong>MCP registry</strong> for immediate use</li>
+          <li>A growing catalog of pre-built MCP servers is available in the <strong>MCP Registry</strong> at <code>registry.modelcontextprotocol.io</code></li>
         </ul>
         <aside class="speaker-notes">
-          The Model Context Protocol is an open standard that creates a universal connection layer between AI assistants and the outside world. The USB-C analogy is the easiest way to think about it. Before USB-C, every device had its own proprietary charger. USB-C gave us one port that works with everything. MCP does the same thing for AI. An MCP server exposes three types of capabilities: tools, which are actions the AI can take like "create an issue" or "run a query"; resources, which are data the AI can read like "list of open issues" or "contents of a database table"; and prompts, which are reusable templates for common tasks. Any AI host that speaks MCP can use any MCP server, and any MCP server works with any compatible host. One protocol, universal connectivity. The spec was originally created by Anthropic and is now adopted industry-wide. Microsoft, GitHub, OpenAI, Google, Amazon, and hundreds of other organizations have embraced MCP. The ecosystem includes thousands of pre-built servers in the MCP registry, ready for you to install and use.
+          The Model Context Protocol is an open standard that creates a universal connection layer between AI assistants and the outside world. The USB-C analogy is the easiest way to think about it. Before USB-C, every device had its own proprietary charger. USB-C gave us one port that works with everything. MCP does the same thing for AI. An MCP server exposes three types of capabilities: tools, which are actions the AI can take like "create an issue" or "run a query"; resources, which are data the AI can read like "list of open issues" or "contents of a database table"; and prompts, which are reusable templates for common tasks. Any AI host that speaks MCP can use any MCP server, and any MCP server works with any compatible host. One protocol, universal connectivity. The spec was originally created by Anthropic and is now adopted industry-wide. Microsoft, GitHub, OpenAI, Google, Amazon, and hundreds of other organizations have embraced MCP. The ecosystem includes a growing catalog of pre-built servers in the MCP Registry at registry.modelcontextprotocol.io, ready for you to install and use.
         </aside>
       </div>
     </section>
@@ -211,13 +211,13 @@
         <h2>How Servers Connect</h2>
         <ul>
           <li><strong>stdio</strong>: The server runs as a local process; VS Code communicates over standard input/output</li>
-          <li><strong>Streamable HTTP</strong>: The server runs remotely; VS Code sends HTTP requests to a URL</li>
+          <li><strong>Streamable HTTP</strong>: The server runs remotely; VS Code sends HTTP requests to a URL. Remote servers authenticate via <strong>OAuth 2.1</strong></li>
           <li>GitHub's MCP server uses <strong>stdio</strong>; it runs locally and talks to the GitHub API on your behalf</li>
           <li>Configuration lives in <code>.mcp.json</code> (workspace root), <code>.vscode/mcp.json</code>, or VS Code <code>settings.json</code></li>
           <li>The <code>.mcp.json</code> file at the workspace root is the recommended portable option</li>
         </ul>
         <aside class="speaker-notes">
-          MCP servers connect to VS Code through one of two transport modes. The first is stdio, where the server runs as a local process on your machine and communicates through standard input and output. This is the most common mode and what GitHub's MCP server uses. VS Code spawns the process, sends JSON-RPC messages to its stdin, and reads responses from its stdout. The second mode is Streamable HTTP, where the server runs remotely and VS Code sends HTTP requests to a URL. This is useful for servers that need to run on shared infrastructure or that are too resource-intensive to run locally. There are three places to configure MCP servers. First, a .mcp.json file at the root of your workspace. This is the recommended approach because it's portable and easy to share. Second, a .vscode/mcp.json file. Third, your VS Code settings.json, which works for personal or user-level servers. We'll set this up hands-on in just a moment.
+          MCP servers connect to VS Code through one of two transport modes. The first is stdio, where the server runs as a local process on your machine and communicates through standard input and output. This is the most common mode and what GitHub's MCP server uses. VS Code spawns the process, sends JSON-RPC messages to its stdin, and reads responses from its stdout. The second mode is Streamable HTTP, where the server runs remotely and VS Code sends HTTP requests to a URL. Remote servers authenticate using OAuth 2.1 as defined in the MCP specification. This mode is useful for servers that need to run on shared infrastructure or that are too resource-intensive to run locally. There are three places to configure MCP servers. First, a .mcp.json file at the root of your workspace. This is the recommended approach because it's portable and easy to share. Second, a .vscode/mcp.json file. Third, your VS Code settings.json, which works for personal or user-level servers. We'll set this up hands-on in just a moment.
         </aside>
       </div>
     </section>
@@ -362,14 +362,14 @@
       <div class="slide-inner">
         <h2>The MCP Registry</h2>
         <ul>
-          <li>The official MCP server directory lives at <code>github.com/modelcontextprotocol/servers</code></li>
-          <li>Hundreds of servers organized by category: databases, APIs, cloud platforms, developer tools</li>
+          <li>The <strong>MCP Registry</strong> lives at <code>registry.modelcontextprotocol.io</code></li>
+          <li>A growing catalog of servers organized by category: databases, APIs, cloud platforms, developer tools</li>
           <li>Each entry includes a <strong>description</strong>, <strong>configuration example</strong>, and <strong>required permissions</strong></li>
           <li>VS Code can also discover and manage MCP servers through the <strong>Command Palette</strong> and built-in <strong>MCP server management UI</strong></li>
           <li>Before installing, always review the server's <strong>source code</strong>, <strong>permissions</strong>, and <strong>maintenance status</strong></li>
         </ul>
         <aside class="speaker-notes">
-          The MCP registry at github.com/modelcontextprotocol/servers is the central directory for finding MCP servers. It's organized by category, so you can browse databases, APIs, cloud platforms, developer tools, and more. Each server entry includes a description of what it does, a ready-to-use configuration example, and a list of required permissions. VS Code also has built-in MCP server management. You can use the Command Palette to add, configure, and manage MCP servers directly from the editor. Note that MCP servers are not VS Code extensions; they are separate processes that communicate over the MCP protocol. Before you install any server, take a moment to review it. Check the source code, look at what permissions it requires, and verify that it's actively maintained. This is especially important for servers that will access sensitive data like databases or cloud accounts. We'll cover security in more detail shortly.
+          The MCP Registry at registry.modelcontextprotocol.io is the central directory for finding MCP servers. It's organized by category, so you can browse databases, APIs, cloud platforms, developer tools, and more. Each server entry includes a description of what it does, a ready-to-use configuration example, and a list of required permissions. VS Code also has built-in MCP server management. You can use the Command Palette to add, configure, and manage MCP servers directly from the editor. Note that MCP servers are not VS Code extensions; they are separate processes that communicate over the MCP protocol. Before you install any server, take a moment to review it. Check the source code, look at what permissions it requires, and verify that it's actively maintained. This is especially important for servers that will access sensitive data like databases or cloud accounts. We'll cover security in more detail shortly.
         </aside>
       </div>
     </section>
@@ -385,10 +385,7 @@
   "servers": {
     "postgres": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres"],
-      "env": {
-        "DATABASE_URL": "postgresql://localhost:5432/mydb"
-      }
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://localhost:5432/mydb"]
     }
   }
 }</code></pre>
@@ -399,7 +396,7 @@
           <li>Commit the file to share the configuration with your entire team</li>
         </ul>
         <aside class="speaker-notes">
-          Installing an MCP server from the registry is straightforward. Browse the registry, find a server you want, and copy its configuration example. In this case we're adding a PostgreSQL server from the official MCP servers collection. Create a .mcp.json file at your workspace root. This is the recommended location because it's portable and easy to share with your team. Paste in the configuration, adjust the environment variables for your setup, and reload VS Code. The server starts automatically, and its tools appear in Copilot Chat right away. When you commit the .mcp.json file to your repository, every developer who opens the workspace gets the same MCP servers configured automatically. No manual setup, no documentation to follow. They just open the project and the tools are ready.
+          Installing an MCP server from the registry is straightforward. Browse the registry, find a server you want, and copy its configuration example. In this case we're adding a PostgreSQL server from the official MCP servers collection. Create a .mcp.json file at your workspace root. This is the recommended location because it's portable and easy to share with your team. Paste in the configuration, adjust the connection string for your setup, and reload VS Code. The server starts automatically, and its tools appear in Copilot Chat right away. When you commit the .mcp.json file to your repository, every developer who opens the workspace gets the same MCP servers configured automatically. No manual setup, no documentation to follow. They just open the project and the tools are ready.
         </aside>
       </div>
     </section>
@@ -483,13 +480,13 @@
         <h2>Security Best Practices</h2>
         <ul>
           <li><strong>Review before you install</strong>: read the server's source code and check its permissions, just as you would with any extension</li>
-          <li><strong>Prefer official servers</strong>: servers in the official MCP registry are reviewed and maintained by the community</li>
+          <li><strong>Vet servers before use</strong>: servers in the MCP Registry are community-contributed; review server source code and permissions before installing</li>
           <li><strong>Monitor tool calls</strong>: use the <strong>Output panel</strong> (<code>Ctrl+Shift+U</code> &rarr; select the MCP server) to inspect what tools are being called</li>
           <li><strong>Keep secrets out of config files</strong>: use the <code>"env"</code> object in your MCP config for actual environment variables, or use <code>${input:variableName}</code> to prompt the user at runtime</li>
           <li><strong>Enterprise controls</strong>: organization policies can restrict which MCP servers are allowed across your team</li>
         </ul>
         <aside class="speaker-notes">
-          Here are five security practices to follow. First, review before you install. Read the source code and check what permissions the server requests, just like you would with a VS Code extension. Second, prefer servers from the official MCP registry. These are reviewed by the community and more likely to be well maintained. Third, monitor tool calls. The Output panel in VS Code shows exactly what each MCP server is doing. Select the server name from the dropdown and you can see every request and response in real time. Fourth, keep secrets out of your config files. You have two approaches. The "env" object in your MCP server configuration sets actual environment variables that the server process can read. Alternatively, the ${input:variableName} syntax prompts the user for a value at runtime, which is useful when credentials vary per developer. Both approaches keep sensitive values out of source control. Fifth, for enterprise teams, organization policies can restrict which MCP servers are allowed across your organization, giving administrators control over what connects to the AI in their environment.
+          Here are five security practices to follow. First, review before you install. Read the source code and check what permissions the server requests, just like you would with a VS Code extension. Second, vet servers before use. Servers in the MCP Registry are community-contributed, so review their source code and permissions before installing. Third, monitor tool calls. The Output panel in VS Code shows exactly what each MCP server is doing. Select the server name from the dropdown and you can see every request and response in real time. Fourth, keep secrets out of your config files. You have two approaches. The "env" object in your MCP server configuration sets actual environment variables that the server process can read. Alternatively, the ${input:variableName} syntax prompts the user for a value at runtime, which is useful when credentials vary per developer. Both approaches keep sensitive values out of source control. Fifth, for enterprise teams, organization policies can restrict which MCP servers are allowed across your organization, giving administrators control over what connects to the AI in their environment.
         </aside>
       </div>
     </section>
@@ -567,12 +564,12 @@
           <li><strong>MCP</strong> is an open standard that connects AI assistants to external tools and data</li>
           <li>The <strong>GitHub MCP server</strong> ships with the Copilot extension and works out of the box</li>
           <li>Work <strong>issues, PRs, and code search</strong> from Copilot Chat without leaving your editor</li>
-          <li>The <strong>MCP registry</strong> has thousands of pre-built servers; browse, evaluate, and install in minutes</li>
+          <li>The <strong>MCP Registry</strong> has a growing catalog of pre-built servers; browse, evaluate, and install in minutes</li>
           <li>Add servers to your project with <code>.mcp.json</code> at the workspace root and share with your team automatically</li>
           <li><strong>Security first</strong>: review servers before installing, follow least-privilege, and monitor tool calls</li>
         </ul>
         <aside class="speaker-notes">
-          Here are the key takeaways. MCP is an open standard that creates a universal connection layer between AI assistants and external tools. Think of it as USB-C for AI. The GitHub MCP server ships with the Copilot extension, so you can start using it immediately with no additional setup. Once it's running, you can work with issues, pull requests, and code search directly from Copilot Chat. Beyond GitHub, the MCP registry has thousands of pre-built servers for databases, APIs, infrastructure, and more. You can browse the registry, evaluate a server, and install it in minutes by adding a configuration to your .mcp.json file. Commit that file to share the setup with your team automatically. And always put security first: review servers before installing them, grant only the permissions they need, and use the Output panel to monitor what tools are being called. MCP turns Copilot from an AI that can only see your open files into an AI that can interact with your entire development ecosystem.
+          Here are the key takeaways. MCP is an open standard that creates a universal connection layer between AI assistants and external tools. Think of it as USB-C for AI. The GitHub MCP server ships with the Copilot extension, so you can start using it immediately with no additional setup. Once it's running, you can work with issues, pull requests, and code search directly from Copilot Chat. Beyond GitHub, the MCP Registry has a growing catalog of pre-built servers for databases, APIs, infrastructure, and more. You can browse the registry, evaluate a server, and install it in minutes by adding a configuration to your .mcp.json file. Commit that file to share the setup with your team automatically. And always put security first: review servers before installing them, grant only the permissions they need, and use the Output panel to monitor what tools are being called. MCP turns Copilot from an AI that can only see your open files into an AI that can interact with your entire development ecosystem.
         </aside>
       </div>
     </section>

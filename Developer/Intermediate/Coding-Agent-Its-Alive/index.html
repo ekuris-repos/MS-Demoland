@@ -101,7 +101,7 @@
             <h3>Coding Agent (Cloud)</h3>
             <ul>
               <li>Runs on <strong>GitHub's infrastructure</strong></li>
-              <li>Triggered by <strong>issue assignment</strong></li>
+              <li>Triggered by <strong>issue assignment, PR comments, and code review comments</strong></li>
               <li>Works <strong>asynchronously</strong>; you can close your laptop</li>
               <li>Opens a PR when finished</li>
               <li>No access to local files or tools</li>
@@ -440,14 +440,14 @@
       <div class="slide-inner">
         <h2>Reviewing Coding Agent Pull Requests</h2>
         <ul>
-          <li>The agent opens a <strong>draft PR</strong> linked to the originating issue</li>
+          <li>The agent opens a <strong>pull request</strong> linked to the originating issue</li>
           <li>The PR description includes a <strong>summary</strong> of the approach and changes made</li>
           <li>Review it like any other PR: check correctness, style, test coverage, and edge cases</li>
           <li>Leave <strong>review comments</strong>; the agent can push follow-up commits to address them</li>
           <li>If the changes are fundamentally wrong, <strong>close the PR</strong> and refine the issue</li>
         </ul>
         <aside class="speaker-notes">
-          When the Coding Agent finishes, it opens a draft pull request linked to the originating issue. The PR includes a description summarizing what the agent did, which files it changed, and its reasoning. Review this PR exactly as you would review a PR from a teammate. Check correctness: does the code actually solve the problem? Check style: does it follow your conventions? Check test coverage: did it add or update tests? Check edge cases: did it handle error scenarios? If you find issues, leave review comments. The agent can pick up those comments and push follow-up commits. This works just like a normal review cycle. If the approach is fundamentally wrong, the better option is to close the PR, refine the issue description with more detail, and reassign it.
+          When the Coding Agent finishes, it opens a pull request linked to the originating issue. The PR includes a description summarizing what the agent did, which files it changed, and its reasoning. Review this PR exactly as you would review a PR from a teammate. Check correctness: does the code actually solve the problem? Check style: does it follow your conventions? Check test coverage: did it add or update tests? Check edge cases: did it handle error scenarios? If you find issues, leave review comments. The agent can pick up those comments and push follow-up commits. This works just like a normal review cycle. If the approach is fundamentally wrong, the better option is to close the PR, refine the issue description with more detail, and reassign it.
         </aside>
       </div>
     </section>
@@ -545,13 +545,13 @@
         <h2>Managing Sessions and Capacity</h2>
         <ul>
           <li>Each Coding Agent run consumes <strong>GitHub Actions minutes</strong></li>
-          <li>Copilot Pro+: included Actions minutes allocation; Business/Enterprise: per-seat allocation</li>
+          <li>Copilot Pro+: included Actions minutes allocation; Business/Enterprise: drawn from the organization-level pool</li>
           <li>Sessions are <strong>ephemeral</strong>; the agent does not retain state between runs</li>
           <li>Organization admins can <strong>enable or disable</strong> the Coding Agent at the org and repo level</li>
           <li>Monitor usage through <strong>Copilot metrics</strong> in your organization settings</li>
         </ul>
         <aside class="speaker-notes">
-          The Coding Agent is not unlimited. Each run consumes GitHub Actions minutes. On Pro+ plans, you have an included Actions minutes allocation. On Business and Enterprise, the allocation is per seat. Organization admins should monitor usage through the Copilot metrics dashboard in GitHub's organization settings. Planning-wise, keep in mind that sessions are ephemeral. The agent starts fresh every time, which means it does not learn from previous runs. If you need to build on previous work, reference it explicitly in the issue description. Admins can also control access: the Coding Agent can be enabled or disabled at the organization level, and it can be turned off for specific repositories if needed. This gives you fine-grained control over where the agent is active.
+          The Coding Agent is not unlimited. Each run consumes GitHub Actions minutes. On Pro+ plans, you have an included Actions minutes allocation. On Business and Enterprise, minutes are drawn from an organization-level pool. Organization admins should monitor usage through the Copilot metrics dashboard in GitHub's organization settings. Planning-wise, keep in mind that sessions are ephemeral. The agent starts fresh every time, which means it does not learn from previous runs. If you need to build on previous work, reference it explicitly in the issue description. Admins can also control access: the Coding Agent can be enabled or disabled at the organization level, and it can be turned off for specific repositories if needed. This gives you fine-grained control over where the agent is active.
         </aside>
       </div>
     </section>
@@ -563,7 +563,7 @@
       <div class="slide-inner">
         <h2>Security and Trust</h2>
         <ul>
-          <li>The Coding Agent has <strong>read access</strong> to the repository it is working on</li>
+          <li>The Coding Agent has <strong>read and write access</strong> to the repository it is working on</li>
           <li>It <strong>cannot access</strong> repository secrets or Actions environment variables. The agent has outbound network access for installing dependencies from public registries</li>
           <li>Each session runs in a <strong>sandboxed, ephemeral VM</strong> that is destroyed after use</li>
           <li>On Business and Enterprise plans, <strong>no code is retained</strong> for model training</li>
@@ -571,7 +571,7 @@
           <li>Organization policies and <strong>rulesets</strong> apply to agent-created branches and PRs</li>
         </ul>
         <aside class="speaker-notes">
-          Security is understandably a top concern when giving an AI agent write access to your codebase. Here is what you need to know. The Coding Agent has read access to the repository it is assigned to, and it can push to branches in that repository. It cannot access repository secrets or Actions environment variables. The agent does have outbound network access for installing dependencies from public registries. Each session runs in a sandboxed VM that is destroyed when the session ends. On Business and Enterprise plans, no prompts or code are retained for model training. Importantly, the agent's output goes through all of your existing safeguards. Branch protection rules still apply. CI pipelines still run. Code review is still required before merging. The agent does not bypass any of your organization's policies or rulesets. It is subject to the same guardrails as any other contributor.
+          Security is understandably a top concern when giving an AI agent write access to your codebase. Here is what you need to know. The Coding Agent has read and write access to the repository it is assigned to; it creates branches, commits code, and opens pull requests. It cannot access repository secrets or Actions environment variables. The agent does have outbound network access for installing dependencies from public registries. Each session runs in a sandboxed VM that is destroyed when the session ends. On Business and Enterprise plans, no prompts or code are retained for model training. Importantly, the agent's output goes through all of your existing safeguards. Branch protection rules still apply. CI pipelines still run. Code review is still required before merging. The agent does not bypass any of your organization's policies or rulesets. It is subject to the same guardrails as any other contributor.
         </aside>
       </div>
     </section>
