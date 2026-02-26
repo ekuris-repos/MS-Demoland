@@ -1,0 +1,226 @@
+{
+  "title": "Full AI Stack — Agent Potato: License to Chat",
+  "repo": "https://github.com/msft-common-demos/octocat_supply-ubiquitous-octo-bassoon.git",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome! In this hands-on lab you'll use <strong>agent mode</strong> to build a complete feature across a full-stack codebase: React on the front end, Express and SQLite on the back end.<br><br>We've cloned the <strong>OctoCAT Supply</strong> project for you. Follow the steps in this panel as you advance through the slides.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "5": {
+      "steps": [
+        {
+          "title": "Explore the Project Structure",
+          "instruction": "Open the <strong>Explorer</strong> panel and take a look at the project. You should see:<br><br>• <code>frontend/</code> — React 18 + TypeScript + Tailwind<br>• <code>api/</code> — Express.js + TypeScript + SQLite<br>• <code>Makefile</code> — Unified build commands<br>• <code>docker-compose.yml</code> — Multi-service setup<br><br>Don't dive into the files yet. We're going to let agent mode do the reconnaissance for us.",
+          "focus": "slides",
+          "action": "workbench.view.explorer"
+        }
+      ]
+    },
+    "6": {
+      "steps": [
+        {
+          "title": "Agent Mode Reconnaissance",
+          "instruction": "Open <strong>Copilot Chat</strong> and make sure the <strong>Agent</strong> mode is selected from the mode dropdown at the top of the chat panel.<br><br>Type:<br><br><kbd>What does this project do? Walk me through the folder structure, tech stack, and how to run it locally.</kbd><br><br>Watch as agent mode searches your codebase, reads key files, and assembles a comprehensive overview.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Drill Into the API",
+          "instruction": "Now ask a more targeted question:<br><br><kbd>How is the API organized? What routes exist and what do they do? Show me the database schema.</kbd><br><br>Agent mode builds on the context from your previous question. Notice how each question deepens your understanding without you opening a single file.",
+          "focus": "right"
+        },
+        {
+          "title": "Check the Frontend",
+          "instruction": "Ask one more exploration question:<br><br><kbd>What React pages and components exist in the frontend? How is routing configured?</kbd><br><br>By now you should have a solid mental model of the entire codebase. You explored a full-stack project without touching the Explorer. This is reconnaissance with agent mode.",
+          "focus": "right"
+        }
+      ]
+    },
+    "10": {
+      "steps": [
+        {
+          "title": "Review Approval Gates",
+          "instruction": "Let's see the approval system in action. In agent mode, type:<br><br><kbd>Run make test to check the current test status of the project</kbd><br><br>Agent mode will ask for your <strong>approval</strong> before running the terminal command. Review the command and click <strong>Continue</strong> to approve it.<br><br>This is the safety net: every terminal command requires your explicit consent.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "tip": "You can configure auto-approve in settings, but start with manual approval to understand what commands the agent runs."
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Try Ask Mode",
+          "instruction": "Switch to <strong>Ask</strong> mode using the mode dropdown. Type:<br><br><kbd>What testing framework does this project use? Where do the tests live?</kbd><br><br>Notice that Ask mode gives you an answer but <strong>does not create or modify any files</strong>. This is the safe exploration mode.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Try Edit Mode",
+          "instruction": "Switch to <strong>Edit</strong> mode. Open <code>api/routes/products.ts</code> in the editor, then type:<br><br><kbd>Add JSDoc comments to all exported functions in this file</kbd><br><br>Edit mode proposes <strong>diffs</strong> that you accept or reject individually. It's precise and targeted.",
+          "focus": ["editor", "right"]
+        },
+        {
+          "title": "Back to Agent Mode",
+          "instruction": "Switch back to <strong>Agent</strong> mode for the rest of the lab. You now know when to reach for each mode:<br><br>• <strong>Ask</strong> — exploration and questions<br>• <strong>Edit</strong> — targeted single-file changes<br>• <strong>Agent</strong> — multi-step, multi-file builds",
+          "focus": "right"
+        }
+      ]
+    },
+    "15": {
+      "steps": [
+        {
+          "title": "Create the Instructions File",
+          "instruction": "We're going to create a <code>.github/copilot-instructions.md</code> file that encodes this project's conventions. Open a <strong>new file</strong> and save it as <code>.github/copilot-instructions.md</code>.<br><br>Type the following:<br><br><kbd># Copilot Instructions — OctoCAT Supply<br><br>## Language & Framework<br>- TypeScript with strict mode for both frontend and backend<br>- React 18 with functional components and hooks<br>- Express.js for the API layer<br><br>## Testing<br>- Use Vitest for all tests<br>- Run tests with make test</kbd>",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Add Database Rules",
+          "instruction": "Below your existing instructions, add database-specific rules:<br><br><kbd>## Database<br>- SQLite via better-sqlite3<br>- Always use parameterized queries<br>- Wrap multi-table operations in transactions<br><br>## Style<br>- Use Tailwind CSS utility classes for frontend<br>- Prefer named exports over default exports<br>- Use async/await, never callbacks</kbd><br><br>Save the file. These instructions will shape every Copilot response from now on.",
+          "focus": "editor"
+        },
+        {
+          "title": "Verify Instructions Are Active",
+          "instruction": "Open <strong>Copilot Chat</strong> in agent mode and ask:<br><br><kbd>What instructions have you loaded for this workspace?</kbd><br><br>Copilot should reference your new copilot-instructions.md file. From here on, every response will follow your project's conventions.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        }
+      ]
+    },
+    "16": {
+      "steps": [
+        {
+          "title": "Create a Scoped Instruction File",
+          "instruction": "Create another file at <code>.github/instructions/react-components.instructions.md</code>:<br><br><kbd>---<br>applyTo: \"frontend/src/**/*.tsx\"<br>---<br><br># React Component Instructions<br><br>- Use functional components with hooks<br>- Fetch data with React Query (useQuery)<br>- Use Tailwind utility classes for styling<br>- Include TypeScript types for all props</kbd><br><br>These rules apply <strong>only</strong> when working on frontend TSX files.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "tip": "Scoped instructions are additive. They combine with your repo-wide instructions, they don't replace them."
+        }
+      ]
+    },
+    "18": {
+      "steps": [
+        {
+          "title": "Build the Backend Endpoint",
+          "instruction": "Time to build. In <strong>agent mode</strong>, type:<br><br><kbd>Create a new GET /api/reports/inventory endpoint that returns current stock levels grouped by category. Follow the route pattern in api/routes/products.ts. Register the route in the API entry point. Create a Vitest test file. Run make test to verify everything passes.</kbd><br><br>Watch agent mode plan the task, create files, register the route, write tests, and run them.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Review the Output",
+          "instruction": "Agent mode should have created at least two files: the route file and its test. Look at the <strong>diffs</strong> in the chat panel. Verify that:<br><br>• The route follows the same pattern as <code>products.ts</code><br>• Database queries use parameterized statements<br>• The test file uses Vitest, not Jest<br>• The route is registered in the API entry point<br><br>If something looks off, tell the agent. It will fix it in the next iteration.",
+          "focus": ["editor", "right"]
+        },
+        {
+          "title": "Fix Any Test Failures",
+          "instruction": "If any tests failed, simply tell agent mode:<br><br><kbd>The inventory tests are failing. Read the error output and fix the issues.</kbd><br><br>Agent mode will read the test output, diagnose the problem, edit the code, and re-run the tests. This iterate-until-green loop is one of agent mode's strongest patterns.",
+          "focus": "right",
+          "tip": "If the agent is stuck in a loop, provide more specific direction: point it at the exact error line or suggest a specific fix."
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Build the Frontend Component",
+          "instruction": "Stay in <strong>agent mode</strong> and type:<br><br><kbd>Create a React component at frontend/src/pages/InventoryReport.tsx that fetches data from GET /api/reports/inventory and displays it in a table. Use the same data fetching pattern as the existing pages. Add a route for /reports/inventory in the router config and a navigation link in the sidebar.</kbd><br><br>Agent mode will read an existing page component, create the new file, update the router, and add navigation.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Verify the Frontend",
+          "instruction": "Ask agent mode to start the development servers:<br><br><kbd>Run make dev to start both the API and frontend servers</kbd><br><br>After approving the terminal command, check that:<br>• The API serves data at <code>/api/reports/inventory</code><br>• The frontend page renders and displays the data<br>• The navigation link appears in the sidebar",
+          "focus": "right",
+          "tip": "If the component doesn't render correctly, describe the problem to agent mode. \"The table is empty even though the API returns data\" gives it enough to diagnose the issue."
+        }
+      ]
+    },
+    "22": {
+      "steps": [
+        {
+          "title": "Write Comprehensive Tests",
+          "instruction": "Ask agent mode to improve the test coverage:<br><br><kbd>Write additional unit tests for the inventory endpoint. Test the happy path with valid data, the empty result case, and the case where the database query fails. Follow the testing patterns in the existing test files.</kbd><br><br>Let agent mode write the tests, run them, and iterate on failures.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Run the Full Test Suite",
+          "instruction": "Ask agent mode to run the complete test suite:<br><br><kbd>Run make test to execute all tests in the project. If any fail, fix them.</kbd><br><br>This verifies that your new code doesn't break existing functionality. Agent mode will fix any regressions automatically.",
+          "focus": "right"
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Iterative Refinement",
+          "instruction": "Time to refine. Review the code agent mode generated and provide feedback. For example:<br><br><kbd>The error handling in the inventory route should return a 400 status for invalid query parameters instead of a 500. Also, add input validation for the category parameter.</kbd><br><br>Agent mode will make the targeted fix and re-run the tests.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Try Edit Mode for a Surgical Fix",
+          "instruction": "Switch to <strong>Edit</strong> mode for a small, targeted change. Open your inventory route file in the editor and type:<br><br><kbd>Add a Swagger/OpenAPI docblock to the GET endpoint so it appears in the API documentation</kbd><br><br>Edit mode is ideal for single-file refinements after agent mode has done the heavy lifting.",
+          "focus": ["editor", "right"]
+        }
+      ]
+    },
+    "25": {
+      "steps": [
+        {
+          "title": "Cross-Stack Rename",
+          "instruction": "Let's test agent mode's cross-file coordination. In <strong>agent mode</strong>, type:<br><br><kbd>Rename the response field 'stock_level' to 'quantity_available' across the entire inventory feature. Update the API response, TypeScript types, frontend component display, and all test assertions. Run make test after to verify nothing broke.</kbd><br><br>Watch agent mode coordinate changes across multiple files in a single loop.",
+          "focus": "right",
+          "action": "workbench.action.chat.open"
+        },
+        {
+          "title": "Review All Changed Files",
+          "instruction": "After the rename completes, use <strong>Ask</strong> mode to verify:<br><br><kbd>List all files that were changed in this session and summarize the modifications</kbd><br><br>Verify that every instance was caught. Check the test results to confirm nothing is broken.",
+          "focus": "right",
+          "tip": "Cross-file refactors are one of agent mode's strongest capabilities. A rename that would take a developer 15 minutes of careful find-and-replace takes agent mode one prompt."
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Create a Reusable Prompt File",
+          "instruction": "Let's save the endpoint scaffolding pattern as a reusable prompt file. Create a new file at <code>.github/prompts/new-api-endpoint.prompt.md</code>:<br><br><kbd>---<br>mode: agent<br>description: Scaffold a new API endpoint with tests<br>---<br><br>Create a new Express route that handles requests to /api/${input:routePath}.<br><br>**Requirements:**<br>- Follow the pattern in api/routes/products.ts<br>- Register the route in the API entry point<br>- Create a Vitest test file<br>- Run make test to verify</kbd><br><br>Save the file.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile"
+        },
+        {
+          "title": "Run the Prompt File",
+          "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>/</kbd> to open the prompt picker. You should see <strong>new-api-endpoint</strong> in the list.<br><br>Select it and enter a route path when prompted (e.g., <code>reports/suppliers</code>).<br><br>The prompt file runs with your input and agent mode scaffolds the endpoint. One developer's insight, shared with the whole team.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "tip": "Prompt files turn your best agent mode workflows into repeatable, team-shared actions. Build a library over time."
+        }
+      ]
+    },
+    "29": {
+      "steps": [
+        {
+          "title": "Mission Recap",
+          "instruction": "Take a moment to review everything you built in this session:<br><br>• Explored a full-stack codebase using agent mode reconnaissance<br>• Set up instruction files tailored to the project's conventions<br>• Built a backend API endpoint with database queries and tests<br>• Built a frontend React component with routing and navigation<br>• Refined code iteratively across all three chat modes<br>• Performed a cross-stack rename in a single prompt<br>• Saved reusable prompt files for the team",
+          "focus": "guide"
+        }
+      ]
+    },
+    "32": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Mission accomplished!</strong> You've completed Agent Potato: License to Chat.<br><br>You now know how to:<br>• Use agent mode to navigate and build across a full-stack codebase<br>• Write effective prompts with references to existing code<br>• Set up instructions that shape every Copilot response<br>• Switch between Ask, Edit, and Agent modes for the right task<br>• Create reusable prompt files for your team<br><br>Next courses: <strong>MCP Maximizer</strong> to extend agent mode's tools, or <strong>Coding Agent: It's Alive!</strong> for cloud-based autonomous agents.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}

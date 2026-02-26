@@ -30,13 +30,44 @@
 
 ## Slide-by-Slide Checklist
 
-- [ ] Slide 1 — Title slide finalized
-- [ ] Slide 2 — Agenda / section divider
-- [ ] Slide 3 — Core content
-- [ ] Slide 4 — Additional content slides (add rows as needed)
-- [ ] Slide N — Closing slide
+- [x] Slide 1 — Title slide
+- [x] Slide 2 — Agenda section divider
+- [x] Slide 3 — Agenda items
+- [x] Slide 4 — Reconnaissance section divider
+- [x] Slide 5 — Meet the Codebase: OctoCAT Supply
+- [x] Slide 6 — Exploring With Agent Mode
+- [x] Slide 7 — Agent Mode Deep Dive section divider
+- [x] Slide 8 — The Agentic Loop
+- [x] Slide 9 — Tools Available to Agent Mode
+- [x] Slide 10 — Approval Gates and Control
+- [x] Slide 11 — The Mode Selector section divider
+- [x] Slide 12 — Three Modes, Three Jobs
+- [x] Slide 13 — Model Selection
+- [x] Slide 14 — Preparing the Mission section divider
+- [x] Slide 15 — Instructions Shape Every Response
+- [x] Slide 16 — Instructions for OctoCAT Supply
+- [x] Slide 17 — Building the Feature section divider
+- [x] Slide 18 — Writing a Good Agent Prompt
+- [x] Slide 19 — Building the Backend
+- [x] Slide 20 — Building the Frontend
+- [x] Slide 21 — Quality Assurance section divider
+- [x] Slide 22 — Testing With Agent Mode
+- [x] Slide 23 — Iterative Refinement
+- [x] Slide 24 — Multi-File Workflows section divider
+- [x] Slide 25 — Cross-Stack Changes
+- [x] Slide 26 — When Agent Mode Struggles
+- [x] Slide 27 — Prompt Files for Common Tasks
+- [x] Slide 28 — Debrief section divider
+- [x] Slide 29 — What We Built
+- [x] Slide 30 — Key Patterns to Remember
+- [x] Slide 31 — Where to Go Next
+- [x] Slide 32 — Closing slide
 
 ## Notes
 
-_Add any notes about what's left to do, blockers, or decisions pending._
+- First pass of content expansion complete (32 slides with speaker notes)
+- Lab guide (lab.json) created with interactive exercises mapped to slides
+- Lab repo: msft-common-demos/octocat_supply-ubiquitous-octo-bassoon
+- Needs review pass for accuracy against current Copilot features
+- Images and diagrams still needed for several slides
 

@@ -10,62 +10,619 @@
 
   <div class="slide-deck">
 
-    <!-- Title Slide -->
+    <!-- ============================================================
+         SLIDE 1 - Title
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Intermediate · 1.5 Hours</span>
         <h1>Full AI Stack - Agent Potato: License to Chat</h1>
-        <p class="subtitle">Follow Agent Potato on a mission to build a complete React frontend and Node backend, from first feature to deployment, all in one session</p>
+        <p class="subtitle">Follow Agent Potato on a mission to build a complete feature across a React frontend and Express backend, from first prompt to passing tests, all in one session</p>
+        <aside class="speaker-notes">
+          Welcome to "Agent Potato: License to Chat." This course picks up where the beginner track left off. If you've taken "The Copilot Awakens" and "Prompts, Instructions, Skills, and Agents," you already know what agent mode is and how the customization primitives work. Today we're putting all of that into practice. You'll use agent mode to develop a real feature across a full-stack codebase: React on the front end, Express and SQLite on the back end, with tests, linting, and iterative refinement. The goal isn't to type as little as possible. The goal is to learn how to steer agent mode so the output is production-quality code you'd actually ship. Let's get started.
+        </aside>
       </div>
     </section>
 
-    <!-- Agenda -->
+    <!-- ============================================================
+         SLIDE 2 - Agenda (Section)
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Overview</span>
         <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Let's walk through the agenda for today's session.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 1 -->
+    <!-- ============================================================
+         SLIDE 3 - Agenda items
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Building with Agent Potato</h2>
+        <h2>Today's Mission</h2>
         <ul>
-          <li>Join Agent Potato on his mission to develop a complete application</li>
-          <li>Build a React frontend with a fully functional UI</li>
-          <li>Develop a Node backend to power the application</li>
+          <li><strong>Reconnaissance</strong> - Orient yourself in an unfamiliar codebase using agent mode</li>
+          <li><strong>Agent Mode Deep Dive</strong> - How the agentic loop works and when to intervene</li>
+          <li><strong>The Mode Selector</strong> - Ask, Edit, and Agent: choosing the right tool</li>
+          <li><strong>Preparing the Mission</strong> - Setting up instructions and customization files before building</li>
+          <li><strong>Building the Feature</strong> - Backend API, frontend component, and wiring them together</li>
+          <li><strong>Quality Assurance</strong> - Tests, linting, and iterative refinement with agent mode</li>
+          <li><strong>Multi-File Workflows</strong> - Coordinated changes across the full stack</li>
+          <li><strong>Debrief</strong> - Patterns that work, pitfalls to avoid, and where to go next</li>
         </ul>
+        <aside class="speaker-notes">
+          Here's the plan. We'll start with reconnaissance, using agent mode to orient ourselves in a codebase we've never seen before. Then we'll look at how the agentic loop actually works under the hood, so you understand what's happening when agent mode plans, executes, and iterates. We'll cover the mode selector and when each mode is the right choice. Then we'll prepare our workspace with customization files before we start building. The core of the session is building a real feature: a new API endpoint and the React component that consumes it. After that, we cover quality assurance: writing tests, fixing linting errors, and using agent mode to iterate until everything passes. We'll close with multi-file workflow patterns and a debrief on what works well and what doesn't.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 2 -->
+    <!-- ============================================================
+         SLIDE 4 - Reconnaissance (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>Reconnaissance</h2>
+        <aside class="speaker-notes">
+          Every mission starts with reconnaissance. Before you write a single line of code, you need to understand the terrain. Agent mode is excellent at exploring unfamiliar codebases.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - The Codebase
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>From Feature to Deployment</h2>
+        <h2>Meet the Codebase: OctoCAT Supply</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Frontend</h3>
+            <p>React 18 + TypeScript, Vite build, Tailwind CSS, React Query for data fetching, Axios HTTP client</p>
+          </div>
+          <div class="card">
+            <h3>Backend</h3>
+            <p>Express.js + TypeScript, SQLite database, Swagger/OpenAPI docs, Vitest for testing</p>
+          </div>
+        </div>
         <ul>
-          <li>Feature development driven by AI-assisted coding</li>
-          <li>Quality Assurance (QA) and validation workflows</li>
-          <li>Deployment - shipping your application in one session</li>
+          <li>Full-stack supply chain management demo application</li>
+          <li>Makefile-driven commands: <code>make dev</code>, <code>make test</code>, <code>make build</code></li>
+          <li>Docker Compose for multi-service development</li>
         </ul>
+        <aside class="speaker-notes">
+          This is OctoCAT Supply, a full-stack supply chain management application. It has a React frontend with TypeScript, Tailwind, and React Query, and an Express backend with TypeScript, SQLite, and Swagger API docs. The build system uses a Makefile as the entry point. "make dev" starts both servers, "make test" runs all tests, and "make build" produces production bundles. The key point: you probably haven't seen this codebase before. That's deliberate. One of agent mode's strongest capabilities is helping you understand an unfamiliar project. So don't go reading the README just yet. Let agent mode do the reconnaissance for you.
+        </aside>
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- ============================================================
+         SLIDE 6 - Exploring With Agent Mode
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Exploring With Agent Mode</h2>
+        <ul>
+          <li>Agent mode automatically indexes your workspace and searches the codebase</li>
+          <li>Ask broad questions first, then narrow down as you understand the structure</li>
+          <li>Agent mode reads files, checks dependencies, and explores directories on its own</li>
+        </ul>
+        <pre><code>Example prompts for exploration:
+
+"What does this project do? Walk me through the folder structure."
+"How is the API organized? What are the main route files?"
+"What database tables exist and how are they defined?"
+"What testing frameworks are in use and where are the test files?"</code></pre>
+        <aside class="speaker-notes">
+          When you land in a new codebase, resist the urge to start clicking through files manually. Instead, open agent mode and start with a broad question like "What does this project do?" Agent mode will use its codebase search tool to scan the project, read key files like the README, package.json, and folder structure, and produce a coherent summary. Then you can drill down. "How is the API organized?" gets you the route structure. "What database tables exist?" gets you the schema. Each question builds your mental model incrementally, and agent mode keeps the context from your previous questions so it can give increasingly specific answers. This is how experienced developers use agent mode: not as a code generator, but as a codebase navigator.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 - Agent Mode Deep Dive (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>Agent Mode Deep Dive</h2>
+        <aside class="speaker-notes">
+          Now that we've oriented ourselves in the codebase, let's go deeper on how agent mode actually works. Understanding the agentic loop will help you diagnose problems and steer the agent more effectively.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 - The Agentic Loop
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Agentic Loop</h2>
+        <ul>
+          <li><strong>Plan</strong> - The agent reads your prompt, gathers context, and forms a plan</li>
+          <li><strong>Act</strong> - It executes tool calls: file edits, terminal commands, codebase searches</li>
+          <li><strong>Observe</strong> - It reads the output of each action (compiler errors, test results, terminal output)</li>
+          <li><strong>Iterate</strong> - If something failed, it adjusts and tries again automatically</li>
+        </ul>
+        <p>The loop continues until the task is complete or the agent needs your input.</p>
+        <aside class="speaker-notes">
+          Agent mode follows a "plan, act, observe, iterate" loop. Here's what happens step by step. First, when you type a prompt, the agent reads it and gathers context. It searches for relevant files, reads your instruction files, and forms a plan. Then it starts acting. It might create a file, edit existing code, run a terminal command, or search the codebase for more information. After each action, it observes the result. Did the file save correctly? Did the terminal command produce an error? Did the tests pass? If something went wrong, it iterates. It reads the error message, adjusts its approach, and tries again. This loop keeps running until the task is done or the agent reaches a point where it needs your input. The key thing to understand: this is not a single request-response. It's a multi-step autonomous process. The agent might make ten or twenty tool calls for a single prompt. That's normal and expected. Your job is to write the prompt clearly, let the agent work, and then review the result.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 - Tools Available to Agent Mode
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Tools Available to Agent Mode</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Built-in Tools</h3>
+            <ul>
+              <li><strong>File operations</strong> - Create, edit, read, and delete files</li>
+              <li><strong>Terminal</strong> - Run shell commands (with approval gates)</li>
+              <li><strong>Codebase search</strong> - Semantic and text-based search across your workspace</li>
+              <li><strong>Diagnostics</strong> - Read compiler errors and lint warnings</li>
+              <li><strong>Fetch</strong> - Retrieve content from URLs</li>
+              <li><strong>Find test files</strong> - Locate relevant test files for the code being changed</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Extensible via MCP</h3>
+            <ul>
+              <li><strong>MCP servers</strong> - Connect external tools and data sources</li>
+              <li>GitHub, Playwright, databases, custom APIs</li>
+              <li>Configured in <code>.vscode/mcp.json</code></li>
+              <li>Team-shared via version control</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Agent mode has access to several built-in tools. File operations let it create, edit, read, and delete files. Terminal access lets it run shell commands, though you'll be asked to approve them first. Codebase search lets it find relevant code semantically or by text matching. Diagnostics gives it access to compiler errors and lint warnings. Fetch lets it read web content. And there's a test file finder that helps it locate related tests. Beyond the built-in tools, agent mode is extensible through MCP, the Model Context Protocol. MCP servers are external processes that expose additional tools to the agent. The GitHub MCP server gives it access to issues, pull requests, and code search. The Playwright MCP server lets it interact with web pages. You can also build your own MCP servers for custom workflows. MCP servers are configured in a .vscode/mcp.json file that you commit to your repo, so the whole team gets the same tool set. If you haven't taken the "MCP for You and Me" course yet, we'll just cover the basics here. The dedicated MCP courses go much deeper.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 - Approval Gates and Control
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Approval Gates and Control</h2>
+        <ul>
+          <li><strong>Terminal commands</strong> require explicit approval by default</li>
+          <li>File edits appear as diffs you can accept or reject</li>
+          <li>You can <strong>pause and redirect</strong> the agent mid-loop by typing a follow-up</li>
+          <li>The <code>github.copilot.chat.agent.maxRequests</code> setting caps the number of iterations</li>
+        </ul>
+        <pre><code>// Auto-approve safe commands (optional, use with care)
+// Settings → github.copilot.chat.agent.autoApprove
+//
+// Only enable this after you understand what agent mode can do.
+// Start with manual approval and relax controls as you build trust.</code></pre>
+        <aside class="speaker-notes">
+          Agent mode is powerful, but you stay in control. Terminal commands require your explicit approval before they run. You'll see a notification showing the exact command, and you click to approve or reject it. File edits show up as diffs so you can review every change before accepting. If the agent goes in a direction you don't like, you can type a follow-up message at any time to redirect it. If you want to cap how many iterations the agent can take, the maxRequests setting lets you set a limit. There's also an auto-approve option for terminal commands. Some developers enable this for trusted workflows where they want the agent to run freely. My recommendation: start with manual approval. Learn what kinds of commands the agent runs, build confidence in the pattern, and only relax the controls once you're comfortable. This is the same approach you'd use with any automation tool. Trust but verify.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - The Mode Selector (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>The Mode Selector</h2>
+        <aside class="speaker-notes">
+          Now let's talk about how agent mode fits into the broader picture. VS Code's Copilot Chat has three modes, and knowing when to use each one is a key skill.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 - Ask, Edit, Agent
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Three Modes, Three Jobs</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Ask</h3>
+            <p>Read-only exploration. Ask questions, get explanations, explore ideas. No files are modified.</p>
+          </div>
+          <div class="card">
+            <h3>Edit</h3>
+            <p>Targeted changes. Modify specific files with diffs you accept or reject individually.</p>
+          </div>
+          <div class="card">
+            <h3>Agent</h3>
+            <p>Autonomous execution. Plans multi-step tasks, runs commands, iterates on errors.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          The three modes are Ask, Edit, and Agent. You select them from the dropdown at the top of the chat panel. Ask mode is completely read-only. No files are touched, no commands are run. It's the right choice when you want to understand something, explore an idea, or get advice before acting. Edit mode makes targeted changes to files. You describe what you want changed, and Copilot proposes diffs that you can accept or reject individually. It's precise and controlled. Agent mode is the fully autonomous option. It plans multi-step tasks, creates and edits files, runs terminal commands, reads the output, and iterates. It's the most powerful mode but also the most hands-off. The question is: when do you use which? Here's a rule of thumb. If you're asking a question, use Ask. If you're making a specific change to a specific file, use Edit. If you're working on a task that spans multiple files and might need terminal commands, use Agent. In this course, we'll mostly be in Agent mode, but we'll switch to Ask and Edit when they're the better tool for the job.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 - Model Selection
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Model Selection</h2>
+        <ul>
+          <li>Click the <strong>model selector</strong> next to the mode dropdown in the chat panel</li>
+          <li>Models differ in speed, reasoning depth, and premium request cost (shown as a multiplier)</li>
+          <li>You can switch models at any time, even mid-conversation</li>
+          <li>There is no single "best" model. Match the model to the task complexity.</li>
+        </ul>
+        <aside class="speaker-notes">
+          The model selector is right next to the mode dropdown at the top of the chat panel. Each model has trade-offs: some are faster, some are better at deep reasoning, some cost more premium requests per message. The multiplier next to each model tells you how many premium requests each message consumes. For exploratory questions and simple tasks, a lighter model works well. For complex multi-file changes, a more capable model will save you iterations. You can switch models at any time, even in the middle of a conversation. The key thing is to experiment. Try different models on the same task and see which one gives you the best results. Over time you'll develop intuition for when to reach for which model.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 14 - Preparing the Mission (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Preparing the Mission</h2>
+        <aside class="speaker-notes">
+          Before we start building, we need to set up our workspace. This is one of the most overlooked steps in working with agent mode: if you skip the preparation, you'll spend twice as long correcting mistakes later. Think of it as equipping your agent with the right tools and intelligence before sending it into the field.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 - Instructions and Customization
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Instructions Shape Every Response</h2>
+        <ul>
+          <li><strong>Repo-wide instructions</strong> - <code>.github/copilot-instructions.md</code></li>
+          <li><strong>Scoped instructions</strong> - <code>.github/instructions/*.instructions.md</code> with <code>applyTo</code> globs</li>
+          <li><strong>Prompt files</strong> - <code>.github/prompts/*.prompt.md</code> for reusable tasks</li>
+          <li><strong>Custom agents</strong> - <code>.github/agents/*.agent.md</code> for specialized personas</li>
+        </ul>
+        <p>If you've taken "Prompts, Instructions, Skills, and Agents," this should look familiar. Today we put these to work in a real codebase.</p>
+        <aside class="speaker-notes">
+          Let's quickly review the customization primitives. Repo-wide instructions in copilot-instructions.md apply to every Copilot interaction in this workspace. Scoped instructions use applyTo globs to target specific file patterns. Prompt files capture reusable tasks you can run from the chat picker. And custom agents define specialized personas with restricted tools and focused workflows. If you took the PISA course, you created all of these from scratch. Today we're going to create them specifically for the OctoCAT Supply codebase. The difference is that now these files will target real project conventions, real frameworks, and real testing patterns. This is where customization moves from academic exercise to practical workflow.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 - Setting Up Instructions for OctoCAT Supply
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Instructions for OctoCAT Supply</h2>
+        <pre><code># .github/copilot-instructions.md
+
+## Language &amp; Framework
+- TypeScript with strict mode for both frontend and backend
+- React 18 with functional components and hooks (no class components)
+- Express.js for the API layer
+
+## Style
+- Use Tailwind CSS utility classes for frontend styling
+- Prefer named exports over default exports
+- Use async/await, never callbacks
+
+## Testing
+- Use Vitest for all tests (not Jest)
+- Co-locate test files next to source files: `foo.test.ts`
+- Run tests with `make test`
+
+## Database
+- SQLite via better-sqlite3
+- Always use parameterized queries (never string concatenation)</code></pre>
+        <aside class="speaker-notes">
+          Here's what a good copilot-instructions.md looks like for this project. It covers language and framework choices, style conventions, testing standards, and database patterns. Notice how every rule is specific and actionable. "TypeScript with strict mode" is clear. "Use Vitest, not Jest" eliminates ambiguity. "Always use parameterized queries" prevents SQL injection. These instructions will apply to every Copilot interaction in this workspace. When agent mode creates a new API endpoint, it will use TypeScript. When it writes tests, it will use Vitest. When it queries the database, it will use parameterized queries. You write these rules once, and they shape every response going forward. The real skill is knowing what to put in this file. Start with the corrections you find yourself making over and over. If you keep telling Copilot "no, use Vitest, not Jest," that rule belongs in this file.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 - Building the Feature (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Building the Feature</h2>
+        <aside class="speaker-notes">
+          Time for the core of the mission. We're going to use agent mode to build a complete feature: a new API endpoint and the React component that consumes it. This is where agent mode really shines: multi-step tasks that span multiple files.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Writing a Good Agent Prompt
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Writing a Good Agent Prompt</h2>
+        <ul>
+          <li><strong>State the goal</strong> clearly in the first sentence</li>
+          <li><strong>Specify constraints</strong>: frameworks, patterns, file locations</li>
+          <li><strong>Define done</strong>: what does success look like?</li>
+          <li><strong>Reference existing code</strong>: "follow the pattern in <code>api/routes/products.ts</code>"</li>
+        </ul>
+        <pre><code>// ❌ Vague
+"Add a reports feature"
+
+// ✅ Clear
+"Create a new GET /api/reports/inventory endpoint that returns
+current stock levels grouped by category. Follow the route pattern
+in api/routes/products.ts. Include a Vitest test file.
+Use the existing database connection from api/db/index.ts."</code></pre>
+        <aside class="speaker-notes">
+          The quality of your agent mode output is directly proportional to the quality of your prompt. A vague prompt like "add a reports feature" leaves agent mode guessing about almost everything: file locations, naming conventions, data structure, testing approach. A good prompt has four parts. First, state the goal: "Create a GET endpoint that returns inventory data." Second, specify constraints: "Follow the route pattern in products.ts." Third, define done: "Include a Vitest test file." Fourth, reference existing code so the agent knows what conventions to follow. The reference is especially important. When you say "follow the pattern in products.ts," agent mode reads that file, extracts the conventions (middleware, error handling, response format), and applies them to the new code. This is how you get consistent, idiomatic output without writing a novel of instructions. Think of it this way: you're not programming a machine. You're briefing a new team member on a task. The more context you give in the briefing, the less back-and-forth you'll have.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 19 - Building the Backend
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Building the Backend</h2>
+        <ul>
+          <li><strong>Step 1</strong> - Ask agent mode to create the API route file</li>
+          <li><strong>Step 2</strong> - Watch it create the route, register it in the app, and add the database query</li>
+          <li><strong>Step 3</strong> - Let it run the tests and fix any failures automatically</li>
+        </ul>
+        <p>Agent mode handles file creation, route registration, database queries, and test execution in a single loop. You review the output at the end.</p>
+        <aside class="speaker-notes">
+          Here's how the backend build works in practice. You write a clear prompt describing the endpoint you want. Agent mode starts its loop. It reads existing route files to understand the pattern. It creates a new route file with the endpoint. It opens the app entry point and registers the new route. It writes the database query using the existing connection module. Then it runs the tests. If a test fails, it reads the error, adjusts the code, and runs the tests again. This whole sequence might take ten or fifteen iterations. That's normal. The important thing is that each iteration builds on the previous one. You don't have to manually switch between files, remember import paths, or run test commands. Agent mode handles the mechanics; you handle the direction.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 - Building the Frontend
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Building the Frontend</h2>
+        <ul>
+          <li><strong>Step 1</strong> - Ask agent mode to create a React component that calls the new API endpoint</li>
+          <li><strong>Step 2</strong> - Reference an existing component for styling and data fetching patterns</li>
+          <li><strong>Step 3</strong> - Let it add the route and navigation entry</li>
+        </ul>
+        <pre><code>"Create a React component at frontend/src/pages/InventoryReport.tsx
+that fetches data from GET /api/reports/inventory and displays it
+in a table. Use the same data fetching pattern as ProductList.tsx.
+Add a route for /reports/inventory in the router config and a
+navigation link in the sidebar."</code></pre>
+        <aside class="speaker-notes">
+          The frontend build follows the same pattern. Write a clear prompt with a specific file path, a reference to existing code, and a definition of done. In this case, we're telling agent mode where to create the file, which API endpoint to call, which existing component to use as a pattern reference, and that it should wire up routing and navigation. Agent mode will read ProductList.tsx to understand the data fetching pattern, create the new component using the same conventions, add the route to the router config file, add a navigation link in the sidebar, and then check for any diagnostic errors. The reference to ProductList.tsx is doing a lot of heavy lifting here. Instead of describing the entire data fetching pattern in your prompt, you point to the example and let agent mode extract the pattern itself. This works because agent mode reads files, not just prompt text.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 21 - Quality Assurance (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>Quality Assurance</h2>
+        <aside class="speaker-notes">
+          The feature is built. Now comes the part that separates proof-of-concept from production-ready: quality assurance. Agent mode is surprisingly good at this phase.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - Testing With Agent Mode
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Testing With Agent Mode</h2>
+        <ul>
+          <li>Agent mode can <strong>write tests</strong>, <strong>run them</strong>, and <strong>fix failures</strong> in a single loop</li>
+          <li>Point it at existing test files so it matches your team's testing patterns</li>
+          <li>Use specific language: "Write unit tests for the inventory route. Test the happy path, empty results, and invalid parameters."</li>
+          <li>Let the agent run <code>make test</code> and iterate on failures</li>
+        </ul>
+        <aside class="speaker-notes">
+          Testing is one of agent mode's strongest workflows. Here's why: the feedback loop is tight. Agent mode writes a test, runs it, reads the output, and immediately knows whether it passed or failed. If it failed, it reads the error message, figures out the fix, and tries again. This iterate-until-green pattern is exactly how a developer would work, but agent mode does it faster because it doesn't need to switch contexts. The key to good test generation is specificity. Don't just say "write tests." Say "write unit tests for the inventory route. Test the happy path with valid data, the empty result case, and the invalid parameter case." Also reference existing test files. "Follow the pattern in products.test.ts" gives agent mode a concrete example of your team's testing style: how you set up fixtures, how you organize describe blocks, what assertions you prefer.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - Iterative Refinement
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Iterative Refinement</h2>
+        <ul>
+          <li><strong>Review the diff</strong> after each agent loop completes</li>
+          <li>Provide follow-up prompts for specific corrections: "The error handling should return a 400, not a 500, for invalid input"</li>
+          <li>Use <strong>Edit mode</strong> for surgical, single-file changes after the agent has done the heavy lifting</li>
+          <li>Use <strong>Ask mode</strong> to discuss trade-offs before committing to a direction</li>
+        </ul>
+        <aside class="speaker-notes">
+          Agent mode rarely produces perfect output on the first pass, and that's fine. The real workflow is iterative. The agent builds the initial version, you review the diff, and then you refine. For broad adjustments, stay in agent mode: "The error handling should return a 400 for invalid input, not a 500." For surgical fixes to a specific file, switch to edit mode. It's more precise and doesn't trigger the full agentic loop. For design discussions, switch to ask mode: "What are the trade-offs between returning all results versus paginating?" This mode switching is a skill. Over time you'll develop a rhythm: agent mode for the initial build, ask mode for design questions, edit mode for targeted fixes. Don't be afraid to switch modes in the middle of a task. Each mode is a different tool in your toolbox.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Multi-File Workflows (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>Multi-File Workflows</h2>
+        <aside class="speaker-notes">
+          One of the reasons we chose a full-stack codebase for this course is that real features rarely live in a single file. Let's talk about how agent mode handles coordinated changes across multiple files.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Cross-Stack Changes
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Cross-Stack Changes</h2>
+        <ul>
+          <li>Agent mode coordinates changes across backend, frontend, tests, and configuration files</li>
+          <li>A single prompt can touch: API route, database query, React component, router config, test file</li>
+          <li>Agent mode reads the output from each change to inform the next one</li>
+        </ul>
+        <pre><code>// One prompt, multiple files
+"Rename the 'stock' field to 'quantity' across the entire codebase.
+Update the database schema, API responses, frontend components,
+and all test assertions. Run the tests after to verify nothing broke."</code></pre>
+        <aside class="speaker-notes">
+          Here's a concrete example. Suppose you need to rename a field from "stock" to "quantity" across the entire stack. In a traditional workflow, you'd manually update the database schema, every API response, every frontend component that reads the field, and every test assertion. With agent mode, you describe the change once, and the agent does the cross-file coordination. It searches for every occurrence, makes the changes, and runs the tests to verify. This is not a find-and-replace. Agent mode understands context. It knows that renaming a database field means updating the column definition, the SELECT queries, the API response mapping, the TypeScript types, and the React components that display the data. It handles each file differently based on what that file does.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 - When Agent Mode Struggles
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>When Agent Mode Struggles</h2>
+        <ul>
+          <li><strong>Ambiguous goals</strong> - If you don't know what you want, the agent can't either</li>
+          <li><strong>No reference code</strong> - Without examples to follow, output is generic</li>
+          <li><strong>Very large changes</strong> - Break big features into smaller, testable increments</li>
+          <li><strong>External service dependencies</strong> - The agent can't access services it doesn't have credentials for</li>
+        </ul>
+        <p>When in doubt: break the task down, give the agent reference files, and iterate.</p>
+        <aside class="speaker-notes">
+          Let's be honest about where agent mode struggles. Ambiguous goals are the number one cause of poor output. If you say "make it better" or "refactor this," the agent has to guess what you mean. Lack of reference code is the second most common issue. If there are no existing patterns to follow, the agent falls back on generic conventions that may not match your project. Very large changes are risky because the agent may lose context partway through. Break big features into smaller pieces: build the API first, then the frontend, then the tests, then wire them together. External services are a hard limit. If your feature requires authentication against a third-party API and the agent doesn't have credentials, it can't test its work. In those cases, mock the external dependency and test the integration separately. These aren't failures of agent mode; they're constraints of any development workflow. The more you understand them, the better you'll be at structuring prompts that work within these limits.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - Prompt Files for Common Tasks
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Prompt Files for Common Tasks</h2>
+        <pre><code># .github/prompts/new-api-endpoint.prompt.md
+---
+mode: agent
+description: Scaffold a new API endpoint with tests
+---
+
+Create a new Express route at api/routes/${input:routeName}.ts that
+handles ${input:httpMethod} requests to /api/${input:routeName}.
+
+**Requirements:**
+- Follow the pattern in api/routes/products.ts
+- Add the route to api/index.ts
+- Create a test file at api/routes/${input:routeName}.test.ts
+- Run make test to verify</code></pre>
+        <p>Save common patterns as prompt files. Run them with a click from the <code>/</code> picker.</p>
+        <aside class="speaker-notes">
+          Once you've done something well in agent mode, save the prompt as a file so the whole team benefits. This example is a prompt file for scaffolding new API endpoints. Notice the input variables: routeName and httpMethod. When you run this prompt from the picker, Copilot asks you for those values and fills them in. The prompt body references existing code, specifies the file path convention, and includes a test run as the success criteria. This is the bridge between the PISA course and this one. In PISA, you learned the primitives. Here, you're using them in a real project with real conventions. A well-stocked .github/prompts folder means any developer on the team can scaffold a new endpoint, component, or test file in seconds, and the output will match the project's conventions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Debrief (Section)
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
-        <h2>Wrap-Up &amp; Next Steps</h2>
+        <h2>Debrief</h2>
+        <aside class="speaker-notes">
+          Let's take a step back and summarize what we've covered today.
+        </aside>
       </div>
     </section>
 
-    <!-- Closing -->
+    <!-- ============================================================
+         SLIDE 29 - What We Built
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What We Built</h2>
+        <ul>
+          <li>Explored an unfamiliar full-stack codebase using agent mode as a navigator</li>
+          <li>Set up instruction files tailored to the project's conventions</li>
+          <li>Built a complete API endpoint with database query and tests</li>
+          <li>Built a React component wired to the new endpoint</li>
+          <li>Used iterative refinement to get the code to production quality</li>
+          <li>Created reusable prompt files for common project tasks</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's recap. We used agent mode to explore a codebase we'd never seen before. We set up instruction files that encode the project's conventions. We built a backend API endpoint with a database query and test coverage. We built a frontend React component that consumes the API. We refined the code iteratively, switching between agent, edit, and ask modes. And we saved our best prompts as reusable prompt files. This is the full workflow for agent-assisted development: orient, prepare, build, test, refine, and standardize. Every step involves Copilot, but you stay in the driver's seat.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 30 - Key Patterns
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Patterns to Remember</h2>
+        <ul>
+          <li><strong>Reference existing code</strong> in every prompt. "Follow the pattern in X" outperforms lengthy descriptions.</li>
+          <li><strong>Use the right mode</strong>. Agent for multi-step builds. Edit for surgical fixes. Ask for exploration.</li>
+          <li><strong>Set up instructions first</strong>. Five minutes of preparation saves thirty minutes of correction.</li>
+          <li><strong>Break big tasks into pieces</strong>. Backend first, then frontend, then integration.</li>
+          <li><strong>Let the agent iterate on tests</strong>. The plan-act-observe loop works best with tight feedback.</li>
+          <li><strong>Save good prompts as files</strong>. One developer's insight becomes the whole team's workflow.</li>
+        </ul>
+        <aside class="speaker-notes">
+          These are the six patterns I want you to take away from today. First, always reference existing code. "Follow the pattern in products.ts" produces better output than a paragraph of instructions because agent mode can read the actual code and extract conventions. Second, use the right mode. Agent mode isn't always the answer. Sometimes Ask or Edit is more efficient. Third, set up instructions before you start building. Front-loading the preparation pays dividends throughout the session. Fourth, break big tasks into pieces. Build the backend, build the frontend, wire them together, run the tests. Each piece is a focused agent mode task. Fifth, let the agent iterate on tests. The tight feedback loop between running a test and reading the result is where agent mode excels. And sixth, save your good prompts. When you find a prompt that consistently produces great results, commit it as a prompt file. That turns individual expertise into team institutional knowledge.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 31 - Where to Go Next
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Where to Go Next</h2>
+        <ul>
+          <li><strong>MCP Maximizer</strong> - Build your own MCP servers and extend agent mode's tool set</li>
+          <li><strong>Coding Agent: It's Alive!</strong> - Configure the GitHub Coding Agent for organization-level workflows</li>
+          <li><strong>Enterprise Grade Marmalade</strong> - Scale prompt repositories across your organization</li>
+          <li><strong>SDK: Have It Your Way</strong> - Build custom AI integrations with the Copilot SDK</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here's where to go from here. "MCP Maximizer" teaches you to build your own MCP servers, which extends agent mode's capabilities. "Coding Agent: It's Alive" covers the GitHub Coding Agent, the cloud-based agent that works on GitHub Issues and PRs autonomously. "Enterprise Grade Marmalade" covers how to scale prompt repositories across an organization. And "SDK: Have It Your Way" teaches you to build custom AI integrations using the Copilot SDK. Each of these builds on what you learned today. The agent mode skills and prompt engineering patterns from this course apply in all of them.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 32 - Closing
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          That's a wrap on "Agent Potato: License to Chat." Thank you for your time today. Remember: agent mode is a tool, and like any tool, it gets more effective the more you practice with it. Go build something. Questions? Let's hear them.
+        </aside>
       </div>
     </section>
 
