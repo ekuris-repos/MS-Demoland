@@ -186,18 +186,18 @@
       "steps": [
         {
           "title": "Use Your Code Reviewer",
-          "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>@</kbd> to see the agent picker. Your <strong>code-reviewer</strong> agent should appear in the list.<br><br>Select it and ask:<br><br><kbd>Review the prompt and instruction files I've created in this lab.</kbd><br><br>Watch how the agent applies its specialized persona \u2014 it should give structured feedback with severity levels.",
+          "instruction": "Open <strong>Copilot Chat</strong>. At the top of the chat panel, click the <strong>chat mode selector dropdown</strong> (where it shows the current mode like Ask, Edit, or Agent). Your <strong>code-reviewer</strong> agent should appear in the list.<br><br>Select it and ask:<br><br><kbd>Review the prompt and instruction files I've created in this lab.</kbd><br><br>Watch how the agent applies its specialized persona \u2014 it should give structured feedback with severity levels.",
           "focus": "chat",
           "action": "workbench.action.chat.open"
         },
         {
           "title": "Switch to the Docs Writer",
-          "instruction": "Now type <kbd>@</kbd> again and select your <strong>docs-writer</strong> agent. Ask:<br><br><kbd>Write a README section explaining the customization files in our .github folder.</kbd><br><br>Notice the difference in tone and output structure compared to the code reviewer. Same codebase, different perspective \u2014 that's the power of specialized agents.",
+          "instruction": "Open the <strong>chat mode selector dropdown</strong> again and select your <strong>docs-writer</strong> agent. Ask:<br><br><kbd>Write a README section explaining the customization files in our .github folder.</kbd><br><br>Notice the difference in tone and output structure compared to the code reviewer. Same codebase, different perspective \u2014 that's the power of specialized agents.",
           "focus": "chat"
         },
         {
           "title": "Chain Primitives Together",
-          "instruction": "Now combine what you've learned. Run your <strong>generate-test</strong> prompt file (type <kbd>/</kbd> in chat), then switch to your <strong>@code-reviewer</strong> agent and ask it to review the generated tests.<br><br>This is the full composition: <strong>Prompts trigger. Instructions guide. Skills inform. Agents execute.</strong>",
+          "instruction": "Now combine what you've learned. Run your <strong>generate-test</strong> prompt file (type <kbd>/</kbd> in chat), then switch to your <strong>code-reviewer</strong> agent via the mode selector dropdown and ask it to review the generated tests.<br><br>This is the full composition: <strong>Prompts trigger. Instructions guide. Skills inform. Agents execute.</strong>",
           "focus": "chat",
           "tip": "You've just experienced the entire customization model. Every piece is a Markdown file committed to your repo."
         }
@@ -233,7 +233,7 @@
         },
         {
           "title": "Create a Repository Memory",
-          "instruction": "Repository memory is scoped to the <strong>current workspace</strong>. Tell Copilot:<br><br><kbd>Remember that this project uses Express for the API, Prisma for the database, and deploys with azd up.</kbd><br><br>This fact is stored with the workspace. When other developers open this project, Copilot knows the tech stack without being told.",
+          "instruction": "Repository memory is scoped to the <strong>current workspace</strong>. Tell Copilot:<br><br><kbd>Remember that this project uses Express for the API, Prisma for the database, and deploys with azd up.</kbd><br><br>This fact is stored with the workspace. This fact persists across sessions for you in this workspace. To share context with the team, use committed instruction files instead.",
           "focus": "chat"
         },
         {

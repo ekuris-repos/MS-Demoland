@@ -98,13 +98,13 @@
       <div class="slide-inner">
         <h2>Prerequisites</h2>
         <ul>
-          <li><strong>GitHub CLI</strong> version 2.0 or later installed (<code>gh --version</code> to verify)</li>
+          <li>A recent version of the <strong>GitHub CLI</strong> (2.40 or later) installed (<code>gh --version</code> to verify)</li>
           <li><strong>Authenticated session</strong>: run <code>gh auth login</code> if you have not already</li>
           <li>A <strong>GitHub Copilot license</strong> (Free, Pro, Business, or Enterprise)</li>
           <li>An internet connection (commands are processed in the cloud)</li>
         </ul>
         <aside class="speaker-notes">
-          Before we install anything, let's make sure the prerequisites are in place. You need the GitHub CLI installed, version 2.0 or later. Run <code>gh --version</code> to check. You also need to be authenticated; if you have not done that yet, <code>gh auth login</code> will walk you through it. And of course you need a Copilot license. Any tier works: Free, Pro, Business, or Enterprise. One thing to note is that Copilot CLI requires an internet connection. The AI processing happens on GitHub's servers, not locally. We will talk more about what goes to the cloud later in the security section.
+          Before we install anything, let's make sure the prerequisites are in place. You need a recent version of the GitHub CLI, 2.40 or later. Run <code>gh --version</code> to check. You also need to be authenticated; if you have not done that yet, <code>gh auth login</code> will walk you through it. And of course you need a Copilot license. Any tier works: Free, Pro, Business, or Enterprise. One thing to note is that Copilot CLI requires an internet connection. The AI processing happens on GitHub's servers, not locally. We will talk more about what goes to the cloud later in the security section.
         </aside>
       </div>
     </section>
@@ -151,8 +151,8 @@ gh extension upgrade gh-copilot</code></pre>
         <pre><code># Ask Copilot to suggest a command
 gh copilot suggest "find all .log files larger than 100MB"
 
-# Specify the shell type explicitly
-gh copilot suggest -t powershell "list all running services"
+# Specify a target type explicitly
+gh copilot suggest -t shell "list all running services"
 
 # Target type: gh (GitHub CLI commands)
 gh copilot suggest -t gh "list my open pull requests"</code></pre>
@@ -207,7 +207,7 @@ gh copilot explain "docker run --rm -v $(pwd):/app -w /app node:18 npm test"</co
               <li>🔄 <strong>Revise</strong> your request and get a new suggestion</li>
             </ul>
           </li>
-          <li><strong>Step 4:</strong> Optionally rate the suggestion to improve future results</li>
+          <li><strong>Iterate:</strong> The <strong>Revise</strong> option lets you refine your description while preserving context from previous rounds</li>
         </ul>
         <aside class="speaker-notes">
           Let's walk through the full suggest workflow. You start by typing your goal in plain English. Copilot processes that and returns a command. At this point, you have three choices. You can execute the command right there in your terminal. You can copy it to your clipboard if you need to paste it into a script or a different terminal. Or you can revise your description, which sends a follow-up request with additional context. The revise option is very powerful for iterative refinement. For example, you might start with "compress this folder" and then revise to "compress this folder excluding node_modules and output as tar.gz." Each revision builds on the previous context, so Copilot understands what you have already tried.
@@ -244,20 +244,21 @@ gh copilot explain "docker run --rm -v $(pwd):/app -w /app node:18 npm test"</co
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Shell Type Awareness</h2>
-        <pre><code># PowerShell-specific suggestion
-gh copilot suggest -t powershell "get disk usage for the C drive"
-# Result: Get-Volume -DriveLetter C | Select-Object DriveLetter, SizeRemaining, Size
-
-# Bash-specific suggestion
-gh copilot suggest -t shell "get disk usage for the root partition"
-# Result: df -h /
+        <h2>Target Types and Shell Awareness</h2>
+        <pre><code># Shell command (Copilot auto-detects your active shell)
+gh copilot suggest -t shell "get disk usage for the C drive"
+# PowerShell result: Get-Volume -DriveLetter C | Select-Object DriveLetter, SizeRemaining, Size
+# Bash result:       df -h /
 
 # Git-specific suggestion
 gh copilot suggest -t git "undo my last commit but keep the changes"
-# Result: git reset --soft HEAD~1</code></pre>
+# Result: git reset --soft HEAD~1
+
+# GitHub CLI-specific suggestion
+gh copilot suggest -t gh "list my open pull requests"
+# Result: gh pr list --author @me --state open</code></pre>
         <aside class="speaker-notes">
-          One of the most practical features of Copilot CLI is shell-type awareness. The same natural-language request produces different commands depending on which shell you target. Ask for disk usage in PowerShell, and you get <code>Get-Volume</code> with the right parameters. Ask the same thing in bash, and you get <code>df -h</code>. This is not just syntax differences; it is genuinely different tools and approaches optimized for each environment. Copilot CLI detects your current shell automatically, but you can override it with the <code>-t</code> flag. This is especially useful when you are writing documentation or scripts for a shell other than the one you are currently using.
+          The <code>-t</code> flag selects the command category: shell, git, or gh. It does not select a shell flavor. When you use <code>-t shell</code>, Copilot auto-detects your active shell and generates the right syntax. If you are in PowerShell, you get <code>Get-Volume</code>; if you are in bash, you get <code>df -h</code>. This is not just syntax differences; it is genuinely different tools and approaches optimized for each environment. The <code>-t git</code> flag restricts output to Git commands, and <code>-t gh</code> restricts it to GitHub CLI commands. These categories help Copilot narrow its suggestions to the right domain.
         </aside>
       </div>
     </section>
@@ -480,12 +481,12 @@ gh copilot suggest -t gh "add a label to all open issues matching a search query
         <h2>Model Selection</h2>
         <ul>
           <li>Copilot CLI uses the model configured in your GitHub Copilot settings</li>
-          <li>Models can be selected at the <strong>organization level</strong> or by <strong>individual preference</strong></li>
+          <li>Enterprise administrators can configure which models are available at the <strong>organization level</strong></li>
           <li>Different models offer trade-offs between speed, accuracy, and capability</li>
-          <li>Enterprise administrators can restrict which models are available to their organization</li>
+          <li>The CLI uses the model assigned by GitHub's backend and organizational policy; there is no user-facing model picker in the CLI itself</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot CLI uses the same model infrastructure as the rest of the Copilot platform. The model you interact with depends on your Copilot settings. Organizations on Business or Enterprise plans can configure which models are available, and individual users can select their preferred model within those constraints. Different models offer different strengths. Some are faster for simple command lookups; others are better at generating complex multi-step pipelines. If your organization restricts model choices for compliance or cost reasons, those restrictions apply to CLI just as they do to Chat and inline completions. The key takeaway is that CLI is not a separate system; it is part of the unified Copilot platform.
+          Copilot CLI uses the same model infrastructure as the rest of the Copilot platform. The model you interact with depends on your Copilot settings. Organizations on Business or Enterprise plans can configure which models are available. The CLI uses the model assigned by GitHub's backend and organizational policy; there is no user-facing model picker in the CLI. If your organization restricts model choices for compliance or cost reasons, those restrictions apply to CLI just as they do to Chat and inline completions. The key takeaway is that CLI is not a separate system; it is part of the unified Copilot platform.
         </aside>
       </div>
     </section>
@@ -549,11 +550,11 @@ gh copilot suggest -t gh "add a label to all open issues matching a search query
         <ul>
           <li>Your <strong>shell session</strong> and command history remain on your machine</li>
           <li>The <strong>suggested command</strong> is displayed locally; you choose whether to run it</li>
-          <li>No telemetry on <strong>which commands you actually execute</strong> after receiving a suggestion</li>
+          <li>GitHub's telemetry focuses on <strong>suggestion quality metrics</strong>; refer to GitHub's privacy documentation for complete details</li>
           <li>Extension data is stored locally in the <code>gh</code> configuration directory</li>
         </ul>
         <aside class="speaker-notes">
-          Equally important is understanding what stays on your machine. Your shell session, your command history, and any command output are all local. When Copilot returns a suggestion, it is displayed in your terminal. Whether you execute it, modify it, or ignore it is entirely your business. GitHub does not track which suggested commands you actually run. The extension itself stores configuration data locally, in the same directory as the rest of your GitHub CLI configuration. There are no background processes phoning home. This gives you a clear mental model: your description goes up, a suggestion comes back, and everything else stays local.
+          Equally important is understanding what stays on your machine. Your shell session, your command history, and any command output are all local. When Copilot returns a suggestion, it is displayed in your terminal. Whether you execute it, modify it, or ignore it is up to you. GitHub's telemetry focuses on suggestion quality metrics; refer to GitHub's privacy documentation for the full picture. The extension itself stores configuration data locally, in the same directory as the rest of your GitHub CLI configuration. There are no background processes phoning home. This gives you a clear mental model: your description goes up, a suggestion comes back, and everything else stays local.
         </aside>
       </div>
     </section>
@@ -633,10 +634,10 @@ ghsuggest "close all stale issues older than 90 days"</code></pre>
           <li><strong>Include constraints:</strong> mention the OS, shell, or tool version if it matters</li>
           <li><strong>Use the right target type:</strong> <code>-t git</code>, <code>-t gh</code>, or <code>-t shell</code> to narrow the scope</li>
           <li><strong>Iterate with Revise:</strong> refine rather than starting over when the first result is close</li>
-          <li><strong>Combine explain with suggest:</strong> if a suggestion looks unfamiliar, pipe it to explain</li>
+          <li><strong>Combine explain with suggest:</strong> if a suggestion looks unfamiliar, copy it and pass it to <code>gh copilot explain</code></li>
         </ul>
         <aside class="speaker-notes">
-          The quality of suggestions scales directly with the quality of your descriptions. Vague requests produce vague results. Instead of "list files," try "list all TypeScript files modified in the last 7 days, sorted by size descending." Include constraints when they matter: "on Ubuntu 22.04" or "using PowerShell 7." Always use the right target type flag to narrow the scope. When a suggestion is close but not perfect, use the Revise option instead of starting a new session. And here is a great combined workflow: if a suggestion contains flags you do not recognize, copy it and run <code>gh copilot explain</code> on it before executing. This way you learn while you work, and you never run a command you do not fully understand.
+          The quality of suggestions scales directly with the quality of your descriptions. Vague requests produce vague results. Instead of "list files," try "list all TypeScript files modified in the last 7 days, sorted by size descending." Include constraints when they matter: "on Ubuntu 22.04" or "using PowerShell 7." Always use the right target type flag to narrow the scope. When a suggestion is close but not perfect, use the Revise option instead of starting a new session. And here is a great combined workflow: if a suggestion contains flags you do not recognize, copy it and pass it to <code>gh copilot explain</code> before executing. The suggest command is interactive and does not output raw text for piping, so you will need to copy the command manually. This way you learn while you work, and you never run a command you do not fully understand.
         </aside>
       </div>
     </section>

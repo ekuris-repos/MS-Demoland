@@ -180,12 +180,12 @@
           <li><strong>Autonomous execution</strong>: agent mode plans and executes multi-step tasks without waiting for turn-by-turn input</li>
           <li><strong>Tool access</strong>: it can read and write files, run terminal commands, search the codebase, and invoke MCP tools</li>
           <li><strong>Error recovery</strong>: when a command fails or a test breaks, agent mode reads the error output and adjusts its approach</li>
-          <li><strong>Human-in-the-loop</strong>: every file edit and terminal command requires user approval before execution</li>
+          <li><strong>Human-in-the-loop</strong>: by default, file edits and terminal commands require user approval before execution. Auto-approve settings can be configured for trusted workflows</li>
           <li><strong>Context awareness</strong>: agent mode uses workspace indexing, open files, and custom instructions to inform its decisions</li>
           <li><strong>Best for</strong>: implementing features end to end, debugging complex issues, scaffolding projects, and running multi-file refactors</li>
         </ul>
         <aside class="speaker-notes">
-          Agent mode transforms Copilot from a suggestion engine into an autonomous collaborator. When you enter a prompt in agent mode, Copilot formulates a plan, identifies which files to read, determines what terminal commands to run, and executes the steps in sequence. If it encounters an error, such as a failing test or a compilation error, it reads the output and adjusts. The critical safeguard is the human-in-the-loop approval model: every file change and every terminal command must be approved by the developer before execution. This gives you full visibility and control while still benefiting from autonomous planning and iteration. Agent mode draws on workspace indexing, open editor tabs, and any custom instructions files to make informed decisions about how to complete the task.
+          Agent mode transforms Copilot from a suggestion engine into an autonomous collaborator. When you enter a prompt in agent mode, Copilot formulates a plan, identifies which files to read, determines what terminal commands to run, and executes the steps in sequence. If it encounters an error, such as a failing test or a compilation error, it reads the output and adjusts. The critical safeguard is the human-in-the-loop approval model: by default, file edits and terminal commands require user approval before execution, though auto-approve settings can be configured for trusted workflows. This gives you full visibility and control while still benefiting from autonomous planning and iteration. Agent mode draws on workspace indexing, open editor tabs, and any custom instructions files to make informed decisions about how to complete the task.
         </aside>
       </div>
     </section>
@@ -253,12 +253,12 @@
           <li>Install the <strong>GitHub Copilot app</strong> in your Slack workspace to bring AI assistance into team communication</li>
           <li>Ask questions about repositories, pull requests, issues, and organizational knowledge</li>
           <li>Non-developers can query codebases without leaving Slack: project managers, designers, and leadership</li>
-          <li>Summarize long threads, translate technical discussions, and surface relevant documentation</li>
+          <li>Ask questions about repositories, get PR summaries, and look up issue status</li>
           <li>Authentication ties to GitHub identity, so access is governed by the same permissions as GitHub.com</li>
           <li>Corporate use cases: incident triage, status checks, onboarding Q&amp;A, cross-team alignment</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot in Slack brings AI-assisted development into the communication layer of your organization. Once the GitHub Copilot app is installed in your Slack workspace, any team member can ask questions about repositories, pull requests, and issues directly in Slack. This is particularly powerful for non-developers. A project manager can ask about the status of a feature branch. A designer can query the repository for the current implementation of a UI component. Leadership can get plain-language summaries of recent changes. Authentication flows through GitHub identity, so all access respects existing repository and organization permissions. Common enterprise use cases include incident triage, deployment status checks, onboarding Q&amp;A, and cross-team alignment on technical decisions.
+          Copilot in Slack brings AI-assisted development into the communication layer of your organization. Once the GitHub Copilot app is installed in your Slack workspace, any team member can ask questions about repositories, pull requests, and issues directly in Slack. This is particularly powerful for non-developers. A project manager can ask about the status of a pull request. A designer can look up whether an issue has been resolved. Leadership can get PR summaries and check on repository activity. Authentication flows through GitHub identity, so all access respects existing repository and organization permissions. Common enterprise use cases include incident triage, deployment status checks, onboarding Q&amp;A, and cross-team alignment on technical decisions.
         </aside>
       </div>
     </section>
@@ -393,13 +393,13 @@
         <ul>
           <li>Combine <strong>GitHub Actions</strong> with @copilot to automate issue triage at scale</li>
           <li>When a new issue is opened, a workflow can ask Copilot to classify it, suggest labels, and assign priority</li>
-          <li>Copilot can identify <strong>duplicate issues</strong> by comparing against recently filed issues</li>
+          <li>You can build a workflow that asks Copilot to compare new issue text against recent issues to <strong>flag potential duplicates</strong>. This is a custom pattern, not a built-in feature</li>
           <li>Route issues to the correct team or individual based on Copilot's analysis of the affected code area</li>
           <li>Reduces manual triage burden, especially for high-volume open-source or internal projects</li>
           <li>Human reviewers still make the final call; Copilot provides recommendations, not decisions</li>
         </ul>
         <aside class="speaker-notes">
-          Automated triage is one of the highest-impact enterprise use cases for Copilot on GitHub.com. By combining GitHub Actions with the @copilot mention, you can build workflows that automatically analyze incoming issues. When a new issue is opened, a GitHub Action triggers and asks Copilot to classify the issue type, suggest labels, estimate priority, and recommend an assignee based on the code area involved. Copilot can also compare new issues against recently filed ones to flag potential duplicates. This is especially valuable for high-volume repositories where manual triage becomes a bottleneck. The key design principle is that Copilot provides recommendations, not decisions. A human reviewer still confirms the labels, priority, and assignment before they are finalized.
+          Automated triage is one of the highest-impact enterprise use cases for Copilot on GitHub.com. By combining GitHub Actions with the @copilot mention, you can build workflows that automatically analyze incoming issues. When a new issue is opened, a GitHub Action triggers and asks Copilot to classify the issue type, suggest labels, estimate priority, and recommend an assignee based on the code area involved. You can also build a custom workflow that asks Copilot to compare new issues against recently filed ones to flag potential duplicates. This is especially valuable for high-volume repositories where manual triage becomes a bottleneck. The key design principle is that Copilot provides recommendations, not decisions. A human reviewer still confirms the labels, priority, and assignment before they are finalized.
         </aside>
       </div>
     </section>
@@ -524,11 +524,11 @@ app.post("/agent", async (req, res) =&gt; {
 });</code></pre>
         <ul>
           <li>Extensions receive the conversation history and return structured responses</li>
-          <li>Use server-sent events (SSE) for streaming responses to maintain a responsive user experience</li>
+          <li>The code above is simplified pseudocode. Production extensions must use server-sent events (SSE) for streaming responses</li>
           <li>Implement authentication with your organization's identity provider for secure access to internal systems</li>
         </ul>
         <aside class="speaker-notes">
-          At its core, a Copilot Extension is a web service that implements a simple request-response protocol. The endpoint receives the conversation history as an array of messages and returns a response. This example shows a simplified handler that extracts the user's latest message, queries an internal API for relevant context, and builds a response. In production, you would use server-sent events to stream the response back to the user for a more responsive experience. You would also implement proper authentication to ensure the extension can securely access your internal systems. The architecture is deliberately simple, so teams can build extensions using whatever language, framework, and hosting platform they prefer. The barrier to entry is low, which encourages teams to build domain-specific extensions that address their unique needs.
+          At its core, a Copilot Extension is a web service that implements a simple request-response protocol. The endpoint receives the conversation history as an array of messages and returns a response. This example shows a simplified handler that extracts the user's latest message, queries an internal API for relevant context, and builds a response. The JSON response pattern shown above is a simplification. In production, extensions must use server-sent events to stream the response back to the user. You would also implement proper authentication to ensure the extension can securely access your internal systems. The architecture is deliberately simple, so teams can build extensions using whatever language, framework, and hosting platform they prefer. The barrier to entry is low, which encourages teams to build domain-specific extensions that address their unique needs.
         </aside>
       </div>
     </section>
@@ -593,15 +593,15 @@ app.post("/agent", async (req, res) =&gt; {
       <div class="slide-inner">
         <h2>Audit Logs and Observability</h2>
         <ul>
-          <li><strong>Audit log events</strong>: every Copilot interaction in the organization is logged with actor, action, and timestamp</li>
+          <li><strong>Audit log events</strong>: Copilot administrative actions and governance events are logged in the organization audit log (seat assignments, policy changes, content exclusion updates, coding agent sessions)</li>
           <li>Track which users invoke the Coding Agent, what issues it works on, and what PRs it creates</li>
           <li>Monitor <strong>Copilot usage metrics</strong>: acceptance rates, active users, languages, and features used</li>
-          <li>Use the <strong>Copilot Metrics API</strong> to build custom dashboards and reports</li>
+          <li>Use the <strong>REST API for Copilot usage metrics</strong> to build custom dashboards and reports</li>
           <li>Stream audit logs to your <strong>SIEM</strong> (Splunk, Sentinel, Datadog) for centralized monitoring</li>
           <li>Correlate agent activity with CI/CD outcomes to measure impact on velocity and quality</li>
         </ul>
         <aside class="speaker-notes">
-          Observability is the other half of governance. GitHub provides comprehensive audit logging for all Copilot activity within your organization. Every interaction is recorded with the actor, the action taken, the target resource, and a timestamp. For the Coding Agent specifically, you can track which issues were assigned, which branches were created, which PRs were opened, and whether those PRs were ultimately merged. The Copilot Metrics API gives you programmatic access to usage data, including acceptance rates, active users, language distribution, and feature adoption. You can stream audit logs to your SIEM of choice, whether that is Splunk, Microsoft Sentinel, Datadog, or another platform. By correlating agent activity with CI/CD outcomes, you can measure the concrete impact of AI-assisted development on your organization's velocity and code quality.
+          Observability is the other half of governance. GitHub provides comprehensive audit logging for all Copilot activity within your organization. Administrative actions and governance events (such as seat assignments, policy changes, and content exclusion updates) are recorded with the actor, the action taken, the target resource, and a timestamp. For the Coding Agent specifically, you can track which issues were assigned, which branches were created, which PRs were opened, and whether those PRs were ultimately merged. The REST API for Copilot usage metrics gives you programmatic access to usage data, including acceptance rates, active users, language distribution, and feature adoption. You can stream audit logs to your SIEM of choice, whether that is Splunk, Microsoft Sentinel, Datadog, or another platform. By correlating agent activity with CI/CD outcomes, you can measure the concrete impact of AI-assisted development on your organization's velocity and code quality.
         </aside>
       </div>
     </section>
@@ -649,12 +649,12 @@ app.post("/agent", async (req, res) =&gt; {
           <li><strong>Challenge</strong>: an organization with 200+ repositories needs to update a shared internal library</li>
           <li><strong>Fan-out</strong>: a script creates issues in every affected repository with standardized update instructions</li>
           <li><strong>Coding Agent</strong>: each issue is assigned to Copilot; the Coding Agent updates the dependency and adjusts usage patterns in each repo</li>
-          <li><strong>Parallel execution</strong>: agents work across repositories simultaneously, not sequentially</li>
+          <li><strong>Parallel execution</strong>: agents work across repositories simultaneously, not sequentially. Subject to per-organization concurrency limits</li>
           <li><strong>Dashboard</strong>: a custom GitHub Action aggregates PR status across all repositories into a tracking issue</li>
           <li><strong>Result</strong>: what previously took weeks of coordinated developer effort completes in a single day</li>
         </ul>
         <aside class="speaker-notes">
-          Large organizations frequently need to roll out updates across hundreds of repositories when a shared library, framework, or API changes. Traditionally, this requires coordinating multiple developers across multiple teams over several weeks. With multi-agent coordination, the process is dramatically faster. A central script creates a standardized issue in every affected repository, each containing clear instructions for the update. Each issue is assigned to the Coding Agent, which works in its own secure environment to update the dependency, adjust any usage patterns that changed, and open a pull request. Because each agent operates independently, they work in parallel across all repositories. A custom GitHub Action aggregates the status of all PRs into a single tracking issue, giving leadership real-time visibility into the rollout progress. Human reviewers still approve every PR, but the implementation work is handled by agents.
+          Large organizations frequently need to roll out updates across hundreds of repositories when a shared library, framework, or API changes. Traditionally, this requires coordinating multiple developers across multiple teams over several weeks. With multi-agent coordination, the process is dramatically faster. A central script creates a standardized issue in every affected repository, each containing clear instructions for the update. Each issue is assigned to the Coding Agent, which works in its own secure environment to update the dependency, adjust any usage patterns that changed, and open a pull request. Because each agent operates independently, they work in parallel across all repositories (subject to per-organization concurrency limits). A custom GitHub Action aggregates the status of all PRs into a single tracking issue, giving leadership real-time visibility into the rollout progress. Human reviewers still approve every PR, but the implementation work is handled by agents.
         </aside>
       </div>
     </section>

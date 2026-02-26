@@ -131,13 +131,13 @@
         <ul>
           <li>REST API available at the <strong>organization</strong> and <strong>enterprise</strong> level</li>
           <li>Returns daily aggregated metrics: suggestions, acceptances, active users, and language breakdowns</li>
-          <li>Data available for the last 28 days with daily granularity</li>
+          <li>Usage data is available with daily granularity through the Copilot usage metrics endpoints</li>
           <li>Supports filtering by team, allowing you to compare adoption across business units</li>
           <li>Enterprise endpoints aggregate data across all organizations in your GitHub Enterprise account</li>
           <li>Authentication uses a personal access token or GitHub App with the <code>manage_billing:copilot</code> scope</li>
         </ul>
         <aside class="speaker-notes">
-          The Copilot Metrics API is your primary programmatic interface to usage data. It operates at two levels: organization and enterprise. At the organization level, you get daily metrics for a single GitHub org, including total suggestions made, total acceptances, the number of active users, and breakdowns by programming language and IDE. At the enterprise level, the API aggregates data across every organization in your GitHub Enterprise account, giving you a single view for the entire company. The data covers a rolling 28-day window with daily granularity, and you can filter by team to compare adoption across different engineering groups. Authentication is straightforward; you need a token with the manage_billing:copilot scope. Many organizations build automated dashboards by calling this API on a schedule and pushing the results into their existing BI tools.
+          The Copilot Metrics API is your primary programmatic interface to usage data. It operates at two levels: organization and enterprise. At the organization level, you get daily metrics for a single GitHub org, including total suggestions made, total acceptances, the number of active users, and breakdowns by programming language and IDE. At the enterprise level, the API aggregates data across every organization in your GitHub Enterprise account, giving you a single view for the entire company. Usage data is available with daily granularity through the Copilot usage metrics endpoints, and you can filter by team to compare adoption across different engineering groups. Authentication is straightforward; you need a token with the manage_billing:copilot scope. Many organizations build automated dashboards by calling this API on a schedule and pushing the results into their existing BI tools.
         </aside>
       </div>
     </section>
@@ -195,7 +195,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          Two metrics consistently resonate with executive audiences. The first is adoption velocity: what percentage of your licensed developers are actually using the tool, and how quickly is that number growing? A successful pilot should see 60-80% utilization within the first 30 days. If you are below 40% after a month, something is blocking adoption and you need to investigate. The second metric is developer hours saved. This requires a simple calculation: take the number of accepted suggestions, multiply by an estimated time savings per suggestion (industry benchmarks range from 30 to 90 seconds depending on complexity), and convert to hours. Even using conservative estimates, the numbers are compelling. A team of 100 developers accepting 200 suggestions per day at 45 seconds each saves roughly 37 developer-hours per day. Over a year, that is more than 9,000 hours. Translate that into fully loaded developer cost and you have a dollar figure your finance team can work with.
+          Two metrics consistently resonate with executive audiences. The first is adoption velocity: what percentage of your licensed developers are actually using the tool, and how quickly is that number growing? A successful pilot should see 60-80% utilization within the first 30 days. If you are below 40% after a month, something is blocking adoption and you need to investigate. The second metric is developer hours saved. This requires a simple calculation: take the number of accepted suggestions, multiply by an estimated time savings per suggestion (industry benchmarks range from 30 to 90 seconds depending on complexity), and convert to hours. Even using conservative estimates, the numbers are compelling. A team of 100 developers accepting 30 suggestions per day at 45 seconds each saves roughly 37 developer-hours per day. Over a year, that is more than 9,000 hours. Translate that into fully loaded developer cost and you have a dollar figure your finance team can work with.
         </aside>
       </div>
     </section>
@@ -237,11 +237,11 @@
           <li><strong>Step 2:</strong> Pull accepted suggestions per day from the Copilot Metrics API</li>
           <li><strong>Step 3:</strong> Multiply by estimated time savings per accepted suggestion (use 55 seconds as a conservative baseline)</li>
           <li><strong>Step 4:</strong> Annualize and compare against total Copilot license cost</li>
-          <li><strong>Example:</strong> 500 developers &times; 150 accepted suggestions/day &times; 55 seconds = 1,145 hours/day saved</li>
-          <li>At $85/hour fully loaded: <strong>$97,000/day</strong> in developer time recovered, against ~$600/day in license cost</li>
+          <li><strong>Example:</strong> 500 developers &times; 30 accepted suggestions/day &times; 55 seconds = 229 hours/day saved</li>
+          <li>At $85/hour fully loaded: <strong>$19,500/day</strong> in developer time recovered, against ~$317/day in license cost</li>
         </ul>
         <aside class="speaker-notes">
-          Let's walk through a concrete example. Start with your fully loaded cost per developer hour. For most US-based tech companies, this ranges from $70 to $120 per hour when you include salary, benefits, office costs, and tooling. Next, pull the accepted suggestions count from the Metrics API. Multiply that by a conservative estimate of time saved per suggestion. Industry data suggests 55 seconds is a reasonable baseline for code completions, though complex multi-line suggestions save considerably more. Annualize the result and compare it against your total license spend. In our example with 500 developers, even using conservative numbers, the daily value of time recovered is roughly $97,000, while the daily cost of Copilot Business licenses for 500 seats is approximately $600. That is a return of more than 160x. Even if you discount the time savings by 75% to account for context switching and suggestions that required modification, the ROI remains overwhelming. This is the kind of analysis that gets CFO sign-off.
+          Let's walk through a concrete example. Start with your fully loaded cost per developer hour. For most US-based tech companies, this ranges from $70 to $120 per hour when you include salary, benefits, office costs, and tooling. Next, pull the accepted suggestions count from the Metrics API. Multiply that by a conservative estimate of time saved per suggestion. Industry data suggests 55 seconds is a reasonable baseline for code completions, though complex multi-line suggestions save considerably more. Annualize the result and compare it against your total license spend. In our example with 500 developers, even using conservative numbers, the daily value of time recovered is roughly $19,500, while the daily cost of Copilot Business licenses for 500 seats is approximately $317. That is a return of more than 60x. Even if you discount the time savings by 75% to account for context switching and suggestions that required modification, the ROI remains overwhelming. This is the kind of analysis that gets CFO sign-off.
         </aside>
       </div>
     </section>
@@ -296,11 +296,11 @@
           <li>Configured at the organization level in GitHub settings; applies to all members automatically</li>
           <li>Use patterns to exclude entire directories: <code>**/secrets/**</code>, <code>**/proprietary/**</code></li>
           <li>Copilot Business and Enterprise do <strong>not</strong> retain prompts or suggestions, and do <strong>not</strong> train on your code</li>
-          <li>For additional assurance, Copilot Enterprise offers IP indemnity from Microsoft</li>
+          <li>Copilot Business and Enterprise include IP indemnity from Microsoft</li>
           <li>Review your exclusion patterns quarterly to keep them current with your repository structure</li>
         </ul>
         <aside class="speaker-notes">
-          Content exclusions are one of the most important governance features for enterprise customers. They allow you to define file patterns and repository paths that Copilot will completely ignore. It will not read those files for context, and it will not generate suggestions based on their content. This is configured at the organization level, so it applies automatically to every developer without requiring individual setup. Common exclusion patterns include secrets directories, proprietary algorithm implementations, and third-party code with restrictive licenses. It is also important to understand the data handling guarantees. With Copilot Business and Enterprise, your code is not used to train the model, prompts and suggestions are not retained after processing, and telemetry is limited to aggregate usage metrics. For organizations with strict IP concerns, Copilot Enterprise includes IP indemnity coverage from Microsoft, providing an additional layer of legal protection.
+          Content exclusions are one of the most important governance features for enterprise customers. They allow you to define file patterns and repository paths that Copilot will completely ignore. It will not read those files for context, and it will not generate suggestions based on their content. This is configured at the organization level, so it applies automatically to every developer without requiring individual setup. Common exclusion patterns include secrets directories, proprietary algorithm implementations, and third-party code with restrictive licenses. It is also important to understand the data handling guarantees. With Copilot Business and Enterprise, your code is not used to train the model, prompts and suggestions are not retained after processing, and telemetry is limited to aggregate usage metrics. For organizations with strict IP concerns, Copilot Business and Enterprise include IP indemnity from Microsoft, providing an additional layer of legal protection.
         </aside>
       </div>
     </section>
@@ -451,7 +451,7 @@
             <ul>
               <li>Native integration with GitHub: PRs, issues, Actions, security</li>
               <li>Enterprise governance: content exclusions, audit logs, SSO, policy inheritance</li>
-              <li>IP indemnity from Microsoft (Enterprise tier)</li>
+              <li>IP indemnity from Microsoft (Business and Enterprise)</li>
               <li>Multi-model architecture with access to OpenAI, Anthropic, and Google models</li>
               <li>Copilot Extensions ecosystem for custom tool integrations</li>
             </ul>

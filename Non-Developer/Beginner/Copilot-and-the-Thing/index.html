@@ -216,13 +216,12 @@
       <div class="slide-inner">
         <h2>How Copilot Finds Context</h2>
         <ul>
-          <li><strong>Repository knowledge</strong> - Copilot indexes your code, README files, and documentation</li>
+          <li><strong>Repository knowledge</strong> - Copilot retrieves relevant content from your repositories, README files, and documentation</li>
           <li><strong>Issue and PR threads</strong> - it reads through comments and review conversations</li>
-          <li><strong>Organization scope</strong> - Copilot can search across multiple repos in your org</li>
-          <li><strong>Knowledge bases</strong> - admins can designate specific repos as curated knowledge sources</li>
+          <li><strong>Organization scope</strong> - Copilot can search across all repositories in your org that your permissions allow</li>
         </ul>
         <aside class="speaker-notes">
-          Under the hood, Copilot uses a technique called Retrieval Augmented Generation. It retrieves relevant content from your organization's GitHub data and then generates an answer grounded in that content. This is important because it means the answers you get are based on your actual repos and issues, not just general internet knowledge. Organization administrators can also create knowledge bases, which are curated sets of repositories that Copilot prioritizes when answering questions. For example, you might designate your internal runbooks repo, your architecture decision records, and your API documentation as knowledge bases. When anyone in the org asks Copilot a question, it checks those sources first.
+          Under the hood, Copilot uses a technique called Retrieval Augmented Generation. It retrieves relevant content from your organization's GitHub data and then generates an answer grounded in that content. This is important because it means the answers you get are based on your actual repos and issues, not just general internet knowledge. Copilot can search across all organization repositories that your permissions allow, so it draws on internal runbooks, architecture decision records, API documentation, and any other content your teams have stored in GitHub. There is no need to manually curate a list of priority repositories; Copilot finds the most relevant content based on the question you ask.
         </aside>
       </div>
     </section>
@@ -439,14 +438,14 @@
       <div class="slide-inner">
         <h2>Integrations: Meeting Teams Where They Are</h2>
         <ul>
-          <li><strong>Jira &amp; Azure DevOps</strong> - sync issues and work items bidirectionally with GitHub</li>
+          <li><strong>Jira &amp; Azure DevOps</strong> - link and cross-reference work items across GitHub and Jira/Azure DevOps. Full bidirectional issue sync requires third-party tools</li>
           <li><strong>Slack &amp; Teams</strong> - receive GitHub notifications, create issues, and trigger workflows from chat</li>
           <li><strong>MCP (Model Context Protocol)</strong> - let Copilot query external data sources directly</li>
           <li><strong>Copilot Extensions</strong> - add domain-specific capabilities to Copilot Chat</li>
           <li>Start with GitHub as the hub; connect external tools as spokes</li>
         </ul>
         <aside class="speaker-notes">
-          Consolidation does not mean ripping out every tool on day one. GitHub has robust integration options for the most common enterprise tools. Jira and Azure DevOps can sync issues and work items with GitHub, so teams using those platforms can continue while you gradually shift work into GitHub Projects. Slack and Microsoft Teams integrations let you receive GitHub notifications, create issues from chat messages, and trigger Actions workflows without leaving your collaboration tool. For more advanced scenarios, MCP (the Model Context Protocol) allows Copilot to query external data sources. If you have an internal database, a custom API, or a third-party service, an MCP server can expose that data to Copilot so it becomes part of the unified experience. Copilot Extensions work similarly, adding specialized capabilities built by third parties or your own team.
+          Consolidation does not mean ripping out every tool on day one. GitHub has robust integration options for the most common enterprise tools. Jira and Azure DevOps integrations let you link and cross-reference work items with GitHub. Full bidirectional issue sync typically requires third-party tools, but the native integrations provide enough connectivity for teams to continue using those platforms while you gradually shift work into GitHub Projects. Slack and Microsoft Teams integrations let you receive GitHub notifications, create issues from chat messages, and trigger Actions workflows without leaving your collaboration tool. For more advanced scenarios, MCP (the Model Context Protocol) allows Copilot to query external data sources. If you have an internal database, a custom API, or a third-party service, an MCP server can expose that data to Copilot so it becomes part of the unified experience. Copilot Extensions work similarly, adding specialized capabilities built by third parties or your own team.
         </aside>
       </div>
     </section>
@@ -495,7 +494,7 @@
             <ul>
               <li>Start with one team, not the whole org</li>
               <li>Migrate issues gradually; use integrations as a bridge</li>
-              <li>Write good README files; they are what Copilot reads first</li>
+              <li>Write good README files; they are a high-value source Copilot frequently draws on</li>
               <li>Label and organize issues consistently</li>
             </ul>
           </div>
@@ -510,7 +509,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          A few practical tips from organizations that have done this successfully. First, start with one team. A pilot project gives you real feedback without disrupting the entire organization. Second, migrate issues gradually. You can use bidirectional sync with Jira or Azure DevOps as a bridge while teams get comfortable with GitHub Issues. Third, invest in README files. Copilot reads README files first when it tries to understand a project. A well-written README dramatically improves the quality of Copilot's answers. Finally, be consistent with labels and organization. If every team uses different labels for the same concepts, Copilot will struggle to give you cross-team insights. On the "avoid" side, do not try to migrate everything at once. Do not force teams to abandon tools before the replacements are ready. And remember that Copilot is only as good as the content it can access. Garbage in, garbage out. Clean, well-organized repos produce the best results.
+          A few practical tips from organizations that have done this successfully. First, start with one team. A pilot project gives you real feedback without disrupting the entire organization. Second, migrate issues gradually. You can use bidirectional sync with Jira or Azure DevOps as a bridge while teams get comfortable with GitHub Issues. Third, invest in README files. READMEs are a high-value source that Copilot frequently draws on, but Copilot considers all available content based on relevance to the question. A well-written README dramatically improves the quality of Copilot's answers. Finally, be consistent with labels and organization. If every team uses different labels for the same concepts, Copilot will struggle to give you cross-team insights. On the "avoid" side, do not try to migrate everything at once. Do not force teams to abandon tools before the replacements are ready. And remember that Copilot is only as good as the content it can access. Garbage in, garbage out. Clean, well-organized repos produce the best results.
         </aside>
       </div>
     </section>

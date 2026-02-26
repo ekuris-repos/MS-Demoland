@@ -116,11 +116,11 @@
           <li><strong>Tool orchestration:</strong> Built-in support for function calling, tool execution, and result injection</li>
           <li><strong>Streaming:</strong> First-class support for streaming responses with proper backpressure handling</li>
           <li><strong>Authentication:</strong> Integrates with GitHub's auth system; no separate API keys to manage</li>
-          <li><strong>Model abstraction:</strong> Switch between GitHub Models and Azure OpenAI without changing application code</li>
-          <li><strong>Production hardened:</strong> The same runtime that powers GitHub Copilot in production</li>
+          <li><strong>Model abstraction:</strong> Switch between GitHub Models and Azure OpenAI with minimal configuration changes</li>
+          <li><strong>Production hardened:</strong> A client SDK for building applications powered by the Copilot platform</li>
         </ul>
         <aside class="speaker-notes">
-          You might wonder why you need an SDK at all when you could just call model APIs directly. The answer is that the SDK does a lot of heavy lifting for you. It manages sessions and conversation state, orchestrates tool calls automatically, handles streaming with proper backpressure, and integrates with GitHub's authentication system so you do not need separate API keys. Perhaps most importantly, it gives you model abstraction: you can switch between GitHub Models and Azure OpenAI without rewriting your application. This is the same runtime that powers Copilot in production, so you get battle-tested reliability out of the box.
+          You might wonder why you need an SDK at all when you could just call model APIs directly. The answer is that the SDK does a lot of heavy lifting for you. It manages sessions and conversation state, orchestrates tool calls automatically, handles streaming with proper backpressure, and integrates with GitHub's authentication system so you do not need separate API keys. It also gives you model abstraction: you can switch between GitHub Models and Azure OpenAI with minimal configuration changes. The SDK provides a client library for building applications powered by the Copilot platform, so you get a well-supported foundation out of the box.
         </aside>
       </div>
     </section>
@@ -197,18 +197,18 @@
       <div class="slide-inner">
         <h2>Scaffolding with <code>azd</code></h2>
         <p>The fastest way to start is with the <code>copilot-sdk-service</code> Azure Developer CLI template:</p>
-        <pre><code>azd init --template copilot-sdk-service
+        <pre><code>azd init --template azure-samples/copilot-sdk-service
 cd my-copilot-app
 npm install</code></pre>
         <p>This creates a ready-to-deploy project with:</p>
         <ul>
           <li>A working Express server with Copilot SDK integration</li>
-          <li>Azure Bicep files for App Service or Container Apps deployment</li>
+          <li>Azure Bicep files for Container Apps deployment</li>
           <li>An <code>azure.yaml</code> manifest for <code>azd up</code> deployment</li>
           <li>Example tool definitions and handlers</li>
         </ul>
         <aside class="speaker-notes">
-          The quickest way to get started is with the azd template. Run "azd init --template copilot-sdk-service" and you get a project that is ready to deploy from day one. The template gives you an Express server pre-wired with the Copilot SDK, Bicep infrastructure files for Azure deployment, an azure.yaml manifest so you can deploy with a single "azd up" command, and example tool definitions you can customize. You will not need to configure authentication, set up build pipelines, or wire up infrastructure from scratch. This is the recommended starting point for any production project.
+          The quickest way to get started is with the azd template. Run "azd init --template azure-samples/copilot-sdk-service" and you get a project that is ready to deploy from day one. The template gives you an Express server pre-wired with the Copilot SDK, Bicep infrastructure files for Container Apps deployment, an azure.yaml manifest so you can deploy with a single "azd up" command, and example tool definitions you can customize. You will not need to configure authentication, set up build pipelines, or wire up infrastructure from scratch. This is the recommended starting point for any production project.
         </aside>
       </div>
     </section>
@@ -219,23 +219,18 @@ npm install</code></pre>
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Project Structure</h2>
+        <p>The template provides a complete project structure with API and web UI components:</p>
         <pre><code>my-copilot-app/
 ├── src/
-│   ├── index.ts          # Express server entry point
-│   ├── copilot.ts        # CopilotClient setup
-│   ├── tools/
-│   │   ├── definitions.ts  # Tool JSON schemas
-│   │   └── handlers.ts     # Tool implementation
-│   └── routes/
-│       └── chat.ts       # Chat endpoint
-├── infra/
-│   ├── main.bicep        # Azure infrastructure
-│   └── app.bicep         # App Service config
+│   ├── api/              # Express API endpoints
+│   └── web/              # React UI components
+├── infra/                # Bicep infrastructure files
 ├── azure.yaml            # azd deployment manifest
 ├── package.json
 └── tsconfig.json</code></pre>
+        <p>The <code>src/api/</code> directory contains the Express server and Copilot SDK integration. The <code>src/web/</code> directory provides a React-based UI. The <code>infra/</code> directory defines Azure resources in Bicep, and <code>azure.yaml</code> ties everything together for <code>azd</code> deployments.</p>
         <aside class="speaker-notes">
-          Here is the typical project layout you get from the template. The src directory contains your application code: index.ts is the Express server entry point, copilot.ts sets up the CopilotClient, and the tools directory holds your tool definitions and handlers. The routes directory contains your HTTP endpoints, typically a chat route. The infra directory has Bicep files for Azure infrastructure, and azure.yaml ties everything together for azd deployments. This structure keeps concerns separated cleanly. Your SDK integration lives in copilot.ts, your business logic lives in tool handlers, and your infrastructure is fully codified.
+          The template gives you a complete project with two main areas. The src/api directory contains the Express server and Copilot SDK integration. The src/web directory provides a React-based front end. The infra directory has Bicep files for Azure infrastructure, and azure.yaml ties everything together for azd deployments. This structure keeps concerns separated cleanly: your API logic, your front-end code, and your infrastructure are all in distinct directories.
         </aside>
       </div>
     </section>
@@ -266,18 +261,16 @@ const client = new CopilotClient({
 });
 
 // Create a session
-const session = await client.createSession({
-  instructions: "You are a helpful assistant for our support team.",
-});
+const session = await client.createSession();
 
 // Send a message and wait for the response
 const response = await session.sendAndWait(
-  "How do I reset a user's password?"
+  "Explain this code"
 );
 
-console.log(response.message.content);</code></pre>
+console.log(response);</code></pre>
         <aside class="speaker-notes">
-          This is the simplest possible Copilot SDK application. You import CopilotClient from the package, create an instance with your GitHub token, and open a session. The instructions parameter sets the system prompt that guides the model's behavior. Then you call sendAndWait with a user message and get back a complete response. That's it. Five lines of meaningful code to get a working Copilot integration. Notice that you do not specify a model, manage context windows, or handle retries; the SDK takes care of all of that. In production you would not hardcode the token, of course, but this shows just how simple the happy path is.
+          This is the simplest possible Copilot SDK application. You import CopilotClient from the package, create an instance with your GitHub token, and open a session. Then you call sendAndWait with a user message and get back a response. That is it: a few lines of meaningful code to get a working Copilot integration. Notice that you do not specify a model, manage context windows, or handle retries. The SDK takes care of all of that. In production you would not hardcode the token, of course, but this shows just how simple the happy path is.
         </aside>
       </div>
     </section>
@@ -299,19 +292,19 @@ const client = new CopilotClient({
 });
 
 app.post("/chat", async (req, res) =&gt; {
-  const { message, sessionId } = req.body;
-  const session = await client.getOrCreateSession(sessionId);
+  const { message } = req.body;
+  const session = await client.createSession();
 
   const response = await session.sendAndWait(message);
   res.json({
-    reply: response.message.content,
+    reply: response,
     sessionId: session.id,
   });
 });
 
 app.listen(3000);</code></pre>
         <aside class="speaker-notes">
-          Here we wire the SDK into an Express server. The /chat endpoint accepts a message and an optional session ID. If a session ID is provided, we resume that conversation; otherwise, we create a new one. The response includes both the assistant's reply and the session ID so the client can continue the conversation in future requests. This is the pattern you will use for web applications, chat widgets, and API services. The key thing to notice is getOrCreateSession: it lets you maintain conversation continuity across HTTP requests without managing state yourself.
+          Here we wire the SDK into an Express server. The /chat endpoint accepts a message and creates a new session. The response includes both the assistant's reply and the session ID so the client can reference it in future requests. This is the pattern you will use for web applications, chat widgets, and API services. The key thing to notice is createSession: it initializes a new conversation that you can then interact with through the session object.
         </aside>
       </div>
     </section>
@@ -336,26 +329,22 @@ app.listen(3000);</code></pre>
       <div class="slide-inner">
         <h2>Streaming Responses</h2>
         <pre><code>app.post("/chat/stream", async (req, res) =&gt; {
-  const { message, sessionId } = req.body;
-  const session = await client.getOrCreateSession(sessionId);
+  const { message } = req.body;
+  const session = await client.createSession();
 
   res.setHeader("Content-Type", "text/event-stream");
 
   const stream = session.send(message);
 
-  for await (const event of stream) {
-    if (event.type === "content") {
-      res.write(`data: ${JSON.stringify({
-        token: event.content
-      })}\n\n`);
-    }
+  for await (const chunk of stream) {
+    res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
   }
 
   res.write("data: [DONE]\n\n");
   res.end();
 });</code></pre>
         <aside class="speaker-notes">
-          Streaming is essential for a good user experience. Instead of waiting for the entire response to generate, you send tokens to the client as they arrive. The SDK's send method returns an async iterable that yields events. Each event has a type; "content" events carry a token of text. We use Server-Sent Events here, but you could also use WebSockets or any other streaming transport. The key difference from sendAndWait is that send does not block. You consume the stream in a for-await loop and forward each token to your client. This gives users near-instant feedback and makes long responses feel fast.
+          Streaming is essential for a good user experience. Instead of waiting for the entire response to generate, you send chunks to the client as they arrive. The SDK's send method returns an async iterable that you consume in a for-await loop. We use Server-Sent Events here, but you could also use WebSockets or any other streaming transport. The key difference from sendAndWait is that send does not block. You iterate over the stream and forward each chunk to your client. This gives users near-instant feedback and makes long responses feel fast.
         </aside>
       </div>
     </section>
@@ -383,20 +372,11 @@ app.listen(3000);</code></pre>
   },
 ];
 
-const session = await client.createSession({
-  instructions: "You are a support agent.",
-  tools,
-  onToolCall: async (toolCall) =&gt; {
-    if (toolCall.name === "lookup_order") {
-      const order = await db.orders.find(
-        toolCall.arguments.orderId
-      );
-      return JSON.stringify(order);
-    }
-  },
-});</code></pre>
+// Register tools with the session
+const session = await client.createSession({ tools });</code></pre>
+        <p>The SDK handles tool orchestration automatically. When the model decides to invoke a tool, the SDK manages the call and feeds the result back into the conversation.</p>
         <aside class="speaker-notes">
-          Tool integration is where the SDK really shines. You define tools as JSON Schema objects with a name, description, and parameter schema. Then you register them when you create a session, along with an onToolCall handler that implements the actual logic. When the model decides it needs to look up an order, it emits a tool-call event. The SDK automatically invokes your handler, feeds the result back to the model, and the model incorporates that data into its response. You do not need to manage the back-and-forth yourself. This pattern works for database lookups, API calls, file operations, or any other server-side action you want the model to invoke.
+          Tool integration is where the SDK really shines. You define tools as JSON Schema objects with a name, description, and parameter schema. Then you pass them when you create a session. When the model decides it needs to invoke a tool, the SDK handles the orchestration automatically and feeds the result back into the conversation. This pattern works for database lookups, API calls, file operations, or any other server-side action you want the model to invoke.
         </aside>
       </div>
     </section>
@@ -426,22 +406,20 @@ const session = await client.createSession({
             <ul>
               <li>Session tracks full message history</li>
               <li>Context window is managed automatically</li>
-              <li>Older messages are summarized when the window fills</li>
               <li>Tool-call results are included in context</li>
             </ul>
           </div>
           <div class="card">
-            <h3>Manual Control</h3>
+            <h3>Providing Context</h3>
             <ul>
-              <li>Set <code>maxHistory</code> to limit retained turns</li>
-              <li>Inject context with <code>session.addContext()</code></li>
-              <li>Clear history with <code>session.reset()</code></li>
+              <li>Conversation history is managed through the session object</li>
+              <li>Additional context can be provided through system messages in the conversation</li>
               <li>Persist sessions for cross-request continuity</li>
             </ul>
           </div>
         </div>
         <aside class="speaker-notes">
-          The SDK gives you two levels of context management. By default, it handles everything automatically: message history is tracked in the session, context windows are managed so you do not exceed token limits, and tool-call results are retained for the model to reference later. When you need more control, the SDK exposes manual options. You can set maxHistory to limit how many turns are retained, inject additional context with addContext for things like user profiles or retrieved documents, clear history with reset when a conversation topic changes, and persist sessions to a store for continuity across HTTP requests. This balance of automatic and manual control means most applications work out of the box, but you can fine-tune when you need to.
+          The SDK gives you two levels of context management. By default, it handles everything automatically: message history is tracked in the session, context windows are managed so you do not exceed token limits, and tool-call results are retained for the model to reference later. When you need more control, you can provide additional context through system messages in the conversation. You can also persist sessions for continuity across HTTP requests. This balance of automatic and explicit control means most applications work out of the box, but you can fine-tune when you need to.
         </aside>
       </div>
     </section>
@@ -464,16 +442,14 @@ const r2 = await session.sendAndWait(
 );
 // Model knows "it" = ORD-1234 from session context
 
-// Turn 3: Inject additional context
-session.addContext(
-  "Company policy: orders can only be cancelled within 24h."
-);
+// Turn 3: Provide context through conversation messages
 const r3 = await session.sendAndWait(
-  "Actually, is it too late to cancel?"
+  "Our company policy says orders can only be cancelled "
+  + "within 24 hours. Is it too late to cancel?"
 );
-// Model checks order date against policy</code></pre>
+// Model checks order date against the stated policy</code></pre>
         <aside class="speaker-notes">
-          Here is a practical example of multi-turn in action. In turn one, the user asks about an order, and the model automatically calls the lookup_order tool. In turn two, the user says "Can you cancel it?" and the model resolves "it" to ORD-1234 from the session history. In turn three, we inject a company policy using addContext, and the model now factors that policy into its response. This is the experience your users expect from a conversational interface: natural follow-ups, pronoun resolution, and context-aware answers. The SDK handles the complexity of maintaining all of this state.
+          Here is a practical example of multi-turn in action. In turn one, the user asks about an order, and the model automatically calls the lookup_order tool. In turn two, the user says "Can you cancel it?" and the model resolves "it" to ORD-1234 from the session history. In turn three, we provide additional context directly in the user message, and the model factors that context into its response. This is the experience your users expect from a conversational interface: natural follow-ups, pronoun resolution, and context-aware answers. The SDK handles the complexity of maintaining conversation state.
         </aside>
       </div>
     </section>
@@ -498,24 +474,30 @@ const r3 = await session.sendAndWait(
       <div class="slide-inner">
         <h2>BYOM: Azure OpenAI</h2>
         <pre><code>import { CopilotClient } from "@github/copilot-sdk";
-import { DefaultAzureCredential }
-  from "@azure/identity";
 
 const client = new CopilotClient({
-  model: {
-    endpoint: process.env.AZURE_OPENAI_ENDPOINT,
-    deployment: "gpt-4o",
-    credential: new DefaultAzureCredential(),
+  token: process.env.GITHUB_TOKEN,
+});
+
+// Use Azure OpenAI at session level
+const session = await client.createSession({
+  model: "o4-mini",
+  provider: {
+    type: "azure",
+    baseUrl: process.env.AZURE_OPENAI_ENDPOINT,
+    bearerToken: token,
+    wireApi: "completions",
+    azure: { apiVersion: "2025-04-01-preview" },
   },
 });</code></pre>
         <ul>
-          <li><strong>No API keys:</strong> Use <code>DefaultAzureCredential</code> for managed identity authentication</li>
+          <li><strong>Session-level provider:</strong> Configure the Azure OpenAI provider on each session with a pre-fetched bearer token</li>
           <li><strong>Same SDK surface:</strong> Sessions, tools, and streaming work identically</li>
           <li><strong>Data residency:</strong> Keep data within your Azure region and subscription</li>
           <li><strong>Custom models:</strong> Point to any OpenAI-compatible endpoint</li>
         </ul>
         <aside class="speaker-notes">
-          Bring Your Own Model, or BYOM, is critical for enterprise adoption. Many organizations require data residency guarantees or have existing Azure OpenAI deployments they want to leverage. With the SDK, you simply pass a model configuration object instead of a GitHub token. Here we are using DefaultAzureCredential from the Azure Identity SDK, which means you get managed identity support with no API keys to rotate. The rest of your code stays exactly the same: sessions, tools, streaming, multi-turn conversations, all of it works identically regardless of the model backend. You can also point to any OpenAI-compatible endpoint, so self-hosted models are supported too.
+          Bring Your Own Model, or BYOM, is critical for enterprise adoption. Many organizations require data residency guarantees or have existing Azure OpenAI deployments they want to leverage. With the SDK, you configure the provider at the session level, passing a pre-fetched bearer token and your Azure OpenAI endpoint. The rest of your code stays the same: tools, streaming, and multi-turn conversations all work identically regardless of the model backend. You can also point to any OpenAI-compatible endpoint, so self-hosted models are supported too.
         </aside>
       </div>
     </section>
@@ -549,7 +531,7 @@ const client = new CopilotClient({
           </div>
         </div>
         <aside class="speaker-notes">
-          The decision between GitHub Models and BYOM depends on your requirements. GitHub Models is the fastest path: no Azure subscription, automatic model updates, and built-in rate limits. It is perfect for prototypes, developer tools, and internal applications where simplicity matters. BYOM with Azure OpenAI is the choice when you need data residency guarantees, custom fine-tuned models, managed identity authentication, or dedicated capacity via Provisioned Throughput Units. Regulated industries, healthcare, finance, and government workloads will almost always need BYOM. The good news is that you can start with GitHub Models and switch to BYOM later without changing your application code.
+          The decision between GitHub Models and BYOM depends on your requirements. GitHub Models is the fastest path: no Azure subscription, automatic model updates, and built-in rate limits. It is perfect for prototypes, developer tools, and internal applications where simplicity matters. BYOM with Azure OpenAI is the choice when you need data residency guarantees, custom fine-tuned models, managed identity authentication, or dedicated capacity via Provisioned Throughput Units. Regulated industries, healthcare, finance, and government workloads will almost always need BYOM. The good news is that you can start with GitHub Models and switch to BYOM later with minimal configuration changes.
         </aside>
       </div>
     </section>
@@ -576,20 +558,15 @@ const client = new CopilotClient({
         <pre><code># One-command deployment with azd
 azd up
 
-# Or deploy to specific Azure services:
-# App Service (simplest)
-azd up --environment production
-
-# Container Apps (scalable)
-azd up --template copilot-sdk-service-container</code></pre>
+# Deploy to a specific environment
+azd up --environment production</code></pre>
         <ul>
-          <li><strong>App Service:</strong> Simplest option. Managed platform, auto-scaling, easy SSL</li>
-          <li><strong>Container Apps:</strong> Kubernetes-based. Scale to zero, event-driven scaling, Dapr integration</li>
+          <li><strong>Container Apps (default):</strong> Kubernetes-based. Scale to zero, event-driven scaling, Dapr integration</li>
           <li><strong>Infrastructure as code:</strong> Bicep files in the <code>infra/</code> directory define all resources</li>
           <li><strong>CI/CD:</strong> The template includes a GitHub Actions workflow for automated deployments</li>
         </ul>
         <aside class="speaker-notes">
-          Deployment is straightforward because the azd template includes everything you need. Run "azd up" and the CLI provisions your Azure resources, builds your application, and deploys it. You have two primary hosting options. App Service is the simplest: it is a managed platform with auto-scaling, built-in SSL, and easy configuration. Container Apps gives you more control with Kubernetes-based infrastructure, scale-to-zero capability, and Dapr integration for microservices. Both options are defined in the Bicep files under the infra directory, so your infrastructure is fully codified and reproducible. The template also includes a GitHub Actions workflow, so you can set up automated deployments from day one.
+          Deployment is straightforward because the azd template includes everything you need. Run "azd up" and the CLI provisions your Azure resources, builds your application, and deploys it. The template targets Container Apps by default, which gives you Kubernetes-based infrastructure, scale-to-zero capability, and Dapr integration for microservices. App Service is also possible but would require Bicep modifications. The infrastructure is defined in the Bicep files under the infra directory, so everything is fully codified and reproducible. The template also includes a GitHub Actions workflow, so you can set up automated deployments from day one.
         </aside>
       </div>
     </section>
@@ -607,23 +584,9 @@ azd up --template copilot-sdk-service-container</code></pre>
           <li><strong>Tool-call analytics:</strong> Monitor which tools are invoked, how often, and their success rate</li>
           <li><strong>Alerts:</strong> Set thresholds for error rates, latency spikes, and quota consumption</li>
         </ul>
-        <pre><code>// Custom telemetry example
-const session = await client.createSession({
-  instructions: "You are a helpful assistant.",
-  onMetrics: (metrics) =&gt; {
-    appInsights.trackEvent({
-      name: "CopilotResponse",
-      properties: {
-        sessionId: metrics.sessionId,
-        promptTokens: metrics.promptTokens,
-        completionTokens: metrics.completionTokens,
-        latencyMs: metrics.latencyMs,
-      },
-    });
-  },
-});</code></pre>
+        <p>Use Azure Application Insights or your preferred logging framework to track Copilot-specific metrics. The azd template configures Application Insights automatically, so request tracing and dependency tracking are available out of the box.</p>
         <aside class="speaker-notes">
-          Once your app is in production, observability is essential. The azd template configures Application Insights automatically, giving you request tracing, dependency tracking, and exception logging out of the box. Beyond the basics, you should track Copilot-specific metrics: token usage per session so you can forecast costs, time-to-first-token for user experience monitoring, and tool-call analytics to understand which tools are being used and how often they fail. The SDK provides an onMetrics callback that fires after each response, making it easy to push custom telemetry to Application Insights, Datadog, or whatever monitoring platform you use. Set alerts on error rates and latency spikes so you catch issues before your users do.
+          Once your app is in production, observability is essential. The azd template configures Application Insights automatically, giving you request tracing, dependency tracking, and exception logging out of the box. Beyond the basics, you should track Copilot-specific metrics: token usage per session so you can forecast costs, time-to-first-token for user experience monitoring, and tool-call analytics to understand which tools are being used and how often they fail. Use standard logging and Application Insights custom events to capture these metrics. Set alerts on error rates and latency spikes so you catch issues before your users do.
         </aside>
       </div>
     </section>
@@ -715,12 +678,12 @@ const session = await client.createSession({
         <ul>
           <li>The <strong>Copilot SDK</strong> lets you build AI-powered applications anywhere: web apps, bots, CLIs, and internal portals</li>
           <li><strong>CopilotClient</strong> is your entry point. Create sessions, send messages, register tools</li>
-          <li>The <code>azd init --template copilot-sdk-service</code> template gives you a production-ready starting point</li>
+          <li>The <code>azd init --template azure-samples/copilot-sdk-service</code> template gives you a production-ready starting point</li>
           <li><strong>Streaming</strong> delivers real-time token output for responsive user experiences</li>
           <li><strong>Tool integration</strong> connects the model to your databases, APIs, and business logic</li>
           <li><strong>Multi-turn conversations</strong> maintain context automatically across messages</li>
           <li><strong>BYOM</strong> lets you use Azure OpenAI or any compatible endpoint for data residency and compliance</li>
-          <li>Deploy with <strong>azd up</strong> to App Service or Container Apps with full monitoring</li>
+          <li>Deploy with <strong>azd up</strong> to Container Apps with full monitoring</li>
         </ul>
         <aside class="speaker-notes">
           Let's recap what we covered. The Copilot SDK takes Copilot beyond the editor and into your own applications. CopilotClient is the core abstraction, and everything builds from there: sessions for conversation management, tools for connecting to your systems, and streaming for real-time output. The azd template gives you a production-ready project in minutes. BYOM support means you can meet enterprise compliance requirements without sacrificing developer experience. And when you are ready to deploy, azd up handles provisioning, building, and deploying in a single command. You now have all the building blocks to ship a Copilot-powered service.

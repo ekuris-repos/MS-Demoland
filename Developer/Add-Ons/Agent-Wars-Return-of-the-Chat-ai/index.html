@@ -16,9 +16,9 @@
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Add-On · 45 Minutes</span>
         <h1>Chat Platform Agents - Agent Wars: Return of the Chat-ai</h1>
-        <p class="subtitle">Trigger builds, assign issues, and get summaries without leaving Teams or Slack, bridging chat platforms and development tools through agentic workflows</p>
+        <p class="subtitle">Trigger builds, assign issues, and get summaries without leaving Teams or Slack, bridging chat platforms and development tools through ChatOps integrations</p>
         <aside class="speaker-notes">
-          Welcome to "Agent Wars: Return of the Chat-ai!" Over the next 45 minutes, we're going to explore how GitHub Copilot and agentic workflows bring the power of your development toolchain directly into Microsoft Teams and Slack. If you've ever wanted to check a PR status, trigger a build, or assign an issue without leaving your chat window, this session is for you. We'll cover the fundamentals of ChatOps, walk through real integrations, and discuss how to build and secure your own custom workflows. Let's get started.
+          Welcome to "Agent Wars: Return of the Chat-ai!" Over the next 45 minutes, we're going to explore how GitHub Copilot and ChatOps integrations bring the power of your development toolchain directly into Microsoft Teams and Slack. If you've ever wanted to check a PR status, trigger a build, or assign an issue without leaving your chat window, this session is for you. We'll cover the fundamentals of ChatOps, walk through real integrations, and discuss how to build and secure your own custom workflows. Let's get started.
         </aside>
       </div>
     </section>
@@ -41,14 +41,14 @@
         <ul>
           <li><strong>ChatOps Fundamentals</strong> - What ChatOps is and why it matters for modern development</li>
           <li><strong>Copilot in Microsoft Teams</strong> - Installation, capabilities, and everyday workflows</li>
-          <li><strong>Copilot in Slack</strong> - Setup, slash commands, and team collaboration</li>
-          <li><strong>Copilot Extensions</strong> - Extending Copilot with custom skills inside chat platforms</li>
+          <li><strong>GitHub in Slack</strong> - The GitHub for Slack app, slash commands, and notifications</li>
+          <li><strong>Copilot Extensions</strong> - Extending Copilot with custom skills in IDEs and github.com</li>
           <li><strong>Common Workflows</strong> - Triggering Actions, assigning issues, checking deployments</li>
           <li><strong>Building Custom Integrations</strong> - Webhooks, GitHub Apps, and Copilot Extensions</li>
           <li><strong>Security &amp; Enterprise Practices</strong> - Permissions, compliance, and governance</li>
         </ul>
         <aside class="speaker-notes">
-          Here's the roadmap. We'll start with the philosophy behind ChatOps: why bringing development into your chat platform is such a game-changer. Then we'll do a deep dive into GitHub Copilot in Microsoft Teams and Slack, covering setup and the workflows each platform supports. After that, we'll look at Copilot Extensions and how they let you bolt on custom capabilities. We'll walk through the most common real-world workflows, then shift to building your own integrations with webhooks and GitHub Apps. Finally, we'll close out with security, permissions, and enterprise best practices. It's a packed session, so let's keep moving.
+          Here's the roadmap. We'll start with the philosophy behind ChatOps: why bringing development into your chat platform is such a game-changer. Then we'll do a deep dive into GitHub Copilot in Microsoft Teams and the GitHub for Slack app, covering setup and the workflows each platform supports. After that, we'll look at Copilot Extensions and how they add custom capabilities to Copilot Chat in IDEs and github.com. We'll walk through the most common real-world workflows, then shift to building your own integrations with webhooks and GitHub Apps. Finally, we'll close out with security, permissions, and enterprise best practices. It's a packed session, so let's keep moving.
         </aside>
       </div>
     </section>
@@ -148,11 +148,11 @@
           <li><strong>Pull request summaries</strong>: get a natural language overview of any PR</li>
           <li><strong>Issue management</strong>: create, search, and assign issues from the chat</li>
           <li><strong>Action status</strong>: check workflow run results without leaving Teams</li>
-          <li><strong>Code explanations</strong>: paste a snippet and ask Copilot to explain it</li>
+          <li><strong>Code explanations</strong>: available in Copilot Chat within IDEs and github.com (the Teams integration focuses on GitHub-specific queries like repos, PRs, issues, and Actions)</li>
           <li><strong>Link previews</strong>: GitHub links posted in Teams automatically unfurl with rich details</li>
         </ul>
         <aside class="speaker-notes">
-          Once the app is installed, there's a lot you can do without ever opening github.com. You can search across your repos for code or documentation. You can ask for a summary of a pull request, and Copilot will give you a natural language description of what changed, which is great for managers or reviewers who want a quick overview. You can create and assign issues directly from chat. If someone reports a bug in a Teams channel, you can say "create an issue for this in the frontend repo" and it happens immediately. You can check the status of your GitHub Actions workflows, and you can paste code into the chat and ask Copilot to explain it. There's also automatic link unfurling: when someone pastes a GitHub link, Teams renders a rich preview with details about the PR, issue, or file.
+          Once the app is installed, there's a lot you can do without ever opening github.com. You can search across your repos for code or documentation. You can ask for a summary of a pull request, and Copilot will give you a natural language description of what changed, which is great for managers or reviewers who want a quick overview. You can create and assign issues directly from chat. If someone reports a bug in a Teams channel, you can say "create an issue for this in the frontend repo" and it happens immediately. You can check the status of your GitHub Actions workflows, and in Copilot Chat within IDEs and github.com, you can paste code and ask Copilot to explain it (note that the Teams integration is centered on GitHub-specific queries rather than general code explanation). There's also automatic link unfurling: when someone pastes a GitHub link, Teams renders a rich preview with details about the PR, issue, or file.
         </aside>
       </div>
     </section>
@@ -168,10 +168,11 @@ Copilot: PR #128 "Add user profile caching" by @alice
          - Includes 12 new unit tests; all passing
          Status: Approved, 2 reviewers, ready to merge
 
-You:     @GitHub Copilot merge it
-Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
+You:     @GitHub Copilot show me the status of PR #42
+Copilot: PR #42 "Fix login redirect loop" by @bob
+         Status: Changes requested, 1 pending review</code></pre>
         <aside class="speaker-notes">
-          Here's a realistic conversation flow. You mention GitHub Copilot in your Teams channel and ask it to summarize a pull request. Copilot returns a clean, readable summary with the author, what changed, performance impact, test results, and status. Then you can follow up with a merge command. In seconds, the PR is merged without you ever leaving the Teams window. The whole team sees it in the channel, so there's full visibility. This is the kind of workflow that saves minutes each time, and those minutes add up across a team of developers over weeks and months.
+          Here's a realistic conversation flow. You mention GitHub Copilot in your Teams channel and ask it to summarize a pull request. Copilot returns a clean, readable summary with the author, what changed, performance impact, test results, and status. You can then ask follow-up questions about other PRs, check statuses, or search for related issues. The whole team sees the responses in the channel, so there's full visibility. This is the kind of workflow that saves minutes each time, and those minutes add up across a team of developers over weeks and months.
         </aside>
       </div>
     </section>
@@ -180,9 +181,9 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge">Part 3</span>
-        <h2>GitHub Copilot in Slack</h2>
+        <h2>GitHub Integrations in Slack</h2>
         <aside class="speaker-notes">
-          Let's switch gears and talk about the Slack integration. Many development teams live in Slack, and Copilot is right at home there too.
+          Let's switch gears and talk about GitHub's Slack integrations. Many development teams live in Slack, and GitHub provides several ways to connect your development workflows there.
         </aside>
       </div>
     </section>
@@ -190,16 +191,16 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
     <!-- SLIDE 12 - Installing Copilot in Slack -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Setting Up Copilot in Slack</h2>
+        <h2>Setting Up GitHub for Slack</h2>
         <ul>
           <li>Visit the <strong>Slack App Directory</strong> or use the link from GitHub's integration settings</li>
-          <li>Install the GitHub Copilot app to your Slack workspace</li>
+          <li>Install the <strong>GitHub for Slack</strong> app to your Slack workspace</li>
           <li>Authenticate with your GitHub account using OAuth</li>
           <li>Workspace admins may need to approve the app before installation</li>
-          <li>Invite the Copilot bot to specific channels where your team collaborates</li>
+          <li>Invite the GitHub bot to specific channels where your team collaborates</li>
         </ul>
         <aside class="speaker-notes">
-          The Slack setup is similar in spirit to the Teams setup. You go to the Slack App Directory, find the GitHub Copilot app, and install it. You'll go through an OAuth flow to connect your GitHub identity. If your Slack workspace requires admin approval for new apps, that'll need to happen first. Once approved, you can invite the Copilot bot to any channel. A best practice is to add it to your development channels and your incident response channels; those are the places where ChatOps delivers the most value.
+          The Slack setup is straightforward. You go to the Slack App Directory, find the GitHub for Slack app, and install it. This is the GitHub for Slack integration, which is distinct from GitHub Copilot. You'll go through an OAuth flow to connect your GitHub identity. If your Slack workspace requires admin approval for new apps, that will need to happen first. Once approved, you can invite the GitHub bot to any channel. A best practice is to add it to your development channels and your incident response channels; those are the places where ChatOps delivers the most value.
         </aside>
       </div>
     </section>
@@ -207,16 +208,16 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
     <!-- SLIDE 13 - Copilot capabilities in Slack -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Copilot Capabilities in Slack</h2>
+        <h2>GitHub for Slack Capabilities</h2>
         <ul>
           <li><strong>Slash commands</strong>: use <code>/github</code> to trigger common actions quickly</li>
-          <li><strong>Natural language queries</strong>: ask questions about repos, PRs, and issues in plain English</li>
           <li><strong>Notifications</strong>: subscribe channels to repo events (PRs opened, issues created, deploys completed)</li>
-          <li><strong>Threaded responses</strong>: Copilot replies in threads to keep channels tidy</li>
+          <li><strong>Threaded responses</strong>: the GitHub bot replies in threads to keep channels tidy</li>
           <li><strong>Interactive buttons</strong>: approve, merge, or close directly from Slack message actions</li>
+          <li><strong>Note</strong>: these features come from the GitHub for Slack app, not from GitHub Copilot</li>
         </ul>
         <aside class="speaker-notes">
-          In Slack, you get a rich set of capabilities. The slash command /github is your entry point for quick actions: /github subscribe to set up notifications, /github close to close an issue, and so on. But you can also just tag Copilot and ask questions in plain English, and it will respond with the relevant information. One feature I really like is the channel subscription model. You can subscribe a channel to specific repo events, so when a PR is opened or a deploy completes, the notification lands right in the channel. Copilot also replies in threads by default, which keeps your channels clean. And you'll see interactive buttons on messages, so you can approve a PR or merge it with a single click.
+          In Slack, the GitHub for Slack app provides a rich set of capabilities. The slash command /github is your entry point for quick actions: /github subscribe to set up notifications, /github close to close an issue, and so on. It is important to note that these slash commands come from the GitHub for Slack integration, not from GitHub Copilot. They are separate products. One feature I really like is the channel subscription model. You can subscribe a channel to specific repo events, so when a PR is opened or a deploy completes, the notification lands right in the channel. The bot replies in threads by default, which keeps your channels clean. And you'll see interactive buttons on messages, so you can approve a PR or merge it with a single click.
         </aside>
       </div>
     </section>
@@ -224,17 +225,17 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
     <!-- SLIDE 14 - Slack slash commands -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Key Slack Commands</h2>
+        <h2>Key GitHub for Slack Commands</h2>
         <pre><code>/github subscribe contoso/web-app pulls,issues,deployments
-/github close contoso/web-app#203
-/github run contoso/web-app deploy-staging</code></pre>
+/github unsubscribe contoso/web-app deployments
+/github close contoso/web-app#203</code></pre>
         <ul>
           <li><code>/github subscribe</code> - Subscribe a channel to repository events</li>
+          <li><code>/github unsubscribe</code> - Remove a subscription from a channel</li>
           <li><code>/github close</code> - Close an issue or PR from chat</li>
-          <li><code>/github run</code> - Trigger a GitHub Actions workflow</li>
         </ul>
         <aside class="speaker-notes">
-          Here are a few of the most commonly used slash commands. The subscribe command is usually the first thing teams set up. You pick a channel, point it at a repo, and specify which events you care about: pulls, issues, deployments, or all of the above. From that point on, the channel becomes your live feed for that repo. The close command lets you resolve an issue or PR right from the chat. And the run command is powerful: you can trigger any GitHub Actions workflow by name. Imagine you're in a Slack huddle discussing whether the fix is ready to ship, and you just type /github run deploy-staging. The deploy kicks off, and the whole team sees the result in the channel. No browser tab needed.
+          Here are a few of the most commonly used GitHub for Slack commands. The subscribe command is usually the first thing teams set up. You pick a channel, point it at a repo, and specify which events you care about: pulls, issues, deployments, or all of the above. From that point on, the channel becomes your live feed for that repo. You can use unsubscribe to remove event types you no longer need. The close command lets you resolve an issue right from the chat. Remember, these are features of the GitHub for Slack app, not GitHub Copilot. They are a great example of how ChatOps can streamline team workflows without requiring AI.
         </aside>
       </div>
     </section>
@@ -243,7 +244,7 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge">Part 4</span>
-        <h2>Copilot Extensions in Chat Platforms</h2>
+        <h2>Copilot Extensions</h2>
         <aside class="speaker-notes">
           So far we've covered the built-in capabilities. Now let's talk about extending those capabilities with Copilot Extensions.
         </aside>
@@ -256,13 +257,13 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
         <h2>Extending Copilot with Custom Skills</h2>
         <ul>
           <li><strong>Copilot Extensions</strong> let you add domain-specific capabilities to GitHub Copilot</li>
-          <li>Extensions work across surfaces: VS Code, github.com, <strong>and chat platforms</strong></li>
+          <li>Extensions work across surfaces: VS Code, JetBrains IDEs, GitHub.com, GitHub Mobile, and Windows Terminal</li>
           <li>Invoke extensions by mentioning them with <code>@extension-name</code> in your prompt</li>
           <li>Extensions can query internal APIs, databases, documentation, and third-party tools</li>
           <li>Available from the <strong>GitHub Marketplace</strong> or built as private extensions for your org</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot Extensions are a way to teach Copilot new skills that go beyond code and GitHub. You can install extensions from the GitHub Marketplace, or you can build private ones for your organization. The key thing to understand is that extensions work wherever Copilot works, including Teams and Slack. So if your company builds an extension that queries your internal deployment dashboard, your team can invoke it from a Teams channel just by typing @deploy-status. Extensions are invoked with the @ mention pattern, just like you'd tag a colleague. Under the hood, the extension receives the user's prompt, calls whatever APIs or services it needs, and returns a response to Copilot, which formats it for the user.
+          Copilot Extensions are a way to teach Copilot new skills that go beyond code and GitHub. You can install extensions from the GitHub Marketplace, or you can build private ones for your organization. The key thing to understand is that extensions work wherever Copilot Chat is available: VS Code, JetBrains IDEs, GitHub.com, GitHub Mobile, and Windows Terminal. So if your company builds an extension that queries your internal deployment dashboard, your team can invoke it from any supported Copilot Chat surface by typing @deploy-status. Extensions are invoked with the @ mention pattern, just like you'd tag a colleague. Under the hood, the extension receives the user's prompt, calls whatever APIs or services it needs, and returns a response to Copilot, which formats it for the user.
         </aside>
       </div>
     </section>
@@ -270,7 +271,7 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
     <!-- SLIDE 17 - Extension examples in chat -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Extensions in Chat: Real Examples</h2>
+        <h2>Copilot Extensions: Real Examples</h2>
         <div class="columns">
           <div class="card">
             <h3>Marketplace Extensions</h3>
@@ -290,7 +291,7 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
           </div>
         </div>
         <aside class="speaker-notes">
-          On the left, you can see some popular extensions available from the GitHub Marketplace. The Docker extension lets you manage containers. The Azure extension queries your cloud resources. Sentry gives you error tracking and performance data. On the right are examples of private extensions that organizations build for their own use. Maybe you have an on-call rotation tool, an internal deployment system, or a private wiki. You can wrap each of these in a Copilot Extension and make them accessible to your entire team directly from chat. The power here is that you're not limited to what GitHub ships out of the box. If your team has a workflow, you can surface it through Copilot.
+          On the left, you can see some popular extensions available from the GitHub Marketplace. The Docker extension lets you manage containers. The Azure extension queries your cloud resources. Sentry gives you error tracking and performance data. On the right are examples of private extensions that organizations build for their own use. Maybe you have an on-call rotation tool, an internal deployment system, or a private wiki. You can wrap each of these in a Copilot Extension and make them accessible to your entire team from Copilot Chat in IDEs and github.com. The power here is that you're not limited to what GitHub ships out of the box. If your team has a workflow, you can surface it through Copilot.
         </aside>
       </div>
     </section>
@@ -316,11 +317,16 @@ Copilot: ✅ PR #128 merged into main via squash merge.</code></pre>
           <li><strong>Rerun failed jobs</strong>: retry a specific failed job without navigating to Actions</li>
           <li><strong>Deployment gates</strong>: approve production deployments from a Slack or Teams notification</li>
         </ul>
-        <pre><code>@GitHub Copilot run "Build and Test" on contoso/api main branch
-Copilot: ✅ Workflow "Build and Test" triggered on contoso/api (main).
-         Run #847 started. I'll notify you when it completes.</code></pre>
+        <pre><code># Custom integration using a GitHub App + webhook
+# A chat bot receives a message, then calls the GitHub API:
+POST /repos/contoso/api/actions/workflows/build-test.yml/dispatches
+{ "ref": "main" }
+
+# The bot posts back to the channel:
+Bot: ✅ Workflow "Build and Test" triggered on contoso/api (main).
+     Run #847 started. I'll notify you when it completes.</code></pre>
         <aside class="speaker-notes">
-          Triggering GitHub Actions from chat is one of the highest-value ChatOps workflows. Instead of opening the Actions tab and clicking "Run workflow," you just tell Copilot to do it. You can specify the workflow name, the repo, and the branch. Copilot kicks off the run and can notify you when it finishes. If a run fails, you can rerun just the failed job from chat. And for production deployments that require manual approval, the approval notification shows up right in your channel, so you can approve it with a click. This is especially powerful during incident response. You're already in a Slack channel coordinating the fix; now you can also deploy the fix from the same place.
+          Triggering GitHub Actions from chat is one of the highest-value ChatOps workflows, but it is important to understand how it works. This is not a built-in GitHub Copilot feature. To trigger workflows from a chat platform, you need a custom integration: a GitHub App or webhook-based bot that listens for messages in your chat channel and calls the GitHub Actions API. The bot receives the command, makes an API call to dispatch the workflow, and posts the result back to the channel. For production deployments that require manual approval, you can wire up approval notifications through the same integration. This requires development effort, but the payoff is significant for teams with frequent deployments.
         </aside>
       </div>
     </section>
@@ -507,13 +513,13 @@ app.post("/agent", async (req, res) =&gt; {
         <ul>
           <li><strong>ChatOps eliminates context switching</strong> by bringing development workflows into Teams and Slack</li>
           <li><strong>GitHub Copilot integrates natively</strong> with both platforms for PRs, issues, Actions, and code search</li>
-          <li><strong>Copilot Extensions</strong> let you add custom, domain-specific capabilities accessible from any chat surface</li>
+          <li><strong>Copilot Extensions</strong> let you add custom, domain-specific capabilities to Copilot Chat in IDEs and github.com</li>
           <li><strong>Webhooks and GitHub Apps</strong> are the building blocks for bespoke integrations</li>
           <li><strong>Security is built in</strong>: identity mapping, scoped permissions, audit logging, and no code retention</li>
           <li><strong>Start small, expand intentionally</strong>: read-only first, write operations after trust is established</li>
         </ul>
         <aside class="speaker-notes">
-          Let's recap what we covered. ChatOps brings your development workflows into the tools your team already uses every day. GitHub Copilot integrates natively with both Teams and Slack, giving you access to pull requests, issues, Actions, and code search right from the chat window. If the built-in features don't cover your needs, Copilot Extensions let you bolt on custom capabilities and make them available across all Copilot surfaces, including chat. For fully custom workflows, webhooks and GitHub Apps are your building blocks. And through it all, security is handled: identity is mapped, permissions are scoped, and everything is auditable. My advice? Start small with read-only workflows, build trust, and then expand into write operations. You'll be surprised how quickly your team adopts it.
+          Let's recap what we covered. ChatOps brings your development workflows into the tools your team already uses every day. GitHub Copilot integrates natively with both Teams and Slack, giving you access to pull requests, issues, Actions, and code search right from the chat window. If the built-in features don't cover your needs, Copilot Extensions let you bolt on custom capabilities and make them available across Copilot Chat surfaces, including VS Code, JetBrains IDEs, and github.com. For fully custom workflows, webhooks and GitHub Apps are your building blocks. And through it all, security is handled: identity is mapped, permissions are scoped, and everything is auditable. My advice? Start small with read-only workflows, build trust, and then expand into write operations. You'll be surprised how quickly your team adopts it.
         </aside>
       </div>
     </section>

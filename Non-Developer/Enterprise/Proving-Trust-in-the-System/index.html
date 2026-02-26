@@ -82,13 +82,13 @@
         <h2>The Regulatory Landscape</h2>
         <ul>
           <li>The EU AI Act classifies AI systems by risk level and mandates transparency for high-risk uses</li>
-          <li>The US Executive Order on AI Safety requires federal agencies to manage AI risks; industry follows suit</li>
+          <li>US federal AI policy continues to evolve; the regulatory landscape has developed significantly since early executive actions, and organizations should monitor ongoing policy changes</li>
           <li>NIST AI Risk Management Framework provides voluntary guidelines that auditors increasingly reference</li>
           <li>Sector-specific regulations (HIPAA, SOX, PCI-DSS) now intersect with AI usage policies</li>
           <li>Regulators expect organizations to document how AI tools are deployed, monitored, and controlled</li>
         </ul>
         <aside class="speaker-notes">
-          The regulatory landscape for AI is evolving rapidly. The EU AI Act, which became enforceable in phases starting in 2025, introduced a tiered classification system that requires transparency, human oversight, and risk assessments for AI systems. In the US, the Executive Order on AI Safety established new expectations around AI risk management that influence both public and private sector practices. The NIST AI Risk Management Framework, while voluntary, has become a de facto benchmark that auditors and regulators reference. If your organization operates in healthcare, finance, or handles personal data, you already comply with HIPAA, SOX, or PCI-DSS. Those frameworks now expect you to account for AI tools in your control environment. The bottom line: "we deployed an AI tool and hoped for the best" is no longer an acceptable posture.
+          The regulatory landscape for AI is evolving rapidly. The EU AI Act, which became enforceable in phases starting in 2025, introduced a tiered classification system that requires transparency, human oversight, and risk assessments for AI systems. In the US, the federal AI policy framework has evolved since the original October 2023 Executive Order on AI Safety, and the regulatory landscape continues to develop. Organizations should stay current on the latest federal guidance rather than referencing any single executive action. The NIST AI Risk Management Framework, while voluntary, has become a de facto benchmark that auditors and regulators reference. If your organization operates in healthcare, finance, or handles personal data, you already comply with HIPAA, SOX, or PCI-DSS. Those frameworks now expect you to account for AI tools in your control environment. The bottom line: "we deployed an AI tool and hoped for the best" is no longer an acceptable posture.
         </aside>
       </div>
     </section>
@@ -146,13 +146,13 @@
         <h2>Data Handling and Privacy</h2>
         <ul>
           <li><strong>No training on your code:</strong> GitHub Copilot Business and Enterprise do not use your code, prompts, or suggestions to train models</li>
-          <li><strong>Prompt isolation:</strong> Code snippets sent as context are used only to generate the current suggestion and are not stored afterward</li>
+          <li><strong>Prompt isolation:</strong> Code snippets sent as context are used only to generate the current suggestion and are not retained for model training. Prompts may be transiently processed for a limited period for abuse monitoring and safety purposes</li>
           <li><strong>Encryption in transit and at rest:</strong> All communications between the IDE and GitHub are encrypted using TLS 1.2+</li>
           <li><strong>SOC 2 Type II certified:</strong> GitHub undergoes independent audits that validate data handling, availability, and security controls</li>
           <li><strong>Data residency:</strong> Enterprise customers can choose data processing regions to comply with sovereignty requirements</li>
         </ul>
         <aside class="speaker-notes">
-          The most common question from governance teams is: "Does GitHub train its models on our code?" The answer for Business and Enterprise plans is an unequivocal no. Your prompts, code snippets, and the suggestions Copilot returns are not retained or used for model training. The context sent to the model is used only to generate the immediate response and is discarded. All data is encrypted both in transit and at rest, meeting modern encryption standards. GitHub holds SOC 2 Type II certification, which means independent auditors have verified these controls. For organizations with data sovereignty requirements, enterprise plans offer data residency options. These are the facts you can bring back to your legal and compliance teams with confidence.
+          The most common question from governance teams is: "Does GitHub train its models on our code?" The answer for Business and Enterprise plans is an unequivocal no. Your prompts, code snippets, and the suggestions Copilot returns are not retained for model training. Prompts may be transiently processed for a limited period for abuse monitoring and safety purposes, but the context is not used beyond generating the immediate response. All data is encrypted both in transit and at rest, meeting modern encryption standards. GitHub holds SOC 2 Type II certification, which means independent auditors have verified these controls. For organizations with data sovereignty requirements, enterprise plans offer data residency options. These are the facts you can bring back to your legal and compliance teams with confidence.
         </aside>
       </div>
     </section>
@@ -275,11 +275,10 @@
           <li><strong>Seat assignment events:</strong> Track when Copilot licenses are granted, revoked, or reassigned to users</li>
           <li><strong>Policy change events:</strong> Record every modification to Copilot organization policies, including who made the change</li>
           <li><strong>Content exclusion events:</strong> Log when exclusion rules are added, modified, or removed</li>
-          <li><strong>Chat interaction events:</strong> Capture metadata about Copilot Chat usage (not the content of conversations)</li>
-          <li><strong>API access events:</strong> Track programmatic access to Copilot management endpoints</li>
+
         </ul>
         <aside class="speaker-notes">
-          GitHub's audit log captures a comprehensive set of Copilot-related events. Seat assignment events let you track exactly who has access to Copilot and when access was granted or revoked. Policy change events create an immutable record of every configuration change, including who made it and when. Content exclusion events document the lifecycle of your exclusion rules. Chat interaction events capture metadata about when and how Copilot Chat is used, without logging the actual conversation content, which preserves developer privacy while maintaining auditability. API access events track any programmatic management of Copilot settings. All of these events are available through the GitHub audit log API, which means you can forward them to your SIEM or compliance monitoring tools.
+          GitHub's audit log captures a comprehensive set of Copilot-related events. Seat assignment events let you track exactly who has access to Copilot and when access was granted or revoked. Policy change events create an immutable record of every configuration change, including who made it and when. Content exclusion events document the lifecycle of your exclusion rules. All of these events are available through the GitHub audit log API, which means you can forward them to your SIEM or compliance monitoring tools.
         </aside>
       </div>
     </section>
@@ -295,8 +294,8 @@
             <h3>Streaming Options</h3>
             <ul>
               <li>Audit log streaming to Amazon S3, Azure Blob Storage, Azure Event Hubs, Google Cloud Storage, or Splunk</li>
-              <li>REST API polling for custom integrations</li>
-              <li>GraphQL API for advanced querying</li>
+              <li>REST API for custom integrations and on-demand queries</li>
+              <li>GraphQL API (legacy; REST API and streaming are recommended for new integrations)</li>
             </ul>
           </div>
           <div class="card">
@@ -310,7 +309,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          Audit logs are only valuable if they flow into your existing security monitoring infrastructure. GitHub supports audit log streaming to major cloud storage and SIEM platforms: Amazon S3, Azure Blob Storage, Azure Event Hubs, Google Cloud Storage, and Splunk. For custom integrations, you can poll the REST API or use the GraphQL API for more complex queries. Once the data is in your SIEM, set up alerts for the scenarios that matter most. Watch for unusual usage spikes that might indicate automated or scripted access. Flag policy changes that occur outside your normal change management windows. Alert on seat assignments to service accounts, because Copilot licenses should go to human developers. And monitor for exclusion rule removals that lack a corresponding approval in your ticketing system.
+          Audit logs are only valuable if they flow into your existing security monitoring infrastructure. GitHub supports audit log streaming to major cloud storage and SIEM platforms: Amazon S3, Azure Blob Storage, Azure Event Hubs, Google Cloud Storage, and Splunk. For custom integrations, the REST API is the recommended approach. The GraphQL API is available but considered legacy; REST API and audit log streaming are the preferred methods for new integrations. Once the data is in your SIEM, set up alerts for the scenarios that matter most. Watch for unusual usage spikes that might indicate automated or scripted access. Flag policy changes that occur outside your normal change management windows. Alert on seat assignments to service accounts, because Copilot licenses should go to human developers. And monitor for exclusion rule removals that lack a corresponding approval in your ticketing system.
         </aside>
       </div>
     </section>
@@ -337,12 +336,12 @@
         <ul>
           <li>Copilot generates suggestions probabilistically; it does not copy and paste from a database of code</li>
           <li>The <strong>duplicate detection filter</strong> blocks suggestions that match known public code above a similarity threshold</li>
-          <li>When the filter detects a match, it can either block the suggestion entirely or display the matching source with its license</li>
+          <li>When the filter detects a match, it blocks the suggestion from being shown to the developer. Code referencing, a related but separate feature, surfaces open-source matches with license and attribution information</li>
           <li>Organizations can enable or disable the duplicate detection filter as a policy setting</li>
           <li>This filter is a core component of demonstrating due diligence around code originality</li>
         </ul>
         <aside class="speaker-notes">
-          Let's address how code suggestions are generated. Copilot uses large language models that produce suggestions based on patterns learned during training. It does not look up code from a database and paste it into your editor. However, there is always a possibility that a suggestion closely matches existing public code, simply because common patterns exist across many projects. To mitigate this, GitHub provides a duplicate detection filter. When enabled, this filter compares suggestions against a large index of known public code. If a suggestion exceeds a similarity threshold, it is either suppressed or presented with a reference to the matching source and its license information. Organizations can control whether this filter is active through policy settings. For governance purposes, enabling this filter is a straightforward way to demonstrate due diligence.
+          Let's address how code suggestions are generated. Copilot uses large language models that produce suggestions based on patterns learned during training. It does not look up code from a database and paste it into your editor. However, there is always a possibility that a suggestion closely matches existing public code, simply because common patterns exist across many projects. To mitigate this, GitHub provides a duplicate detection filter. When enabled, this filter compares suggestions against a large index of known public code. If a suggestion exceeds a similarity threshold, it is blocked. Code referencing is a related but separate feature that surfaces open-source matches with license and attribution information for code already in your project. Organizations can control whether this filter is active through policy settings. For governance purposes, enabling this filter is a straightforward way to demonstrate due diligence.
         </aside>
       </div>
     </section>
@@ -356,7 +355,7 @@
         <div class="columns">
           <div class="card">
             <h3>What GitHub Covers</h3>
-            <p>GitHub provides intellectual property indemnification for Copilot Business and Enterprise customers. If a third party brings an IP claim related to a Copilot suggestion, GitHub will defend the claim and cover resulting damages, provided the customer used the product as intended and had the duplicate detection filter enabled.</p>
+            <p>GitHub provides intellectual property indemnification for Copilot Business and Enterprise customers. If a third party brings an IP claim related to a Copilot suggestion, GitHub will defend the claim and cover resulting damages, provided the customer used the product as intended. GitHub recommends enabling the duplicate detection filter as a best practice.</p>
           </div>
           <div class="card">
             <h3>What This Means for You</h3>
@@ -364,7 +363,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          IP indemnity is a significant governance control. For Copilot Business and Enterprise plans, GitHub provides intellectual property indemnification. If a third party files an IP claim alleging that a Copilot suggestion infringed their copyright, GitHub will defend the claim and cover damages. The key conditions are that the customer must have been using the product as intended and should have the duplicate detection filter enabled. From a governance perspective, this is risk transfer. You can document this in your vendor risk assessment and include it in board-level reporting as a concrete control that mitigates IP risk. Make sure your legal team reviews the specific terms in your GitHub Enterprise agreement so they understand exactly what is covered.
+          IP indemnity is a significant governance control. For Copilot Business and Enterprise plans, GitHub provides intellectual property indemnification. If a third party files an IP claim alleging that a Copilot suggestion infringed their copyright, GitHub will defend the claim and cover damages. The key condition is that the customer must have been using the product as intended. GitHub recommends enabling the duplicate detection filter as a best practice, but it is not a contractual prerequisite for the indemnity. From a governance perspective, this is risk transfer. You can document this in your vendor risk assessment and include it in board-level reporting as a concrete control that mitigates IP risk. Make sure your legal team reviews the specific terms in your GitHub Enterprise agreement so they understand exactly what is covered.
         </aside>
       </div>
     </section>
@@ -392,11 +391,11 @@
           <li><strong>Suggestions matching public code:</strong> Allow, block, or block with reference for code that matches known public repositories</li>
           <li><strong>Copilot Chat:</strong> Enable or disable Copilot Chat across the organization, or allow individual members to opt in</li>
           <li><strong>Copilot in the CLI:</strong> Control whether Copilot can be used in command-line interfaces</li>
-          <li><strong>Editor integrations:</strong> Specify which IDEs and editors are approved for Copilot use</li>
+          <li><strong>Feature controls:</strong> Enable or disable specific Copilot capabilities such as Copilot Chat, code completions, or code review</li>
           <li><strong>Seat management:</strong> Assign Copilot access by team, role, or individual to enforce least-privilege principles</li>
         </ul>
         <aside class="speaker-notes">
-          GitHub provides a set of organization-level policies that give governance teams fine-grained control. The public code suggestion policy is the most frequently discussed: you can block suggestions that match public code, allow them with a reference, or allow them entirely. Copilot Chat can be enabled org-wide, disabled org-wide, or left as an opt-in for individual members. CLI access can be separately controlled for organizations that want to limit Copilot to IDE-based interactions only. You can also control which editor integrations are permitted. Seat management allows you to assign Copilot access at the team or individual level, which supports least-privilege access models. All of these policies are configured in the organization settings on GitHub.com, and every change is recorded in the audit log.
+          GitHub provides a set of organization-level policies that give governance teams fine-grained control. The public code suggestion policy is the most frequently discussed: you can block suggestions that match public code, allow them with a reference, or allow them entirely. Copilot Chat can be enabled org-wide, disabled org-wide, or left as an opt-in for individual members. CLI access can be separately controlled for organizations that want to limit Copilot to IDE-based interactions only. You can also enable or disable specific capabilities such as Copilot Chat, code completions, or code review. Seat management allows you to assign Copilot access at the team or individual level, which supports least-privilege access models. All of these policies are configured in the organization settings on GitHub.com, and every change is recorded in the audit log.
         </aside>
       </div>
     </section>

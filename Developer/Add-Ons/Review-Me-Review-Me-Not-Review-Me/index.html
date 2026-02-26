@@ -145,11 +145,11 @@
           <li>Copilot reviews the <strong>diff of your pull request</strong>, not the entire repository</li>
           <li>Analyzes changes for bugs, security issues, readability, and adherence to best practices</li>
           <li>Posts review comments <strong>directly on the PR</strong>, just like a human reviewer</li>
-          <li>Supports <strong>over 30 programming languages</strong>, with strongest coverage in Python, JavaScript, TypeScript, Go, Ruby, and Java</li>
+          <li>Copilot code review works best with popular languages including Python, JavaScript, TypeScript, Java, Go, C#, and Ruby, with broader language support continuing to expand</li>
           <li>Does <strong>not</strong> replace human reviewers; it augments them by catching the obvious issues first</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot code review works on the diff of your pull request. It does not scan your entire codebase; it focuses on what changed. It analyzes those changes for common issues: potential bugs, security vulnerabilities, readability problems, and deviations from best practices. The feedback appears directly on the pull request as review comments, exactly the same way a human reviewer would leave them. This means there is no new tool to learn and no new workflow to adopt. It supports over thirty programming languages, with the deepest coverage in Python, JavaScript, TypeScript, Go, Ruby, and Java. An important point: Copilot code review is not a replacement for human reviewers. It is a first pass that catches the mechanical issues, so human reviewers can focus on architecture, design, and business logic.
+          Copilot code review works on the diff of your pull request. It does not scan your entire codebase; it focuses on what changed. It analyzes those changes for common issues: potential bugs, security vulnerabilities, readability problems, and deviations from best practices. The feedback appears directly on the pull request as review comments, exactly the same way a human reviewer would leave them. This means there is no new tool to learn and no new workflow to adopt. Copilot code review works best with popular languages including Python, JavaScript, TypeScript, Java, Go, C#, and Ruby, with broader language support continuing to expand. An important point: Copilot code review is not a replacement for human reviewers. It is a first pass that catches the mechanical issues, so human reviewers can focus on architecture, design, and business logic.
         </aside>
       </div>
     </section>
@@ -173,13 +173,13 @@
             <h3>On-Demand Review</h3>
             <ul>
               <li>Click the <strong>"Copilot" button</strong> in the PR review toolbar</li>
-              <li>Select specific files or the entire diff for review</li>
+              <li>Request a review of your entire PR diff with one click</li>
               <li>Useful for spot-checking before requesting human review</li>
             </ul>
           </div>
         </div>
         <aside class="speaker-notes">
-          There are two ways to trigger Copilot code review. The first is auto-review. You assign Copilot as a reviewer on the pull request, either manually or through a CODEOWNERS file. When the PR is opened or updated, Copilot reviews it automatically. This is ideal for teams that want consistent, automated feedback on every pull request without any manual steps. The second is on-demand review. You click the Copilot button in the PR review toolbar and select which files you want reviewed, or review the entire diff. This gives developers more control. They can use it to self-check their own code before requesting a human review, or to get quick feedback on a specific area. Many teams use both: auto-review for broad coverage and on-demand for targeted analysis.
+          There are two ways to trigger Copilot code review. The first is auto-review. You assign Copilot as a reviewer on the pull request, either manually or through a CODEOWNERS file. When the PR is opened or updated, Copilot reviews it automatically. This is ideal for teams that want consistent, automated feedback on every pull request without any manual steps. The second is on-demand review. You click the Copilot button in the PR review toolbar, and Copilot reviews your entire PR diff. This gives developers more control. They can use it to self-check their own code before requesting a human review, or to get quick feedback on a specific area. Many teams use both: auto-review for broad coverage and on-demand for targeted analysis.
         </aside>
       </div>
     </section>
@@ -194,11 +194,11 @@
           <li><strong>Comment:</strong> Copilot explains the issue and why it matters</li>
           <li><strong>Suggestion:</strong> provides a concrete code change you can accept with one click</li>
           <li><strong>Batch commit:</strong> accept multiple suggestions at once and commit them directly from the PR</li>
-          <li>Copilot groups related findings so you see patterns, not just individual issues</li>
-          <li>Each comment includes a <strong>severity indicator</strong> (e.g., bug, style, performance) to help you prioritize</li>
+          <li>Each review comment addresses a specific code location independently</li>
+          <li>Each comment is an AI-generated inline suggestion on a specific location in the diff</li>
         </ul>
         <aside class="speaker-notes">
-          When Copilot reviews your code, it leaves three types of feedback. First, comments: these explain what the issue is and why it matters. For example, "This function does not handle the case where the input is null." Second, suggestions: these are concrete code changes, presented as GitHub suggestion blocks. You can accept them with a single click, and they become a commit on your branch. Third, you can batch-commit multiple suggestions at once, which is a huge time saver for style fixes. Copilot also groups related findings together, so if you have the same issue in five places, you see the pattern rather than getting five disconnected comments. Each comment includes a severity indicator: is this a potential bug, a style issue, or a performance concern? This helps you prioritize which comments to address first.
+          When Copilot reviews your code, it leaves three types of feedback. First, comments: these explain what the issue is and why it matters. For example, "This function does not handle the case where the input is null." Second, suggestions: these are concrete code changes, presented as GitHub suggestion blocks. You can accept them with a single click, and they become a commit on your branch. Third, you can batch-commit multiple suggestions at once, which is a huge time saver for style fixes. Each review comment addresses a specific code location independently. Each comment is an AI-generated inline suggestion on a specific location in the diff.
         </aside>
       </div>
     </section>
@@ -418,11 +418,11 @@ def search():
           <li><strong>Layer 1:</strong> Copilot code review catches quality, readability, and best-practice issues on the PR</li>
           <li><strong>Layer 2:</strong> Code scanning (CodeQL) runs as a CI check on every push or PR</li>
           <li><strong>Layer 3:</strong> Copilot Autofix generates remediation for any vulnerabilities found</li>
-          <li>Both layers produce <strong>status checks</strong> that can block merging until resolved</li>
+          <li>Code scanning produces a CI status check; Copilot code review submits a pull request review. Both can block merging, but through different mechanisms: required status checks vs. required reviewers</li>
           <li>Human reviewers focus on <strong>architecture and business logic</strong>, not mechanical checks</li>
         </ul>
         <aside class="speaker-notes">
-          The power of this approach is layering. Layer one is Copilot code review, which catches quality issues, readability concerns, and best-practice violations directly on the pull request. Layer two is code scanning with CodeQL, which runs as a CI check on every push or pull request and catches security vulnerabilities. Layer three is Copilot Autofix, which generates fixes for the vulnerabilities that code scanning finds. Both Copilot review and code scanning produce status checks. You can configure your branch protection rules to require these checks to pass before a PR can be merged. This creates an automated quality gate. Human reviewers still play a critical role, but they focus on what they do best: evaluating architecture decisions, verifying business logic, and mentoring junior developers. The mechanical checks are handled by automation.
+          The power of this approach is layering. Layer one is Copilot code review, which catches quality issues, readability concerns, and best-practice violations directly on the pull request. Layer two is code scanning with CodeQL, which runs as a CI check on every push or pull request and catches security vulnerabilities. Layer three is Copilot Autofix, which generates fixes for the vulnerabilities that code scanning finds. Code scanning produces a CI status check, while Copilot code review submits a pull request review. Both can block merging, but through different mechanisms: required status checks vs. required reviewers. This creates an automated quality gate. Human reviewers still play a critical role, but they focus on what they do best: evaluating architecture decisions, verifying business logic, and mentoring junior developers. The mechanical checks are handled by automation.
         </aside>
       </div>
     </section>
@@ -487,10 +487,10 @@ jobs:
           <li><strong>Push protection</strong> blocks the push <em>before</em> the secret reaches the remote repository</li>
           <li>Developers see a clear error message explaining which secret was detected and how to remediate</li>
           <li>Admins can review bypass requests and audit all detected secrets in the Security tab</li>
-          <li><strong>Copilot</strong> can generate generic detection patterns for custom secret formats specific to your organization</li>
+          <li>Admins define custom secret scanning patterns using regex. GitHub's AI-powered generic secret detection can detect unstructured credentials without explicit patterns</li>
         </ul>
         <aside class="speaker-notes">
-          Secret scanning is one of the most immediately valuable security features on GitHub. It scans your repository for known token patterns: API keys, passwords, certificates, connection strings, and more. It supports over two hundred patterns from providers like AWS, Azure, Google Cloud, Slack, Stripe, and many others. But detection after the fact is not ideal. That is why push protection exists. Push protection intercepts the git push on the server side and blocks it before the secret ever lands in the remote repository. The developer sees a clear error message explaining which secret was found, what line it is on, and how to fix it. They can remove the secret, mark it as a false positive, or request a bypass. Bypass requests go to an admin for review. All detected secrets are auditable in the Security tab. For organizations with custom secret formats, Copilot can help generate custom patterns for detection. This closes the gap for proprietary tokens that public pattern libraries do not cover.
+          Secret scanning is one of the most immediately valuable security features on GitHub. It scans your repository for known token patterns: API keys, passwords, certificates, connection strings, and more. It supports over two hundred patterns from providers like AWS, Azure, Google Cloud, Slack, Stripe, and many others. But detection after the fact is not ideal. That is why push protection exists. Push protection intercepts the git push on the server side and blocks it before the secret ever lands in the remote repository. The developer sees a clear error message explaining which secret was found, what line it is on, and how to fix it. They can remove the secret, mark it as a false positive, or request a bypass. Bypass requests go to an admin for review. All detected secrets are auditable in the Security tab. Admins can define custom secret scanning patterns using regex for organization-specific secret formats. GitHub's AI-powered generic secret detection can also detect unstructured credentials without explicit patterns.
         </aside>
       </div>
     </section>

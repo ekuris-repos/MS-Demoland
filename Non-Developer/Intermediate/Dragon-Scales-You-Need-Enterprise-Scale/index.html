@@ -18,7 +18,7 @@
         <h1>Ops at Scale - Dragon Scales? You Need Enterprise Scale!</h1>
         <p class="subtitle">Collate logs, correlate dashboards, and propose fixes at scale, then generate reliability reports that back up your operational plans</p>
         <aside class="speaker-notes">
-          Welcome to "Dragon Scales? You Need Enterprise Scale!" In the next 45 minutes we are going to explore how GitHub Copilot and the broader GitHub platform help operations teams manage infrastructure at enterprise scale. Whether you are an SRE, a platform engineer, an ops manager, or an IT leader, the patterns we cover today will change the way you think about day-to-day operational work. We will move from manual firefighting to AI-assisted automation, observability, incident response, and reliability reporting. Let's get started.
+          Welcome to "Dragon Scales? You Need Enterprise Scale!" In the next 45 minutes we are going to explore how GitHub Copilot and the broader GitHub platform help operations teams manage infrastructure at enterprise scale. Whether you are an SRE, a platform engineer, an ops manager, or an IT leader, the patterns we cover today will change the way you think about day-to-day operational work. We will move from manual firefighting to AI-assisted automation, observability, incident response, and reliability reporting. Note that some content in this course involves technical CLI commands and would benefit from familiarity with command-line tools. Let's get started.
         </aside>
       </div>
     </section>
@@ -99,14 +99,14 @@
             <h3>After: AI-Assisted</h3>
             <ul>
               <li>Copilot generates log queries on demand</li>
-              <li>Runbooks auto-updated via pull requests</li>
+              <li>Runbooks maintained and updated through pull requests</li>
               <li>Dashboard queries generated in seconds</li>
               <li>Postmortem drafts assembled from incident data</li>
             </ul>
           </div>
         </div>
         <aside class="speaker-notes">
-          Here is the shift we are proposing. On the left, the traditional model: SSH into machines, grep through log files line by line, copy from runbooks that may or may not be current, manually assemble dashboards, and write postmortems from memory days after the incident. On the right, the AI-assisted model. Copilot generates the exact log query you need in seconds. Runbooks live in a repository and get updated automatically through pull requests. Dashboard queries for KQL, PromQL, or Grafana are generated conversationally. Postmortem drafts are assembled from the actual incident timeline, alerts, and resolution steps. This is not about replacing engineers. It is about freeing engineers from repetitive toil so they can focus on architecture, reliability, and strategy.
+          Here is the shift we are proposing. On the left, the traditional model: SSH into machines, grep through log files line by line, copy from runbooks that may or may not be current, manually assemble dashboards, and write postmortems from memory days after the incident. On the right, the AI-assisted model. Copilot generates the exact log query you need in seconds. Runbooks live in a repository and are maintained and updated through pull requests. Dashboard queries for KQL, PromQL, or Grafana are generated conversationally. Postmortem drafts are assembled from the actual incident timeline, alerts, and resolution steps. This is not about replacing engineers. It is about freeing engineers from repetitive toil so they can focus on architecture, reliability, and strategy.
         </aside>
       </div>
     </section>
@@ -144,12 +144,12 @@
         <h2>Using Copilot to Author Pipelines</h2>
         <ul>
           <li>Ask Copilot Chat: "Write a GitHub Actions workflow that deploys Terraform to Azure with plan-on-PR and manual apply"</li>
-          <li>Copilot generates the full YAML, including environment secrets, concurrency guards, and caching</li>
+          <li>Copilot can generate YAML that may include environment references, concurrency configuration, and caching steps depending on the prompt</li>
           <li>Iterate conversationally: "Add a Slack notification on failure" or "Pin the Terraform version"</li>
           <li>Review the generated workflow just as you would review any code contribution</li>
         </ul>
         <aside class="speaker-notes">
-          Here is where Copilot starts adding value immediately. Writing GitHub Actions YAML from scratch is tedious and error-prone. Instead, open Copilot Chat and describe what you need in plain language. For example: "Write a GitHub Actions workflow that deploys Terraform to Azure with a plan step on pull requests and a manual apply step on merge to main." Copilot will generate the full YAML, including references to repository secrets, concurrency guards to prevent parallel runs, and caching for the Terraform provider plugins. If you need adjustments, just ask: "Add a Slack notification on failure," or "Pin the Terraform version to 1.7.5." The key point is that you should still review the generated workflow carefully. Treat it exactly like a code contribution from a colleague. Copilot accelerates authoring; you retain ownership of correctness.
+          Here is where Copilot starts adding value immediately. Writing GitHub Actions YAML from scratch is tedious and error-prone. Instead, open Copilot Chat and describe what you need in plain language. For example: "Write a GitHub Actions workflow that deploys Terraform to Azure with a plan step on pull requests and a manual apply step on merge to main." Copilot can generate YAML that may include references to repository secrets, concurrency configuration, and caching for provider plugins, depending on the specifics of your prompt. If you need adjustments, just ask: "Add a Slack notification on failure," or "Pin the Terraform version to 1.7.5." The key point is that you should still review the generated workflow carefully. Treat it exactly like a code contribution from a colleague. Copilot accelerates authoring; you retain ownership of correctness.
         </aside>
       </div>
     </section>
@@ -237,11 +237,11 @@
           <div class="card">
             <h3>PromQL (Prometheus)</h3>
             <p>"Alert me when memory usage exceeds 85% for more than 5 minutes on any production node."</p>
-            <p>Copilot outputs a PromQL expression with <code>histogram_quantile</code> and alert rule YAML.</p>
+            <p>Copilot outputs a PromQL gauge comparison (e.g., <code>node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes &lt; 0.15</code>) and alert rule YAML.</p>
           </div>
         </div>
         <aside class="speaker-notes">
-          One of the biggest friction points in observability is writing the right query. KQL, PromQL, and Grafana query languages each have their own syntax, and it is easy to spend 20 minutes getting a query right. With Copilot, you describe what you need in plain English. For Azure Monitor, you might say: "Show me the p95 latency for the orders API, grouped by region, for the last 24 hours." Copilot produces a KQL query using summarize, percentile, and bin functions. For Prometheus, you might ask: "Alert me when memory usage exceeds 85% for more than 5 minutes on any production node." Copilot generates both the PromQL expression and the alert-rule YAML. You still need to validate these queries against your actual data, but the time savings are significant. Engineers report cutting query-authoring time by 60 to 80 percent.
+          One of the biggest friction points in observability is writing the right query. KQL, PromQL, and Grafana query languages each have their own syntax, and it is easy to spend 20 minutes getting a query right. With Copilot, you describe what you need in plain English. For Azure Monitor, you might say: "Show me the p95 latency for the orders API, grouped by region, for the last 24 hours." Copilot produces a KQL query using summarize, percentile, and bin functions. For Prometheus, you might ask: "Alert me when memory usage exceeds 85% for more than 5 minutes on any production node." Copilot generates both the PromQL expression and the alert-rule YAML. You still need to validate these queries against your actual data, but the time savings are significant. Engineers report significant time savings when using Copilot for query authoring.
         </aside>
       </div>
     </section>
@@ -351,11 +351,11 @@
         <ul>
           <li>Define your Service Level Objectives: availability, latency, error rate</li>
           <li>Use Copilot to generate queries that calculate error budgets from monitoring data</li>
-          <li>Automate weekly or monthly report generation with GitHub Actions</li>
+          <li>Automate weekly or monthly report generation with GitHub Actions (requires custom scripting, API authentication, and data transformation)</li>
           <li>Output Markdown reports that render directly in the repository for stakeholder review</li>
         </ul>
         <aside class="speaker-notes">
-          Reliability reporting is essential for building trust with business stakeholders, but it is often manual and inconsistent. Start by defining your Service Level Objectives clearly: what is your target for availability, latency, and error rate? Then use Copilot to generate the monitoring queries that calculate your error budget consumption over a given period. These queries pull data from your observability stack, whether that is Azure Monitor, Datadog, or Prometheus. Automate the report generation with a scheduled GitHub Actions workflow that runs weekly or monthly, executes the queries, and produces a Markdown report committed directly to the repository. Stakeholders can review the report in the browser on GitHub without needing access to your monitoring tools. This creates a transparent, auditable history of your reliability performance.
+          Reliability reporting is essential for building trust with business stakeholders, but it is often manual and inconsistent. Start by defining your Service Level Objectives clearly: what is your target for availability, latency, and error rate? Then use Copilot to generate the monitoring queries that calculate your error budget consumption over a given period. These queries pull data from your observability stack, whether that is Azure Monitor, Datadog, or Prometheus. You can automate report generation with a scheduled GitHub Actions workflow that runs weekly or monthly, but keep in mind this requires custom scripting to query monitoring APIs, handle authentication, and transform the data into a readable format. The workflow produces a Markdown report committed directly to the repository. Stakeholders can review the report in the browser on GitHub without needing access to your monitoring tools. This creates a transparent, auditable history of your reliability performance.
         </aside>
       </div>
     </section>
@@ -377,13 +377,13 @@
             <h3>Right-Size Recommendations</h3>
             <ul>
               <li>"Based on this CPU utilization data, suggest right-sized VM SKUs"</li>
-              <li>Copilot cross-references usage patterns with available instance types</li>
+              <li>Copilot can suggest VM SKU categories based on utilization data you provide, but does not have access to live pricing or current SKU availability</li>
               <li>Generate cost-savings proposals formatted for leadership review</li>
             </ul>
           </div>
         </div>
         <aside class="speaker-notes">
-          Cost management is a constant challenge at scale. One practical approach is to export your cloud billing data to a repository on a regular schedule. Once the data is available, you can ask Copilot to analyze it: "Summarize the top 5 cost drivers this month compared to last month." Copilot can identify anomalies like unexpected spending spikes, orphaned resources that are still incurring charges, or instances that are significantly over-provisioned. For right-sizing, provide Copilot with CPU and memory utilization data and ask for recommendations. It can cross-reference your usage patterns with available instance types and suggest appropriate SKUs. The output can be formatted as a cost-savings proposal ready for leadership review. This is not a replacement for dedicated FinOps tooling, but it is a powerful complement that lets ops engineers generate insights without switching contexts.
+          Cost management is a constant challenge at scale. One practical approach is to export your cloud billing data to a repository on a regular schedule. Once the data is available, you can ask Copilot to analyze it: "Summarize the top 5 cost drivers this month compared to last month." Copilot can identify anomalies like unexpected spending spikes, orphaned resources that are still incurring charges, or instances that are significantly over-provisioned. For right-sizing, provide Copilot with CPU and memory utilization data and ask for recommendations. Copilot can suggest VM SKU categories based on the utilization data you provide, but it does not have access to live pricing or current SKU availability. Use cloud-native cost management tools for authoritative right-sizing. The output can be formatted as a cost-savings proposal ready for leadership review. This is not a replacement for dedicated FinOps tooling, but it is a useful complement that lets ops engineers generate initial insights without switching contexts.
         </aside>
       </div>
     </section>
@@ -405,12 +405,12 @@
         <h2>Organization Structure &amp; Innersource</h2>
         <ul>
           <li><strong>Multi-org vs. single-org</strong> - Choose a structure that balances autonomy with governance</li>
-          <li><strong>Team-based permissions</strong> - Map org teams to repository access, with base permissions set to "read"</li>
+          <li><strong>Team-based permissions</strong> - Map org teams to repository access, with base permissions set to "read" (note: "read" enables innersource discoverability but may conflict with compliance requirements; for regulated industries, "no permission" may be more appropriate)</li>
           <li><strong>Innersource practices</strong> - Internal repositories discoverable across groups, with contribution guidelines and CODEOWNERS</li>
           <li><strong>Repository templates</strong> - Standardize project setup: CI/CD, linting, security scanning, and documentation</li>
         </ul>
         <aside class="speaker-notes">
-          At enterprise scale, how you structure your GitHub organization matters enormously. The choice between multiple organizations and a single organization depends on regulatory needs, billing, and team autonomy. Within your organization, use team-based permissions to control access. Set the base permission to "read" and layer on write or admin access through team membership. Innersource is a powerful practice: make internal repositories discoverable across business groups. Add contribution guidelines and CODEOWNERS files so that anyone in the company can contribute, with clear ownership and review processes. Repository templates let you standardize the setup for new projects. Every new repo starts with CI/CD, linting, security scanning, and documentation scaffolding already in place. This consistency reduces onboarding time and ensures best practices are followed from day one.
+          At enterprise scale, how you structure your GitHub organization matters enormously. The choice between multiple organizations and a single organization depends on regulatory needs, billing, and team autonomy. Within your organization, use team-based permissions to control access. Set the base permission to "read" and layer on write or admin access through team membership. Keep in mind that "read" enables innersource discoverability but may conflict with compliance requirements. For regulated industries, "no permission" may be more appropriate as the base level. Innersource is a powerful practice: make internal repositories discoverable across business groups. Add contribution guidelines and CODEOWNERS files so that anyone in the company can contribute, with clear ownership and review processes. Repository templates let you standardize the setup for new projects. Every new repo starts with CI/CD, linting, security scanning, and documentation scaffolding already in place. This consistency reduces onboarding time and ensures best practices are followed from day one.
         </aside>
       </div>
     </section>

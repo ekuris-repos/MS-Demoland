@@ -96,6 +96,9 @@
           <li><strong>Reporting gaps:</strong> Stakeholder dashboards in ADO do not automatically reflect activity happening in GitHub</li>
           <li><strong>Security silos:</strong> Vulnerability findings live in one platform while the code and work items live in the other</li>
         </ul>
+        <div class="callout">
+          <strong>Note:</strong> GitHub Copilot features vary by tier (Free, Pro, Pro+, Business, Enterprise). Enterprise teams should confirm their plan's feature set before relying on specific capabilities discussed in this session.
+        </div>
         <aside class="speaker-notes">
           Before we talk about solutions, let's name the friction. The number one complaint we hear is context switching. A project manager opens Azure Boards to check sprint progress, but the actual development work is happening in GitHub pull requests. Status updates require manual effort, and things fall through the cracks. Teams sometimes end up maintaining two CI/CD systems because Pipelines are configured in ADO and Actions are configured in GitHub. Reporting becomes fragmented. And security findings from tools like Dependabot or CodeQL may not be visible to the people managing work items in ADO. These are real problems, and the rest of this session is about solving them.
         </aside>
@@ -204,7 +207,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          Let's talk about the practical impact on your daily work. Before this integration, sprint boards were only as current as the last time someone remembered to drag a card. Status updates in standup often sounded like "I think that's done, let me check." After connecting Azure Boards to GitHub, work items update automatically based on real development activity. When a developer opens a PR linked to a work item, the item moves to "In Review." When the PR merges, it moves to "Done." Your burndown chart stays accurate because it reflects actual completed work, not manual updates. This frees up standup time to focus on blockers and decisions instead of going around the room asking "what did you do yesterday?"
+          Let's talk about the practical impact on your daily work. Before this integration, sprint boards were only as current as the last time someone remembered to drag a card. Status updates in standup often sounded like "I think that's done, let me check." After connecting Azure Boards to GitHub, work items update automatically based on real development activity. The integration links PRs to work items. Automatic state transition occurs on PR merge (when using "Fixes AB#" keywords). Moving to "In Review" on PR open requires additional Azure DevOps automation rules. Your burndown chart stays accurate because it reflects actual completed work, not manual updates. This frees up standup time to focus on blockers and decisions instead of going around the room asking "what did you do yesterday?"
         </aside>
       </div>
     </section>
@@ -229,10 +232,10 @@
           <li><strong>Work item suggestions:</strong> Get AI-assisted recommendations for work item fields, descriptions, and acceptance criteria</li>
           <li><strong>Test plan generation:</strong> Copilot drafts test cases based on requirements described in work items</li>
           <li><strong>Pipeline troubleshooting:</strong> AI-assisted explanations of pipeline failures help teams resolve build issues faster</li>
-          <li><strong>Natural language search:</strong> Ask questions about your project data in plain English</li>
+          <li><strong>Copilot-assisted features:</strong> Generate work item descriptions, acceptance criteria, and test plans with AI assistance</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot capabilities are arriving in Azure DevOps and expanding regularly. Today, some of the most useful features include AI-generated pull request descriptions, which save developers time by automatically summarizing what changed and why. For PMs, the work item assistance is particularly valuable: Copilot can help write acceptance criteria, suggest descriptions, and even draft test cases based on the requirements you have written. Pipeline troubleshooting is another area where Copilot helps. When a build fails, Copilot can explain the error in plain language and suggest fixes. And natural language search lets you query your project data conversationally. These features continue to expand, so check the Azure DevOps release notes regularly for updates.
+          Copilot capabilities are arriving in Azure DevOps and expanding regularly. Today, some of the most useful features include AI-generated pull request descriptions, which save developers time by automatically summarizing what changed and why. For PMs, the work item assistance is particularly valuable: Copilot can help write acceptance criteria, suggest descriptions, and even draft test cases based on the requirements you have written. Pipeline troubleshooting is another area where Copilot helps. When a build fails, Copilot can explain the error in plain language and suggest fixes. And natural language search lets you query your project data conversationally. These features continue to expand, so check the Azure DevOps release notes regularly for updates. Note that Copilot-assisted features in ADO are powered by the same AI models as GitHub Copilot and are expanding with each release.
         </aside>
       </div>
     </section>
@@ -255,7 +258,7 @@
         <ul>
           <li><strong>Copilot Chat in GitHub.com:</strong> Ask Copilot questions about any repository, PR, or issue directly in the browser</li>
           <li><strong>PR summaries:</strong> Click a button to generate a plain-language summary of any pull request's changes</li>
-          <li><strong>Issue triage:</strong> Copilot can suggest labels, assignees, and related issues based on the content of a new issue</li>
+          <li><strong>Issue triage:</strong> Copilot Chat can help analyze issue content if prompted. Auto-labeling can be done via GitHub Actions. Teams typically use CODEOWNERS or Actions for routing</li>
           <li><strong>Documentation drafts:</strong> Generate release notes, README updates, and project documentation from recent activity</li>
           <li><strong>Copilot Extensions:</strong> Third-party extensions can connect Copilot to external tools like Jira, Sentry, or your own internal systems</li>
         </ul>
@@ -284,13 +287,13 @@
             <ul>
               <li>"Explain this PR in non-technical terms"</li>
               <li>"What is the risk level of this change?"</li>
-              <li>"How does this feature relate to our Q3 goals?"</li>
-              <li>"Show me the test coverage for this feature"</li>
+              <li>"Summarize the changes in this PR"</li>
+              <li>"What test files exist for this component?"</li>
             </ul>
           </div>
         </div>
         <aside class="speaker-notes">
-          Here are some real prompts you can use with Copilot Chat on GitHub.com today. As a PM or team lead, you might ask Copilot to summarize all the pull requests merged during a sprint, which gives you a quick status report without asking each developer individually. You can ask about open security alerts to prepare for a compliance review. Drafting release notes becomes a 30-second task instead of a 30-minute one. For stakeholders who need to understand technical changes, Copilot can translate code changes into business language. It can assess risk, connect changes to project goals, and surface test coverage data. This transforms GitHub from a tool that only developers use into a communication platform that serves the whole team.
+          Here are some real prompts you can use with Copilot Chat on GitHub.com today. As a PM or team lead, you might ask Copilot to summarize all the pull requests merged during a sprint, which gives you a quick status report without asking each developer individually. You can ask about open security alerts to prepare for a compliance review. Drafting release notes becomes a 30-second task instead of a 30-minute one. For stakeholders who need to understand technical changes, Copilot can translate code changes into business language. It can assess risk, summarize changes for non-technical audiences, and identify related test files. This transforms GitHub from a tool that only developers use into a communication platform that serves the whole team.
         </aside>
       </div>
     </section>
@@ -436,10 +439,10 @@
           <li><strong>Copilot PR Summaries:</strong> Click into any recent PR and use Copilot to generate a non-technical summary of the changes</li>
           <li><strong>Release Notes Draft:</strong> Ask Copilot Chat to compile release notes from all PRs merged since the last release tag</li>
           <li><strong>Security Posture:</strong> Review GHAzDO alerts on the ADO dashboard and use the trend data to show improvement over time</li>
-          <li><strong>Export to PowerPoint:</strong> Use ADO's built-in export features or Power BI to create presentation-ready materials</li>
+          <li><strong>Export data:</strong> ADO supports exporting query results to CSV/Excel and connecting to Power BI for visualization and reporting</li>
         </ul>
         <aside class="speaker-notes">
-          The second scenario focuses on stakeholder reporting. Imagine you have a steering committee meeting tomorrow. You open your ADO project dashboard, which shows the sprint burndown chart, velocity trends from the last several sprints, and the GHAzDO security widgets showing open and resolved alerts. For any PR that stakeholders might ask about, you click into it and use Copilot to generate a plain-language summary. Before the meeting, you ask Copilot Chat to compile release notes from all PRs merged since the last tagged release. You review the GHAzDO security trend data to show that your team is reducing vulnerabilities over time. Finally, you export the dashboard or connect it to Power BI for a polished presentation. All of this takes minutes, not hours, and you never had to ask a developer for a status update.
+          The second scenario focuses on stakeholder reporting. Imagine you have a steering committee meeting tomorrow. You open your ADO project dashboard, which shows the sprint burndown chart, velocity trends from the last several sprints, and the GHAzDO security widgets showing open and resolved alerts. For any PR that stakeholders might ask about, you click into it and use Copilot to generate a plain-language summary. Before the meeting, you ask Copilot Chat to compile release notes from all PRs merged since the last tagged release. You review the GHAzDO security trend data to show that your team is reducing vulnerabilities over time. Finally, you export query results to CSV or Excel, or connect to Power BI for polished visualizations. All of this takes minutes, not hours, and you never had to ask a developer for a status update.
         </aside>
       </div>
     </section>

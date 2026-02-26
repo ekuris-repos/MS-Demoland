@@ -136,13 +136,13 @@
       <div class="slide-inner">
         <h2>The Four Core Patterns</h2>
         <ul>
-          <li><strong>Debate:</strong> Two or more agents argue opposing positions; a judge agent synthesizes the strongest arguments</li>
+          <li><strong>Debate:</strong> Two or more agents argue opposing positions; the user then feeds both outputs to a judge agent, which synthesizes the strongest arguments</li>
           <li><strong>Consensus:</strong> Agents independently analyze the same question; overlapping conclusions carry the most weight</li>
           <li><strong>Specialization:</strong> Each agent handles a distinct domain (legal, technical, financial) and contributes only within its expertise</li>
-          <li><strong>Orchestration:</strong> A coordinator agent breaks a complex question into sub-tasks, delegates to specialists, and assembles the final answer</li>
+          <li><strong>Orchestration:</strong> The user breaks a complex question into sub-tasks, invokes specialist agents one at a time, and assembles the final answer</li>
         </ul>
         <aside class="speaker-notes">
-          These four patterns are the building blocks of multi-agent research. Debate is powerful for questions where there is no single right answer; having agents argue opposing positions forces both sides to be articulated clearly. Consensus works well when you need confidence in a finding; if three independent agents reach the same conclusion, your confidence increases significantly. Specialization is the most intuitive pattern; you assign each agent a domain and let them do what they do best. Orchestration ties it all together with a coordinator agent that acts like a project manager, decomposing the question, assigning sub-tasks, and weaving the results into a coherent answer. In practice, you often combine these patterns in the same workflow.
+          These four patterns are the building blocks of multi-agent research. Debate is powerful for questions where there is no single right answer; having agents argue opposing positions forces both sides to be articulated clearly. Consensus works well when you need confidence in a finding; if three independent agents reach the same conclusion, your confidence increases significantly. Specialization is the most intuitive pattern; you assign each agent a domain and let them do what they do best. Orchestration ties it all together, with the user acting as the project manager: decomposing the question, invoking specialist agents one at a time, passing context between them, and weaving the results into a coherent answer. Agents cannot invoke other agents or delegate tasks on their own. In practice, you often combine these patterns in the same workflow.
         </aside>
       </div>
     </section>
@@ -157,11 +157,11 @@
           <li><strong>Scenario:</strong> "Should we migrate from monolith to microservices?"</li>
           <li><strong>Agent A (Advocate):</strong> Argues in favor; cites scalability, team autonomy, independent deployment</li>
           <li><strong>Agent B (Critic):</strong> Argues against; cites operational complexity, network latency, data consistency</li>
-          <li><strong>Judge Agent:</strong> Evaluates both arguments, identifies weak claims, and produces a balanced recommendation</li>
+          <li><strong>Judge Agent:</strong> The user feeds both arguments to a judge agent, which evaluates them, identifies weak claims, and produces a balanced recommendation</li>
           <li>The value is not in the "winner" but in the <strong>completeness of the analysis</strong></li>
         </ul>
         <aside class="speaker-notes">
-          Let's make this concrete. Imagine your CTO asks whether the company should migrate from a monolith to microservices. A single agent will typically give you a qualified "it depends" answer. With the debate pattern, you create an advocate agent that builds the strongest possible case for migration and a critic agent that builds the strongest possible case against it. A third judge agent reads both arguments, identifies unsupported claims, flags areas where the agents agree (those are likely true regardless of position), and produces a recommendation that accounts for both perspectives. The output is dramatically more useful than a single agent's answer because it surfaces the trade-offs explicitly.
+          Let's make this concrete. Imagine your CTO asks whether the company should migrate from a monolith to microservices. A single agent will typically give you a qualified "it depends" answer. With the debate pattern, you create an advocate agent that builds the strongest possible case for migration and a critic agent that builds the strongest possible case against it. You then manually feed both outputs to a third judge agent, which evaluates them, identifies unsupported claims, flags areas where the agents agree (those are likely true regardless of position), and produces a recommendation that accounts for both perspectives. The output is dramatically more useful than a single agent's answer because it surfaces the trade-offs explicitly.
         </aside>
       </div>
     </section>
@@ -173,14 +173,14 @@
       <div class="slide-inner">
         <h2>Orchestration Pattern in Practice</h2>
         <ul>
-          <li><strong>Coordinator agent</strong> receives the high-level research question</li>
-          <li>Decomposes it into <strong>3-5 focused sub-questions</strong>, each assigned to a specialist agent</li>
+          <li><strong>The user</strong> receives the high-level research question</li>
+          <li>Decomposes it into <strong>3-5 focused sub-questions</strong> and invokes each specialist agent individually</li>
           <li>Specialist agents work independently, gathering evidence within their domain</li>
-          <li>Coordinator <strong>synthesizes results</strong>, resolves contradictions, and produces the final report</li>
+          <li>The user <strong>synthesizes results</strong>, resolves contradictions, and produces the final report</li>
           <li>Human reviewer validates the final output before it informs a decision</li>
         </ul>
         <aside class="speaker-notes">
-          The orchestration pattern is the most scalable of the four. Think of the coordinator agent as a senior analyst who knows which questions to ask and which experts to consult. It takes a broad question like "Evaluate vendor X for our data platform" and breaks it into sub-questions: What is their security posture? How does their pricing compare? What do their reference customers say? What are the integration requirements? Each sub-question goes to a specialist agent with the right context and instructions. The coordinator then weaves the results together, flags contradictions between the specialists, and produces a structured report. The human reviewer at the end is critical; this is enterprise research, and the final decision still belongs to a person.
+          The orchestration pattern is the most scalable of the four. In this pattern, you are the coordinator. You take a broad question like "Evaluate vendor X for our data platform" and break it into sub-questions: What is their security posture? How does their pricing compare? What do their reference customers say? What are the integration requirements? You invoke each specialist agent individually, providing the relevant sub-question and context. After collecting the results, you weave them together, flag contradictions between the specialists, and produce a structured report. You remain in control throughout; agents cannot invoke other agents or delegate tasks on their own.
         </aside>
       </div>
     </section>
@@ -207,7 +207,7 @@
         <ul>
           <li>A <strong>Markdown file</strong> in your VS Code workspace that defines a custom Copilot agent</li>
           <li>Contains the agent's <strong>name, description, instructions, and tool access</strong></li>
-          <li>Lives in <code>.github/agents/</code> or <code>.github/</code> in your repository</li>
+          <li>Lives in <code>.github/agents/</code> in your repository</li>
           <li>Immediately available in Copilot Chat via <strong>@agent-name</strong></li>
           <li>No code required; your instructions shape the agent's behavior, personality, and expertise</li>
         </ul>
@@ -242,7 +242,7 @@ When asked a question:
 Always cite your sources. Never state compliance
 status without supporting evidence.</code></pre>
         <aside class="speaker-notes">
-          Here is a concrete example. This agent.md file creates a compliance researcher agent. The YAML frontmatter gives it a name and description, and specifies which tools it can use. The body contains natural language instructions that shape how the agent approaches every question. Notice the structured methodology: identify frameworks, search for requirements, compare, present findings, and flag uncertainty. That last point is critical for enterprise use. You want the agent to tell you when it is not confident, rather than bluffing. The tools listed in the frontmatter determine what the agent can actually do; in this case, it can fetch web content and search the workspace semantically. You can restrict or expand tool access based on the agent's role.
+          Here is a concrete example. This agent.md file creates a compliance researcher agent. The YAML frontmatter gives it a name and description, and specifies which tools it can use. The body contains natural language instructions that shape how the agent approaches every question. Notice the structured methodology: identify frameworks, search for requirements, compare, present findings, and flag uncertainty. That last point is critical for enterprise use. You want the agent to tell you when it is not confident, rather than bluffing. The tools listed in the frontmatter determine what the agent can actually do. Note that the tool identifiers shown here (fetch, semantic_search) are illustrative examples; actual tool names may vary depending on your environment and configured MCP servers. You can restrict or expand tool access based on the agent's role.
         </aside>
       </div>
     </section>
@@ -265,14 +265,14 @@ status without supporting evidence.</code></pre>
           <div class="card">
             <h3>Coordination Agents</h3>
             <ul>
-              <li><strong>@research-lead</strong> - Decomposes questions and delegates</li>
-              <li><strong>@fact-checker</strong> - Verifies claims across agent outputs</li>
+              <li><strong>@research-lead</strong> - Helps decompose questions into sub-tasks</li>
+              <li><strong>@fact-checker</strong> - Helps verify claims when provided with other agents' outputs</li>
               <li><strong>@report-writer</strong> - Synthesizes findings into executive summaries</li>
             </ul>
           </div>
         </div>
         <aside class="speaker-notes">
-          Agent composition is where the multi-agent pattern becomes tangible. On the left, you see specialist agents, each defined by a .agent.md file with domain-specific instructions. The security auditor knows how to evaluate threat models and vulnerability reports. The cost analyst understands total cost of ownership calculations. The architecture reviewer focuses on scalability, reliability, and maintainability. On the right, you see coordination agents that manage the overall workflow. The research lead acts as the orchestrator, decomposing a complex question into sub-tasks. The fact-checker cross-references the outputs of other agents. The report writer takes raw findings and produces stakeholder-ready summaries. You build this team incrementally: start with two or three agents and expand as you learn what works.
+          Agent composition is where the multi-agent pattern becomes tangible. On the left, you see specialist agents, each defined by a .agent.md file with domain-specific instructions. The security auditor knows how to evaluate threat models and vulnerability reports. The cost analyst understands total cost of ownership calculations. The architecture reviewer focuses on scalability, reliability, and maintainability. On the right, you see coordination agents that manage the overall workflow. The research lead helps you break a complex question into sub-tasks, but you are the one who invokes each agent and passes context between them. The fact-checker helps verify claims when you provide it with the outputs from other agents. The report writer takes raw findings and produces stakeholder-ready summaries. You build this team incrementally: start with two or three agents and expand as you learn what works.
         </aside>
       </div>
     </section>
@@ -351,11 +351,11 @@ status without supporting evidence.</code></pre>
           <li>Copilot Extensions bring <strong>third-party tools and data sources</strong> directly into Copilot Chat</li>
           <li>Install extensions from the GitHub Marketplace for specialized domains</li>
           <li>Examples: documentation platforms, project management tools, monitoring dashboards</li>
-          <li>Agents can invoke extensions to <strong>query external systems</strong> without leaving the editor</li>
+          <li>Users can invoke both custom agents and Copilot Extensions, but they are separate. An agent's tool access comes from <strong>MCP servers and built-in VS Code tools</strong>, not from Copilot Extensions</li>
           <li>Extensions are governed by <strong>organization policies</strong>; admins control what is available</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot Extensions are the bridge between your agents and the outside world. They allow third-party tools and data sources to integrate directly into Copilot Chat. For research workflows, this is transformative. Instead of asking an agent to reason about something it has never seen, you can give it access to your documentation platform, your project management tool, or your monitoring dashboard. Extensions are installed from the GitHub Marketplace, and they are subject to your organization's policies. Admins control which extensions are available, ensuring that sensitive data access is governed. When you combine custom agents with targeted extensions, each agent can reach into exactly the knowledge sources it needs.
+          Copilot Extensions are the bridge between your agents and the outside world. They allow third-party tools and data sources to integrate directly into Copilot Chat. For research workflows, this is transformative. Instead of asking an agent to reason about something it has never seen, you can give it access to your documentation platform, your project management tool, or your monitoring dashboard. Extensions are installed from the GitHub Marketplace, and they are subject to your organization's policies. Admins control which extensions are available, ensuring that sensitive data access is governed. Custom agents and Copilot Extensions are separate capabilities. Agents get their tool access from MCP servers and built-in VS Code tools, not from extensions. You invoke each one independently.
         </aside>
       </div>
     </section>
@@ -392,7 +392,7 @@ status without supporting evidence.</code></pre>
               <li>Custom .agent.md files define roles</li>
               <li>Each agent has specific instructions</li>
               <li>Agents invoke tools from MCP servers</li>
-              <li>Orchestrator coordinates the workflow</li>
+              <li>Human user coordinates the workflow, invoking agents one at a time</li>
             </ul>
           </div>
           <div class="card">
@@ -406,7 +406,7 @@ status without supporting evidence.</code></pre>
           </div>
         </div>
         <aside class="speaker-notes">
-          This slide shows the two-layer architecture that makes multi-agent research work. The agent layer consists of your custom .agent.md files, each defining a specialized role with specific instructions and tool access. The orchestrator agent sits at the top of this layer, coordinating the workflow. The data layer consists of MCP servers that connect to your enterprise data sources, Copilot Extensions that bring in marketplace tools, workspace files that provide local context, and organization policies that govern what each agent can access. When you invoke a research workflow, the orchestrator decomposes the question, assigns sub-tasks to specialist agents, and each specialist reaches into the data layer through its configured tools. The result flows back up through the orchestrator to the human decision-maker.
+          This slide shows the two-layer architecture that makes multi-agent research work. The agent layer consists of your custom .agent.md files, each defining a specialized role with specific instructions and tool access. The human user sits at the top of this layer, invoking agents one at a time and passing context between them. The data layer consists of MCP servers that connect to your enterprise data sources, Copilot Extensions that bring in marketplace tools, workspace files that provide local context, and organization policies that govern what each agent can access. When you run a research workflow, you decompose the question, invoke specialist agents one at a time with specific sub-tasks, and each specialist reaches into the data layer through its configured tools. You collect the results and synthesize them into the final output.
         </aside>
       </div>
     </section>

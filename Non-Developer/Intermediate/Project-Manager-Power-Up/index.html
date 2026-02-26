@@ -110,7 +110,7 @@
           <div class="card">
             <h3>With Copilot + GitHub</h3>
             <ul>
-              <li>Query project boards with natural language</li>
+              <li>Summarize issue and PR data by exporting or pasting project data into Copilot Chat</li>
               <li>Get PR summaries in seconds</li>
               <li>Generate draft reports from live data</li>
               <li>Spot risk signals proactively</li>
@@ -118,7 +118,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          Let's make this concrete. On the left, the traditional PM workflow: you open your project board, go ticket by ticket, chase developers for updates, spend an hour in a spreadsheet building a status report, and only discover risks when something visibly breaks. On the right, the AI-powered version: you ask Copilot to summarize the state of your current sprint, get a plain-English breakdown of every PR merged this week, draft a stakeholder report based on actual velocity data, and proactively surface issues like stalled PRs or aging issues. The tools are the same; GitHub Issues, Projects, and pull requests. The difference is how quickly you can extract value from them. That is the power-up we are here to deliver.
+          Let's make this concrete. On the left, the traditional PM workflow: you open your project board, go ticket by ticket, chase developers for updates, spend an hour in a spreadsheet building a status report, and only discover risks when something visibly breaks. On the right, the AI-powered version: you ask Copilot to summarize the state of your current sprint, get a plain-English breakdown of every PR merged this week, export your velocity data from Projects Insights, then ask Copilot to draft a report from it, and proactively surface issues like stalled PRs or aging issues. The tools are the same; GitHub Issues, Projects, and pull requests. The difference is how quickly you can extract value from them. That is the power-up we are here to deliver.
         </aside>
       </div>
     </section>
@@ -143,11 +143,12 @@
       <div class="slide-inner">
         <h2>Planning Sprints with GitHub Projects</h2>
         <ul>
-          <li><strong>GitHub Issues</strong> are your work items: bugs, features, tasks, and discussions</li>
+          <li><strong>GitHub Issues</strong> are your work items: bugs, features, and tasks</li>
           <li><strong>GitHub Projects</strong> provide board, table, and roadmap views for organizing work</li>
           <li>Custom fields let you track <strong>priority, effort, sprint, and team</strong> in one place</li>
           <li>Built-in automations move issues through columns based on PR status</li>
           <li>Everything stays connected: issues link to PRs, PRs link to code, code links to deployments</li>
+          <li><strong>Sub-issues</strong> let you break epics into trackable child items, and <strong>issue types</strong> (Bug, Feature, Task) provide structured categorization</li>
         </ul>
         <aside class="speaker-notes">
           GitHub Issues are your fundamental work items. Every bug, feature request, task, or spike lives as an issue. GitHub Projects sits on top of issues and gives you flexible views: a kanban board for daily standups, a table view for bulk editing and filtering, and a roadmap view for timeline-based planning. You can add custom fields for priority, story points, sprint number, team assignment, and anything else your process needs. Built-in automations can move issues to "In Progress" when a linked PR is opened, and to "Done" when it merges. The real power is traceability. An issue links to a PR, the PR links to code changes, and those changes link to a deployment. As a PM, you get end-to-end visibility from requirement to production.
@@ -279,7 +280,7 @@
           <li>Draft an issue, then ask Copilot: <em>"Improve this issue description for clarity"</em></li>
           <li>Generate acceptance criteria: <em>"Write acceptance criteria for this feature"</em></li>
           <li>Identify missing details: <em>"What questions would a developer ask about this issue?"</em></li>
-          <li>Break down large features: <em>"Split this epic into smaller, independently deliverable issues"</em></li>
+          <li>Break down large features: <em>"Split this epic into smaller, independently deliverable issues"</em>. Link the resulting issues as sub-issues under the original epic for built-in progress tracking.</li>
           <li>Standardize language: Copilot helps keep terminology consistent across your backlog</li>
         </ul>
         <aside class="speaker-notes">
@@ -326,13 +327,13 @@
       <div class="slide-inner">
         <h2>Velocity Charts and Visual Reporting</h2>
         <ul>
-          <li>GitHub Projects provides built-in <strong>insights</strong> with burndown and velocity charts</li>
+          <li>GitHub Projects provides built-in <strong>Insights</strong> with configurable historical and current-state charts. You can set these up to track sprint progress over time</li>
           <li>Export project data to CSV for further analysis or custom dashboards</li>
           <li>Use Copilot to <strong>interpret trends:</strong> <em>"What does this velocity trend suggest?"</em></li>
           <li>Generate chart descriptions for reports: <em>"Write a paragraph explaining this burndown chart"</em></li>
         </ul>
         <aside class="speaker-notes">
-          GitHub Projects includes built-in insights that provide burndown charts and velocity tracking out of the box. If your team uses story points or issue counts, these charts update automatically as work progresses. You can also export your project data as a CSV and build custom charts in Excel or Google Sheets. Where Copilot adds value is in interpretation. Paste your velocity numbers into Copilot Chat and ask "What does this velocity trend suggest about our release timeline?" or "Write a paragraph explaining this burndown chart for my weekly stakeholder update." Copilot turns raw numbers into narratives that stakeholders can understand and act on. This is especially useful for PMs who present data regularly but want to ensure the narrative is clear and consistent.
+          GitHub Projects includes built-in Insights with configurable historical and current-state charts that you can set up to track sprint progress over time. If your team uses story points or issue counts, these charts update automatically as work progresses. You can also export your project data as a CSV and build custom charts in Excel or Google Sheets. Where Copilot adds value is in interpretation. Paste your velocity numbers into Copilot Chat and ask "What does this velocity trend suggest about our release timeline?" or "Write a paragraph explaining this burndown chart for my weekly stakeholder update." Copilot turns raw numbers into narratives that stakeholders can understand and act on. This is especially useful for PMs who present data regularly but want to ensure the narrative is clear and consistent.
         </aside>
       </div>
     </section>

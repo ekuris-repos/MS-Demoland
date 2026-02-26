@@ -197,7 +197,7 @@
           <li>Sub-issues and task lists break large work items into smaller, trackable pieces</li>
         </ul>
         <aside class="speaker-notes">
-          GitHub Issues are the starting point for tracking work. An issue can be anything: a bug report, a feature request, a compliance task, or a question that needs resolution. Every issue has a clear structure with labels for categorization, assignees for ownership, and a comment thread for discussion. One of the most powerful aspects is the link between issues and pull requests. When a developer opens a pull request that fixes issue number 42, closing the pull request automatically closes the issue. This traceability is critical for auditing and governance because you can always trace a code change back to the business need that drove it. Issue templates let teams standardize the information they need, which reduces confusion and speeds up triage.
+          GitHub Issues are the starting point for tracking work. An issue can be anything: a bug report, a feature request, a compliance task, or a question that needs resolution. Every issue has a clear structure with labels for categorization, assignees for ownership, and a comment thread for discussion. One of the most powerful aspects is the link between issues and pull requests. When a developer opens a pull request that fixes issue number 42, merging the pull request automatically closes the issue. This traceability is critical for auditing and governance because you can always trace a code change back to the business need that drove it. Issue templates let teams standardize the information they need, which reduces confusion and speeds up triage.
         </aside>
       </div>
     </section>
@@ -219,7 +219,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          GitHub Projects takes issues and pull requests and organizes them into flexible views. The board view is familiar to anyone who has used Kanban: columns represent stages of work, and you move cards across as work progresses. But Projects also offers table views, which work like spreadsheets where you can sort, filter, and group by any custom field. The roadmap view plots work items on a timeline, making it easy for project managers and leadership to see delivery progress. The key advantage is that Projects pulls data directly from your repositories. When a pull request is merged, the corresponding issue moves automatically. There is no manual status updating or syncing between separate tools.
+          GitHub Projects takes issues and pull requests and organizes them into flexible views. The board view is familiar to anyone who has used Kanban: columns represent stages of work, and you move cards across as work progresses. But Projects also offers table views, which work like spreadsheets where you can sort, filter, and group by any custom field. The roadmap view plots work items on a timeline, making it easy for project managers and leadership to see delivery progress. The key advantage is that Projects pulls data directly from your repositories. Automation workflows such as auto-moving items when a pull request is merged must be explicitly enabled by the project owner, but once configured, the corresponding issue moves automatically. There is no manual status updating or syncing between separate tools after the initial setup.
         </aside>
       </div>
     </section>
@@ -247,11 +247,11 @@
           <li>Actions automate tasks that run in response to events in your repository</li>
           <li>Common uses: build the application, run tests, check for vulnerabilities, and deploy</li>
           <li><strong>Workflows</strong> are defined in YAML files that live in the repository alongside the code</li>
-          <li>A marketplace of 20,000+ pre-built actions means teams rarely start from scratch</li>
+          <li>A marketplace of thousands of community and verified actions means teams rarely start from scratch</li>
           <li>Results appear directly on pull requests, so reviewers see pass/fail status immediately</li>
         </ul>
         <aside class="speaker-notes">
-          GitHub Actions is the platform's built-in automation system. When something happens in a repository, such as a pull request being opened, code being pushed, or a release being created, Actions can automatically run tasks in response. The most common use case is CI/CD: continuously building, testing, and deploying your application. Workflows are defined in simple YAML files that live right in the repository, so they are versioned and reviewed just like any other code. The GitHub Marketplace offers over 20,000 pre-built actions for common tasks like deploying to Azure, sending notifications, or running security scans. Teams can assemble sophisticated automation pipelines by combining these building blocks without writing everything from scratch.
+          GitHub Actions is the platform's built-in automation system. When something happens in a repository, such as a pull request being opened, code being pushed, or a release being created, Actions can automatically run tasks in response. The most common use case is CI/CD: continuously building, testing, and deploying your application. Workflows are defined in simple YAML files that live right in the repository, so they are versioned and reviewed just like any other code. The GitHub Marketplace offers thousands of community and verified actions for common tasks like deploying to Azure, sending notifications, or running security scans. Teams can assemble sophisticated automation pipelines by combining these building blocks without writing everything from scratch.
         </aside>
       </div>
     </section>
@@ -407,12 +407,16 @@
         <ul>
           <li><strong>Code suggestions</strong> in the editor help developers write code faster and with fewer errors</li>
           <li><strong>Copilot Chat</strong> answers questions about the codebase, explains unfamiliar code, and suggests fixes</li>
+          <li><strong>Agent mode</strong> lets Copilot plan and execute multi-step tasks autonomously within the editor</li>
+          <li><strong>Coding agent</strong> works asynchronously on GitHub issues, opening pull requests with proposed changes</li>
+          <li><strong>Copilot code review</strong> provides AI-generated review comments on pull requests alongside human reviewers</li>
           <li><strong>Pull request summaries</strong> automatically generate descriptions of what changed and why</li>
           <li><strong>Copilot in the CLI</strong> helps with command-line tasks, Git operations, and shell scripting</li>
           <li><strong>Copilot for security</strong> suggests fixes for vulnerabilities found by code scanning</li>
+          <li><strong>Plan tiers:</strong> Free, Pro, Pro+, Business, and Enterprise offer increasing capabilities for individuals and organizations</li>
         </ul>
         <aside class="speaker-notes">
-          GitHub Copilot is an AI assistant that works across the entire platform, not just inside the code editor. In the editor, it provides real-time code suggestions that help developers write code faster. Copilot Chat acts as an interactive assistant that can answer questions about the codebase, explain complex logic, and suggest solutions to bugs. On pull requests, Copilot can automatically generate summaries that explain what changed, which saves time during code review. In the command line, it helps with Git commands and shell scripts. It can even suggest fixes for security vulnerabilities that code scanning identifies. For leaders, the key benefit is that Copilot accelerates work at every stage of the development process while keeping humans in control of every decision.
+          GitHub Copilot is an AI assistant that works across the entire platform, not just inside the code editor. In the editor, it provides real-time code suggestions that help developers write code faster. Copilot Chat acts as an interactive assistant that can answer questions about the codebase, explain complex logic, and suggest solutions to bugs. Agent mode takes this further by letting Copilot plan and execute multi-step coding tasks autonomously within the editor. The coding agent works asynchronously on GitHub issues, creating branches and opening pull requests with proposed changes for human review. Copilot code review provides AI-generated feedback on pull requests alongside human reviewers, catching issues earlier. On pull requests, Copilot can also automatically generate summaries that explain what changed. In the command line, it helps with Git commands and shell scripts. It can even suggest fixes for security vulnerabilities that code scanning identifies. Copilot is available across several plan tiers: Free for individuals, Pro and Pro+ for power users, and Business and Enterprise for organizations that need admin controls, policy management, and audit capabilities. For leaders, the key benefit is that Copilot accelerates work at every stage of the development process while keeping humans in control of every decision.
         </aside>
       </div>
     </section>

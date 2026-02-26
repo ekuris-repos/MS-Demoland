@@ -84,12 +84,12 @@
         <ul>
           <li><strong>Model Context Protocol</strong> is an open standard for connecting AI models to external tools and data sources</li>
           <li>MCP provides a structured, type-safe interface between clients (like Copilot) and servers (your tools)</li>
-          <li>Servers expose <strong>tools</strong> (actions the model can invoke), <strong>resources</strong> (data it can read), and <strong>prompts</strong> (reusable templates)</li>
+          <li>Servers expose <strong>tools</strong> (actions the model can invoke), <strong>resources</strong> (data it can read), <strong>prompts</strong> (reusable templates), <strong>sampling</strong> (server-initiated LLM requests), and <strong>elicitation</strong> (server-initiated user input)</li>
           <li>The protocol handles discovery, invocation, and response formatting automatically</li>
           <li>Think of MCP as a <strong>universal adapter</strong> between AI and your organization's systems</li>
         </ul>
         <aside class="speaker-notes">
-          MCP is the Model Context Protocol, an open standard originally created by Anthropic and now widely adopted across the AI tooling ecosystem. It defines how AI clients, such as GitHub Copilot, VS Code, or other model hosts, communicate with external servers that provide tools, resources, and prompts. The key benefit is standardization: instead of writing custom integrations for every AI client, you build one MCP server and any compatible client can use it. This is the foundation everything else in this course builds on.
+          MCP is the Model Context Protocol, an open standard originally created by Anthropic and now widely adopted across the AI tooling ecosystem. It defines how AI clients, such as GitHub Copilot, VS Code, or other model hosts, communicate with external servers that provide tools, resources, prompts, sampling, and elicitation. The key benefit is standardization: instead of writing custom integrations for every AI client, you build one MCP server and any compatible client can use it. This is the foundation everything else in this course builds on.
         </aside>
       </div>
     </section>
@@ -163,7 +163,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          MCP supports two primary transport mechanisms. The stdio transport runs the server as a local child process, communicating through standard input and output streams. This is the simplest option and works well for local development in VS Code. The Streamable HTTP transport, which supersedes the older SSE transport, runs the server as an HTTP endpoint. It uses standard HTTP POST for client-to-server messages and server-sent events for server-to-client streaming. Streamable HTTP is the recommended choice for remote deployments, shared team servers, and production environments. When planning your architecture, start with stdio for development and target Streamable HTTP for production.
+          MCP supports two primary transport mechanisms. The stdio transport runs the server as a local child process, communicating through standard input and output streams. This is the simplest option and works well for local development in VS Code. The Streamable HTTP transport, which supersedes the older HTTP+SSE transport, runs the server as an HTTP endpoint. It uses standard HTTP POST for client-to-server messages and server-sent events for server-to-client streaming. Streamable HTTP is the recommended choice for remote deployments, shared team servers, and production environments. When planning your architecture, start with stdio for development and target Streamable HTTP for production.
         </aside>
       </div>
     </section>
@@ -488,8 +488,8 @@ await server.connect(transport);</code></pre>
             <p>Simplest approach. Store keys in environment variables or a secret manager. Best for internal services with static credentials. Rotate keys regularly.</p>
           </div>
           <div class="card">
-            <h3>OAuth 2.0 Flows</h3>
-            <p>Full OAuth support with authorization code and client credentials flows. Use for services that require user-scoped access. MCP supports OAuth natively in the protocol.</p>
+            <h3>OAuth 2.1 Flows</h3>
+            <p>Full OAuth 2.1 support with authorization code and client credentials flows. OAuth 2.1 mandates PKCE and removes the implicit flow for stronger security. MCP supports OAuth 2.1 natively in the protocol.</p>
           </div>
         </div>
         <div class="columns" style="margin-top:1rem">
@@ -503,7 +503,7 @@ await server.connect(transport);</code></pre>
           </div>
         </div>
         <aside class="speaker-notes">
-          There are four primary authentication strategies for MCP servers, and you will often combine more than one in a single server. API keys are the simplest approach and work well for internal services where a static credential is acceptable. OAuth 2.0 is necessary when your MCP tools need to access resources scoped to the current user; the MCP protocol includes native OAuth support with authorization code flows. Azure Managed Identities eliminate credentials entirely by letting the platform handle token acquisition and rotation. For backend-to-backend calls where no user context is needed, use the OAuth client credentials flow. Choose the strategy that matches your security requirements and the APIs you are connecting to.
+          There are four primary authentication strategies for MCP servers, and you will often combine more than one in a single server. API keys are the simplest approach and work well for internal services where a static credential is acceptable. OAuth 2.1 is necessary when your MCP tools need to access resources scoped to the current user; the MCP protocol includes native OAuth 2.1 support with authorization code flows. Azure Managed Identities eliminate credentials entirely by letting the platform handle token acquisition and rotation. For backend-to-backend calls where no user context is needed, use the OAuth client credentials flow. Choose the strategy that matches your security requirements and the APIs you are connecting to.
         </aside>
       </div>
     </section>
@@ -513,17 +513,17 @@ await server.connect(transport);</code></pre>
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>OAuth 2.0 in MCP</h2>
+        <h2>OAuth 2.1 in MCP</h2>
         <ul>
           <li>MCP defines a <strong>built-in OAuth flow</strong> for remote servers using Streamable HTTP transport</li>
           <li>The server advertises its OAuth metadata at a well-known endpoint</li>
           <li>The client handles the browser redirect, authorization code exchange, and token storage</li>
           <li>Tokens are passed automatically with subsequent MCP requests</li>
-          <li>Supports <strong>PKCE</strong> (Proof Key for Code Exchange) for enhanced security</li>
+          <li><strong>PKCE</strong> (Proof Key for Code Exchange) is mandatory under OAuth 2.1, not optional</li>
           <li>Enables <strong>user-scoped access</strong>: each developer sees only what they are authorized to see</li>
         </ul>
         <aside class="speaker-notes">
-          The MCP protocol includes first-class support for OAuth 2.0 when using the Streamable HTTP transport. The flow works as follows: the remote MCP server exposes its OAuth metadata at a well-known URL. When a client connects and the server requires authentication, the client opens a browser window for the user to authorize. After authorization, the client exchanges the code for tokens and stores them securely. All subsequent MCP requests include the access token automatically. This flow supports PKCE for additional security, which is especially important when the client is a desktop application like VS Code. The result is user-scoped access, where each developer's MCP requests carry their own identity and permissions.
+          The MCP protocol includes first-class support for OAuth 2.1 when using the Streamable HTTP transport. The flow works as follows: the remote MCP server exposes its OAuth metadata at a well-known URL. When a client connects and the server requires authentication, the client opens a browser window for the user to authorize. After authorization, the client exchanges the code for tokens and stores them securely. All subsequent MCP requests include the access token automatically. OAuth 2.1 mandates PKCE, which is especially important when the client is a desktop application like VS Code. The result is user-scoped access, where each developer's MCP requests carry their own identity and permissions.
         </aside>
       </div>
     </section>
@@ -564,11 +564,11 @@ await server.connect(transport);</code></pre>
           </div>
           <div class="card">
             <h3>Azure Functions</h3>
-            <p>Serverless option for lightweight, event-driven MCP servers. Pay only for execution time. Best suited for servers with sporadic usage patterns.</p>
+            <p>Serverless option for lightweight MCP servers. Note: MCP's Streamable HTTP transport requires persistent HTTP endpoints with SSE streaming, which may conflict with Consumption plan timeouts and cold starts. A Premium or Dedicated plan is more appropriate for production MCP servers.</p>
           </div>
         </div>
         <aside class="speaker-notes">
-          There are several viable deployment strategies for remote MCP servers. Azure Container Apps is often the best starting point because it provides auto-scaling, managed identity, and HTTPS out of the box. Azure App Service is another strong option, especially for teams already using it for web applications. For development and staging, Docker Compose lets you run multiple MCP servers locally behind a reverse proxy to simulate a production topology. Azure Functions work well for lightweight, sporadic-use servers where you want a pay-per-execution model. The right choice depends on your traffic patterns, existing infrastructure, and operational preferences.
+          There are several viable deployment strategies for remote MCP servers. Azure Container Apps is often the best starting point because it provides auto-scaling, managed identity, and HTTPS out of the box. Azure App Service is another strong option, especially for teams already using it for web applications. For development and staging, Docker Compose lets you run multiple MCP servers locally behind a reverse proxy to simulate a production topology. Azure Functions can host MCP servers, but the Streamable HTTP transport's need for persistent connections and SSE streaming may conflict with Consumption plan timeouts and cold starts; a Premium or Dedicated Functions plan is a better fit for production workloads. The right choice depends on your traffic patterns, existing infrastructure, and operational preferences.
         </aside>
       </div>
     </section>
@@ -580,14 +580,14 @@ await server.connect(transport);</code></pre>
       <div class="slide-inner">
         <h2>MCP in GitHub Copilot Extensions</h2>
         <ul>
-          <li>GitHub Copilot Extensions can <strong>expose MCP servers</strong> as part of their functionality</li>
+          <li>Copilot Extensions use their own tool-registration mechanism, separate from MCP. MCP servers are configured at the editor level via <code>.vscode/mcp.json</code> or user settings. These are complementary integration surfaces</li>
           <li>Extensions register tools that Copilot can discover and invoke across surfaces (VS Code, GitHub.com, CLI)</li>
           <li>MCP provides the <strong>tool layer</strong>, while the extension framework handles distribution, authentication, and user management</li>
           <li>Organizations can build private extensions with MCP tools available only to their developers</li>
           <li>Public extensions on the GitHub Marketplace can also use MCP under the hood</li>
         </ul>
         <aside class="speaker-notes">
-          GitHub Copilot Extensions are another important surface for MCP servers. An extension can include an MCP server that exposes tools to Copilot across all surfaces: VS Code, GitHub.com, and the CLI. The extension framework handles distribution through the GitHub Marketplace, authentication with GitHub, and user management. Your MCP server provides the actual tool implementations. This is a powerful combination: you build tools once in an MCP server and distribute them through the extension ecosystem. Organizations can create private extensions that are only available to their developers, making this a viable path for enterprise-internal tool distribution.
+          GitHub Copilot Extensions and MCP servers are complementary but distinct integration surfaces. Copilot Extensions use their own tool-registration mechanism and are distributed through the GitHub Marketplace with built-in authentication and user management. MCP servers are configured at the editor level via .vscode/mcp.json or user settings and use the Model Context Protocol for communication. While both provide tools to Copilot, they operate through different channels. Organizations can create private extensions that are only available to their developers, making this a viable path for enterprise-internal tool distribution.
         </aside>
       </div>
     </section>

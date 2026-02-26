@@ -102,7 +102,7 @@
           <li><strong>Your code stays yours</strong> - Copilot Business and Enterprise do not retain prompts or suggestions for model training</li>
         </ul>
         <aside class="speaker-notes">
-          So how does it actually work? There are three steps. First, context gathering: Copilot looks at the file you have open, the neighboring tabs, your comments, function signatures, and variable names. It's building a picture of what you're working on. Second, model inference: it sends that context to whichever large language model you've selected in the model picker. GitHub hosts the infrastructure, and the model generates a completion. You can change your model at any time, and we'll cover the picker in detail later. Third, suggestion delivery: that completion comes back to your editor as either grey "ghost text" right inline, or as a full response in Chat. Now, here's the important privacy point, especially if you're in an enterprise environment: on the Business and Enterprise plans, GitHub does not retain your prompts or suggestions for model training. Your code stays yours. And to answer the question I know some of you are thinking: no, Copilot does not see your entire codebase. It sends a limited context window, not the full repository.
+          So how does it actually work? There are three steps. First, context gathering: Copilot looks at the file you have open, the neighboring tabs, your comments, function signatures, and variable names. It's building a picture of what you're working on. Second, model inference: it sends that context to whichever large language model you've selected in the model picker. GitHub hosts the infrastructure, and the model generates a completion. You can change your model at any time, and we'll cover the picker in detail later. Third, suggestion delivery: that completion comes back to your editor as either grey "ghost text" right inline, or as a full response in Chat. Now, here's the important privacy point, especially if you're in an enterprise environment: on the Business and Enterprise plans, GitHub does not retain your prompts or suggestions for model training. Your code stays yours. And to answer the question I know some of you are thinking: for inline completions, Copilot sends a limited context window from the current file and nearby tabs. Other features like @workspace and Agent mode can access your full project.
         </aside>
       </div>
     </section>
@@ -136,6 +136,16 @@
           </div>
           <div class="card" style="display:flex;gap:1em;align-items:flex-start">
             <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
+              <h3>Pro+</h3>
+              <p>1,500 premium requests/mo &bull; Unlimited completions</p>
+              <p>Everything in Pro plus access to advanced models and higher usage limits for power users.</p>
+            </div>
+            <div style="text-align:right;white-space:nowrap;width:7em">
+              <p class="price">$39 <span style="font-size:0.6em;opacity:0.7">USD/user/mo</span></p>
+            </div>
+          </div>
+          <div class="card" style="display:flex;gap:1em;align-items:flex-start">
+            <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
               <h3>Business</h3>
               <p>300 premium requests/user/mo &bull; Unlimited completions</p>
               <p>Organization management, policy controls, audit logs, IP indemnity. No code retention.</p>
@@ -158,7 +168,7 @@
         <p style="font-size:0.65rem;opacity:0.6;margin-top:0.5em">Premium requests are consumed by chat messages multiplied by the model multiplier. Additional requests available at $0.04/request.</p>
         <p style="font-size:0.6rem;opacity:0.5;margin-top:0.25em">⚠️ Plans, pricing, and quotas shown are as of <strong>February 2026</strong>. Check <code>github.com/features/copilot</code> for the latest.</p>
         <aside class="speaker-notes">
-          Let's quickly look at the plans. There are four tiers. The Free plan gives you 50 premium requests per month and 2,000 completions - that's more than enough to try Copilot and see if it fits your workflow. Pro, at ten dollars a month, bumps you up to 300 premium requests with unlimited completions, and adds the coding agent and code review features. It's also free for students and open-source maintainers. Business, at nineteen dollars per seat, is where organizations come in - you get centralized management, audit logs, IP indemnity, and the guarantee that no code is retained. Enterprise, at thirty-nine dollars per seat, takes it further with a thousand premium requests, documentation indexing, content exclusion, and organization-wide custom instructions. One thing to note: these plans and quotas are current as of February 2026 and may have changed, so always check github.com/features/copilot for the latest. Also, premium requests are consumed when you send chat messages, and the cost depends on which model you select. You can always buy additional requests at four cents each. The full details are on github.com/features/copilot, and they update regularly - so check there for the latest.
+          Let's quickly look at the plans. There are five tiers. The Free plan gives you 50 premium requests per month and 2,000 completions, more than enough to try Copilot and see if it fits your workflow. Pro, at ten dollars a month, bumps you up to 300 premium requests with unlimited completions, and adds the coding agent and code review features. It's also free for students and open-source maintainers. Pro+, at thirty-nine dollars a month, is designed for individual power users who want access to the most advanced models and higher usage limits; it includes 1,500 premium requests per month. Business, at nineteen dollars per seat, is where organizations come in - you get centralized management, audit logs, IP indemnity, and the guarantee that no code is retained. Enterprise, at thirty-nine dollars per seat, takes it further with a thousand premium requests, documentation indexing, content exclusion, and organization-wide custom instructions. One thing to note: these plans and quotas are current as of February 2026 and may have changed, so always check github.com/features/copilot for the latest. Also, premium requests are consumed when you send chat messages, and the cost depends on which model you select. You can always buy additional requests at four cents each. The full details are on github.com/features/copilot, and they update regularly - so check there for the latest.
         </aside>
       </div>
     </section>
@@ -186,15 +196,16 @@
           <div>
             <ul>
               <li>Open VS Code and go to <strong>Extensions</strong> (<code>Ctrl+Shift+X</code>)</li>
-              <li>Search for <strong>"GitHub Copilot Chat"</strong> and click <strong>Install</strong></li>
-              <li>The inline completions engine is built into the Chat extension - one install covers everything</li>
+              <li>Since <strong>VS Code 1.96</strong> (December 2024), Copilot ships <strong>built into VS Code</strong>; just sign in with your GitHub account</li>
+              <li>If Copilot is not pre-installed, search for <strong>"GitHub Copilot"</strong> in Extensions and click <strong>Install</strong></li>
+              <li>All features (completions, chat, agent mode) are in the single <strong>"GitHub Copilot"</strong> extension (<code>GitHub.copilot</code>)</li>
               <li>Sign in with your <strong>GitHub account</strong> when prompted</li>
               <li>Verify activation: look for the <strong>Copilot icon</strong> in the status bar (bottom right)</li>
             </ul>
           </div>
           <div>
             <div class="screenshot">
-              <img src="img/copilot-extension-install.png" alt="GitHub Copilot Chat extension in the VS Code Extensions panel" />
+              <img src="img/copilot-extension-install.png" alt="GitHub Copilot extension in the VS Code Extensions panel" />
               <div class="screenshot-focus" style="top:8%;left:5%;width:40%;height:18%">
                 <span class="screenshot-label">Install the extension</span>
               </div>
@@ -202,7 +213,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          First step: open VS Code and press Ctrl+Shift+X to open the Extensions panel. Search for "GitHub Copilot Chat" - you'll see it right at the top. Click Install. The extension used to be split into two - one for inline completions and one for chat - but the autocomplete engine has been rolled into the Chat extension. Just install "GitHub Copilot Chat" and you get everything. Once it's installed, VS Code will prompt you to sign in with your GitHub account. Go ahead and do that. After you sign in, look down at the bottom-right corner of VS Code - you should see a small Copilot icon in the status bar. If it's there and not greyed out, you're good to go.
+          Good news: since VS Code 1.96, released in December 2024, Copilot ships built into VS Code. You just need to sign in with your GitHub account and you're ready to go. If for some reason Copilot is not pre-installed, open the Extensions panel with Ctrl+Shift+X, search for "GitHub Copilot," and click Install. All features, completions, chat, and agent mode, are bundled in that single extension with the ID GitHub.copilot. After you sign in, look down at the bottom-right corner of VS Code. You should see a small Copilot icon in the status bar. If it's there and not greyed out, you're good to go.
         </aside>
       </div>
     </section>
@@ -219,13 +230,13 @@
               <li>Click the <strong>Copilot status bar icon</strong> → "Sign in to GitHub"</li>
               <li>Authorize the VS Code GitHub extension in your browser</li>
               <li>If your org uses <strong>Copilot Business/Enterprise</strong>, ensure your admin has granted you a seat</li>
-              <li>Run <code>GitHub Copilot: Check Status</code> from the Command Palette to confirm you're active</li>
+              <li>Click the <strong>Copilot status bar icon</strong> to check activation status</li>
               <li>Troubleshooting: check firewall rules, proxy settings, or SSO requirements</li>
             </ul>
           </div>
           <div>
             <div class="screenshot">
-              <img src="img/copilot-extension-install.png" alt="GitHub Copilot Chat showing Finish Setup prompt in VS Code" />
+              <img src="img/copilot-extension-install.png" alt="GitHub Copilot showing Finish Setup prompt in VS Code" />
               <div class="screenshot-focus" style="bottom:0;right:1.6%;width:10.5%;height:5.5%">
                 <span class="screenshot-label" style="left:auto;right:0">Finish Setup</span>
               </div>
@@ -233,7 +244,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          If Copilot isn't activated yet, click that status bar icon and select "Sign in to GitHub." It'll open your browser for authorization - just click Approve and come back to VS Code. If your organization uses Copilot Business or Enterprise, make sure your admin has assigned you a seat - otherwise the sign-in will succeed but Copilot won't activate. A handy trick: open the Command Palette with Ctrl+Shift+P and run "GitHub Copilot: Check Status." That'll confirm whether everything is connected. If you hit problems, the most common culprits are corporate firewalls blocking the connection, proxy settings that need configuring, or SSO tokens that haven't been authorized for your organization.
+          If Copilot isn't activated yet, click that status bar icon and select "Sign in to GitHub." It'll open your browser for authorization - just click Approve and come back to VS Code. If your organization uses Copilot Business or Enterprise, make sure your admin has assigned you a seat - otherwise the sign-in will succeed but Copilot won't activate. A handy trick: click the Copilot icon in the status bar to see your activation status and connection details. If you hit problems, the most common culprits are corporate firewalls blocking the connection, proxy settings that need configuring, or SSO tokens that haven't been authorized for your organization.
         </aside>
       </div>
     </section>
