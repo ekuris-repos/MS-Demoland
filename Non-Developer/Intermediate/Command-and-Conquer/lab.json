@@ -27,7 +27,13 @@
         {
           "title": "Generate a Sample API Call",
           "instruction": "Now ask Copilot to show you what the data looks like. Type:<br><br><kbd>Show me an example JSON response from the Copilot usage metrics API at the organization level, with sample values for seats, active users, acceptance rate, and language breakdown.</kbd><br><br>You do not need to run this call. The goal is to understand the shape of the data your engineering team will pull for you.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -38,7 +44,8 @@
           "instruction": "We have opened a new file for you. Set the language to <strong>Markdown</strong> using the language selector in the bottom-right corner of the editor.<br><br>Type the following header:<br><br><kbd># Copilot Usage Data - Executive Summary</kbd><br><br>This file will become your working worksheet for the rest of the lab.",
           "focus": "top",
           "action": "workbench.action.files.newUntitledFile",
-          "actionLabel": "Open New File"
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Interpret Sample Metrics",
@@ -50,6 +57,11 @@
           "instruction": "With the table in your file, ask Copilot to play analyst. Type in Chat:<br><br><kbd>Look at the usage data in my open file. What trends do you see? What would you flag as a concern for the VP of Engineering? Write 3 bullet points suitable for a leadership standup.</kbd><br><br>Paste the analysis below the table in your worksheet. This is how you turn raw metrics into talking points.",
           "focus": "right",
           "tip": "Executives rarely need raw data. They need interpreted data with a recommendation. Train yourself to always ask Copilot for the \"so what\" alongside the numbers."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -99,12 +111,18 @@
         {
           "title": "Review and Apply the Policy",
           "instruction": "Review the policy Copilot generated in Chat. Click the <strong>Insert at Cursor</strong> icon (or copy and paste) to place the content into your file.<br><br>Read through each section. Does it match your organization's posture? If something needs adjusting, highlight a section and press <kbd>Ctrl+I</kbd> to use <strong>inline chat</strong> to refine it.",
-          "focus": "top"
+          "focus": "top",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Add Compliance Language",
           "instruction": "In <strong>Copilot Chat</strong>, ask it to add regulatory considerations. Type:<br><br><kbd>Add a section to the usage policy for organizations that handle sensitive or regulated data. Include guidance for HIPAA, SOC 2, and GDPR considerations when using AI coding tools. Keep it to 4-5 bullet points.</kbd><br><br>Paste the result into your policy document. Your legal team will appreciate having this as a starting point.",
           "focus": "right"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -135,12 +153,18 @@
         {
           "title": "Apply the Report Content",
           "instruction": "Review the draft Copilot generated and insert it into your file. Scan the report for anything that feels generic or vague.<br><br>Highlight the <strong>Recommendations</strong> section and press <kbd>Ctrl+I</kbd>. Type:<br><br><kbd>Make these recommendations more specific and action-oriented. Each one should name a responsible party and a deadline.</kbd><br><br>This is the level of specificity boards expect.",
-          "focus": "top"
+          "focus": "top",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Draft an Engineering Leadership Report",
           "instruction": "In <strong>Copilot Chat</strong>, ask for the companion report. Type:<br><br><kbd>Now draft a more detailed AI adoption report for engineering leadership. Include: team-by-team adoption breakdown (use placeholder team names), acceptance rates by language, feature usage comparison (completions vs. Chat vs. PR summaries), and 3 recommended actions for the next quarter.</kbd><br><br>Compare the two reports side by side. Notice how the same data is framed differently depending on the audience.",
           "focus": "right"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -156,13 +180,19 @@
           "instruction": "Open a new file, set the language to <strong>Markdown</strong>, and paste the rollout plan from Chat.<br><br>Review the decision gates between phases. These are the moments where you present data to leadership and get approval to expand. If any gate feels wrong for your organization, highlight it and use <kbd>Ctrl+I</kbd> to refine it.",
           "focus": "top",
           "action": "workbench.action.files.newUntitledFile",
-          "actionLabel": "Open New File"
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Generate a RACI Matrix",
           "instruction": "Ask Copilot to add accountability structure. Type in Chat:<br><br><kbd>Create a RACI matrix for the Copilot rollout plan. Include these roles: Executive Sponsor, Engineering VP, Security Lead, Copilot Champion, and IT Admin. Cover these activities: license procurement, policy creation, content exclusion setup, training delivery, metrics reporting, and vendor evaluation. Format as a markdown table.</kbd><br><br>Paste the matrix into your rollout plan document. Clear ownership prevents rollout delays.",
           "focus": "right",
           "tip": "A rollout plan without named owners is just a wish list. The RACI matrix turns strategy into accountability."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -178,7 +208,13 @@
           "instruction": "Open a new file, set the language to <strong>Markdown</strong>, and paste your personalized action plan.<br><br>You now have a complete set of executive artifacts from this lab:<br><br>&bull; A metrics worksheet with usage analysis<br>&bull; An ROI model with sensitivity analysis<br>&bull; A Copilot usage policy<br>&bull; A board-level adoption report<br>&bull; A phased rollout plan with RACI matrix<br>&bull; A personalized 90-day action plan",
           "focus": "top",
           "action": "workbench.action.files.newUntitledFile",
-          "actionLabel": "Open New File"
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },

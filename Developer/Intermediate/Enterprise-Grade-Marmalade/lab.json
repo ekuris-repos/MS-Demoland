@@ -25,7 +25,13 @@
           "title": "Identify Your Gaps",
           "instruction": "Now compare the CCPR template to your actual needs. In <strong>Copilot Chat</strong>, ask:<br><br><kbd>Look at the ccpr_root folder in my workspace. Then consider: what coding conventions, architectural decisions, and team-specific knowledge would a new developer need to learn about a typical project? List at least five things that are not yet captured in this CCPR template.</kbd><br><br>Keep this list handy. You will encode these gaps into the CCPR throughout the lab.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -36,7 +42,13 @@
           "instruction": "The slides introduced four file types: <code>.prompt.md</code>, <code>.instructions.md</code>, <code>SKILL.md</code>, and <code>.agent.md</code>. Open the CCPR template and find examples of each type. Note how each is structured.<br><br>Now map your gap list items to these file types. Open a new file and draft a quick mapping. For example:<br><br>&bull; \"Always use parameterized SQL queries\" = instruction<br>&bull; \"How to deploy to staging\" = skill<br>&bull; \"Security review checklist\" = agent<br>&bull; \"Generate API endpoint boilerplate\" = prompt template<br><br>This mapping becomes your build plan for the rest of the lab.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "tip": "If an item could fit more than one type, choose the type that delivers the most value with the least maintenance."
+          "tip": "If an item could fit more than one type, choose the type that delivers the most value with the least maintenance.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -52,7 +64,13 @@
           "title": "Verify Discoverability",
           "instruction": "Review the folder tree. Ask yourself:<br><br>&bull; Can a new developer find what they need in under 30 seconds?<br>&bull; Are the folder names descriptive enough without READMEs?<br>&bull; Is there a clear place for every file type?<br><br>If anything feels hard to find, reorganize now. Discoverability is the top priority for a shared repo.",
           "focus": "left",
-          "action": "workbench.view.explorer"
+          "action": "workbench.view.explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -62,7 +80,13 @@
           "title": "Apply Naming Conventions",
           "instruction": "Review the files in the ccpr_root template. Check them against the naming rules from the slide:<br><br>&bull; Are all file names in kebab-case?<br>&bull; Does every file include the correct type suffix (<code>.prompt.md</code>, <code>.instructions.md</code>, <code>.agent.md</code>)?<br>&bull; Does each file address a single concern?<br><br>The template should already follow these conventions. If you added new files in the previous step, make sure they follow the same pattern.",
           "focus": "left",
-          "action": "workbench.view.explorer"
+          "action": "workbench.view.explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -72,13 +96,19 @@
           "title": "Plan Your Distribution Model",
           "instruction": "The slides present four distribution approaches: git submodules, npm packages, symlinks, and copy-on-clone. Your challenge: choose the best approach for a team of your size and stack.<br><br>Open <strong>Copilot Chat</strong> and explore the trade-offs:<br><br><kbd>Compare git submodules vs npm packages for distributing shared prompt files across 10 repositories. My team uses Node.js and TypeScript. Which approach would you recommend and why?</kbd><br><br>There is no single right answer. The best choice depends on your team's existing workflows.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Write a Distribution Script",
           "instruction": "Whichever model you chose, write the setup command or script. For example, if you chose git submodules, create the <code>git submodule add</code> command. If you chose copy-on-clone, draft a sync script.<br><br>Add the setup instructions to your repo's <code>README.md</code> so consuming teams know exactly how to integrate.<br><br>Hint: the slide shows example commands for each approach. Adapt one to your repo structure.",
           "focus": "editor",
           "tip": "Many organizations start with copy-on-clone for simplicity and migrate to submodules or npm packages as the prompt library matures."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -93,7 +123,13 @@
         {
           "title": "Create a PR Template",
           "instruction": "Create a <code>.github/PULL_REQUEST_TEMPLATE.md</code> that enforces the review process from the slide. Your template should ask contributors to provide:<br><br>&bull; A description of what changed<br>&bull; The intended audience for this prompt or instruction<br>&bull; Before/after evidence showing how Copilot output changed<br><br>Challenge: can you write a template that makes it easy for contributors to include test evidence?",
-          "focus": "editor"
+          "focus": "editor",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -104,13 +140,20 @@
           "instruction": "Browse the <code>prompts/</code> directory in the ccpr_root template. Open the existing prompt files and examine their structure: YAML frontmatter, input variables, and requirement sections.<br><br>Now create your own <code>.prompt.md</code> file. Choose the most common task your team performs (code review, test generation, or documentation are good starting points).<br><br>Your prompt template should include:<br>&bull; YAML frontmatter with <code>description</code> and <code>mode</code><br>&bull; A clear structure with numbered expectations<br>&bull; At least one <code>${input:variable}</code> placeholder<br>&bull; Rules that enforce your team's standards<br><br>Save it in the <code>prompts/</code> directory with a descriptive kebab-case name.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "tip": "The slide's code review template is a strong reference. Study its structure, then adapt it for your team's specific review criteria."
+          "tip": "The slide's code review template is a strong reference. Study its structure, then adapt it for your team's specific review criteria.",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Test Your Prompt Template",
           "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>/</kbd> to open the prompt picker. Find your new template and run it with sample input.<br><br>Evaluate the output:<br>&bull; Does it follow the structure you defined?<br>&bull; Does it enforce your team's standards?<br>&bull; Would a junior developer get value from this template?<br><br>Iterate on the template until you are satisfied with the output quality.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -125,13 +168,20 @@
         {
           "title": "Add a Framework Instruction File",
           "instruction": "Create a second instruction file scoped to your team's primary framework. Save it in <code>instructions/frameworks/</code>.<br><br>Remember from the slide: scoped instructions are additive. A developer working on a React TypeScript file would get both the TypeScript language instructions and the React framework instructions applied simultaneously.<br><br>Make sure your framework instructions do not duplicate rules already in the language file. Each file should address a single concern.",
-          "focus": "editor"
+          "focus": "editor",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Verify Layered Instructions",
           "instruction": "Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>What instructions are active for this workspace? List them and summarize their rules.</kbd><br><br>Confirm that both your language and framework instruction files are loaded. Then test them: ask Copilot to generate a small piece of code and verify the output follows both sets of rules.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -141,13 +191,20 @@
           "title": "Encode Institutional Knowledge",
           "instruction": "Create a <code>SKILL.md</code> file that captures one piece of tribal knowledge your team relies on. The slide uses a deployment pipeline as an example, but choose something relevant to your organization:<br><br>&bull; Your CI/CD pipeline stages and requirements<br>&bull; Your database migration process<br>&bull; Your API versioning strategy<br>&bull; Your incident response procedure<br><br>Save it in the <code>skills/</code> directory. Include enough detail that a new developer could understand the process without asking a senior engineer.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Test the Skill",
           "instruction": "Ask <strong>Copilot Chat</strong> a question that your skill should be able to answer. For example, if you wrote a deployment pipeline skill:<br><br><kbd>How do I deploy a new service to production? What approvals are needed?</kbd><br><br>Does Copilot reference your skill file and provide organization-specific guidance? Or does it give generic advice? If it misses your skill, check that the file is in the correct location and has a clear description at the top.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -157,13 +214,20 @@
           "title": "Create a Custom Agent",
           "instruction": "Design an <code>.agent.md</code> file for a role your team frequently needs. The slide shows a security reviewer; consider what role would deliver the most value for your team:<br><br>&bull; A security reviewer that checks for OWASP vulnerabilities<br>&bull; A DevOps assistant that helps with CI/CD configuration<br>&bull; An accessibility reviewer that audits UI components<br>&bull; A documentation writer that enforces consistency<br><br>Your agent definition should include a description, tool access, behavioral instructions, and references to relevant skills.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Invoke the Agent",
           "instruction": "Open <strong>Copilot Chat</strong> and switch to your new agent using the <kbd>@</kbd> mention or the mode selector. Give it a task that exercises its specialty.<br><br>Evaluate the response:<br>&bull; Does it stay in character for its defined role?<br>&bull; Does it reference the skills and instructions you linked?<br>&bull; Would this agent save your team time compared to a generic Copilot prompt?<br><br>Refine the agent definition until its output consistently meets your expectations.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -174,7 +238,13 @@
           "instruction": "Your central prompt repo needs automated quality checks. Create a GitHub Actions workflow at <code>.github/workflows/validate-prompts.yml</code> that validates your prompt and instruction files.<br><br>The slide shows a starting point. Your challenge: extend it to check for:<br>&bull; Valid YAML frontmatter in all <code>.prompt.md</code> and <code>.instructions.md</code> files<br>&bull; Kebab-case naming conventions<br>&bull; Required fields like <code>description</code> in prompt files<br><br>Use Copilot to help you write the validation scripts, but make sure the checks match your team's conventions.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "tip": "Start with simple checks you can trust, then add more sophisticated validation over time. A CI pipeline that catches real issues is worth more than one that checks everything but nobody trusts."
+          "tip": "Start with simple checks you can trust, then add more sophisticated validation over time. A CI pipeline that catches real issues is worth more than one that checks everything but nobody trusts.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },

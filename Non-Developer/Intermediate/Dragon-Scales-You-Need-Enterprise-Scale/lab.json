@@ -21,7 +21,13 @@
         {
           "title": "Explore the AI-Assisted Ops Shift",
           "instruction": "In the Chat panel, type:<br><br><kbd>What are the top 5 manual operations tasks that AI can help automate for an enterprise SRE team?</kbd><br><br>Compare Copilot's response with the before-and-after list on the slide. Notice how Copilot organizes its answer; this framing will guide the rest of the lab.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -42,7 +48,13 @@
           "title": "Add Drift Detection",
           "instruction": "Ask Copilot to extend the workflow further:<br><br><kbd>Add a scheduled job that runs nightly to detect infrastructure drift by comparing terraform plan output, and opens a GitHub Issue if drift is found</kbd><br><br>Review the result. This is the kind of automation that prevents configuration drift from becoming an incident.",
           "focus": "right",
-          "tip": "Always review generated workflows carefully before committing them. Treat Copilot output like a pull request from a colleague."
+          "tip": "Always review generated workflows carefully before committing them. Treat Copilot output like a pull request from a colleague.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -63,7 +75,13 @@
           "title": "Generate a Secret Rotation Script",
           "instruction": "Try a different ops scenario:<br><br><kbd>Write a Bash script that rotates Azure Key Vault secrets older than 90 days. List expiring secrets first, then prompt for confirmation before rotating each one.</kbd><br><br>This demonstrates how Copilot handles security-sensitive automation. Always verify that generated scripts follow your organization's security policies.",
           "focus": "right",
-          "tip": "Store reviewed scripts in a shared ops repository so your entire team can reuse them."
+          "tip": "Store reviewed scripts in a shared ops repository so your entire team can reuse them.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -83,7 +101,13 @@
         {
           "title": "Summarize for Stakeholders",
           "instruction": "Ask Copilot to translate the technical analysis into a stakeholder-friendly summary:<br><br><kbd>Summarize the payment service issue from the logs above in 3-4 sentences for a non-technical audience. Include the impact and current status.</kbd><br><br>This is invaluable during incidents when leadership needs quick updates without the technical details.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -99,7 +123,13 @@
           "title": "Review an Existing Runbook",
           "instruction": "Ask Copilot to act as a reviewer:<br><br><kbd>Review the runbook you just generated. Flag any sections that might become outdated if we migrate from a self-managed database to a managed database service like Azure SQL. Suggest updates.</kbd><br><br>This pattern helps keep runbooks current as your architecture evolves. Teams can use this as part of their regular documentation review cycle.",
           "focus": "right",
-          "tip": "Store runbooks as Markdown in a GitHub repository. Use pull requests to track changes and maintain version history."
+          "tip": "Store runbooks as Markdown in a GitHub repository. Use pull requests to track changes and maintain version history.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -120,7 +150,13 @@
           "title": "Scaffold a Dashboard",
           "instruction": "Ask Copilot to create a full dashboard definition:<br><br><kbd>Create a Grafana dashboard JSON with four panels: CPU usage, memory usage, disk I/O, and network throughput. Add a variable selector for environment (dev, staging, production).</kbd><br><br>This dashboard-as-code approach means your monitoring definitions are versioned, reviewable, and reproducible alongside your infrastructure.",
           "focus": "right",
-          "tip": "Standardize dashboard templates across teams so on-call engineers can quickly orient themselves when investigating any service."
+          "tip": "Standardize dashboard templates across teams so on-call engineers can quickly orient themselves when investigating any service.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -135,7 +171,13 @@
         {
           "title": "Generate Remediation Steps",
           "instruction": "Follow up with:<br><br><kbd>Based on the root cause you identified, generate a step-by-step remediation plan. Include both an immediate fix and a long-term prevention strategy.</kbd><br><br>Notice how Copilot separates short-term actions (restart, scale up) from long-term improvements (connection pooling, auto-scaling). This structure is exactly what incident commanders need during a response.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -156,7 +198,13 @@
           "title": "Generate a Stakeholder Summary",
           "instruction": "Ask Copilot to create a leadership-friendly version:<br><br><kbd>Write a 4-sentence executive summary of this incident suitable for a weekly ops review meeting. Focus on business impact, resolution time, and prevention measures.</kbd><br><br>Ops teams often need to communicate upward in non-technical language. Copilot bridges that gap quickly.",
           "focus": "right",
-          "tip": "Publish postmortems as Markdown files in a GitHub repository. Link them from your incident tracking system for easy reference."
+          "tip": "Publish postmortems as Markdown files in a GitHub repository. Link them from your incident tracking system for easy reference.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -172,7 +220,13 @@
           "title": "Analyze Cloud Spend",
           "instruction": "Ask Copilot to help with cost analysis:<br><br><kbd>I have a cloud bill showing these monthly costs:\n- Compute (VMs): $45,000 (up 20% from last month)\n- Storage: $12,000 (flat)\n- Networking: $8,500 (up 35%)\n- Database: $22,000 (flat)\n\nSummarize the top cost drivers, flag the anomalies, and suggest 3 cost optimization actions I should investigate.</kbd><br><br>This is how Copilot helps you prepare cost-savings proposals for leadership without switching to a dedicated FinOps tool.",
           "focus": "right",
-          "tip": "Export billing data to a repository on a regular schedule so you can track spending trends over time with version history."
+          "tip": "Export billing data to a repository on a regular schedule so you can track spending trends over time with version history.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -187,7 +241,13 @@
         {
           "title": "Generate a Repository Template Checklist",
           "instruction": "Follow up with:<br><br><kbd>Create a checklist for a GitHub repository template that all new projects in our org must use. Include CI/CD, security scanning (CodeQL, secret scanning, Dependabot), branch protection rules, CODEOWNERS, and documentation requirements.</kbd><br><br>This template ensures every new repository starts with best practices baked in, reducing onboarding time and preventing security gaps.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },

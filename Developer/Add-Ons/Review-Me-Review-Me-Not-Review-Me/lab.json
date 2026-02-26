@@ -21,7 +21,13 @@
         {
           "title": "Quantify the Cost",
           "instruction": "Follow up with a more specific question:<br><br><kbd>If each mechanical review comment takes 3 minutes to write and our reviewers leave an average of 5 per PR, how much time per week could we save with automated review?</kbd><br><br>Think about how these numbers map to your own team. Which categories of feedback (style, bugs, security, architecture) could be automated?",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -37,7 +43,13 @@
           "title": "Compare the Approaches",
           "instruction": "Ask Copilot to help you think through when each approach is appropriate:<br><br><kbd>When should a team use auto-review (Copilot assigned via CODEOWNERS) vs. on-demand review (clicking the Copilot button)? Give me a decision matrix based on team size, PR volume, and risk tolerance.</kbd><br><br>Consider which approach you would recommend for a team you work with.",
           "focus": "right",
-          "tip": "Many teams use both: auto-review for broad coverage and on-demand for targeted analysis before requesting human reviewers."
+          "tip": "Many teams use both: auto-review for broad coverage and on-demand for targeted analysis before requesting human reviewers.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -47,18 +59,28 @@
           "title": "Write Vulnerable Code on Purpose",
           "instruction": "Create a new file and intentionally write code with common vulnerabilities. Try to include at least three different issue types.<br><br>Hint: think about SQL injection, missing input validation, hardcoded credentials, and unsafe deserialization. Write 3-4 short functions that each contain a different flaw.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Review Your Own Code",
           "instruction": "Select all the code you just wrote and open <strong>Copilot Chat</strong>. Ask Copilot to review it as if it were a pull request:<br><br><kbd>Review this code as if you were a PR reviewer. For each issue, explain the vulnerability, its severity, and provide a suggested fix.</kbd><br><br>Compare Copilot's findings against the flaws you intentionally introduced. Did it catch all of them? Did it find anything you did not expect?",
-          "focus": ["editor", "right"],
+          "focus": [
+            "editor",
+            "right"
+          ],
           "action": "workbench.action.chat.open"
         },
         {
           "title": "Iterate on the Fixes",
           "instruction": "Apply Copilot's suggested fixes, then ask it to review the corrected code again:<br><br><kbd>I've applied your fixes. Review the updated code and confirm whether all issues are resolved, or if any new concerns were introduced.</kbd><br><br>This review-fix-review loop mirrors how Copilot code review works on real pull requests.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -69,13 +91,20 @@
           "instruction": "Coding guidelines shape what Copilot focuses on during review. Create a new file and draft 3-5 coding guidelines for a project of your choice.<br><br>Each guideline needs a <strong>title</strong>, a <strong>description</strong>, and <strong>file path patterns</strong>. Think about the rules your team enforces inconsistently today.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "tip": "Good guidelines are specific and actionable. \"Write clean code\" is too vague. \"All public API functions must include JSDoc with @param and @returns tags\" is enforceable."
+          "tip": "Good guidelines are specific and actionable. \"Write clean code\" is too vague. \"All public API functions must include JSDoc with @param and @returns tags\" is enforceable.",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Test Your Guidelines",
           "instruction": "Paste your guidelines into <strong>Copilot Chat</strong> and ask it to review a code sample against them:<br><br><kbd>Here are my team's coding guidelines: [paste guidelines]. Now review this code against those guidelines and flag any violations.</kbd><br><br>Write or paste a code snippet that intentionally violates one or two of your guidelines. Verify Copilot catches the violations.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -91,7 +120,13 @@
           "title": "Break the Taint Chain",
           "instruction": "Now challenge yourself: ask Copilot how to sanitize the tainted data at each point in the chain.<br><br><kbd>For the taint path you just showed me, what are the possible sanitization points? Show me how to break the taint chain at each level: input validation, intermediate sanitization, and sink-level protection.</kbd><br><br>Understanding taint paths helps you write code that CodeQL will not flag in the first place.",
           "focus": "right",
-          "tip": "Defense in depth means sanitizing at multiple points. Do not rely on a single sanitization step."
+          "tip": "Defense in depth means sanitizing at multiple points. Do not rely on a single sanitization step.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -101,18 +136,28 @@
           "title": "Simulate Autofix",
           "instruction": "Create a new file and write a Python Flask route with a reflected XSS vulnerability, similar to the slide example but with a different scenario. Try a template rendering flaw or an unsafe redirect.<br><br>Do not copy the slide code directly; write your own variation.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Generate the Fix Explanation",
           "instruction": "Select your vulnerable code and ask Copilot to act as Autofix:<br><br><kbd>Act as Copilot Autofix. Identify the security vulnerability in this code, explain what it is and why it matters, then generate a minimal fix. Include only the changes needed to resolve the vulnerability.</kbd><br><br>Compare the fix to what you would have written manually. Is it minimal and correct?",
-          "focus": ["editor", "right"],
+          "focus": [
+            "editor",
+            "right"
+          ],
           "action": "workbench.action.chat.open"
         },
         {
           "title": "Try Multiple Languages",
           "instruction": "Repeat the exercise in a different language. Write a similar vulnerability in Java, C#, or Go and ask Copilot to generate the Autofix-style remediation.<br><br>Notice how the fix pattern changes across languages. The vulnerability concept is the same, but the remediation tools differ.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -122,19 +167,29 @@
           "title": "Build a Scanning Workflow",
           "instruction": "Create a new file named <code>codeql-analysis.yml</code> and write a GitHub Actions workflow that runs CodeQL analysis. The slide shows a basic example; extend it.<br><br>Your workflow should:<br>&bull; Trigger on push, PR, and a weekly schedule<br>&bull; Scan at least two languages<br>&bull; Use the latest CodeQL action versions<br><br>Try writing it from memory first, then check against the slide.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Add Custom Query Packs",
           "instruction": "Ask Copilot how to extend your workflow with custom CodeQL query packs:<br><br><kbd>How do I add a custom CodeQL query pack to my code scanning workflow? Show me how to include both the default queries and a custom pack from my organization.</kbd><br><br>Modify your workflow file to include the custom query configuration.",
-          "focus": ["editor", "right"],
+          "focus": [
+            "editor",
+            "right"
+          ],
           "action": "workbench.action.chat.open"
         },
         {
           "title": "Validate the Workflow",
           "instruction": "Ask Copilot to review your completed workflow for correctness:<br><br><kbd>Review this GitHub Actions workflow for code scanning. Check for missing permissions, incorrect action versions, and any configuration issues.</kbd><br><br>Fix any issues Copilot identifies. A misconfigured scanning workflow gives false confidence.",
           "focus": "right",
-          "tip": "The permissions block is commonly misconfigured. Code scanning needs <code>security-events: write</code> at minimum."
+          "tip": "The permissions block is commonly misconfigured. Code scanning needs <code>security-events: write</code> at minimum.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -144,13 +199,23 @@
           "title": "Create a Custom Secret Pattern",
           "instruction": "Secret scanning supports custom patterns via regex. Ask Copilot to help you design one:<br><br><kbd>My organization uses internal API tokens that follow the pattern ACME-[A-Z0-9]{32}. Write a custom secret scanning pattern definition that detects these tokens, including a test string that should match and one that should not.</kbd><br><br>Think about what organization-specific secrets your team uses that the default patterns would not catch.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Test Push Protection Awareness",
           "instruction": "Create a new file and write code that contains a fake secret (do not use real credentials):<br><br><kbd>GITHUB_TOKEN=ghp_abc123def456ghi789jkl012mno345pqr678</kbd><br><br>Ask Copilot what would happen if you tried to push this file to a repository with push protection enabled. Then ask how a developer should remediate it.<br><br>Understanding the push protection workflow helps you respond quickly when it blocks a real push.",
-          "focus": ["editor", "right"],
-          "action": "workbench.action.files.newUntitledFile"
+          "focus": [
+            "editor",
+            "right"
+          ],
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -166,7 +231,13 @@
           "title": "Map to Compliance Frameworks",
           "instruction": "Follow up by mapping your ruleset to a compliance framework:<br><br><kbd>Map each rule in the ruleset to the relevant SOC 2 Trust Services Criteria or ISO 27001 controls. Show which compliance requirement each automated check satisfies.</kbd><br><br>This exercise demonstrates how automated code review translates directly to audit evidence.",
           "focus": "right",
-          "tip": "Auditors care about evidence of consistent enforcement. Automated rulesets provide that evidence for every single merge."
+          "tip": "Auditors care about evidence of consistent enforcement. Automated rulesets provide that evidence for every single merge.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },

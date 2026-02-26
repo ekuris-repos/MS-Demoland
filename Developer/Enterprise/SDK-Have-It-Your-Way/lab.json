@@ -16,12 +16,18 @@
           "title": "Scaffold the SDK Project",
           "instruction": "Open a terminal and scaffold a new Copilot SDK project using the Azure Developer CLI template:<br><br><kbd>azd init --template azure-samples/copilot-sdk-service</kbd><br><br>When prompted, choose a name for your project (e.g., <code>my-copilot-app</code>). Accept the default settings for the Azure region and subscription.",
           "focus": "terminal",
-          "action": "workbench.action.terminal.toggleTerminal"
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Install Dependencies",
           "instruction": "Navigate into your new project directory and install the dependencies:<br><br><kbd>cd my-copilot-app</kbd><br><kbd>npm install</kbd><br><br>Verify that <code>@github/copilot-sdk</code> appears in your <code>package.json</code> dependencies. This is the core package you will use for every integration point in this lab.",
           "focus": "terminal"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -31,12 +37,18 @@
           "title": "Explore the Project Structure",
           "instruction": "Open the <strong>Explorer</strong> and review the scaffolded project. Locate these key areas:<br><br>&bull; <code>src/api/</code> - Express server and SDK integration<br>&bull; <code>src/web/</code> - React-based front end<br>&bull; <code>infra/</code> - Bicep infrastructure definitions<br>&bull; <code>azure.yaml</code> - azd deployment manifest<br><br>Open the main API entry point and identify where the <code>CopilotClient</code> is imported and configured.",
           "focus": "left",
-          "action": "workbench.view.explorer"
+          "action": "workbench.view.explorer",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Identify the SDK Entry Point",
           "instruction": "Find the file in <code>src/api/</code> where the SDK is initialized. Look for the <code>CopilotClient</code> import and the <code>createSession()</code> call.<br><br>Review how the template connects the SDK to the Express app. Note the authentication pattern: the token is read from environment variables, not hardcoded. This is the foundation you will build on for the rest of the lab.",
           "focus": "editor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -47,13 +59,20 @@
           "instruction": "Create a new file called <code>src/test-client.ts</code>. Write a minimal SDK script that:<br><br>&bull; Imports <code>CopilotClient</code> from <code>@github/copilot-sdk</code><br>&bull; Creates a client instance using <code>process.env.GITHUB_TOKEN</code><br>&bull; Opens a session with <code>createSession()</code><br>&bull; Sends a prompt using <code>sendAndWait()</code><br>&bull; Logs the response to the console<br><br>Use the code on the slide as a reference, but write it yourself.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "tip": "Set your GITHUB_TOKEN environment variable before running the script. Use a personal access token with the copilot scope."
+          "tip": "Set your GITHUB_TOKEN environment variable before running the script. Use a personal access token with the copilot scope.",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Run the Test Script",
           "instruction": "Execute your test script from the terminal:<br><br><kbd>npx tsx src/test-client.ts</kbd><br><br>You should see a model response printed to the console. If you get an authentication error, verify that your <code>GITHUB_TOKEN</code> environment variable is set correctly.",
           "focus": "terminal",
-          "action": "workbench.action.terminal.toggleTerminal"
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -68,7 +87,13 @@
           "title": "Test the Chat Endpoint",
           "instruction": "Start the development server and test your endpoint. In a terminal, run:<br><br><kbd>npm run dev</kbd><br><br>Then open a second terminal and send a test request:<br><br><kbd>curl -X POST http://localhost:3000/chat -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"What is the Copilot SDK?\\\"}\"</kbd><br><br>Verify you receive a JSON response with <code>reply</code> and <code>sessionId</code> fields.",
           "focus": "terminal",
-          "action": "workbench.action.terminal.toggleTerminal"
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -98,12 +123,18 @@
         {
           "title": "Register Tools with a Session",
           "instruction": "Update your <code>/chat</code> endpoint to pass the tools array when creating a session:<br><br><kbd>const session = await client.createSession({ tools });</kbd><br><br>The SDK will handle tool orchestration automatically. When the model decides to invoke a tool, it calls your handler and feeds the result back into the conversation.",
-          "focus": "editor"
+          "focus": "editor",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Test Tool Invocation",
           "instruction": "Send a request that should trigger tool use:<br><br><kbd>curl -X POST http://localhost:3000/chat -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"What is the status of order ORD-1234?\\\"}\"</kbd><br><br>Check your server logs to confirm the tool was invoked. If the model does not call the tool, adjust your prompt to be more direct, or verify your tool schema is correctly registered.",
           "focus": "terminal"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -142,14 +173,21 @@
           "title": "Review Infrastructure as Code",
           "instruction": "Open the <code>infra/</code> directory and review the Bicep files. Identify the resources being provisioned:<br><br>&bull; Azure Container Apps Environment<br>&bull; Container App (your service)<br>&bull; Container Registry<br>&bull; Application Insights<br>&bull; Log Analytics Workspace<br><br>Check the <code>azure.yaml</code> manifest to see how the deployment pipeline maps your source code to infrastructure. Note how environment variables and secrets are configured.",
           "focus": "editor",
-          "action": "workbench.view.explorer"
+          "action": "workbench.view.explorer",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Deploy with azd",
           "instruction": "Deploy your application to Azure:<br><br><kbd>azd up</kbd><br><br>The CLI will provision infrastructure, build your application, and deploy it. This may take several minutes on the first run. When it completes, note the endpoint URL printed in the output.<br><br>Test your deployed endpoint with curl to confirm it is working in the cloud.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
-          "tip": "Use azd up --environment staging to deploy to a separate environment for testing before production."
+          "tip": "Use azd up --environment staging to deploy to a separate environment for testing before production.",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },

@@ -17,7 +17,8 @@
           "instruction": "Open the <strong>Terminal</strong> and create a new directory for your MCP server:<br><br><kbd>mkdir mcp-inventory-server && cd mcp-inventory-server</kbd><br><br>Initialize the project:<br><br><kbd>npm init -y</kbd>",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
-          "actionLabel": "Open Terminal"
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Install the MCP SDK",
@@ -27,15 +28,24 @@
         {
           "title": "Create the Server Entry Point",
           "instruction": "Open <strong>Copilot Chat</strong> and ask it to scaffold the server file:<br><br><kbd>Create a file src/index.ts with a minimal MCP server using @modelcontextprotocol/sdk. Name the server \"inventory-service\" version \"1.0.0\". Use the stdio transport. Register one placeholder tool called \"ping\" that returns \"pong\".</kbd><br><br>Review the generated code. It should match the pattern shown on the slide: import McpServer, create an instance, register a tool, connect via StdioServerTransport.",
-          "focus": ["editor", "chat"],
+          "focus": [
+            "editor",
+            "chat"
+          ],
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Verify the Server Starts",
           "instruction": "Add a start script to your <code>package.json</code>:<br><br><kbd>\"start\": \"tsx src/index.ts\"</kbd><br><br>Then test that the server starts without errors by running:<br><br><kbd>npx tsx src/index.ts</kbd><br><br>The process should start and wait for stdio input. Press <kbd>Ctrl+C</kbd> to stop it.",
           "focus": "terminal",
           "tip": "If you see import errors, make sure your package.json has \"type\": \"module\" set."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -46,13 +56,22 @@
           "instruction": "Before writing code, plan the tools your inventory server will expose. In <strong>Copilot Chat</strong>, ask:<br><br><kbd>Help me design 4 MCP tools for an inventory management server: lookup_product, search_products, check_stock, and update_stock_level. For each tool, give me the name, description, and input schema following MCP best practices: verb_noun naming, single responsibility, rich descriptions, and typed parameters.</kbd><br><br>Review the output against the patterns on the slide: single responsibility, descriptive naming, explicit mutations.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Register the Tools",
           "instruction": "Ask Copilot to generate the tool registrations in your server file:<br><br><kbd>In src/index.ts, register these 4 tools using server.tool() with Zod schemas: lookup_product (takes sku string), search_products (takes query string, category optional enum, limit number max 50 default 10), check_stock (takes sku string, warehouse optional string), update_stock_level (takes sku string, quantity number, reason string). Use mock data for now.</kbd><br><br>Verify that each tool follows the patterns from the slide: typed schemas, rich descriptions, idempotent reads, and explicit mutation descriptions.",
-          "focus": ["editor", "chat"],
+          "focus": [
+            "editor",
+            "chat"
+          ],
           "tip": "The update_stock_level tool modifies state. Its description should clearly say so, e.g., \"Adjust the stock quantity for a product. This is a write operation.\""
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -61,7 +80,10 @@
         {
           "title": "Add Error Handling",
           "instruction": "Your tools need robust error handling before they are production-ready. Ask Copilot to refactor:<br><br><kbd>Refactor lookup_product in src/index.ts to add proper error handling: wrap the handler in try-catch, return isError: true with a descriptive message when the product is not found, and return isError: true with a sanitized error message if an exception occurs. Follow the MCP error pattern from the course.</kbd><br><br>Compare the result to the code example on the slide. Ensure it returns structured <code>isError: true</code> responses rather than throwing exceptions.",
-          "focus": ["editor", "chat"]
+          "focus": [
+            "editor",
+            "chat"
+          ]
         },
         {
           "title": "Apply Error Handling to All Tools",
@@ -75,7 +97,10 @@
         {
           "title": "Wrap a REST API",
           "instruction": "Now replace the mock data with a real API call pattern. Ask Copilot:<br><br><kbd>Refactor lookup_product in src/index.ts to call an external REST API. Use fetch to call \"${INVENTORY_API_BASE}/products/${sku}\" with an Authorization Bearer header from an environment variable INVENTORY_API_KEY. Parse the JSON response and return the product data. Handle HTTP errors (non-200 status codes) as isError responses.</kbd><br><br>This pattern transforms your MCP server from a demo into a real enterprise integration.",
-          "focus": ["editor", "chat"]
+          "focus": [
+            "editor",
+            "chat"
+          ]
         },
         {
           "title": "Add Environment Configuration",
@@ -95,7 +120,10 @@
         {
           "title": "Add a Database Query Tool",
           "instruction": "Following the safe database access patterns from the previous slide, add a database tool to your server. Ask Copilot:<br><br><kbd>Add a tool called \"query_inventory_report\" to src/index.ts that queries a PostgreSQL database. Use parameterized queries with placeholders ($1, $2, $3). Accept parameters: warehouse (string), start_date (string YYYY-MM-DD), end_date (string YYYY-MM-DD), limit (number, max 100, default 25). The query should SELECT product_sku, product_name, quantity, last_updated FROM inventory WHERE warehouse = $1 AND last_updated BETWEEN $2 AND $3 ORDER BY last_updated DESC LIMIT $4.</kbd>",
-          "focus": ["editor", "chat"]
+          "focus": [
+            "editor",
+            "chat"
+          ]
         },
         {
           "title": "Review the Safety Checklist",
@@ -110,7 +138,10 @@
         {
           "title": "Add Token-Based Authentication",
           "instruction": "Your server needs to authenticate with downstream APIs securely. Ask Copilot:<br><br><kbd>Create src/auth.ts that implements a getToken() function. It should support two modes controlled by an AUTH_MODE environment variable: \"api-key\" mode returns the value of API_KEY env var directly, and \"oauth\" mode uses client credentials flow to POST to a TOKEN_ENDPOINT with CLIENT_ID and CLIENT_SECRET, caching the access token until it expires.</kbd><br><br>Import and use <code>getToken()</code> in your tool handlers instead of reading environment variables directly.",
-          "focus": ["editor", "chat"]
+          "focus": [
+            "editor",
+            "chat"
+          ]
         },
         {
           "title": "Implement Token Caching",
@@ -127,7 +158,8 @@
           "instruction": "Containerize your MCP server for remote deployment. Ask Copilot:<br><br><kbd>Create a Dockerfile for my TypeScript MCP server. Use a multi-stage build: first stage compiles TypeScript, second stage uses node:20-slim for the runtime image. Copy only the compiled output and production node_modules. Expose port 3000. Set NODE_ENV=production. The CMD should run the compiled server with Streamable HTTP transport.</kbd>",
           "focus": "editor",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Add Streamable HTTP Transport",
@@ -139,6 +171,11 @@
           "instruction": "Build the container image locally to verify it compiles:<br><br><kbd>docker build -t mcp-inventory-server .</kbd><br><br>If the build succeeds, test it:<br><br><kbd>docker run -p 3000:3000 -e TRANSPORT=http -e INVENTORY_API_BASE=https://example.com -e INVENTORY_API_KEY=test mcp-inventory-server</kbd><br><br>Verify the <code>/health</code> endpoint returns 200 by opening a new terminal and running <kbd>curl http://localhost:3000/health</kbd>.",
           "focus": "terminal",
           "tip": "If Docker is not available in your environment, reviewing the Dockerfile and transport code is sufficient for this exercise."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -149,12 +186,18 @@
           "instruction": "With your MCP server connected, test Copilot's ability to chain your tools together. Open <strong>Copilot Chat</strong> and try a multi-step prompt:<br><br><kbd>Search for products in the \"electronics\" category, then check the stock level for the first result in the \"US-WEST\" warehouse. If stock is below 10, update it to 50 with reason \"restock\".</kbd><br><br>Watch how Copilot calls <code>search_products</code>, then <code>check_stock</code>, then conditionally calls <code>update_stock_level</code>. Each tool returns context that informs the next step.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Observe the Confirmation Flow",
           "instruction": "Notice how Copilot handles the write operation. When it reaches <code>update_stock_level</code>, it should show a <strong>confirmation dialog</strong> before executing.<br><br>Review the tool call sequence in the chat output. Verify that:<br><br>&bull; Read tools (search, check_stock) executed without confirmation<br>&bull; The write tool (update_stock_level) prompted for approval<br>&bull; Each tool's output provided enough context for the next call<br><br>This is the composable building block pattern in action.",
           "focus": "chat"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -163,7 +206,10 @@
         {
           "title": "Add Structured Logging",
           "instruction": "Production servers need observability. Ask Copilot:<br><br><kbd>Create src/logger.ts that exports a log function. Each log entry should be a JSON object with: timestamp (ISO 8601), level (info/warn/error), tool_name, duration_ms, status (success/error), and a sanitized params object that redacts any field containing \"key\", \"token\", or \"secret\". Wire it into every tool handler in src/index.ts to log each invocation.</kbd>",
-          "focus": ["editor", "chat"]
+          "focus": [
+            "editor",
+            "chat"
+          ]
         },
         {
           "title": "Add a Health Endpoint with Metrics",
@@ -182,19 +228,31 @@
         {
           "title": "Plan a Complete Integration",
           "instruction": "Follow the seven-step process on the slide to plan a new MCP integration for a system your team uses (e.g., Jira, ServiceNow, Confluence, or an internal service). Open a new file and document:<br><br>&bull; <strong>Workflow</strong>: What does the developer need to accomplish?<br>&bull; <strong>Tools</strong>: What discrete operations are needed?<br>&bull; <strong>Schemas</strong>: What are the input parameters for each tool?<br><br>Use <strong>Copilot Chat</strong> to brainstorm:<br><br><kbd>Help me design an MCP server for [your system]. I need to support [your workflow]. What tools should I create?</kbd>",
-          "focus": ["editor", "chat"],
+          "focus": [
+            "editor",
+            "chat"
+          ],
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Generate the Server Skeleton",
           "instruction": "Use Copilot to generate the full server skeleton from your design. Ask:<br><br><kbd>Generate a complete MCP server in TypeScript for the tools we just designed. Include Zod schemas, error handling with isError, structured logging, and support for both stdio and Streamable HTTP transports. Use the patterns from our inventory-service server.</kbd><br><br>Review the generated code. Verify it follows all the enterprise patterns covered in this course: typed schemas, error handling, authentication, and logging.",
-          "focus": ["editor", "chat"]
+          "focus": [
+            "editor",
+            "chat"
+          ]
         },
         {
           "title": "Configure and Test",
           "instruction": "Add the new server to your <code>.mcp.json</code> alongside the inventory server. Reload VS Code (<kbd>Ctrl+Shift+P</kbd> then <strong>Reload Window</strong>).<br><br>Open Copilot Chat and verify both servers' tools appear in the tools list. Try a prompt that chains tools from both servers:<br><br><kbd>Look up product SKU-1234 in the inventory system, then create a Jira ticket for restocking if the quantity is below threshold.</kbd><br><br>This demonstrates MCP's composability: multiple servers working together in a single workflow.",
           "focus": "chat"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },

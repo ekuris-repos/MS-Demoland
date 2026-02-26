@@ -21,7 +21,13 @@
         {
           "title": "Your First PM Prompt",
           "instruction": "Type this prompt into Copilot Chat:<br><br><kbd>I'm a project manager working with a development team on GitHub. What are the top 5 ways I can use you to be more effective in my role without writing any code?</kbd><br><br>Review the response. These are the capabilities you will practice throughout this lab.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -59,9 +65,13 @@
         {
           "title": "Summarize a Pull Request",
           "instruction": "We have opened a <strong>new file</strong> for you. Paste the following sample PR description into it:<br><br><kbd>PR #247: Refactored the AuthService to use dependency injection. Removed static method calls in UserController and SessionManager. Added unit tests for token refresh flow. Updated the Docker compose file to include a Redis container for session caching.</kbd><br><br>Now select all the text, then ask Copilot Chat:<br><br><kbd>Summarize this pull request for a non-technical project manager. What changed, why does it matter, and is there any risk?</kbd>",
-          "focus": ["top", "right"],
+          "focus": [
+            "top",
+            "right"
+          ],
           "action": "workbench.action.files.newUntitledFile",
-          "actionLabel": "Re-open New File"
+          "actionLabel": "Re-open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Assess PR Scope and Impact",
@@ -72,6 +82,11 @@
           "title": "Generate a Standup Talking Point",
           "instruction": "Ask Copilot to turn the PR into something you can use in a meeting:<br><br><kbd>Write a one-sentence standup update about this PR that I can share with my team tomorrow morning.</kbd><br><br>This is a practical example of how Copilot saves you time every day.",
           "focus": "right"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -178,7 +193,10 @@
         {
           "title": "Translate a Technical Update",
           "instruction": "Clear your file and paste this technical update from a developer:<br><br><kbd>We migrated the session store from in-memory to Redis, which required updating the Docker compose config and refactoring SessionManager to use async/await patterns. The auth token refresh flow now uses a sliding window expiration instead of fixed TTL. We also added circuit breaker logic to the external API calls in PaymentService to handle upstream timeouts gracefully.</kbd><br><br>Select the text and ask Copilot:<br><br><kbd>Rewrite this technical update for a VP who does not write code. Focus on what changed for users and the business. Keep it to 3-4 sentences.</kbd>",
-          "focus": ["top", "right"]
+          "focus": [
+            "top",
+            "right"
+          ]
         },
         {
           "title": "Verify Accuracy",
@@ -193,7 +211,10 @@
         {
           "title": "Turn Metrics into a Narrative",
           "instruction": "Clear your file and paste these quarterly metrics:<br><br><kbd>Q3 Metrics:\n- Velocity: 42, 48, 51 story points (sprints 12-14)\n- Cycle time: reduced from 6.2 days to 4.1 days\n- Sprint completion rate: 78%, 82%, 88%\n- PR merge time: average 1.8 days (down from 3.2 days in Q2)\n- Bug-to-feature ratio: 30/70 (improved from 45/55 in Q2)\n- Features shipped: 12 (vs. 9 in Q2)</kbd><br><br>Select the data and ask Copilot:<br><br><kbd>Write a one-paragraph executive summary of these metrics for a quarterly business review. Lead with outcomes, show trends, and connect metrics to business impact.</kbd>",
-          "focus": ["top", "right"]
+          "focus": [
+            "top",
+            "right"
+          ]
         },
         {
           "title": "Add a Forward-Looking Statement",

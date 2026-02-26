@@ -17,13 +17,20 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask it to summarize the difference between the Coding Agent and VS Code agent mode.<br><br><kbd>What is the difference between the GitHub Coding Agent and VS Code agent mode? When should I use each one?</kbd><br><br>Challenge: Based on the response and the slide, identify at least <strong>three scenarios</strong> where the Coding Agent is the better choice, and three where agent mode wins.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "tip": "Think about async vs. interactive, access to local tools vs. cloud isolation, and fire-and-forget vs. real-time guidance."
+          "tip": "Think about async vs. interactive, access to local tools vs. cloud isolation, and fire-and-forget vs. real-time guidance.",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Map Your Team's Workflow",
           "instruction": "Open a <strong>new file</strong> and sketch out where each agent experience fits in your team's development flow. Consider which tasks you would delegate to the Coding Agent overnight and which you would tackle interactively in VS Code.<br><br>This mental model will guide the configuration work ahead.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -47,19 +54,29 @@
           "title": "Draft an Agent-Ready Issue",
           "instruction": "Open a <strong>new file</strong> and draft a GitHub Issue description for a realistic task you would assign to the Coding Agent. Choose something concrete: adding a REST endpoint, writing tests for an existing module, or updating documentation.<br><br>Your issue needs a clear title, the desired outcome, acceptance criteria, and references to specific files or functions.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Stress-Test Your Issue",
           "instruction": "Paste your issue into <strong>Copilot Chat</strong> and ask it to evaluate the description:<br><br><kbd>Review this GitHub Issue description as if you were the Coding Agent. Do you have enough context to implement it? What ambiguities would cause problems?</kbd><br><br>Refine the issue based on the feedback.",
-          "focus": ["editor", "right"],
-          "action": "workbench.action.chat.open"
+          "focus": [
+            "editor",
+            "right"
+          ],
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Apply the Scoping Test",
           "instruction": "Challenge: Does your issue pass the <strong>single-task test</strong>? If Copilot suggested splitting it into multiple issues, that is a strong signal it is too broad. The Coding Agent works best on focused, well-defined changes.<br><br>Tighten the scope until the issue represents exactly one coherent piece of work.",
           "focus": "editor",
           "tip": "A good rule of thumb: if the acceptance criteria list has more than five items, the issue probably covers too much ground."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -69,19 +86,26 @@
           "title": "Design Org-Level Instructions",
           "instruction": "Create a new file. This will be your organization-level <code>copilot-instructions.md</code>, the file that applies to every repository in your org.<br><br>Challenge: Write instructions covering universal standards. Think about:<br>&bull; Default language and framework preferences<br>&bull; Security rules (secrets, queries, input validation)<br>&bull; Testing requirements<br>&bull; Pull request conventions<br><br>Be specific. \"Write clean code\" is not actionable. \"Always include unit tests for new functions\" is.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Audit for Specificity",
           "instruction": "Paste your org-level instructions into <strong>Copilot Chat</strong> and ask:<br><br><kbd>Review these organization-level Copilot instructions for the Coding Agent. Are they specific enough for an autonomous agent to follow literally? Flag any vague or ambiguous guidance.</kbd><br><br>The agent does not infer intent. Every instruction must be unambiguous.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "tip": "Great org instructions are short and universal. If a rule only applies to some projects, it belongs at the repo level instead."
+          "tip": "Great org instructions are short and universal. If a rule only applies to some projects, it belongs at the repo level instead.",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Test the Security Section",
           "instruction": "Challenge: Does your instructions file include security rules? If not, add them now. At minimum, consider:<br>&bull; No hardcoded secrets or API keys<br>&bull; Parameterized queries for database access<br>&bull; Input validation at system boundaries<br><br>These are the kind of universal policies that prevent the agent from introducing vulnerabilities across any repo.",
           "focus": "editor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -97,7 +121,13 @@
           "title": "Check for Layer Conflicts",
           "instruction": "Open your org-level and repo-level instructions side by side. The agent merges all instruction layers additively.<br><br>Challenge: Do any of your rules conflict? If your org says \"use Jest\" but your repo says \"use Vitest,\" the agent's behavior is unpredictable. Find and resolve any contradictions.<br><br>The principle: org instructions set the baseline; repo instructions <strong>specialize</strong>, not override.",
           "focus": "editor",
-          "tip": "If different repos need different testing tools, make the org instruction flexible: \"use the project's configured test framework\" rather than naming a specific tool."
+          "tip": "If different repos need different testing tools, make the org instruction flexible: \"use the project's configured test framework\" rather than naming a specific tool.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -112,13 +142,23 @@
         {
           "title": "Include the Essentials",
           "instruction": "Your setup steps should cover four things:<br><br>&bull; Language/runtime setup (e.g., <code>actions/setup-node@v4</code>)<br>&bull; Dependency installation<br>&bull; Build verification<br>&bull; Test suite execution<br><br>Challenge: Can the agent run your test suite after making changes? If not, it is coding blind. Make sure <code>npm test</code>, <code>make test</code>, or your equivalent is in the steps.",
-          "focus": "editor"
+          "focus": "editor",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Optimize for Speed",
           "instruction": "Every second of setup time adds to the agent's turnaround. Review your steps for performance.<br><br>Ask <strong>Copilot Chat</strong>:<br><br><kbd>Review this copilot-setup-steps.yml file. How can I make the setup faster without losing the ability to build and test?</kbd><br><br>Common wins: use <code>npm ci</code> over <code>npm install</code>, skip heavy compilation steps that are not needed for testing, and avoid installing tools the agent will never use.",
-          "focus": ["editor", "right"],
-          "action": "workbench.action.chat.open"
+          "focus": [
+            "editor",
+            "right"
+          ],
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -134,11 +174,17 @@
           "title": "Practice Writing Review Comments",
           "instruction": "When you leave comments on an agent PR, the agent reads them and pushes follow-up commits. The quality of your comments directly affects the quality of the fix.<br><br>Challenge: Write three example review comments in your file. Each one should be specific, actionable, and scoped to a single concern.<br><br>Good: \"This endpoint should return 400 for invalid query parameters, not 500. Add input validation before the database call.\"<br>Weak: \"The error handling needs improvement.\"",
           "focus": "editor",
-          "tip": "If the agent's approach is fundamentally wrong, close the PR and refine the issue instead of trying to fix it through review comments."
+          "tip": "If the agent's approach is fundamentally wrong, close the PR and refine the issue instead of trying to fix it through review comments.",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Spot the Strengths and Risks",
           "instruction": "The slide identifies what the agent does well and where it needs extra scrutiny. Challenge: For the task in your sample issue, predict which parts the agent will handle confidently and which parts you should review line by line.<br><br>Write your predictions in the file. When you try the agent for real, compare your predictions to the actual output.",
+          "focus": "slides"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
           "focus": "slides"
         }
       ]
@@ -149,7 +195,8 @@
           "title": "Plan an IDE-to-Agent Handoff",
           "instruction": "You have been prototyping a feature in VS Code agent mode. Now you want to hand it off to the Coding Agent to finish.<br><br>Open <strong>Copilot Chat</strong> and ask it to help you write a handoff issue:<br><br><kbd>I've been exploring a feature locally. Help me write a detailed GitHub Issue that captures my findings so the Coding Agent can complete the implementation. The feature is: [describe a realistic feature].</kbd>",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Plan an Agent-to-IDE Handoff",
@@ -161,6 +208,11 @@
           "instruction": "You now know two handoff directions: IDE-to-Agent and Agent-to-IDE. In practice, which pattern will you use more?<br><br>Challenge: For a typical week of work, identify two tasks you would start locally and hand off, and two tasks you would assign directly to the agent. Write them down with your reasoning.",
           "focus": "editor",
           "tip": "The \"explore locally, delegate implementation\" pattern works best for tasks that are conceptually complex but mechanically straightforward."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -170,12 +222,18 @@
           "title": "Estimate Capacity Needs",
           "instruction": "The Coding Agent consumes GitHub Actions minutes. For your team's expected usage, estimate the monthly cost.<br><br>Ask <strong>Copilot Chat</strong>:<br><br><kbd>If a team of 10 developers assigns an average of 4 issues per week to the Coding Agent, and each session uses roughly 15 minutes of Actions time, what is the monthly Actions minute consumption?</kbd><br><br>Challenge: How does this compare to your current Actions usage? Is the ROI worth it?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Define Access Controls",
           "instruction": "Organization admins can enable or disable the Coding Agent at the org and repository level.<br><br>Challenge: For your organization, draft a policy for which repositories should have the agent enabled and which should not. Consider:<br>&bull; Security-sensitive repositories with strict change controls<br>&bull; Repositories with complex builds that would slow the agent down<br>&bull; Team readiness and review bandwidth for agent PRs<br>&bull; Repositories where the agent would provide the most value",
           "focus": "editor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -190,7 +248,13 @@
           "title": "Final Quality Check",
           "instruction": "Challenge: Could a teammate pick up your configuration files and start using the Coding Agent effectively today? Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>I created a Coding Agent configuration package with org instructions, repo instructions, and setup steps. What is missing that could cause problems for a new team adopting the agent?</kbd><br><br>Fill any gaps the review identifies.",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },

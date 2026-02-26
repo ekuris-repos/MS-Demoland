@@ -27,7 +27,7 @@
         {
           "title": "Done Exploring",
           "instruction": "We have closed the sidebar for you. You just saw the two most important panels for understanding how GitHub connects to your local workspace: the <strong>Explorer</strong> for files and the <strong>Source Control</strong> view for changes and branches.<br><br>You can reopen them any time with <kbd>Ctrl+Shift+E</kbd> (Explorer) or <kbd>Ctrl+Shift+G</kbd> (Source Control).",
-          "action": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar"
         }
       ]
     },
@@ -47,7 +47,13 @@
         {
           "title": "View File History",
           "instruction": "Open any file by clicking it in the Explorer. Then look at the bottom of the Explorer panel for the <strong>Timeline</strong> section. If it is collapsed, click to expand it.<br><br>The Timeline shows every change that has been made to this file over time, including who made the change and when. This is the \"time machine\" that Git provides: a complete, searchable history of every edit.",
-          "focus": "left"
+          "focus": "left",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -62,7 +68,13 @@
         {
           "title": "Learn About Traceability",
           "instruction": "Now ask a follow-up question:<br><br><kbd>How does closing an issue automatically when a pull request merges work?</kbd><br><br>This traceability is one of the most powerful features for non-developers. It means every code change can be traced back to the business need that requested it. Compliance and audit teams benefit greatly from this built-in connection.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -77,7 +89,7 @@
         {
           "title": "Close Chat",
           "instruction": "We have closed the Chat panel for you. You used Copilot to learn about GitHub Issues and Projects, two key planning tools that connect business needs to development work.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Alt+I</kbd>.",
-          "action": "workbench.action.closeAuxiliaryBar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         }
       ]
     },
@@ -98,7 +110,10 @@
         {
           "title": "Close the Panels",
           "instruction": "We have closed the panels for you. You explored where automation files live in a repository and learned the three building blocks of GitHub Actions.<br><br>Even though you may not write workflow files yourself, understanding what they are helps you follow conversations about CI/CD with your development team.",
-          "action": ["workbench.action.closeAuxiliaryBar", "workbench.action.closeSidebar"]
+          "onLeave": [
+            "workbench.action.closeAuxiliaryBar",
+            "workbench.action.closeSidebar"
+          ]
         }
       ]
     },
@@ -108,7 +123,8 @@
           "title": "Open the Problems Panel",
           "instruction": "We have opened the <strong>Problems</strong> panel for you. This panel shows errors and warnings in your code, similar to how spell-check highlights issues in a document.<br><br>On GitHub, automated tools called <strong>required status checks</strong> perform these inspections on every pull request. If problems are found, the pull request cannot be merged until they are fixed.",
           "focus": "bottom",
-          "action": "workbench.action.problems.focus"
+          "action": "workbench.action.problems.focus",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Explore Code Quality Settings",
@@ -119,7 +135,7 @@
         {
           "title": "Close Settings",
           "instruction": "We have closed Settings for you. You saw how VS Code surfaces code problems and how settings enforce quality rules. On GitHub, these concepts scale up to entire organizations through branch protection rules and rulesets.",
-          "action": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor"
         }
       ]
     },
@@ -139,7 +155,7 @@
         {
           "title": "Close Chat",
           "instruction": "We have closed the Chat panel for you. You learned about the four layers of GitHub security: Dependabot for dependencies, secret scanning for leaked credentials, code scanning for vulnerabilities, and push protection to prevent problems before they happen.",
-          "action": "workbench.action.closeAuxiliaryBar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         }
       ]
     },
@@ -165,7 +181,13 @@
         {
           "title": "Ask a Platform Question",
           "instruction": "Type a question that connects to today's tour:<br><br><kbd>Summarize how GitHub Issues, pull requests, Actions, and security scanning work together as a single workflow.</kbd><br><br>Copilot draws on its knowledge of the GitHub platform to give you a connected answer. This is a great way to reinforce what you learned in the slides.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -180,7 +202,13 @@
         {
           "title": "Learn About Audit Logs",
           "instruction": "Ask a follow-up:<br><br><kbd>What kinds of events are captured in the GitHub audit log, and how do compliance teams use this data?</kbd><br><br>The audit log is often the single most important feature for compliance officers. It records every significant action across the organization, creating the paper trail that auditors require.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -195,13 +223,19 @@
         {
           "title": "Trace the Full Workflow",
           "instruction": "In Copilot Chat, ask:<br><br><kbd>Walk me through a complete GitHub workflow step by step, from filing an issue to deploying to production. Include how security and quality checks fit in.</kbd><br><br>Compare Copilot's response to the six-step workflow on the slide. Notice how each tool (Issues, PRs, Actions, security scanning) plays a specific role in the chain.",
-          "focus": ["left", "right"],
+          "focus": [
+            "left",
+            "right"
+          ],
           "action": "workbench.action.chat.open"
         },
         {
           "title": "Close the Panels",
           "instruction": "We have closed the panels for you. You traced the full end-to-end GitHub workflow, from capturing a business need in an Issue through code changes and reviews, automated security checks, and deployment to production.<br><br>This connected flow is what makes GitHub more than the sum of its parts.",
-          "action": ["workbench.action.closeAuxiliaryBar", "workbench.action.closeSidebar"]
+          "onLeave": [
+            "workbench.action.closeAuxiliaryBar",
+            "workbench.action.closeSidebar"
+          ]
         }
       ]
     },
@@ -209,7 +243,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> \ud83c\udf89 You have completed the GitHub Platform Tour lab. You explored the <strong>Explorer</strong> and <strong>Source Control</strong> panels, navigated the file tree, viewed file history in the <strong>Timeline</strong>, and used <strong>Copilot Chat</strong> to learn about Issues, Projects, Actions, code quality, security scanning, enterprise governance, and the end-to-end workflow.<br><br>You now have a solid mental map of how GitHub works as a unified platform. Explore the other Beginner courses in the Non-Developer track to go deeper.",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the GitHub Platform Tour lab. You explored the <strong>Explorer</strong> and <strong>Source Control</strong> panels, navigated the file tree, viewed file history in the <strong>Timeline</strong>, and used <strong>Copilot Chat</strong> to learn about Issues, Projects, Actions, code quality, security scanning, enterprise governance, and the end-to-end workflow.<br><br>You now have a solid mental map of how GitHub works as a unified platform. Explore the other Beginner courses in the Non-Developer track to go deeper.",
           "tip": "Head back to the slides on the left for a recap, or close this panel to explore on your own."
         }
       ]

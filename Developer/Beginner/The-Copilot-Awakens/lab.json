@@ -19,7 +19,7 @@
         },
         {
           "title": "Check the Extension Details",
-          "instruction": "Click on the <strong>GitHub Copilot</strong> extension in the list to open its details page. Scroll through to see what's included:<br><br>\u2022 Inline completions (ghost text)<br>\u2022 Copilot Chat panel and inline chat<br>\u2022 Terminal integration<br><br>Notice the <strong>Disable</strong> and <strong>Uninstall</strong> buttons. You won't need those today, but it's good to know where they are."
+          "instruction": "Click on the <strong>GitHub Copilot</strong> extension in the list to open its details page. Scroll through to see what's included:<br><br>• Inline completions (ghost text)<br>• Copilot Chat panel and inline chat<br>• Terminal integration<br><br>Notice the <strong>Disable</strong> and <strong>Uninstall</strong> buttons. You won't need those today, but it's good to know where they are."
         },
         {
           "title": "Verify the Status Bar",
@@ -28,7 +28,7 @@
         {
           "title": "Close Extensions",
           "instruction": "We've closed the Extensions panel for you. You explored the Copilot extension, verified it's installed, and checked the status bar icon.<br><br>You can reopen Extensions any time with <kbd>Ctrl+Shift+X</kbd>.",
-          "action": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "steps": [
         {
           "title": "Sign In to GitHub",
-          "instruction": "Click the <strong>Copilot icon</strong> in the status bar \u2192 <strong>Sign in to GitHub</strong>. Authorize VS Code in your browser, then come back here.<br><br>The icon should turn into the Copilot sparkle when you're active."
+          "instruction": "Click the <strong>Copilot icon</strong> in the status bar → <strong>Sign in to GitHub</strong>. Authorize VS Code in your browser, then come back here.<br><br>The icon should turn into the Copilot sparkle when you're active."
         },
         {
           "title": "Verify Your License",
@@ -50,7 +50,7 @@
         {
           "title": "Close the Panel",
           "instruction": "We've closed the Output panel for you. You signed into GitHub, verified your license, and found where Copilot logs connection events.<br><br>If you ever hit a connectivity issue, bring the Output panel back with <kbd>Ctrl+Shift+U</kbd> and select <strong>GitHub Copilot</strong> from the dropdown.",
-          "action": "workbench.action.closePanel"
+          "onLeave": "workbench.action.closePanel"
         }
       ]
     },
@@ -61,17 +61,17 @@
           "instruction": "We've opened a <strong>new file</strong> for you. Set the language to <strong>JavaScript</strong> using the language selector in the bottom-right corner, then type this comment:<br><br><kbd>// Calculate the total price of items in a shopping cart</kbd><br><br>Press <strong>Enter</strong> and watch Copilot suggest the function body as ghost text. Press <strong>Tab</strong> to accept the full suggestion.",
           "focus": "top",
           "action": "workbench.action.files.newUntitledFile",
-          "actionLabel": "\u21bb Re-open New File"
+          "actionLabel": "↻ Re-open New File"
         },
         {
           "title": "Accept Word-by-Word",
-          "instruction": "Now try a different example. Below your first function, type:<br><br><kbd>// Validate an email address and return true or false</kbd><br><br>When the ghost text appears, instead of pressing Tab, press <kbd>Ctrl+\u2192</kbd> repeatedly. Each press accepts <strong>one word</strong> at a time \u2014 perfect when the suggestion is mostly right but you want to tweak as you go.",
+          "instruction": "Now try a different example. Below your first function, type:<br><br><kbd>// Validate an email address and return true or false</kbd><br><br>When the ghost text appears, instead of pressing Tab, press <kbd>Ctrl+→</kbd> repeatedly. Each press accepts <strong>one word</strong> at a time — perfect when the suggestion is mostly right but you want to tweak as you go.",
           "focus": "top",
           "tip": "This is the most underused shortcut in Copilot. Once you learn it, you'll use it constantly."
         },
         {
           "title": "Cycle Through Alternatives",
-          "instruction": "Try one more. Type:<br><br><kbd>// Reverse a string without using built-in reverse methods</kbd><br><br>When ghost text appears, press <kbd>Alt+]</kbd> to see the <strong>next</strong> alternative and <kbd>Alt+[</kbd> for the <strong>previous</strong> one. Copilot often has multiple approaches \u2014 a for-loop, a reduce, a spread-and-reverse. Explore them before accepting.",
+          "instruction": "Try one more. Type:<br><br><kbd>// Reverse a string without using built-in reverse methods</kbd><br><br>When ghost text appears, press <kbd>Alt+]</kbd> to see the <strong>next</strong> alternative and <kbd>Alt+[</kbd> for the <strong>previous</strong> one. Copilot often has multiple approaches — a for-loop, a reduce, a spread-and-reverse. Explore them before accepting.",
           "focus": "top"
         },
         {
@@ -81,9 +81,15 @@
         },
         {
           "title": "Next Edit Suggestions",
-          "instruction": "Next Edit Suggestions (NES) take inline completions further. After you accept a suggestion, look for a <strong>dimmed suggestion at a different location</strong> in your file. Copilot predicts where you\u2019ll want to edit next.<br><br>Try it: accept a ghost text suggestion with <strong>Tab</strong>, then look for another suggestion nearby. If you see one, press <strong>Tab</strong> again to jump to it and accept.",
+          "instruction": "Next Edit Suggestions (NES) take inline completions further. After you accept a suggestion, look for a <strong>dimmed suggestion at a different location</strong> in your file. Copilot predicts where you’ll want to edit next.<br><br>Try it: accept a ghost text suggestion with <strong>Tab</strong>, then look for another suggestion nearby. If you see one, press <strong>Tab</strong> again to jump to it and accept.",
           "focus": "top",
-          "tip": "NES works best when you\u2019re making a series of related edits, like adding parameters to a function and then updating all the call sites."
+          "tip": "NES works best when you’re making a series of related edits, like adding parameters to a function and then updating all the call sites.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -97,19 +103,25 @@
         },
         {
           "title": "Choose Your Model",
-          "instruction": "Click the <strong>model selector</strong> dropdown at the top of the Chat panel. Different models have different strengths \u2014 Claude excels at reasoning, GPT-4o is fast and versatile.<br><br>For this lab, any model works. Pick one and continue.",
+          "instruction": "Click the <strong>model selector</strong> dropdown at the top of the Chat panel. Different models have different strengths — Claude excels at reasoning, GPT-4o is fast and versatile.<br><br>For this lab, any model works. Pick one and continue.",
           "focus": "right"
         },
         {
           "title": "Ask a Context-Aware Question",
-          "instruction": "With the file you wrote earlier still open, type:<br><br><kbd>How could I improve the functions in my current file?</kbd><br><br>Notice that Copilot sees your open file and gives specific feedback \u2014 not generic advice. This <strong>context awareness</strong> is what makes Chat so much more useful than a web search.",
-          "focus": "right"
+          "instruction": "With the file you wrote earlier still open, type:<br><br><kbd>How could I improve the functions in my current file?</kbd><br><br>Notice that Copilot sees your open file and gives specific feedback — not generic advice. This <strong>context awareness</strong> is what makes Chat so much more useful than a web search.",
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Try Inline Chat",
-          "instruction": "Click inside one of your functions in the editor, then press <kbd>Ctrl+I</kbd> to open <strong>inline chat</strong> \u2014 a small input box right in the editor.<br><br>Type: <kbd>Add input validation</kbd><br><br>Inline chat is perfect for quick, targeted edits without switching to the sidebar.",
+          "instruction": "Click inside one of your functions in the editor, then press <kbd>Ctrl+I</kbd> to open <strong>inline chat</strong> — a small input box right in the editor.<br><br>Type: <kbd>Add input validation</kbd><br><br>Inline chat is perfect for quick, targeted edits without switching to the sidebar.",
           "focus": "top",
           "tip": "<kbd>Ctrl+Alt+I</kbd> opens the sidebar panel. <kbd>Ctrl+I</kbd> opens inline chat. Two different tools for two different jobs."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -117,23 +129,29 @@
       "steps": [
         {
           "title": "Find the Model Selector",
-          "instruction": "Look at the <strong>top of the Chat panel</strong>. You\u2019ll see a dropdown showing the current model name (e.g., GPT-4o or Claude Sonnet).<br><br>Click it to open the model selector.",
+          "instruction": "Look at the <strong>top of the Chat panel</strong>. You’ll see a dropdown showing the current model name (e.g., GPT-4o or Claude Sonnet).<br><br>Click it to open the model selector.",
           "focus": "right",
           "action": "workbench.action.chat.open"
         },
         {
           "title": "Browse Available Models",
-          "instruction": "The model selector shows all available models grouped by provider. Notice the <strong>multiplier</strong> next to each model; this tells you how many premium requests each message consumes.<br><br>A 1\u00d7 model uses one request per message; a higher multiplier uses more. Choose based on the task: fast models for quick questions, reasoning models for complex problems.",
+          "instruction": "The model selector shows all available models grouped by provider. Notice the <strong>multiplier</strong> next to each model; this tells you how many premium requests each message consumes.<br><br>A 1× model uses one request per message; a higher multiplier uses more. Choose based on the task: fast models for quick questions, reasoning models for complex problems.",
           "focus": "right"
         },
         {
           "title": "Switch and Compare",
           "instruction": "Select a different model from the dropdown. Now ask a question you asked earlier:<br><br><kbd>How could I improve the functions in my current file?</kbd><br><br>Notice how different models may give different suggestions, levels of detail, or coding styles. There is no single \"best\" model; it depends on the task.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Done with Models",
-          "instruction": "You\u2019ve explored the model selector, browsed providers, and compared responses. Remember: you can switch models at any time, even mid-conversation."
+          "instruction": "You’ve explored the model selector, browsed providers, and compared responses. Remember: you can switch models at any time, even mid-conversation."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -141,13 +159,13 @@
       "steps": [
         {
           "title": "Explain Your Code",
-          "instruction": "Select one of the functions you wrote earlier, then type in the chat input:<br><br><kbd>/explain</kbd><br><br>Copilot breaks down how the code works step by step \u2014 great for understanding unfamiliar code or verifying your own logic.",
+          "instruction": "Select one of the functions you wrote earlier, then type in the chat input:<br><br><kbd>/explain</kbd><br><br>Copilot breaks down how the code works step by step — great for understanding unfamiliar code or verifying your own logic.",
           "focus": "right",
           "action": "workbench.action.chat.open"
         },
         {
           "title": "Fix a Problem",
-          "instruction": "Now try <kbd>/fix</kbd> on the same selection. Even if your code looks correct, Copilot will often find edge cases \u2014 empty arrays, null values, unexpected types.<br><br>Review the diff and click <strong>Apply</strong> if the fix looks good.",
+          "instruction": "Now try <kbd>/fix</kbd> on the same selection. Even if your code looks correct, Copilot will often find edge cases — empty arrays, null values, unexpected types.<br><br>Review the diff and click <strong>Apply</strong> if the fix looks good.",
           "focus": "right"
         },
         {
@@ -157,19 +175,19 @@
         },
         {
           "title": "Generate Documentation",
-          "instruction": "Select one of your functions and type <kbd>/doc</kbd> in the chat. Copilot generates a <strong>documentation comment</strong> (JSDoc, docstring, etc.) tailored to the function\u2019s parameters and return value.<br><br>Review the output and click <strong>Apply</strong> to insert it above your function.",
+          "instruction": "Select one of your functions and type <kbd>/doc</kbd> in the chat. Copilot generates a <strong>documentation comment</strong> (JSDoc, docstring, etc.) tailored to the function’s parameters and return value.<br><br>Review the output and click <strong>Apply</strong> to insert it above your function.",
           "focus": "right"
         },
         {
           "title": "Ask About Your Workspace",
-          "instruction": "Now try the <kbd>@workspace</kbd> participant. Type:<br><br><kbd>@workspace What files are in this project and what do they do?</kbd><br><br>Unlike regular chat, <code>@workspace</code> indexes your entire project \u2014 not just the open file. It can answer questions about project structure, dependencies, and cross-file relationships.",
+          "instruction": "Now try the <kbd>@workspace</kbd> participant. Type:<br><br><kbd>@workspace What files are in this project and what do they do?</kbd><br><br>Unlike regular chat, <code>@workspace</code> indexes your entire project — not just the open file. It can answer questions about project structure, dependencies, and cross-file relationships.",
           "focus": "right",
           "tip": "Type <kbd>/</kbd> in the chat input to see all available commands. There are more than the ones we covered here."
         },
         {
           "title": "Close Chat",
-          "instruction": "We\u2019ve closed the Chat panel for you. Across these sections you opened the sidebar chat, chose a model, asked context-aware questions, used inline chat (<kbd>Ctrl+I</kbd>), and tried slash commands like <kbd>/explain</kbd>, <kbd>/fix</kbd>, <kbd>/tests</kbd>, <kbd>/doc</kbd>, and <kbd>@workspace</kbd>.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Alt+I</kbd>.",
-          "action": "workbench.action.closeAuxiliaryBar"
+          "instruction": "We’ve closed the Chat panel for you. Across these sections you opened the sidebar chat, chose a model, asked context-aware questions, used inline chat (<kbd>Ctrl+I</kbd>), and tried slash commands like <kbd>/explain</kbd>, <kbd>/fix</kbd>, <kbd>/tests</kbd>, <kbd>/doc</kbd>, and <kbd>@workspace</kbd>.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Alt+I</kbd>.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         }
       ]
     },
@@ -177,7 +195,7 @@
       "steps": [
         {
           "title": "Find the Mode Selector",
-          "instruction": "Look at the <strong>top of the Chat panel</strong>, next to the model picker. You\u2019ll see a dropdown for the current <strong>mode</strong> (Ask, Edit, or Agent).<br><br>It may default to <strong>Ask</strong>. Click it to see all three options.",
+          "instruction": "Look at the <strong>top of the Chat panel</strong>, next to the model picker. You’ll see a dropdown for the current <strong>mode</strong> (Ask, Edit, or Agent).<br><br>It may default to <strong>Ask</strong>. Click it to see all three options.",
           "focus": "right",
           "action": "workbench.action.chat.open"
         },
@@ -204,8 +222,8 @@
         },
         {
           "title": "Back to Ask Mode",
-          "instruction": "Switch back to <strong>Ask</strong> mode. We\u2019ve closed the Chat panel for you.<br><br>You\u2019ve now used all three chat modes: <strong>Ask</strong> for exploration, <strong>Edit</strong> for targeted changes, and <strong>Agent</strong> for autonomous execution. Plus <strong>Vision</strong> for image analysis.",
-          "action": "workbench.action.closeAuxiliaryBar"
+          "instruction": "Switch back to <strong>Ask</strong> mode. We’ve closed the Chat panel for you.<br><br>You’ve now used all three chat modes: <strong>Ask</strong> for exploration, <strong>Edit</strong> for targeted changes, and <strong>Agent</strong> for autonomous execution. Plus <strong>Vision</strong> for image analysis.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         }
       ]
     },
@@ -213,7 +231,7 @@
       "steps": [
         {
           "title": "Explore Copilot Settings",
-          "instruction": "We've opened <strong>Settings</strong> for you (<kbd>Ctrl+,</kbd>). Search for <strong>copilot</strong> to see all available options.<br><br>Find <code>github.copilot.enable</code> and notice it accepts per-language toggles \u2014 you can enable Copilot for Python but disable it for Markdown.",
+          "instruction": "We've opened <strong>Settings</strong> for you (<kbd>Ctrl+,</kbd>). Search for <strong>copilot</strong> to see all available options.<br><br>Find <code>github.copilot.enable</code> and notice it accepts per-language toggles — you can enable Copilot for Python but disable it for Markdown.",
           "focus": "left",
           "focusLabel": "Settings",
           "action": "workbench.action.openSettings"
@@ -234,7 +252,7 @@
         {
           "title": "Close Settings",
           "instruction": "We've closed the Settings tab for you. Remember, you can always bring it back with <kbd>Ctrl+,</kbd> and search for <strong>copilot</strong> to find most Copilot-related settings.",
-          "action": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor"
         }
       ]
     },
@@ -242,13 +260,13 @@
       "steps": [
         {
           "title": "Open the Terminal",
-          "instruction": "We've opened the <strong>integrated terminal</strong> for you (<kbd>Ctrl+`</kbd>).<br><br>Copilot isn't just for code files \u2014 it works in the terminal too. Try asking in the Chat panel:<br><br><kbd>@terminal how do I list all git branches, including remote ones?</kbd>",
+          "instruction": "We've opened the <strong>integrated terminal</strong> for you (<kbd>Ctrl+`</kbd>).<br><br>Copilot isn't just for code files — it works in the terminal too. Try asking in the Chat panel:<br><br><kbd>@terminal how do I list all git branches, including remote ones?</kbd>",
           "focus": "bottom",
           "action": "workbench.action.terminal.toggleTerminal"
         },
         {
           "title": "Try Inline Terminal Help",
-          "instruction": "Click inside the terminal and press <kbd>Ctrl+I</kbd> to open <strong>inline Copilot</strong> right in the terminal.<br><br>Type: <kbd>Find all JavaScript files modified in the last 7 days</kbd><br><br>Copilot will suggest the command. Press <strong>Enter</strong> to insert it into the terminal \u2014 it won't run automatically, so you can review it first.",
+          "instruction": "Click inside the terminal and press <kbd>Ctrl+I</kbd> to open <strong>inline Copilot</strong> right in the terminal.<br><br>Type: <kbd>Find all JavaScript files modified in the last 7 days</kbd><br><br>Copilot will suggest the command. Press <strong>Enter</strong> to insert it into the terminal — it won't run automatically, so you can review it first.",
           "focus": "bottom",
           "tip": "Inline terminal assistance is especially helpful for complex commands with many flags (think <code>git</code>, <code>docker</code>, or <code>kubectl</code>)."
         },
@@ -263,7 +281,7 @@
         {
           "title": "Close the Terminal",
           "instruction": "We've closed the terminal for you. You used <kbd>@terminal</kbd> in Chat to get CLI help, tried inline terminal suggestions with <kbd>Ctrl+I</kbd>, and asked for multi-step command workflows.<br><br>Toggle the terminal back any time with <kbd>Ctrl+`</kbd>.",
-          "action": "workbench.action.closePanel"
+          "onLeave": "workbench.action.closePanel"
         }
       ]
     },
@@ -271,7 +289,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> \ud83c\udf89 You\u2019ve activated Copilot, explored <strong>Next Edit Suggestions</strong>, browsed the <strong>model selector</strong>, used all three <strong>chat modes</strong> (Ask, Edit, Agent), tried <strong>Vision</strong>, worked with slash commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>, <code>/doc</code>, <code>@workspace</code>), used both sidebar and inline chat, worked in the terminal, and configured settings.<br><br>You\u2019re ready for the next course: <strong>Prompts, Instructions, Skills, and Agents</strong>.",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You’ve activated Copilot, explored <strong>Next Edit Suggestions</strong>, browsed the <strong>model selector</strong>, used all three <strong>chat modes</strong> (Ask, Edit, Agent), tried <strong>Vision</strong>, worked with slash commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>, <code>/doc</code>, <code>@workspace</code>), used both sidebar and inline chat, worked in the terminal, and configured settings.<br><br>You’re ready for the next course: <strong>Prompts, Instructions, Skills, and Agents</strong>.",
           "tip": "Head back to the slides on the left for a recap, or close this panel to explore on your own."
         }
       ]

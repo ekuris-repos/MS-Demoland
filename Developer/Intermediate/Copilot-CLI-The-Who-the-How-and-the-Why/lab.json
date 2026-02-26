@@ -16,12 +16,18 @@
           "title": "Verify GitHub CLI",
           "instruction": "Open the <strong>Terminal</strong> and check that the GitHub CLI is installed and up to date:<br><br><kbd>gh --version</kbd><br><br>You need version <strong>2.40 or later</strong>. If the command is not found, install it from <code>cli.github.com</code> before proceeding.",
           "focus": "terminal",
-          "action": "workbench.action.terminal.toggleTerminal"
+          "action": "workbench.action.terminal.toggleTerminal",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Confirm Authentication",
           "instruction": "Verify that you are authenticated with GitHub:<br><br><kbd>gh auth status</kbd><br><br>You should see your username and the scopes granted. If you are not logged in, run <code>gh auth login</code> and follow the prompts.",
           "focus": "terminal"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -108,14 +114,23 @@
         {
           "title": "CLI for the Command, Chat for the Code",
           "instruction": "Open the <strong>Terminal</strong> and use Copilot CLI to generate a Docker command:<br><br><kbd>gh copilot suggest \"run a node 20 container with the current directory mounted and port 3000 exposed\"</kbd><br><br>Now open <strong>Copilot Chat</strong> and ask it to scaffold the application code that would run inside that container. Notice how each tool handles what it does best.",
-          "focus": ["terminal", "right"],
-          "action": "workbench.action.chat.open"
+          "focus": [
+            "terminal",
+            "right"
+          ],
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Know Your Boundaries",
           "instruction": "Try asking Copilot CLI something that requires file context:<br><br><kbd>gh copilot suggest \"refactor the server module to use async/await\"</kbd><br><br>The result will be generic because CLI cannot see your files. This is a task for <strong>Copilot Chat</strong>, not CLI. Recognizing when to switch tools is a key skill.",
           "focus": "terminal",
           "tip": "Rule of thumb: if the task is about running a command, use CLI. If the task is about writing or understanding code, use Chat."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -187,7 +202,10 @@
         {
           "title": "Dotfiles Challenge",
           "instruction": "Think about how you would add these aliases and functions to your dotfiles repository so they follow you across machines. Open a new file and draft your additions.<br><br>Hint: for PowerShell, the profile lives at <code>$PROFILE</code>. For bash/zsh, it is <code>~/.bashrc</code> or <code>~/.zshrc</code>. You can verify the path with:<br><br><kbd>echo $PROFILE</kbd> (PowerShell) or <kbd>echo $HOME/.bashrc</kbd> (bash)",
-          "focus": ["terminal", "editor"]
+          "focus": [
+            "terminal",
+            "editor"
+          ]
         }
       ]
     },

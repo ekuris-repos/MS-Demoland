@@ -21,7 +21,13 @@
         {
           "title": "Rank the Opportunities",
           "instruction": "Now challenge Copilot to prioritize. Ask it to rank the ChatOps opportunities by effort vs. impact:<br><br><kbd>Rank those ChatOps opportunities by implementation effort (low/medium/high) and developer time saved. Which should we adopt first?</kbd><br><br>Compare the ranking to your own intuition. Note where Copilot's assessment matches your experience and where it diverges.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -32,13 +38,20 @@
           "instruction": "Let's test how well Copilot understands the Teams integration. In <strong>Ask</strong> mode, type:<br><br><kbd>What can GitHub Copilot do inside Microsoft Teams? List specific capabilities and any limitations compared to Copilot Chat in VS Code.</kbd><br><br>Cross-reference the response against the capabilities listed on this slide. Flag any inaccuracies or missing items.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "tip": "Copilot may conflate the Teams integration with VS Code capabilities. Part of the challenge is spotting those differences."
+          "tip": "Copilot may conflate the Teams integration with VS Code capabilities. Part of the challenge is spotting those differences.",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Draft a Teams Query Playbook",
           "instruction": "Create a new file called <code>chatops-playbook.md</code>. Write a short playbook section for Teams that lists five queries your team would use most often.<br><br>For each query, note: the natural language prompt, what data it returns, and whether it requires any special permissions. Use the slide content and Copilot's response to inform your list.",
           "focus": "editor",
-          "action": "workbench.action.files.newUntitledFile"
+          "action": "workbench.action.files.newUntitledFile",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -53,7 +66,13 @@
         {
           "title": "Battle: Structured vs. Freeform Queries",
           "instruction": "Try two versions of the same question, one structured and one freeform:<br><br>Structured: <kbd>List open PRs in contoso/web-app. For each, show: title, author, review status, and CI status.</kbd><br><br>Freeform: <kbd>What PRs need attention in contoso/web-app?</kbd><br><br>Note the differences in output quality, completeness, and actionability. Which prompt style would you standardize for your team's playbook?",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -88,7 +107,13 @@
         {
           "title": "Battle: Built-in vs. Extension",
           "instruction": "Ask Copilot to compare approaches:<br><br><kbd>For checking deployment status, compare: (1) using the built-in GitHub Copilot Teams integration, (2) using a marketplace Copilot Extension, (3) building a custom Copilot Extension. What are the tradeoffs in setup time, flexibility, and maintenance?</kbd><br><br>Rate the response. Did Copilot accurately distinguish the three tiers?",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -104,7 +129,13 @@
           "title": "Identify the Security Gaps",
           "instruction": "Look at Copilot's proposed architecture and identify at least three security concerns that are not addressed. Consider: input validation, authorization scope, rate limiting, secret storage, and audit logging.<br><br>Ask Copilot to address your concerns:<br><br><kbd>What security gaps exist in this design? How would you mitigate each one?</kbd><br><br>Score Copilot's security awareness. Did it catch the gaps you identified, or did it miss some?",
           "focus": "right",
-          "tip": "A good ChatOps integration is only as secure as its weakest authorization check. The bot should never have more permissions than the user invoking it."
+          "tip": "A good ChatOps integration is only as secure as its weakest authorization check. The bot should never have more permissions than the user invoking it.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -119,12 +150,21 @@
         {
           "title": "Battle: Two Response Formats",
           "instruction": "Now challenge the extension to return data in two different formats. Ask the agent:<br><br><kbd>Add two response modes to the extension: a \"summary\" mode that returns a one-line status and a \"detailed\" mode that returns a formatted table with timestamps, status, and links. The user's prompt should determine which mode is used.</kbd><br><br>Test both by simulating prompts. Which format would your team prefer for a busy channel? Which for an incident war room?",
-          "focus": ["editor", "right"]
+          "focus": [
+            "editor",
+            "right"
+          ]
         },
         {
           "title": "Evaluate the Generated Code",
           "instruction": "Switch to <strong>Ask</strong> mode and paste the generated server code. Ask:<br><br><kbd>Review this Copilot Extension endpoint for production readiness. Check for: proper error handling, input sanitization, response streaming compliance, and graceful shutdown. Rate it on a scale of 1-5 for each category.</kbd><br><br>Compare Copilot's self-assessment to your own review. Would you ship this code as-is?",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -133,7 +173,10 @@
         {
           "title": "Security Audit Challenge",
           "instruction": "Using the security checklist from this slide, audit the extension endpoint you built. Open the file in the editor and ask Copilot in <strong>Edit</strong> mode:<br><br><kbd>Add identity mapping, scoped token validation, and audit logging to this endpoint. Every action should be logged with the authenticated user's GitHub handle and a timestamp.</kbd><br><br>Review the proposed diffs. Are the security additions sufficient, or did Copilot miss an attack vector?",
-          "focus": ["editor", "right"]
+          "focus": [
+            "editor",
+            "right"
+          ]
         },
         {
           "title": "Least Privilege Check",
@@ -153,7 +196,13 @@
           "title": "Battle: Governance Models",
           "instruction": "Ask Copilot to compare governance approaches:<br><br><kbd>Compare two ChatOps governance models: (1) centralized, where a platform team controls all integrations and extensions, vs. (2) federated, where each team can install and build their own. What are the risks and benefits of each for a 200-person org?</kbd><br><br>Add the key points to your rollout plan. Which model fits your organization better?",
           "focus": "right",
-          "action": "workbench.action.chat.open"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },

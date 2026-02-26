@@ -21,12 +21,15 @@
         {
           "title": "Open the README",
           "instruction": "In the Explorer, find and click on the <code>README.md</code> file to open it in the editor.<br><br>README files are the front door to any project. They describe what the project does, how to set it up, and who maintains it. This is one of the most valuable files for non-developers to read.",
-          "focus": ["left", "editor"]
+          "focus": [
+            "left",
+            "editor"
+          ]
         },
         {
           "title": "Close the Sidebar",
           "instruction": "You have explored the project structure and found the README. The Explorer sidebar is your starting point whenever you need to browse a project.<br><br>You can reopen it any time with <kbd>Ctrl+Shift+E</kbd>.",
-          "action": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeSidebar"
         }
       ]
     },
@@ -47,7 +50,13 @@
           "title": "Ask a Follow-Up",
           "instruction": "Now ask a follow-up question in the same conversation:<br><br><kbd>How is Copilot different from a regular web search?</kbd><br><br>Copilot remembers your previous message, so it can give a more focused answer. Conversations flow naturally, just like chatting with a colleague.",
           "focus": "right",
-          "tip": "You do not need to start a new conversation for each question. Follow-up questions often produce better, more specific answers."
+          "tip": "You do not need to start a new conversation for each question. Follow-up questions often produce better, more specific answers.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -68,7 +77,13 @@
           "title": "Scope to Your Project",
           "instruction": "Now try a question scoped to your current project:<br><br><kbd>@workspace What files are in this project and what do they do?</kbd><br><br>The <code>@workspace</code> prefix tells Copilot to search across the entire project, not just the open file. This is how you discover what a repository contains without opening every file yourself.",
           "focus": "right",
-          "tip": "On GitHub.com, you can scope your questions to a specific repository for more focused answers. In VS Code, <code>@workspace</code> achieves the same thing."
+          "tip": "On GitHub.com, you can scope your questions to a specific repository for more focused answers. In VS Code, <code>@workspace</code> achieves the same thing.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -83,7 +98,13 @@
         {
           "title": "Translate Technical Content",
           "instruction": "Ask Copilot to make technical content accessible:<br><br><kbd>Explain the project structure in this repository as if I am a non-technical stakeholder</kbd><br><br>This is exactly the kind of question that saves you from scheduling a meeting with a developer. Copilot bridges the gap between technical details and plain-language understanding.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -103,7 +124,13 @@
         {
           "title": "Ask About Technologies",
           "instruction": "Type:<br><br><kbd>@workspace What technologies or tools does this project use?</kbd><br><br>Copilot identifies the programming languages, frameworks, and external services the project relies on. This is valuable context for project planning, onboarding, and stakeholder conversations.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -112,13 +139,19 @@
         {
           "title": "Draft a Document",
           "instruction": "We have opened a new file for you. Let's use Copilot to write something. In the Chat panel, type:<br><br><kbd>Help me write a short project summary for a stakeholder update email. The project is about consolidating team tools into GitHub.</kbd><br><br>Read the response. Notice how Copilot produces polished, professional text you can copy and use immediately.",
-          "focus": ["editor", "right"],
+          "focus": [
+            "editor",
+            "right"
+          ],
           "action": "workbench.action.files.newUntitledFile"
         },
         {
           "title": "Copy and Paste the Response",
           "instruction": "Hover over Copilot's response in the Chat panel. You will see a small <strong>Copy</strong> icon. Click it to copy the text, then paste it into the open file with <kbd>Ctrl+V</kbd>.<br><br>This is the basic workflow for using Copilot to write: ask, review, copy, and paste.",
-          "focus": ["editor", "right"]
+          "focus": [
+            "editor",
+            "right"
+          ]
         },
         {
           "title": "Refine the Text",
@@ -128,7 +161,7 @@
         {
           "title": "Close the File",
           "instruction": "You do not need to save this file. We have closed it for you.<br><br>You just used Copilot to draft, copy, and refine professional text, all without writing code. This same workflow works for release notes, meeting agendas, documentation, and any other text you need to produce.",
-          "action": "workbench.action.closeActiveEditor"
+          "onLeave": "workbench.action.closeActiveEditor"
         }
       ]
     },
@@ -144,7 +177,13 @@
           "title": "Format for Stakeholders",
           "instruction": "Take the answer and ask Copilot to reformat it:<br><br><kbd>Turn that into a three-sentence status update I can share in a Teams message</kbd><br><br>This two-step pattern (ask for raw information, then reformat) is one of the most practical workflows for non-developers. You gather data and shape it for your audience in seconds.",
           "focus": "right",
-          "tip": "You can ask Copilot to format output as bullet points, a table, an email, or any other structure. Just describe what you need."
+          "tip": "You can ask Copilot to format output as bullet points, a table, an email, or any other structure. Just describe what you need.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -165,7 +204,13 @@
           "title": "Audit Your Documentation",
           "instruction": "Ask one more question:<br><br><kbd>@workspace Is there anything missing from the documentation that a new team member would need?</kbd><br><br>This is a powerful way to audit your own repos. If Copilot cannot answer a basic onboarding question, that is a signal your documentation has a gap worth filling.",
           "focus": "right",
-          "tip": "The quality of Copilot's answers reflects the quality of your documentation. Investing in clear README files and well-organized repos pays dividends."
+          "tip": "The quality of Copilot's answers reflects the quality of your documentation. Investing in clear README files and well-organized repos pays dividends.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -180,7 +225,13 @@
         {
           "title": "Customize the Plan",
           "instruction": "Refine the plan for your situation:<br><br><kbd>We have about 200 open tickets and three team members. Adjust the plan for that scale.</kbd><br><br>Copilot tailors its advice based on the details you provide. The more context you give, the more specific and useful the answer becomes.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
