@@ -16,11 +16,11 @@
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
-        <span class="badge">Beginner · 30 Minutes</span>
+        <span class="badge">Beginner · 40 Minutes</span>
         <h1>MCP Integration - MCP for You and Me</h1>
-        <p class="subtitle">Discover what the Model Context Protocol is, plug in GitHub's public MCP server, and work issues end-to-end without leaving your editor</p>
+        <p class="subtitle">Discover the Model Context Protocol, connect MCP servers from the registry, and work GitHub Issues end-to-end without leaving your editor</p>
         <aside class="speaker-notes">
-          Hey everyone! Welcome to "MCP for You and Me." If you've taken "The Copilot Awakens" you already know how to use Copilot's inline completions and chat. Today we're going to unlock a whole new dimension: connecting Copilot to external tools and data through something called the Model Context Protocol, or MCP. No prior MCP experience needed - if you have VS Code and a GitHub account, you're all set. By the end of this session you'll have a live MCP server running, and you'll be working GitHub Issues without ever leaving your editor. Let's get into it.
+          Hey everyone! Welcome to "MCP for You and Me." If you've taken "The Copilot Awakens" you already know how to use Copilot's inline completions and chat. Today we're going to unlock a whole new dimension: connecting Copilot to external tools and data through something called the Model Context Protocol, or MCP. When you use Copilot Chat with MCP tools enabled, Copilot operates in agent mode, meaning it can autonomously discover and call tools as part of multi-step tasks. No prior MCP experience needed. If you have VS Code and a GitHub account, you're all set. By the end of this session you'll have live MCP servers connected and you'll be working GitHub Issues without ever leaving your editor. Let's get into it.
         </aside>
       </div>
     </section>
@@ -45,15 +45,17 @@
       <div class="slide-inner">
         <h2>Today's Journey</h2>
         <ul>
-          <li><strong>What Is MCP?</strong> - The open standard and why it matters</li>
-          <li><strong>How MCP Works</strong> - Hosts, clients, servers, and the message flow</li>
-          <li><strong>Setting It Up</strong> - Enabling the GitHub MCP server in VS Code</li>
-          <li><strong>Working With Issues</strong> - Reading, commenting, and closing issues from chat</li>
-          <li><strong>Exploring the Ecosystem</strong> - Community servers for databases, APIs, and more</li>
-          <li><strong>Live Demo</strong> - End-to-end issue workflow without leaving the editor</li>
+          <li><strong>What Is MCP?</strong>: The open standard and why it exists</li>
+          <li><strong>How MCP Works</strong>: Architecture, capabilities, and advanced features</li>
+          <li><strong>Setting It Up</strong>: The GitHub MCP server in VS Code</li>
+          <li><strong>Working With Issues</strong>: Reading, commenting, and closing issues from chat</li>
+          <li><strong>Discovering MCP Servers</strong>: The MCP registry and installing pre-built servers</li>
+          <li><strong>Security and Trust</strong>: Staying safe with MCP</li>
+          <li><strong>Live Demo</strong>: End-to-end issue workflow from Copilot Chat</li>
+          <li><strong>Hands-on Lab</strong>: Guided exercises throughout the session</li>
         </ul>
         <aside class="speaker-notes">
-          Here's the plan. We'll start with the concept - what MCP actually is and why it was created. Then we'll look under the hood at how MCP works: hosts, clients, servers, and the message flow between them. After that we'll get hands-on: enabling the GitHub MCP server in VS Code and verifying the connection. Once it's live we'll use it to work with GitHub Issues - reading, commenting, and closing them right from Copilot Chat. We'll take a quick tour of the broader MCP ecosystem, and then we'll do a live demo that ties it all together. The first half is conceptual, the second half is pure hands-on.
+          Here's the plan. We'll start with the concept: what MCP actually is and why it was created. Then we'll look at how MCP works, including the architecture, the three core primitives, and some advanced capabilities like sampling and elicitation. After that we'll get hands-on and enable the GitHub MCP server in VS Code. Once it's live, we'll use it to work with GitHub Issues: reading, commenting, and closing them right from Copilot Chat. Then we'll explore how to discover and install other MCP servers from the community registry, cover security best practices, and wrap up with a live demo. You'll also have a guided lab running alongside the slides, so you can try everything hands-on as we go.
         </aside>
       </div>
     </section>
@@ -78,13 +80,13 @@
       <div class="slide-inner">
         <h2>The Problem MCP Solves</h2>
         <ul>
-          <li>AI assistants are powerful, but they're <strong>isolated</strong> - they can only see what's in their context window</li>
+          <li>AI assistants are powerful, but they're <strong>isolated</strong>; they can only see what's in their context window</li>
           <li>Developers constantly switch between tools: editor, browser, terminal, issue tracker, CI dashboard</li>
           <li>Before MCP, connecting an AI to an external tool required <strong>custom integrations</strong> for each tool and each AI</li>
-          <li>That's an <strong>N &times; M problem</strong> - every new tool needs a new integration for every AI host</li>
+          <li>That's an <strong>N &times; M problem</strong>: every new tool needs a new integration for every AI host</li>
         </ul>
         <aside class="speaker-notes">
-          Before MCP, AI assistants like Copilot were incredibly capable, but they could only work with information already in front of them - your open files, your chat history, and whatever you pasted in. If you wanted Copilot to look up a GitHub Issue, you had to copy the issue text and paste it into chat yourself. If you wanted it to check your CI status, same thing - manual copy and paste. And if a tool vendor wanted their platform to work with an AI assistant, they had to build a separate integration for each AI host. If you had ten tools and five AI assistants, that's fifty custom integrations. That's the N times M problem. MCP solves this with a single standard protocol.
+          Before MCP, AI assistants like Copilot were incredibly capable, but they could only work with information already in front of them: your open files, your chat history, and whatever you pasted in. If you wanted Copilot to look up a GitHub Issue, you had to copy the issue text and paste it into chat yourself. If you wanted it to check your CI status, same story, manual copy and paste. And if a tool vendor wanted their platform to work with an AI assistant, they had to build a separate integration for each AI host. If you had ten tools and five AI assistants, that's fifty custom integrations. That's the N times M problem. MCP solves this with a single standard protocol.
         </aside>
       </div>
     </section>
@@ -97,13 +99,13 @@
         <h2>The Model Context Protocol</h2>
         <ul>
           <li>MCP is an <strong>open standard</strong> for connecting AI assistants to external tools and data sources</li>
-          <li>Think of it as a <strong>USB-C port for AI</strong> - one protocol, many integrations</li>
+          <li>Think of it as a <strong>USB-C port for AI</strong>: one protocol, many integrations</li>
           <li>MCP servers expose <strong>tools</strong> (actions), <strong>resources</strong> (data), and <strong>prompts</strong> (templates) that any MCP-compatible host can use</li>
-          <li>Created by Anthropic, adopted by GitHub, VS Code, and a growing ecosystem</li>
-          <li>Any developer can build an MCP server - the specification is open and free</li>
+          <li>Originally created by Anthropic, now adopted across the industry by Microsoft, OpenAI, Google, and hundreds of tool providers</li>
+          <li>Thousands of pre-built MCP servers are available in the <strong>MCP registry</strong> for immediate use</li>
         </ul>
         <aside class="speaker-notes">
-          The Model Context Protocol is an open standard that creates a universal connection layer between AI assistants and the outside world. The USB-C analogy is the easiest way to think about it. Before USB-C, every device had its own proprietary charger. USB-C gave us one port that works with everything. MCP does the same thing for AI. An MCP server exposes three types of capabilities: tools, which are actions the AI can take like "create an issue" or "run a query"; resources, which are data the AI can read like "list of open issues" or "contents of a database table"; and prompts, which are reusable templates for common tasks. Any AI host that speaks MCP can use any MCP server, and any MCP server works with any compatible host. One protocol, universal connectivity. The spec was created by Anthropic and has been adopted by GitHub, VS Code, and a rapidly growing community of tool builders.
+          The Model Context Protocol is an open standard that creates a universal connection layer between AI assistants and the outside world. The USB-C analogy is the easiest way to think about it. Before USB-C, every device had its own proprietary charger. USB-C gave us one port that works with everything. MCP does the same thing for AI. An MCP server exposes three types of capabilities: tools, which are actions the AI can take like "create an issue" or "run a query"; resources, which are data the AI can read like "list of open issues" or "contents of a database table"; and prompts, which are reusable templates for common tasks. Any AI host that speaks MCP can use any MCP server, and any MCP server works with any compatible host. One protocol, universal connectivity. The spec was originally created by Anthropic and is now adopted industry-wide. Microsoft, GitHub, OpenAI, Google, Amazon, and hundreds of other organizations have embraced MCP. The ecosystem includes thousands of pre-built servers in the MCP registry, ready for you to install and use.
         </aside>
       </div>
     </section>
@@ -116,7 +118,7 @@
         <span class="badge">Part 2</span>
         <h2>How MCP Works</h2>
         <aside class="speaker-notes">
-          Now that you know what MCP is at a high level, let's look at the architecture. Understanding the moving parts will help you troubleshoot and eventually build your own servers.
+          Now that you know what MCP is at a high level, let's look at the architecture. Understanding the moving parts will help you troubleshoot connections and choose the right servers for your needs.
         </aside>
       </div>
     </section>
@@ -128,9 +130,9 @@
       <div class="slide-inner">
         <h2>The MCP Architecture</h2>
         <ul>
-          <li><strong>Host</strong> - The application that contains the AI (VS Code, a CLI tool, a web app)</li>
-          <li><strong>Client</strong> - The component inside the host that speaks the MCP protocol</li>
-          <li><strong>Server</strong> - An external process that exposes tools, resources, and prompts over MCP</li>
+          <li><strong>Host</strong>: the application that contains the AI (VS Code, a CLI tool, a web app)</li>
+          <li><strong>Client</strong>: the component inside the host that speaks the MCP protocol</li>
+          <li><strong>Server</strong>: an external process that exposes tools, resources, and prompts over MCP</li>
         </ul>
         <pre><code>+-----------------------------------------+
 |  VS Code (Host)                         |
@@ -142,7 +144,7 @@
 |                      MCP Client  -------+--->  Custom MCP Server
 +-----------------------------------------+</code></pre>
         <aside class="speaker-notes">
-          Here's the architecture. There are three layers. The host is the application that contains the AI - in our case, that's VS Code. The client is the piece inside the host that actually speaks the MCP protocol - it handles the JSON-RPC messages, manages the connection lifecycle, and routes tool calls. The server is an external process that exposes capabilities. When Copilot needs to interact with GitHub, the MCP client inside VS Code sends a request to the GitHub MCP server. The server does the work - fetches issues, creates comments, whatever - and sends the result back through the client to Copilot. The beautiful thing is that VS Code can connect to multiple MCP servers simultaneously. You might have a GitHub server for issues and PRs, a database server for queries, and a custom server built by your team, all running at the same time. Each one is a separate process, and the MCP client manages them all.
+          Here's the architecture. There are three layers. The host is the application that contains the AI; in our case, that's VS Code running Copilot Chat in agent mode. The client is the piece inside the host that speaks the MCP protocol. It handles the JSON-RPC messages, manages the connection lifecycle, and routes tool calls. The server is an external process that exposes capabilities. When Copilot needs to interact with GitHub, the MCP client inside VS Code sends a request to the GitHub MCP server. The server does the work, fetches issues, creates comments, and sends the result back through the client to Copilot. The key point is that VS Code can connect to multiple MCP servers simultaneously. You might have a GitHub server for issues and PRs, a database server for queries, and an infrastructure server for deployments, all running at the same time. Each one is a separate process, and the MCP client manages them all.
         </aside>
       </div>
     </section>
@@ -167,83 +169,112 @@
             <p>Reusable templates exposed by the server: "Summarize this PR," "Generate a migration." Similar to prompt files but provided by the server.</p>
           </div>
         </div>
+        <p>MCP also supports advanced capabilities like <strong>sampling</strong> and <strong>elicitation</strong>, covered on the next slide.</p>
         <aside class="speaker-notes">
-          MCP servers can expose three types of capabilities. First, tools - these are actions. When the GitHub MCP server exposes a "create_issue" tool, Copilot can call it to create an issue on your behalf. The AI decides when to use tools based on the conversation context. Second, resources - these are read-only data. A database MCP server might expose your schema as a resource, so the AI can understand your data model without running any queries. Third, prompts - these are reusable templates that the server provides. A GitHub server might expose a "summarize this PR" prompt that's already optimized for working with pull request data. Not every server exposes all three. The GitHub MCP server focuses heavily on tools, while a documentation server might focus on resources. It depends on what the server is designed to do.
+          MCP servers can expose three core types of capabilities. First, tools: these are actions. When the GitHub MCP server exposes a "create_issue" tool, Copilot can call it to create an issue on your behalf. The AI decides when to use tools based on the conversation context. Second, resources: these are read-only data. A database MCP server might expose your schema as a resource, so the AI can understand your data model without running any queries. Third, prompts: these are reusable templates that the server provides. A GitHub server might expose a "summarize this PR" prompt that's already optimized for working with pull request data. Not every server exposes all three. The GitHub MCP server focuses heavily on tools, while a documentation server might focus on resources. Beyond these three core primitives, MCP also supports advanced capabilities like sampling and elicitation, which we'll cover next.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 10 - Transport Modes
+         SLIDE 10 - Sampling and Elicitation
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Beyond the Basics: Sampling and Elicitation</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Sampling</h3>
+            <p>An MCP server can ask the host to perform an LLM completion on its behalf. This enables servers to reason about intermediate results using Copilot's AI, then continue processing with the answer.</p>
+          </div>
+          <div class="card">
+            <h3>Elicitation</h3>
+            <p>An MCP server can request structured input from you, the user. When a server needs a decision or additional context, VS Code displays a form or dialog for you to respond.</p>
+          </div>
+        </div>
+        <ul>
+          <li>Both capabilities require your <strong>explicit approval</strong> before they execute</li>
+          <li>Sampling and elicitation are less common than tools, but important to recognize when they appear</li>
+          <li>You control whether sampling and elicitation are allowed in your VS Code settings</li>
+        </ul>
+        <aside class="speaker-notes">
+          Beyond tools, resources, and prompts, MCP defines two additional capabilities that you should know about. Sampling is a mechanism that lets an MCP server ask the host, in this case VS Code, to perform an LLM completion. For example, a code analysis server might need Copilot to summarize a piece of code as an intermediate step before producing its final output. When this happens, you'll see a prompt asking whether you want to allow the server to use the AI. Elicitation is the other advanced capability. It allows an MCP server to request structured input directly from you. If a server needs a decision, like which branch to target or which format to use, it can present a form in VS Code for you to fill out. Both sampling and elicitation require your explicit approval. You'll never be surprised by these interactions; VS Code surfaces them clearly and gives you full control. You can also configure whether these capabilities are allowed at all in your VS Code settings.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - Transport Modes
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>How Servers Connect</h2>
         <ul>
-          <li><strong>stdio</strong> - The server runs as a local process; VS Code communicates over standard input/output</li>
-          <li><strong>Streamable HTTP</strong> - The server runs remotely; VS Code sends HTTP requests to a URL</li>
-          <li>GitHub's MCP server uses <strong>stdio</strong> - it runs locally and talks to the GitHub API on your behalf</li>
-          <li>Configuration lives in <code>.vscode/mcp.json</code> or VS Code settings</li>
+          <li><strong>stdio</strong>: The server runs as a local process; VS Code communicates over standard input/output</li>
+          <li><strong>Streamable HTTP</strong>: The server runs remotely; VS Code sends HTTP requests to a URL</li>
+          <li>GitHub's MCP server uses <strong>stdio</strong>; it runs locally and talks to the GitHub API on your behalf</li>
+          <li>Configuration lives in <code>.mcp.json</code> (workspace root), <code>.vscode/mcp.json</code>, or VS Code <code>settings.json</code></li>
+          <li>The <code>.mcp.json</code> file at the workspace root is the recommended portable option</li>
         </ul>
         <aside class="speaker-notes">
-          MCP servers connect to VS Code through one of two transport modes. The first is stdio, where the server runs as a local process on your machine and communicates through standard input and output. This is the most common mode and what GitHub's MCP server uses. VS Code spawns the process, sends JSON-RPC messages to its stdin, and reads responses from its stdout. The second mode is streamable HTTP, where the server runs remotely and VS Code sends HTTP requests to a URL. This is useful for servers that need to run on a shared infrastructure or that are too heavy to run locally. The configuration for MCP servers lives in a mcp.json file in your .vscode directory, or in your VS Code settings. We'll set this up hands-on in just a moment.
+          MCP servers connect to VS Code through one of two transport modes. The first is stdio, where the server runs as a local process on your machine and communicates through standard input and output. This is the most common mode and what GitHub's MCP server uses. VS Code spawns the process, sends JSON-RPC messages to its stdin, and reads responses from its stdout. The second mode is Streamable HTTP, where the server runs remotely and VS Code sends HTTP requests to a URL. This is useful for servers that need to run on shared infrastructure or that are too resource-intensive to run locally. There are three places to configure MCP servers. First, a .mcp.json file at the root of your workspace. This is the recommended approach because it's portable and easy to share. Second, a .vscode/mcp.json file. Third, your VS Code settings.json, which works for personal or user-level servers. We'll set this up hands-on in just a moment.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 11 - Setting It Up (Section)
+         SLIDE 12 - Setting It Up (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge">Part 3</span>
         <h2>Setting It Up</h2>
         <aside class="speaker-notes">
-          Enough theory - let's get the GitHub MCP server running. This is where things get fun.
+          Enough theory. Let's get the GitHub MCP server running. This is where things get fun.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 12 - Enabling the GitHub MCP Server
+         SLIDE 13 - Enabling the GitHub MCP Server
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Enabling the GitHub MCP Server</h2>
         <ul>
-          <li>Open <strong>Settings</strong> (<code>Ctrl+,</code>) and search for <strong>MCP</strong></li>
-          <li>Enable <code>chat.mcp.enabled</code> to turn on MCP support in Copilot Chat</li>
-          <li>Enable <code>github.copilot.chat.codesearch.enabled</code> for enhanced code search</li>
-          <li>The GitHub MCP server ships with the <strong>GitHub Copilot Chat</strong> extension - no separate install needed</li>
-          <li>Restart VS Code to activate the server</li>
+          <li>MCP support is <strong>built into VS Code</strong> and enabled by default with the GitHub Copilot extension</li>
+          <li>The GitHub MCP server ships with the <strong>GitHub Copilot Chat</strong> extension; no separate install needed</li>
+          <li>Open <strong>Copilot Chat</strong> (<code>Ctrl+Shift+I</code>) and confirm the tools icon is visible</li>
+          <li>If needed, search <strong>Settings</strong> (<code>Ctrl+,</code>) for <code>chat.mcp.enabled</code> and verify it is checked</li>
+          <li>Reload VS Code (<code>Ctrl+Shift+P</code> &rarr; <strong>Reload Window</strong>) if you changed any settings</li>
         </ul>
         <aside class="speaker-notes">
-          Setting up the GitHub MCP server is surprisingly simple. Open Settings with Ctrl+Comma and search for "MCP." You'll find a setting called "chat.mcp.enabled" - turn that on. This tells VS Code to allow MCP servers to connect to Copilot Chat. For the GitHub MCP server specifically, you also want to enable "github.copilot.chat.codesearch.enabled" which activates the enhanced code search capabilities. Here's the nice part: the GitHub MCP server is already bundled with the GitHub Copilot Chat extension. You don't need to install anything extra. Just flip the settings and restart VS Code. After the restart, the GitHub MCP server starts automatically in the background.
+          Setting up the GitHub MCP server is simple because MCP support is built into VS Code and enabled by default when you have the GitHub Copilot extension installed. The GitHub MCP server is bundled with the Copilot Chat extension, so there's nothing extra to install. Just open Copilot Chat and look for the tools icon. If for some reason MCP tools aren't appearing, open Settings with Ctrl+Comma and search for "chat.mcp.enabled" to confirm it's checked. After changing any settings, reload your window with Ctrl+Shift+P and type "Reload Window." Once the window reloads, the GitHub MCP server starts automatically in the background.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 13 - Verifying the Connection
+         SLIDE 14 - Verifying the Connection
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Verifying the Connection</h2>
         <ul>
-          <li>Open <strong>Copilot Chat</strong> (<code>Ctrl+Shift+I</code>)</li>
+          <li>Open <strong>Copilot Chat</strong> (<code>Ctrl+Shift+I</code>) to enter <strong>agent mode</strong></li>
           <li>Click the <strong>tools icon</strong> (wrench) in the chat input area</li>
           <li>You should see GitHub MCP tools listed: <code>create_issue</code>, <code>search_code</code>, <code>list_issues</code>, etc.</li>
           <li>If tools aren't visible, check the <strong>Output</strong> panel (<code>Ctrl+Shift+U</code>) &rarr; select <strong>GitHub MCP</strong></li>
-          <li>Common issues: missing authentication, proxy blocking the connection, or MCP not enabled</li>
+          <li>Common fixes: confirm you're signed in to GitHub, verify <code>chat.mcp.enabled</code> is checked, reload the window</li>
         </ul>
         <aside class="speaker-notes">
-          Once you've restarted VS Code, let's verify everything is working. Open Copilot Chat and look for the tools icon in the chat input area - it usually looks like a wrench or a puzzle piece. Click it, and you should see a list of available MCP tools from the GitHub server. You'll see things like "create_issue," "search_code," "list_issues," and more. If the tools aren't showing up, open the Output panel with Ctrl+Shift+U and select "GitHub MCP" from the dropdown. This is where the server logs connection events and errors. The most common issues are missing GitHub authentication, a corporate proxy blocking the connection, or the MCP setting not being enabled. If you're stuck, check those three things in order.
+          Once you've confirmed the settings, let's verify everything is working. Open Copilot Chat. When MCP tools are available, Copilot Chat operates in agent mode, which means it can autonomously call tools to complete multi-step tasks on your behalf. Look for the tools icon in the chat input area. Click it, and you should see a list of available MCP tools from the GitHub server. You'll see entries like "create_issue," "search_code," "list_issues," and more. If the tools aren't showing up, open the Output panel with Ctrl+Shift+U and select "GitHub MCP" from the dropdown. This is where the server logs connection events and errors. The most common issues are that you're not signed in to GitHub, the MCP setting isn't enabled, or the window needs a reload. Check those three things in order.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 14 - Working With Issues (Section)
+         SLIDE 15 - Working With Issues (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
@@ -256,7 +287,7 @@
     </section>
 
     <!-- ============================================================
-         SLIDE 15 - Reading Issues
+         SLIDE 16 - Reading Issues
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -274,7 +305,7 @@
     </section>
 
     <!-- ============================================================
-         SLIDE 16 - Acting on Issues
+         SLIDE 17 - Acting on Issues
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -283,17 +314,17 @@
           <li>Ask: <strong>"Add a comment to issue #42 saying we'll fix it in the next sprint"</strong></li>
           <li>Copilot calls the <code>add_issue_comment</code> tool with your message</li>
           <li>You can also <strong>close issues</strong>, <strong>add labels</strong>, and <strong>assign people</strong></li>
-          <li>Copilot always asks for <strong>confirmation</strong> before taking write actions</li>
-          <li>Full audit trail - every action is logged as a normal GitHub API call</li>
+          <li>By default, Copilot asks for <strong>confirmation</strong> before write actions; you can configure <strong>auto-approval</strong> for trusted tools</li>
+          <li>Full audit trail: every action is logged as a normal GitHub API call</li>
         </ul>
         <aside class="speaker-notes">
-          Reading is great, but the real power is in taking action. You can tell Copilot: "Add a comment to issue 42 saying we'll fix it in the next sprint." Copilot calls the add_issue_comment tool, and the comment appears on the issue just like it would if you'd written it in the browser. You can close issues, add labels, change assignees, and more. And here's the important safety feature: Copilot always asks for your confirmation before taking any write action. It'll show you exactly what it's about to do, and you have to approve it. So there's no risk of accidental changes. Everything goes through the normal GitHub API, so you get the full audit trail - the activity log, email notifications, webhook events, all of it. It's not a shortcut around your process; it's a faster way to participate in it.
+          Reading is great, but the real power is in taking action. You can tell Copilot: "Add a comment to issue 42 saying we'll fix it in the next sprint." Copilot calls the add_issue_comment tool, and the comment appears on the issue just like it would if you'd written it in the browser. You can close issues, add labels, change assignees, and more. By default, Copilot asks for your confirmation before taking any write action. It'll show you exactly what it's about to do, and you have to approve it. This is an important safety feature. If you find yourself approving the same actions repeatedly, VS Code also supports auto-approval for trusted tools, which you can configure in your settings. Everything goes through the normal GitHub API, so you get the full audit trail: the activity log, email notifications, webhook events, all of it. It's not a shortcut around your process; it's a faster way to participate in it.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 17 - Code Search With MCP
+         SLIDE 18 - Code Search With MCP
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -303,60 +334,53 @@
           <li>Copilot uses the <code>search_code</code> tool to search across your repository</li>
           <li>Results include file paths, line numbers, and code snippets</li>
           <li>Combine with chat: <strong>"Find all usages of the deprecated API and suggest replacements"</strong></li>
-          <li>Works across repositories - not just the one you have open</li>
+          <li>Works across repositories, not just the one you have open</li>
         </ul>
         <aside class="speaker-notes">
-          The code search tool is another one you'll reach for constantly. Ask Copilot something like "Find all files that import the AuthService class" and it uses the search_code MCP tool to search across your repository. You get back file paths, line numbers, and code snippets - all formatted nicely in the chat. But here's where it gets really powerful: you can combine search with Copilot's reasoning. Ask "Find all usages of the deprecated API and suggest replacements" and Copilot will search the code, analyze the results, and give you a migration plan. And the search isn't limited to your current repo. The GitHub MCP server can search across any repository you have access to. This is incredibly useful for understanding how a library is used across your organization.
+          The code search tool is another one you'll reach for constantly. Ask Copilot something like "Find all files that import the AuthService class" and it uses the search_code MCP tool to search across your repository. You get back file paths, line numbers, and code snippets, all formatted nicely in the chat. But here's where it gets really powerful: you can combine search with Copilot's reasoning. Ask "Find all usages of the deprecated API and suggest replacements" and Copilot will search the code, analyze the results, and give you a migration plan. And the search isn't limited to your current repo. The GitHub MCP server can search across any repository you have access to. This is incredibly useful for understanding how a library is used across your organization.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 18 - Exploring the Ecosystem (Section)
+         SLIDE 19 - Discovering MCP Servers (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge">Part 5</span>
-        <h2>The MCP Ecosystem</h2>
+        <h2>Discovering MCP Servers</h2>
         <aside class="speaker-notes">
-          The GitHub MCP server is just the beginning. There's a whole ecosystem of MCP servers out there, and it's growing fast. Let's take a quick tour.
+          We've been working with the GitHub MCP server, but that's just one of thousands. Let's look at how to discover, evaluate, and install other MCP servers from the community.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 19 - Community Servers
+         SLIDE 20 - The MCP Registry
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Community MCP Servers</h2>
-        <div class="columns">
-          <div class="card">
-            <h3>Databases</h3>
-            <p>PostgreSQL, MySQL, SQLite servers let Copilot query your data, explore schemas, and generate migrations.</p>
-          </div>
-          <div class="card">
-            <h3>APIs &amp; Services</h3>
-            <p>Jira, Slack, Linear, Notion - bring your project management and communication tools into chat.</p>
-          </div>
-          <div class="card">
-            <h3>Infrastructure</h3>
-            <p>Docker, Kubernetes, AWS, Azure - manage deployments and check status from your editor.</p>
-          </div>
-        </div>
+        <h2>The MCP Registry</h2>
+        <ul>
+          <li>The official MCP server directory lives at <code>github.com/modelcontextprotocol/servers</code></li>
+          <li>Hundreds of servers organized by category: databases, APIs, cloud platforms, developer tools</li>
+          <li>Each entry includes a <strong>description</strong>, <strong>configuration example</strong>, and <strong>required permissions</strong></li>
+          <li>VS Code can also discover servers through the <strong>MCP server marketplace</strong> in the extensions panel</li>
+          <li>Before installing, always review the server's <strong>source code</strong>, <strong>permissions</strong>, and <strong>maintenance status</strong></li>
+        </ul>
         <aside class="speaker-notes">
-          The MCP ecosystem is exploding. There are community-built servers for databases like PostgreSQL, MySQL, and SQLite that let Copilot query your data, explore schemas, and generate migrations. There are servers for project management tools like Jira, Linear, and Notion, so you can check task status and create tickets without switching apps. Communication tools like Slack have MCP servers too, meaning Copilot can search messages and post updates. And for infrastructure, there are servers for Docker, Kubernetes, AWS, and Azure that let you manage deployments and check service health. The official MCP server directory lives at the Model Context Protocol website, and new servers are being published every day. If a tool has an API, someone is probably building an MCP server for it.
+          The MCP registry at github.com/modelcontextprotocol/servers is the central directory for finding MCP servers. It's organized by category, so you can browse databases, APIs, cloud platforms, developer tools, and more. Each server entry includes a description of what it does, a ready-to-use configuration example, and a list of required permissions. VS Code is also building out discovery features so you can find and install MCP servers directly from the editor. Before you install any server, take a moment to review it. Check the source code, look at what permissions it requires, and verify that it's actively maintained. This is especially important for servers that will access sensitive data like databases or cloud accounts. We'll cover security in more detail shortly.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 20 - Adding a Third-Party Server
+         SLIDE 21 - Installing a Registry Server
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Adding a Third-Party Server</h2>
-        <pre><code>// .vscode/mcp.json
+        <h2>Installing a Registry Server</h2>
+        <pre><code>// .mcp.json (workspace root, recommended)
 {
   "servers": {
     "postgres": {
@@ -369,32 +393,122 @@
   }
 }</code></pre>
         <ul>
-          <li>Drop a <code>.vscode/mcp.json</code> file in your repo</li>
-          <li>Define the server name, command to start it, and any environment variables</li>
-          <li>Commit the file and your whole team gets the same MCP servers automatically</li>
-          <li>VS Code starts configured servers when you open the workspace</li>
+          <li>Create a <code>.mcp.json</code> file at your <strong>workspace root</strong> (the recommended portable option)</li>
+          <li>Copy the configuration example from the registry entry and adjust for your environment</li>
+          <li>Reload VS Code; the server starts automatically and its tools appear in Copilot Chat</li>
+          <li>Commit the file to share the configuration with your entire team</li>
         </ul>
         <aside class="speaker-notes">
-          Adding a third-party MCP server to your project is straightforward. You create a mcp.json file in your .vscode directory and define the server configuration. In this example, we're adding a PostgreSQL server. The "command" field tells VS Code how to start the server - in this case, using npx to run the package. The "args" field passes arguments. And the "env" field sets environment variables like the database URL. Once you save this file and reload VS Code, the server starts automatically. And here's the team angle: if you commit the mcp.json file to your repo, every developer who opens the workspace gets the same MCP servers configured automatically. No manual setup, no documentation to follow. They just open the project and the tools are there in Copilot Chat, ready to use.
+          Installing an MCP server from the registry is straightforward. Browse the registry, find a server you want, and copy its configuration example. In this case we're adding a PostgreSQL server from the official MCP servers collection. Create a .mcp.json file at your workspace root. This is the recommended location because it's portable and easy to share with your team. Paste in the configuration, adjust the environment variables for your setup, and reload VS Code. The server starts automatically, and its tools appear in Copilot Chat right away. When you commit the .mcp.json file to your repository, every developer who opens the workspace gets the same MCP servers configured automatically. No manual setup, no documentation to follow. They just open the project and the tools are ready.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 21 - Demo (Section)
+         SLIDE 22 - The MCP Ecosystem (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>The MCP Ecosystem</h2>
+        <aside class="speaker-notes">
+          Now that you know how to find and install servers, let's take a quick tour of what's out there. The ecosystem is growing fast.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - Community MCP Servers
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Community MCP Servers</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Databases</h3>
+            <p>PostgreSQL, MySQL, SQLite servers let Copilot query your data, explore schemas, and generate migrations.</p>
+          </div>
+          <div class="card">
+            <h3>APIs &amp; Services</h3>
+            <p>Jira, Slack, Linear, Notion: bring your project management and communication tools into chat.</p>
+          </div>
+          <div class="card">
+            <h3>Infrastructure</h3>
+            <p>Docker, Kubernetes, AWS, Azure: manage deployments and check status from your editor.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          The ecosystem covers almost every category of developer tooling. For databases, there are servers for PostgreSQL, MySQL, SQLite, and more that let Copilot query your data, explore schemas, and generate migrations. For project management and communication, there are servers for Jira, Linear, Notion, and Slack, so you can check task status, create tickets, and search messages without switching apps. And for infrastructure, there are servers for Docker, Kubernetes, AWS, and Azure that let you manage deployments, check service health, and view logs. New servers are published to the registry every day. If a tool has an API, there's likely an MCP server for it already.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Security and Trust (Section)
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>Security and Trust</h2>
+        <aside class="speaker-notes">
+          Before we move to the live demo, let's cover security. MCP gives AI powerful access to external systems, so understanding the trust model is essential.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Securing Your MCP Setup
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Securing Your MCP Setup</h2>
+        <ul>
+          <li>MCP servers run with <strong>your permissions</strong>: your GitHub token, your database credentials, your API keys</li>
+          <li>Write actions require <strong>explicit confirmation</strong> in Copilot Chat before they execute</li>
+          <li>You control which servers are enabled; disable any server at any time from your configuration</li>
+          <li><strong>Least-privilege principle</strong>: grant each server only the permissions it needs</li>
+          <li>Store sensitive values like tokens and connection strings in <strong>environment variables</strong>, not in committed config files</li>
+        </ul>
+        <aside class="speaker-notes">
+          Security starts with understanding the trust model. MCP servers run with your credentials. The GitHub MCP server uses your authenticated GitHub token, a database server uses your database credentials, and a cloud server uses your API keys. They don't get special elevated access; they operate as you. Every write action requires your explicit confirmation before it executes. Copilot shows you exactly what it's about to do, and you approve or reject it. You control which servers are active. If you don't want a server running, remove or disable it in your configuration. Follow the least-privilege principle: if a server only needs read access, don't give it write credentials. And never commit sensitive values like tokens or connection strings directly in your .mcp.json file. Use environment variables or secrets management instead.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 - Security Best Practices
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Security Best Practices</h2>
+        <ul>
+          <li><strong>Review before you install</strong>: read the server's source code and check its permissions, just as you would with any extension</li>
+          <li><strong>Prefer official servers</strong>: servers in the official MCP registry are reviewed and maintained by the community</li>
+          <li><strong>Monitor tool calls</strong>: use the <strong>Output panel</strong> (<code>Ctrl+Shift+U</code> &rarr; select the MCP server) to inspect what tools are being called</li>
+          <li><strong>Use environment variables</strong>: reference secrets with <code>${input:variableName}</code> in your config instead of hardcoding them</li>
+          <li><strong>Enterprise controls</strong>: organization policies can restrict which MCP servers are allowed across your team</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here are five security practices to follow. First, review before you install. Read the source code and check what permissions the server requests, just like you would with a VS Code extension. Second, prefer servers from the official MCP registry. These are reviewed by the community and more likely to be well maintained. Third, monitor tool calls. The Output panel in VS Code shows exactly what each MCP server is doing. Select the server name from the dropdown and you can see every request and response in real time. Fourth, use environment variables for secrets. Your .mcp.json can reference variables instead of hardcoding credentials, keeping sensitive values out of source control. Fifth, for enterprise teams, organization policies can restrict which MCP servers are allowed across your organization, giving administrators control over what connects to the AI in their environment.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - Demo (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Live Demo</span>
         <h2>MCP in Action</h2>
         <aside class="speaker-notes">
-          Alright, demo time. Let's bring everything together and see MCP in action. We're going to do a complete issue workflow without ever leaving the editor.
+          Alright, demo time. Let's bring everything together and see MCP in action with a complete issue workflow.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 22 - Demo: Issue Workflow
+         SLIDE 28 - Demo: Issue Workflow
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -407,13 +521,13 @@
           <li>Step 5: <strong>Close</strong> the issue from chat</li>
         </ul>
         <aside class="speaker-notes">
-          Here's what we're going to do. Step one: I'll ask Copilot to list all open issues in this repository. The MCP server fetches them and Copilot formats the results. Step two: I'll pick one of those issues and ask Copilot to summarize it - the description, any linked PRs, and the discussion thread. Step three: I'll ask Copilot to find related code using the search tool. If the issue mentions a specific function or file, Copilot can locate it and bring it into the conversation. Step four: I'll work with Copilot to write a fix, and then ask it to add a comment to the issue describing what we did. Step five: once we're happy with the fix, I'll ask Copilot to close the issue. Five steps, zero browser tabs. This is the workflow that MCP enables.
+          Here's what we're going to do. Step one: I'll ask Copilot to list all open issues in this repository. The MCP server fetches them and Copilot formats the results. Step two: I'll pick one of those issues and ask Copilot to summarize it, including the description, any linked PRs, and the discussion thread. Step three: I'll ask Copilot to find related code using the search tool. If the issue mentions a specific function or file, Copilot can locate it and bring it into the conversation. Step four: I'll work with Copilot to write a fix, and then ask it to add a comment to the issue describing what we did. Step five: once we're happy with the fix, I'll ask Copilot to close the issue. Five steps, zero browser tabs.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 23 - Demo: Combining Tools
+         SLIDE 29 - Demo: Combining Tools
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -422,85 +536,67 @@
           <li>Ask: <strong>"Summarize the last 5 closed issues and identify any recurring themes"</strong></li>
           <li>Copilot fetches the issues via MCP, then uses its reasoning to find patterns</li>
           <li>Follow up: <strong>"Based on those themes, suggest improvements to our codebase"</strong></li>
-          <li>This is the power of <strong>MCP + LLM reasoning</strong> - external data meets AI analysis</li>
+          <li>This is the power of <strong>MCP + LLM reasoning</strong>: external data meets AI analysis</li>
         </ul>
         <aside class="speaker-notes">
-          Now let me show you something that really demonstrates what MCP enables that wasn't possible before. I'll ask: "Summarize the last five closed issues and identify any recurring themes." Copilot fetches the issues through MCP, reads through the titles, descriptions, and comments, and then uses its reasoning ability to identify patterns. Maybe it notices that three out of five were related to authentication, or that there's a recurring pattern of null pointer exceptions in a specific module. Then I can follow up: "Based on those themes, suggest improvements to our codebase." Now Copilot is combining external data from GitHub with its ability to analyze code and suggest architectural improvements. This is the real magic of MCP - it's not just about fetching data, it's about giving the AI access to real-world context so its reasoning is grounded in what's actually happening in your project.
+          Now let me show you something that really demonstrates the power of MCP. I'll ask: "Summarize the last five closed issues and identify any recurring themes." Copilot fetches the issues through MCP, reads through the titles, descriptions, and comments, and then uses its reasoning ability to identify patterns. Maybe it notices that three out of five were related to authentication, or that there's a recurring pattern of null pointer exceptions in a specific module. Then I can follow up: "Based on those themes, suggest improvements to our codebase." Now Copilot is combining external data from GitHub with its ability to analyze code and suggest architectural improvements. This is the power of MCP: giving the AI access to real-world context so its reasoning is grounded in what's actually happening in your project.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 24 - Security and Trust
-         ============================================================ -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Security and Trust</h2>
-        <ul>
-          <li>MCP servers run with <strong>your permissions</strong> - they use your GitHub token, your database credentials</li>
-          <li>Write actions always require <strong>explicit confirmation</strong> in the chat</li>
-          <li>You control which servers are enabled - disable any server at any time</li>
-          <li>Review third-party servers before enabling them - check the source code and permissions</li>
-          <li>Enterprise teams can restrict which MCP servers are allowed via <strong>organization policies</strong></li>
-        </ul>
-        <aside class="speaker-notes">
-          Let's talk about security, because I know it's on your mind. MCP servers run with your permissions. The GitHub MCP server uses your authenticated GitHub token, a database server uses your database credentials. They don't get any special elevated access. Every write action - creating issues, posting comments, closing tickets - requires your explicit confirmation in the chat before it happens. You always see what's about to happen and you always approve it. You have full control over which servers are enabled. If you don't want a server running, disable it in settings. For third-party servers, I'd recommend reviewing the source code before enabling them, just like you would with any VS Code extension. And for enterprise teams, organization policies can restrict which MCP servers are allowed, giving admins control over what connects to the AI in their environment.
-        </aside>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SLIDE 25 - Summary (Section)
+         SLIDE 30 - Summary (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
         <h2>Wrap-Up &amp; Next Steps</h2>
         <aside class="speaker-notes">
-          Alright, let's bring it home. We've covered a lot of ground in thirty minutes.
+          Alright, let's bring it home. We've covered a lot of ground in forty minutes.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 26 - Key Takeaways
+         SLIDE 31 - Key Takeaways
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Key Takeaways</h2>
         <ul>
           <li><strong>MCP</strong> is an open standard that connects AI assistants to external tools and data</li>
-          <li>The <strong>GitHub MCP server</strong> ships with the Copilot extension - enable it in settings</li>
+          <li>The <strong>GitHub MCP server</strong> ships with the Copilot extension and works out of the box</li>
           <li>Work <strong>issues, PRs, and code search</strong> from Copilot Chat without leaving your editor</li>
-          <li>The <strong>ecosystem</strong> includes servers for databases, APIs, infrastructure, and more</li>
-          <li>Add servers to your project with <code>.vscode/mcp.json</code> - shared with your team automatically</li>
+          <li>The <strong>MCP registry</strong> has thousands of pre-built servers; browse, evaluate, and install in minutes</li>
+          <li>Add servers to your project with <code>.mcp.json</code> at the workspace root and share with your team automatically</li>
+          <li><strong>Security first</strong>: review servers before installing, follow least-privilege, and monitor tool calls</li>
         </ul>
         <aside class="speaker-notes">
-          Here are the key takeaways. MCP is an open standard - think of it as USB-C for AI - that creates a universal connection layer between AI assistants and external tools. The GitHub MCP server is already bundled with the Copilot extension, so you just need to enable it in settings. Once it's running, you can work with issues, pull requests, and code search directly from Copilot Chat without ever opening a browser tab. The ecosystem goes far beyond GitHub - there are MCP servers for databases, project management tools, communication platforms, and infrastructure services. And you can add any server to your project by dropping a mcp.json file in your .vscode directory, so your whole team gets the same tools automatically. MCP turns Copilot from an AI that can only see your open files into an AI that can interact with your entire development ecosystem.
+          Here are the key takeaways. MCP is an open standard that creates a universal connection layer between AI assistants and external tools. Think of it as USB-C for AI. The GitHub MCP server ships with the Copilot extension, so you can start using it immediately with no additional setup. Once it's running, you can work with issues, pull requests, and code search directly from Copilot Chat. Beyond GitHub, the MCP registry has thousands of pre-built servers for databases, APIs, infrastructure, and more. You can browse the registry, evaluate a server, and install it in minutes by adding a configuration to your .mcp.json file. Commit that file to share the setup with your team automatically. And always put security first: review servers before installing them, grant only the permissions they need, and use the Output panel to monitor what tools are being called. MCP turns Copilot from an AI that can only see your open files into an AI that can interact with your entire development ecosystem.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 27 - Where to Go Next
+         SLIDE 32 - Where to Go Next
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Where to Go Next</h2>
         <ul>
-          <li><strong>Prompts, Instructions, Skills, and Agents</strong> - Master the building blocks of Copilot customization</li>
-          <li><strong>MCP Maximizer</strong> - Build your own MCP servers and deploy them at enterprise scale</li>
-          <li><strong>MCP Specification</strong> - <code>modelcontextprotocol.io</code></li>
-          <li><strong>VS Code MCP Docs</strong> - <code>code.visualstudio.com/docs/copilot/chat/mcp-servers</code></li>
+          <li><strong>Prompts, Instructions, Skills, and Agents</strong>: master the building blocks of Copilot customization</li>
+          <li><strong>MCP Maximizer</strong>: build custom MCP servers and deploy them at enterprise scale</li>
+          <li><strong>MCP Specification</strong>: <code>modelcontextprotocol.io</code></li>
+          <li><strong>VS Code MCP Docs</strong>: <code>code.visualstudio.com/docs/copilot/chat/mcp-servers</code></li>
         </ul>
         <aside class="speaker-notes">
-          Ready for more? Two great next courses. "Prompts, Instructions, Skills, and Agents" teaches you how to customize Copilot's behavior with files that live in your repo - prompt files, instruction files, skills, and custom agents. "MCP Maximizer" is our enterprise course that goes deep on building your own MCP servers, deploying them, and managing them at scale. For self-paced learning, the official MCP specification at modelcontextprotocol.io is the definitive reference, and the VS Code MCP documentation at code.visualstudio.com has excellent getting-started guides and examples.
+          Ready for more? Two great next courses. "Prompts, Instructions, Skills, and Agents" teaches you how to customize Copilot's behavior with prompt files, instruction files, skills, and custom agents that live in your repo. "MCP Maximizer" is our enterprise course where you'll build your own custom MCP servers, deploy them, and manage them at scale. That course picks up where this one leaves off: now that you know how to use MCP servers, MCP Maximizer teaches you how to create them. For self-paced learning, the official MCP specification at modelcontextprotocol.io is the definitive reference, and the VS Code MCP documentation has excellent getting-started guides and examples.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 28 - Closing
+         SLIDE 33 - Closing
          ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
@@ -508,7 +604,7 @@
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
         <aside class="speaker-notes">
-          That's a wrap! Thanks for joining me for "MCP for You and Me." If you have questions, reach out on Teams or open an issue in the course repository. And if you have the lab environment, keep working through the lab steps at your own pace - connecting MCP servers and working with them hands-on is where the real learning happens. Happy integrating!
+          That's a wrap! Thanks for joining me for "MCP for You and Me." If you have questions, reach out on Teams or open an issue in the course repository. And if you have the lab environment, keep working through the lab steps at your own pace. Connecting MCP servers and working with them hands-on is where the real learning happens. Happy integrating!
         </aside>
       </div>
     </section>

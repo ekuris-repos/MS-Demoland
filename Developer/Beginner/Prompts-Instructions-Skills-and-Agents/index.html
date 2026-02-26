@@ -430,11 +430,11 @@ description: >
           <li>A <strong>specialized Copilot mode</strong> defined in an <code>.agent.md</code> file</li>
           <li>Has its own <strong>instructions</strong>, <strong>tool access</strong>, and <strong>personality</strong></li>
           <li>Can reference <strong>skills</strong> for domain knowledge</li>
-          <li>Appears in the <strong>chat participant picker</strong> - invoke with <code>@agent-name</code></li>
+          <li>Appears in the <strong>chat mode selector</strong> dropdown; select it to activate the agent</li>
           <li>Think of it as a <strong>team member with a specific role</strong> - reviewer, architect, tester</li>
         </ul>
         <aside class="speaker-notes">
-          A custom agent is a specialized Copilot mode defined in a dot-agent-dot-md file. It has its own instructions that can override or supplement your repo-wide ones. It has access to specific tools - like the terminal, file editing, or web search. And it can invoke skills when it encounters a task that matches. You call an agent in chat with the @ symbol, just like @workspace. The mental model I want you to have is this: each agent is a virtual team member with a defined role. You might have a security reviewer agent, an architecture advisor, a test generator, or a documentation writer. Each one brings a specific perspective, expertise area, and set of capabilities.
+          A custom agent is a specialized Copilot mode defined in a dot-agent-dot-md file. It has its own instructions that can override or supplement your repo-wide ones. It has access to specific tools, like the terminal, file editing, or web search. And it can invoke skills when it encounters a task that matches. You activate an agent by selecting it from the chat mode selector dropdown at the top of the chat panel. This is the same dropdown where you choose between Ask, Edit, and Agent modes. Custom agents appear there as additional options. The mental model I want you to have is this: each agent is a virtual team member with a defined role. You might have a security reviewer agent, an architecture advisor, a test generator, or a documentation writer. Each one brings a specific perspective, expertise area, and set of capabilities.
         </aside>
       </div>
     </section>
@@ -483,24 +483,16 @@ You are a senior security engineer. When reviewing code:
         <div class="columns">
           <div>
             <ul>
-              <li>In chat, type <strong>@</strong> to see all available agents</li>
-              <li>Custom agents appear alongside built-in participants like <code>@workspace</code></li>
+              <li>Open the <strong>chat mode selector</strong> dropdown to see all available agents</li>
+              <li>Custom agents appear alongside built-in modes like Ask, Edit, and Agent</li>
               <li>Each agent brings its own <strong>persona and instructions</strong> into the current conversation</li>
               <li>Agents can <strong>invoke skills</strong> automatically when they encounter a relevant task</li>
               <li>Chain agents: ask one to generate code, another to review it</li>
             </ul>
           </div>
-          <div>
-            <div class="screenshot">
-              <img src="img/agent-picker.png" alt="VS Code chat showing the agent picker with custom agents listed alongside built-in participants" />
-              <div class="screenshot-focus" style="top:40%;left:5%;width:90%;height:40%">
-                <span class="screenshot-label" style="top:auto;bottom:-1.6em">Custom agents in the picker</span>
-              </div>
-            </div>
-          </div>
         </div>
         <aside class="speaker-notes">
-          In the chat input, type @ and you'll see all your custom agents right alongside built-in participants like @workspace. When you invoke an agent, it brings its own persona and instructions into the conversation. Context is scoped to the current chat session; when you start a new session, Copilot starts fresh. Here's where it gets really interesting: agents can invoke skills automatically. If your security reviewer encounters code that deploys to Azure, and you have an Azure deployment skill in your repo, the agent can pull in that knowledge without you asking. And you can chain agents together. Ask a code-generation agent to build a feature, then ask a review agent to audit it, then ask a documentation agent to write the README section. Each agent brings its specialized perspective, and they compose naturally through the chat interface.
+          Open the chat mode selector dropdown at the top of the chat panel, and you'll see your custom agents listed right alongside the built-in modes: Ask, Edit, and Agent. When you select a custom agent, it brings its own persona and instructions into the conversation. Context is scoped to the current chat session; when you start a new session, Copilot starts fresh. Here's where it gets really interesting: agents can invoke skills automatically. If your security reviewer encounters code that deploys to Azure, and you have an Azure deployment skill in your repo, the agent can pull in that knowledge without you asking. And you can chain agents together. Ask a code-generation agent to build a feature, then ask a review agent to audit it, then ask a documentation agent to write the README section. Each agent brings its specialized perspective, and they compose naturally through the chat interface.
         </aside>
       </div>
     </section>

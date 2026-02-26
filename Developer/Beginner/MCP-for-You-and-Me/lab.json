@@ -5,7 +5,7 @@
       "steps": [
         {
           "title": "Welcome to the Lab",
-          "instruction": "Welcome! In this hands-on lab you'll enable the GitHub MCP server in VS Code, verify the connection, and work GitHub Issues end-to-end from Copilot Chat.<br><br>The guide panel will update automatically as you advance through the slides. The glowing edge and arrow will show you where to look.",
+          "instruction": "Welcome! In this hands-on lab you'll enable the GitHub MCP server in VS Code, verify the connection, work GitHub Issues from Copilot Chat, browse the MCP registry, and install a pre-built MCP server.<br><br>The guide panel will update automatically as you advance through the slides. The glowing edge and arrow will show you where to look.",
           "focus": "guide"
         }
       ]
@@ -14,12 +14,21 @@
       "steps": [
         {
           "title": "Review the Architecture",
-          "instruction": "Take a moment to study the architecture diagram on the slide. Notice the three layers:<br><br>&bull; <strong>Host</strong> - VS Code is acting as the host<br>&bull; <strong>Client</strong> - The MCP client lives inside VS Code and manages connections<br>&bull; <strong>Server</strong> - Each MCP server is a separate process<br><br>VS Code can connect to multiple MCP servers simultaneously. In this lab we'll focus on the GitHub server.",
+          "instruction": "Take a moment to study the architecture diagram on the slide. Notice the three layers:<br><br>&bull; <strong>Host</strong>: VS Code is acting as the host<br>&bull; <strong>Client</strong>: The MCP client lives inside VS Code and manages connections<br>&bull; <strong>Server</strong>: Each MCP server is a separate process<br><br>VS Code can connect to multiple MCP servers simultaneously. In this lab we'll focus on the GitHub server first, then install a server from the registry.",
           "focus": "slides"
         }
       ]
     },
-    "12": {
+    "10": {
+      "steps": [
+        {
+          "title": "Understand Sampling and Elicitation",
+          "instruction": "This slide covers two advanced MCP capabilities.<br><br>&bull; <strong>Sampling</strong>: An MCP server can ask the host to perform an LLM completion on its behalf. This lets servers use Copilot's AI for intermediate reasoning steps.<br>&bull; <strong>Elicitation</strong>: An MCP server can request structured input from you through a form or dialog.<br><br>Both require your explicit approval. You don't need to configure anything for this lab, but keep an eye out for these interactions when using MCP servers in the future.",
+          "focus": "slides"
+        }
+      ]
+    },
+    "13": {
       "steps": [
         {
           "title": "Open VS Code Settings",
@@ -31,22 +40,22 @@
         {
           "title": "Enable MCP Support",
           "instruction": "Find the setting <strong>Chat > MCP: Enabled</strong> and make sure it is <strong>checked</strong>.<br><br>This tells VS Code to allow MCP servers to connect to Copilot Chat. Without this setting, MCP tools will not appear in the chat.",
-          "tip": "If you don't see this setting, make sure you're on the latest version of VS Code."
+          "tip": "MCP is enabled by default in recent versions of VS Code. If the setting is already checked, you're all set."
         },
         {
-          "title": "Restart VS Code",
-          "instruction": "After enabling the MCP setting, <strong>restart VS Code</strong> for the changes to take effect.<br><br>Use <kbd>Ctrl+Shift+P</kbd> and type <strong>Reload Window</strong> to restart without closing the application.",
+          "title": "Reload VS Code",
+          "instruction": "If you changed any settings, <strong>reload VS Code</strong> for the changes to take effect.<br><br>Use <kbd>Ctrl+Shift+P</kbd> and type <strong>Reload Window</strong> to restart without closing the application.",
           "action": "workbench.action.reloadWindow",
           "actionLabel": "Reload Window"
         }
       ]
     },
-    "13": {
+    "14": {
       "onLeave": "workbench.action.closeSidebar",
       "steps": [
         {
           "title": "Open Copilot Chat",
-          "instruction": "Open <strong>Copilot Chat</strong> by pressing <kbd>Ctrl+Shift+I</kbd>. The chat panel should appear on the side.",
+          "instruction": "Open <strong>Copilot Chat</strong> by pressing <kbd>Ctrl+Shift+I</kbd>. The chat panel should appear on the side. When MCP tools are available, Copilot Chat operates in <strong>agent mode</strong>, meaning it can autonomously call tools to complete multi-step tasks.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
@@ -63,7 +72,7 @@
         }
       ]
     },
-    "15": {
+    "16": {
       "steps": [
         {
           "title": "List Open Issues",
@@ -79,13 +88,13 @@
         }
       ]
     },
-    "16": {
+    "17": {
       "steps": [
         {
           "title": "Comment on an Issue",
           "instruction": "Pick any open issue from the previous results. Ask Copilot to add a comment:<br><br><kbd>Add a comment to issue #[number] saying \"Testing MCP integration from VS Code\"</kbd><br><br>Copilot will show you a <strong>confirmation dialog</strong> before taking the write action. Review what it's about to do and approve it.",
           "focus": "right",
-          "tip": "Write actions always require your confirmation. Copilot will never modify a GitHub resource without your explicit approval."
+          "tip": "Write actions require your confirmation by default. Copilot will never modify a GitHub resource without your explicit approval. You can configure auto-approval for trusted tools in your settings."
         },
         {
           "title": "Verify the Comment",
@@ -94,7 +103,7 @@
         }
       ]
     },
-    "17": {
+    "18": {
       "steps": [
         {
           "title": "Search for Code",
@@ -113,13 +122,41 @@
     "20": {
       "steps": [
         {
-          "title": "Review MCP Configuration",
-          "instruction": "Look at the code example on the slide. This is how you add a third-party MCP server to your project via <code>.vscode/mcp.json</code>.<br><br>Key parts of the configuration:<br>&bull; <strong>servers</strong> - A map of named server entries<br>&bull; <strong>command</strong> - How to start the server process<br>&bull; <strong>args</strong> - Arguments passed to the command<br>&bull; <strong>env</strong> - Environment variables for the server process<br><br>Committing this file shares the configuration with your whole team.",
+          "title": "Browse the MCP Registry",
+          "instruction": "The official MCP server registry lives at <strong>github.com/modelcontextprotocol/servers</strong>. Take a moment to browse the categories on the slide.<br><br>Each registry entry includes:<br>&bull; A description of what the server does<br>&bull; A ready-to-use configuration example<br>&bull; The permissions it requires<br><br>Before installing any server, review its source code and permissions, just as you would with a VS Code extension.",
           "focus": "slides"
         }
       ]
     },
-    "22": {
+    "21": {
+      "steps": [
+        {
+          "title": "Review the Configuration",
+          "instruction": "Look at the code example on the slide. This is how you install an MCP server from the registry using a <code>.mcp.json</code> file at your workspace root.<br><br>Key parts of the configuration:<br>&bull; <strong>servers</strong>: a map of named server entries<br>&bull; <strong>command</strong>: how to start the server process<br>&bull; <strong>args</strong>: arguments passed to the command<br>&bull; <strong>env</strong>: environment variables for the server process<br><br>The <code>.mcp.json</code> at the workspace root is the recommended portable option. Commit it to share the configuration with your team.",
+          "focus": "slides"
+        },
+        {
+          "title": "Install a Server (Optional)",
+          "instruction": "If you'd like to try installing a server, create a <code>.mcp.json</code> file at your workspace root with the configuration from the slide (or choose a different server from the registry).<br><br>After saving the file, reload VS Code (<kbd>Ctrl+Shift+P</kbd> &rarr; <strong>Reload Window</strong>). Then check Copilot Chat's tools list to confirm the new server's tools appear alongside the GitHub tools.",
+          "tip": "You'll need the appropriate credentials (database URL, API key, etc.) for the server you choose. If you don't have them, reviewing the configuration example is sufficient for this exercise."
+        }
+      ]
+    },
+    "25": {
+      "steps": [
+        {
+          "title": "Review Security Practices",
+          "instruction": "Security is critical when connecting AI to external tools. Review the five best practices on the slide:<br><br>&bull; <strong>Review before you install</strong>: check source code and permissions<br>&bull; <strong>Prefer official servers</strong>: use the MCP registry<br>&bull; <strong>Monitor tool calls</strong>: use the Output panel<br>&bull; <strong>Use environment variables</strong>: never hardcode secrets<br>&bull; <strong>Enterprise controls</strong>: organization policies for team governance",
+          "focus": "slides"
+        },
+        {
+          "title": "Inspect the Output Panel",
+          "instruction": "Open the <strong>Output</strong> panel (<kbd>Ctrl+Shift+U</kbd>) and select an MCP server from the dropdown. This shows you every request and response in real time.<br><br>Try making a Copilot Chat request that uses an MCP tool, then switch to the Output panel to see the tool call logged. This is how you monitor what MCP servers are doing.",
+          "focus": "bottom"
+        }
+      ]
+    },
+    "28": {
       "steps": [
         {
           "title": "Start the Demo Workflow",
@@ -146,11 +183,11 @@
         }
       ]
     },
-    "28": {
+    "33": {
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "Congratulations - you've completed the MCP lab! Here's what you accomplished:<br><br>&bull; Enabled the GitHub MCP server in VS Code<br>&bull; Verified the connection and explored available tools<br>&bull; Listed and filtered GitHub Issues from Copilot Chat<br>&bull; Commented on an issue using MCP write tools<br>&bull; Searched code across repos with the code search tool<br>&bull; Completed an end-to-end issue workflow<br><br>Next up: <strong>Prompts, Instructions, Skills, and Agents</strong> to master Copilot customization, or <strong>MCP Maximizer</strong> to build your own MCP servers.",
+          "instruction": "Congratulations, you've completed the MCP lab! Here's what you accomplished:<br><br>&bull; Enabled the GitHub MCP server in VS Code<br>&bull; Verified the connection and explored available tools<br>&bull; Listed and filtered GitHub Issues from Copilot Chat<br>&bull; Commented on an issue using MCP write tools<br>&bull; Searched code across repos with the code search tool<br>&bull; Browsed the MCP registry and reviewed server configurations<br>&bull; Reviewed security best practices and monitored tool calls<br>&bull; Completed an end-to-end issue workflow<br><br>Next up: <strong>Prompts, Instructions, Skills, and Agents</strong> to master Copilot customization, or <strong>MCP Maximizer</strong> to build your own custom MCP servers.",
           "focus": "guide"
         }
       ]

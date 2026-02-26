@@ -15,7 +15,7 @@ slide deck template is `template.html` at the repo root.
 Every course folder has an `Admin/STATUS.md` file with a rollup status value:
 
 ```
-`Status: Not Started`   or   `Status: In Progress`   or   `Status: Complete`
+`Status: Not Started`   or   `Status: In Progress`   or   `Status: Ready for Review`   or   `Status: Complete`
 ```
 
 The navigation page (`index.html`) reads statuses from a **static JSON file** at
@@ -32,7 +32,7 @@ The JSON key is the course path relative to the repo root, without the
 | `Developer/Beginner/MCP-for-You-and-Me/Admin/STATUS.md` | `Developer/Beginner/MCP-for-You-and-Me` |
 | `Non-Developer/Enterprise/Proving-Trust-in-the-System/Admin/STATUS.md` | `Non-Developer/Enterprise/Proving-Trust-in-the-System` |
 
-Allowed values: `Not Started`, `In Progress`, `Complete`
+Allowed values: `Not Started`, `In Progress`, `Ready for Review`, `Complete`
 
 **Both files must always agree.** If you update one, update the other in the
 same commit/change set.

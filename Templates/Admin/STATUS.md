@@ -7,7 +7,7 @@
 
 <!-- This is the single value shown on the navigation screen.           -->
 <!-- Set it to the LOWEST status from the table below.                  -->
-<!-- Values: Not Started | In Progress | Complete                       -->
+<!-- Values: Not Started | In Progress | Ready for Review | Complete    -->
 
 `Status: Not Started`
 
@@ -24,9 +24,9 @@
 | Demo / Lab Content    | Not Started |
 | Reviewed & Approved   | Not Started |
 
-> **How to update:** Set each area to `Not Started`, `In Progress`, or `Complete`.
+> **How to update:** Set each area to `Not Started`, `In Progress`, `Ready for Review`, or `Complete`.
 > Then set the **Rollup Status** above to the **lowest** value in the table.
-> *(Not Started < In Progress < Complete)*
+> *(Not Started < In Progress < Ready for Review < Complete)*
 
 ## Slide-by-Slide Checklist
 

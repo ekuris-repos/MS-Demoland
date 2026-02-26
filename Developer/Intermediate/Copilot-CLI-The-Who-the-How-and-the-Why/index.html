@@ -10,74 +10,718 @@
 
   <div class="slide-deck">
 
-    <!-- Title Slide -->
+    <!-- ============================================================
+         SLIDE 1 - Title
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Intermediate · 1 Hour ★ NEW</span>
         <h1>Terminal AI - Copilot CLI: The Who, the How, and the Why</h1>
         <p class="subtitle">Meet the new Copilot CLI, learn how it differs from chat, and combine both for maximum productivity right in your terminal</p>
+        <aside class="speaker-notes">
+          Welcome to "Copilot CLI: The Who, the How, and the Why." Over the next hour, we are going to go deep on one of the most underused Copilot features: the command-line interface. Most developers know about Copilot in the editor, but far fewer have explored what it can do directly in the terminal. Whether you live in bash, PowerShell, or cmd, this session will show you how to get AI assistance without ever leaving your shell. We will cover installation, core commands, practical workflows, and how to combine CLI with VS Code Chat for a complete AI-assisted development experience.
+        </aside>
       </div>
     </section>
 
-    <!-- Agenda -->
+    <!-- ============================================================
+         SLIDE 2 - Agenda section divider
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Overview</span>
         <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Let's take a look at the roadmap for today before we dive in.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 1 -->
+    <!-- ============================================================
+         SLIDE 3 - Agenda items
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Getting Started with Copilot CLI</h2>
+        <h2>Today's Journey</h2>
         <ul>
-          <li>Using the new Copilot CLI - how to get it and what it can do for you</li>
-          <li>Understanding the differences between Chat and CLI interactions</li>
-          <li>How to integrate Chat and CLI with each other for maximum productivity</li>
+          <li><strong>What is Copilot CLI?</strong> The GitHub CLI extension that brings AI to your terminal</li>
+          <li><strong>Installation &amp; Setup</strong> Getting started with <code>gh copilot</code></li>
+          <li><strong>Core Commands</strong> <code>suggest</code> and <code>explain</code> in detail</li>
+          <li><strong>Interactive vs. One-Shot Mode</strong> Choosing the right workflow</li>
+          <li><strong>CLI vs. VS Code Chat</strong> Understanding when to use which tool</li>
+          <li><strong>Practical Workflows</strong> Git, Docker, kubectl, and infrastructure tasks</li>
+          <li><strong>Enterprise &amp; Security</strong> SSO, model selection, and data privacy</li>
+          <li><strong>Power User Techniques</strong> Aliases, shell functions, and combining tools</li>
         </ul>
+        <aside class="speaker-notes">
+          Here is the plan. We will start with the basics: what Copilot CLI is and how to install it. Then we will dig into the two core commands, suggest and explain, and explore the difference between interactive mode and one-shot mode. After that, we will talk about how CLI compares to VS Code Chat and when you should reach for each tool. The second half gets practical: real-world workflows, enterprise configuration, and power-user techniques like aliases and shell functions. By the end, you will have a complete mental model for when and how to use Copilot CLI in your daily work.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 2 -->
+    <!-- ============================================================
+         SLIDE 4 - Part 1 section divider
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>What Is Copilot CLI?</h2>
+        <aside class="speaker-notes">
+          Let's start at the very beginning. What exactly is Copilot CLI, and where does it fit in the GitHub ecosystem?
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - What is Copilot CLI
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>AI Assistance in the Terminal</h2>
+        <h2>Copilot CLI at a Glance</h2>
         <ul>
-          <li>Copilot CLI brings AI assistance directly to the terminal</li>
-          <li>Help developers complete tasks more efficiently from the command line</li>
-          <li>Interactive and inline modes for different workflow needs</li>
+          <li>An <strong>extension</strong> for the <strong>GitHub CLI</strong> (<code>gh</code>) that adds AI-powered assistance directly in your terminal</li>
+          <li>Two core commands: <code>gh copilot suggest</code> for generating commands, and <code>gh copilot explain</code> for understanding them</li>
+          <li>Works across <strong>bash</strong>, <strong>PowerShell</strong>, and <strong>cmd</strong> on macOS, Linux, and Windows</li>
+          <li>No editor required. Just your terminal, an authenticated GitHub account, and a Copilot license</li>
         </ul>
+        <aside class="speaker-notes">
+          Copilot CLI is an extension for the GitHub CLI, which is that <code>gh</code> command you may already use for pull requests, issues, and repo management. Once installed, it gives you two new subcommands: suggest and explain. Suggest takes a natural-language description and returns a shell command you can run. Explain takes a command you already have and breaks it down in plain English. It works across all major shells and operating systems. The key insight here is that you do not need VS Code open at all. If you are SSHed into a server, working in a CI runner, or just prefer your terminal, Copilot CLI meets you where you are.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 3 -->
+    <!-- ============================================================
+         SLIDE 6 - Prerequisites
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Features &amp; Capabilities</h2>
+        <h2>Prerequisites</h2>
         <ul>
-          <li>Session persistence across terminal sessions</li>
-          <li>SSO authentication for enterprise environments</li>
-          <li>Support for multiple AI models to fit your use case</li>
+          <li><strong>GitHub CLI</strong> version 2.0 or later installed (<code>gh --version</code> to verify)</li>
+          <li><strong>Authenticated session</strong>: run <code>gh auth login</code> if you have not already</li>
+          <li>A <strong>GitHub Copilot license</strong> (Free, Pro, Business, or Enterprise)</li>
+          <li>An internet connection (commands are processed in the cloud)</li>
         </ul>
+        <aside class="speaker-notes">
+          Before we install anything, let's make sure the prerequisites are in place. You need the GitHub CLI installed, version 2.0 or later. Run <code>gh --version</code> to check. You also need to be authenticated; if you have not done that yet, <code>gh auth login</code> will walk you through it. And of course you need a Copilot license. Any tier works: Free, Pro, Business, or Enterprise. One thing to note is that Copilot CLI requires an internet connection. The AI processing happens on GitHub's servers, not locally. We will talk more about what goes to the cloud later in the security section.
+        </aside>
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- ============================================================
+         SLIDE 7 - Installation
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Installing Copilot CLI</h2>
+        <pre><code># Install the Copilot CLI extension
+gh extension install github/gh-copilot
+
+# Verify the installation
+gh copilot --version
+
+# Upgrade to the latest version
+gh extension upgrade gh-copilot</code></pre>
+        <aside class="speaker-notes">
+          Installation is a single command: <code>gh extension install github/gh-copilot</code>. That is it. The GitHub CLI handles downloading and configuring the extension automatically. Once installed, you can run <code>gh copilot --version</code> to confirm everything is in place. If you have already installed it and want the latest features, <code>gh extension upgrade gh-copilot</code> will pull down the newest release. This is a lightweight install; it does not modify your shell profile, add login items, or install any background services. It just extends the <code>gh</code> command with those two new subcommands.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 - Part 2 section divider
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>Core Commands</h2>
+        <aside class="speaker-notes">
+          Now that we are installed, let's explore the two commands that make up the heart of Copilot CLI.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 - gh copilot suggest
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2><code>gh copilot suggest</code></h2>
+        <pre><code># Ask Copilot to suggest a command
+gh copilot suggest "find all .log files larger than 100MB"
+
+# Specify the shell type explicitly
+gh copilot suggest -t powershell "list all running services"
+
+# Target type: gh (GitHub CLI commands)
+gh copilot suggest -t gh "list my open pull requests"</code></pre>
+        <ul>
+          <li>Describe what you want to do in plain English</li>
+          <li>Copilot returns a shell command tailored to your environment</li>
+          <li>Target types: <strong>shell</strong> (default), <strong>gh</strong> (GitHub CLI), <strong>git</strong></li>
+        </ul>
+        <aside class="speaker-notes">
+          The suggest command is the one you will use most often. You describe what you want to accomplish in natural language, and Copilot returns a command you can run. By default, it generates a shell command for your current environment. You can override this with the <code>-t</code> flag to specify a target type: shell for general commands, gh for GitHub CLI commands, or git for Git operations. After the suggestion appears, you get three options: run the command immediately, copy it to your clipboard, or revise your request. That revision option is key. If the first suggestion is close but not quite right, you can refine your description and get a better result without starting over.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 - gh copilot explain
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2><code>gh copilot explain</code></h2>
+        <pre><code># Explain a complex command
+gh copilot explain "find . -name '*.ts' -exec grep -l 'TODO' {} +"
+
+# Explain a git command
+gh copilot explain "git rebase -i --autosquash HEAD~5"
+
+# Explain a Docker command
+gh copilot explain "docker run --rm -v $(pwd):/app -w /app node:18 npm test"</code></pre>
+        <ul>
+          <li>Pass any command as a string, and Copilot breaks it down piece by piece</li>
+          <li>Great for auditing scripts, reviewing unfamiliar commands, or learning new tools</li>
+        </ul>
+        <aside class="speaker-notes">
+          The explain command is the mirror of suggest. Instead of generating a new command, it takes a command you already have and explains what it does. This is incredibly useful in several situations: when you find a command in a Stack Overflow answer and want to understand it before running it, when you are reading a colleague's script and encounter unfamiliar flags, or when you are learning a new tool like kubectl or terraform. The explanation breaks the command into its individual parts, explaining each flag, argument, and operator. It is like having a patient mentor who never gets tired of questions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - Suggest workflow in practice
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Suggest Workflow</h2>
+        <ul>
+          <li><strong>Step 1:</strong> Describe your goal in plain English</li>
+          <li><strong>Step 2:</strong> Copilot returns a suggested command</li>
+          <li><strong>Step 3:</strong> Choose an action:
+            <ul>
+              <li>✅ <strong>Execute</strong> the command directly in your shell</li>
+              <li>📋 <strong>Copy</strong> to clipboard for use elsewhere</li>
+              <li>🔄 <strong>Revise</strong> your request and get a new suggestion</li>
+            </ul>
+          </li>
+          <li><strong>Step 4:</strong> Optionally rate the suggestion to improve future results</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's walk through the full suggest workflow. You start by typing your goal in plain English. Copilot processes that and returns a command. At this point, you have three choices. You can execute the command right there in your terminal. You can copy it to your clipboard if you need to paste it into a script or a different terminal. Or you can revise your description, which sends a follow-up request with additional context. The revise option is very powerful for iterative refinement. For example, you might start with "compress this folder" and then revise to "compress this folder excluding node_modules and output as tar.gz." Each revision builds on the previous context, so Copilot understands what you have already tried.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 - Interactive vs one-shot mode
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Interactive vs. One-Shot Mode</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Interactive Mode</h3>
+            <p>Run <code>gh copilot suggest</code> without arguments. Copilot prompts you to choose a target type and enter your description step by step.</p>
+            <p>Best for: <strong>exploration</strong>, learning new tools, and iterative refinement.</p>
+          </div>
+          <div class="card">
+            <h3>One-Shot Mode</h3>
+            <p>Pass your description inline: <code>gh copilot suggest "your request"</code>. Get a result immediately with no extra prompts.</p>
+            <p>Best for: <strong>speed</strong>, scripting, and when you know exactly what you need.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Copilot CLI supports two interaction patterns. In interactive mode, you run the command with no arguments, and Copilot walks you through a guided flow: it asks you to pick a target type, then enter your description. This is great when you are exploring or not sure exactly what you need. In one-shot mode, you pass everything inline. You give it your description as a quoted string, and you get your answer immediately. One-shot mode is faster and works better in scripts or when you are chaining commands. Most experienced users start in interactive mode when learning a new tool, then graduate to one-shot mode once they know the patterns.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 - Shell types
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Shell Type Awareness</h2>
+        <pre><code># PowerShell-specific suggestion
+gh copilot suggest -t powershell "get disk usage for the C drive"
+# Result: Get-Volume -DriveLetter C | Select-Object DriveLetter, SizeRemaining, Size
+
+# Bash-specific suggestion
+gh copilot suggest -t shell "get disk usage for the root partition"
+# Result: df -h /
+
+# Git-specific suggestion
+gh copilot suggest -t git "undo my last commit but keep the changes"
+# Result: git reset --soft HEAD~1</code></pre>
+        <aside class="speaker-notes">
+          One of the most practical features of Copilot CLI is shell-type awareness. The same natural-language request produces different commands depending on which shell you target. Ask for disk usage in PowerShell, and you get <code>Get-Volume</code> with the right parameters. Ask the same thing in bash, and you get <code>df -h</code>. This is not just syntax differences; it is genuinely different tools and approaches optimized for each environment. Copilot CLI detects your current shell automatically, but you can override it with the <code>-t</code> flag. This is especially useful when you are writing documentation or scripts for a shell other than the one you are currently using.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 14 - Part 3 section divider
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>CLI vs. VS Code Chat</h2>
+        <aside class="speaker-notes">
+          Now let's tackle one of the most common questions: how does Copilot CLI relate to Copilot Chat in VS Code?
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 - Key differences
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Differences</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Copilot CLI</h3>
+            <ul>
+              <li>Terminal-first experience</li>
+              <li>No file or project context</li>
+              <li>Focused on <strong>commands</strong></li>
+              <li>Works over SSH, in CI, anywhere with a shell</li>
+              <li>Lightweight; no editor required</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>VS Code Chat</h3>
+            <ul>
+              <li>Editor-first experience</li>
+              <li>Full workspace context via <code>#file</code>, <code>@workspace</code></li>
+              <li>Focused on <strong>code</strong></li>
+              <li>Integrated with VS Code features (diff, apply, etc.)</li>
+              <li>Richer interaction model</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          This is a question that comes up in every session, so let's be clear about it. Copilot CLI and VS Code Chat are complementary tools, not competitors. CLI lives in your terminal. It has no awareness of your files, your project structure, or your open tabs. It is laser-focused on commands: generating them, explaining them, and helping you run them. VS Code Chat, on the other hand, is deeply integrated with your editor. It can see your files, understand your project, apply code changes, and leverage agents like <code>@workspace</code>. The rule of thumb is simple: if your task is about running a command, use CLI. If your task is about writing or understanding code, use Chat.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 - When to use which
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>When to Use Which</h2>
+        <ul>
+          <li><strong>Use CLI when:</strong> you need a git command, a Docker command, a find/grep/awk pipeline, kubectl operations, or any shell one-liner</li>
+          <li><strong>Use Chat when:</strong> you need to generate code, refactor a function, write tests, understand a file, or interact with your project context</li>
+          <li><strong>Use both when:</strong> you are working in VS Code's integrated terminal. Chat handles your code; CLI handles your commands</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let me make this concrete with examples. Reach for CLI when you need to remember that obscure <code>git rebase</code> flag, figure out the right <code>docker compose</code> syntax, or build a complex <code>find</code> pipeline. These are command-centric tasks where file context does not help. Reach for Chat when you need to refactor a function, generate unit tests, or understand what a piece of code does. These are code-centric tasks where project context is essential. And here is the real power move: use both together. When you are in VS Code's integrated terminal, you can use CLI for your terminal commands and switch to the chat panel for code questions. They cover each other's blind spots perfectly.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 - Combining CLI and Chat
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Combining CLI and Chat</h2>
+        <ul>
+          <li><strong>Scenario:</strong> You need to set up a new Docker container and write the application code</li>
+          <li><strong>Step 1:</strong> Use CLI to generate the <code>docker run</code> command with the right flags and volume mounts</li>
+          <li><strong>Step 2:</strong> Use Chat to scaffold the application code that will run inside the container</li>
+          <li><strong>Step 3:</strong> Use CLI to generate the <code>docker build</code> and <code>docker push</code> commands for deployment</li>
+          <li>Each tool handles what it does best; you stay in the flow</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's walk through a real scenario. Say you are setting up a new containerized application. You need the right Docker commands and the application code itself. Start in your terminal with CLI: <code>gh copilot suggest "run a node 20 container with the current directory mounted and port 3000 exposed"</code>. CLI gives you the exact <code>docker run</code> command. Now switch to Chat to scaffold your Express server, routes, and middleware. Chat can see your project files and generate code that fits. When you are ready to deploy, go back to CLI for the <code>docker build</code> and <code>docker push</code> commands. Each tool handles what it does best, and you never leave your development environment.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Part 4 section divider
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Practical Workflows</h2>
+        <aside class="speaker-notes">
+          Theory is great, but let's get practical. Here are real workflows where Copilot CLI saves significant time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 19 - Git operations
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Git Operations</h2>
+        <pre><code># Complex git scenarios made simple
+gh copilot suggest -t git "squash the last 3 commits into one"
+gh copilot suggest -t git "cherry-pick a range of commits from the feature branch"
+gh copilot suggest -t git "find which commit introduced a bug between v1.0 and v2.0"
+gh copilot suggest -t git "show all files changed in the last 7 days by a specific author"</code></pre>
+        <aside class="speaker-notes">
+          Git is probably the number-one use case for Copilot CLI. We all know the basics, but git has hundreds of commands and thousands of flags. How often do you find yourself searching the web for the right <code>git rebase</code> syntax or the exact flags for <code>git log</code>? With CLI, you just describe what you want. "Squash the last 3 commits." "Cherry-pick a range." "Find which commit introduced this bug." These are all real requests that would normally require a trip to Stack Overflow or the git documentation. CLI gives you the answer instantly, in context, and you can execute it right there. The <code>-t git</code> flag ensures the suggestions are git-specific rather than generic shell commands.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 - Docker and infrastructure
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Docker &amp; Infrastructure</h2>
+        <pre><code># Docker workflows
+gh copilot suggest "remove all stopped containers and dangling images"
+gh copilot suggest "run postgres 16 with a persistent volume and custom password"
+
+# Kubernetes
+gh copilot suggest "scale the api deployment to 5 replicas in the production namespace"
+gh copilot suggest "get logs from all pods matching label app=worker in the last hour"
+
+# Azure / Cloud
+gh copilot suggest "create a resource group in eastus2 named my-project-rg"</code></pre>
+        <aside class="speaker-notes">
+          Docker and infrastructure commands are another area where CLI really shines. Docker syntax can be verbose and easy to get wrong, especially with volume mounts, environment variables, and network settings. Instead of memorizing flags, just describe your intent: "run Postgres 16 with a persistent volume and a custom password." CLI generates the full command with all the right flags. The same applies to Kubernetes. Kubectl commands can get very long, especially when you are filtering by labels, namespaces, and output formats. And for cloud CLI tools like <code>az</code>, <code>aws</code>, or <code>gcloud</code>, CLI can generate the right invocation without you having to remember which subcommand group the operation belongs to.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 21 - File system and text processing
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>File System &amp; Text Processing</h2>
+        <pre><code># Find and filter
+gh copilot suggest "find all TypeScript files modified in the last 24 hours"
+gh copilot suggest "recursively search for TODO comments excluding node_modules"
+
+# Text processing
+gh copilot suggest "extract unique email addresses from a CSV file"
+gh copilot suggest "count lines of code by file extension in this directory"
+
+# System tasks
+gh copilot suggest "check which process is using port 3000"
+gh copilot suggest "monitor CPU and memory usage of a specific process"</code></pre>
+        <aside class="speaker-notes">
+          File-system and text-processing tasks are where many developers hit a wall with traditional commands. How do you write a <code>find</code> command that excludes certain directories? What is the right <code>awk</code> syntax for extracting a column from a CSV? These are commands most of us use infrequently enough that we forget the syntax between uses. With CLI, you describe the outcome you want, and you get a working command. "Extract unique email addresses from a CSV" might produce an <code>awk</code> or <code>grep</code> pipeline that would take several minutes to construct manually. System administration tasks like checking port usage or monitoring processes are equally accessible.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - GitHub CLI integration
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>GitHub CLI Integration</h2>
+        <pre><code># Use -t gh for GitHub CLI-specific suggestions
+gh copilot suggest -t gh "list all issues assigned to me across all repos"
+gh copilot suggest -t gh "create a PR from my current branch with a generated title"
+gh copilot suggest -t gh "list all failed workflow runs in the last week"
+gh copilot suggest -t gh "add a label to all open issues matching a search query"</code></pre>
+        <ul>
+          <li>The <code>-t gh</code> flag restricts suggestions to <code>gh</code> commands specifically</li>
+          <li>Perfect for discovering <code>gh</code> subcommands you did not know existed</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here is a feature that often surprises people: Copilot CLI can generate GitHub CLI commands too. Using the <code>-t gh</code> flag, you restrict the suggestions to <code>gh</code> subcommands. This is incredibly useful because the GitHub CLI is extensive. It covers repos, issues, PRs, Actions, Codespaces, releases, and more. Most developers only use a fraction of these. With CLI, you can discover commands you did not know existed. "List all failed workflow runs in the last week" might generate a <code>gh run list</code> command with flags you have never used before. It is like having an expert guide to the GitHub CLI built right into your terminal.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - Part 5 section divider
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Session Context &amp; Model Selection</h2>
+        <aside class="speaker-notes">
+          Let's look at some of the deeper features: how context works across commands and how to select models.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Session persistence
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Session Persistence</h2>
+        <ul>
+          <li>Each <code>gh copilot suggest</code> call is a <strong>standalone request</strong> by default</li>
+          <li>When you <strong>revise</strong> a suggestion (choose the "Revise" option), context carries forward within that session</li>
+          <li>There is <strong>no persistent memory</strong> between separate invocations of the command</li>
+          <li>This is by design: CLI commands should be predictable and stateless</li>
+        </ul>
+        <aside class="speaker-notes">
+          A common question is whether Copilot CLI remembers previous interactions. The answer is nuanced. Within a single suggest session, if you choose the "Revise" option, your previous request and the suggestion are included as context for the next round. So iterative refinement does work. However, once you exit that session and run a new <code>gh copilot suggest</code> command, there is no memory of previous sessions. Each invocation starts fresh. This is actually a feature, not a limitation. Terminal commands should be predictable and repeatable. If the same input always produces the same output, you can trust CLI in scripts and automation. Compare this to VS Code Chat, which maintains conversation history within a thread.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Model selection
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Model Selection</h2>
+        <ul>
+          <li>Copilot CLI uses the model configured in your GitHub Copilot settings</li>
+          <li>Models can be selected at the <strong>organization level</strong> or by <strong>individual preference</strong></li>
+          <li>Different models offer trade-offs between speed, accuracy, and capability</li>
+          <li>Enterprise administrators can restrict which models are available to their organization</li>
+        </ul>
+        <aside class="speaker-notes">
+          Copilot CLI uses the same model infrastructure as the rest of the Copilot platform. The model you interact with depends on your Copilot settings. Organizations on Business or Enterprise plans can configure which models are available, and individual users can select their preferred model within those constraints. Different models offer different strengths. Some are faster for simple command lookups; others are better at generating complex multi-step pipelines. If your organization restricts model choices for compliance or cost reasons, those restrictions apply to CLI just as they do to Chat and inline completions. The key takeaway is that CLI is not a separate system; it is part of the unified Copilot platform.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 - Part 6 section divider
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>Enterprise &amp; Security</h2>
+        <aside class="speaker-notes">
+          For those of you in enterprise environments, this section covers authentication, data privacy, and governance.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - Enterprise SSO
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Enterprise SSO Authentication</h2>
+        <ul>
+          <li>Copilot CLI honors your organization's <strong>SAML SSO</strong> configuration</li>
+          <li>Authentication flows through <code>gh auth login</code>, the same as all GitHub CLI operations</li>
+          <li>Tokens are scoped to your organization and respect <strong>IP allow-lists</strong></li>
+          <li>No separate login or API key required for Copilot specifically</li>
+        </ul>
+        <aside class="speaker-notes">
+          In enterprise environments, authentication is always a top concern. The good news is that Copilot CLI uses the same authentication as the rest of the GitHub CLI. If your organization uses SAML SSO, the <code>gh auth login</code> flow handles it. There is no separate API key, no additional configuration file, and no second authentication step. Your personal access token or OAuth token is scoped to your organization and respects IP allow-lists and other security policies. This means your security team does not need to approve a new authentication mechanism; they just need to confirm that Copilot is enabled for your organization.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Security and privacy
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Security: What Goes to the Cloud</h2>
+        <ul>
+          <li><strong>Sent to the cloud:</strong> your natural-language description and the selected shell type</li>
+          <li><strong>Not sent:</strong> your file contents, environment variables, shell history, or directory listings</li>
+          <li>Copilot Business and Enterprise: <strong>no prompts or suggestions are retained</strong> for model training</li>
+          <li>All communication uses <strong>TLS encryption</strong> in transit</li>
+          <li>Responses are <strong>not cached</strong> on GitHub's servers</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's be precise about what data flows to the cloud when you use Copilot CLI. When you run a suggest or explain command, your natural-language description and the target shell type are sent to GitHub's servers for processing. That is it. Copilot CLI does not send your environment variables, your shell history, your file contents, or your directory listings. On Business and Enterprise plans, GitHub provides the additional guarantee that prompts and suggestions are not retained for model training. All communication happens over TLS, so the data is encrypted in transit. This is an important distinction from VS Code Chat, which can include file content as context. CLI is inherently more private because its scope is narrower.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 29 - What stays local
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Stays Local</h2>
+        <ul>
+          <li>Your <strong>shell session</strong> and command history remain on your machine</li>
+          <li>The <strong>suggested command</strong> is displayed locally; you choose whether to run it</li>
+          <li>No telemetry on <strong>which commands you actually execute</strong> after receiving a suggestion</li>
+          <li>Extension data is stored locally in the <code>gh</code> configuration directory</li>
+        </ul>
+        <aside class="speaker-notes">
+          Equally important is understanding what stays on your machine. Your shell session, your command history, and any command output are all local. When Copilot returns a suggestion, it is displayed in your terminal. Whether you execute it, modify it, or ignore it is entirely your business. GitHub does not track which suggested commands you actually run. The extension itself stores configuration data locally, in the same directory as the rest of your GitHub CLI configuration. There are no background processes phoning home. This gives you a clear mental model: your description goes up, a suggestion comes back, and everything else stays local.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 30 - Part 7 section divider
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>Power User Techniques</h2>
+        <aside class="speaker-notes">
+          Now let's level up. These techniques will help you integrate Copilot CLI into your workflow more deeply.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 31 - Aliases and shell functions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Aliases &amp; Shell Functions</h2>
+        <pre><code># Bash/Zsh aliases
+alias cs='gh copilot suggest'
+alias ce='gh copilot explain'
+
+# PowerShell functions
+function cs { gh copilot suggest @args }
+function ce { gh copilot explain @args }
+
+# Usage becomes:
+cs "find all large files in this repo"
+ce "tar -czf backup.tar.gz --exclude=node_modules ."</code></pre>
+        <aside class="speaker-notes">
+          The first power-user technique is setting up aliases. Typing <code>gh copilot suggest</code> every time is verbose. Create a short alias like <code>cs</code> for suggest and <code>ce</code> for explain. In bash or zsh, add these to your shell profile. In PowerShell, add them to your <code>$PROFILE</code> script. Now you can type <code>cs "find all large files"</code> and get your suggestion instantly. This reduces the friction to near zero. Some teams standardize on aliases so everyone uses the same shortcuts, which makes pair programming and screen sharing more consistent. You can also create more specific aliases that include the target type, like <code>alias csg='gh copilot suggest -t git'</code> for git-specific suggestions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 32 - Advanced shell functions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Advanced Shell Functions</h2>
+        <pre><code># Bash function with pre-configured target types
+gitsuggest() {
+  gh copilot suggest -t git "$*"
+}
+
+ghsuggest() {
+  gh copilot suggest -t gh "$*"
+}
+
+# Usage:
+gitsuggest "revert the last merge commit"
+ghsuggest "close all stale issues older than 90 days"</code></pre>
+        <ul>
+          <li>Wrap CLI commands in functions that encode your team's preferred target types</li>
+          <li>Add to your dotfiles repository for consistent setup across machines</li>
+        </ul>
+        <aside class="speaker-notes">
+          You can take aliases further with shell functions that encode specific workflows. A <code>gitsuggest</code> function that always passes <code>-t git</code> means you never have to remember the flag. A <code>ghsuggest</code> function does the same for GitHub CLI commands. Store these in your dotfiles repository and they follow you across every machine. Some teams go even further and create wrapper functions that log suggestions to a local file for auditing, or that pipe the output into a specific format. The key principle is that since Copilot CLI is just a regular command-line tool, you can compose it with all the standard Unix tools and patterns you already know.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 33 - Tips for better suggestions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Tips for Better Suggestions</h2>
+        <ul>
+          <li><strong>Be specific:</strong> "list files" is vague; "list all .ts files modified in the last 7 days sorted by size" is precise</li>
+          <li><strong>Include constraints:</strong> mention the OS, shell, or tool version if it matters</li>
+          <li><strong>Use the right target type:</strong> <code>-t git</code>, <code>-t gh</code>, or <code>-t shell</code> to narrow the scope</li>
+          <li><strong>Iterate with Revise:</strong> refine rather than starting over when the first result is close</li>
+          <li><strong>Combine explain with suggest:</strong> if a suggestion looks unfamiliar, pipe it to explain</li>
+        </ul>
+        <aside class="speaker-notes">
+          The quality of suggestions scales directly with the quality of your descriptions. Vague requests produce vague results. Instead of "list files," try "list all TypeScript files modified in the last 7 days, sorted by size descending." Include constraints when they matter: "on Ubuntu 22.04" or "using PowerShell 7." Always use the right target type flag to narrow the scope. When a suggestion is close but not perfect, use the Revise option instead of starting a new session. And here is a great combined workflow: if a suggestion contains flags you do not recognize, copy it and run <code>gh copilot explain</code> on it before executing. This way you learn while you work, and you never run a command you do not fully understand.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 34 - Common pitfalls
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Common Pitfalls</h2>
+        <ul>
+          <li><strong>Running suggestions blindly:</strong> always review the command before executing, especially destructive operations like <code>rm</code>, <code>drop</code>, or <code>force-push</code></li>
+          <li><strong>Expecting file context:</strong> CLI does not see your files; if your task requires project knowledge, use Chat instead</li>
+          <li><strong>Ignoring shell differences:</strong> a bash command will not work in PowerShell; use the <code>-t</code> flag to match your environment</li>
+          <li><strong>Overloading a single request:</strong> break complex multi-step tasks into individual suggestions</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's talk about common mistakes. The biggest one is running suggested commands without reading them first. Copilot is very good, but it is not perfect. A suggestion involving <code>rm -rf</code>, <code>git push --force</code>, or <code>DROP TABLE</code> deserves careful review. Always read the command, understand what it does, and consider the consequences before executing. The second pitfall is expecting CLI to know about your project. It does not see your files. If you ask "refactor the server module to use async/await," CLI will not produce useful results because it has no code context. Use Chat for that. Third, pay attention to shell differences. A command generated for bash will often fail in PowerShell and vice versa. Finally, if your task is complex, break it into smaller pieces rather than trying to get one enormous command.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 35 - Summary section divider
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
-        <h2>Wrap-Up &amp; Next Steps</h2>
+        <h2>Wrap-Up &amp; Key Takeaways</h2>
+        <aside class="speaker-notes">
+          Let's bring it all together with the key points from today's session.
+        </aside>
       </div>
     </section>
 
-    <!-- Closing -->
+    <!-- ============================================================
+         SLIDE 36 - Key takeaways
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li><strong>Copilot CLI</strong> brings AI assistance directly to your terminal via <code>gh copilot suggest</code> and <code>gh copilot explain</code></li>
+          <li><strong>Install in seconds:</strong> <code>gh extension install github/gh-copilot</code></li>
+          <li><strong>Two modes:</strong> interactive for exploration, one-shot for speed</li>
+          <li><strong>CLI + Chat:</strong> use CLI for commands, Chat for code; they complement each other perfectly</li>
+          <li><strong>Enterprise-ready:</strong> SSO, model selection, and strict data privacy guarantees</li>
+          <li><strong>Level up:</strong> aliases and shell functions reduce friction to near zero</li>
+        </ul>
+        <aside class="speaker-notes">
+          Let's recap the essential takeaways. Copilot CLI gives you AI assistance right in your terminal with two simple commands: suggest and explain. Installation takes one command and works on any platform. You have two interaction modes: interactive for when you are exploring, and one-shot for when you need speed. The biggest insight from today is how CLI and Chat complement each other. Use CLI for terminal commands and Chat for code. Together, they cover the entire development workflow. For enterprise users, CLI integrates with your existing SSO and respects all organizational policies. And for power users, aliases and shell functions make CLI a seamless part of your workflow.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 37 - Where to go next
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Where to Go Next</h2>
+        <ul>
+          <li><strong>Try it now:</strong> install Copilot CLI and use it for your next terminal task</li>
+          <li><strong>Set up aliases:</strong> add <code>cs</code> and <code>ce</code> to your shell profile today</li>
+          <li><strong>Explore related courses:</strong> "Enterprise-Grade Marmalade" for governance, "Agent Potato" for Copilot agents</li>
+          <li><strong>Documentation:</strong> <code>gh copilot --help</code> has full command reference and examples</li>
+          <li><strong>Feedback:</strong> report issues or feature requests via <code>gh</code> repo at <code>github/gh-copilot</code></li>
+        </ul>
+        <aside class="speaker-notes">
+          Here is your call to action. If you have not already, install Copilot CLI right now. It takes 30 seconds. Then set up those <code>cs</code> and <code>ce</code> aliases so the friction is as low as possible. Use it for your very next terminal task, whether that is a git operation, a Docker command, or a file search. If you want to go deeper into enterprise governance, check out the "Enterprise-Grade Marmalade" course. For Copilot agents and extensions, "Agent Potato: License to Chat" is a great next step. And remember, <code>gh copilot --help</code> has the full command reference right in your terminal. If you run into issues or have feature requests, the extension's GitHub repo is the place to report them.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 38 - Closing
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          Thank you for joining this session. I hope you are excited to start using Copilot CLI in your daily workflow. The terminal is where developers live, and having an AI assistant right there with you changes the game. If you have questions, reach out on Teams or open an issue. Happy coding!
+        </aside>
       </div>
     </section>
 

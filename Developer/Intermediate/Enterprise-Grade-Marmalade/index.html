@@ -10,62 +10,899 @@
 
   <div class="slide-deck">
 
-    <!-- Title Slide -->
+    <!-- ============================================================
+         SLIDE 1 - Title
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Intermediate · 1 Hour</span>
         <h1>Central Prompt Repos - Enterprise Grade Marmalade</h1>
         <p class="subtitle">Explore how central prompt repositories preserve institutional knowledge, standardize AI-assisted development, and get every developer productive from day one</p>
+        <aside class="speaker-notes">
+          Welcome to "Enterprise Grade Marmalade," where we dig into one of the most impactful practices for scaling AI-assisted development across an organization: the central prompt repository. Over the next hour, we will cover what central prompt repos are, how to build and maintain them, and why they are the secret ingredient for getting every developer productive with Copilot from day one. Whether your organization has ten developers or ten thousand, the patterns we discuss today will help you standardize, share, and scale your AI-assisted workflows.
+        </aside>
       </div>
     </section>
 
-    <!-- Agenda -->
+    <!-- ============================================================
+         SLIDE 2 - Agenda (Section)
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">Overview</span>
         <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Let's take a quick look at our agenda so you know what to expect over the next hour.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 1 -->
+    <!-- ============================================================
+         SLIDE 3 - Agenda Items
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Enterprise Best Practices</h2>
+        <h2>Today's Agenda</h2>
         <ul>
-          <li>Best practices for organizing code prompts at the enterprise level</li>
-          <li>Enterprise use cases that benefit from central prompt repositories</li>
-          <li>Strategies to organize your organization for AI-assisted development</li>
+          <li><strong>The Problem</strong> - Why inconsistent AI-assisted development hurts enterprise teams</li>
+          <li><strong>Central Prompt Repositories</strong> - What they are and the four key file types</li>
+          <li><strong>Organization &amp; Structure</strong> - Folder layouts, naming conventions, and best practices</li>
+          <li><strong>Distribution Models</strong> - Git submodules, npm packages, symlinks, and copy-on-clone</li>
+          <li><strong>Governance</strong> - Ownership, PR review processes, and versioning strategies</li>
+          <li><strong>Template Patterns</strong> - Standard prompts for code review, testing, docs, and migration</li>
+          <li><strong>Scoped Instructions</strong> - Language, framework, and API design instructions at scale</li>
+          <li><strong>Skills &amp; Agents</strong> - Encoding tribal knowledge and defining team-role agents</li>
+          <li><strong>Onboarding, Measurement &amp; CI/CD</strong> - Putting it all together</li>
         </ul>
+        <aside class="speaker-notes">
+          Here is our roadmap. We will start by understanding the problem: what happens when teams adopt AI-assisted development without any shared standards. Then we will define what a central prompt repository actually is and walk through the four file types that power it. From there, we cover the practical concerns: how to organize the repo, how to distribute it to developers, and how to govern changes over time. The second half of the session is all about patterns and impact. We will look at real template examples, scoped instructions for different tech stacks, skills that encode institutional knowledge, and agents that serve as virtual team members. We will wrap up by connecting central prompt repos to onboarding, measurement, and CI/CD integration.
+        </aside>
       </div>
     </section>
 
-    <!-- Content Slide 2 -->
+    <!-- ============================================================
+         SLIDE 4 - Section: The Problem
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>The Problem</h2>
+        <aside class="speaker-notes">
+          Before we build the solution, let's make sure we agree on the problem. Every enterprise that adopts Copilot at scale runs into the same set of challenges.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - The Consistency Challenge
+         ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Preparing Agents for Developers</h2>
+        <h2>The Consistency Challenge</h2>
         <ul>
-          <li>Recommended, proven, and effective strategies for agent preparation</li>
-          <li>Preserving institutional knowledge through centralized prompts</li>
-          <li>Preparing agents so developers can hit the ground running</li>
+          <li>Every developer writes their own prompts, instructions, and Copilot configuration</li>
+          <li>Team A uses TypeScript strict mode; Team B allows implicit <code>any</code></li>
+          <li>Senior engineers get great results because they know how to prompt; juniors struggle</li>
+          <li>Institutional knowledge lives in people's heads, not in shared, versionable files</li>
+          <li>When someone leaves, their carefully tuned Copilot setup walks out the door with them</li>
         </ul>
+        <aside class="speaker-notes">
+          Here's the scenario we see in almost every large organization. Copilot is rolled out, developers love it, and productivity goes up. But it goes up unevenly. Senior engineers who already understand the codebase write excellent prompts and get excellent results. Junior developers, who would arguably benefit the most, struggle to get the same quality. Meanwhile, different teams adopt completely different conventions for how they interact with Copilot. There is no shared playbook, no standard instructions, and no way to capture what's working. When a senior developer leaves the company, all of the context they injected into their Copilot workflow leaves with them. The knowledge was never codified; it was always personal.
+        </aside>
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- ============================================================
+         SLIDE 6 - What Goes Wrong
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Goes Wrong Without Standards</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Inconsistent Output</h3>
+            <p>Copilot generates different patterns, styles, and architectures depending on who asks. Code reviews become a battleground of conflicting conventions.</p>
+          </div>
+          <div class="card">
+            <h3>Duplicated Effort</h3>
+            <p>Teams independently discover the same prompt tricks and instruction patterns. Ten teams solving the same problem ten different ways wastes time and energy.</p>
+          </div>
+        </div>
+        <div class="columns" style="margin-top:1rem">
+          <div class="card">
+            <h3>Slow Onboarding</h3>
+            <p>New developers get zero benefit from Copilot on day one because the AI has no context about team conventions, architecture decisions, or deployment processes.</p>
+          </div>
+          <div class="card">
+            <h3>Knowledge Loss</h3>
+            <p>Tribal knowledge about "how we do things here" stays in individual configurations instead of becoming a shared, version-controlled organizational asset.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Let's break it down into four concrete failure modes. First, inconsistent output: Copilot generates whatever aligns with the prompting style of the person asking, which leads to different error handling patterns, different testing approaches, and different architectural choices across teams. Second, duplicated effort: every team independently discovers that you can write a .instructions.md file to standardize behavior, and each team builds their own from scratch. Third, slow onboarding: new developers join and have to learn the team's unwritten rules before Copilot can help them follow those rules. Fourth, knowledge loss: when people leave, everything they knew about the codebase and its conventions goes with them if it was never formalized. All four of these problems have the same root cause: the absence of a shared, centralized set of AI-assistance configurations.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 - Section: Central Prompt Repositories
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>Central Prompt Repositories</h2>
+        <aside class="speaker-notes">
+          Now that we understand the problem, let's talk about the solution. Enter the central prompt repository.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 - What Is a Central Prompt Repo?
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Is a Central Prompt Repository?</h2>
+        <ul>
+          <li>A <strong>dedicated GitHub repository</strong> that stores shared prompt files, instructions, skills, and agent definitions</li>
+          <li>Owned and maintained like any other critical piece of infrastructure</li>
+          <li>Version-controlled, reviewed through pull requests, and distributed to every project</li>
+          <li>The single source of truth for "how AI-assisted development works at our organization"</li>
+          <li>Think of it as your company's <strong>AI playbook</strong>, encoded in files that Copilot can read</li>
+        </ul>
+        <aside class="speaker-notes">
+          A central prompt repository is exactly what it sounds like: a GitHub repository dedicated to storing all of the files that configure and standardize how your organization uses AI-assisted development tools. It contains .prompt.md files, .instructions.md files, SKILL.md files, and .agent.md files. We will walk through each of these in a moment. The key idea is that this repo is treated as shared infrastructure. Changes go through pull requests. Releases are tagged and versioned. Every project in the organization pulls from this single source of truth. Think of it as the codified version of all those unwritten rules that senior developers carry in their heads. Once it's in the central repo, Copilot can read it, and every developer benefits from it automatically.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 - The Four File Types
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Four File Types</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>.prompt.md</h3>
+            <p>Reusable prompt templates that Copilot Chat can execute. Define input variables, model preferences, and step-by-step instructions for common tasks.</p>
+          </div>
+          <div class="card">
+            <h3>.instructions.md</h3>
+            <p>Persistent rules that Copilot follows whenever it generates code. Set coding standards, naming conventions, and architectural guidelines.</p>
+          </div>
+        </div>
+        <div class="columns" style="margin-top:1rem">
+          <div class="card">
+            <h3>SKILL.md</h3>
+            <p>Domain-specific knowledge packages. Encode deep expertise about your infrastructure, deployment processes, or business rules so Copilot can reference them.</p>
+          </div>
+          <div class="card">
+            <h3>.agent.md</h3>
+            <p>Custom agent definitions with specific roles, tools, and instructions. Create virtual team members like a security reviewer or DevOps assistant.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          The central prompt repo contains four types of files, each serving a distinct purpose. First, .prompt.md files are reusable prompt templates. They define a structured prompt with input variables, a preferred model, and step-by-step instructions. Developers invoke them from Copilot Chat and fill in the blanks. Second, .instructions.md files are persistent rules. When Copilot generates code, it follows whatever instructions are active, such as coding standards, error handling patterns, or testing requirements. Third, SKILL.md files are knowledge packages. They encode domain-specific expertise so Copilot understands your deployment pipeline, your database schema, or your microservice boundaries. Fourth, .agent.md files define custom agents with specific roles, tool access, and behavioral guidelines. Together, these four file types cover the full spectrum of AI-assisted development: from one-off tasks to always-on rules to deep expertise to specialized personas.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 - Section: Organizing the Repository
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>Organizing Your Repository</h2>
+        <aside class="speaker-notes">
+          Let's get practical. How do you actually structure a central prompt repository so it's easy to navigate, maintain, and scale?
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - Folder Structure
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Recommended Folder Structure</h2>
+        <pre><code>central-prompts/
+├── .github/
+│   └── copilot-instructions.md    # Org-wide defaults
+├── instructions/
+│   ├── languages/
+│   │   ├── typescript.instructions.md
+│   │   ├── python.instructions.md
+│   │   └── csharp.instructions.md
+│   ├── frameworks/
+│   │   ├── react.instructions.md
+│   │   └── dotnet-api.instructions.md
+│   └── practices/
+│       ├── testing.instructions.md
+│       └── error-handling.instructions.md
+├── prompts/
+│   ├── code-review.prompt.md
+│   ├── test-generation.prompt.md
+│   └── migration-assistant.prompt.md
+├── skills/
+│   ├── deployment-pipeline/SKILL.md
+│   └── database-patterns/SKILL.md
+└── agents/
+    ├── security-reviewer.agent.md
+    └── devops-assistant.agent.md</code></pre>
+        <aside class="speaker-notes">
+          Here is a recommended folder structure that has worked well across organizations of various sizes. At the root, you have a .github folder with a copilot-instructions.md file that defines organization-wide defaults. These are the baseline rules that apply everywhere. Under the instructions folder, you organize by category: languages, frameworks, and practices. This makes it easy for a team working in TypeScript with React to pull in the relevant instruction files without getting Python or C# rules mixed in. The prompts folder contains reusable prompt templates for common tasks like code review, test generation, and migration assistance. Skills and agents each get their own top-level folder. The key principle here is discoverability: a developer should be able to browse the repo and quickly find what they need. Keep names descriptive and group related files together.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 - Naming Conventions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Naming Conventions and Best Practices</h2>
+        <ul>
+          <li><strong>Use kebab-case</strong> for file names: <code>code-review.prompt.md</code>, not <code>CodeReview.prompt.md</code></li>
+          <li><strong>Include the file type suffix</strong> before <code>.md</code>: <code>.prompt.md</code>, <code>.instructions.md</code>, <code>.agent.md</code></li>
+          <li><strong>One concern per file</strong>: don't put TypeScript rules and testing rules in the same instructions file</li>
+          <li><strong>Add a README.md</strong> at the repo root and in each major folder explaining the contents</li>
+          <li><strong>Include a CHANGELOG.md</strong> so consumers know what changed between versions</li>
+          <li><strong>Tag releases</strong> with semantic versioning: <code>v1.0.0</code>, <code>v1.1.0</code>, <code>v2.0.0</code></li>
+        </ul>
+        <aside class="speaker-notes">
+          Naming conventions matter more than you might think, especially at scale. Use kebab-case for all file names to keep them consistent and URL-friendly. Always include the file type suffix before the .md extension so both humans and tools can identify the purpose at a glance. Follow the one-concern-per-file principle. If you put TypeScript coding standards and testing conventions in the same .instructions.md file, teams that use TypeScript but have their own testing framework can't pick one without the other. Keep things modular. Add README files in every major folder so developers can understand the purpose and usage of each section without reading every file. Include a CHANGELOG at the root so that when you release a new version, consumers know exactly what changed. And tag your releases with semantic versioning so downstream projects can pin to a specific version or range.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 - Section: Distribution Models
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Distribution Models</h2>
+        <aside class="speaker-notes">
+          You have a well-organized central prompt repo. Now, how do you get those files into every project that needs them? Let's look at the distribution options.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 14 - Distribution Options
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Distribution Approaches</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Git Submodules</h3>
+            <p>Add the central repo as a git submodule. Each project pins to a specific commit or tag. Updates are explicit and controlled.</p>
+            <pre><code>git submodule add \
+  https://github.com/org/central-prompts \
+  .copilot/shared</code></pre>
+          </div>
+          <div class="card">
+            <h3>npm / Package Registry</h3>
+            <p>Publish prompt files as an npm package (or NuGet, PyPI, etc.). Projects install and update through their existing dependency workflow.</p>
+            <pre><code>npm install @org/copilot-prompts \
+  --save-dev</code></pre>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          There are four main strategies for distributing central prompt files, and the right one depends on your organization's existing workflows. The first option is git submodules. You add the central repo as a submodule in each consuming project, typically under a .copilot/shared directory. Each project pins to a specific commit or tag, which means updates are explicit. Developers run git submodule update to pull in new versions. The second option is publishing an npm package, or whatever package registry your ecosystem uses. This approach fits naturally into projects that already manage dependencies through a package manager. You install the package as a dev dependency, and updates are handled through the standard version resolution process. Both of these approaches support versioning, which is critical for enterprise environments where you cannot afford to have untested prompt changes break production workflows.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 - More Distribution Options
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>More Distribution Approaches</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Symlinks</h3>
+            <p>Clone the central repo alongside project repos and symlink specific files or folders. Fast and flexible for monorepo or multi-repo setups.</p>
+            <pre><code># In project root
+ln -s ../central-prompts/instructions \
+  .github/instructions</code></pre>
+          </div>
+          <div class="card">
+            <h3>Copy-on-Clone</h3>
+            <p>Use a post-clone script or GitHub Action to copy prompt files into each project. Simple to understand, but requires a sync mechanism to stay current.</p>
+            <pre><code># In .github/scripts/sync-prompts.sh
+curl -sL https://github.com/org/\
+central-prompts/archive/v2.1.0.tar.gz \
+  | tar xz --strip-components=1 \
+  -C .copilot/shared</code></pre>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          The third option is symlinks. If your organization uses a monorepo or has a standard directory layout where repos live side by side, you can clone the central prompt repo alongside your project repos and create symlinks to the specific folders or files you need. This approach is fast and flexible, but it does require that the central repo is present on disk. The fourth option is copy-on-clone: you run a script, either manually, as a post-clone hook, or through a GitHub Action, that copies the latest prompt files into the project. This is the simplest approach to understand, but it requires a sync mechanism to keep the copies current. Without automation, copies drift out of date quickly. Each approach has trade-offs, and we will compare them on the next slide.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 - Choosing the Right Approach
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Choosing the Right Distribution Model</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Approach</th>
+              <th>Version Pinning</th>
+              <th>Setup Cost</th>
+              <th>Update Mechanism</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Git Submodules</td>
+              <td>Commit/tag</td>
+              <td>Medium</td>
+              <td><code>git submodule update</code></td>
+              <td>Teams familiar with git workflows</td>
+            </tr>
+            <tr>
+              <td>npm Package</td>
+              <td>SemVer range</td>
+              <td>Low</td>
+              <td><code>npm update</code></td>
+              <td>Node.js / front-end ecosystems</td>
+            </tr>
+            <tr>
+              <td>Symlinks</td>
+              <td>Branch/tag</td>
+              <td>Low</td>
+              <td><code>git pull</code> in linked repo</td>
+              <td>Monorepos and co-located repos</td>
+            </tr>
+            <tr>
+              <td>Copy-on-Clone</td>
+              <td>Script-defined</td>
+              <td>Low</td>
+              <td>Re-run sync script</td>
+              <td>Simple setups, small organizations</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          This comparison table summarizes the trade-offs. Git submodules give you the strongest version pinning because each project locks to a specific commit, but they require familiarity with submodule workflows. npm packages fit naturally into JavaScript and Node.js projects and leverage the existing dependency resolution process. Symlinks are lightweight and work well when repos are co-located, but they assume the central repo clone exists on disk. Copy-on-clone is the simplest to understand and implement, but it requires discipline around running the sync script, or automation to do it for you. In practice, many organizations start with copy-on-clone for simplicity and migrate to git submodules or npm packages as their prompt library matures and version control becomes more important.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 - Section: Governance
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Governance</h2>
+        <aside class="speaker-notes">
+          Distribution gets the files to developers. Governance makes sure those files are trustworthy, well-maintained, and evolving in the right direction.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Ownership and Maintenance
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Ownership and Maintenance</h2>
+        <ul>
+          <li><strong>Designate a maintainer team:</strong> a cross-functional group of senior engineers from different stacks</li>
+          <li><strong>Use CODEOWNERS:</strong> require approval from maintainers for changes to specific directories</li>
+          <li><strong>Accept contributions from anyone:</strong> any developer can open a PR to propose a new prompt or improve an existing one</li>
+          <li><strong>Rotate reviewers:</strong> prevent bottlenecks by distributing review responsibility across the maintainer team</li>
+          <li><strong>Schedule quarterly reviews:</strong> audit the entire repo to retire stale prompts and update conventions for new tooling</li>
+        </ul>
+        <pre><code># .github/CODEOWNERS
+/instructions/languages/   @org/lang-standards-team
+/instructions/frameworks/   @org/framework-leads
+/agents/                    @org/platform-engineering
+/skills/                    @org/architecture-team</code></pre>
+        <aside class="speaker-notes">
+          Governance starts with clear ownership. Designate a maintainer team made up of senior engineers from different parts of the organization. They don't write every prompt; they review and approve contributions. Use a CODEOWNERS file to enforce that changes to specific directories require approval from the right people. Language-specific instructions should be reviewed by the language standards team. Agent definitions should go through platform engineering. At the same time, keep the contribution process open. Any developer should be able to open a PR to propose a new prompt template or improve an existing instruction file. This keeps the repo alive and reflective of real team needs. Rotate reviewers within the maintainer team to prevent any single person from becoming a bottleneck. And schedule quarterly reviews to clean house: retire prompts that no one uses, update instructions for new library versions, and realign with any changes in organizational strategy.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 19 - PR Review and Versioning
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>PR Review Process and Versioning</h2>
+        <ul>
+          <li><strong>PR template:</strong> require a description of the change, the intended audience, and test evidence</li>
+          <li><strong>Test evidence:</strong> contributors should show a before/after comparison of Copilot output to prove the prompt works</li>
+          <li><strong>Semantic versioning:</strong> patch for typo fixes, minor for new prompts, major for breaking changes to existing ones</li>
+          <li><strong>Release notes:</strong> every release includes a summary of changes so consumers know what's new</li>
+          <li><strong>Deprecation policy:</strong> mark prompts as deprecated for one release cycle before removing them</li>
+        </ul>
+        <aside class="speaker-notes">
+          The PR review process for a central prompt repo needs to be more rigorous than a typical code review, because these files affect every project in the organization. Start with a PR template that asks contributors to describe what changed, who benefits, and what evidence they have that the prompt works. Test evidence is especially important: a before/after comparison showing Copilot output with and without the new prompt gives reviewers confidence that the change is meaningful. Use semantic versioning for releases. Typo fixes and minor wording improvements are patches. New prompt templates and new instruction files are minor versions. Changes that modify the behavior of existing prompts, like updating a testing instruction to require a different framework, are major versions. Every release should include release notes so downstream consumers can decide whether to upgrade. And always deprecate before you remove. Mark a prompt as deprecated in one release, then remove it in the next.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 - Section: Template Patterns
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>Template Patterns</h2>
+        <aside class="speaker-notes">
+          Now let's look at the most common prompt templates that organizations include in their central repos. These are the patterns that deliver immediate value.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 21 - Standard Prompt Templates
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Standard Prompt Templates</h2>
+        <pre><code>---
+description: "Generate a code review summary for a pull request"
+mode: "ask"
+tools: ["githubRepo"]
+---
+
+# Code Review Assistant
+
+Review the following code changes and provide:
+
+1. **Summary** of what the PR does in 2-3 sentences
+2. **Potential issues** including bugs, security concerns, and performance
+3. **Style violations** based on our team's coding standards
+4. **Suggestions** for improvement with specific code examples
+
+Focus on substantive issues. Do not flag minor formatting differences
+that an autoformatter would handle.
+
+## Code to Review
+
+${input:diff}</code></pre>
+        <aside class="speaker-notes">
+          Here is an example of a standard code review prompt template. Notice the YAML frontmatter at the top: it declares a description, the mode (ask, in this case), and the tools the prompt requires. The body follows a clear structure with numbered expectations. This is important because when every developer uses the same code review prompt, you get consistent, thorough reviews across the organization. The template tells Copilot exactly what to look for: a summary, potential issues, style violations, and suggestions. You can see the ${input:diff} variable at the bottom, which is where the developer provides the specific code to review. By standardizing this template, you ensure that a junior developer's code review output is as structured and comprehensive as a senior engineer's.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - Test and Documentation Templates
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>More Template Examples</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Test Generation</h3>
+            <pre><code>---
+description: "Generate unit tests"
+mode: "ask"
+---
+
+# Test Generator
+
+Write unit tests for the selected code.
+
+Requirements:
+- Use our standard test framework
+- Include happy path and edge cases
+- Mock external dependencies
+- Follow AAA pattern (Arrange,
+  Act, Assert)
+- Aim for branch coverage, not
+  just line coverage
+
+${input:code}</code></pre>
+          </div>
+          <div class="card">
+            <h3>Documentation</h3>
+            <pre><code>---
+description: "Generate API documentation"
+mode: "ask"
+---
+
+# Documentation Writer
+
+Generate documentation for the
+selected code.
+
+Include:
+- Purpose and usage examples
+- Parameter descriptions with types
+- Return value documentation
+- Error conditions and handling
+- Links to related functions
+
+Use JSDoc or XML doc format
+matching the source language.
+
+${input:code}</code></pre>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Here are two more templates that appear in nearly every central prompt repo. The test generation template enforces your organization's testing standards. Instead of letting each developer write their own prompt for generating tests, you standardize on the Arrange-Act-Assert pattern, require edge case coverage, and specify that external dependencies should be mocked. The documentation template ensures consistent API documentation across the codebase. It specifies what to include: purpose, parameters, return values, error conditions, and related functions. It even adapts the output format to match the source language. The beauty of centralizing these templates is that as your standards evolve, you update one file, release a new version, and every team picks up the improvement. No more chasing individual developers to update their personal prompts.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - Migration Template
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Migration Assistant Template</h2>
+        <pre><code>---
+description: "Guide a framework migration step by step"
+mode: "ask"
+tools: ["codeSearch", "githubRepo"]
+---
+
+# Migration Assistant
+
+Help migrate the selected code from ${input:sourceFramework}
+to ${input:targetFramework}.
+
+## Steps
+
+1. Analyze the existing code and identify framework-specific patterns
+2. List all dependencies that need to change
+3. Provide the migrated code with inline comments explaining each change
+4. Flag any breaking changes or behavioral differences
+5. Suggest tests to verify the migration worked correctly
+
+## Rules
+
+- Preserve existing business logic exactly; only change framework integration
+- Use the target framework's idiomatic patterns, not direct translations
+- If a pattern has no direct equivalent, explain the recommended alternative</code></pre>
+        <aside class="speaker-notes">
+          Migration templates are incredibly valuable for organizations going through technology transitions. This template uses two input variables: the source framework and the target framework. It walks Copilot through a structured migration process: analyze the existing code, identify dependencies, provide the migrated version with explanatory comments, flag breaking changes, and suggest verification tests. The rules section is critical. It tells Copilot to preserve business logic, use idiomatic patterns in the target framework rather than direct translations, and explain alternatives when there's no one-to-one mapping. Without this template, a developer migrating from one framework to another would need to know both frameworks well enough to prompt Copilot effectively. With the template, even a developer who has never used the target framework gets structured, high-quality migration guidance.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Section: Scoped Instructions at Scale
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>Scoped Instructions at Scale</h2>
+        <aside class="speaker-notes">
+          Prompt templates handle one-off tasks. Instructions handle the "always on" rules that Copilot follows every time it generates code. Let's look at how to scope them effectively across a large organization.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Language and Framework Instructions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Language and Framework Instructions</h2>
+        <pre><code># typescript.instructions.md
+---
+applyTo: "**/*.ts,**/*.tsx"
+---
+
+## TypeScript Standards
+
+- Enable strict mode in all projects; never use `any` without explicit justification
+- Prefer `interface` over `type` for object shapes unless a union or intersection is needed
+- Use named exports; avoid default exports for better refactoring support
+- Handle errors with typed Result patterns, not try/catch for expected failures
+- All public functions must include JSDoc comments with @param and @returns tags</code></pre>
+        <pre><code># react.instructions.md
+---
+applyTo: "**/*.tsx,**/*.jsx"
+---
+
+## React Standards
+
+- Use functional components with hooks; never class components
+- Extract custom hooks for reusable stateful logic
+- Colocate component, styles, and tests in the same directory
+- Use React.memo() only when profiling confirms a performance benefit</code></pre>
+        <aside class="speaker-notes">
+          Scoped instructions use the applyTo frontmatter field to target specific file types. The TypeScript instructions file applies to all .ts and .tsx files and sets baseline rules: strict mode, interface over type, named exports, typed error handling, and JSDoc requirements. Notice that these are not arbitrary preferences; they are decisions your organization has already made, now encoded in a file that Copilot reads automatically. The React instructions layer on top, applying specifically to .tsx and .jsx files. They enforce functional components, custom hooks for reusable logic, colocation of component files, and evidence-based performance optimization. A developer working on a React component in TypeScript would get both sets of instructions applied simultaneously, creating a layered standard that covers both the language and the framework.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 - API Design Instructions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>API Design and Architecture Instructions</h2>
+        <pre><code># dotnet-api.instructions.md
+---
+applyTo: "**/Controllers/**,**/Endpoints/**"
+---
+
+## .NET API Design Standards
+
+- Use minimal APIs for simple endpoints; controllers for complex resource management
+- Return IActionResult with consistent response envelopes: { data, errors, meta }
+- Validate input with FluentValidation; never trust client data
+- Use MediatR for command/query separation in controller actions
+- All endpoints require authorization attributes; use [AllowAnonymous] explicitly
+- Include OpenAPI annotations for every endpoint with summary and response types
+- Log structured data with Serilog; include correlation IDs on every request</code></pre>
+        <aside class="speaker-notes">
+          API design instructions are especially valuable because they encode architectural decisions that are otherwise learned through years of experience on the team. This .NET API instruction file scopes to the Controllers and Endpoints directories and sets rules that would normally take a new developer weeks or months to absorb. It specifies when to use minimal APIs versus controllers, requires consistent response envelopes, mandates input validation with a specific library, enforces command/query separation, and requires authorization attributes on every endpoint. These are not generic best practices; they are your organization's specific decisions about how APIs should work. When a developer asks Copilot to generate a new endpoint, these instructions ensure the output matches the existing codebase from the start. No back-and-forth in code review. No inconsistency between teams.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - Section: Skills and Agents
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 8</span>
+        <h2>Skills &amp; Agents</h2>
+        <aside class="speaker-notes">
+          Instructions tell Copilot how to write code. Skills and agents take it further: they give Copilot deep domain knowledge and specialized roles.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Skills as Institutional Knowledge
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Skills as Institutional Knowledge</h2>
+        <pre><code># skills/deployment-pipeline/SKILL.md
+
+# Deployment Pipeline
+
+## Description
+Our deployment pipeline uses GitHub Actions with three stages:
+build, staging, production. This skill encodes the architecture
+decisions and operational requirements for each stage.
+
+## Build Stage
+- Runs on ubuntu-latest with Node 20
+- Executes lint, type-check, unit tests, and integration tests
+- Produces a Docker image tagged with the commit SHA
+- Pushes to our private GitHub Container Registry
+
+## Staging Deployment
+- Auto-deploys on merge to main
+- Runs smoke tests against the staging URL
+- Requires all smoke tests to pass before promotion
+
+## Production Deployment
+- Requires manual approval from on-call engineer
+- Uses blue-green deployment with 10% canary traffic
+- Automatic rollback if error rate exceeds 1% in 5 minutes</code></pre>
+        <aside class="speaker-notes">
+          Skills are where you encode the deep institutional knowledge that normally lives in senior engineers' heads. This deployment pipeline skill documents the entire three-stage deployment process: build, staging, and production. It includes specifics like the runner image, the test requirements, the Docker tagging strategy, the staging auto-deploy trigger, and the production canary/rollback thresholds. When a developer asks Copilot to help with deployment configuration, troubleshoot a failing pipeline, or set up a new service's CI/CD workflow, Copilot can reference this skill and provide guidance that matches your actual infrastructure. Without this skill, Copilot would generate generic deployment advice. With it, Copilot generates advice that is specific to your organization. This is the difference between a helpful tool and a knowledgeable team member.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 29 - Agents as Team Roles
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Agents as Team Roles</h2>
+        <pre><code># agents/security-reviewer.agent.md
+---
+description: "Reviews code for security vulnerabilities"
+tools: ["githubRepo", "codeSearch"]
+---
+
+# Security Reviewer
+
+You are a senior application security engineer. Review code
+for OWASP Top 10 vulnerabilities, authentication/authorization
+issues, and data exposure risks.
+
+## Instructions
+- Check for SQL injection, XSS, and command injection
+- Verify that all user input is validated and sanitized
+- Confirm that secrets are never hardcoded or logged
+- Review authorization checks on every endpoint
+- Flag any use of deprecated cryptographic algorithms
+- Reference our security standards in skills/security-baseline</code></pre>
+        <aside class="speaker-notes">
+          Agents bring a persona to Copilot. Instead of asking Copilot a general question, a developer can invoke the security reviewer agent, which is pre-configured with the mindset, expertise, and checklist of a senior security engineer. This agent definition tells Copilot to focus on OWASP Top 10 vulnerabilities, check authentication and authorization patterns, verify that secrets are not exposed, and reference the organization's security baseline skill for specific standards. You can create agents for any role: a DevOps assistant that helps with infrastructure configuration, a migration assistant that guides developers through framework upgrades, a documentation writer that ensures consistency, or an accessibility reviewer that checks UI components. The key insight is that agents combine a role definition with tool access and knowledge references. They are not just prompts; they are specialized configurations that make Copilot behave like a specific kind of expert.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 30 - More Agent Examples
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>More Agent Examples</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>DevOps Assistant</h3>
+            <ul>
+              <li>Helps configure CI/CD pipelines and GitHub Actions workflows</li>
+              <li>References the deployment-pipeline skill for org-specific patterns</li>
+              <li>Suggests infrastructure-as-code changes for new services</li>
+              <li>Troubleshoots build failures using log analysis</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Migration Assistant</h3>
+            <ul>
+              <li>Guides framework upgrades step by step</li>
+              <li>Maps old patterns to new equivalents with explanations</li>
+              <li>Generates codemods for repetitive transformations</li>
+              <li>Creates verification test suites for migrated code</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Beyond the security reviewer, here are two more agents that organizations commonly include. The DevOps assistant is configured with access to your deployment pipeline skill and understands your organization's infrastructure patterns. When a developer needs to set up a new service, configure a GitHub Actions workflow, or troubleshoot a failed build, this agent provides guidance that matches your actual infrastructure rather than generic advice. The migration assistant is invaluable during technology transitions. It understands both the source and target frameworks, maps old patterns to new equivalents with clear explanations, and can even generate codemods for repetitive code transformations. It also creates verification test suites so developers can confirm their migrations are correct. The pattern here is clear: identify the roles that developers frequently need help with, and create agents that serve those roles with your organization's specific context baked in.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 31 - Onboarding Acceleration
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Onboarding Acceleration</h2>
+        <ul>
+          <li><strong>Day one productivity:</strong> new developers clone a project and immediately get AI assistance that follows team conventions</li>
+          <li><strong>No tribal knowledge gap:</strong> the central repo encodes the "how we do things here" that normally takes months to learn</li>
+          <li><strong>Self-service learning:</strong> developers can read the instruction files to understand team standards, not just follow them</li>
+          <li><strong>Reduced code review friction:</strong> Copilot-generated code already follows team patterns, so reviews focus on logic, not style</li>
+          <li><strong>Faster ramp-up on new stacks:</strong> scoped instructions guide developers through unfamiliar languages and frameworks</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is where the investment in a central prompt repo pays its biggest dividend: onboarding. Consider what happens today when a new developer joins your team. They clone the repo, set up their environment, and then spend weeks or months learning the unwritten rules. Which patterns does this team prefer? How do we handle errors? What does our deployment pipeline look like? With a central prompt repo, all of that is encoded in files. On day one, the new developer gets Copilot assistance that already knows the team's conventions, architecture decisions, and deployment processes. They don't have to learn the rules first; Copilot applies the rules for them while they learn. The instruction files also serve as documentation. A new developer can read typescript.instructions.md to understand the team's TypeScript standards. They can read the deployment pipeline skill to understand CI/CD. The central prompt repo becomes both an AI configuration and a living knowledge base.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 32 - Measuring Effectiveness
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Measuring Effectiveness</h2>
+        <ul>
+          <li><strong>Copilot acceptance rate:</strong> track how often developers accept vs. dismiss suggestions before and after adopting central prompts</li>
+          <li><strong>Code review cycle time:</strong> measure whether reviews get faster because generated code already follows standards</li>
+          <li><strong>Onboarding time-to-first-PR:</strong> compare how quickly new developers submit their first production PR</li>
+          <li><strong>Style violation rate:</strong> count linter and code review comments related to conventions that should be in instructions</li>
+          <li><strong>Prompt repo engagement:</strong> track PR activity, issue count, and download/clone metrics on the central repo itself</li>
+          <li><strong>Developer satisfaction surveys:</strong> ask developers whether the central prompts make them more productive</li>
+        </ul>
+        <aside class="speaker-notes">
+          You need to measure the impact of your central prompt repo to justify continued investment and identify opportunities for improvement. Start with the Copilot acceptance rate: if developers are accepting a higher percentage of suggestions after adopting the central prompts, that's a strong signal that the prompts are producing better, more relevant output. Code review cycle time is another key metric. If reviews are getting faster because the generated code already follows team standards, the central prompts are working. Track onboarding time-to-first-PR to see whether new developers ramp up faster. Monitor style violation rates in code reviews; a decreasing count of "we don't do it that way" comments means the instructions are effective. Finally, track engagement with the prompt repo itself: PR activity, issue count, and clone metrics tell you whether the developer community is actively contributing and consuming.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 33 - CI/CD Integration
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>CI/CD Integration</h2>
+        <ul>
+          <li><strong>Prompt validation in CI:</strong> lint .prompt.md and .instructions.md files for valid YAML frontmatter and correct structure</li>
+          <li><strong>Automated distribution:</strong> use GitHub Actions to sync prompt updates to consuming repositories on release</li>
+          <li><strong>Version compatibility checks:</strong> verify that consuming projects reference a supported version of the central repo</li>
+          <li><strong>Changelog generation:</strong> auto-generate release notes from PR titles and descriptions</li>
+        </ul>
+        <pre><code># .github/workflows/validate-prompts.yml
+name: Validate Prompt Files
+on: [pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate YAML frontmatter
+        run: |
+          find . -name "*.prompt.md" -o -name "*.instructions.md" \
+            | xargs -I {} node scripts/validate-frontmatter.js {}
+      - name: Check file naming conventions
+        run: node scripts/check-naming.js</code></pre>
+        <aside class="speaker-notes">
+          The central prompt repo should be part of your CI/CD pipeline, both for its own quality and for distributing updates. On the quality side, add validation steps to every PR: check that YAML frontmatter is valid, file names follow naming conventions, and required fields like description and applyTo are present. On the distribution side, use GitHub Actions to automatically push updates to consuming repositories when a new version is released. You can publish the npm package, update submodule references, or trigger sync scripts across projects. Version compatibility checks help you catch situations where a consuming project pins to an old, unsupported version of the central repo. And automated changelog generation from PR titles gives you release notes without manual effort. The goal is to make the central prompt repo feel like any other well-maintained library: tested, versioned, and reliably delivered.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 34 - Section: Summary
+         ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--green">Summary</span>
-        <h2>Wrap-Up &amp; Next Steps</h2>
+        <h2>Wrap-Up &amp; Key Takeaways</h2>
+        <aside class="speaker-notes">
+          Let's bring it all together and review the key takeaways from today's session.
+        </aside>
       </div>
     </section>
 
-    <!-- Closing -->
+    <!-- ============================================================
+         SLIDE 35 - Key Takeaways
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li><strong>Centralize to standardize:</strong> a shared prompt repo eliminates inconsistency and duplication across teams</li>
+          <li><strong>Four file types:</strong> .prompt.md, .instructions.md, SKILL.md, and .agent.md cover every aspect of AI-assisted development</li>
+          <li><strong>Organize for discoverability:</strong> use clear folder structures, kebab-case naming, and one concern per file</li>
+          <li><strong>Distribute through existing workflows:</strong> git submodules, npm packages, symlinks, or copy-on-clone</li>
+          <li><strong>Govern like infrastructure:</strong> CODEOWNERS, PR reviews with test evidence, semantic versioning, and quarterly audits</li>
+          <li><strong>Encode institutional knowledge:</strong> skills capture tribal knowledge; agents create specialized virtual team members</li>
+          <li><strong>Measure and iterate:</strong> track acceptance rates, review cycle times, and onboarding metrics to prove value and improve</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here are the seven takeaways I want you to walk away with today. First, centralizing your prompt files eliminates the inconsistency and duplicated effort that plague organizations where every developer builds their own Copilot setup. Second, the four file types give you complete coverage: prompt templates for tasks, instructions for always-on rules, skills for deep knowledge, and agents for specialized roles. Third, organization matters. A well-structured repo with clear naming and README files makes it easy for developers to find and use what they need. Fourth, distribution should fit your existing workflows. You don't need to invent a new delivery mechanism. Fifth, governance keeps the repo trustworthy. Treat it like any other critical piece of infrastructure with code owners, reviews, and versioning. Sixth, skills and agents are your competitive advantage. They encode the deep organizational knowledge that no generic tool can provide. Seventh, measure everything. Data tells you what's working, what's not, and where to invest next.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 36 - Getting Started Checklist
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Getting Started Checklist</h2>
+        <ul>
+          <li>&#9744; Create a new GitHub repository with the recommended folder structure</li>
+          <li>&#9744; Write a <code>copilot-instructions.md</code> with your org-wide baseline rules</li>
+          <li>&#9744; Add 2-3 instruction files for your most-used languages and frameworks</li>
+          <li>&#9744; Create one prompt template for your most common task (code review is a great start)</li>
+          <li>&#9744; Encode one piece of tribal knowledge as a SKILL.md file</li>
+          <li>&#9744; Set up CODEOWNERS and a PR template</li>
+          <li>&#9744; Choose a distribution model and wire it into one pilot project</li>
+          <li>&#9744; Measure baseline metrics before rollout so you can show impact afterward</li>
+        </ul>
+        <aside class="speaker-notes">
+          If you're ready to get started, here is a practical checklist you can follow. You don't need to build the entire central prompt repo on day one. Start small: create the repository, add a copilot-instructions.md with your baseline rules, and write instruction files for your most-used languages and frameworks. Create one prompt template for the task your team performs most frequently; code review is a great starting point because every team does it. Then encode one piece of tribal knowledge as a SKILL.md file. Maybe it's your deployment pipeline, your database migration process, or your API design patterns. Set up governance early with CODEOWNERS and a PR template so that good habits form from the beginning. Choose one distribution model and wire it into a single pilot project. Finally, measure your baselines before you roll out so you have data to show the impact later. Start small, prove value, then expand.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 37 - Closing
+         ============================================================ -->
     <section class="slide slide--title">
       <div class="slide-inner">
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          Thank you for spending this hour with us. Central prompt repositories are one of the highest-impact investments an organization can make when scaling AI-assisted development. The patterns we covered today are battle-tested across enterprises of all sizes. If you have questions, reach out on Teams, open an issue in the course repository, or connect with your platform engineering team to discuss how to get started. Good luck building your organization's AI playbook.
+        </aside>
       </div>
     </section>
 
