@@ -49,7 +49,7 @@
           <li><strong>Copilot's Context Model</strong> - How Copilot understands code in one repo vs. many</li>
           <li><strong>Cross-Repo Challenges</strong> - Shared libraries, microservices, and consistency gaps</li>
           <li><strong>Org-Level Custom Instructions</strong> - Scaling copilot-instructions.md across your org</li>
-          <li><strong>Knowledge Bases &amp; Indexing</strong> - Giving Copilot cross-repo awareness</li>
+          <li><strong>Repository-Indexed Search</strong> - Giving Copilot cross-repo awareness</li>
           <li><strong>MCP Servers as Cross-Repo Bridges</strong> - Building tools that fetch context from other repos</li>
           <li><strong>Copilot Coding Agent Across Repos</strong> - Running agents on multi-repo issues</li>
           <li><strong>Multi-Agent Orchestration</strong> - Manual coordination patterns using GitHub Actions and custom workflows, not built-in Copilot orchestration</li>
@@ -57,7 +57,7 @@
           <li><strong>The Evolving Landscape</strong> - What's changing and what to watch for</li>
         </ul>
         <aside class="speaker-notes">
-          Here is our roadmap. We start by grounding the conversation in the enterprise reality of multi-repo architectures and why this matters for AI-assisted development. Then we explore how Copilot's context model works at the single-repo level before expanding into cross-repo strategies. The middle section covers practical techniques: custom instructions at org level, knowledge bases, MCP servers, and the coding agent. We then move into orchestration patterns, which are manual coordination techniques built with GitHub Actions and custom workflows rather than a built-in Copilot feature. The final sections cover governance (critical for enterprise adoption) and the evolving landscape, which ties directly into the Departing badge for this course. Some of these capabilities are actively being refined or replaced by newer approaches.
+          Here is our roadmap. We start by grounding the conversation in the enterprise reality of multi-repo architectures and why this matters for AI-assisted development. Then we explore how Copilot's context model works at the single-repo level before expanding into cross-repo strategies. The middle section covers practical techniques: custom instructions at org level, repository-indexed search, MCP servers, and the coding agent. We then move into orchestration patterns, which are manual coordination techniques built with GitHub Actions and custom workflows rather than a built-in Copilot feature. The final sections cover governance (critical for enterprise adoption) and the evolving landscape, which ties directly into the Departing badge for this course. Some of these capabilities are actively being refined or replaced by newer approaches.
         </aside>
       </div>
     </section>
@@ -273,43 +273,43 @@
     </section>
 
     <!-- ============================================================
-         SLIDE 15 - Section: Knowledge Bases & Cross-Repo Context
+         SLIDE 15 - Section: Repository-Indexed Search & Cross-Repo Context
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge">Part 4</span>
-        <h2>Knowledge Bases &amp; Cross-Repo Context</h2>
+        <h2>Repository-Indexed Search &amp; Cross-Repo Context</h2>
         <aside class="speaker-notes">
-          Beyond instructions, Copilot offers knowledge bases as a way to provide richer, document-level context across repositories. Let's look at how these work and where they fit.
+          Beyond instructions, Copilot offers repository-indexed search as a way to provide richer, document-level context across repositories. Let's look at how this works and where it fits.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 16 - Copilot Knowledge Bases
+         SLIDE 16 - Repository-Indexed Search
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Copilot Knowledge Bases</h2>
+        <h2>Repository-Indexed Search</h2>
         <ul>
-          <li><strong>What they are:</strong> Collections of documentation that Copilot can search and reference in chat (Copilot Enterprise feature; not available on all plans)</li>
-          <li><strong>Sources:</strong> Markdown documentation from one or more GitHub repositories</li>
+          <li><strong>What it is:</strong> Copilot can search across indexed repositories in the organization (Copilot Enterprise feature; not available on all plans)</li>
+          <li><strong>Sources:</strong> Code and documentation from indexed GitHub repositories</li>
           <li><strong>Scope:</strong> Available across the organization, not limited to a single repo</li>
           <li><strong>Use case:</strong> Architecture decisions, API contracts, onboarding guides, and runbooks</li>
-          <li><strong>Access:</strong> Referenced in Copilot Chat via the knowledge base search feature</li>
+          <li><strong>Access:</strong> Referenced in Copilot Chat via cross-repo search</li>
         </ul>
         <aside class="speaker-notes">
-          Copilot Knowledge Bases are a Copilot Enterprise feature, not available on all plans. They let you index collections of Markdown documentation from across your organization's repositories. Unlike repo-level indexing, knowledge bases are explicitly cross-repo: you can include docs from your API gateway repo, your design system repo, your infrastructure repo, and your architecture decision records all in one searchable collection. When developers ask Copilot questions in chat, it can search the knowledge base for relevant documentation. This is particularly powerful for onboarding, architecture decisions, and understanding cross-service contracts. Note that knowledge bases work with Markdown content; they are optimized for documentation rather than source code.
+          Repository-indexed search is a Copilot Enterprise feature, not available on all plans. It lets Copilot search across indexed repositories in your organization. This is explicitly cross-repo: indexed repositories can include your API gateway repo, your design system repo, your infrastructure repo, and your architecture decision records, all searchable from Copilot Chat. When developers ask Copilot questions, it can search across these indexed repos for relevant content. This is particularly powerful for onboarding, architecture decisions, and understanding cross-service contracts.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 17 - Building Effective Knowledge Bases
+         SLIDE 17 - Maximizing Repository-Indexed Search
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Building Effective Knowledge Bases</h2>
+        <h2>Maximizing Repository-Indexed Search</h2>
         <ul>
           <li><strong>Architecture Decision Records (ADRs):</strong> Why your team chose specific patterns and technologies</li>
           <li><strong>API contracts:</strong> OpenAPI specs and interface documentation for each service</li>
@@ -318,7 +318,7 @@
           <li><strong>Onboarding docs:</strong> Team-specific setup guides and "how we work" documentation</li>
         </ul>
         <aside class="speaker-notes">
-          The value of a knowledge base depends entirely on what you put in it. Start with Architecture Decision Records; these give Copilot the "why" behind your technical choices, so it can make suggestions that align with your intent. API contracts are essential for cross-service work because they tell Copilot the exact shape of interfaces between services. Shared library documentation ensures Copilot suggests your internal tools rather than generic alternatives. Runbooks give Copilot operational context for infrastructure and DevOps tasks. Keep the documentation current through your regular PR workflow. Stale documentation in a knowledge base can actively mislead Copilot, so treat knowledge base maintenance as a first-class engineering activity.
+          The value of repository-indexed search depends entirely on how your repositories are organized. Start with Architecture Decision Records; these give Copilot the "why" behind your technical choices, so it can make suggestions that align with your intent. API contracts are essential for cross-service work because they tell Copilot the exact shape of interfaces between services. Shared library documentation ensures Copilot suggests your internal tools rather than generic alternatives. Runbooks give Copilot operational context for infrastructure and DevOps tasks. Keep the documentation current through your regular PR workflow. Stale documentation in indexed repositories can actively mislead Copilot, so treat repository organization as a first-class engineering activity.
         </aside>
       </div>
     </section>
@@ -676,12 +676,12 @@ server.tool(
         <ul>
           <li><strong>Native multi-repo agent sessions:</strong> Agents that can read and write across repos in a single session</li>
           <li><strong>Improved context windows:</strong> Larger context enables more cross-repo information per request</li>
-          <li><strong>Organizational memory:</strong> Persistent context about your org's architecture and decisions (Knowledge Bases already partially address this; no distinct feature has been announced)</li>
+          <li><strong>Organizational memory:</strong> Persistent context about your org's architecture and decisions (repository-indexed search already partially addresses this; no distinct feature has been announced)</li>
           <li><strong>Agent-to-agent communication:</strong> Protocols for agents to coordinate directly (speculative; no known GitHub roadmap item)</li>
           <li><strong>Declarative orchestration:</strong> Define multi-repo workflows in configuration rather than code (speculative; not an announced feature)</li>
         </ul>
         <aside class="speaker-notes">
-          Here are the specific developments to monitor. Native multi-repo agent sessions would eliminate the need for the workarounds we discussed around issue-based coordination. Larger context windows in underlying models mean more cross-repo information can be included per request. Organizational memory, a persistent knowledge layer about your architecture and decisions, could replace manual knowledge base curation, though Knowledge Bases already partially address this need and no distinct feature has been announced. Agent-to-agent communication protocols could enable the coordinator pattern without custom workflows, but there is no known GitHub roadmap item for this. Declarative orchestration, defining multi-repo workflows in a configuration file, is also speculative and has not been announced. If any of these capabilities arrive, revisit the patterns in this course and simplify where possible.
+          Here are the specific developments to monitor. Native multi-repo agent sessions would eliminate the need for the workarounds we discussed around issue-based coordination. Larger context windows in underlying models mean more cross-repo information can be included per request. Organizational memory, a persistent knowledge layer about your architecture and decisions, could replace manual curation of indexed repositories, though repository-indexed search already partially addresses this need and no distinct feature has been announced. Agent-to-agent communication protocols could enable the coordinator pattern without custom workflows, but there is no known GitHub roadmap item for this. Declarative orchestration, defining multi-repo workflows in a configuration file, is also speculative and has not been announced. If any of these capabilities arrive, revisit the patterns in this course and simplify where possible.
         </aside>
       </div>
     </section>
@@ -694,14 +694,14 @@ server.tool(
         <h2>Practical Recommendations Today</h2>
         <ul>
           <li><strong>Start with org-level instructions:</strong> Lowest effort, highest immediate impact</li>
-          <li><strong>Build a knowledge base:</strong> Index your architecture docs, API specs, and onboarding guides</li>
+          <li><strong>Organize searchable repositories:</strong> Structure your architecture docs, API specs, and onboarding guides in indexed repositories</li>
           <li><strong>Deploy the GitHub MCP Server:</strong> Get cross-repo file access in Copilot Chat immediately</li>
           <li><strong>Prototype one fan-out workflow:</strong> Pick a common cross-repo task and automate it</li>
           <li><strong>Establish governance early:</strong> Set up access controls and audit processes before scaling agents</li>
           <li><strong>Stay current:</strong> Follow GitHub's Copilot changelog for new cross-repo capabilities</li>
         </ul>
         <aside class="speaker-notes">
-          Given the evolving landscape, here is a pragmatic approach. Start with org-level custom instructions because they require minimal effort and deliver immediate value across all repos. Build a knowledge base from your existing architecture documentation; do not create new docs, just index what you have. Deploy the official GitHub MCP Server to give Copilot Chat cross-repo file access right away. Then pick one specific cross-repo task your team performs regularly, like updating an API client across services, and build a fan-out automation for it. Establish your governance model early; it is much easier to set up access controls and audit processes before you have dozens of agent workflows running. Finally, stay current with GitHub's Copilot changelog because new capabilities are shipping regularly that may simplify or replace the patterns you have built.
+          Given the evolving landscape, here is a pragmatic approach. Start with org-level custom instructions because they require minimal effort and deliver immediate value across all repos. Organize your architecture documentation in indexed repositories; do not create new docs, just structure what you have for effective search. Deploy the official GitHub MCP Server to give Copilot Chat cross-repo file access right away. Then pick one specific cross-repo task your team performs regularly, like updating an API client across services, and build a fan-out automation for it. Establish your governance model early; it is much easier to set up access controls and audit processes before you have dozens of agent workflows running. Finally, stay current with GitHub's Copilot changelog because new capabilities are shipping regularly that may simplify or replace the patterns you have built.
         </aside>
       </div>
     </section>
@@ -728,13 +728,13 @@ server.tool(
         <ul>
           <li>Multi-repo is the enterprise reality; Copilot's context model is repo-scoped by default</li>
           <li>Org-level custom instructions create consistency across all repos with minimal effort</li>
-          <li>Knowledge bases bridge the documentation gap; MCP servers bridge the code gap</li>
+          <li>Repository-indexed search bridges the documentation gap; MCP servers bridge the code gap</li>
           <li>The coding agent works per-repo, but orchestration patterns enable multi-repo workflows</li>
           <li>Governance, access controls, and audit trails must scale alongside agent adoption</li>
           <li>The landscape is evolving; invest in portable patterns and stay current with platform changes</li>
         </ul>
         <aside class="speaker-notes">
-          Let's recap the key messages. First, multi-repo architectures are the default in enterprise environments, and Copilot's context is scoped to individual repositories by default. Bridging that gap requires deliberate strategy. Second, org-level custom instructions are your most impactful first step because they create consistency across every repo with a single file. Third, knowledge bases give Copilot access to documentation across repos, while MCP servers give it access to live code and data. Fourth, the coding agent operates per-repo, but you can build orchestration patterns using GitHub Actions, issue templates, and tracking issues. Fifth, governance is not optional; establish access controls and audit processes early. Sixth, this landscape is evolving fast, so invest in portable patterns that will remain useful as native capabilities expand.
+          Let's recap the key messages. First, multi-repo architectures are the default in enterprise environments, and Copilot's context is scoped to individual repositories by default. Bridging that gap requires deliberate strategy. Second, org-level custom instructions are your most impactful first step because they create consistency across every repo with a single file. Third, repository-indexed search gives Copilot access to documentation across repos, while MCP servers give it access to live code and data. Fourth, the coding agent operates per-repo, but you can build orchestration patterns using GitHub Actions, issue templates, and tracking issues. Fifth, governance is not optional; establish access controls and audit processes early. Sixth, this landscape is evolving fast, so invest in portable patterns that will remain useful as native capabilities expand.
         </aside>
       </div>
     </section>

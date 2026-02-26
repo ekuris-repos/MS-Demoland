@@ -426,7 +426,7 @@
         <div class="columns">
           <div class="card">
             <h3>Sequential Pipeline</h3>
-            <p>Agents run in order, each handing off to the next. Example: Coding Agent writes code, then a review agent analyzes the PR, then a documentation agent updates the docs.</p>
+            <p>Agents run in sequence, coordinated by GitHub Actions workflows or manual handoffs. Example: the Coding Agent writes code and opens a PR, then a team member assigns Copilot to review, then a workflow triggers documentation updates.</p>
           </div>
           <div class="card">
             <h3>Fan-Out / Fan-In</h3>
@@ -436,7 +436,7 @@
         <div class="columns" style="margin-top:1rem">
           <div class="card">
             <h3>Event-Driven</h3>
-            <p>Agents respond to events independently. A PR merge triggers a deployment agent. A failed CI check triggers a fix-it agent. Each agent watches for its specific event.</p>
+            <p>GitHub Actions workflows respond to repository events and invoke agents as needed. For example, a workflow could assign the Coding Agent when a CI check fails, or notify Copilot in Slack after a PR merge. These are custom-built workflows, not built-in agent types.</p>
           </div>
           <div class="card">
             <h3>Human-in-the-Loop</h3>
@@ -444,7 +444,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          There are four primary patterns for coordinating multiple agents. The sequential pipeline runs agents in order, where each agent's output becomes the next agent's input. The fan-out/fan-in pattern launches multiple agents in parallel to work on different aspects of the same task, then collects and reconciles their results. The event-driven pattern ties agents to specific repository events: a PR merge, a failing CI check, a new release tag, or a security advisory. Each agent watches for its trigger and acts independently. The human-in-the-loop pattern introduces checkpoints where autonomous work pauses for human review before proceeding. Most real-world workflows combine these patterns. For example, a sequential pipeline with human-in-the-loop checkpoints after each major phase.
+          There are four primary patterns for coordinating multiple agents. The sequential pipeline runs agents in sequence, with GitHub Actions workflows or manual steps connecting each phase. Agents cannot invoke other agents directly; coordination must be built explicitly. The fan-out/fan-in pattern launches multiple agents in parallel to work on different aspects of the same task, then collects and reconciles their results. The event-driven pattern uses GitHub Actions workflows to respond to repository events and invoke agents as needed. For example, a workflow could assign the Coding Agent when a CI check fails. These are custom-built workflows, not built-in agent types. The human-in-the-loop pattern introduces checkpoints where autonomous work pauses for human review before proceeding. Most real-world workflows combine these patterns. For example, a sequential pipeline with human-in-the-loop checkpoints after each major phase.
         </aside>
       </div>
     </section>

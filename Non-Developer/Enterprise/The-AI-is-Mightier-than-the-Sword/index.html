@@ -50,8 +50,7 @@
           <li><strong>Custom Agents in VS Code</strong> - Creating specialized research agents with .agent.md</li>
           <li><strong>Agent Composition</strong> - Combining reviewers, auditors, and domain experts</li>
           <li><strong>Research Workflows</strong> - Analyzing documentation, competitive landscapes, and architectures</li>
-          <li><strong>Copilot Extensions</strong> - Bringing external knowledge sources into agent workflows</li>
-          <li><strong>MCP Servers for Research</strong> - Connecting to databases, APIs, and knowledge bases</li>
+          <li><strong>Copilot Extensions and MCP Servers</strong> - Connecting to external tools and knowledge sources</li>
           <li><strong>Evaluating Agent Output</strong> - Critical thinking, verification, and trust but verify</li>
           <li><strong>Enterprise Use Cases</strong> - Due diligence, compliance research, and architecture decisions</li>
           <li><strong>Summary &amp; Next Steps</strong> - Putting it all together</li>
@@ -300,11 +299,11 @@ status without supporting evidence.</code></pre>
           <li><strong>Step 1:</strong> Define the research question clearly and scope the investigation</li>
           <li><strong>Step 2:</strong> Assign specialist agents to gather evidence from their domains</li>
           <li><strong>Step 3:</strong> Each agent produces a structured finding with citations and confidence levels</li>
-          <li><strong>Step 4:</strong> A synthesis agent merges findings, resolves conflicts, and identifies gaps</li>
+          <li><strong>Step 4:</strong> The user feeds all findings to a synthesis agent, which merges them, resolves conflicts, and identifies gaps</li>
           <li><strong>Step 5:</strong> A human reviewer validates the synthesis and makes the final decision</li>
         </ul>
         <aside class="speaker-notes">
-          Let's walk through a concrete workflow. Imagine you are evaluating a potential acquisition target. Step one: define the scope clearly. "Evaluate TargetCo's technology stack, security practices, regulatory exposure, and cultural fit." Step two: assign agents. The architecture reviewer examines their tech stack; the security auditor reviews their public posture and any disclosed incidents; the compliance researcher checks their regulatory exposure; a culture analyst reviews their public engineering blog and open-source contributions. Step three: each agent produces structured output with specific citations and a confidence rating. Step four: the synthesis agent reads all outputs, flags contradictions (maybe the tech stack looks strong but the security posture raises concerns), and produces a consolidated report. Step five: a human decision-maker reviews the synthesis. The agents do the heavy lifting of gathering and analyzing information; the human brings judgment and accountability.
+          Let's walk through a concrete workflow. Imagine you are evaluating a potential acquisition target. Step one: define the scope clearly. "Evaluate TargetCo's technology stack, security practices, regulatory exposure, and cultural fit." Step two: assign agents. The architecture reviewer examines their tech stack; the security auditor reviews their public posture and any disclosed incidents; the compliance researcher checks their regulatory exposure; a culture analyst reviews their public engineering blog and open-source contributions. Step three: each agent produces structured output with specific citations and a confidence rating. Step four: the user feeds all specialist outputs to a synthesis agent, which flags contradictions (maybe the tech stack looks strong but the security posture raises concerns) and produces a consolidated report. Step five: a human decision-maker reviews the synthesis. The agents do the heavy lifting of gathering and analyzing information; the human brings judgment and accountability.
         </aside>
       </div>
     </section>

@@ -16,7 +16,7 @@
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Add-On · 45 Minutes</span>
         <h1>Chat Platform Agents - Agent Wars: Return of the Chat-ai</h1>
-        <p class="subtitle">Trigger builds, assign issues, and get summaries without leaving Teams or Slack, bridging chat platforms and development tools through ChatOps integrations</p>
+        <p class="subtitle">Trigger builds, query issues, and get summaries without leaving Teams or Slack, bridging chat platforms and development tools through ChatOps integrations</p>
         <aside class="speaker-notes">
           Welcome to "Agent Wars: Return of the Chat-ai!" Over the next 45 minutes, we're going to explore how GitHub Copilot and ChatOps integrations bring the power of your development toolchain directly into Microsoft Teams and Slack. If you've ever wanted to check a PR status, trigger a build, or assign an issue without leaving your chat window, this session is for you. We'll cover the fundamentals of ChatOps, walk through real integrations, and discuss how to build and secure your own custom workflows. Let's get started.
         </aside>
@@ -43,7 +43,7 @@
           <li><strong>Copilot in Microsoft Teams</strong> - Installation, capabilities, and everyday workflows</li>
           <li><strong>GitHub in Slack</strong> - The GitHub for Slack app, slash commands, and notifications</li>
           <li><strong>Copilot Extensions</strong> - Extending Copilot with custom skills in IDEs and github.com</li>
-          <li><strong>Common Workflows</strong> - Triggering Actions, assigning issues, checking deployments</li>
+          <li><strong>Common Workflows</strong> - Triggering Actions, querying issues, checking deployments</li>
           <li><strong>Building Custom Integrations</strong> - Webhooks, GitHub Apps, and Copilot Extensions</li>
           <li><strong>Security &amp; Enterprise Practices</strong> - Permissions, compliance, and governance</li>
         </ul>
@@ -100,7 +100,7 @@
             <ul>
               <li>"What's the status of PR #42?"</li>
               <li>"Run the staging deploy workflow"</li>
-              <li>"Assign issue #15 to @alice"</li>
+              <li>"Who is assigned to issue #15?"</li>
               <li>"Show me the last deploy status"</li>
             </ul>
           </div>
@@ -512,14 +512,14 @@ app.post("/agent", async (req, res) =&gt; {
         <h2>Key Takeaways</h2>
         <ul>
           <li><strong>ChatOps eliminates context switching</strong> by bringing development workflows into Teams and Slack</li>
-          <li><strong>GitHub Copilot integrates natively</strong> with both platforms for PRs, issues, Actions, and code search</li>
+          <li><strong>GitHub provides native integrations</strong> for both platforms, with Copilot for queries and the GitHub app for notifications and commands</li>
           <li><strong>Copilot Extensions</strong> let you add custom, domain-specific capabilities to Copilot Chat in IDEs and github.com</li>
           <li><strong>Webhooks and GitHub Apps</strong> are the building blocks for bespoke integrations</li>
           <li><strong>Security is built in</strong>: identity mapping, scoped permissions, audit logging, and no code retention</li>
           <li><strong>Start small, expand intentionally</strong>: read-only first, write operations after trust is established</li>
         </ul>
         <aside class="speaker-notes">
-          Let's recap what we covered. ChatOps brings your development workflows into the tools your team already uses every day. GitHub Copilot integrates natively with both Teams and Slack, giving you access to pull requests, issues, Actions, and code search right from the chat window. If the built-in features don't cover your needs, Copilot Extensions let you bolt on custom capabilities and make them available across Copilot Chat surfaces, including VS Code, JetBrains IDEs, and github.com. For fully custom workflows, webhooks and GitHub Apps are your building blocks. And through it all, security is handled: identity is mapped, permissions are scoped, and everything is auditable. My advice? Start small with read-only workflows, build trust, and then expand into write operations. You'll be surprised how quickly your team adopts it.
+          Let's recap what we covered. ChatOps brings your development workflows into the tools your team already uses every day. GitHub provides native integrations for both Teams and Slack: Copilot handles natural-language queries, while the GitHub app delivers notifications and commands. If the built-in features don't cover your needs, Copilot Extensions let you bolt on custom capabilities and make them available across Copilot Chat surfaces, including VS Code, JetBrains IDEs, and github.com. For fully custom workflows, webhooks and GitHub Apps are your building blocks. And through it all, security is handled: identity is mapped, permissions are scoped, and everything is auditable. My advice? Start small with read-only workflows, build trust, and then expand into write operations. You'll be surprised how quickly your team adopts it.
         </aside>
       </div>
     </section>
