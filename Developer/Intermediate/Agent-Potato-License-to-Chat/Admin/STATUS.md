@@ -1,13 +1,13 @@
 # Agent Potato License to Chat — Content Status
 
 > **Track:** Developer | **Level:** Intermediate
-> **Last Updated:** _YYYY-MM-DD_
+> **Last Updated:** 2026-02-26
 
 ## Rollup Status
 
 <!-- This is the single value shown on the navigation screen.           -->
 <!-- Set it to the LOWEST status from the table below.                  -->
-<!-- Values: Not Started | In Progress | Complete                       -->
+<!-- Values: Not Started | In Progress | Ready for Review | Complete    -->
 
 `Status: In Progress`
 
