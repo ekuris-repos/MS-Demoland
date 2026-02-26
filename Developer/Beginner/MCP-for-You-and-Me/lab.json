@@ -14,13 +14,17 @@
       "steps": [
         {
           "title": "Discover MCP Commands",
-          "instruction": "Let's see the architecture in action. Open the <strong>Command Palette</strong> with <kbd>Ctrl+Shift+P</kbd> and type <kbd>MCP</kbd>.<br><br>You should see commands like <strong>MCP: List Servers</strong>, <strong>MCP: Add Server</strong>, and <strong>MCP: Start Server</strong>. These map directly to the three layers on the slide: VS Code is the <strong>Host</strong>, the MCP commands manage the <strong>Client</strong>, and each server entry is a <strong>Server</strong> process.",
-          "focus": "top"
+          "instruction": "Let's see the architecture in action. We've opened the <strong>Command Palette</strong> for you. Type <kbd>MCP</kbd> to filter the commands.<br><br>You should see commands like <strong>MCP: List Servers</strong>, <strong>MCP: Add Server</strong>, and <strong>MCP: Start Server</strong>. These map directly to the three layers on the slide: VS Code is the <strong>Host</strong>, the MCP commands manage the <strong>Client</strong>, and each server entry is a <strong>Server</strong> process.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette"
         },
         {
           "title": "List Active MCP Servers",
-          "instruction": "In the Command Palette (<kbd>Ctrl+Shift+P</kbd>), run <strong>MCP: List Servers</strong>.<br><br>You should see the <strong>GitHub</strong> MCP server listed with a running status. This confirms that VS Code (the host) has an active client connection to at least one server process. In later steps we will add a second server so you can see multiple connections side by side.",
-          "focus": "top"
+          "instruction": "We've opened the Command Palette again. Type <kbd>MCP: List Servers</kbd> and press Enter.<br><br>You should see the <strong>GitHub</strong> MCP server listed with a running status. This confirms that VS Code (the host) has an active client connection to at least one server process. In later steps we will add a second server so you can see multiple connections side by side.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette"
         }
       ]
     },
@@ -82,7 +86,10 @@
         },
         {
           "title": "Troubleshoot If Needed",
-          "instruction": "If no tools are showing, open the <strong>Output</strong> panel (<kbd>Ctrl+Shift+U</kbd>) and select <strong>GitHub MCP</strong> from the dropdown. This panel logs connection events and errors.<br><br>Common fixes:<br>&bull; Make sure you're signed in to GitHub<br>&bull; Verify <strong>chat.mcp.enabled</strong> is checked<br>&bull; Try reloading the window again",
+          "instruction": "If no tools are showing, we've opened the <strong>Output</strong> panel for you. Select <strong>GitHub MCP</strong> from the dropdown at the top-right of the panel. This panel logs connection events and errors.<br><br>Common fixes:<br>&bull; Make sure you're signed in to GitHub<br>&bull; Verify <strong>chat.mcp.enabled</strong> is checked<br>&bull; Try reloading the window again",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "actionLabel": "Open Output Panel",
           "tip": "The Output panel is your best friend for debugging MCP connectivity. Check it first whenever something isn't working."
         }
       ]
@@ -109,6 +116,8 @@
           "title": "Comment on an Issue",
           "instruction": "Pick any open issue from the previous results. Ask Copilot to add a comment:<br><br><kbd>Add a comment to issue #[number] saying \"Testing MCP integration from VS Code\"</kbd><br><br>Copilot will show you a <strong>confirmation dialog</strong> before taking the write action. Review what it's about to do and approve it.",
           "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat",
           "tip": "Write actions require your confirmation by default. Copilot will never modify a GitHub resource without your explicit approval. You can configure auto-approval for trusted tools in your settings."
         },
         {
@@ -138,13 +147,17 @@
       "steps": [
         {
           "title": "Discover Servers From VS Code",
-          "instruction": "You don't need to leave the editor to find MCP servers. Open the <strong>Command Palette</strong> (<kbd>Ctrl+Shift+P</kbd>) and run <strong>MCP: Add Server</strong>.<br><br>Select <strong>HTTP (Server-Sent Events)</strong> or browse the list. This is VS Code's built-in interface for connecting to MCP servers from the registry. Press <strong>Escape</strong> to close the dialog for now.",
-          "focus": "top"
+          "instruction": "You don't need to leave the editor to find MCP servers. We've opened the <strong>Command Palette</strong> for you. Type <kbd>MCP: Add Server</kbd> and press Enter.<br><br>Select <strong>HTTP (Server-Sent Events)</strong> or browse the list. This is VS Code's built-in interface for connecting to MCP servers from the registry. Press <strong>Escape</strong> to close the dialog for now.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette"
         },
         {
           "title": "Pick a Server to Install",
-          "instruction": "Run <strong>MCP: Add Server</strong> again (<kbd>Ctrl+Shift+P</kbd>). This time, choose <strong>Command (stdio)</strong>, then type:<br><br><kbd>npx</kbd><br><br>When prompted for arguments, enter:<br><br><kbd>-y,@anthropic-ai/mcp-server-fetch</kbd><br><br>Give it the name <kbd>fetch</kbd>. When asked where to save, choose <strong>Workspace Settings</strong>. This installs the official MCP Fetch server, which Copilot can use to read web pages.",
+          "instruction": "We've opened the Command Palette again. Type <kbd>MCP: Add Server</kbd> and press Enter. This time, choose <strong>Command (stdio)</strong>, then type:<br><br><kbd>npx</kbd><br><br>When prompted for arguments, enter:<br><br><kbd>-y,@anthropic-ai/mcp-server-fetch</kbd><br><br>Give it the name <kbd>fetch</kbd>. When asked where to save, choose <strong>Workspace Settings</strong>. This installs the official MCP Fetch server, which Copilot can use to read web pages.",
           "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
           "tip": "The Fetch server is a great first install because it needs no credentials. It adds a tool that lets Copilot retrieve content from URLs you provide."
         }
       ]
@@ -175,13 +188,17 @@
       "steps": [
         {
           "title": "Audit Your MCP Setup",
-          "instruction": "Now that you have two servers running, let's apply the security practices from the slide. Open the <strong>Command Palette</strong> (<kbd>Ctrl+Shift+P</kbd>) and run <strong>MCP: List Servers</strong>.<br><br>For each server, confirm you know:<br>&bull; Where it came from (official GitHub extension vs. registry)<br>&bull; What permissions it has (GitHub token vs. no credentials)<br>&bull; Whether it runs locally (stdio) or remotely (HTTP)<br><br>This is the <strong>least-privilege audit</strong> you should do any time you add a new server.",
-          "focus": "top"
+          "instruction": "Now that you have two servers running, let's apply the security practices from the slide. We've opened the <strong>Command Palette</strong> for you. Type <kbd>MCP: List Servers</kbd> and press Enter.<br><br>For each server, confirm you know:<br>&bull; Where it came from (official GitHub extension vs. registry)<br>&bull; What permissions it has (GitHub token vs. no credentials)<br>&bull; Whether it runs locally (stdio) or remotely (HTTP)<br><br>This is the <strong>least-privilege audit</strong> you should do any time you add a new server.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette"
         },
         {
           "title": "Monitor a Live Tool Call",
-          "instruction": "Open the <strong>Output</strong> panel (<kbd>Ctrl+Shift+U</kbd>) and select <strong>GitHub MCP</strong> from the dropdown. Leave it visible.<br><br>Now switch to Copilot Chat and ask:<br><br><kbd>How many open issues does this repo have?</kbd><br><br>Switch back to the Output panel and find the <code>list_issues</code> tool call in the log. You can see the exact request and response. This is how you verify that MCP servers are only doing what you expect.",
+          "instruction": "We've opened the <strong>Output</strong> panel for you. Select <strong>GitHub MCP</strong> from the dropdown at the top-right. Leave it visible.<br><br>Now switch to Copilot Chat and ask:<br><br><kbd>How many open issues does this repo have?</kbd><br><br>Switch back to the Output panel and find the <code>list_issues</code> tool call in the log. You can see the exact request and response. This is how you verify that MCP servers are only doing what you expect.",
           "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "actionLabel": "Open Output Panel",
           "tip": "Make checking the Output panel a habit when testing new MCP servers. It shows every tool call, including the parameters sent and data returned."
         }
       ]
