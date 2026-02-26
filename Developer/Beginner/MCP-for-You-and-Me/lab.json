@@ -24,7 +24,13 @@
           "instruction": "We've opened the Command Palette again. Type <kbd>MCP: List Servers</kbd> and press Enter.<br><br>You should see the <strong>GitHub</strong> MCP server listed with a running status. This confirms that VS Code (the host) has an active client connection to at least one server process. In later steps we will add a second server so you can see multiple connections side by side.",
           "focus": "top",
           "action": "workbench.action.showCommands",
-          "actionLabel": "Open Command Palette"
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the Command Palette for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd> — access MCP commands, VS Code settings, and every other command.",
+          "focus": "slides"
         }
       ]
     },
@@ -35,7 +41,8 @@
           "instruction": "Open <strong>Settings</strong> (<kbd>Ctrl+,</kbd>) and type <kbd>mcp</kbd> in the search box.<br><br>Browse the available settings. Look for <strong>Chat > MCP: Discovery</strong> and any settings related to tool approval or confirmation. These settings control how sampling and elicitation behave: whether tools auto-approve or prompt you first.",
           "focus": "top",
           "action": "workbench.action.openSettings",
-          "actionLabel": "Open Settings"
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Test Tool Confirmation",
@@ -43,7 +50,13 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar",
           "tip": "Tool confirmation is the safety net that makes MCP practical for production use. Sampling and elicitation ensure the AI never takes actions you haven't approved."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed Settings and Copilot Chat for you.<br><br>For future reference:<br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -59,7 +72,8 @@
         {
           "title": "Enable MCP Support",
           "instruction": "Find the setting <strong>Chat > MCP: Enabled</strong> and make sure it is <strong>checked</strong>.<br><br>This tells VS Code to allow MCP servers to connect to Copilot Chat. Without this setting, MCP tools will not appear in the chat.",
-          "tip": "MCP is enabled by default in recent versions of VS Code. If the setting is already checked, you're all set."
+          "tip": "MCP is enabled by default in recent versions of VS Code. If the setting is already checked, you're all set.",
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
           "title": "Reload VS Code",
@@ -70,7 +84,6 @@
       ]
     },
     "14": {
-      "onLeave": "workbench.action.closeSidebar",
       "steps": [
         {
           "title": "Open Copilot Chat",
@@ -90,7 +103,13 @@
           "focus": "bottom",
           "action": "workbench.action.output.toggleOutput",
           "actionLabel": "Open Output Panel",
+          "onLeave": ["workbench.action.closePanel", "workbench.action.closeSidebar"],
           "tip": "The Output panel is your best friend for debugging MCP connectivity. Check it first whenever something isn't working."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the Output panel and Copilot Chat for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd> — select <strong>GitHub MCP</strong> from the dropdown to see tool call logs.",
+          "focus": "slides"
         }
       ]
     },
@@ -106,7 +125,13 @@
         {
           "title": "Filter by Label",
           "instruction": "Try a more targeted query. Type:<br><br><kbd>Show me issues labeled 'bug'</kbd><br><br>Copilot uses the same MCP tool but passes the label filter. Notice how natural language maps to structured API calls behind the scenes.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed Copilot Chat for you.<br><br>Quick reference: <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -123,7 +148,13 @@
         {
           "title": "Verify the Comment",
           "instruction": "After approving the action, check that the comment was posted. You can ask:<br><br><kbd>Show me the comments on issue #[number]</kbd><br><br>Alternatively, open the issue in your browser to verify the comment appears.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed Copilot Chat for you.<br><br>Quick reference: <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -139,7 +170,13 @@
         {
           "title": "Combine Search With Reasoning",
           "instruction": "Now combine search with Copilot's reasoning. Try:<br><br><kbd>Find all HTML files that use speaker notes and tell me which ones are missing them</kbd><br><br>Copilot searches the code, analyzes the results, and gives you an intelligent summary. This is MCP + LLM reasoning working together.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed Copilot Chat for you.<br><br>Quick reference: <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -158,7 +195,13 @@
           "focus": "top",
           "action": "workbench.action.showCommands",
           "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen",
           "tip": "The Fetch server is a great first install because it needs no credentials. It adds a tool that lets Copilot retrieve content from URLs you provide."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the Command Palette for you.<br><br>Quick reference: <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -180,7 +223,13 @@
         {
           "title": "Use the New Server",
           "instruction": "Let's confirm it works. In Copilot Chat, type:<br><br><kbd>Use the fetch tool to get the content of https://modelcontextprotocol.io and summarize what MCP is</kbd><br><br>Copilot calls the fetch server to retrieve the page, then summarizes the content. You now have two MCP servers running side by side: GitHub for issues and code, Fetch for web content.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed Copilot Chat for you.<br><br>Quick reference: <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -191,7 +240,8 @@
           "instruction": "Now that you have two servers running, let's apply the security practices from the slide. We've opened the <strong>Command Palette</strong> for you. Type <kbd>MCP: List Servers</kbd> and press Enter.<br><br>For each server, confirm you know:<br>&bull; Where it came from (official GitHub extension vs. registry)<br>&bull; What permissions it has (GitHub token vs. no credentials)<br>&bull; Whether it runs locally (stdio) or remotely (HTTP)<br><br>This is the <strong>least-privilege audit</strong> you should do any time you add a new server.",
           "focus": "top",
           "action": "workbench.action.showCommands",
-          "actionLabel": "Open Command Palette"
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
         },
         {
           "title": "Monitor a Live Tool Call",
@@ -199,7 +249,13 @@
           "focus": "bottom",
           "action": "workbench.action.output.toggleOutput",
           "actionLabel": "Open Output Panel",
+          "onLeave": ["workbench.action.closePanel", "workbench.action.closeSidebar"],
           "tip": "Make checking the Output panel a habit when testing new MCP servers. It shows every tool call, including the parameters sent and data returned."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the Output panel and Copilot Chat for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -226,7 +282,13 @@
           "title": "Complete the Workflow",
           "instruction": "Step 4-5: Wrap up the workflow:<br><br>&bull; Ask Copilot to <strong>add a comment</strong> to the issue with your findings<br>&bull; If appropriate, ask Copilot to <strong>close</strong> the issue<br><br>You've now completed an end-to-end issue workflow entirely from within VS Code!",
           "focus": "right",
+          "onLeave": "workbench.action.closeSidebar",
           "tip": "In a real workflow, you'd fix the code, push a commit, and link it to the issue before closing. The demo shows the MCP interaction pattern."
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed Copilot Chat for you.<br><br>Quick reference: <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
