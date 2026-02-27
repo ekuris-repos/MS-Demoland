@@ -89,6 +89,8 @@
           <li><strong>Compliance boundaries:</strong> Regulatory requirements mandate separation of code with different access controls</li>
           <li><strong>Acquisitions and growth:</strong> New repos arrive through mergers, acquisitions, and organic expansion</li>
         </ul>
+
+        <img src="img/TODO-diagram-multi-repo-landscape.png" alt="Diagram showing the multi-repo development landscape and challenges" />
         <aside class="speaker-notes">
           Most enterprise organizations have between 50 and 5,000 repositories, and some have far more. This is not accidental; it reflects real architectural and organizational needs. Microservices demand repo-per-service isolation. Shared libraries need their own versioning and release cycles. Infrastructure teams maintain separate repos for deployment templates. Compliance requirements sometimes mandate physical separation. And as companies grow through hiring and acquisitions, the repo count naturally increases. The important takeaway is that multi-repo is the default enterprise reality, not an edge case to work around.
         </aside>
@@ -113,6 +115,7 @@
             <p><strong>Challenges:</strong> Cross-repo changes require coordination. Dependency drift. AI context is fragmented.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Before we go further, it is worth acknowledging the monorepo vs. polyrepo debate. Monorepos give you atomic cross-component commits and a single dependency graph, but they require sophisticated tooling and become difficult to manage at very large scale. Polyrepos give teams independence and clear ownership, but cross-cutting changes become coordination exercises. Most enterprises land somewhere in between, with clusters of related repos and some shared monorepos for platform code. For this course, we focus primarily on the polyrepo scenario because that is where cross-repo AI challenges are most acute. If you are in a monorepo, many of these patterns simplify significantly because Copilot can see the entire codebase at once.
         </aside>
@@ -126,6 +129,7 @@
       <div class="slide-inner">
         <span class="badge">Part 2</span>
         <h2>Copilot's Context Model</h2>
+        <img src="img/TODO-diagram-multi-repo-agent-architecture.png" alt="Diagram of an agent architecture that spans multiple repositories" />
         <aside class="speaker-notes">
           Now let's examine how GitHub Copilot builds its understanding of your code and what happens when the code it needs lives in another repository.
         </aside>
@@ -145,6 +149,7 @@
           <li><strong>Language server data:</strong> Type information, imports, and symbol definitions inform completions</li>
           <li><strong>Conversation history:</strong> In Chat mode, previous messages shape ongoing responses</li>
         </ul>
+
         <aside class="speaker-notes">
           Copilot's context model starts with what it can see directly. In the editor, open files provide immediate context for completions. GitHub's repository indexing service builds a code graph of your repo, enabling Copilot Chat to reference files you have not opened. Custom instructions files let you tell Copilot about your project's conventions, tech stack, and preferences. The language server provides type information and symbol resolution. And in chat mode, your conversation history carries forward. All of these signals combine to give Copilot a rich understanding of a single repository. The challenge arises when the information Copilot needs lives outside the current repo.
         </aside>
@@ -164,8 +169,10 @@
           <li>Organizational conventions documented in one repo are not inherited by others</li>
           <li>This gap leads to <strong>inconsistent suggestions</strong>, duplicated code, and integration errors</li>
         </ul>
+
+        <img src="img/TODO-diagram-cross-repo-context-gathering.png" alt="Diagram showing cross-repository context gathering by agents" />
         <aside class="speaker-notes">
-          Here is the core problem. When a developer working in Service A needs to call an API defined in Service B, Copilot does not automatically know the shape of that API. It might guess based on naming conventions or general training data, but it will not know your organization's specific interface contracts, error handling patterns, or versioning scheme. The same applies to shared libraries: if your design system components live in a separate repo, Copilot cannot reference their props or usage patterns when suggesting code in a consuming app. This context gap is the central challenge we will spend the rest of this session addressing.
+          Here is the core problem. When a developer working in Service A needs to call an API defined in Service B, Copilot does not automatically know the shape of that API. It might guess based on naming conventions or general training data, but it will not know your organization's specific interface contracts, error handling patterns, or versioning scheme. The same applies to shared libraries: if your design system components live in a separate repo, Copilot cannot reference their props or usage patterns when suggesting code in a consuming app. In the lab, you will experience this firsthand with OctoCAT Supply — a React frontend in one repo and an Express API in another — where Copilot initially lacks the cross-repo context it needs. This context gap is the central challenge we will spend the rest of this session addressing.
         </aside>
       </div>
     </section>
@@ -183,6 +190,7 @@
           <li><strong>Scope:</strong> The index is per-repository; it does not span across repos</li>
           <li><strong>Using the index:</strong> Copilot Chat can search indexed code with <code>@github</code> in both VS Code and GitHub.com</li>
         </ul>
+
         <aside class="speaker-notes">
           GitHub's repository indexing enables Copilot Chat to search and reference code beyond your open files. When you use the @github participant in Copilot Chat, available in both VS Code and GitHub.com, it leverages this index to find relevant code across the current repository. The index captures source files, function signatures, class hierarchies, and documentation. However, a critical limitation for our topic is that the index is scoped to individual repositories. Copilot Chat does not automatically search across all of your organization's repos. This means you need additional strategies, which we will cover next, to bridge the cross-repo gap.
         </aside>
@@ -211,12 +219,14 @@
         <ul>
           <li><strong>Repo-level:</strong> <code>.github/copilot-instructions.md</code> in each repository</li>
           <li><strong>Org-level:</strong> Instructions defined in your organization's <code>.github</code> repository apply to all repos on GitHub.com; availability in VS Code depends on the organization's Copilot plan and settings</li>
-          <li><strong>Layered approach:</strong> Org instructions set the baseline; repo instructions add specifics</li>
+          <li><strong>CCPR template:</strong> Use a Copilot Configuration &amp; Prompt Repository (CCPR) as a template that stamps out consistent instructions, prompts, and agent definitions across all repos</li>
+          <li><strong>Layered approach:</strong> Org instructions set the baseline; CCPR templates standardize repo-level files; individual repos add specifics</li>
           <li><strong>Version controlled:</strong> Instructions evolve with your codebase through normal PR workflows</li>
           <li><strong>Enforcement:</strong> Combine with code review and linting to ensure standards are followed</li>
         </ul>
+
         <aside class="speaker-notes">
-          Custom instructions are the first line of defense for cross-repo consistency. At the repo level, each repository can have a .github/copilot-instructions.md file that tells Copilot about project-specific conventions, tech stack choices, and coding standards. At the org level, you can define instructions in your organization's special .github repository, and those instructions apply across all repositories in the org on GitHub.com. Availability of org-level instructions in VS Code depends on the organization's Copilot plan and settings. The layered approach works best: org-level instructions establish baseline patterns (naming conventions, error handling, logging format), and individual repos add project-specific details. This is version-controlled, reviewable, and composable.
+          Custom instructions are the first line of defense for cross-repo consistency. At the repo level, each repository can have a .github/copilot-instructions.md file that tells Copilot about project-specific conventions, tech stack choices, and coding standards. At the org level, you can define instructions in your organization's special .github repository, and those instructions apply across all repositories in the org on GitHub.com. Availability of org-level instructions in VS Code depends on the organization's Copilot plan and settings. On top of this, using a CCPR — a Copilot Configuration and Prompt Repository — as a template lets you stamp out consistent .github directories across repos. The CCPR provides a standardized set of copilot-instructions.md, prompt files, agent definitions, and instruction files that every repo inherits on creation. The layered approach works best: org-level instructions establish the broadest baseline, the CCPR template standardizes repo-level Copilot configuration, and individual repos add project-specific details. This is version-controlled, reviewable, and composable.
         </aside>
       </div>
     </section>
@@ -226,8 +236,10 @@
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Org-Level Instructions Example</h2>
-        <pre><code># Organization Copilot Instructions
+        <h2>CCPR-Based Instructions Example</h2>
+        <pre><code># CCPR Template — copilot-instructions.md
+# This file lives in the CCPR template repo and is
+# inherited by every repo created from the template.
 
 ## Language and Framework Standards
 - Use TypeScript for all backend services
@@ -237,7 +249,7 @@
 ## Error Handling
 - All services must use structured error responses
 - Include correlation IDs in error payloads
-- Log errors using our shared logging library (@org/logger)
+- Log errors with structured JSON to stdout
 
 ## Security
 - Never hardcode credentials or secrets
@@ -245,10 +257,11 @@
 - All API endpoints require authentication by default
 
 ## Cross-Service Communication
-- Use the shared API client from @org/api-client
-- Reference OpenAPI specs in docs/api/ for contracts</code></pre>
+- Reference OpenAPI specs in docs/api/ for contracts
+- Use the repository pattern for data access layers</code></pre>
+
         <aside class="speaker-notes">
-          Here is a practical example of what org-level instructions look like. This file would live in your organization's .github repository at .github/copilot-instructions.md. Notice how it covers cross-cutting concerns: language standards, error handling, security practices, and cross-service communication patterns. The instruction about using the shared API client from @org/api-client is particularly powerful because it tells Copilot to reference a specific library rather than guessing at HTTP call patterns. When a developer in any repo asks Copilot to call another service, Copilot will suggest using the shared client. This single instruction creates consistency across every repository in the organization.
+          Here is a practical example of what a CCPR-based copilot-instructions.md looks like. This file lives in your CCPR template repository and is inherited by every new repo created from that template. Notice how it covers the same cross-cutting concerns that org-level instructions cover — language standards, error handling, security, and cross-service communication — but it ships directly inside each repo's .github directory. This means the instructions are always present, even in VS Code where org-level instructions may not be available depending on your Copilot plan. When combined with org-level instructions, the CCPR template creates a two-tier consistency system: org-level for the broadest standards, CCPR for the repo-level baseline. In the lab, you will explore the OctoCAT Supply repos, which were both created from a CCPR template, and see how their instructions files create consistency across the API and frontend codebases.
         </aside>
       </div>
     </section>
@@ -261,13 +274,14 @@
         <h2>Scaling Instructions with Prompt Files</h2>
         <ul>
           <li><strong>Prompt files</strong> (<code>.prompt.md</code>) define reusable, parameterized prompts for specific tasks</li>
-          <li>Prompt files work within the local workspace; sharing them across repos requires distribution methods such as git submodules, template repos, or copy-on-clone scripts</li>
+          <li>Prompt files work within the local workspace; a CCPR template is the most effective way to distribute them consistently, though git submodules and copy-on-clone scripts also work</li>
           <li>Common use cases: generating new endpoints, writing tests, creating migration scripts</li>
           <li>Teams contribute and refine prompts through the standard PR workflow</li>
           <li>Combine with custom instructions for a complete "AI coding playbook"</li>
         </ul>
+
         <aside class="speaker-notes">
-          Beyond copilot-instructions.md, prompt files offer another layer of consistency. Prompt files are reusable, parameterized prompts that guide Copilot through specific tasks. However, prompt files operate within the local workspace. To share them across repos, you need distribution methods such as git submodules, template repos, or copy-on-clone scripts. Common use cases include generating new REST endpoints with standard error handling, writing integration tests using your test framework, or creating database migrations following naming conventions. Teams contribute and refine prompts through the standard PR workflow. When combined with org-level instructions, prompt files create a comprehensive AI coding playbook.
+          Beyond copilot-instructions.md, prompt files offer another layer of consistency. Prompt files are reusable, parameterized prompts that guide Copilot through specific tasks. However, prompt files operate within the local workspace. A CCPR template is the most effective distribution mechanism: every repo created from the template inherits the same prompt library from day one. You can also use git submodules or copy-on-clone scripts if you need to retrofit existing repos. Common use cases include generating new REST endpoints with standard error handling, writing integration tests using your test framework, or creating database migrations following naming conventions. Teams contribute and refine prompts through the standard PR workflow. When combined with org-level instructions, prompt files create a comprehensive AI coding playbook.
         </aside>
       </div>
     </section>
@@ -279,6 +293,7 @@
       <div class="slide-inner">
         <span class="badge">Part 4</span>
         <h2>Repository-Indexed Search &amp; Cross-Repo Context</h2>
+        <img src="img/TODO-diagram-orchestration-coordinator.png" alt="Diagram of coordinator-specialist orchestration pattern" />
         <aside class="speaker-notes">
           Beyond instructions, Copilot offers repository-indexed search as a way to provide richer, document-level context across repositories. Let's look at how this works and where it fits.
         </aside>
@@ -298,6 +313,7 @@
           <li><strong>Use case:</strong> Architecture decisions, API contracts, onboarding guides, and runbooks</li>
           <li><strong>Access:</strong> Referenced in Copilot Chat via cross-repo search</li>
         </ul>
+
         <aside class="speaker-notes">
           Repository-indexed search is a Copilot Enterprise feature, not available on all plans. It lets Copilot search across indexed repositories in your organization. This is explicitly cross-repo: indexed repositories can include your API gateway repo, your design system repo, your infrastructure repo, and your architecture decision records, all searchable from Copilot Chat. When developers ask Copilot questions, it can search across these indexed repos for relevant content. This is particularly powerful for onboarding, architecture decisions, and understanding cross-service contracts.
         </aside>
@@ -317,6 +333,7 @@
           <li><strong>Runbooks:</strong> Operational procedures for deployment, incident response, and troubleshooting</li>
           <li><strong>Onboarding docs:</strong> Team-specific setup guides and "how we work" documentation</li>
         </ul>
+
         <aside class="speaker-notes">
           The value of repository-indexed search depends entirely on how your repositories are organized. Start with Architecture Decision Records; these give Copilot the "why" behind your technical choices, so it can make suggestions that align with your intent. API contracts are essential for cross-service work because they tell Copilot the exact shape of interfaces between services. Shared library documentation ensures Copilot suggests your internal tools rather than generic alternatives. Runbooks give Copilot operational context for infrastructure and DevOps tasks. Keep the documentation current through your regular PR workflow. Stale documentation in indexed repositories can actively mislead Copilot, so treat repository organization as a first-class engineering activity.
         </aside>
@@ -349,6 +366,8 @@
           <li><strong>Composable:</strong> Multiple MCP servers can run simultaneously, each providing different cross-repo capabilities</li>
           <li><strong>Bidirectional:</strong> Tools can read from and write to multiple repositories</li>
         </ul>
+
+        <img src="img/TODO-diagram-multi-repo-governance-model.png" alt="Diagram of enterprise governance model for multi-repo agents" />
         <aside class="speaker-notes">
           MCP servers offer the most powerful and flexible approach to cross-repo context. The official GitHub MCP server already provides tools for searching repositories, reading files, listing issues, and creating pull requests. But the real power comes from building custom MCP tools tailored to your organization. For example, you could build a tool that fetches the latest OpenAPI spec from your API gateway repo, or one that queries your dependency graph to show which services consume a given library. Unlike knowledge bases, which index static documentation, MCP tools return live data every time they are called. This means Copilot always works with current information. You can run multiple MCP servers simultaneously, combining the GitHub server with your custom tools for a comprehensive cross-repo experience.
         </aside>
@@ -361,24 +380,25 @@
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Example: Cross-Repo API Spec Tool</h2>
-        <pre><code>// MCP tool: Fetch an API spec from another repo
+        <pre><code>// MCP tool: Fetch the OctoCAT Supply API spec
 server.tool(
-  "get-service-api-spec",
-  "Fetch the OpenAPI spec for an internal service",
-  { serviceName: z.string().describe("Name of the service") },
-  async ({ serviceName }) =&gt; {
+  "get-api-spec",
+  "Fetch the OpenAPI spec for the OctoCAT Supply API",
+  {},
+  async () =&gt; {
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     const { data } = await octokit.repos.getContent({
-      owner: "my-org",
-      repo: `${serviceName}-service`,
+      owner: "ekuris-repos",
+      repo: "octocat-supply-api",
       path: "docs/openapi.yaml",
     });
     const content = Buffer.from(data.content, "base64").toString();
     return { content: [{ type: "text", text: content }] };
   }
 );</code></pre>
+
         <aside class="speaker-notes">
-          Here is a concrete example of a custom MCP tool that bridges repositories. This tool accepts a service name as input, constructs the repository name using your organization's naming convention, and fetches the OpenAPI specification from that repo's docs directory. When a developer asks Copilot "What endpoints does the payments service expose?" Copilot can invoke this tool to fetch the live spec and provide an accurate, current answer. The tool uses a GitHub personal access token or GitHub App token for authentication, so it respects your organization's access controls. Notice how simple the implementation is: it is essentially a thin wrapper around the GitHub API, exposed to Copilot through the MCP protocol.
+          Here is a concrete example of a custom MCP tool that bridges repositories. This tool fetches the OpenAPI specification from the OctoCAT Supply API repo so that a developer working in the frontend repo can ask Copilot "What endpoints does the API expose?" and get an accurate, current answer. The tool uses a GitHub personal access token or GitHub App token for authentication, so it respects your organization's access controls. Notice how simple the implementation is: it is essentially a thin wrapper around the GitHub API, exposed to Copilot through the MCP protocol. You could generalize this by adding a serviceName parameter and constructing the repo name dynamically using your org's naming convention.
         </aside>
       </div>
     </section>
@@ -409,6 +429,7 @@ server.tool(
           <li>Custom instructions in <code>copilot-setup-steps.yml</code> configure the agent's build environment</li>
           <li>Each agent session operates within a <strong>single repository</strong></li>
         </ul>
+
         <aside class="speaker-notes">
           The Copilot Coding Agent is GitHub's autonomous coding capability. You assign it to an issue, and it creates a branch, writes code, runs tests, and opens a pull request. It operates in a secure sandboxed environment with access to the repository code, and you configure its environment through copilot-setup-steps.yml. For cross-repo work, the important detail is that each agent session is scoped to one repository. The agent cannot directly edit code in another repo. However, that does not mean it cannot participate in multi-repo workflows. Let's look at how to make it work across repo boundaries.
         </aside>
@@ -428,6 +449,7 @@ server.tool(
           <li><strong>Reference linking:</strong> Include links to relevant files in other repos within the issue body</li>
           <li><strong>Coordinated PRs:</strong> Review and merge related PRs across repos as a batch</li>
         </ul>
+
         <aside class="speaker-notes">
           Even though the coding agent operates per-repo, you can orchestrate multi-repo workflows around it. The simplest pattern is parallel issues: create a related issue in each affected repository with clear cross-references, then assign the agent to each one. For dependency chains, start with the upstream repo (e.g., the shared library) and let the agent complete its work there before creating issues in downstream repos. When you write issues for multi-repo tasks, embed context from other repos directly in the issue description: API specs, interface contracts, and links to relevant code. The agent reads all of this when planning its work. You can also maintain issue templates that include standard cross-repo context for common change types, like "update the API client in all consuming services."
         </aside>
@@ -447,8 +469,9 @@ server.tool(
           <li>The coding agent picks up the generated issue and implements the changes</li>
           <li>Combine with GitHub Apps for cross-repo authentication and issue creation</li>
         </ul>
+
         <aside class="speaker-notes">
-          GitHub Actions provides the automation layer for multi-repo agent workflows. Consider this scenario: your shared authentication library releases a new major version with breaking changes. A workflow in the library repo detects the release, queries your dependency graph to find all consuming repos, and creates issues in each one with the specific migration steps needed. The coding agent then picks up each issue and implements the migration. You can use repository_dispatch events or GitHub Apps to trigger actions across repo boundaries. The workflow can embed rich context in the generated issues: the changelog, diff of breaking changes, links to migration guides, and even code snippets showing the before and after. This transforms a manual, multi-repo migration into a largely automated process.
+          GitHub Actions provides the automation layer for multi-repo agent workflows. Consider this scenario: your shared authentication library releases a new major version with breaking changes. A workflow in the library repo detects the release, queries your dependency graph to find all consuming repos, and creates issues in each one with the specific migration steps needed. The coding agent then picks up each issue and implements the migration. In the lab, you will see a scaled-down version of this with OctoCAT Supply, where a change in the API repo could trigger updates in the frontend repo. You can use repository_dispatch events or GitHub Apps to trigger actions across repo boundaries. The workflow can embed rich context in the generated issues: the changelog, diff of breaking changes, links to migration guides, and even code snippets showing the before and after. This transforms a manual, multi-repo migration into a largely automated process.
         </aside>
       </div>
     </section>
@@ -482,6 +505,7 @@ server.tool(
             <p>A central workflow or GitHub App creates and sequences issues across repos. It monitors agent progress and triggers downstream tasks when upstream work completes. <em>Note: this is custom automation built with GitHub Actions or GitHub Apps, not a built-in Copilot feature.</em></p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Two primary orchestration patterns emerge for multi-repo agent work. The "one agent per repo" pattern is the simplest: you create parallel issues in each affected repo and assign the coding agent independently. Each agent does its work, and humans review the resulting PRs as a coordinated batch. The "coordinator pattern" is more sophisticated: a central GitHub Actions workflow or GitHub App acts as the orchestrator, creating issues in sequence (upstream before downstream), monitoring for PR completion, and triggering the next phase automatically. It is important to note that this is custom automation you build yourself, not a built-in Copilot feature. The coordinator pattern is better for dependency chains where order matters, while the parallel pattern works well for independent changes like updating a logging format across all services.
         </aside>
@@ -502,6 +526,7 @@ server.tool(
           <li><strong>Aggregation:</strong> A tracking issue in the source repo collects status across all downstream PRs</li>
           <li><strong>Completion:</strong> Human reviewers approve and merge the coordinated change set</li>
         </ul>
+
         <aside class="speaker-notes">
           The fan-out pattern is particularly useful for breaking changes in shared libraries or platform-wide policy updates. It works like this: a change merges in a core repository, triggering a workflow that discovers all downstream consumers using your dependency graph or a configuration file. The workflow creates tailored issues in each consuming repo, embedding the specific migration steps or update instructions. The coding agent picks up each issue and creates a PR. Meanwhile, a tracking issue in the source repo aggregates status links to all the downstream PRs, giving the team a single dashboard view of the rollout. This pattern can dramatically reduce the time and effort required for organization-wide changes that would traditionally take weeks of manual work.
         </aside>
@@ -521,6 +546,7 @@ server.tool(
           <li><strong>Agent-assisted updates:</strong> Pair Dependabot PRs with coding agent sessions for complex migrations</li>
           <li><strong>Version policies:</strong> Enforce minimum versions of internal packages across the organization</li>
         </ul>
+
         <aside class="speaker-notes">
           Dependency management is where cross-repo challenges become most tangible. Dependabot handles external dependency updates well, but internal package dependencies require more deliberate management. Maintain a dependency graph, either in a dedicated config file or by querying package manifests across repos, so you know which services consume which internal libraries. For simple version bumps, Dependabot PRs are sufficient. For breaking changes, pair the automated PR with a coding agent session that implements the actual migration. Contract testing at integration points (using tools like Pact or OpenAPI schema validation) can catch breaking changes before they propagate. Establishing version policies, such as "all services must be on @org/auth-client v3.x or later," gives you a clear target for automated upgrades.
         </aside>
@@ -535,11 +561,12 @@ server.tool(
         <h2>Code Consistency Across Repos</h2>
         <ul>
           <li><strong>Shared ESLint / linter configs:</strong> Publish org-wide linting rules as a package</li>
-          <li><strong>Template repositories:</strong> Provide starter repos with standard structure, CI, and tooling</li>
+          <li><strong>Template repositories:</strong> Use a CCPR template to provide starter repos with standard structure, CI, and Copilot configuration</li>
           <li><strong>Shared prompt libraries:</strong> Reusable <code>.prompt.md</code> files for common coding tasks</li>
           <li><strong>Automated audits:</strong> Periodic workflows that check repos for compliance with org standards</li>
           <li><strong>Code review bots:</strong> Automated reviewers that enforce cross-repo conventions in PRs</li>
         </ul>
+
         <aside class="speaker-notes">
           Consistency across repositories requires both proactive and reactive measures. On the proactive side, publish shared linter configurations and template repositories so new projects start with the right patterns. Shared prompt libraries let teams reuse well-crafted prompts for common tasks like "generate a new API endpoint following our conventions" or "add structured logging to this function." On the reactive side, automated audits can periodically scan repos for compliance with organizational standards: Are they using the right linter config? Do they have a copilot-instructions.md file? Are their CI workflows up to date? Code review bots add another layer by enforcing conventions during the PR review process. Together, these create a consistency framework that scales across hundreds of repositories.
         </aside>
@@ -559,6 +586,7 @@ server.tool(
           <li><strong>Rollback planning:</strong> Ensure each migration PR can be reverted independently</li>
           <li><strong>Progress tracking:</strong> Use GitHub Projects or a tracking issue to monitor migration status across repos</li>
         </ul>
+
         <aside class="speaker-notes">
           Large-scale migrations, such as upgrading a framework version across 200 services, are one of the most compelling use cases for multi-repo agent workflows. Start by writing a detailed migration guide that covers every change pattern: renamed APIs, deprecated methods, new configuration requirements. Create issue templates that reference this guide and include repo-specific context like the current version and known customizations. Then batch your repos by risk level. Start with low-risk, well-tested repos to validate that the agent produces correct migrations. Once you are confident in the pattern, fan out to the remaining repos. Always ensure each migration PR can be reverted independently; never create dependencies between migration PRs across repos. Use GitHub Projects or a tracking issue to maintain visibility into the overall migration status.
         </aside>
@@ -591,6 +619,7 @@ server.tool(
           <li><strong>MCP server tokens:</strong> Scope API tokens to specific repos and operations</li>
           <li><strong>Branch protection:</strong> Require PR reviews even for agent-created pull requests</li>
         </ul>
+
         <aside class="speaker-notes">
           Governance starts with access control. The Copilot coding agent runs with the permissions of the user or GitHub App that triggers it, so it cannot access repos the triggering identity cannot access. For cross-repo automation, use fine-grained GitHub Apps installed only on the specific repos that need agent access. Apply the principle of least privilege: if an MCP tool only needs to read files from a repo, give it a read-only token. Branch protection rules should apply to agent-created PRs just like human-created ones; always require at least one human review before merging. This ensures that agents accelerate work without bypassing your review and approval processes.
         </aside>
@@ -610,6 +639,7 @@ server.tool(
           <li><strong>Change tracking:</strong> Every code change has a git commit with a clear author trail</li>
           <li><strong>Compliance reports:</strong> Use audit log APIs to generate reports on agent activity across repos</li>
         </ul>
+
         <aside class="speaker-notes">
           Enterprise compliance requires full traceability of who did what, when, and why. GitHub's audit log captures agent actions such as issue assignments, branch creation, commits, and PR submissions. Individual Copilot Chat conversations are not captured in the audit log. Agent-created PRs are clearly labeled with attribution to both the agent and the human who initiated the action. For regulated industries, you can use the audit log API to generate compliance reports showing all agent activity across your organization. The key principle is that agents do not bypass your existing audit infrastructure; they work within it. Every code change still has a git commit with a clear author, every PR goes through your review process, and every action is logged. This makes it straightforward to demonstrate compliance to auditors.
         </aside>
@@ -629,6 +659,7 @@ server.tool(
           <li><strong>CODEOWNERS:</strong> Ensure the right teams are assigned as reviewers for agent-generated changes</li>
           <li><strong>Rate limiting:</strong> Monitor and limit the volume of agent-created issues and PRs to prevent runaway automation</li>
         </ul>
+
         <aside class="speaker-notes">
           Beyond individual access controls, you need organizational policy guardrails. Copilot policies at the org level let administrators control which repositories have Copilot features and the coding agent enabled. Repository rulesets define rules about who can push, which branches are protected, and what status checks must pass. Required workflows ensure that agent-created PRs go through the same CI pipeline as human-created ones. CODEOWNERS files route reviews to the right teams automatically. And rate limiting, either through GitHub App rate limits or custom workflow logic, prevents a misconfigured fan-out from creating hundreds of issues at once. These guardrails give you confidence that agent automation remains safe and controlled at scale.
         </aside>
@@ -661,6 +692,7 @@ server.tool(
           <li><strong>Copilot Extensions ecosystem:</strong> Third-party tools and integrations are growing rapidly</li>
           <li><strong>Multi-agent frameworks:</strong> Orchestration layers for coordinating agents are emerging</li>
         </ul>
+
         <aside class="speaker-notes">
           The reason this course carries a Departing badge is that the multi-repo AI landscape is evolving rapidly. Several of the workarounds we discussed, like manually embedding context in issues or building custom MCP tools for basic cross-repo file access, may become unnecessary as native capabilities expand. GitHub is actively developing deeper code indexing that could span repo boundaries. MCP is maturing with better discovery, authentication, and remote hosting standards. The Copilot Extensions ecosystem is growing, bringing third-party integrations that address many cross-repo scenarios. New multi-agent orchestration frameworks are emerging that could simplify the coordination patterns we described. The techniques in this course work today, but stay alert for platform updates that simplify or replace these approaches.
         </aside>
@@ -680,6 +712,7 @@ server.tool(
           <li><strong>Agent-to-agent communication:</strong> Protocols for agents to coordinate directly (speculative; no known GitHub roadmap item)</li>
           <li><strong>Declarative orchestration:</strong> Define multi-repo workflows in configuration rather than code (speculative; not an announced feature)</li>
         </ul>
+
         <aside class="speaker-notes">
           Here are the specific developments to monitor. Native multi-repo agent sessions would eliminate the need for the workarounds we discussed around issue-based coordination. Larger context windows in underlying models mean more cross-repo information can be included per request. Organizational memory, a persistent knowledge layer about your architecture and decisions, could replace manual curation of indexed repositories, though repository-indexed search already partially addresses this need and no distinct feature has been announced. Agent-to-agent communication protocols could enable the coordinator pattern without custom workflows, but there is no known GitHub roadmap item for this. Declarative orchestration, defining multi-repo workflows in a configuration file, is also speculative and has not been announced. If any of these capabilities arrive, revisit the patterns in this course and simplify where possible.
         </aside>
@@ -693,15 +726,16 @@ server.tool(
       <div class="slide-inner">
         <h2>Practical Recommendations Today</h2>
         <ul>
-          <li><strong>Start with org-level instructions:</strong> Lowest effort, highest immediate impact</li>
+          <li><strong>Start with a CCPR template and org-level instructions:</strong> Lowest effort, highest immediate impact</li>
           <li><strong>Organize searchable repositories:</strong> Structure your architecture docs, API specs, and onboarding guides in indexed repositories</li>
           <li><strong>Deploy the GitHub MCP Server:</strong> Get cross-repo file access in Copilot Chat immediately</li>
           <li><strong>Prototype one fan-out workflow:</strong> Pick a common cross-repo task and automate it</li>
           <li><strong>Establish governance early:</strong> Set up access controls and audit processes before scaling agents</li>
           <li><strong>Stay current:</strong> Follow GitHub's Copilot changelog for new cross-repo capabilities</li>
         </ul>
+
         <aside class="speaker-notes">
-          Given the evolving landscape, here is a pragmatic approach. Start with org-level custom instructions because they require minimal effort and deliver immediate value across all repos. Organize your architecture documentation in indexed repositories; do not create new docs, just structure what you have for effective search. Deploy the official GitHub MCP Server to give Copilot Chat cross-repo file access right away. Then pick one specific cross-repo task your team performs regularly, like updating an API client across services, and build a fan-out automation for it. Establish your governance model early; it is much easier to set up access controls and audit processes before you have dozens of agent workflows running. Finally, stay current with GitHub's Copilot changelog because new capabilities are shipping regularly that may simplify or replace the patterns you have built.
+          Given the evolving landscape, here is a pragmatic approach. Start with a CCPR template and org-level custom instructions because they require minimal effort and deliver immediate value across all repos. Organize your architecture documentation in indexed repositories; do not create new docs, just structure what you have for effective search. Deploy the official GitHub MCP Server to give Copilot Chat cross-repo file access right away. Then pick one specific cross-repo task your team performs regularly, like updating an API client across services, and build a fan-out automation for it. Establish your governance model early; it is much easier to set up access controls and audit processes before you have dozens of agent workflows running. Finally, stay current with GitHub's Copilot changelog because new capabilities are shipping regularly that may simplify or replace the patterns you have built.
         </aside>
       </div>
     </section>
@@ -727,14 +761,14 @@ server.tool(
         <h2>Key Takeaways</h2>
         <ul>
           <li>Multi-repo is the enterprise reality; Copilot's context model is repo-scoped by default</li>
-          <li>Org-level custom instructions create consistency across all repos with minimal effort</li>
+          <li>CCPR templates and org-level instructions create consistency across all repos with minimal effort</li>
           <li>Repository-indexed search bridges the documentation gap; MCP servers bridge the code gap</li>
           <li>The coding agent works per-repo, but orchestration patterns enable multi-repo workflows</li>
           <li>Governance, access controls, and audit trails must scale alongside agent adoption</li>
           <li>The landscape is evolving; invest in portable patterns and stay current with platform changes</li>
         </ul>
         <aside class="speaker-notes">
-          Let's recap the key messages. First, multi-repo architectures are the default in enterprise environments, and Copilot's context is scoped to individual repositories by default. Bridging that gap requires deliberate strategy. Second, org-level custom instructions are your most impactful first step because they create consistency across every repo with a single file. Third, repository-indexed search gives Copilot access to documentation across repos, while MCP servers give it access to live code and data. Fourth, the coding agent operates per-repo, but you can build orchestration patterns using GitHub Actions, issue templates, and tracking issues. Fifth, governance is not optional; establish access controls and audit processes early. Sixth, this landscape is evolving fast, so invest in portable patterns that will remain useful as native capabilities expand.
+          Let's recap the key messages. First, multi-repo architectures are the default in enterprise environments, and Copilot's context is scoped to individual repositories by default. Bridging that gap requires deliberate strategy. Second, CCPR templates combined with org-level instructions are your most impactful first step because they create consistency across every repo from day one. Third, repository-indexed search gives Copilot access to documentation across repos, while MCP servers give it access to live code and data. Fourth, the coding agent operates per-repo, but you can build orchestration patterns using GitHub Actions, issue templates, and tracking issues. Fifth, governance is not optional; establish access controls and audit processes early. Sixth, this landscape is evolving fast, so invest in portable patterns that will remain useful as native capabilities expand.
         </aside>
       </div>
     </section>
@@ -748,7 +782,7 @@ server.tool(
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
         <aside class="speaker-notes">
-          Thank you for attending "Multi-Agent Multi-Repo Roundup." Remember that the patterns and techniques covered today are actionable right now, even as the platform continues to evolve. Start with org-level instructions, organize your indexed repositories, and experiment with the coding agent on a real cross-repo task. Please reach out if you have questions or want help implementing any of these patterns in your organization.
+          Thank you for attending "Multi-Agent Multi-Repo Roundup." Remember that the patterns and techniques covered today are actionable right now, even as the platform continues to evolve. Start with a CCPR template, layer on org-level instructions, organize your indexed repositories, and experiment with the coding agent on a real cross-repo task. Please reach out if you have questions or want help implementing any of these patterns in your organization.
         </aside>
       </div>
     </section>
