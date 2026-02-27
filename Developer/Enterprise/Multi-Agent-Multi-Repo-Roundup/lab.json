@@ -9,7 +9,8 @@
       "steps": [
         {
           "title": "Welcome to the Lab",
-          "instruction": "Welcome to the <strong>Multi-Agent Multi-Repo Roundup</strong> lab. This is an enterprise-level exercise where you will experience — and solve — the cross-repo context gap using GitHub Copilot.<br><br>Your workspace has been set up with two repositories: a <strong>CCPR template</strong> (your organization's baseline Copilot configuration) and the <strong>OctoCAT Supply frontend</strong> (a React application). The frontend calls an API that lives in a separate repository — but that repo is not in your workspace yet. You will feel the context gap firsthand, then use Copilot to bridge it.<br><br>Along the way, you will layer custom instructions across repos, configure MCP servers for cross-repo access, design orchestration workflows, and build governance models for multi-repo automation."
+          "instruction": "Welcome to the <strong>Multi-Agent Multi-Repo Roundup</strong> lab. This is an enterprise-level exercise where you will experience, and solve, the cross-repo context gap using GitHub Copilot.<br><br>Your workspace has been set up with two repositories: a <strong>CCPR template</strong> (your organization's baseline Copilot configuration) and the <strong>OctoCAT Supply frontend</strong> (a React application). The frontend calls an API that lives in a separate repository, but that repo is not in your workspace yet. You will feel the context gap firsthand, then use Copilot to bridge it.<br><br>Along the way, you will layer custom instructions across repos, configure MCP servers for cross-repo access, design orchestration workflows, and build governance models for multi-repo automation.",
+          "focus": "guide"
         }
       ]
     },
@@ -17,7 +18,7 @@
       "steps": [
         {
           "title": "Explore Your Workspace",
-          "instruction": "Open the <strong>Explorer</strong> and review the two repos already in your workspace: the CCPR template (<code>ccpr_root</code>) and the OctoCAT Supply frontend (<code>octocat-supply-frontend</code>). Browse the frontend's <code>src/api/config.ts</code> — notice how it connects to an API backend via a configurable URL.",
+          "instruction": "Open the <strong>Explorer</strong> and review the two repos already in your workspace: the CCPR template (<code>ccpr_root</code>) and the OctoCAT Supply frontend (<code>octocat-supply-frontend</code>). Browse the frontend's <code>src/api/config.ts</code>; notice how it connects to an API backend via a configurable URL.",
           "focus": "left",
           "action": "workbench.view.explorer",
           "actionLabel": "Open Explorer",
@@ -25,7 +26,7 @@
         },
         {
           "title": "Experience the Context Gap",
-          "instruction": "Open <strong>Copilot Chat</strong> in <strong>Agent</strong> mode. Ask Copilot about the API the frontend depends on:<br><br><kbd>What endpoints does the OctoCAT Supply API expose? What data models does it use?</kbd><br><br>Copilot cannot answer accurately — the API code is not in your workspace. This is the cross-repo context gap in action. The frontend references routes and models that live in a completely separate repository.",
+          "instruction": "Open <strong>Copilot Chat</strong> in <strong>Agent</strong> mode. Ask Copilot about the API the frontend depends on:<br><br><kbd>What endpoints does the OctoCAT Supply API expose? What data models does it use?</kbd><br><br>Copilot cannot answer accurately because the API code is not in your workspace. This is the cross-repo context gap in action. The frontend references routes and models that live in a completely separate repository.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
@@ -44,7 +45,7 @@
         },
         {
           "title": "Examine the CCPR Template",
-          "instruction": "Open the <strong>Explorer</strong> and browse the <code>ccpr_root</code> folder. This is your organization's <strong>Copilot Customization Package Repository</strong> — a template that standardizes Copilot's behavior across all repos. Notice the structure:<br><br>&bull; <code>.github/copilot-instructions.md</code> — org-level baseline<br>&bull; <code>.github/instructions/</code> — path-scoped instruction files<br>&bull; <code>.github/agents/</code> — reusable agent definitions<br>&bull; <code>.github/prompts/</code> — shared prompt files<br>&bull; <code>.github/skills/</code> — domain-specific skills<br><br>Compare this to the <code>.github/</code> folders in the API and frontend repos. The CCPR template is the source; the individual repos inherit from it.",
+          "instruction": "Open the <strong>Explorer</strong> and browse the <code>ccpr_root</code> folder. This is your organization's <strong>Central Code Prompt Repository</strong> (CCPR), a template that standardizes Copilot's behavior across all repos. Notice the structure:<br><br>&bull; <code>.github/copilot-instructions.md</code>: org-level baseline<br>&bull; <code>.github/instructions/</code>: path-scoped instruction files<br>&bull; <code>.github/agents/</code>: reusable agent definitions<br>&bull; <code>.github/prompts/</code>: shared prompt files<br>&bull; <code>.github/skills/</code>: domain-specific skills<br><br>Compare this to the <code>.github/</code> folders in the API and frontend repos. The CCPR template is the source; the individual repos inherit from it.",
           "focus": "left",
           "action": "workbench.view.explorer",
           "actionLabel": "Open Explorer",
@@ -61,13 +62,13 @@
       "steps": [
         {
           "title": "Examine Org-Level Instructions",
-          "instruction": "Open the <code>ccpr_root/.github/copilot-instructions.md</code> file. This is your organization's baseline Copilot configuration — it defines standards that apply across every repo that inherits from the CCPR template.<br><br>Notice how it sets rules for error handling, type safety, naming conventions, and review priorities. These instructions are automatically loaded by Copilot for every developer working in a repo derived from this template.",
+          "instruction": "Open the <code>ccpr_root/.github/copilot-instructions.md</code> file. This is your organization's baseline Copilot configuration; it defines standards that apply across every repo that inherits from the CCPR template.<br><br>Notice how it sets rules for error handling, type safety, naming conventions, and review priorities. These instructions are automatically loaded by Copilot for every developer working in a repo derived from this template.",
           "focus": "editor",
           "tip": "The CCPR template is the single source of truth for org-level instructions. When you update it, every repo that forked from it can pull the changes."
         },
         {
           "title": "Compare Repo-Level Instructions",
-          "instruction": "Now open <code>octocat-supply-api/.github/copilot-instructions.md</code> and compare it to the CCPR template version. The API repo has <strong>project-specific</strong> instructions that layer on top of the org baseline — architecture details, tech stack, and review conventions specific to this Express + SQLite API.<br><br>Then open <code>octocat-supply-frontend/.github/copilot-instructions.md</code> and compare. Each repo customizes the baseline for its own needs. This is the layered approach in action.",
+          "instruction": "Now open <code>octocat-supply-api/.github/copilot-instructions.md</code> and compare it to the CCPR template version. The API repo has <strong>project-specific</strong> instructions that layer on top of the org baseline, covering architecture details, tech stack, and review conventions specific to this Express + SQLite API.<br><br>Then open <code>octocat-supply-frontend/.github/copilot-instructions.md</code> and compare. Each repo customizes the baseline for its own needs. This is the layered approach in action.",
           "focus": "editor"
         },
         {
@@ -89,7 +90,7 @@
       "steps": [
         {
           "title": "Explore Existing Prompt Files",
-          "instruction": "The API repo already has prompt files from the CCPR template. Open the <strong>Explorer</strong> and browse <code>octocat-supply-api/.github/prompts/</code>. You will find prompts for DRY violations, handoff to the coding agent, and general handoff patterns.<br><br>Open <code>handoff-to-copilot-coding-agent.prompt.md</code> and read its structure — it uses YAML frontmatter for metadata and Markdown for the prompt body.",
+          "instruction": "The API repo already has prompt files from the CCPR template. Open the <strong>Explorer</strong> and browse <code>octocat-supply-api/.github/prompts/</code>. You will find prompts for DRY violations, handoff to the coding agent, and general handoff patterns.<br><br>Open <code>handoff-to-copilot-coding-agent.prompt.md</code> and read its structure. It uses YAML frontmatter for metadata and Markdown for the prompt body.",
           "focus": "left",
           "action": "workbench.view.explorer",
           "actionLabel": "Open Explorer",
@@ -97,14 +98,14 @@
         },
         {
           "title": "Create a Cross-Repo Prompt File",
-          "instruction": "Create a new prompt file that leverages cross-repo context. In agent mode, ask:<br><br><kbd>Create a new prompt file at octocat-supply-frontend/.github/prompts/sync-api-types.prompt.md. It should generate TypeScript interfaces in the frontend that match the API's data models. The prompt should instruct Copilot to read the API's model files from the workspace, extract the type definitions, and generate matching frontend types in src/api/types.ts.</kbd><br><br>This is a cross-repo prompt — it requires context from the API repo to generate code in the frontend repo. It only works because both repos are in the same workspace.",
+          "instruction": "Create a new prompt file that leverages cross-repo context. In agent mode, ask:<br><br><kbd>Create a new prompt file at octocat-supply-frontend/.github/prompts/sync-api-types.prompt.md. It should generate TypeScript interfaces in the frontend that match the API's data models. The prompt should instruct Copilot to read the API's model files from the workspace, extract the type definitions, and generate matching frontend types in src/api/types.ts.</kbd><br><br>This is a cross-repo prompt; it requires context from the API repo to generate code in the frontend repo. It only works because both repos are in the same workspace.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Test the Cross-Repo Prompt",
-          "instruction": "Type <kbd>/</kbd> in Copilot Chat to open the prompt picker. Select <strong>sync-api-types</strong> and run it.<br><br>Review the generated types. Do they match the models in the API's <code>src/models/</code> directory? This demonstrates how prompt files can encode cross-repo knowledge — the template encapsulates the 'how to sync types' pattern so any developer can run it without knowing the API repo's internals.",
+          "instruction": "Type <kbd>/</kbd> in Copilot Chat to open the prompt picker. Select <strong>sync-api-types</strong> and run it.<br><br>Review the generated types. Do they match the models in the API's <code>src/models/</code> directory? This demonstrates how prompt files can encode cross-repo knowledge. The template encapsulates the 'how to sync types' pattern so any developer can run it without knowing the API repo's internals.",
           "focus": "right",
           "onLeave": "workbench.action.closeSidebar"
         },
@@ -125,7 +126,7 @@
         },
         {
           "title": "Add the GitHub MCP Server",
-          "instruction": "The GitHub MCP Server gives Copilot the ability to search, read, and interact with repositories outside your workspace — including repos not in this workspace. In agent mode, ask Copilot to add it:<br><br><kbd>Add a GitHub remote MCP server to my workspace mcp.json. Use the hosted version at https://api.githubcopilot.com/mcp/ with toolsets for repos, issues, pull_requests, and code_security.</kbd><br><br>After Copilot adds the configuration, verify it appears in <code>.vscode/mcp.json</code>.",
+          "instruction": "The GitHub MCP Server gives Copilot the ability to search, read, and interact with repositories outside your workspace, including repos not in this workspace. In agent mode, ask Copilot to add it:<br><br><kbd>Add a GitHub remote MCP server to my workspace mcp.json. Use the hosted version at https://api.githubcopilot.com/mcp/ with toolsets for repos, issues, pull_requests, and code_security.</kbd><br><br>After Copilot adds the configuration, verify it appears in <code>.vscode/mcp.json</code>.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
@@ -159,7 +160,7 @@
         },
         {
           "title": "Register the Custom Server",
-          "instruction": "Add your custom MCP server to the workspace MCP configuration. In your <code>.vscode/mcp.json</code>, add the server alongside Playwright and GitHub:<br><br><kbd>{<br>  \"cross-repo-specs\": {<br>    \"command\": \"npx\",<br>    \"args\": [\"tsx\", \"cross-repo-spec-server.ts\"]<br>  }<br>}</kbd><br><br>Now Copilot can access the GitHub MCP Server for remote repos, Playwright for browser testing, and your custom server for local cross-repo data — all simultaneously.",
+          "instruction": "Add your custom MCP server to the workspace MCP configuration. In your <code>.vscode/mcp.json</code>, add the server alongside Playwright and GitHub:<br><br><kbd>{<br>  \"cross-repo-specs\": {<br>    \"command\": \"npx\",<br>    \"args\": [\"tsx\", \"cross-repo-spec-server.ts\"]<br>  }<br>}</kbd><br><br>Now Copilot can access the GitHub MCP Server for remote repos, Playwright for browser testing, and your custom server for local cross-repo data, all simultaneously.",
           "focus": "editor"
         },
         {
