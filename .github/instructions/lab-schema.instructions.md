@@ -65,6 +65,46 @@ Slide-level `onLeave` is deprecated. Always place `onLeave` on individual steps.
 | `action` | `string \| string[]` | No | VS Code command(s) to execute when the step loads. |
 | `actionLabel` | `string` | No | Human-readable label describing the action. Required when `action` is present. |
 | `onLeave` | `string \| string[]` | No | VS Code command(s) to execute when the user advances past this step. |
+| `validate` | `LabValidation[]` | No | Workspace checks that prove the learner completed the step (see below). |
+
+### `validate` — workspace validation checks
+
+A step can declare validation checks that the learner runs by clicking **Check
+Mission Progress** in the guide panel. Each check is an object with:
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `type` | `string` | Yes | Check type: `fileExists`, `fileContains`, or `commandOutput`. |
+| `path` | `string` | Conditional | Glob pattern relative to workspace root (required for `fileExists` and `fileContains`). |
+| `pattern` | `string` | Conditional | Regex pattern to match in file content (required for `fileContains`). Case-insensitive. |
+| `command` | `string` | Conditional | Shell command to run (required for `commandOutput`). Passes if exit code is 0. |
+| `label` | `string` | Yes | Description shown next to the pass/fail icon in the results checklist. |
+
+Example:
+
+```jsonc
+"validate": [
+  {
+    "type": "fileExists",
+    "path": ".github/copilot-instructions.md",
+    "label": "Instructions file exists"
+  },
+  {
+    "type": "fileContains",
+    "path": ".github/copilot-instructions.md",
+    "pattern": "vitest|testing",
+    "label": "Instructions mention testing conventions"
+  },
+  {
+    "type": "commandOutput",
+    "command": "make test",
+    "label": "All tests pass"
+  }
+]
+```
+
+Validation is non-blocking: learners can always advance past a step regardless
+of check results.
 
 ### `focus` values
 

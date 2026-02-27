@@ -61,14 +61,41 @@
     </section>
 
     <!-- ============================================================
-         SLIDE 4 - Reconnaissance (Section)
+         SLIDE 4 - Mission Briefing (Challenge)
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Mission Briefing</h2>
+        <p>You have been dropped into an unfamiliar full-stack codebase (React frontend + Express backend). A feature request ticket is waiting for you. Using only Copilot Agent Mode, you must deliver a working feature: a new API endpoint, a React component that consumes it, and passing tests. No manual file browsing. No copy-pasting from docs. Agent mode is your only tool.</p>
+        <h3>Deliverables</h3>
+        <ul>
+          <li>A new <code>GET /api/reports/inventory</code> endpoint that returns current stock levels grouped by category</li>
+          <li>A React component at <code>frontend/src/pages/InventoryReport.tsx</code> that fetches and displays the data</li>
+          <li>Vitest tests for both the API route and the component</li>
+        </ul>
+        <h3>Constraint</h3>
+        <p>Agent Mode only. No manual file browsing. No copy-pasting from documentation.</p>
+        <h3>Success Criteria</h3>
+        <ul>
+          <li>The endpoint returns data when called with <code>curl</code> or the browser</li>
+          <li>The React component renders the inventory report in the UI</li>
+          <li>All tests pass when you run <code>make test</code></li>
+        </ul>
+        <aside class="speaker-notes">
+          This is your mission for today. Everything we cover from here forward is a tool you will use to complete this mission. By the end of this session, you should have a working feature that meets all three success criteria. The constraint is important: you are not allowed to manually browse files or paste code from documentation. Agent mode is your only tool. This forces you to develop the prompting and steering skills that make agent mode effective. Take a moment to read the success criteria. These are concrete and measurable. At the end, you will know whether you succeeded. Keep this slide in mind as we work through each section; every concept we cover connects directly to this mission.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - Reconnaissance (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge">Part 1</span>
         <h2>Reconnaissance</h2>
         <aside class="speaker-notes">
-          Every mission starts with reconnaissance. Before you write a single line of code, you need to understand the terrain. Agent mode is excellent at exploring unfamiliar codebases.
+          Every mission starts with reconnaissance. Before you write a single line of code, you need to understand the terrain. Agent mode is excellent at exploring unfamiliar codebases. This is where your mission begins; without reconnaissance, every prompt you write later will lack the file references that produce accurate output.
         </aside>
       </div>
     </section>
@@ -143,7 +170,7 @@ stateDiagram-v2
         <span class="badge">Part 2</span>
         <h2>Agent Mode Deep Dive</h2>
         <aside class="speaker-notes">
-          Now that we've oriented ourselves in the codebase, let's go deeper on how agent mode actually works. Understanding the agentic loop will help you diagnose problems and steer the agent more effectively.
+          Now that we've oriented ourselves in the codebase, let's go deeper on how agent mode actually works. Understanding the agentic loop will help you diagnose problems and steer the agent more effectively. When your mission stalls or the agent goes off track, this is the knowledge that tells you why and how to intervene.
         </aside>
       </div>
     </section>
@@ -235,7 +262,7 @@ stateDiagram-v2
         <span class="badge">Part 3</span>
         <h2>The Mode Selector</h2>
         <aside class="speaker-notes">
-          Now let's talk about how agent mode fits into the broader picture. VS Code's Copilot Chat has three modes, and knowing when to use each one is a key skill.
+          Now let's talk about how agent mode fits into the broader picture. VS Code's Copilot Chat has three modes, and knowing when to use each one is a key skill. Your mission focuses on agent mode, but knowing when to switch to Ask or Edit will save you time during the build.
         </aside>
       </div>
     </section>
@@ -302,7 +329,7 @@ graph LR
   C2 --> D2[External API]
         </pre>
         <aside class="speaker-notes">
-          Before we start building, we need to set up our workspace. This is one of the most overlooked steps in working with agent mode: if you skip the preparation, you'll spend twice as long correcting mistakes later. Think of it as equipping your agent with the right tools and intelligence before sending it into the field.
+          Before we start building, we need to set up our workspace. This is one of the most overlooked steps in working with agent mode: if you skip the preparation, you'll spend twice as long correcting mistakes later. Think of it as equipping your agent with the right tools and intelligence before sending it into the field. This is the most critical preparation step for your mission; skipping it means twice as many corrections later.
         </aside>
       </div>
     </section>
@@ -368,7 +395,7 @@ graph LR
         <span class="badge">Part 5</span>
         <h2>Building the Feature</h2>
         <aside class="speaker-notes">
-          Time for the core of the mission. We're going to use agent mode to build a complete feature: a new API endpoint and the React component that consumes it. This is where agent mode really shines: multi-step tasks that span multiple files.
+          Time for the core of the mission. We're going to use agent mode to build a complete feature: a new API endpoint and the React component that consumes it. This is where agent mode really shines: multi-step tasks that span multiple files. Everything we have covered so far prepares you for this moment: delivering the feature that completes your mission.
         </aside>
       </div>
     </section>
@@ -473,7 +500,7 @@ navigation link in the sidebar."</code></pre>
         <span class="badge">Part 6</span>
         <h2>Quality Assurance</h2>
         <aside class="speaker-notes">
-          The feature is built. Now comes the part that separates proof-of-concept from production-ready: quality assurance. Agent mode is surprisingly good at this phase.
+          The feature is built. Now comes the part that separates proof-of-concept from production-ready: quality assurance. Agent mode is surprisingly good at this phase. Your mission is not complete until the tests pass; this section gives you the skills to close it out.
         </aside>
       </div>
     </section>
@@ -524,7 +551,7 @@ navigation link in the sidebar."</code></pre>
         <span class="badge">Part 7</span>
         <h2>Multi-File Workflows</h2>
         <aside class="speaker-notes">
-          One of the reasons we chose a full-stack codebase for this course is that real features rarely live in a single file. Let's talk about how agent mode handles coordinated changes across multiple files.
+          One of the reasons we chose a full-stack codebase for this course is that real features rarely live in a single file. Let's talk about how agent mode handles coordinated changes across multiple files. Your mission requires coordinated changes across the full stack; without these techniques, the integration phase will stall.
         </aside>
       </div>
     </section>
@@ -600,7 +627,44 @@ handles ${input:httpMethod} requests to /api/${input:routeName}.
     </section>
 
     <!-- ============================================================
-         SLIDE 28 - Debrief (Section)
+         SLIDE - Mission Debrief: The Solution
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Mission Debrief: The Solution</h2>
+        <h3>Recommended Prompts by Phase</h3>
+        <ul>
+          <li><strong>Reconnaissance</strong>: "What does this project do? Walk me through the folder structure, the API routes, the database schema, and the testing setup."</li>
+          <li><strong>Instructions Setup</strong>: "Create a .github/copilot-instructions.md for this project. Cover TypeScript settings, React patterns, Express conventions, Vitest testing, and SQLite query safety."</li>
+          <li><strong>Backend Build</strong>: "Create a new GET /api/reports/inventory endpoint that returns stock levels grouped by category. Follow the pattern in api/routes/products.ts. Include a Vitest test file. Run make test to verify."</li>
+          <li><strong>Frontend Build</strong>: "Create a React component at frontend/src/pages/InventoryReport.tsx that fetches data from GET /api/reports/inventory. Use the same data fetching pattern as ProductList.tsx. Add a route and navigation link."</li>
+          <li><strong>Testing</strong>: "Run make test. Fix any failing tests. Then run the linter and fix any warnings."</li>
+        </ul>
+        <h3>Expected File Changes</h3>
+        <ul>
+          <li><code>.github/copilot-instructions.md</code> (created)</li>
+          <li><code>api/routes/inventory.ts</code> (created)</li>
+          <li><code>api/routes/inventory.test.ts</code> (created)</li>
+          <li><code>api/index.ts</code> (modified to register the new route)</li>
+          <li><code>frontend/src/pages/InventoryReport.tsx</code> (created)</li>
+          <li><code>frontend/src/router.tsx</code> (modified to add the route)</li>
+          <li><code>frontend/src/components/Sidebar.tsx</code> (modified to add the nav link)</li>
+        </ul>
+        <h3>Common Mistakes</h3>
+        <ul>
+          <li><strong>Skipping reconnaissance</strong>: Without understanding the project structure, prompts lack the file path references that produce accurate output</li>
+          <li><strong>Skipping instructions</strong>: Without a copilot-instructions.md, agent mode may use Jest instead of Vitest or default exports instead of named exports</li>
+          <li><strong>One giant prompt</strong>: Trying to build everything in a single prompt leads to context overload. Break it into phases.</li>
+          <li><strong>Not running tests</strong>: If you do not ask agent mode to run and fix tests, you miss the iterative refinement that produces production-quality code</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is the reference solution. Compare your approach to this one. There is no single correct path, but these prompts represent a proven workflow. The key insight is the sequencing: reconnaissance first, then instructions, then backend, then frontend, then testing. Each phase builds context that makes the next phase more effective. If you skipped reconnaissance, your later prompts probably lacked specific file references, which means the output was more generic. If you skipped setting up instructions, agent mode may have made choices that do not match the project's conventions. Look at the expected file changes. Did agent mode create and modify the same files? If not, compare what it did differently and consider whether your approach or this reference produces a more maintainable result.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE - Debrief (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
@@ -617,17 +681,17 @@ handles ${input:httpMethod} requests to /api/${input:routeName}.
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>What We Built</h2>
+        <h2>How Did Your Mission Go?</h2>
+        <p>Compare your approach to the reference solution. Reflect on these questions:</p>
         <ul>
-          <li>Explored an unfamiliar full-stack codebase using agent mode as a navigator</li>
-          <li>Set up instruction files tailored to the project's conventions</li>
-          <li>Built a complete API endpoint with database query and tests</li>
-          <li>Built a React component wired to the new endpoint</li>
-          <li>Used iterative refinement to get the code to production quality</li>
-          <li>Created reusable prompt files for common project tasks</li>
+          <li>Did you start with reconnaissance, or did you jump straight into building?</li>
+          <li>Did you set up instruction files before writing your first feature prompt?</li>
+          <li>How many iterations did agent mode need before the tests passed?</li>
+          <li>Where did your approach deviate from the reference solution? Was the result better or worse?</li>
+          <li>What would you do differently next time?</li>
         </ul>
         <aside class="speaker-notes">
-          Let's recap. We used agent mode to explore a codebase we'd never seen before. We set up instruction files that encode the project's conventions. We built a backend API endpoint with a database query and test coverage. We built a frontend React component that consumes the API. We refined the code iteratively, switching between agent, edit, and ask modes. And we saved our best prompts as reusable prompt files. This is the full workflow for agent-assisted development: orient, prepare, build, test, refine, and standardize. Every step involves Copilot, but you stay in the driver's seat.
+          This is the reflection moment. Ask the group these questions and give them a minute to think. The most common deviation is skipping reconnaissance and instructions. Learners who jumped straight into building the feature usually needed more iterations and got less consistent output. The second most common issue is trying to do everything in one prompt. Learners who broke the task into phases (backend, then frontend, then testing) generally had smoother sessions. There is no single correct path through this mission, but the sequencing matters. Reconnaissance builds context. Instructions encode conventions. Phased building keeps each prompt focused. Testing closes the loop. Ask learners what they would do differently next time. That reflection is where the real learning happens.
         </aside>
       </div>
     </section>
