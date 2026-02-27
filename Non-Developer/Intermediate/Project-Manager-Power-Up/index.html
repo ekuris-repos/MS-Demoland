@@ -85,6 +85,7 @@
           <li>Repetitive reporting tasks become <strong>prompt-and-generate</strong> workflows</li>
           <li>You stay in the loop on code changes <strong>without needing to read code</strong></li>
         </ul>
+
         <aside class="speaker-notes">
           The biggest change AI brings to project management is speed. Tasks that used to take an hour of digging through Jira boards, Slack threads, and spreadsheets can now be answered in seconds with the right prompt. Copilot also serves as a translator. You can paste a pull request diff into Copilot Chat and ask "what does this change do in plain English?" and get a summary you can forward to stakeholders. Repetitive work like writing sprint reports or status updates becomes a prompt-and-generate workflow. You provide the data points; Copilot drafts the narrative. And critically, you can stay informed about what your developers are building without needing to understand the code itself. That is a game-changer for PMs who want to be engaged partners, not just ticket-shufflers.
         </aside>
@@ -117,6 +118,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Let's make this concrete. On the left, the traditional PM workflow: you open your project board, go ticket by ticket, chase developers for updates, spend an hour in a spreadsheet building a status report, and only discover risks when something visibly breaks. On the right, the AI-powered version: you ask Copilot to summarize the state of your current sprint, get a plain-English breakdown of every PR merged this week, export your velocity data from Projects Insights, then ask Copilot to draft a report from it, and proactively surface issues like stalled PRs or aging issues. The tools are the same; GitHub Issues, Projects, and pull requests. The difference is how quickly you can extract value from them. That is the power-up we are here to deliver.
         </aside>
@@ -150,6 +152,8 @@
           <li>Everything stays connected: issues link to PRs, PRs link to code, code links to deployments</li>
           <li><strong>Sub-issues</strong> let you break epics into trackable child items, and <strong>issue types</strong> (Bug, Feature, Task) provide structured categorization</li>
         </ul>
+
+        <img src="img/TODO-screenshot-github-projects-board-view.png" alt="Screenshot of a GitHub Projects board view with custom fields for sprint planning" />
         <aside class="speaker-notes">
           GitHub Issues are your fundamental work items. Every bug, feature request, task, or spike lives as an issue. GitHub Projects sits on top of issues and gives you flexible views: a kanban board for daily standups, a table view for bulk editing and filtering, and a roadmap view for timeline-based planning. You can add custom fields for priority, story points, sprint number, team assignment, and anything else your process needs. Built-in automations can move issues to "In Progress" when a linked PR is opened, and to "Done" when it merges. The real power is traceability. An issue links to a PR, the PR links to code changes, and those changes link to a deployment. As a PM, you get end-to-end visibility from requirement to production.
         </aside>
@@ -168,6 +172,7 @@
           <li>Combine milestones with <strong>Project views</strong> to filter by sprint or release train</li>
           <li>Use <strong>labels</strong> consistently: <code>bug</code>, <code>feature</code>, <code>blocked</code>, <code>needs-review</code></li>
         </ul>
+
         <aside class="speaker-notes">
           Milestones let you group related issues under a release or deadline. Each milestone includes a progress bar that shows how many issues are open versus closed, giving you an instant snapshot of where things stand. Pair milestones with Project views and you can filter your board to show only Sprint 12 issues, or only items tagged for the Q3 release. Labels are equally important for a PM. Establish a consistent labeling strategy with your team: bug, feature, blocked, needs-review, and so on. When labels are consistent, you can filter, search, and report on them reliably. Inconsistent labels create noise; consistent labels create insight.
         </aside>
@@ -200,6 +205,8 @@
           <li>Identify scope: <em>"How many files changed and what areas of the app are affected?"</em></li>
           <li>Assess risk: <em>"Does this PR touch any security-sensitive files?"</em></li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-pr-summary-nontechnical.png" alt="Screenshot of a Copilot-generated non-technical PR summary" />
         <aside class="speaker-notes">
           Pull requests are where code changes live before they go into production. Every PR has a diff showing exactly what changed, but you do not need to read the diff yourself. Copilot can generate PR summaries automatically on github.com, and you can also paste a PR link into Copilot Chat and ask for a plain-English summary. Try prompts like "Summarize this PR for a non-technical audience" or "How many files changed and what areas of the app are affected?" You can even ask risk-oriented questions: "Does this PR touch any security-sensitive files?" or "Is this a large change that might need extra testing?" These answers used to require a developer to explain things in a meeting. Now you can get them in seconds.
         </aside>
@@ -232,6 +239,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           You do not need to understand code to understand the impact of a change. The left column shows questions you can ask Copilot about any PR or commit. The right column shows what you get back. "What does this change do?" gives you a summary you can use in a standup. "Why might this take longer than expected?" helps you anticipate delays. "What could break if this is wrong?" gives you risk context for your stakeholder report. "Is this a refactor or new functionality?" tells you whether to count it as feature progress or tech debt reduction. These questions turn you from a passive observer of development into an informed, engaged partner.
         </aside>
@@ -264,6 +272,8 @@
           <li><strong>Scope boundaries:</strong> what is included and, equally important, what is not</li>
           <li><strong>Resources:</strong> links to designs, specs, related issues, or relevant PRs</li>
         </ul>
+
+        <img src="img/TODO-diagram-well-structured-issue-anatomy.png" alt="Diagram showing the anatomy of a well-structured GitHub issue" />
         <aside class="speaker-notes">
           A well-written issue saves hours of back-and-forth. The title should be specific and action-oriented: "Add export button to dashboard" is better than "Dashboard improvements." Context explains why the work matters: who requested it, what problem it solves, and how it connects to broader goals. Acceptance criteria define "done" in testable terms: "User can click Export and receive a CSV file within 5 seconds." Scope boundaries are just as important. State what is not included to prevent scope creep. Finally, link to relevant designs, specs, or related issues so the developer has everything in one place.
         </aside>
@@ -283,6 +293,7 @@
           <li>Break down large features: <em>"Split this epic into smaller, independently deliverable issues"</em>. Link the resulting issues as sub-issues under the original epic for built-in progress tracking.</li>
           <li>Standardize language: Copilot helps keep terminology consistent across your backlog</li>
         </ul>
+
         <aside class="speaker-notes">
           Copilot is excellent at refining issue descriptions. Start with a rough draft of what you want built, paste it into Copilot Chat, and ask it to improve the description for clarity. It will tighten the language, add structure, and flag ambiguity. You can also ask it to generate acceptance criteria based on your description. One of the most valuable prompts is "What questions would a developer ask about this issue?" This surfaces gaps you might not have noticed. For larger features, ask Copilot to break an epic into smaller, independently deliverable issues. This produces better sprint planning and more predictable delivery. Over time, Copilot also helps standardize how you write issues, keeping terminology consistent across the entire backlog.
         </aside>
@@ -314,6 +325,7 @@
           <li>Create <strong>executive summaries</strong> that highlight outcomes, not implementation details</li>
           <li>Adjust tone and detail level: technical for engineering leads, strategic for VPs</li>
         </ul>
+
         <aside class="speaker-notes">
           Status reports used to mean an afternoon of copying ticket titles into a slide deck. With Copilot, you gather your data points, such as the list of closed issues, merged PRs, and outstanding blockers, then ask Copilot to draft a sprint summary. The key is adjusting for your audience. For engineering leads, include technical details: which services were updated, which bugs were resolved, and what remains. For VPs and executives, focus on outcomes: features shipped, user-facing improvements, and progress toward quarterly goals. You can literally run the same data through two different prompts and get two perfectly tailored reports. That flexibility is what makes this so powerful.
         </aside>
@@ -332,6 +344,8 @@
           <li>Use Copilot to <strong>interpret trends:</strong> <em>"What does this velocity trend suggest?"</em></li>
           <li>Generate chart descriptions for reports: <em>"Write a paragraph explaining this burndown chart"</em></li>
         </ul>
+
+        <img src="img/TODO-screenshot-github-projects-insights.png" alt="Screenshot of GitHub Projects built-in Insights with velocity and burndown charts" />
         <aside class="speaker-notes">
           GitHub Projects includes built-in Insights with configurable historical and current-state charts that you can set up to track sprint progress over time. If your team uses story points or issue counts, these charts update automatically as work progresses. You can also export your project data as a CSV and build custom charts in Excel or Google Sheets. Where Copilot adds value is in interpretation. Paste your velocity numbers into Copilot Chat and ask "What does this velocity trend suggest about our release timeline?" or "Write a paragraph explaining this burndown chart for my weekly stakeholder update." Copilot turns raw numbers into narratives that stakeholders can understand and act on. This is especially useful for PMs who present data regularly but want to ensure the narrative is clear and consistent.
         </aside>
@@ -364,6 +378,8 @@
           <li><strong>Sprint carryover:</strong> consistently carrying work forward suggests estimation problems</li>
           <li><strong>Inactive contributors:</strong> team members with no commits may need support or reassignment</li>
         </ul>
+
+        <img src="img/TODO-diagram-project-health-signals.png" alt="Diagram of project health signals: aging issues, blocked items, PR bottlenecks" />
         <aside class="speaker-notes">
           Every project has health signals hiding in plain sight. Aging issues, those sitting open for two or more sprints, are a red flag. They often indicate unclear requirements, underestimated complexity, or a feature nobody wants to tackle. Blocked items are another signal: look for the "blocked" label or PRs that have been waiting for review for days. PR review bottlenecks deserve special attention. If PRs sit for three or more days without a review, the entire team slows down. Sprint carryover is a planning signal: if you consistently carry 20% of your sprint into the next one, your estimation process needs adjustment. Finally, watch for inactive contributors. Someone with no commits for a sprint might be stuck, underloaded, or overwhelmed with meetings. Each of these signals is actionable if you catch them early.
         </aside>
@@ -396,6 +412,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The left column shows prompts you can use with Copilot to surface risks. Feed it your issue list or project board data and ask targeted questions. "Which PRs have been open for more than 5 days?" gives you a concrete list to act on. "Summarize the top 3 risks for this sprint" generates a risk narrative you can share in your standup or steering meeting. The right column shows what to do with those insights. Escalate blockers immediately. Reassign stalled reviews so PRs keep moving. Add systemic risk patterns to your retrospective so the team can address root causes. And when the data says your sprint is overcommitted, adjust scope proactively rather than waiting for things to slip. The difference between a reactive PM and a proactive one is often just having the right data at the right time.
         </aside>
@@ -427,6 +444,7 @@
           <li>Separate entries by category: <strong>Features, Bug Fixes, Improvements, Breaking Changes</strong></li>
           <li>Generate both <strong>internal</strong> (detailed, technical) and <strong>external</strong> (user-facing, benefit-oriented) versions</li>
         </ul>
+
         <aside class="speaker-notes">
           Release notes are a communication touchpoint that reaches multiple audiences. Developers want to know what changed technically. Product owners want to see feature progress. End users want to understand what is new and what is fixed. Start by gathering your merged PRs and closed issues for the release. Paste that list into Copilot Chat and ask it to write release notes organized by category: Features, Bug Fixes, Improvements, and Breaking Changes. You can generate two versions: an internal one with technical details for the engineering team, and an external one with user-friendly language focused on benefits. This dual-output approach saves you from writing the same information twice in different styles.
         </aside>
@@ -446,6 +464,7 @@
           <li>Include: what shipped, what it means for users, and what is next</li>
           <li>Copilot preserves accuracy while adjusting the level of abstraction</li>
         </ul>
+
         <aside class="speaker-notes">
           One of the hardest parts of a PM's job is translating between technical and business audiences. Developers think in terms of APIs, database migrations, and refactors. Executives think in terms of revenue impact, user experience, and risk. Copilot bridges this gap. Take a technical update from your engineering lead and prompt Copilot with "Rewrite this for a VP who does not write code." The result focuses on impact and outcomes: what shipped, how it affects users, and what comes next. Copilot preserves the factual accuracy while adjusting the level of abstraction. This means fewer misunderstandings, fewer follow-up questions, and more credibility for you as the person who always delivers clear, audience-appropriate communication.
         </aside>
@@ -491,6 +510,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Not all metrics are equal. On the left, we have delivery metrics. Velocity tells you how much work the team completes per sprint, which is essential for forecasting. Cycle time measures how long it takes from when work starts to when it is done, and shorter cycle times generally mean better flow. Sprint completion rate shows whether you are planning accurately. PR merge time reveals how quickly code moves from review to production. On the right, health metrics. Carryover rate flags persistent overcommitment. Bug-to-feature ratio shows whether the team spends too much time on reactive fixes versus proactive development. Blocker frequency tells you how often work stalls. And review turnaround highlights bottlenecks in the code review process. Track these metrics consistently and you will have the foundation for data-driven conversations with your team and leadership.
         </aside>
@@ -510,6 +530,7 @@
           <li>Highlight <strong>actions taken,</strong> not just observations: "We identified a review bottleneck and reduced wait time by 40%"</li>
           <li>Ask Copilot: <em>"Turn these metrics into an executive summary paragraph"</em></li>
         </ul>
+
         <aside class="speaker-notes">
           Data without context is just numbers. When presenting to leadership, lead with the story. "We shipped 12 features this quarter, a 25% increase from Q2" is more compelling than a velocity chart with no commentary. Use trends rather than snapshots. A single sprint's velocity is noise; a six-sprint trend line is a signal. Always connect metrics to business outcomes. Executives do not care about cycle time as an abstract concept, but they care when you say "Faster cycle time means features reach users two weeks sooner." Highlight actions, not just observations. Saying "We identified a review bottleneck and reduced PR wait time by 40%" demonstrates that you use data to drive improvement, not just to report. Copilot can help with all of this: paste your metrics and ask it to generate an executive summary paragraph.
         </aside>

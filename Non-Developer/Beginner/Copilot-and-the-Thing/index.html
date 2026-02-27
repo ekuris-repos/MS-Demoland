@@ -86,6 +86,7 @@
           <li>Team communication happens in Slack, Teams, and email simultaneously</li>
           <li>No single place to ask: "What is the current status of Project X?"</li>
         </ul>
+
         <aside class="speaker-notes">
           Raise your hand if this sounds familiar. Your developers commit code in GitHub, but the project manager tracks work in Jira. The documentation team writes in Confluence. The executive stakeholders want updates in a PowerPoint deck. And the only person who knows where everything lives is the one team lead who has been here for five years. When that person is on vacation, nobody can find anything. This is the scattered tools problem. It is not about any one tool being bad; it is about the lack of a single source of truth. Every context switch costs time, and important information falls through the cracks when it is spread across five different platforms.
         </aside>
@@ -108,6 +109,8 @@
             <p>When information lives in silos, decisions get made with incomplete data. New team members take weeks to figure out which tool holds which answers.</p>
           </div>
         </div>
+
+        <img src="img/TODO-diagram-tool-sprawl-landscape.png" alt="Diagram showing disconnected tools creating information silos" />
         <aside class="speaker-notes">
           Studies consistently show that context switching is one of the biggest productivity drains in knowledge work. Every time someone has to leave their current tool, open a new tab, log in to a different system, and search for a piece of information, they lose focus. Multiply that by every person on the team, every day, and you are looking at a significant cost. The knowledge gap problem is equally serious. When a new person joins, they have to learn not just the work itself but also the map of which tool holds which information. That onboarding tax is time that could be spent on actual work. Consolidating your tools does not just save time; it makes your team's collective knowledge accessible to everyone.
         </aside>
@@ -141,6 +144,8 @@
           <li><strong>Actions</strong> - automated workflows for CI/CD, notifications, and scheduled tasks</li>
           <li><strong>Pull Requests</strong> - code review, approval gates, and change tracking in one view</li>
         </ul>
+
+        <img src="img/TODO-diagram-github-platform-components.png" alt="Diagram of GitHub platform components: Issues, Projects, Discussions, Wikis, Actions" />
         <aside class="speaker-notes">
           Let's walk through what GitHub offers beyond source code hosting. Issues replace your external bug tracker. Projects replace your separate Kanban board or spreadsheet. Discussions give you a structured forum for team conversations that would otherwise happen in scattered Slack threads. Wikis give you a documentation home that is versioned right alongside the code. Actions automate anything repetitive, from running tests to posting status updates. And Pull Requests are the structured review process that keeps quality high. The key insight is that all of these features share the same identity system, the same permissions model, and the same search index. That means when you search in GitHub, you can find issues, code, discussions, and documentation in one place.
         </aside>
@@ -171,6 +176,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Colocation is the principle that related information should live together. When your issue, the pull request that fixes it, the discussion that proposed the approach, and the documentation that explains the result are all in the same repository, you create a natural chain of context. Anyone can follow that chain to understand what happened, why it happened, and what changed. Contrast that with the scattered model where an issue in Jira mentions a PR number in GitHub, which links to a design doc in Confluence, which references a decision made in a Slack thread that nobody can find anymore. The information still exists, but reconstructing the story requires detective work.
         </aside>
@@ -203,6 +209,7 @@
           <li>No need to remember which repo, issue number, or wiki page holds the answer</li>
           <li>Works for everyone on the team, not just developers</li>
         </ul>
+
         <aside class="speaker-notes">
           This is the part that changes the game for non-developers. Previously, getting information out of GitHub meant you had to know where to look: which repository, which issue label, which project board. Copilot lets you skip that step. You ask a question in plain English, and Copilot finds the answer across your organization's GitHub content. For a project manager, this means you can ask "What is blocking the checkout feature?" instead of hunting through three repos and a dozen issues. For a team lead, you can ask "Summarize what the backend team shipped last week" and get a concise answer drawn from merged pull requests and closed issues. The barrier to entry is gone. If you can describe what you want to know, Copilot can help you find it.
         </aside>
@@ -220,6 +227,7 @@
           <li><strong>Issue and PR threads</strong> - it reads through comments and review conversations</li>
           <li><strong>Organization scope</strong> - Copilot can search across all repositories in your org that your permissions allow</li>
         </ul>
+
         <aside class="speaker-notes">
           Under the hood, Copilot uses a technique called Retrieval Augmented Generation. It retrieves relevant content from your organization's GitHub data and then generates an answer grounded in that content. This is important because it means the answers you get are based on your actual repos and issues, not just general internet knowledge. Copilot can search across all organization repositories that your permissions allow, so it draws on internal runbooks, architecture decision records, API documentation, and any other content your teams have stored in GitHub. There is no need to manually curate a list of priority repositories; Copilot finds the most relevant content based on the question you ask.
         </aside>
@@ -252,6 +260,8 @@
           <li>Scope your questions to a specific repository for more focused answers</li>
           <li>Conversations are saved so you can pick up where you left off</li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-chat-on-github.png" alt="Screenshot of Copilot Chat interface on GitHub.com" />
         <aside class="speaker-notes">
           On GitHub.com, Copilot Chat is available directly in your browser. You will see a chat icon in the top navigation bar. Click it, and you can start asking questions immediately. You can ask general platform questions like "How do I configure required reviewers on a branch?" and Copilot will walk you through it. But the real power comes when you ask about your own organization. Try "What open issues are assigned to me across all repos?" or "Summarize the discussion in issue #42 of the payments repo." You can scope your questions to a specific repository for more precise answers, and your conversation history is preserved so you can continue a thread later.
         </aside>
@@ -282,6 +292,8 @@
             </ul>
           </div>
         </div>
+
+        <img src="img/TODO-screenshot-copilot-pr-summary.png" alt="Screenshot of a Copilot-generated pull request summary on GitHub" />
         <aside class="speaker-notes">
           Two of the most immediately useful Copilot features for non-developers are PR summaries and issue summaries. When a developer opens a pull request, Copilot can generate a summary that describes the changes in plain language. Instead of looking at lines of code, a project manager can read "this PR adds form validation to the checkout page and fixes the discount calculation bug." Issue summaries are equally valuable. If an issue has accumulated 30 or more comments over two weeks of discussion, Copilot can distill that entire conversation into a few key bullets: what was proposed, what was decided, and what work remains. This saves enormous time for anyone who needs to stay informed but does not need to read every comment.
         </aside>
@@ -314,6 +326,7 @@
           <li>Understand architecture decisions without needing to read code yourself</li>
           <li>Search across files, READMEs, and inline comments for the answers you need</li>
         </ul>
+
         <aside class="speaker-notes">
           VS Code is free, lightweight, and available on Windows, Mac, and Linux. When you clone a repository and open it in VS Code with Copilot enabled, you get an AI assistant that understands the entire project. You can ask it high-level questions like "What does this application do?" or very specific ones like "Where are the API endpoints defined?" Copilot reads the code, the README, the configuration files, and the inline comments to give you an answer. For a project manager, this means you can explore a project and understand its structure without asking a developer to walk you through it. For an IT admin, you can check configuration files or environment settings without worrying about accidentally changing anything. You are reading, not editing.
         </aside>
@@ -344,6 +357,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Let's get specific about what you can actually do. On the "read and understand" side, you can ask Copilot to explain any file in the project. Point it at a configuration file and ask "What does this do?" Point it at a test file and ask "What scenarios does this test cover?" You can even ask it to list all the external dependencies or API calls in the project. On the "edit" side, many non-developers already contribute to repos by updating documentation, writing release notes, or editing configuration files like YAML. Copilot helps with all of this. Ask it to draft release notes by summarizing recent commits. Ask it to help you write a README section. Ask it to validate your YAML file. These are real, valuable contributions that do not require coding skills.
         </aside>
@@ -375,6 +389,8 @@
           <li>Copilot reviews open issues, recent PRs, and milestones to generate a summary</li>
           <li>Share the summary directly with stakeholders; no spreadsheet assembly required</li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-project-status-summary.png" alt="Screenshot of Copilot generating a project status summary" />
         <aside class="speaker-notes">
           Let's walk through a scenario that project managers face weekly. Your director asks "What is the status of the checkout redesign?" In the old world, you open Jira to see how many tickets are done, switch to GitHub to check for open PRs, ping the tech lead in Slack to ask about blockers, and then compile all of this into a paragraph. That takes 20 to 30 minutes if everyone responds quickly. In the new world, you ask Copilot the question, and it pulls together the answer from your GitHub issues, PRs, and milestones. The summary is ready in seconds, and you can paste it directly into your status report or share it in your stand-up. This workflow works best when your project tracking is consolidated in GitHub. The more of your work that lives in one place, the more complete the answer.
         </aside>
@@ -393,6 +409,7 @@
           <li>Copy the summary into an email, Teams message, or status report</li>
           <li>No need to understand the code diff yourself</li>
         </ul>
+
         <aside class="speaker-notes">
           Another common scenario: a developer finishes a feature and opens a pull request. Your VP wants to know what changed. You are not going to send the VP a link to a code diff. Instead, you open the PR, let Copilot generate a summary, and you get a plain-language description of what changed and why. You can copy that text directly into a Teams message or an email. The developer did not have to stop and write a separate summary for you. Copilot did it. This small workflow eliminates a back-and-forth that happens dozens of times per sprint in most teams.
         </aside>
@@ -412,6 +429,7 @@
           <li>The new hire builds context in minutes instead of days of meetings</li>
           <li>Institutional knowledge is captured in the repos, not trapped in people's heads</li>
         </ul>
+
         <aside class="speaker-notes">
           Onboarding is one of the highest-value use cases for this approach. When a new team member joins, they typically spend their first week or two asking basic questions: Where does our code live? Who owns what? What is the architecture? How do we deploy? If your repos have good README files, well-written issues, and organized projects, Copilot can answer all of those questions on demand. The new hire does not have to wait for a series of meetings. They can explore at their own pace, asking Copilot follow-up questions as they go. This is especially powerful for non-developer roles like project managers and QA leads who need to understand the landscape without necessarily diving into the code.
         </aside>
@@ -444,6 +462,7 @@
           <li><strong>Copilot Extensions</strong> - add domain-specific capabilities to Copilot Chat</li>
           <li>Start with GitHub as the hub; connect external tools as spokes</li>
         </ul>
+
         <aside class="speaker-notes">
           Consolidation does not mean ripping out every tool on day one. GitHub has robust integration options for the most common enterprise tools. Jira and Azure DevOps integrations let you link and cross-reference work items with GitHub. Full bidirectional issue sync typically requires third-party tools, but the native integrations provide enough connectivity for teams to continue using those platforms while you gradually shift work into GitHub Projects. Slack and Microsoft Teams integrations let you receive GitHub notifications, create issues from chat messages, and trigger Actions workflows without leaving your collaboration tool. For more advanced scenarios, MCP (the Model Context Protocol) allows Copilot to query external data sources. If you have an internal database, a custom API, or a third-party service, an MCP server can expose that data to Copilot so it becomes part of the unified experience. Copilot Extensions work similarly, adding specialized capabilities built by third parties or your own team.
         </aside>
@@ -476,6 +495,7 @@
           <li><strong>Step 4:</strong> Set up integrations for tools you cannot migrate yet (Jira, Slack, etc.)</li>
           <li><strong>Step 5:</strong> Measure the impact: reduced context switching, faster onboarding, better status visibility</li>
         </ul>
+
         <aside class="speaker-notes">
           Start small. Pick one team or one project as a pilot. Move their issue tracking into GitHub Issues or Projects. Migrate their documentation into the repository itself, either as markdown files in a docs folder or as wiki pages. Once the content is in GitHub, enable Copilot for that team and encourage them to ask questions. You will see immediate wins because Copilot can now find answers that previously required manual searching across platforms. For tools you cannot migrate right away, set up the integrations we discussed. The goal is not perfection on day one; the goal is reducing the number of places your team has to look for information. After a few weeks, measure the impact. How much less time does the team spend searching for information? How much faster can a new person get productive? Those metrics will help you make the case for broader rollout.
         </aside>
@@ -508,6 +528,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           A few practical tips from organizations that have done this successfully. First, start with one team. A pilot project gives you real feedback without disrupting the entire organization. Second, migrate issues gradually. Full bidirectional sync requires third-party tools like Unito or Exalate, but the native integrations provide cross-referencing and lightweight status linking as a bridge while teams get comfortable with GitHub Issues. Third, invest in README files. READMEs are a high-value source that Copilot frequently draws on, but Copilot considers all available content based on relevance to the question. A well-written README dramatically improves the quality of Copilot's answers. Finally, be consistent with labels and organization. If every team uses different labels for the same concepts, Copilot will struggle to give you cross-team insights. On the "avoid" side, do not try to migrate everything at once. Do not force teams to abandon tools before the replacements are ready. And remember that Copilot is only as good as the content it can access. Garbage in, garbage out. Clean, well-organized repos produce the best results.
         </aside>

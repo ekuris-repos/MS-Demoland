@@ -87,6 +87,8 @@
           <li>Institutional knowledge lives in people's heads, not in shared, versionable files</li>
           <li>When someone leaves, their carefully tuned Copilot setup walks out the door with them</li>
         </ul>
+
+        <img src="img/TODO-diagram-prompt-gap-comparison.png" alt="Diagram comparing AI output with and without organizational context" />
         <aside class="speaker-notes">
           Here's the scenario we see in almost every large organization. Copilot is rolled out, developers love it, and productivity goes up. But it goes up unevenly. Senior engineers who already understand the codebase write excellent prompts and get excellent results. Junior developers, who would arguably benefit the most, struggle to get the same quality. Meanwhile, different teams adopt completely different conventions for how they interact with Copilot. There is no shared playbook, no standard instructions, and no way to capture what's working. When a senior developer leaves the company, all of the context they injected into their Copilot workflow leaves with them. The knowledge was never codified; it was always personal.
         </aside>
@@ -119,6 +121,7 @@
             <p>Tribal knowledge about "how we do things here" stays in individual configurations instead of becoming a shared, version-controlled organizational asset.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Let's break it down into four concrete failure modes. First, inconsistent output: Copilot generates whatever aligns with the prompting style of the person asking, which leads to different error handling patterns, different testing approaches, and different architectural choices across teams. Second, duplicated effort: every team independently discovers that you can write a .instructions.md file to standardize behavior, and each team builds their own from scratch. Third, slow onboarding: new developers join and have to learn the team's unwritten rules before Copilot can help them follow those rules. Fourth, knowledge loss: when people leave, everything they knew about the codebase and its conventions goes with them if it was never formalized. All four of these problems have the same root cause: the absence of a shared, centralized set of AI-assistance configurations.
         </aside>
@@ -152,6 +155,8 @@
           <li>Think of it as your company's <strong>AI playbook</strong>, encoded in files that Copilot can read</li>
           <li>The <code>ccpr_root</code> template provides a ready-made starting structure that you customize for your organization</li>
         </ul>
+
+        <img src="img/TODO-screenshot-org-custom-instructions.png" alt="Screenshot of organization-level Copilot custom instructions configuration" />
         <aside class="speaker-notes">
           A CCPR, or Central Code Prompt Repository, is exactly what it sounds like: a GitHub repository dedicated to storing all of the files that configure and standardize how your organization uses AI-assisted development tools. It contains .prompt.md files, .instructions.md files, SKILL.md files, and .agent.md files. We will walk through each of these in a moment. The key idea is that this repo is treated as shared infrastructure. Changes go through pull requests. Releases are tagged and versioned. Every project in the organization pulls from this single source of truth. Think of it as the codified version of all those unwritten rules that senior developers carry in their heads. Once it is in the CCPR, Copilot can read it, and every developer benefits from it automatically. The ccpr_root template on GitHub provides a proven starting structure you can fork and customize for your organization rather than building from scratch.
         </aside>
@@ -184,6 +189,7 @@
             <p>Custom agent definitions with specific roles, tools, and instructions. Create virtual team members like a security reviewer or DevOps assistant.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The central prompt repo contains four types of files, each serving a distinct purpose. First, .prompt.md files are reusable prompt templates. They define a structured prompt with input variables, a preferred model, and step-by-step instructions. Developers invoke them from Copilot Chat and fill in the blanks. Second, .instructions.md files are persistent rules. When Copilot generates code, it follows whatever instructions are active, such as coding standards, error handling patterns, or testing requirements. Third, SKILL.md files are knowledge packages. They encode domain-specific expertise so Copilot understands your deployment pipeline, your database schema, or your microservice boundaries. Fourth, .agent.md files define custom agents with specific roles, tool access, and behavioral guidelines. Together, these four file types cover the full spectrum of AI-assisted development: from one-off tasks to always-on rules to deep expertise to specialized personas.
         </aside>
@@ -233,6 +239,7 @@
 └── agents/
     ├── security-reviewer.agent.md
     └── devops-assistant.agent.md</code></pre>
+
         <aside class="speaker-notes">
           Here is the recommended CCPR folder structure, which the ccpr_root template implements. At the root, you have a .github folder with a copilot-instructions.md file that defines organization-wide defaults. These are the baseline rules that apply everywhere. Under the instructions folder, you organize by category: languages, frameworks, and practices. This makes it easy for a team working in TypeScript with React to pull in the relevant instruction files without getting Python or C# rules mixed in. The prompts folder contains reusable prompt templates for common tasks like code review, test generation, and migration assistance. Skills and agents each get their own top-level folder. The key principle here is discoverability: a developer should be able to browse the repo and quickly find what they need. Keep names descriptive and group related files together.
         </aside>
@@ -253,6 +260,7 @@
           <li><strong>Include a CHANGELOG.md</strong> so consumers know what changed between versions</li>
           <li><strong>Tag releases</strong> with semantic versioning: <code>v1.0.0</code>, <code>v1.1.0</code>, <code>v2.0.0</code></li>
         </ul>
+
         <aside class="speaker-notes">
           Naming conventions matter more than you might think, especially at scale. Use kebab-case for all file names to keep them consistent and URL-friendly. Always include the file type suffix before the .md extension so both humans and tools can identify the purpose at a glance. Follow the one-concern-per-file principle. If you put TypeScript coding standards and testing conventions in the same .instructions.md file, teams that use TypeScript but have their own testing framework can't pick one without the other. Keep things modular. Add README files in every major folder so developers can understand the purpose and usage of each section without reading every file. Include a CHANGELOG at the root so that when you release a new version, consumers know exactly what changed. And tag your releases with semantic versioning so downstream projects can pin to a specific version or range.
         </aside>
@@ -293,6 +301,8 @@
   --save-dev</code></pre>
           </div>
         </div>
+
+        <img src="img/TODO-screenshot-reusable-prompt-template.png" alt="Screenshot of a reusable .prompt.md file with variable placeholders" />
         <aside class="speaker-notes">
           There are four main strategies for distributing central prompt files, and the right one depends on your organization's existing workflows. The first option is git submodules. You add the central repo as a submodule in each consuming project, typically under a .copilot/shared directory. Each project pins to a specific commit or tag, which means updates are explicit. Developers run git submodule update to pull in new versions. The second option is publishing an npm package, or whatever package registry your ecosystem uses. This approach fits naturally into projects that already manage dependencies through a package manager. You install the package as a dev dependency, and updates are handled through the standard version resolution process. Both of these approaches support versioning, which is critical for enterprise environments where you cannot afford to have untested prompt changes break production workflows.
         </aside>
@@ -323,6 +333,7 @@ central-prompts/archive/v2.1.0.tar.gz \
   -C .copilot/shared</code></pre>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The third option is symlinks. If your organization uses a monorepo or has a standard directory layout where repos live side by side, you can clone the central prompt repo alongside your project repos and create symlinks to the specific folders or files you need. This approach is fast and flexible, but it does require that the central repo is present on disk. The fourth option is copy-on-clone: you run a script, either manually, as a post-clone hook, or through a GitHub Action, that copies the latest prompt files into the project. This is the simplest approach to understand, but it requires a sync mechanism to keep the copies current. Without automation, copies drift out of date quickly. Each approach has trade-offs, and we will compare them on the next slide.
         </aside>
@@ -376,6 +387,7 @@ central-prompts/archive/v2.1.0.tar.gz \
             </tr>
           </tbody>
         </table>
+
         <aside class="speaker-notes">
           This comparison table summarizes the trade-offs. Git submodules give you the strongest version pinning because each project locks to a specific commit, but they require familiarity with submodule workflows. npm packages fit naturally into JavaScript and Node.js projects and leverage the existing dependency resolution process. Symlinks are lightweight and work well when repos are co-located, but they assume the central repo clone exists on disk. Copy-on-clone is the simplest to understand and implement, but it requires discipline around running the sync script, or automation to do it for you. In practice, many organizations start with copy-on-clone for simplicity and migrate to git submodules or npm packages as their prompt library matures and version control becomes more important.
         </aside>
@@ -413,6 +425,8 @@ central-prompts/archive/v2.1.0.tar.gz \
 /instructions/frameworks/   @org/framework-leads
 /agents/                    @org/platform-engineering
 /skills/                    @org/architecture-team</code></pre>
+
+        <img src="img/TODO-screenshot-custom-agent-with-tools.png" alt="Screenshot of a custom agent .agent.md file with tool access configuration" />
         <aside class="speaker-notes">
           Governance starts with clear ownership. Designate a maintainer team made up of senior engineers from different parts of the organization. They don't write every prompt; they review and approve contributions. Use a CODEOWNERS file to enforce that changes to specific directories require approval from the right people. Language-specific instructions should be reviewed by the language standards team. Agent definitions should go through platform engineering. At the same time, keep the contribution process open. Any developer should be able to open a PR to propose a new prompt template or improve an existing instruction file. This keeps the repo alive and reflective of real team needs. Rotate reviewers within the maintainer team to prevent any single person from becoming a bottleneck. And schedule quarterly reviews to clean house: retire prompts that no one uses, update instructions for new library versions, and realign with any changes in organizational strategy.
         </aside>
@@ -432,6 +446,7 @@ central-prompts/archive/v2.1.0.tar.gz \
           <li><strong>Release notes:</strong> every release includes a summary of changes so consumers know what's new</li>
           <li><strong>Deprecation policy:</strong> mark prompts as deprecated for one release cycle before removing them</li>
         </ul>
+
         <aside class="speaker-notes">
           The PR review process for a central prompt repo needs to be more rigorous than a typical code review, because these files affect every project in the organization. Start with a PR template that asks contributors to describe what changed, who benefits, and what evidence they have that the prompt works. Test evidence is especially important: a before/after comparison showing Copilot output with and without the new prompt gives reviewers confidence that the change is meaningful. Use semantic versioning for releases. Typo fixes and minor wording improvements are patches. New prompt templates and new instruction files are minor versions. Changes that modify the behavior of existing prompts, like updating a testing instruction to require a different framework, are major versions. Every release should include release notes so downstream consumers can decide whether to upgrade. And always deprecate before you remove. Mark a prompt as deprecated in one release, then remove it in the next.
         </aside>
@@ -478,6 +493,7 @@ that an autoformatter would handle.
 ## Code to Review
 
 ${input:diff}</code></pre>
+
         <aside class="speaker-notes">
           Here is an example of a standard code review prompt template. Notice the YAML frontmatter at the top: it declares a description, the mode (ask, in this case), and the tools the prompt requires. The body follows a clear structure with numbered expectations. This is important because when every developer uses the same code review prompt, you get consistent, thorough reviews across the organization. The template tells Copilot exactly what to look for: a summary, potential issues, style violations, and suggestions. You can see the ${input:diff} variable at the bottom, which is where the developer provides the specific code to review. By standardizing this template, you ensure that a junior developer's code review output is as structured and comprehensive as a senior engineer's.
         </aside>
@@ -538,6 +554,8 @@ matching the source language.
 ${input:code}</code></pre>
           </div>
         </div>
+
+        <img src="img/TODO-screenshot-vision-multimodal-copilot.png" alt="Screenshot demonstrating Copilot vision or multi-modal capabilities" />
         <aside class="speaker-notes">
           Here are two more templates that appear in nearly every central prompt repo. The test generation template enforces your organization's testing standards. Instead of letting each developer write their own prompt for generating tests, you standardize on the Arrange-Act-Assert pattern, require edge case coverage, and specify that external dependencies should be mocked. The documentation template ensures consistent API documentation across the codebase. It specifies what to include: purpose, parameters, return values, error conditions, and related functions. It even adapts the output format to match the source language. The beauty of centralizing these templates is that as your standards evolve, you update one file, release a new version, and every team picks up the improvement. No more chasing individual developers to update their personal prompts.
         </aside>
@@ -574,6 +592,7 @@ to ${input:targetFramework}.
 - Preserve existing business logic exactly; only change framework integration
 - Use the target framework's idiomatic patterns, not direct translations
 - If a pattern has no direct equivalent, explain the recommended alternative</code></pre>
+
         <aside class="speaker-notes">
           Migration templates are incredibly valuable for organizations going through technology transitions. This template uses two input variables: the source framework and the target framework. It walks Copilot through a structured migration process: analyze the existing code, identify dependencies, provide the migrated version with explanatory comments, flag breaking changes, and suggest verification tests. The rules section is critical. It tells Copilot to preserve business logic, use idiomatic patterns in the target framework rather than direct translations, and explain alternatives when there's no one-to-one mapping. Without this template, a developer migrating from one framework to another would need to know both frameworks well enough to prompt Copilot effectively. With the template, even a developer who has never used the target framework gets structured, high-quality migration guidance.
         </aside>
@@ -622,6 +641,7 @@ applyTo: "**/*.tsx,**/*.jsx"
 - Extract custom hooks for reusable stateful logic
 - Colocate component, styles, and tests in the same directory
 - Use React.memo() only when profiling confirms a performance benefit</code></pre>
+
         <aside class="speaker-notes">
           Scoped instructions use the applyTo frontmatter field to target specific file types. The TypeScript instructions file applies to all .ts and .tsx files and sets baseline rules: strict mode, interface over type, named exports, typed error handling, and JSDoc requirements. Notice that these are not arbitrary preferences; they are decisions your organization has already made, now encoded in a file that Copilot reads automatically. The React instructions layer on top, applying specifically to .tsx and .jsx files. They enforce functional components, custom hooks for reusable logic, colocation of component files, and evidence-based performance optimization. A developer working on a React component in TypeScript would get both sets of instructions applied simultaneously, creating a layered standard that covers both the language and the framework.
         </aside>
@@ -648,6 +668,7 @@ applyTo: "**/Controllers/**,**/Endpoints/**"
 - All endpoints require authorization attributes; use [AllowAnonymous] explicitly
 - Include OpenAPI annotations for every endpoint with summary and response types
 - Log structured data with Serilog; include correlation IDs on every request</code></pre>
+
         <aside class="speaker-notes">
           API design instructions are especially valuable because they encode architectural decisions that are otherwise learned through years of experience on the team. This .NET API instruction file scopes to the Controllers and Endpoints directories and sets rules that would normally take a new developer weeks or months to absorb. It specifies when to use minimal APIs versus controllers, requires consistent response envelopes, mandates input validation with a specific library, enforces command/query separation, and requires authorization attributes on every endpoint. These are not generic best practices; they are your organization's specific decisions about how APIs should work. When a developer asks Copilot to generate a new endpoint, these instructions ensure the output matches the existing codebase from the start. No back-and-forth in code review. No inconsistency between teams.
         </aside>
@@ -697,6 +718,7 @@ decisions and operational requirements for each stage.
 - Requires manual approval from on-call engineer
 - Uses blue-green deployment with 10% canary traffic
 - Automatic rollback if error rate exceeds 1% in 5 minutes</code></pre>
+
         <aside class="speaker-notes">
           Skills are where you encode the deep institutional knowledge that normally lives in senior engineers' heads. This deployment pipeline skill documents the entire three-stage deployment process: build, staging, and production. It includes specifics like the runner image, the test requirements, the Docker tagging strategy, the staging auto-deploy trigger, and the production canary/rollback thresholds. When a developer asks Copilot to help with deployment configuration, troubleshoot a failing pipeline, or set up a new service's CI/CD workflow, Copilot can reference this skill and provide guidance that matches your actual infrastructure. Without this skill, Copilot would generate generic deployment advice. With it, Copilot generates advice that is specific to your organization. This is the difference between a helpful tool and a knowledgeable team member.
         </aside>
@@ -728,6 +750,7 @@ issues, and data exposure risks.
 - Review authorization checks on every endpoint
 - Flag any use of deprecated cryptographic algorithms
 - Reference our security standards in skills/security-baseline</code></pre>
+
         <aside class="speaker-notes">
           Agents bring a persona to Copilot. Instead of asking Copilot a general question, a developer can invoke the security reviewer agent, which is pre-configured with the mindset, expertise, and checklist of a senior security engineer. This agent definition tells Copilot to focus on OWASP Top 10 vulnerabilities, check authentication and authorization patterns, verify that secrets are not exposed, and reference the organization's security baseline skill for specific standards. You can create agents for any role: a DevOps assistant that helps with infrastructure configuration, a migration assistant that guides developers through framework upgrades, a documentation writer that ensures consistency, or an accessibility reviewer that checks UI components. The key insight is that agents combine a role definition with tool access and knowledge references. They are not just prompts; they are specialized configurations that make Copilot behave like a specific kind of expert.
         </aside>
@@ -760,6 +783,7 @@ issues, and data exposure risks.
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Beyond the security reviewer, here are two more agents that organizations commonly include. The DevOps assistant is configured with access to your deployment pipeline skill and understands your organization's infrastructure patterns. When a developer needs to set up a new service, configure a GitHub Actions workflow, or troubleshoot a failed build, this agent provides guidance that matches your actual infrastructure rather than generic advice. The migration assistant is invaluable during technology transitions. It understands both the source and target frameworks, maps old patterns to new equivalents with clear explanations, and can even generate codemods for repetitive code transformations. It also creates verification test suites so developers can confirm their migrations are correct. The pattern here is clear: identify the roles that developers frequently need help with, and create agents that serve those roles with your organization's specific context baked in.
         </aside>
@@ -779,6 +803,7 @@ issues, and data exposure risks.
           <li><strong>Reduced code review friction:</strong> Copilot-generated code already follows team patterns, so reviews focus on logic, not style</li>
           <li><strong>Faster ramp-up on new stacks:</strong> scoped instructions guide developers through unfamiliar languages and frameworks</li>
         </ul>
+
         <aside class="speaker-notes">
           This is where the investment in a central prompt repo pays its biggest dividend: onboarding. Consider what happens today when a new developer joins your team. They clone the repo, set up their environment, and then spend weeks or months learning the unwritten rules. Which patterns does this team prefer? How do we handle errors? What does our deployment pipeline look like? With a central prompt repo, all of that is encoded in files. On day one, the new developer gets Copilot assistance that already knows the team's conventions, architecture decisions, and deployment processes. They don't have to learn the rules first; Copilot applies the rules for them while they learn. The instruction files also serve as documentation. A new developer can read typescript.instructions.md to understand the team's TypeScript standards. They can read the deployment pipeline skill to understand CI/CD. The central prompt repo becomes both an AI configuration and a living knowledge base.
         </aside>
@@ -799,6 +824,7 @@ issues, and data exposure risks.
           <li><strong>Prompt repo engagement:</strong> track PR activity, issue count, and download/clone metrics on the central repo itself</li>
           <li><strong>Developer satisfaction surveys:</strong> ask developers whether the central prompts make them more productive</li>
         </ul>
+
         <aside class="speaker-notes">
           You need to measure the impact of your central prompt repo to justify continued investment and identify opportunities for improvement. Start with the Copilot acceptance rate: if developers are accepting a higher percentage of suggestions after adopting the central prompts, that's a strong signal that the prompts are producing better, more relevant output. Code review cycle time is another key metric. If reviews are getting faster because the generated code already follows team standards, the central prompts are working. Track onboarding time-to-first-PR to see whether new developers ramp up faster. Monitor style violation rates in code reviews; a decreasing count of "we don't do it that way" comments means the instructions are effective. Finally, track engagement with the prompt repo itself: PR activity, issue count, and clone metrics tell you whether the developer community is actively contributing and consuming.
         </aside>
@@ -831,6 +857,7 @@ jobs:
             | xargs -I {} node scripts/validate-frontmatter.js {}
       - name: Check file naming conventions
         run: node scripts/check-naming.js</code></pre>
+
         <aside class="speaker-notes">
           The CCPR should be part of your CI/CD pipeline, both for its own quality and for distributing updates. On the quality side, add validation steps to every PR: check that YAML frontmatter is valid, file names follow naming conventions, and required fields like description and applyTo are present. On the distribution side, use GitHub Actions to automatically push updates to consuming repositories when a new version is released. You can publish the npm package, update submodule references, or trigger sync scripts across projects. Version compatibility checks help you catch situations where a consuming project pins to an old, unsupported version of the CCPR. And automated changelog generation from PR titles gives you release notes without manual effort. The goal is to make the CCPR feel like any other well-maintained library: tested, versioned, and reliably delivered.
         </aside>

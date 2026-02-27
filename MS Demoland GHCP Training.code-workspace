@@ -9,7 +9,15 @@
 		}
 	],
 	"settings": {
-		"typescript.tsserver.experimental.enableProjectDiagnostics": false
+		"typescript.tsserver.experimental.enableProjectDiagnostics": false,
+		"mcp": {
+			"servers": {
+				"playwright": {
+					"command": "npx",
+					"args": ["@playwright/mcp@latest", "--browser", "msedge"]
+				}
+			}
+		}
 	},
 	"extensions": {
 		"recommendations": [

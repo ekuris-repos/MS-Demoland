@@ -2,4 +2,6 @@ node_modules/
 dist/
 .DS_Store
 *.log
-.github/prompts/
+.github/prompts/*
+.playwright-mcp/
+_revert_images.js
