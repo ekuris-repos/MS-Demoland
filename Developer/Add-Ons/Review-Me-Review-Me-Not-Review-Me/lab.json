@@ -35,6 +35,14 @@
     "9": {
       "steps": [
         {
+          "title": "Explore Project Configuration",
+          "instruction": "Open the <strong>Explorer</strong> sidebar and look for project configuration files. In a real repository, this is where you would find <code>.github/</code> folders, <code>CODEOWNERS</code> files, and workflow configs.<br><br>Understanding the project layout helps you decide where review automation configuration should live and which paths need which reviewers.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Plan Your Review Strategy",
           "instruction": "The slides describe two trigger modes: auto-review and on-demand. Use Copilot to help you draft a CODEOWNERS file that assigns Copilot as a reviewer.<br><br><kbd>Write a CODEOWNERS file for a project with src/api/, src/frontend/, and src/shared/ directories. Assign Copilot as a reviewer for all paths and add human team leads for their respective areas.</kbd>",
           "focus": "right",
@@ -50,7 +58,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -82,8 +90,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Review the Diff",
+          "instruction": "Open <strong>Source Control</strong> to see the diff between your original vulnerable code and the fixed version. This is exactly what a PR reviewer would see when Copilot Autofix suggests changes.<br><br>Click on a changed file to view the side-by-side diff. Notice how the fixes are minimal and targeted — good automated fixes change only what is necessary.",
+          "focus": "left",
+          "action": "workbench.view.scm",
+          "actionLabel": "Open Source Control",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -108,8 +124,16 @@
           "actionLabel": "Open Copilot Chat"
         },
         {
+          "title": "Discover Review Commands",
+          "instruction": "Open the <strong>Command Palette</strong> and type <kbd>copilot review</kbd> to explore available review-related commands. Notice which commands are available for triggering reviews, managing guidelines, and configuring Copilot's behavior.<br><br>These commands are how power users interact with review features without navigating menus.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and Command Palette for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -131,8 +155,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Inspect Code Problems",
+          "instruction": "Open the <strong>Problems Panel</strong> to check for any diagnostics in your workspace. In a real project with CodeQL and ESLint configured, this panel surfaces security findings, type errors, and lint warnings inline.<br><br>If you see any issues listed, click one to navigate to the source. This is the same experience developers get when code scanning results are pulled into their editor.",
+          "focus": "bottom",
+          "action": "workbench.action.problems.focus",
+          "actionLabel": "Open Problems Panel",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed all panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Problems Panel</strong>: <kbd>Ctrl+Shift+M</kbd>",
           "focus": "slides"
         }
       ]
@@ -164,8 +196,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Check Extension Output",
+          "instruction": "Open the <strong>Output Panel</strong> and select the <strong>GitHub Copilot</strong> channel from the dropdown. This panel shows real-time logs from the Copilot extension, including which prompts were sent and how the model responded.<br><br>When Autofix generates a suggestion, the extension logs reveal how the fix was derived. This is useful for debugging cases where Autofix produces an incorrect or incomplete remediation.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "actionLabel": "Open Output Panel",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed all panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]
@@ -198,8 +238,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Lint the Workflow Syntax",
+          "instruction": "Open the <strong>Terminal</strong> and inspect your workflow file:<br><br><kbd>cat codeql-analysis.yml</kbd><br><br>In a real project, you would use tools like <code>actionlint</code> or <code>yamllint</code> to catch syntax errors before committing. Malformed YAML is the most common reason scanning workflows fail silently.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed all panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -235,6 +283,14 @@
     "27": {
       "steps": [
         {
+          "title": "Review Copilot Settings",
+          "instruction": "Open <strong>Settings</strong> and search for <kbd>copilot review</kbd> to explore configuration options that control how Copilot behaves during code review. Look at settings for review suggestions, auto-completions, and security scanning.<br><br>Understanding these settings helps you configure enterprise-wide review policies. Many organizations enforce specific settings via managed profiles.",
+          "focus": "editor",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Design a Ruleset",
           "instruction": "Ask Copilot to help you design an organization-level ruleset that combines all the tools from this session:<br><br><kbd>Design a GitHub repository ruleset for an organization that requires: Copilot code review approval, passing CodeQL scans with no high-severity alerts, at least one human reviewer from CODEOWNERS, and signed commits. Format it as a summary table with the rule name, type, and enforcement level.</kbd>",
           "focus": "right",
@@ -250,7 +306,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed all panels for you.<br><br>For future reference:<br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

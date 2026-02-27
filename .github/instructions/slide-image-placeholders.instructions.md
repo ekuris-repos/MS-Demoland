@@ -4,6 +4,12 @@ applyTo: "{Developer,Non-Developer}/**/index.html"
 
 # Slide Image Placeholders
 
+> **Before inserting an image placeholder**, check
+> [slide-media-types.instructions.md](slide-media-types.instructions.md) to see
+> if the visual can be generated inline as a table, Mermaid diagram, or CSS bar
+> chart. Image placeholders are the **last resort** when inline media cannot
+> represent the content.
+
 When generating or expanding course slide decks, insert placeholder `<img>` tags
 on slides where a visual would meaningfully aid comprehension. The placeholder
 renders as a **broken image link**, making it immediately visible to testers,

@@ -30,6 +30,14 @@
     // Default speaker notes ON — they provide vital context for every viewer
     document.body.classList.add("show-notes");
 
+    // Lazy-load Mermaid when diagrams exist
+    if (document.querySelector("pre.mermaid")) {
+      var s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+      s.onload = function () { mermaid.initialize({ startOnLoad: true, theme: "neutral" }); mermaid.run(); };
+      document.head.appendChild(s);
+    }
+
     // Extension mode: post total slide count once, listen for nav commands, suppress local keyboard/swipe
     if (inExtension) {
       window.parent.postMessage({ type: 'init', total: slides.length }, '*');

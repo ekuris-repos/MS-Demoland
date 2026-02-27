@@ -49,8 +49,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Document Your Risk Matrix",
+          "instruction": "We've opened a new file for you. Paste your refined risk assessment matrix into this document. Add a header, date, and your name as the assessor.<br><br>Chat conversations are not audit artifacts — documents are. This is your first governance deliverable.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the editor tab and the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
           "focus": "slides"
         }
       ]
@@ -72,8 +80,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Inspect Exclusion Configuration",
+          "instruction": "We've opened <strong>Settings</strong> for you. Search for <kbd>copilot</kbd> to see how Copilot configuration is managed at the editor level.<br><br>In a real enterprise, you would verify that your content exclusion glob patterns are applied at the correct scope — organization, repository, or user level. The gap between policy documentation and actual configuration is a common audit finding.",
+          "focus": "editor",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the editor tab and the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
           "focus": "slides"
         }
       ]
@@ -94,8 +110,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Explore Audit Log Access",
+          "instruction": "We've opened the <strong>Terminal</strong> for you. In a production environment, you would query GitHub's audit log API to validate your monitoring plan. For example:<br><br><kbd>gh api /orgs/YOUR-ORG/audit-log?phrase=copilot</kbd><br><br>This lab environment may not have API access, but understanding the CLI tooling is essential. Your audit monitoring plan must be backed by real query capabilities, not just documentation.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the bottom panel and the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -126,6 +150,14 @@
     "20": {
       "steps": [
         {
+          "title": "Discover Governance Commands",
+          "instruction": "We've opened the <strong>Command Palette</strong> for you. Type <kbd>Copilot</kbd> to browse all available Copilot commands in your environment.<br><br>Note which commands relate to configuration, management, or policy. Understanding the full command surface helps you identify what can be automated or scripted into governance workflows.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
           "title": "Challenge: Configure a Policy Matrix",
           "instruction": "Your enterprise has three organizations: <strong>engineering-core</strong> (general development), <strong>engineering-regulated</strong> (healthcare applications), and <strong>engineering-experimental</strong> (R&D sandbox).<br><br>Ask Copilot:<br><br><kbd>Create a policy configuration matrix for three GitHub organizations with different risk profiles. For each, recommend settings for: public code suggestions, Copilot Chat, CLI access, and seat management approach. The organizations are: engineering-core (general dev), engineering-regulated (healthcare/HIPAA), and engineering-experimental (R&D sandbox).</kbd>",
           "focus": "right",
@@ -140,7 +172,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -189,14 +221,30 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Create Your Playbook Document",
+          "instruction": "We've opened a new file for you. Consolidate the incident response procedure, training framework, and review cadence from your chat sessions into a single governance playbook document.<br><br>Structure it with clear sections, an owner for each section, and a last-reviewed date. This is a living document for your organization's governance repository.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the editor tab and the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
           "focus": "slides"
         }
       ]
     },
     "27": {
       "steps": [
+        {
+          "title": "Review Your Artifact Collection",
+          "instruction": "We've opened the <strong>Explorer</strong> for you. Look at the files in your workspace.<br><br>Throughout this lab, you have created governance artifacts — risk matrices, exclusion policies, audit plans, and policy configurations. In a real governance program, these artifacts would live in a controlled document repository.<br><br>Take stock of what you have produced. This is the evidence base for your board report.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
         {
           "title": "Challenge: Build a Board Report Outline",
           "instruction": "The board of directors wants a quarterly AI governance report. Ask Copilot to help structure it:<br><br><kbd>Create an outline for a quarterly AI governance board report. Include sections for: executive summary, AI tools in production, risk posture update, control effectiveness metrics, incident summary, regulatory horizon scan, and recommended actions. For each section, list 2-3 specific data points or artifacts to include.</kbd>",
@@ -213,7 +261,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

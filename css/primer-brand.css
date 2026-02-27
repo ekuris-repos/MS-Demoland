@@ -326,6 +326,83 @@ pre code {
   white-space: nowrap;
 }
 
+/* ---------- Tables ---------- */
+.slide table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--brand-space-4) 0;
+  font-size: var(--brand-body-size-sm);
+}
+
+.slide table th,
+.slide table td {
+  padding: var(--brand-space-2) var(--brand-space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--brand-color-border-muted);
+}
+
+.slide table thead th {
+  font-weight: var(--brand-font-weight-semibold);
+  color: var(--brand-color-fg-default);
+  background: var(--brand-color-canvas-subtle);
+  border-bottom: 2px solid var(--brand-color-border-default);
+}
+
+.slide table tbody tr:hover {
+  background: var(--brand-color-canvas-subtle);
+}
+
+/* ---------- Mermaid diagrams ---------- */
+.slide pre.mermaid {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+  margin: var(--brand-space-4) 0;
+  padding: 0;
+  overflow: visible;
+}
+
+/* ---------- Bar charts (CSS-only) ---------- */
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brand-space-2);
+  margin: var(--brand-space-4) 0;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--brand-space-3);
+}
+
+.bar-label {
+  flex: 0 0 8em;
+  text-align: right;
+  font-size: var(--brand-body-size-sm);
+  font-weight: var(--brand-font-weight-semibold);
+  color: var(--brand-color-fg-default);
+}
+
+.bar {
+  height: 1.6em;
+  background: var(--brand-color-accent-primary);
+  border-radius: var(--brand-radius-sm, 4px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--brand-space-2);
+  transition: width 0.4s ease;
+  min-width: 2em;
+}
+
+.bar-value {
+  font-size: 0.75rem;
+  font-weight: var(--brand-font-weight-semibold);
+  color: #ffffff;
+}
+
 /* ---------- Progress bar ---------- */
 .progress-bar {
   position: fixed;

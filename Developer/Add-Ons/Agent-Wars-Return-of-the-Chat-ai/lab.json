@@ -26,8 +26,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Discover ChatOps Commands",
+          "instruction": "Open the <strong>Command Palette</strong> and type <kbd>GitHub</kbd> to explore available GitHub-related commands in VS Code.<br><br>How many commands relate to pull requests, issues, or notifications? These built-in commands are the foundation that ChatOps extensions build upon.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and Command Palette for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -83,15 +91,42 @@
     "14": {
       "steps": [
         {
+          "title": "Explore Integration Project Structure",
+          "instruction": "Open the <strong>Explorer</strong> sidebar. In a real ChatOps project, integration configuration lives in files like <code>package.json</code>, manifest files, and environment configs.<br><br>Familiarize yourself with how a project is structured. You will reference this layout when building your Copilot Extension endpoint later.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Compare Slash Commands vs. Natural Language",
-          "instruction": "The GitHub for Slack app uses slash commands while Copilot in Teams uses natural language. Open your <code>chatops-playbook.md</code> file and add a Slack section.<br><br>For three common actions (subscribe to a repo, close an issue, check deploy status), write both the Slack slash command and the equivalent Teams natural-language prompt. Which approach is faster? Which is more discoverable for new team members?",
-          "focus": "editor"
+          "instruction": "The GitHub for Slack app uses slash commands while Copilot in Teams uses natural language. Create a new file and add a Slack comparison section.<br><br>For three common actions (subscribe to a repo, close an issue, check deploy status), write both the Slack slash command and the equivalent Teams natural-language prompt. Which approach is faster? Which is more discoverable for new team members?",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Check Integration Prerequisites",
+          "instruction": "Open the <strong>Terminal</strong> and verify your environment is ready for building ChatOps integrations:<br><br><kbd>node --version && npm --version</kbd><br><br>You will need Node.js to build the Copilot Extension endpoint later. If either command fails, install Node.js before proceeding to the extension slides.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Design a Channel Subscription Strategy",
-          "instruction": "Using the subscription commands from this slide, design a channel layout for a team with three repos: a frontend app, a backend API, and an infrastructure repo.<br><br>In your playbook, answer: How many channels do you need? Which event types should each subscribe to? How do you prevent notification fatigue without missing critical events?",
-          "focus": "editor",
-          "tip": "Over-subscribing is the most common ChatOps mistake. Fewer, targeted subscriptions beat an \"everything\" firehose."
+          "instruction": "Using the subscription commands from this slide, design a channel layout for a team with three repos: a frontend app, a backend API, and an infrastructure repo.<br><br>Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>For a team with frontend, backend, and infrastructure repos, design a Slack channel layout with GitHub subscriptions. How many channels do I need? Which event types per channel? How do I prevent notification fatigue?</kbd>",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat",
+          "tip": "Over-subscribing is the most common ChatOps mistake. Fewer, targeted subscriptions beat an \"everything\" firehose.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed all panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -139,8 +174,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Check for Code Warnings",
+          "instruction": "Open the <strong>Problems Panel</strong> to see if the generated code triggers any linting or security warnings. In a real extension project, this panel surfaces issues from ESLint, TypeScript, and other analyzers before you even push.<br><br>Review any warnings shown. Do they align with the security gaps you identified in the previous step?",
+          "focus": "bottom",
+          "action": "workbench.action.problems.focus",
+          "actionLabel": "Open Problems Panel",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed all panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Problems Panel</strong>: <kbd>Ctrl+Shift+M</kbd>",
           "focus": "slides"
         }
       ]
@@ -169,8 +212,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Test the Extension Server",
+          "instruction": "Open the <strong>Terminal</strong> and try starting your extension server to verify the generated code runs:<br><br><kbd>node extension-server.js</kbd><br><br>Does it start without errors? If it fails, note the error message and use Copilot to debug. Press <kbd>Ctrl+C</kbd> to stop the server when done.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and terminal for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -178,22 +229,57 @@
     "26": {
       "steps": [
         {
+          "title": "Review Extension Settings",
+          "instruction": "Open <strong>Settings</strong> and search for <kbd>copilot</kbd> to explore the available configuration options. Look at which settings control how Copilot Extensions behave, which models they use, and how authentication is handled.<br><br>Understanding these settings helps you configure extensions for enterprise environments where security policies dictate behavior.",
+          "focus": "editor",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Security Audit Challenge",
-          "instruction": "Using the security checklist from this slide, audit the extension endpoint you built. Open the file in the editor and ask Copilot in <strong>Edit</strong> mode:<br><br><kbd>Add identity mapping, scoped token validation, and audit logging to this endpoint. Every action should be logged with the authenticated user's GitHub handle and a timestamp.</kbd><br><br>Review the proposed diffs. Are the security additions sufficient, or did Copilot miss an attack vector?",
+          "instruction": "Using the security checklist from this slide, audit the extension endpoint you built. Open <strong>Copilot Chat</strong> and ask in <strong>Edit</strong> mode:<br><br><kbd>Add identity mapping, scoped token validation, and audit logging to this endpoint. Every action should be logged with the authenticated user's GitHub handle and a timestamp.</kbd><br><br>Review the proposed diffs. Are the security additions sufficient, or did Copilot miss an attack vector?",
           "focus": [
             "editor",
             "right"
-          ]
+          ],
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Check Extension Output",
+          "instruction": "Open the <strong>Output Panel</strong> and select a relevant output channel (such as <strong>GitHub Copilot</strong>) from the dropdown. This panel shows real-time logs from extensions, including connection status, errors, and API calls.<br><br>When debugging ChatOps integrations, the Output Panel is your first stop for diagnosing connection failures, authentication issues, and unexpected behavior.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "actionLabel": "Open Output Panel",
+          "onLeave": "workbench.action.closePanel"
         },
         {
           "title": "Least Privilege Check",
-          "instruction": "Open your <code>chatops-playbook.md</code> and add a security section. For the extension you built, document:<br><br>&bull; The minimum GitHub App permissions required<br>&bull; Which permissions are read-only vs. read-write<br>&bull; What happens if the token is compromised<br>&bull; How you would rotate credentials without downtime<br><br>Challenge yourself: can you reduce the permission set further without losing functionality?",
-          "focus": "editor"
+          "instruction": "Create a new file and draft a security section for your playbook. For the extension you built, document:<br><br>&bull; The minimum GitHub App permissions required<br>&bull; Which permissions are read-only vs. read-write<br>&bull; What happens if the token is compromised<br>&bull; How you would rotate credentials without downtime<br><br>Challenge yourself: can you reduce the permission set further without losing functionality?",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed all panels for you.<br><br>For future reference:<br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
         }
       ]
     },
     "27": {
       "steps": [
+        {
+          "title": "Review Your Lab Changes",
+          "instruction": "Open <strong>Source Control</strong> to review all the files you created and modified during this lab. In a real ChatOps rollout, your configuration files, extension code, and playbook would all be version-controlled.<br><br>Look at the list of changes. Which files would you commit together as a single logical change, and which would go in separate commits?",
+          "focus": "left",
+          "action": "workbench.view.scm",
+          "actionLabel": "Open Source Control",
+          "onLeave": "workbench.action.closeSidebar"
+        },
         {
           "title": "Draft a Rollout Plan",
           "instruction": "The slide describes a phased adoption strategy. Using your playbook file, draft a 3-phase rollout plan for introducing ChatOps to a 50-person engineering org:<br><br>&bull; Phase 1: which read-only workflows, which channels, which team<br>&bull; Phase 2: when to enable write operations, what approval gates<br>&bull; Phase 3: custom extensions, governance policies, success metrics<br><br>Be specific. Name the tools, channels, and policies for each phase.",
@@ -209,7 +295,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

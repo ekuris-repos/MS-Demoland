@@ -63,8 +63,15 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Check Copilot Extension Logs",
+          "instruction": "Open the <strong>Output</strong> panel and select <strong>GitHub Copilot</strong> from the channel dropdown.<br><br>Scroll through the recent entries to see how the agent processed each step of the stress test. Look for tool invocations, error recovery attempts, and completion confirmations. The Output panel is your first stop for debugging agent behavior in production.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]
@@ -99,19 +106,27 @@
           "instruction": "The Coding Agent works best with well-structured issues. Use agent mode to create an issue template:<br><br><kbd>Create a GitHub issue template at .github/ISSUE_TEMPLATE/coding-agent-task.yml that includes fields for: task description, acceptance criteria (checklist), files likely affected, testing requirements, and a label \"copilot\" that signals this issue is a Coding Agent candidate. Use YAML form syntax.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Review the Template",
           "instruction": "Open the generated template file in the editor and verify it includes:<br><br>&bull; A clear description field with placeholder text<br>&bull; An acceptance criteria checklist<br>&bull; A files-affected text area<br>&bull; A testing requirements section<br>&bull; The <code>copilot</code> label in the template metadata<br><br>Well-structured issue templates are the foundation of reliable Coding Agent workflows. Ambiguous issues produce unreliable results.",
-          "focus": "editor",
+          "focus": "left",
           "action": "workbench.view.explorer",
           "onLeave": "workbench.action.closeSidebar",
           "actionLabel": "Open Explorer"
         },
         {
+          "title": "Discover Agent Commands",
+          "instruction": "Open the <strong>Command Palette</strong> and type <kbd>Copilot</kbd> to browse available agent-related commands.<br><br>Look for commands like <strong>GitHub Copilot: Open Chat</strong>, <strong>GitHub Copilot: Explain This</strong>, and <strong>GitHub Copilot: Generate Tests</strong>. These commands are also available as keyboard shortcuts for fast agent coordination.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "instruction": "We've closed the Command Palette for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -173,25 +188,35 @@
           "instruction": "Build a minimal Copilot Extension that connects to an internal system. In agent mode, type:<br><br><kbd>Create a Node.js Express project for a Copilot Extension at copilot-extension/. Include: 1) A package.json with express and @octokit/auth-app dependencies. 2) An index.js with a POST /agent endpoint that receives Copilot messages, queries a mock internal status API, and returns a server-sent events (SSE) response. 3) Include proper SSE formatting with data: prefixed lines and a [DONE] terminator. 4) Add request signature verification middleware for security.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Review the Extension Architecture",
           "instruction": "Open <code>copilot-extension/index.js</code> and verify the architecture:<br><br>&bull; The handler extracts the latest user message from the conversation array<br>&bull; The response uses SSE format (<code>data:</code> prefix on each line)<br>&bull; The stream ends with <code>data: [DONE]</code><br>&bull; Request signature verification is in place<br>&bull; The mock internal API call is clearly separated for easy replacement<br><br>This is the pattern every enterprise Copilot Extension follows.",
-          "focus": "editor",
+          "focus": "left",
           "action": "workbench.view.explorer",
-          "actionLabel": "Open Explorer"
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Test the Extension Locally",
           "instruction": "Use agent mode to create a test script:<br><br><kbd>Create a test-extension.js script that sends a POST request to http://localhost:3000/agent with a sample Copilot message payload and prints the SSE response. Include a sample messages array with a user message asking about deployment status.</kbd><br><br>Start the server in one terminal and run the test in another to verify the SSE stream.",
           "focus": "right",
+          "action": "workbench.action.chat.open",
           "tip": "In production, register the extension in your organization settings under Copilot > Extensions. Only organization owners can register private extensions.",
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Check Extension Server Logs",
+          "instruction": "Open the <strong>Output</strong> panel to inspect the extension's server output. Select <strong>GitHub Copilot</strong> from the channel dropdown.<br><br>Look for the SSE stream events and signature verification logs. In production, you would configure structured logging to pipe these entries to your observability stack.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "instruction": "We've closed the Output panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]
@@ -260,7 +285,8 @@
         {
           "title": "Add the Review Gate",
           "instruction": "Extend the workflow with a review enforcement step:<br><br><kbd>Add a second workflow at .github/workflows/security-review-gate.yml that triggers on pull_request with the \"security-fix\" label. The workflow should: 1) Post a comment mentioning @copilot asking it to review the PR for completeness, verify that tests pass, and check that no new vulnerabilities are introduced. 2) Require the \"security-team\" team as a reviewer using gh pr edit. 3) Add a checklist comment with items: dependency updated, breaking changes addressed, tests pass, security review approved.</kbd>",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Review the Full Pipeline",
@@ -271,8 +297,15 @@
           "actionLabel": "Open Explorer"
         },
         {
+          "title": "Review Changes in Source Control",
+          "instruction": "Open <strong>Source Control</strong> to see all the files the agent generated during this lab.<br><br>Review the change list \u2014 you should see workflow YAML files, issue templates, scripts, and the Copilot Extension project. In an enterprise workflow, this is where a senior engineer reviews agent-generated changes before they are committed and pushed.",
+          "focus": "left",
+          "action": "workbench.view.scm",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]

@@ -54,8 +54,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Save Your Pipeline",
+          "instruction": "We've opened a new file for you. Set the language to <strong>YAML</strong> using the language selector in the bottom-right corner of the editor.<br><br>Paste the GitHub Actions workflow from Chat into this file. SREs should always save generated pipelines as reviewable artifacts — never leave useful automation trapped in a chat conversation.",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and the editor tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
           "focus": "slides"
         }
       ]
@@ -82,8 +90,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Test a Command",
+          "instruction": "We've opened the <strong>Terminal</strong> for you. SREs live in the terminal — this is where your generated scripts will ultimately run.<br><br>Try a quick validation command:<br><br><kbd>echo 'Script validation: dry-run mode active' && date</kbd><br><br>In practice, you would paste the generated cleanup script here and run it with the dry-run flag first. Always test generated scripts in a non-production environment before scheduling them.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and the terminal for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -132,8 +148,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Save Your Runbook",
+          "instruction": "We've opened a new file for you. Set the language to <strong>Markdown</strong> and paste the runbook from Chat.<br><br>A runbook is only useful if it is saved, versioned, and discoverable. In your organization, store runbooks in a shared <code>ops-runbooks</code> repository where on-call engineers can find them during an incident.",
+          "focus": "top",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and the editor tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
           "focus": "slides"
         }
       ]
@@ -160,8 +184,16 @@
           "onLeave": "workbench.action.closeSidebar"
         },
         {
+          "title": "Review Monitoring Settings",
+          "instruction": "We've opened <strong>Settings</strong> for you. Type <kbd>output</kbd> in the search bar to see configuration options for the Output panel and terminal behavior.<br><br>In an ops workflow, you would configure settings like <code>terminal.integrated.scrollback</code> (how much log history to keep) and output channel visibility. These small configurations add up to a smoother incident response experience.",
+          "focus": "top",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and the Settings tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
           "focus": "slides"
         }
       ]
@@ -219,6 +251,14 @@
     "22": {
       "steps": [
         {
+          "title": "Browse Your Ops Artifacts",
+          "instruction": "We've opened the <strong>Explorer</strong> sidebar. Take a moment to review the files you have created so far in this lab — pipeline YAML, scripts, runbooks, and monitoring configurations.<br><br>In a real ops environment, the Explorer is your file navigator for infrastructure-as-code repositories. Keeping artifacts organized and versioned is as important as creating them.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Generate an SLO Report",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>Generate a monthly SLO report template in Markdown for a payment service with these objectives:\n- Availability: 99.95% target\n- p99 Latency: under 500ms\n- Error Rate: below 0.1%\n\nInclude sections for current performance, error budget remaining, trend analysis, and recommended actions.</kbd><br><br>Review the template. This is the kind of report that builds credibility with stakeholders when generated consistently from real data.",
           "focus": "right",
@@ -234,13 +274,21 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
     },
     "25": {
       "steps": [
+        {
+          "title": "Discover Terminal Profiles",
+          "instruction": "We've opened the <strong>Command Palette</strong> for you. Type <kbd>terminal select</kbd> to see commands for managing terminal profiles.<br><br>As a platform engineer, you can configure default terminal profiles for your team — ensuring everyone uses the same shell and environment. This is a small governance step that prevents cross-platform scripting issues.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
         {
           "title": "Design an Org Structure",
           "instruction": "In <strong>Copilot Chat</strong>, type:<br><br><kbd>We are a 500-person engineering org adopting GitHub Enterprise. Recommend an organization structure: should we use a single org or multiple orgs? How should we set base permissions, team structure, and repository visibility to support innersource while meeting compliance requirements?</kbd><br><br>Review the recommendations. Notice how Copilot balances autonomy with governance, the central tension of enterprise GitHub adoption.",
@@ -256,7 +304,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -265,7 +313,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the Dragon Scales lab. Throughout this session you used <strong>Copilot Chat</strong> to:<br><br>&bull; Generate and iterate on <strong>IaC pipelines</strong> with GitHub Actions<br>&bull; Create <strong>ops scripts</strong> with dry-run flags and safety guardrails<br>&bull; Analyze <strong>logs</strong> and generate <strong>KQL and PromQL queries</strong><br>&bull; Write and review <strong>runbooks</strong> as living documentation<br>&bull; Scaffold <strong>monitoring dashboards</strong> as code<br>&bull; Correlate <strong>alerts</strong> and generate <strong>remediation plans</strong><br>&bull; Draft <strong>blameless postmortems</strong> and convert action items to Issues<br>&bull; Build <strong>SLO reports</strong> and analyze <strong>cloud spend</strong><br>&bull; Design <strong>org structure</strong> and <strong>repository templates</strong> for enterprise scale<br><br>Take these patterns back to your team and start with the area that will save you the most time this week.",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the Dragon Scales lab. Throughout this session you used <strong>Copilot Chat</strong>, the <strong>Terminal</strong>, <strong>Explorer</strong>, <strong>Settings</strong>, and the <strong>Command Palette</strong> to:<br><br>&bull; Generate and iterate on <strong>IaC pipelines</strong> with GitHub Actions<br>&bull; Create <strong>ops scripts</strong> and test them in the <strong>Terminal</strong><br>&bull; Analyze <strong>logs</strong> and generate <strong>KQL and PromQL queries</strong><br>&bull; Write, review, and save <strong>runbooks</strong> as living documentation<br>&bull; Scaffold <strong>monitoring dashboards</strong> and review <strong>monitoring settings</strong><br>&bull; Correlate <strong>alerts</strong> and generate <strong>remediation plans</strong><br>&bull; Draft <strong>blameless postmortems</strong> and convert action items to Issues<br>&bull; Build <strong>SLO reports</strong> and analyze <strong>cloud spend</strong><br>&bull; Design <strong>org structure</strong> and <strong>repository templates</strong> for enterprise scale<br><br>Take these patterns back to your team and start with the area that will save you the most time this week.",
           "tip": "Head back to the slides on the left for a recap of key takeaways.",
           "focus": "guide"
         }

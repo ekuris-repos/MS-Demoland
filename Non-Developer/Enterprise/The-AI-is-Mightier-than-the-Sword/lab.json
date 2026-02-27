@@ -98,6 +98,14 @@
           "actionLabel": "Open New File"
         },
         {
+          "title": "Review Agent File Structure",
+          "instruction": "We've opened the <strong>Explorer</strong> for you. Navigate to the <code>.github/agents/</code> folder and confirm that your <code>security-auditor.agent.md</code> and <code>compliance-researcher.agent.md</code> files are both saved.<br><br>A well-organized agent directory makes it easy for your team to discover, audit, and maintain agent definitions.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Cross-Reference Two Agents",
           "instruction": "Now test both agents against the <strong>same question</strong>:<br><br><kbd>Our company is considering storing European customer data in a US-based cloud region. What should we consider?</kbd><br><br>Ask <strong>@security-auditor</strong> first, then ask <strong>@compliance-researcher</strong> the same question in a separate session. Compare their outputs: where do they overlap? Where does each agent surface concerns the other missed?",
           "focus": "right",
@@ -107,7 +115,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -123,6 +131,14 @@
           "actionLabel": "Open New File"
         },
         {
+          "title": "Verify Agent Definitions",
+          "instruction": "We've opened the <strong>Terminal</strong> for you. Run a quick check to verify your agent files are properly saved:<br><br><kbd>ls .github/agents/</kbd><br><br>You should see all the agent definition files you created. In an enterprise environment, you would also verify that agent files follow naming conventions and pass any linting or review gates.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Verify the Team",
           "instruction": "Open <strong>Copilot Chat</strong> and verify that all of your agents are available by typing <strong>@</strong> and checking the agent list.<br><br>Pick any agent and ask it a question within its domain. Confirm that it follows its defined methodology and stays within its area of expertise.",
           "focus": "right",
@@ -133,13 +149,21 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
     },
     "16": {
       "steps": [
+        {
+          "title": "Discover Agent Commands",
+          "instruction": "We've opened the <strong>Command Palette</strong> for you. Type <kbd>agent</kbd> or <kbd>chat participant</kbd> to discover commands for managing chat participants and agent definitions.<br><br>Understanding the command surface helps you work more efficiently when orchestrating complex multi-agent workflows.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
         {
           "title": "Decompose a Research Question",
           "instruction": "Here is your scenario:<br><br><em>Your CEO wants to know whether the company should acquire a smaller AI startup to accelerate your AI strategy, or build an internal AI team from scratch.</em><br><br>Your challenge: decompose this into <strong>3-5 focused sub-questions</strong>, each assigned to the most appropriate specialist agent from your team. Write your decomposition in a scratch file or note which agent handles which sub-question.",
@@ -163,7 +187,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -201,6 +225,14 @@
           "focus": "guide"
         },
         {
+          "title": "Check Copilot Activity Log",
+          "instruction": "We've opened the <strong>Output Panel</strong> for you. Select <strong>GitHub Copilot</strong> from the output channel dropdown to see Copilot's activity log.<br><br>When agents process requests, the output log shows tool invocations, context retrieval, and processing steps. This visibility is how you verify that agents are following their defined methodology — not just generating plausible-sounding text.",
+          "focus": "bottom",
+          "action": "workbench.action.output.toggleOutput",
+          "actionLabel": "Open Output Panel",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Deploy a Fact-Checker",
           "instruction": "Create (or invoke) a <strong>@fact-checker</strong> agent. Feed it one of the claims you flagged:<br><br><kbd>@fact-checker Verify the following claim from a research synthesis: \"[paste claim here]\". Check whether this claim is supported, partially supported, or unsupported. Explain your reasoning and rate your confidence.</kbd><br><br>Does the fact-checker's assessment change your confidence in the original finding?",
           "focus": "right",
@@ -210,7 +242,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the sidebar and the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

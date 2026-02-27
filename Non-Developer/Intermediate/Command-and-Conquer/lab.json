@@ -51,17 +51,20 @@
         {
           "title": "Interpret Sample Metrics",
           "instruction": "In <strong>Copilot Chat</strong>, ask it to generate a realistic data table you can analyze. Type:<br><br><kbd>Create a markdown table showing 4 weeks of Copilot usage data for a 200-person engineering org. Include columns for: Week, Total Seats, Active Users, Suggestions, Acceptances, and Acceptance Rate. Make the numbers realistic with a gradual adoption curve.</kbd><br><br>Copy the table from Chat and paste it into your worksheet file.",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Analyze the Trends",
           "instruction": "With the table in your file, ask Copilot to play analyst. Type in Chat:<br><br><kbd>Look at the usage data in my open file. What trends do you see? What would you flag as a concern for the VP of Engineering? Write 3 bullet points suitable for a leadership standup.</kbd><br><br>Paste the analysis below the table in your worksheet. This is how you turn raw metrics into talking points.",
           "focus": "right",
-          "tip": "Executives rarely need raw data. They need interpreted data with a recommendation. Train yourself to always ask Copilot for the \"so what\" alongside the numbers."
+          "tip": "Executives rarely need raw data. They need interpreted data with a recommendation. Train yourself to always ask Copilot for the \"so what\" alongside the numbers.",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "instruction": "We've closed the editor tab and the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -69,14 +72,30 @@
     "11": {
       "steps": [
         {
+          "title": "Browse Your Workspace",
+          "instruction": "We've opened the <strong>Explorer</strong> sidebar so you can see the files in your workspace. As you create more executive artifacts throughout this lab, use the Explorer to confirm they are saved and organized.<br><br>This is the same view your engineering teams use daily to navigate code repositories.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Calculate Developer Hours Saved",
           "instruction": "In <strong>Copilot Chat</strong>, ask it to build a calculation using the data from your worksheet. Type:<br><br><kbd>Using the most recent week of data in my open file, calculate the estimated developer hours saved per week. Use 55 seconds as the average time saved per accepted suggestion. Show your math step by step.</kbd><br><br>Review the calculation and paste the result into your worksheet under a new heading: <kbd>## Hours Saved Estimate</kbd>",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Annualize the Impact",
           "instruction": "Now ask Copilot to scale the number for an annual view. Type:<br><br><kbd>Take the weekly hours saved number and annualize it (assume 48 working weeks). Then calculate the dollar value using a fully loaded developer cost of $95 per hour. Format the result as a brief executive summary paragraph.</kbd><br><br>Paste this into your worksheet. You now have the core of your CFO pitch.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -85,7 +104,9 @@
         {
           "title": "Build an ROI Model",
           "instruction": "Ask Copilot to build a complete ROI comparison. Type in Chat:<br><br><kbd>Create a markdown ROI model for Copilot Business licenses for 200 developers. Include: annual license cost at $19 per user per month, estimated annual hours saved, dollar value of those hours at $95/hour, and the resulting ROI multiple. Format it as a clean table with a summary line.</kbd><br><br>Review the model and paste it into your worksheet under a new heading: <kbd>## ROI Model</kbd>",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Add a Sensitivity Analysis",
@@ -96,7 +117,21 @@
         {
           "title": "Draft the CFO Talking Points",
           "instruction": "Ask Copilot to translate your model into executive language. Type:<br><br><kbd>Based on the ROI model in my open file, write 4 concise talking points I can use when presenting to the CFO. Focus on cost justification, risk mitigation, and competitive advantage. No jargon.</kbd><br><br>Paste these into your worksheet under: <kbd>## CFO Talking Points</kbd>",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Review Copilot Organization Settings",
+          "instruction": "We've opened <strong>Settings</strong> for you. In a real deployment, this is where your GitHub administrator would configure organization-level Copilot policies.<br><br>Type <kbd>copilot</kbd> in the search bar to see available Copilot settings. Notice the options for enabling or disabling suggestions, managing content exclusions, and configuring proxy settings.<br><br>These settings map directly to the governance policies you are building in this lab.",
+          "focus": "top",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar and the Settings tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -130,15 +165,31 @@
     "17": {
       "steps": [
         {
+          "title": "Discover Copilot Commands",
+          "instruction": "We've opened the <strong>Command Palette</strong> for you. Type <kbd>copilot</kbd> to see all available Copilot commands in VS Code.<br><br>Scroll through the list. These are the same commands your engineering teams will use daily. Understanding what is available helps you set realistic expectations during your rollout.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
           "title": "Design Content Exclusion Patterns",
           "instruction": "In <strong>Copilot Chat</strong>, ask for help designing exclusion patterns. Type:<br><br><kbd>I need to configure Copilot content exclusions for a GitHub organization. Suggest 8-10 glob patterns that would exclude common sensitive directories like secrets, credentials, proprietary algorithms, and third-party code with restrictive licenses. Format each pattern with a comment explaining what it protects.</kbd><br><br>Review the list. These are the patterns you would give to your GitHub org admin to configure.",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Create an Exclusion Checklist",
           "instruction": "Ask Copilot to turn this into a process document. Type:<br><br><kbd>Create a quarterly review checklist for Copilot content exclusions. Include steps for: auditing current patterns, checking for new sensitive repositories, validating that exclusions are working, and documenting any changes. Format as a numbered checklist.</kbd><br><br>This is the kind of operational artifact that keeps governance current quarter over quarter.",
           "focus": "right",
-          "tip": "Content exclusions are only effective if they are reviewed regularly. Add a quarterly calendar reminder as part of your governance cadence."
+          "tip": "Content exclusions are only effective if they are reviewed regularly. Add a quarterly calendar reminder as part of your governance cadence.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -172,9 +223,19 @@
     "22": {
       "steps": [
         {
+          "title": "Explore the CLI",
+          "instruction": "We've opened the <strong>Terminal</strong> for you. In a real deployment, your ops team can use the <code>gh</code> CLI to pull Copilot usage data programmatically.<br><br>Try typing:<br><br><kbd>gh copilot --help</kbd><br><br>Even as an executive, knowing these automation capabilities exist helps you set realistic expectations for reporting cadence during your rollout.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Build a Rollout Plan",
           "instruction": "In <strong>Copilot Chat</strong>, ask it to generate a structured plan. Type:<br><br><kbd>Create a 3-phase rollout plan for scaling GitHub Copilot from a 50-person pilot to a 500-person enterprise deployment. For each phase, include: timeline, scope, success criteria, decision gate to proceed, and key risks. Format as a markdown document with clear headings.</kbd>",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Add the Rollout Plan to Your Files",
@@ -188,11 +249,12 @@
           "title": "Generate a RACI Matrix",
           "instruction": "Ask Copilot to add accountability structure. Type in Chat:<br><br><kbd>Create a RACI matrix for the Copilot rollout plan. Include these roles: Executive Sponsor, Engineering VP, Security Lead, Copilot Champion, and IT Admin. Cover these activities: license procurement, policy creation, content exclusion setup, training delivery, metrics reporting, and vendor evaluation. Format as a markdown table.</kbd><br><br>Paste the matrix into your rollout plan document. Clear ownership prevents rollout delays.",
           "focus": "right",
-          "tip": "A rollout plan without named owners is just a wish list. The RACI matrix turns strategy into accountability."
+          "tip": "A rollout plan without named owners is just a wish list. The RACI matrix turns strategy into accountability.",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "instruction": "We've closed the sidebar and the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
           "focus": "slides"
         }
       ]

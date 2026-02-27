@@ -35,29 +35,61 @@
     "8": {
       "steps": [
         {
+          "title": "Configure Your Workspace",
+          "instruction": "We've opened <strong>Settings</strong> for you. Type <kbd>editor.wordWrap</kbd> in the search bar and set it to <strong>on</strong>.<br><br>As a project manager, you will be reading and writing a lot of text in VS Code. Word wrap makes long markdown lines easier to read. Small workspace tweaks like this add up to a more comfortable working environment.",
+          "focus": "top",
+          "action": "workbench.action.openSettings",
+          "actionLabel": "Open Settings",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
           "title": "Plan Custom Fields for a Project Board",
           "instruction": "Ask Copilot to help you design your project board. Type:<br><br><kbd>I'm setting up a GitHub Project board for a 6-person dev team delivering a web application. Recommend custom fields I should create for sprint planning, including field type and example values for each.</kbd><br><br>Review the recommendations. Note how Copilot suggests fields like Priority, Effort, Sprint, and Team.",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Generate a Sprint Planning Template",
           "instruction": "Now ask Copilot to create a reusable sprint planning checklist:<br><br><kbd>Create a sprint planning checklist I can use at the start of every sprint. Include steps for backlog grooming, capacity planning, goal setting, and team alignment. Format it as a markdown checklist.</kbd><br><br>This is something you can save and reuse every sprint.",
           "focus": "right",
-          "tip": "Save prompts that produce useful outputs. Over time you will build a personal prompt library for recurring PM tasks."
+          "tip": "Save prompts that produce useful outputs. Over time you will build a personal prompt library for recurring PM tasks.",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the Settings tab and the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
     "9": {
       "steps": [
         {
+          "title": "Explore Project Commands",
+          "instruction": "We've opened the <strong>Command Palette</strong> for you. Type <kbd>git</kbd> to see version control commands available in VS Code.<br><br>As a PM, you do not need to memorize these commands — but knowing they exist helps you understand what your developers can do directly from their editor. The Command Palette is the universal search bar for VS Code capabilities.",
+          "focus": "top",
+          "action": "workbench.action.showCommands",
+          "actionLabel": "Open Command Palette",
+          "onLeave": "workbench.action.closeQuickOpen"
+        },
+        {
           "title": "Design a Labeling Strategy",
           "instruction": "Consistent labels make filtering and reporting reliable. Ask Copilot:<br><br><kbd>Recommend a GitHub issue labeling strategy for a product development team. Include labels for issue type, priority, status, and area. For each label, suggest a name, color hex code, and one-sentence description.</kbd><br><br>Review the output and consider which labels would work for your team.",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Create a Milestone Plan",
           "instruction": "Ask Copilot to help structure your milestones:<br><br><kbd>I have a product release planned for Q3. Help me break this into monthly milestones with clear goals. The release includes a new dashboard feature, API performance improvements, and mobile app bug fixes.</kbd><br><br>Notice how Copilot organizes work into time-boxed milestones with specific deliverables.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -101,7 +133,9 @@
         {
           "title": "Improve the Issue with Copilot",
           "instruction": "Select all the text, then ask Copilot Chat:<br><br><kbd>Rewrite this as a well-structured GitHub issue. Include a clear title, context section, acceptance criteria, scope boundaries, and any questions that need answers before a developer can start.</kbd><br><br>Compare the before and after. Notice how Copilot adds structure, specificity, and testable criteria.",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Anticipate Developer Questions",
@@ -112,7 +146,13 @@
         {
           "title": "Break It Down into Sub-Issues",
           "instruction": "Finally, ask Copilot to decompose the work:<br><br><kbd>Split this issue into 3-4 smaller, independently deliverable sub-issues. Each should be completable in one sprint or less. Format as a markdown list with a title and one-sentence description per sub-issue.</kbd><br><br>This is exactly what you would create as sub-issues linked to an epic in GitHub Issues.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -139,6 +179,14 @@
     "20": {
       "steps": [
         {
+          "title": "Browse Your Project Files",
+          "instruction": "We've opened the <strong>Explorer</strong> sidebar. In a real project, this is where you would navigate to documentation, sprint reports, and configuration files created by your team.<br><br>Take a moment to see the files you have created during this lab. Each one is a reusable artifact you can adapt to your own projects.",
+          "focus": "left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
           "title": "Analyze Project Health Data",
           "instruction": "Clear your file and paste this sample project health snapshot:<br><br><kbd>Current sprint issues: 22 total, 14 in progress, 3 blocked\nAging issues (open 2+ sprints): #102 API migration, #89 Auth refactor, #134 Search redesign\nPRs awaiting review (3+ days): PR #201, PR #215, PR #218\nSprint carryover trend: 15%, 22%, 28% (last 3 sprints)\nTeam member with no commits this sprint: Alex (out sick Mon-Wed)</kbd>",
           "focus": "top"
@@ -146,12 +194,20 @@
         {
           "title": "Surface Risks with Copilot",
           "instruction": "Select all the data, then ask Copilot:<br><br><kbd>Analyze this project health data and identify the top 3 risks. For each risk, explain why it matters and suggest a specific action I should take as the project manager.</kbd><br><br>Review the risk analysis. Notice how Copilot connects data points to actionable recommendations.",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Prepare Talking Points for Standup",
           "instruction": "Ask a follow-up:<br><br><kbd>Based on these risks, write 3 bullet points I should raise in tomorrow's standup. Keep each to one sentence.</kbd><br><br>These are ready-to-use talking points that address real problems instead of generic status updates.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -173,6 +229,14 @@
     "23": {
       "steps": [
         {
+          "title": "Try Copilot in the CLI",
+          "instruction": "We've opened the <strong>Terminal</strong> for you. GitHub Copilot also works in the command line. Try typing:<br><br><kbd>gh copilot suggest \"list merged PRs from last week\"</kbd><br><br>Even as a PM, the CLI can help you quickly pull project data without navigating the GitHub web interface. This is especially useful for generating release summaries.",
+          "focus": "bottom",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
           "title": "Prepare Merged PR Data",
           "instruction": "Clear your file and paste this list of merged PRs:<br><br><kbd>Merged PRs for v2.4:\n- PR #230: Add CSV export to dashboard\n- PR #231: Fix timezone bug in scheduling module\n- PR #235: Upgrade authentication to OAuth 2.1\n- PR #238: Improve search performance (3x faster queries)\n- PR #240: Add user notification preferences page\n- PR #242: Fix memory leak in background worker\n- PR #245: Update API docs for new endpoints</kbd>",
           "focus": "top"
@@ -180,12 +244,20 @@
         {
           "title": "Generate Release Notes",
           "instruction": "Select the PR list, then ask Copilot:<br><br><kbd>Write release notes for version 2.4 based on these merged PRs. Organize by category: Features, Bug Fixes, and Improvements. Write in user-facing language that focuses on benefits, not implementation details.</kbd><br><br>Review the output. These release notes are ready to share with customers.",
-          "focus": "right"
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Create an Internal Version",
           "instruction": "Now ask for the engineering team's version:<br><br><kbd>Now write an internal version of these release notes for the engineering team. Include technical details, areas of the codebase affected, and any follow-up work needed.</kbd><br><br>Compare the two versions. Same source data, tailored for two different audiences.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal and the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -233,7 +305,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the PM Toolkit lab. You used Copilot Chat to:<br><br>&bull; Design project board fields and sprint planning checklists<br>&bull; Summarize pull requests for non-technical audiences<br>&bull; Write well-structured GitHub issues with acceptance criteria<br>&bull; Generate sprint reports tailored to different audiences<br>&bull; Identify project risks and prepare actionable talking points<br>&bull; Draft release notes, stakeholder updates, and executive summaries<br>&bull; Turn raw metrics into leadership-ready narratives<br><br>Start building your personal prompt library with the prompts that worked best for you today.",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You have completed the PM Toolkit lab. You used <strong>Copilot Chat</strong>, the <strong>Terminal</strong>, <strong>Explorer</strong>, <strong>Settings</strong>, and the <strong>Command Palette</strong> to:<br><br>&bull; Configure your workspace and discover VS Code project commands<br>&bull; Design project board fields and sprint planning checklists<br>&bull; Summarize pull requests for non-technical audiences<br>&bull; Write well-structured GitHub issues with acceptance criteria<br>&bull; Generate sprint reports tailored to different audiences<br>&bull; Identify project risks and prepare actionable talking points<br>&bull; Use the CLI to pull project data and draft release notes<br>&bull; Turn raw metrics into leadership-ready narratives<br><br>Start building your personal prompt library with the prompts that worked best for you today.",
           "tip": "Head back to the slides for key takeaways and your action plan, or close this panel to start applying these techniques to your real projects.",
           "focus": "guide"
         }

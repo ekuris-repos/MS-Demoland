@@ -83,6 +83,7 @@
           <li>Suggests whole lines, entire functions, tests, documentation, and even terminal commands</li>
           <li>Works in <strong>VS Code</strong>, JetBrains IDEs, Neovim, Visual Studio, and <strong>github.com</strong></li>
         </ul>
+
         <aside class="speaker-notes">
           Think of GitHub Copilot as an AI pair programmer that sits right inside your editor. It's not a separate app you switch to; it's woven into the tools you already use every day. Under the hood, Copilot is powered by a catalog of large language models from providers like OpenAI, Anthropic, and Google. You choose which model to use, and you can switch at any time. Different models have different strengths: some are faster, some are better at reasoning, and some handle larger context windows. We'll cover the model picker later in this session. Copilot can suggest entire lines of code, complete functions, tests, documentation, and even terminal commands. And it's not limited to VS Code. It works in JetBrains, Neovim, Visual Studio, and even directly on github.com. Wherever you code, Copilot can be right there with you.
         </aside>
@@ -101,6 +102,8 @@
           <li><strong>Suggestion delivery</strong> - Returns completions as grey "ghost text" in your editor, or full answers in chat</li>
           <li><strong>Your code stays yours</strong> - Copilot Business and Enterprise do not retain prompts or suggestions for model training</li>
         </ul>
+
+        <img src="img/TODO-diagram-copilot-architecture-flow.png" alt="Diagram showing how Copilot gathers context, sends it to the LLM, and returns suggestions" />
         <aside class="speaker-notes">
           So how does it actually work? There are three steps. First, context gathering: Copilot looks at the file you have open, the neighboring tabs, your comments, function signatures, and variable names. It's building a picture of what you're working on. Second, model inference: it sends that context to whichever large language model you've selected in the model picker. GitHub hosts the infrastructure, and the model generates a completion. You can change your model at any time, and we'll cover the picker in detail later. Third, suggestion delivery: that completion comes back to your editor as either grey "ghost text" right inline, or as a full response in Chat. Now, here's the important privacy point, especially if you're in an enterprise environment: on the Business and Enterprise plans, GitHub does not retain your prompts or suggestions for model training. Your code stays yours. And to answer the question I know some of you are thinking: for inline completions, Copilot sends a limited context window from the current file and nearby tabs. Other features like @workspace and Agent mode can access your full project.
         </aside>
@@ -167,6 +170,7 @@
         </div>
         <p style="font-size:0.65rem;opacity:0.6;margin-top:0.5em">Premium requests are consumed by chat messages multiplied by the model multiplier. Additional requests available at $0.04/request.</p>
         <p style="font-size:0.6rem;opacity:0.5;margin-top:0.25em">⚠️ Plans, pricing, and quotas shown are as of <strong>February 2026</strong>. Check <code>github.com/features/copilot</code> for the latest.</p>
+
         <aside class="speaker-notes">
           Let's quickly look at the plans. There are five tiers. The Free plan gives you 50 premium requests per month and 2,000 completions, more than enough to try Copilot and see if it fits your workflow. Pro, at ten dollars a month, bumps you up to 300 premium requests with unlimited completions, and adds the coding agent and code review features. It's also free for students and open-source maintainers. Pro+, at thirty-nine dollars a month, is designed for individual power users who want access to the most advanced models and higher usage limits; it includes 1,500 premium requests per month. Business, at nineteen dollars per seat, is where organizations come in - you get centralized management, audit logs, IP indemnity, and the guarantee that no code is retained. Enterprise, at thirty-nine dollars per seat, takes it further with a thousand premium requests, repository-indexed search, content exclusion, and organization-wide custom instructions. One thing to note: these plans and quotas are current as of February 2026 and may have changed, so always check github.com/features/copilot for the latest. Also, premium requests are consumed when you send chat messages, and the cost depends on which model you select. You can always buy additional requests at four cents each. The full details are on github.com/features/copilot, and they update regularly - so check there for the latest.
         </aside>
@@ -180,6 +184,7 @@
       <div class="slide-inner">
         <span class="badge">Part 2</span>
         <h2>Getting Started</h2>
+        <img src="img/TODO-screenshot-ghost-text-in-editor.png" alt="Screenshot of Copilot ghost-text suggestion appearing inline in VS Code" />
         <aside class="speaker-notes">
           Alright, enough theory - let's get Copilot up and running. If you have VS Code open, now's the time to follow along.
         </aside>
@@ -254,6 +259,7 @@
       <div class="slide-inner">
         <span class="badge">Part 3</span>
         <h2>Inline Completions</h2>
+        <img src="img/TODO-screenshot-model-picker-dropdown.png" alt="Screenshot of the Copilot model picker in VS Code showing available models" />
         <aside class="speaker-notes">
           Now we're getting to the good stuff. Inline completions are the feature most developers encounter first, and for many people, it's the moment Copilot goes from "interesting" to "I can't code without this." Let's see how it works.
         </aside>
@@ -348,10 +354,7 @@
           </div>
           <div>
             <div class="screenshot">
-              <img src="img/ghost-text-inline.png" alt="VS Code editor showing the Copilot chat icon in the title bar" />
-              <div class="screenshot-focus" style="top:0;left:65%;width:10%;height:8%">
-                <span class="screenshot-label" style="top:auto;bottom:-1.6em;left:50%;transform:translateX(-50%)">Open Chat (Ctrl+Alt+I)</span>
-              </div>
+              <img src="img/TODO-screenshot-copilot-chat-panel.png" alt="Screenshot of the Copilot Chat panel in VS Code" />
             </div>
           </div>
         </div>
@@ -374,6 +377,8 @@
           <li><strong>Premium models</strong> consume more premium requests per message; the multiplier is shown in the selector</li>
           <li>You can switch models between messages, even within the same conversation</li>
         </ul>
+
+        <img src="img/TODO-screenshot-agent-mode-in-action.png" alt="Screenshot of Agent Mode executing a multi-step task in VS Code" />
         <aside class="speaker-notes">
           One of the most powerful aspects of Copilot today is the model selector. At the top of the Chat panel, you'll see a dropdown that lets you pick which large language model powers your conversation. You have models from OpenAI like GPT-4o and the o-series reasoning models, Claude from Anthropic, Gemini from Google, and others that are added regularly. Each model has different characteristics. Some are faster for quick questions, some are better at deep reasoning or multi-step problems, and some handle very large files or context windows. The tradeoff is cost: premium models consume more of your monthly premium requests per message, and the selector shows the multiplier so you can make an informed choice. A good rule of thumb: use a fast model for simple questions and a reasoning model for complex debugging or architecture discussions. And you can switch models between messages in the same conversation, so you're never locked in.
         </aside>
@@ -424,6 +429,8 @@
           <li>Switch modes with the <strong>mode selector</strong> at the top of the Chat panel, next to the model picker</li>
           <li><strong>Vision</strong>: drag or paste an image into Chat and Copilot will analyze it; great for mocking up UI from screenshots or reading error dialogs</li>
         </ul>
+
+        <img src="img/TODO-screenshot-custom-instructions-file.png" alt="Screenshot of a .github/copilot-instructions.md file in a repository" />
         <aside class="speaker-notes">
           Copilot Chat has three distinct modes, and understanding when to use each one is a core skill. Ask mode is the default: you ask a question, Copilot answers. It reads your files for context but doesn't change anything. This is perfect for exploration, learning, and brainstorming. Edit mode is the next step up. You describe what you want changed, and Copilot proposes edits across multiple files at once. You see a diff for each file and can accept or reject individually. This is great for refactoring, adding a feature that touches several files, or making consistent style changes. Agent mode is the most powerful. When you switch to Agent, Copilot doesn't just suggest code; it autonomously plans and executes a sequence of steps. It can create new files, run terminal commands, install packages, read error output, and iterate until the task is done. Think of it as delegating an entire task rather than asking a question. The mode selector sits right next to the model picker at the top of the Chat panel. One more thing: you can drag or paste images directly into Chat. Copilot's vision capability lets it analyze screenshots, UI mockups, error dialogs, or diagrams and respond with code or explanations. This is very useful for reproducing a design from a mockup or diagnosing a visual bug.
         </aside>
@@ -463,6 +470,8 @@
     "markdown": false
   }
 }</code></pre>
+
+        <img src="img/TODO-screenshot-copilot-workspace-settings.png" alt="Screenshot of Copilot configuration in VS Code settings" />
         <aside class="speaker-notes">
           Let me walk you through the key settings. Open Settings with Ctrl+Comma and search for "copilot." The most useful setting is "github.copilot.enable" - this is a per-language toggle. You can turn Copilot on for Python and JavaScript but off for Markdown or plain text, where it might not add much value. There's also "editor.inlineSuggest.enabled," which is the master switch for ghost text. And if you need chat responses in a specific language, "github.copilot.chat.localeOverride" lets you force that. Here's the team play: put these settings in a .vscode/settings.json file in your repository and commit it. Now every developer who clones the repo gets the same configuration automatically. No more "works on my machine" for Copilot settings.
         </aside>
@@ -481,6 +490,7 @@
           <li>Great for enforcing coding standards: "Always use TypeScript strict mode", "Prefer async/await over callbacks"</li>
           <li>Team consistency - every developer gets the same AI guidance from day one</li>
         </ul>
+
         <aside class="speaker-notes">
           This feature is a game-changer for teams. You can create a file called copilot-instructions.md in the .github directory of any repository, and Copilot will read it and apply those instructions to every single interaction in that project. Think about that for a second. You can write things like "Always use TypeScript strict mode," "Follow our internal API naming conventions," or "Prefer async/await over raw Promises" - and Copilot will actually follow them. Every developer on your team gets the same AI guidance from day one, without having to remember to type it into every chat. It's like codifying your team's institutional knowledge into a file that the AI actually respects. If this concept excites you, the next course in our track - "Prompts, Instructions, Skills, and Agents" - goes much deeper into all the customization primitives.
         </aside>
@@ -525,6 +535,7 @@ function parseCSV(csvString) {
     }, {});
   });
 }</code></pre>
+
         <aside class="speaker-notes">
           Here's what we're going to do. We'll create a new file called utils.js. Then we'll type a comment: "Parse a CSV string into an array of objects, using the first row as headers." And then we just wait. Copilot reads that comment and starts generating a complete implementation as ghost text. See it? It's using split to break the string into lines, extracting headers from the first row, and then mapping over the remaining rows to create objects. Pretty impressive for a two-line comment. Now I'll press Tab to accept the full suggestion. Your suggestion might look a little different from what's on screen - that's totally normal. Large language models are nondeterministic, so you might get a slightly different approach. That's actually a feature, not a bug. Now that we have our function, let's ask Copilot to make it better.
         </aside>
@@ -544,6 +555,7 @@ function parseCSV(csvString) {
           <li>Click <strong>Accept</strong> or <strong>Discard</strong></li>
           <li>Then ask: <strong>"Generate unit tests for this function"</strong></li>
         </ul>
+
         <aside class="speaker-notes">
           Let's select the parseCSV function and press Ctrl+I to open inline chat. Now I'll type: "Add error handling for malformed CSV input." Watch what happens - Copilot shows a diff, with additions in green and removals in red. You always have the final say: click Accept to apply the changes, or Discard to throw them away. I'll accept this one - it's added some nice defensive checks. Now let's go one step further. I'll open the sidebar chat with Ctrl+Alt+I and type "/tests" to generate unit tests. Look at that - Copilot generated test cases covering normal inputs, edge cases, and error conditions. This is the full workflow: generate the code, refine it with Chat, and test it - all without leaving your editor. Generate, refactor, test, done.
         </aside>
@@ -563,6 +575,7 @@ function parseCSV(csvString) {
           <li><strong>Use context</strong> - Open related files, add comments, use meaningful names</li>
           <li><strong>Learn the shortcuts</strong> - Tab, Ctrl+→, Alt+], Ctrl+I, Ctrl+Alt+I</li>
         </ul>
+
         <aside class="speaker-notes">
           Before we wrap up, here are five tips that will make a huge difference in your Copilot experience. First, be specific. "Write a Python function that validates an email address using regex" will get you much better results than "write code." The more specific your prompt, the more specific the output. Second, iterate. Don't expect perfection on the first try; accept a suggestion, then refine it with follow-up prompts. Copilot is a collaborator, not a vending machine. Third, and this is important: review everything. AI suggestions are starting points, not final answers. They can contain bugs, use outdated APIs, or follow patterns that don't match your team's standards. You're the pilot; Copilot is your co-pilot. Fourth, use context. Open related files, write descriptive comments, use meaningful variable names. The more context Copilot has, the better it performs. And fifth, learn the shortcuts. Tab, Ctrl+Right Arrow, Alt+], Ctrl+I, Ctrl+Alt+I. Memorize these and they'll become second nature within a day.
         </aside>
