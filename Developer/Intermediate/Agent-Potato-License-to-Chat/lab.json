@@ -1,5 +1,5 @@
 {
-  "title": "Full AI Stack — Agent Potato: License to Chat",
+  "title": "Full AI Stack: Agent Potato - License to Chat",
   "repo": "https://github.com/msft-common-demos/octocat_supply-ubiquitous-octo-bassoon.git",
   "slides": {
     "1": {
@@ -55,7 +55,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -73,7 +73,7 @@
         },
         {
           "title": "Check Auto-Approve Settings",
-          "instruction": "Open <strong>Settings</strong> and search for <code>github.copilot.chat.agent.autoApprove</code>. This controls whether agent mode runs terminal commands without asking.<br><br>Leave it off for now. Manual approval teaches you what commands the agent wants to run.",
+          "instruction": "Open <strong>Settings</strong> and search for <code>chat.tools.terminal.autoApprove</code>. This controls whether agent mode runs terminal commands without asking. It is pattern-based: you can allow specific commands while blocking others.<br><br>Leave it off for now. Manual approval teaches you what commands the agent wants to run.",
           "focus": "top",
           "action": "workbench.action.openSettings",
           "onLeave": "workbench.action.closeActiveEditor",
@@ -81,7 +81,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel and settings tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
+          "instruction": "We've closed the Chat panel and settings tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
           "focus": "slides"
         }
       ]
@@ -89,38 +89,38 @@
     "13": {
       "steps": [
         {
-          "title": "Discover Mode Commands",
-          "instruction": "Open the <strong>Command Palette</strong> and type <code>Chat: Change Mode</code> to see the available commands for switching between Ask, Edit, and Agent modes.<br><br>Close the palette when you've seen the options.",
+          "title": "Explore the Agent Picker",
+          "instruction": "Open the <strong>Command Palette</strong> and type <code>Chat: Change Agent</code> to see the available commands for switching between Agent, Plan, and Ask.<br><br>Close the palette when you've seen the options.",
           "focus": "top",
           "action": "workbench.action.showCommands",
           "onLeave": "workbench.action.closeQuickOpen",
           "actionLabel": "Open Command Palette"
         },
         {
-          "title": "Try Ask Mode",
-          "instruction": "Switch to <strong>Ask</strong> mode using the mode dropdown. Ask a question about the codebase to see how it differs from agent mode.<br><br>Notice that Ask mode gives you an answer but <strong>does not create or modify any files</strong>.",
-          "tip": "Try asking about the testing framework or the frontend routing. Compare the depth of response to what agent mode provided.",
+          "title": "Try Ask",
+          "instruction": "Switch to <strong>Ask</strong> using the agent picker. Ask a question about the codebase to see how it differs from Agent.<br><br>Notice that Ask gives you an answer but <strong>does not create or modify any files</strong>.",
+          "tip": "Try asking about the testing framework or the frontend routing. Compare the depth of response to what Agent provided.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
         },
         {
-          "title": "Try Edit Mode",
-          "instruction": "Switch to <strong>Edit</strong> mode. Open a source file from the API routes and ask Copilot to add documentation to it.<br><br>Edit mode proposes <strong>diffs</strong> that you accept or reject individually. It is precise and targeted.",
+          "title": "Try Plan",
+          "instruction": "Switch to <strong>Plan</strong>. Ask it to plan out how you would add a new API endpoint.<br><br>Plan creates a <strong>step-by-step implementation plan</strong> before writing any code. When the plan looks right, it hands off to Agent to execute.",
           "focus": [
             "editor",
             "right"
           ]
         },
         {
-          "title": "Back to Agent Mode",
-          "instruction": "Switch back to <strong>Agent</strong> mode for the rest of the lab. You now know when to reach for each mode:<br><br>&bull; <strong>Ask</strong> for exploration and questions<br>&bull; <strong>Edit</strong> for targeted single-file changes<br>&bull; <strong>Agent</strong> for multi-step, multi-file builds",
+          "title": "Back to Agent",
+          "instruction": "Switch back to <strong>Agent</strong> for the rest of the lab. You now know when to reach for each agent:<br><br>&bull; <strong>Agent</strong> for multi-step, multi-file builds<br>&bull; <strong>Plan</strong> for structured breakdowns before building<br>&bull; <strong>Ask</strong> for exploration and questions",
           "focus": "right",
           "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -158,7 +158,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -233,7 +233,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -270,7 +270,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -308,7 +308,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -317,8 +317,8 @@
       "steps": [
         {
           "title": "Iterative Refinement",
-          "instruction": "Review the code agent mode generated and provide targeted feedback. Think about error handling, input validation, and API documentation.<br><br>Try using the right mode for each fix: agent mode for multi-file changes, edit mode for surgical fixes, ask mode for design questions.",
-          "tip": "Try switching to Edit mode for a small fix like adding Swagger documentation to a single endpoint. The precision of Edit mode is better for single-file changes.",
+          "instruction": "Review the code agent mode generated and provide targeted feedback. Think about error handling, input validation, and API documentation.<br><br>Try using the right agent for each task: Agent for multi-file changes, Plan for structured breakdowns, Ask for design questions.",
+          "tip": "Try switching to Plan to break down a complex fix before implementing it. Use Ask to discuss trade-offs like pagination vs. returning all results.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "onLeave": "workbench.action.closeAuxiliaryBar",
@@ -326,7 +326,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -354,7 +354,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -380,7 +380,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -434,7 +434,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Mission accomplished!</strong> You've completed Agent Potato: License to Chat.<br><br>You now know how to:<br>&bull; Use agent mode to navigate and build across a full-stack codebase<br>&bull; Write effective prompts with references to existing code<br>&bull; Set up instructions that shape every Copilot response<br>&bull; Switch between Ask, Edit, and Agent modes for the right task<br>&bull; Create reusable prompt files for your team<br><br>Next courses: <strong>MCP Maximizer</strong> to extend agent mode's tools, or <strong>Coding Agent: It's Alive!</strong> for cloud-based autonomous agents.",
+          "instruction": "<strong>Mission accomplished!</strong> You've completed Agent Potato: License to Chat.<br><br>You now know how to:<br>&bull; Use agent mode to navigate and build across a full-stack codebase<br>&bull; Write effective prompts with references to existing code<br>&bull; Set up instructions that shape every Copilot response<br>&bull; Switch between Agent, Plan, and Ask for the right task<br>&bull; Create reusable prompt files for your team<br><br>Next courses: <strong>MCP Maximizer</strong> to extend agent mode's tools, or <strong>Coding Agent: It's Alive!</strong> for cloud-based autonomous agents.",
           "focus": "guide"
         }
       ]
