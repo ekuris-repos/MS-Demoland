@@ -79,6 +79,7 @@
             <p>Industry-standard platform for source code, pull requests, and open-source collaboration. Home of GitHub Copilot, Actions, and the largest developer community in the world.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Most organizations did not choose to run two platforms on purpose. It happened naturally. Azure DevOps (and its predecessors, TFS and VSTS) has been the enterprise standard for work tracking, sprint planning, and test management for over a decade. Meanwhile, GitHub became the default for source code hosting, pull requests, and developer collaboration. When Microsoft acquired GitHub in 2018, these two ecosystems started converging, but many organizations still have significant investment in both. The good news is that Microsoft has built robust integration points between the two platforms, and Copilot adds an AI layer that works across both.
         </aside>
@@ -99,6 +100,7 @@
         <div class="callout">
           <strong>Note:</strong> GitHub Copilot features vary by tier (Free, Pro, Pro+, Business, Enterprise). Enterprise teams should confirm their plan's feature set before relying on specific capabilities discussed in this session.
         </div>
+
         <aside class="speaker-notes">
           Before we talk about solutions, let's name the friction. The number one complaint we hear is context switching. A project manager opens Azure Boards to check sprint progress, but the actual development work is happening in GitHub pull requests. Status updates require manual effort, and things fall through the cracks. Teams sometimes end up maintaining two CI/CD systems because Pipelines are configured in ADO and Actions are configured in GitHub. Reporting becomes fragmented. And security findings from tools like Dependabot or CodeQL may not be visible to the people managing work items in ADO. These are real problems, and the rest of this session is about solving them.
         </aside>
@@ -128,6 +130,8 @@
           <li>Security alerts appear directly in the Azure DevOps UI; no need to leave your workflow</li>
           <li>Available for Azure DevOps Services (cloud) with per-active-committer licensing</li>
         </ul>
+
+        <img src="img/TODO-diagram-ghazdo-security-in-ado.png" alt="Diagram of GitHub Advanced Security features integrated into Azure DevOps" />
         <aside class="speaker-notes">
           GHAzDO brings three pillars of GitHub Advanced Security into Azure DevOps: secret scanning, dependency scanning, and code scanning. Secret scanning watches for accidentally committed credentials, API keys, and tokens. Dependency scanning checks your project's third-party packages against known vulnerability databases. Code scanning uses CodeQL, the same static analysis engine that powers security scanning on GitHub.com, to find bugs and vulnerabilities in your own code. All of these results appear directly in the Azure DevOps interface. Your security team and your project managers can see findings without needing a GitHub account. The licensing model is per active committer, so you only pay for people who actually push code to the repository.
         </aside>
@@ -148,6 +152,7 @@
             <p>One set of security policies applied consistently across your ADO repos. Audit logs, alert trends, and remediation timelines all in one place.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           For PMs and team leads, the value of GHAzDO is visibility. You do not need to manage a separate GitHub account or learn a different interface. Security alerts show up right where you already work. You can add security widgets to your ADO dashboards, track remediation progress during sprint reviews, and report compliance metrics to leadership. It also simplifies your governance story. Instead of maintaining security scanning configurations in two places, GHAzDO gives you a single pane of glass for all repositories hosted in Azure DevOps.
         </aside>
@@ -176,6 +181,8 @@
           <li><strong>Status badges:</strong> GitHub PRs display the linked work item's state directly in the PR conversation</li>
           <li><strong>Bi-directional traceability:</strong> From a work item, see every commit and PR; from a PR, see the linked requirements</li>
         </ul>
+
+        <img src="img/TODO-screenshot-azure-boards-github-linking.png" alt="Screenshot of Azure Boards work item linked to a GitHub PR via AB# syntax" />
         <aside class="speaker-notes">
           The Azure Boards integration with GitHub is straightforward to set up. You install the Azure Boards app from the GitHub Marketplace onto your GitHub organization, then connect it to your Azure DevOps project. Once connected, developers use the AB# syntax in their commit messages and pull request descriptions to link activity to work items. For example, writing "Fixes AB#1234" in a PR description creates a link back to work item 1234 in Azure Boards. When that PR is merged, the work item state can automatically transition. This gives you bi-directional traceability: from any work item in ADO, you can see all associated GitHub commits and PRs, and from any PR in GitHub, you can see which requirements it addresses. No more manual status updates.
         </aside>
@@ -206,6 +213,8 @@
             </ul>
           </div>
         </div>
+
+        <img src="img/TODO-diagram-sprint-planning-before-after.png" alt="Diagram comparing manual sprint tracking vs automated Azure Boards + GitHub flow" />
         <aside class="speaker-notes">
           Let's talk about the practical impact on your daily work. Before this integration, sprint boards were only as current as the last time someone remembered to drag a card. Status updates in standup often sounded like "I think that's done, let me check." After connecting Azure Boards to GitHub, work items update automatically based on real development activity. The integration links PRs to work items. Automatic state transition occurs on PR merge (when using "Fixes AB#" keywords). Moving to "In Review" on PR open requires additional Azure DevOps automation rules. Your burndown chart stays accurate because it reflects actual completed work, not manual updates. This frees up standup time to focus on blockers and decisions instead of going around the room asking "what did you do yesterday?"
         </aside>
@@ -234,6 +243,8 @@
           <li><strong>Pipeline troubleshooting:</strong> AI-assisted explanations of pipeline failures help teams resolve build issues faster</li>
           <li><strong>Copilot-assisted features:</strong> Generate work item descriptions, acceptance criteria, and test plans with AI assistance</li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-pr-description-ado.png" alt="Screenshot of Copilot generating a PR description in Azure DevOps" />
         <aside class="speaker-notes">
           Copilot capabilities are arriving in Azure DevOps and expanding regularly. Today, some of the most useful features include AI-generated pull request descriptions, which save developers time by automatically summarizing what changed and why. For PMs, the work item assistance is particularly valuable: Copilot can help write acceptance criteria, suggest descriptions, and even draft test cases based on the requirements you have written. Pipeline troubleshooting is another area where Copilot helps. When a build fails, Copilot can explain the error in plain language and suggest fixes. And natural language search lets you query your project data conversationally. These features continue to expand, so check the Azure DevOps release notes regularly for updates. Note that Copilot-assisted features in ADO are powered by the same AI models as GitHub Copilot and are expanding with each release.
         </aside>
@@ -262,6 +273,7 @@
           <li><strong>Documentation drafts:</strong> Generate release notes, README updates, and project documentation from recent activity</li>
           <li><strong>Copilot Extensions:</strong> Third-party extensions can connect Copilot to external tools like Jira, Sentry, or your own internal systems</li>
         </ul>
+
         <aside class="speaker-notes">
           GitHub Copilot is not just for writing code. On GitHub.com, Copilot Chat lets anyone ask questions about a repository in plain English. You can ask "What changed in the last sprint?" or "Summarize this pull request for a non-technical stakeholder," and Copilot will give you a clear answer. PR summaries are especially useful for PMs who need to review changes without reading code. Issue triage features help route incoming issues to the right team. Documentation generation can draft release notes from merged PRs. And Copilot Extensions allow your organization to connect Copilot to other tools in your workflow. Even if your boards live in ADO, these GitHub Copilot capabilities add real value to your planning and communication processes.
         </aside>
@@ -292,6 +304,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Here are some real prompts you can use with Copilot Chat on GitHub.com today. As a PM or team lead, you might ask Copilot to summarize all the pull requests merged during a sprint, which gives you a quick status report without asking each developer individually. You can ask about open security alerts to prepare for a compliance review. Drafting release notes becomes a 30-second task instead of a 30-minute one. For stakeholders who need to understand technical changes, Copilot can translate code changes into business language. It can assess risk, summarize changes for non-technical audiences, and identify related test files. This transforms GitHub from a tool that only developers use into a communication platform that serves the whole team.
         </aside>
@@ -320,6 +333,20 @@
           <li><strong>Shared variables and secrets:</strong> Use Azure Key Vault as a common secret store accessed by both platforms</li>
           <li><strong>Webhook integrations:</strong> Custom webhooks connect events in one platform to actions in the other</li>
         </ul>
+
+        <pre class="mermaid">
+graph LR
+  subgraph GitHub
+    A[Code Merged] --> B[GitHub Actions]
+  end
+  subgraph Azure DevOps
+    C[ADO Pipeline] --> D[Release]
+  end
+  A -->|Trigger| C
+  C -->|Trigger| B
+  E[Azure Key Vault] --> A
+  E --> C
+        </pre>
         <aside class="speaker-notes">
           The bridging layer between Azure DevOps and GitHub has several components. The Azure Boards GitHub App handles work item linking, which we already discussed. For CI/CD, you can configure cross-platform triggers so that a merge in GitHub triggers an Azure DevOps release pipeline, or a successful ADO build triggers a GitHub Actions deployment workflow. Secrets and configuration can be centralized in Azure Key Vault, which both platforms can access. For custom integrations, webhooks let you respond to events on one platform by taking action on the other. The key principle is to let each platform do what it does best and use integration points to keep everything connected. You do not have to pick one platform for everything.
         </aside>
@@ -350,6 +377,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Reporting is often the hardest part of a multi-platform setup, but it does not have to be. Azure DevOps dashboards can incorporate data from both platforms. Sprint burndown charts automatically reflect GitHub PR activity when Boards integration is enabled. GHAzDO widgets surface security alerts directly on your ADO dashboard. On the GitHub side, organization-level insights show Copilot adoption metrics, PR cycle times, and security posture across all repositories. For executive reporting, you can pull data from both platforms into Power BI, which has connectors for both Azure DevOps and GitHub. This gives you a single reporting layer even when the underlying activity spans two platforms.
         </aside>
@@ -378,6 +406,7 @@
           <li><strong>Large-scale TFVC repositories:</strong> If you still use TFVC (Team Foundation Version Control), migration requires careful planning</li>
           <li><strong>Organizational readiness:</strong> Teams that are not ready for change benefit from a gradual, integrated approach</li>
         </ul>
+
         <aside class="speaker-notes">
           There are legitimate reasons to continue using both platforms. If your QA organization depends on Azure DevOps Test Plans for manual testing, exploratory testing, or test case management, moving away from ADO means finding an alternative for those workflows. If you have spent years customizing your ADO process templates with specific work item types, state transitions, and business rules, replicating that in GitHub Projects would require significant effort. Regulated industries sometimes have audit and compliance requirements that ADO's enterprise features address directly. And if you have legacy TFVC repositories, migrating version control is a separate project from migrating work tracking. The integration approach lets you get value from both platforms without forcing a big-bang migration.
         </aside>
@@ -395,6 +424,7 @@
           <li><strong>Open-source alignment:</strong> If your organization contributes to or consumes open source, GitHub is the natural home</li>
           <li><strong>GitHub Projects maturity:</strong> GitHub Projects has grown significantly and now supports many enterprise planning scenarios</li>
         </ul>
+
         <aside class="speaker-notes">
           On the other hand, consolidation makes sense when the overhead of maintaining two platforms outweighs the benefits. If your teams are not using ADO's advanced features like Test Plans or custom process templates, you may be paying for capabilities you do not need. GitHub Copilot works most deeply with GitHub's native features, so moving your work tracking to GitHub Issues and Projects gives you the tightest Copilot integration. Onboarding is simpler when new team members only need to learn one tool. And GitHub Projects has matured significantly over the past two years, adding views, custom fields, workflows, and roadmap capabilities that serve many enterprise planning needs. The decision is not all-or-nothing; many organizations migrate incrementally, moving one team or project at a time.
         </aside>
@@ -424,6 +454,7 @@
           <li><strong>Step 5:</strong> As PRs merge throughout the sprint, Azure Boards updates automatically</li>
           <li><strong>Step 6:</strong> Use Copilot Chat on GitHub.com to generate a mid-sprint progress summary for stakeholders</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's walk through a sprint planning scenario. You start in Azure Boards where the product backlog lives. During backlog refinement, you can use Copilot to help draft acceptance criteria for user stories, saving time and ensuring consistency. Once items are assigned to the sprint, developers create branches in GitHub and include the AB# reference in their branch names or commit messages. Throughout the sprint, as pull requests are opened and merged, the linked work items in Azure Boards transition automatically. At the mid-sprint checkpoint, instead of manually compiling a status report, you open Copilot Chat on GitHub.com and ask it to summarize all PRs merged since the sprint started. You get a stakeholder-ready summary in seconds. This workflow uses both platforms to their strengths, with Copilot adding an AI assistance layer at every step.
         </aside>
@@ -441,6 +472,7 @@
           <li><strong>Security Posture:</strong> Review GHAzDO alerts on the ADO dashboard and use the trend data to show improvement over time</li>
           <li><strong>Export data:</strong> ADO supports exporting query results to CSV/Excel and connecting to Power BI for visualization and reporting</li>
         </ul>
+
         <aside class="speaker-notes">
           The second scenario focuses on stakeholder reporting. Imagine you have a steering committee meeting tomorrow. You open your ADO project dashboard, which shows the sprint burndown chart, velocity trends from the last several sprints, and the GHAzDO security widgets showing open and resolved alerts. For any PR that stakeholders might ask about, you click into it and use Copilot to generate a plain-language summary. Before the meeting, you ask Copilot Chat to compile release notes from all PRs merged since the last tagged release. You review the GHAzDO security trend data to show that your team is reducing vulnerabilities over time. Finally, you export query results to CSV or Excel, or connect to Power BI for polished visualizations. All of this takes minutes, not hours, and you never had to ask a developer for a status update.
         </aside>

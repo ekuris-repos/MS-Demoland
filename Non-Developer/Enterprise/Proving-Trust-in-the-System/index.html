@@ -87,6 +87,7 @@
           <li>Sector-specific regulations (HIPAA, SOX, PCI-DSS) now intersect with AI usage policies</li>
           <li>Regulators expect organizations to document how AI tools are deployed, monitored, and controlled</li>
         </ul>
+
         <aside class="speaker-notes">
           The regulatory landscape for AI is evolving rapidly. The EU AI Act, which became enforceable in phases starting in 2025, introduced a tiered classification system that requires transparency, human oversight, and risk assessments for AI systems. In the US, the federal AI policy framework has evolved since the original October 2023 Executive Order on AI Safety, and the regulatory landscape continues to develop. Organizations should stay current on the latest federal guidance rather than referencing any single executive action. The NIST AI Risk Management Framework, while voluntary, has become a de facto benchmark that auditors and regulators reference. If your organization operates in healthcare, finance, or handles personal data, you already comply with HIPAA, SOX, or PCI-DSS. Those frameworks now expect you to account for AI tools in your control environment. The bottom line: "we deployed an AI tool and hoped for the best" is no longer an acceptable posture.
         </aside>
@@ -119,6 +120,8 @@
             <p>Developers adopt free AI tools independently when organizations are slow to provide governed alternatives, creating risks that security teams discover too late.</p>
           </div>
         </div>
+
+        <img src="img/TODO-diagram-ungoverned-ai-risk-landscape.png" alt="Diagram showing organizational risks of ungoverned AI tool usage" />
         <aside class="speaker-notes">
           Let's talk about what happens when governance is absent. First, intellectual property exposure. If developers use AI tools without guardrails, proprietary source code and business logic may be transmitted to external services with no retention guarantees. Second, compliance gaps. When AI usage is invisible to your audit and compliance functions, you cannot demonstrate control to regulators. Third, reputational damage. It only takes one incident, such as a vulnerability introduced by unreviewed AI-generated code, to trigger scrutiny. Finally, uncontrolled adoption. If your organization does not provide a governed AI coding tool, developers will find ungoverned ones on their own. Governance is not about slowing innovation; it is about ensuring you can prove that innovation is responsible.
         </aside>
@@ -151,6 +154,15 @@
           <li><strong>SOC 2 Type II certified:</strong> GitHub undergoes independent audits that validate data handling, availability, and security controls</li>
           <li><strong>Data residency:</strong> Enterprise customers can choose data processing regions to comply with sovereignty requirements</li>
         </ul>
+
+        <pre class="mermaid">
+graph LR
+  A[IDE] -->|TLS 1.2+| B[GitHub]
+  B --> C[LLM]
+  C --> D[Suggestion]
+  D -->|Encrypted| A
+  B -.->|No retention| E[Training Data]
+        </pre>
         <aside class="speaker-notes">
           The most common question from governance teams is: "Does GitHub train its models on our code?" The answer for Business and Enterprise plans is an unequivocal no. Your prompts, code snippets, and the suggestions Copilot returns are not retained for model training. Prompts may be transiently processed for a limited period for abuse monitoring and safety purposes, but the context is not used beyond generating the immediate response. All data is encrypted both in transit and at rest, meeting modern encryption standards. GitHub holds SOC 2 Type II certification, which means independent auditors have verified these controls. For organizations with data sovereignty requirements, enterprise plans offer data residency options. These are the facts you can bring back to your legal and compliance teams with confidence.
         </aside>
@@ -182,6 +194,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Let's break down the training boundary clearly, because this is a question your board will ask. The models behind Copilot were trained on publicly available code; code that was already accessible to anyone on the internet at the time of training. It also uses curated licensed datasets from model providers. What is never used: your private repository code, any prompts or suggestions generated during your sessions on Business or Enterprise plans, telemetry containing code content, and code from repositories whose owners have opted out. This distinction is critical for your risk assessments. The training data boundary is a hard line, not a policy toggle.
         </aside>
@@ -214,6 +227,8 @@
           <li>Exclusion rules use glob patterns, making it easy to target specific directories or file types</li>
           <li>Changes to exclusion rules take effect immediately; no developer action is required</li>
         </ul>
+
+        <img src="img/TODO-screenshot-content-exclusion-config.png" alt="Screenshot of Copilot content exclusion configuration in organization settings" />
         <aside class="speaker-notes">
           Content exclusions are one of the most powerful governance controls available. As an organization owner, you can specify repositories or file paths that Copilot is not allowed to read. This means the code in those locations is never sent to the model as context, and Copilot will not generate suggestions when a developer is working in an excluded file. Crucially, this enforcement happens server-side. A developer cannot override or bypass it from their IDE. You configure exclusions using glob patterns, so you can target entire repositories, specific folders, or file types like secrets files. When you update exclusion rules, they take effect immediately across your organization without requiring developers to restart or reconfigure anything.
         </aside>
@@ -246,6 +261,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Not every repository needs to be excluded. Blanket exclusions reduce the value of Copilot without improving security. Instead, take a risk-based approach. Exclude repositories that contain trade secrets, proprietary algorithms, or secrets and credentials. Repositories under regulatory holds or active litigation should also be excluded. If you work with third-party vendor code under restrictive licenses, excluding it prevents any accidental reproduction. On the best practices side, treat your exclusion list as a living document. Review it quarterly. Align it with your data classification framework so that anything labeled "confidential" or above triggers an exclusion review. Document why each exclusion exists so that future administrators understand the reasoning. Finally, integrate exclusion reviews into your repository lifecycle: when a new repo is created or an old one is archived, update the list.
         </aside>
@@ -277,6 +293,8 @@
           <li><strong>Content exclusion events:</strong> Log when exclusion rules are added, modified, or removed</li>
 
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-audit-log-events.png" alt="Screenshot of Copilot-related events in the GitHub audit log" />
         <aside class="speaker-notes">
           GitHub's audit log captures a comprehensive set of Copilot-related events. Seat assignment events let you track exactly who has access to Copilot and when access was granted or revoked. Policy change events create an immutable record of every configuration change, including who made it and when. Content exclusion events document the lifecycle of your exclusion rules. All of these events are available through the GitHub audit log API, which means you can forward them to your SIEM or compliance monitoring tools.
         </aside>
@@ -308,6 +326,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Audit logs are only valuable if they flow into your existing security monitoring infrastructure. GitHub supports audit log streaming to major cloud storage and SIEM platforms: Amazon S3, Azure Blob Storage, Azure Event Hubs, Google Cloud Storage, and Splunk. For custom integrations, the REST API is the recommended approach. The GraphQL API is available but considered legacy; REST API and audit log streaming are the preferred methods for new integrations. Once the data is in your SIEM, set up alerts for the scenarios that matter most. Watch for unusual usage spikes that might indicate automated or scripted access. Flag policy changes that occur outside your normal change management windows. Alert on seat assignments to service accounts, because Copilot licenses should go to human developers. And monitor for exclusion rule removals that lack a corresponding approval in your ticketing system.
         </aside>
@@ -340,6 +359,7 @@
           <li>Organizations can enable or disable the duplicate detection filter as a policy setting</li>
           <li>This filter is a core component of demonstrating due diligence around code originality</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's address how code suggestions are generated. Copilot uses large language models that produce suggestions based on patterns learned during training. It does not look up code from a database and paste it into your editor. However, there is always a possibility that a suggestion closely matches existing public code, simply because common patterns exist across many projects. To mitigate this, GitHub provides a duplicate detection filter. When enabled, this filter compares suggestions against a large index of known public code. If a suggestion exceeds a similarity threshold, it is blocked. Code referencing is a related but separate feature that surfaces open-source matches with license and attribution information for code already in your project. Organizations can control whether this filter is active through policy settings. For governance purposes, enabling this filter is a straightforward way to demonstrate due diligence.
         </aside>
@@ -362,6 +382,7 @@
             <p>IP indemnity transfers risk from your organization to GitHub. For governance reporting, this is a concrete risk mitigation control you can document. Include the indemnity terms in your vendor risk assessment and reference them in board-level AI risk reports.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           IP indemnity is a significant governance control. For Copilot Business and Enterprise plans, GitHub provides intellectual property indemnification. If a third party files an IP claim alleging that a Copilot suggestion infringed their copyright, GitHub will defend the claim and cover damages. The key condition is that the customer must have been using the product as intended. GitHub recommends enabling the duplicate detection filter as a best practice, but it is not a contractual prerequisite for the indemnity. From a governance perspective, this is risk transfer. You can document this in your vendor risk assessment and include it in board-level reporting as a concrete control that mitigates IP risk. Make sure your legal team reviews the specific terms in your GitHub Enterprise agreement so they understand exactly what is covered.
         </aside>
@@ -394,6 +415,8 @@
           <li><strong>Feature controls:</strong> Enable or disable specific Copilot capabilities such as Copilot Chat, code completions, or code review</li>
           <li><strong>Seat management:</strong> Assign Copilot access by team, role, or individual to enforce least-privilege principles</li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-policy-controls.png" alt="Screenshot of organization-level Copilot policy controls" />
         <aside class="speaker-notes">
           GitHub provides a set of organization-level policies that give governance teams fine-grained control. The public code suggestion policy is the most frequently discussed: you can block suggestions that match public code, allow them with a reference, or allow them entirely. Copilot Chat can be enabled org-wide, disabled org-wide, or left as an opt-in for individual members. CLI access can be separately controlled for organizations that want to limit Copilot to IDE-based interactions only. You can also enable or disable specific capabilities such as Copilot Chat, code completions, or code review. Seat management allows you to assign Copilot access at the team or individual level, which supports least-privilege access models. All of these policies are configured in the organization settings on GitHub.com, and every change is recorded in the audit log.
         </aside>
@@ -424,6 +447,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           For organizations using GitHub Enterprise Cloud, policy inheritance is a governance multiplier. Enterprise administrators can set baseline policies that automatically apply to every organization in the enterprise account. More importantly, they can enforce policies that child organizations cannot override. This means a CISO can mandate that the duplicate detection filter is always enabled, and no individual organization administrator can turn it off. At the organization level, administrators can still customize settings within the constraints the enterprise has set. If a particular organization handles highly regulated workloads, its administrators can apply stricter settings without affecting other organizations. This hierarchy mirrors how most large enterprises structure their security controls: central mandates with local flexibility.
         </aside>
@@ -457,6 +481,8 @@
           <li><strong>Transparency:</strong> AI systems should be understandable so people can identify potential issues</li>
           <li><strong>Accountability:</strong> People should be accountable for the AI systems they design and deploy</li>
         </ul>
+
+        <img src="img/TODO-diagram-rai-principles-to-controls.png" alt="Diagram mapping Microsoft Responsible AI principles to Copilot product controls" />
         <aside class="speaker-notes">
           Microsoft has published six responsible AI principles that guide the design and deployment of all its AI products, including GitHub Copilot. Fairness ensures that AI outputs do not discriminate or produce biased results for different user groups. Reliability and safety mean the system behaves predictably, even at scale. Privacy and security, as we covered earlier, are enforced through data handling policies, encryption, and content exclusions. Inclusiveness ensures the tool is accessible to diverse developer populations. Transparency means that users understand what the AI is doing and can identify when something is wrong. Accountability means there is always a human responsible for the AI system's behavior. These principles are not abstract ideals; they are mapped to specific product features and controls that you can reference in your governance documentation.
         </aside>
@@ -487,6 +513,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           This slide is useful for your governance documentation because it maps abstract principles to concrete controls. When a regulator asks, "How do you ensure transparency in your AI tooling?" you can point to audit logs, duplicate detection with source attribution, and usage metrics. When they ask about privacy and security, you reference the no-training policy, content exclusions, and encryption standards. This is the kind of mapping that turns a responsible AI framework from a poster on the wall into a living compliance artifact. Consider creating a similar mapping document for your organization that links each principle to the specific Copilot settings and policies you have configured.
         </aside>
@@ -519,6 +546,7 @@
           <li><strong>Incident response:</strong> Define escalation procedures for IP claims, data exposure concerns, or policy violations related to AI tools</li>
           <li><strong>Continuous improvement:</strong> Collect feedback from developers and governance teams to refine policies without creating unnecessary friction</li>
         </ul>
+
         <aside class="speaker-notes">
           A governance playbook is a living operational document, not a one-time assessment. Start with policy documentation. Write clear policies that specify who can use Copilot, in which repositories, and under what conditions. Store these policies in version control so changes are tracked. Require training before granting access; this ensures every developer understands their responsibilities. Establish a monitoring cadence: weekly audit log reviews, quarterly exclusion list reviews, and ad-hoc policy reviews whenever the organization changes. Define incident response procedures specifically for AI-related scenarios, such as a potential IP claim or a concern about data exposure. Finally, build in feedback loops. Governance that is too restrictive will drive developers to ungoverned alternatives. Balance control with usability, and adjust over time based on real data.
         </aside>
@@ -551,6 +579,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The ultimate test of governance is whether you can report on it convincingly. Regulators want evidence: documented policies, audit trails, risk assessments, and vendor due diligence results. They are not interested in promises; they want artifacts they can examine. Board members have different priorities. They want an executive summary that tells them which AI tools are deployed, what risks they introduce, and how effectively those risks are controlled. They want metrics: how many developers are using Copilot, what productivity gains have been measured, and how many incidents have occurred. They also want a forward-looking roadmap that shows you are staying ahead of regulatory changes. Build your reporting package with both audiences in mind. A quarterly AI governance report that addresses both regulatory and board requirements will quickly become one of your most valuable deliverables.
         </aside>

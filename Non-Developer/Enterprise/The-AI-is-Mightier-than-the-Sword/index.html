@@ -87,6 +87,7 @@
           <li>Single agents tend to <strong>anchor on their first answer</strong> and resist self-correction</li>
           <li>Real-world research involves <strong>contradictory sources</strong> that one agent cannot weigh objectively</li>
         </ul>
+
         <aside class="speaker-notes">
           Think about the last truly complex decision your organization had to make. It probably involved legal considerations, technical feasibility, financial modeling, operational risk, and stakeholder alignment. No single person handles all of that alone, and no single AI agent should either. A single agent anchors on its initial reasoning path and tends to confirm rather than challenge its own conclusions. It also hits practical limits: even with large context windows, you cannot feed an entire compliance framework, a competitive landscape analysis, and a technical architecture review into one prompt. Multi-agent research addresses these constraints by distributing the workload across specialized agents that each bring a focused perspective.
         </aside>
@@ -109,6 +110,7 @@
             <p>Multiple knowledge scopes. Competing hypotheses. Agents challenge each other's conclusions. Each agent focuses on what it knows best.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           This comparison captures the core insight. A single agent is like sending one analyst to answer a board-level question; they will do their best, but they bring only one lens. A multi-agent team is like assembling a cross-functional task force. Each specialist focuses on their domain, and the synthesis of their perspectives produces a far more nuanced answer. The key advantage is adversarial collaboration: agents can challenge each other, surface blind spots, and force the final output to account for competing viewpoints. This mirrors how high-performing human teams operate.
         </aside>
@@ -140,6 +142,8 @@
           <li><strong>Specialization:</strong> Each agent handles a distinct domain (legal, technical, financial) and contributes only within its expertise</li>
           <li><strong>Orchestration:</strong> The user breaks a complex question into sub-tasks, invokes specialist agents one at a time, and assembles the final answer</li>
         </ul>
+
+        <img src="img/TODO-diagram-four-agent-patterns.png" alt="Diagram of the four multi-agent patterns: Debate, Consensus, Specialization, Orchestration" />
         <aside class="speaker-notes">
           These four patterns are the building blocks of multi-agent research. Debate is powerful for questions where there is no single right answer; having agents argue opposing positions forces both sides to be articulated clearly. Consensus works well when you need confidence in a finding; if three independent agents reach the same conclusion, your confidence increases significantly. Specialization is the most intuitive pattern; you assign each agent a domain and let them do what they do best. Orchestration ties it all together, with the user acting as the project manager: decomposing the question, invoking specialist agents one at a time, passing context between them, and weaving the results into a coherent answer. Agents cannot invoke other agents or delegate tasks on their own. In practice, you often combine these patterns in the same workflow.
         </aside>
@@ -159,6 +163,15 @@
           <li><strong>Judge Agent:</strong> The user feeds both arguments to a judge agent, which evaluates them, identifies weak claims, and produces a balanced recommendation</li>
           <li>The value is not in the "winner" but in the <strong>completeness of the analysis</strong></li>
         </ul>
+
+        <pre class="mermaid">
+graph TD
+  A[User Question] --> B[Advocate Agent]
+  A --> C[Critic Agent]
+  B --> D[Judge Agent]
+  C --> D
+  D --> E[Balanced Recommendation]
+        </pre>
         <aside class="speaker-notes">
           Let's make this concrete. Imagine your CTO asks whether the company should migrate from a monolith to microservices. A single agent will typically give you a qualified "it depends" answer. With the debate pattern, you create an advocate agent that builds the strongest possible case for migration and a critic agent that builds the strongest possible case against it. You then manually feed both outputs to a third judge agent, which evaluates them, identifies unsupported claims, flags areas where the agents agree (those are likely true regardless of position), and produces a recommendation that accounts for both perspectives. The output is dramatically more useful than a single agent's answer because it surfaces the trade-offs explicitly.
         </aside>
@@ -178,6 +191,18 @@
           <li>The user <strong>synthesizes results</strong>, resolves contradictions, and produces the final report</li>
           <li>Human reviewer validates the final output before it informs a decision</li>
         </ul>
+
+        <pre class="mermaid">
+graph TD
+  A[User] --> B[Decompose Question]
+  B --> C[Specialist 1]
+  B --> D[Specialist 2]
+  B --> E[Specialist 3]
+  C --> F[Synthesize Results]
+  D --> F
+  E --> F
+  F --> G[Human Validates]
+        </pre>
         <aside class="speaker-notes">
           The orchestration pattern is the most scalable of the four. In this pattern, you are the coordinator. You take a broad question like "Evaluate vendor X for our data platform" and break it into sub-questions: What is their security posture? How does their pricing compare? What do their reference customers say? What are the integration requirements? You invoke each specialist agent individually, providing the relevant sub-question and context. After collecting the results, you weave them together, flag contradictions between the specialists, and produce a structured report. You remain in control throughout; agents cannot invoke other agents or delegate tasks on their own.
         </aside>
@@ -210,6 +235,8 @@
           <li>Immediately available in Copilot Chat via <strong>@agent-name</strong></li>
           <li>No code required; your instructions shape the agent's behavior, personality, and expertise</li>
         </ul>
+
+        <img src="img/TODO-screenshot-agent-md-file-vscode.png" alt="Screenshot of a .agent.md file defining a custom agent in VS Code" />
         <aside class="speaker-notes">
           The .agent.md file is one of the most accessible features in the GitHub Copilot ecosystem. It is a plain Markdown file with YAML frontmatter that defines a custom agent. You give it a name, a description, and a set of instructions that tell the agent what it knows, how it should behave, and what tools it can access. Place the file in your repository's .github/agents/ directory, and it becomes instantly available in Copilot Chat. You invoke it by typing @ followed by the agent's name. This is the mechanism we use to build specialized research agents. No coding background is required; you are writing instructions in natural language, the same way you would brief a human analyst.
         </aside>
@@ -240,6 +267,7 @@ When asked a question:
 
 Always cite your sources. Never state compliance
 status without supporting evidence.</code></pre>
+
         <aside class="speaker-notes">
           Here is a concrete example. This agent.md file creates a compliance researcher agent. The YAML frontmatter gives it a name and description, and specifies which tools it can use. The body contains natural language instructions that shape how the agent approaches every question. Notice the structured methodology: identify frameworks, search for requirements, compare, present findings, and flag uncertainty. That last point is critical for enterprise use. You want the agent to tell you when it is not confident, rather than bluffing. The tools listed in the frontmatter determine what the agent can actually do. Note that the tool identifiers shown here (fetch, semantic_search) are illustrative examples; actual tool names may vary depending on your environment and configured MCP servers. You can restrict or expand tool access based on the agent's role.
         </aside>
@@ -270,6 +298,7 @@ status without supporting evidence.</code></pre>
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Agent composition is where the multi-agent pattern becomes tangible. On the left, you see specialist agents, each defined by a .agent.md file with domain-specific instructions. The security auditor knows how to evaluate threat models and vulnerability reports. The cost analyst understands total cost of ownership calculations. The architecture reviewer focuses on scalability, reliability, and maintainability. On the right, you see coordination agents that manage the overall workflow. The research lead helps you break a complex question into sub-tasks, but you are the one who invokes each agent and passes context between them. The fact-checker helps verify claims when you provide it with the outputs from other agents. The report writer takes raw findings and produces stakeholder-ready summaries. You build this team incrementally: start with two or three agents and expand as you learn what works.
         </aside>
@@ -302,6 +331,14 @@ status without supporting evidence.</code></pre>
           <li><strong>Step 4:</strong> The user feeds all findings to a synthesis agent, which merges them, resolves conflicts, and identifies gaps</li>
           <li><strong>Step 5:</strong> A human reviewer validates the synthesis and makes the final decision</li>
         </ul>
+
+        <pre class="mermaid">
+graph LR
+  A[1. Define Scope] --> B[2. Assign Agents]
+  B --> C[3. Gather Evidence]
+  C --> D[4. Synthesize]
+  D --> E[5. Human Review]
+        </pre>
         <aside class="speaker-notes">
           Let's walk through a concrete workflow. Imagine you are evaluating a potential acquisition target. Step one: define the scope clearly. "Evaluate TargetCo's technology stack, security practices, regulatory exposure, and cultural fit." Step two: assign agents. The architecture reviewer examines their tech stack; the security auditor reviews their public posture and any disclosed incidents; the compliance researcher checks their regulatory exposure; a culture analyst reviews their public engineering blog and open-source contributions. Step three: each agent produces structured output with specific citations and a confidence rating. Step four: the user feeds all specialist outputs to a synthesis agent, which flags contradictions (maybe the tech stack looks strong but the security posture raises concerns) and produces a consolidated report. Step five: a human decision-maker reviews the synthesis. The agents do the heavy lifting of gathering and analyzing information; the human brings judgment and accountability.
         </aside>
@@ -321,6 +358,7 @@ status without supporting evidence.</code></pre>
           <li>Agents pull from documentation, public APIs, press releases, and analyst reports</li>
           <li>Final output: a <strong>decision-ready briefing</strong> with strengths, weaknesses, and blind spots</li>
         </ul>
+
         <aside class="speaker-notes">
           Competitive landscape analysis is one of the highest-value applications of multi-agent research. Traditionally, this takes weeks of analyst time. With a multi-agent approach, you assign one agent per major competitor, each tasked with gathering product features, pricing models, and public positioning. A separate market trends agent looks at the broader industry context: what is shifting, what technologies are emerging, and where is the market heading? A comparison agent takes all the individual analyses and creates a structured side-by-side evaluation. The result is a decision-ready briefing that would have previously required a team of analysts working for weeks. The agents are not replacing the analysts; they are accelerating the information-gathering phase so the analysts can focus on interpretation and strategy.
         </aside>
@@ -353,6 +391,7 @@ status without supporting evidence.</code></pre>
           <li>Users can invoke both custom agents and Copilot Extensions, but they are separate. An agent's tool access comes from <strong>MCP servers and built-in VS Code tools</strong>, not from Copilot Extensions</li>
           <li>Extensions are governed by <strong>organization policies</strong>; admins control what is available</li>
         </ul>
+
         <aside class="speaker-notes">
           Copilot Extensions are the bridge between your agents and the outside world. They allow third-party tools and data sources to integrate directly into Copilot Chat. For research workflows, this is transformative. Instead of asking an agent to reason about something it has never seen, you can give it access to your documentation platform, your project management tool, or your monitoring dashboard. Extensions are installed from the GitHub Marketplace, and they are subject to your organization's policies. Admins control which extensions are available, ensuring that sensitive data access is governed. Custom agents and Copilot Extensions are separate capabilities. Agents get their tool access from MCP servers and built-in VS Code tools, not from extensions. You invoke each one independently.
         </aside>
@@ -372,6 +411,7 @@ status without supporting evidence.</code></pre>
           <li>Configure in VS Code via <code>settings.json</code> or <code>mcp.json</code>; no custom code required for many use cases</li>
           <li>Combine multiple MCP servers to give agents access to <strong>diverse information sources</strong></li>
         </ul>
+
         <aside class="speaker-notes">
           MCP, the Model Context Protocol, is the infrastructure layer that makes multi-agent research practical at enterprise scale. It is an open standard that defines how AI agents connect to external tools and data sources. An MCP server exposes tools that agents can call, resources they can read, and prompts that guide specific interactions. For research workflows, you might have an MCP server that connects to your internal knowledge base, another that queries your CRM, and a third that accesses your compliance documentation. You configure these connections in VS Code, and your custom agents can use them immediately. The power of MCP is composability: each server handles one data source, and you combine as many as your research question demands.
         </aside>
@@ -404,6 +444,7 @@ status without supporting evidence.</code></pre>
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           This slide shows the two-layer architecture that makes multi-agent research work. The agent layer consists of your custom .agent.md files, each defining a specialized role with specific instructions and tool access. The human user sits at the top of this layer, invoking agents one at a time and passing context between them. The data layer consists of MCP servers that connect to your enterprise data sources, Copilot Extensions that bring in marketplace tools, workspace files that provide local context, and organization policies that govern what each agent can access. When you run a research workflow, you decompose the question, invoke specialist agents one at a time with specific sub-tasks, and each specialist reaches into the data layer through its configured tools. You collect the results and synthesize them into the final output.
         </aside>
@@ -436,6 +477,7 @@ status without supporting evidence.</code></pre>
           <li>Establish a <strong>verification checklist</strong> for high-stakes decisions: source quality, recency, relevance</li>
           <li>Treat agent output as <strong>draft research</strong>, not final conclusions</li>
         </ul>
+
         <aside class="speaker-notes">
           This is the most important slide in the deck. Multi-agent research is powerful, but it can also produce convincing output that is subtly wrong. Large language models can generate text with high confidence even when the underlying information is inaccurate or outdated. The defense is layered verification. First, require every agent to cite its sources. If an agent makes a claim without a citation, that claim should be flagged for manual review. Second, cross-reference findings between agents. When three agents independently reach the same conclusion from different data sources, your confidence should increase. When agents disagree, that disagreement is valuable; it tells you exactly where to focus your human analysis. Third, maintain a verification checklist for high-stakes decisions: Is the source authoritative? Is the information current? Is it relevant to your specific context? Finally, always treat agent output as draft research. The agents accelerate information gathering and analysis, but the final judgment belongs to a human.
         </aside>
@@ -468,6 +510,7 @@ status without supporting evidence.</code></pre>
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Verification works best when it is built into the workflow rather than bolted on at the end. On the built-in side, you can instruct your agents to always provide citations and confidence ratings. You can add a dedicated fact-checker agent whose sole job is to verify the claims made by other agents. You can design your orchestrator to flag contradictions automatically, routing them directly to a human reviewer. On the human oversight side, spot-checking is essential. You do not need to verify every claim, but you should regularly verify a sample to calibrate your trust in the system. Pay special attention to agent disagreements; these are the most valuable signals because they highlight areas of genuine uncertainty. For high-stakes decisions, validate critical findings through independent channels. And always maintain a decision audit trail that documents what the agents found, what the human reviewer concluded, and why.
         </aside>
@@ -500,6 +543,7 @@ status without supporting evidence.</code></pre>
           <li><strong>Vendor Evaluation:</strong> Compare vendors across pricing, SLA, integration complexity, and customer references using dedicated per-vendor agents</li>
           <li><strong>Incident Post-Mortem:</strong> Analyze incidents from technical, process, and communication angles to produce comprehensive improvement plans</li>
         </ul>
+
         <aside class="speaker-notes">
           These five scenarios represent the highest-value applications of multi-agent research in enterprise settings. Due diligence for acquisitions is a natural fit because it requires expertise across multiple domains simultaneously; agents can parallelize what would otherwise be weeks of sequential analysis. Compliance research benefits enormously because regulatory frameworks are large, complex, and constantly evolving; specialized agents can map current practices against multiple frameworks at once. Architecture decisions gain rigor when you have agents explicitly representing different concerns; the security agent will push back on the cost-optimization agent's recommendation, and that tension produces better decisions. Vendor evaluations scale naturally with the agent-per-vendor pattern. And incident post-mortems become more thorough when you analyze the same event from technical, process, and communication perspectives simultaneously.
         </aside>
@@ -519,6 +563,7 @@ status without supporting evidence.</code></pre>
           <li><strong>Iterate:</strong> Evaluate the output, refine the instructions, and add agents as needed</li>
           <li><strong>Document your learnings:</strong> Capture what works in your copilot-instructions.md for the whole team</li>
         </ul>
+
         <aside class="speaker-notes">
           You do not need to build a six-agent research team on day one. Start with the simplest multi-agent pattern: create two agents with opposing perspectives on a question that matters to your team. Maybe one agent advocates for a particular technology choice and the other argues against it. Write clear instructions in each .agent.md file so the agents know their role, their methodology, and how to structure their output. Once you see the debate pattern working, add an MCP server to connect one of your internal data sources. This gives the agents access to real information instead of relying solely on their training data. Iterate on the instructions based on the quality of the output. When you find patterns that work well, document them in your copilot-instructions.md so the entire team benefits.
         </aside>

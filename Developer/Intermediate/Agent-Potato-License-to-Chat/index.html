@@ -94,6 +94,8 @@
           <li>Makefile-driven commands: <code>make dev</code>, <code>make test</code>, <code>make build</code></li>
           <li>Docker Compose for multi-service development</li>
         </ul>
+
+        <img src="img/TODO-diagram-prompt-vs-agent-loop.png" alt="Diagram comparing single-prompt execution to an agent's iterative loop" />
         <aside class="speaker-notes">
           This is OctoCAT Supply, a full-stack supply chain management application. It has a React frontend with TypeScript, Tailwind, and React Query, and an Express backend with TypeScript, SQLite, and Swagger API docs. The build system uses a Makefile as the entry point. "make dev" starts both servers, "make test" runs all tests, and "make build" produces production bundles. The key point: you probably haven't seen this codebase before. That's deliberate. One of agent mode's strongest capabilities is helping you understand an unfamiliar project. So don't go reading the README just yet. Let agent mode do the reconnaissance for you.
         </aside>
@@ -117,6 +119,16 @@
 "How is the API organized? What are the main route files?"
 "What database tables exist and how are they defined?"
 "What testing frameworks are in use and where are the test files?"</code></pre>
+
+        <pre class="mermaid">
+stateDiagram-v2
+  [*] --> Observe
+  Observe --> Think
+  Think --> Act
+  Act --> Reflect
+  Reflect --> Observe : Next iteration
+  Reflect --> [*] : Task complete
+        </pre>
         <aside class="speaker-notes">
           When you land in a new codebase, resist the urge to start clicking through files manually. Instead, open agent mode and start with a broad question like "What does this project do?" Agent mode will use its codebase search tool to scan the project, read key files like the README, package.json, and folder structure, and produce a coherent summary. Then you can drill down. "How is the API organized?" gets you the route structure. "What database tables exist?" gets you the schema. Each question builds your mental model incrementally, and agent mode keeps the context from your previous questions so it can give increasingly specific answers. This is how experienced developers use agent mode: not as a code generator, but as a codebase navigator.
         </aside>
@@ -149,6 +161,8 @@
           <li><strong>Iterate</strong> - If something failed, it adjusts and tries again automatically</li>
         </ul>
         <p>The loop continues until the task is complete or the agent needs your input.</p>
+
+        <img src="img/TODO-screenshot-agent-mode-tool-calls.png" alt="Screenshot of Agent Mode showing tool invocations in VS Code" />
         <aside class="speaker-notes">
           Agent mode follows a "plan, act, observe, iterate" loop. Here's what happens step by step. First, when you type a prompt, the agent reads it and gathers context. It searches for relevant files, reads your instruction files, and forms a plan. Then it starts acting. It might create a file, edit existing code, run a terminal command, or search the codebase for more information. After each action, it observes the result. Did the file save correctly? Did the terminal command produce an error? Did the tests pass? If something went wrong, it iterates. It reads the error message, adjusts its approach, and tries again. This loop keeps running until the task is done or the agent reaches a point where it needs your input. The key thing to understand: this is not a single request-response. It's a multi-step autonomous process. The agent might make ten or twenty tool calls for a single prompt. That's normal and expected. Your job is to write the prompt clearly, let the agent work, and then review the result.
         </aside>
@@ -182,6 +196,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Agent mode has access to several built-in tools. File operations let it create, edit, read, and delete files. Terminal access lets it run shell commands, though you'll be asked to approve them first. Codebase search lets it find relevant code semantically or by text matching. Diagnostics gives it access to compiler errors and lint warnings. Fetch lets it read web content. And it uses codebase search to locate related test files. Beyond the built-in tools, agent mode is extensible through MCP, the Model Context Protocol. MCP servers are external processes that expose additional tools to the agent. The GitHub MCP server gives it access to issues, pull requests, and code search. The Playwright MCP server lets it interact with web pages. You can also build your own MCP servers for custom workflows. MCP servers are configured in a .vscode/mcp.json file that you commit to your repo, so the whole team gets the same tool set. If you haven't taken the "MCP for You and Me" course yet, we'll just cover the basics here. The dedicated MCP courses go much deeper.
         </aside>
@@ -205,6 +220,7 @@
 //
 // Only enable this after you understand what agent mode can do.
 // Start with manual approval and relax controls as you build trust.</code></pre>
+
         <aside class="speaker-notes">
           Agent mode is powerful, but you stay in control. Terminal commands require your explicit approval before they run. You'll see a notification showing the exact command, and you click to approve or reject it. File edits show up as diffs so you can review every change before accepting. If the agent goes in a direction you don't like, you can type a follow-up message at any time to redirect it. If you want to cap how many iterations the agent can take, the maxRequests setting lets you set a limit. There's also an auto-approve option for terminal commands. Some developers enable this for trusted workflows where they want the agent to run freely. My recommendation: start with manual approval. Learn what kinds of commands the agent runs, build confidence in the pattern, and only relax the controls once you're comfortable. This is the same approach you'd use with any automation tool. Trust but verify.
         </aside>
@@ -244,6 +260,7 @@
             <p>Autonomous execution. Plans multi-step tasks, runs commands, iterates on errors.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The three modes are Ask, Edit, and Agent. You select them from the dropdown at the top of the chat panel. Ask mode is completely read-only. No files are touched, no commands are run. It's the right choice when you want to understand something, explore an idea, or get advice before acting. Edit mode makes targeted changes to files. You describe what you want changed, and Copilot proposes diffs that you can accept or reject individually. It's precise and controlled. Agent mode is the fully autonomous option. It plans multi-step tasks, creates and edits files, runs terminal commands, reads the output, and iterates. It's the most powerful mode but also the most hands-off. The question is: when do you use which? Here's a rule of thumb. If you're asking a question, use Ask. If you're making a specific change to a specific file, use Edit. If you're working on a task that spans multiple files and might need terminal commands, use Agent. In this course, we'll mostly be in Agent mode, but we'll switch to Ask and Edit when they're the better tool for the job.
         </aside>
@@ -262,6 +279,7 @@
           <li>You can switch models at any time, even mid-conversation</li>
           <li>There is no single "best" model. Match the model to the task complexity.</li>
         </ul>
+
         <aside class="speaker-notes">
           The model selector is right next to the mode dropdown at the top of the chat panel. Each model has trade-offs: some are faster, some are better at deep reasoning, some cost more premium requests per message. The multiplier next to each model tells you how many premium requests each message consumes. For exploratory questions and simple tasks, a lighter model works well. For complex multi-file changes, a more capable model will save you iterations. You can switch models at any time, even in the middle of a conversation. The key thing is to experiment. Try different models on the same task and see which one gives you the best results. Over time you'll develop intuition for when to reach for which model.
         </aside>
@@ -275,6 +293,14 @@
       <div class="slide-inner">
         <span class="badge">Part 4</span>
         <h2>Preparing the Mission</h2>
+        <pre class="mermaid">
+graph LR
+  A[Agent Mode] --> B[MCP Client]
+  B --> C1[MCP Server 1]
+  B --> C2[MCP Server 2]
+  C1 --> D1[Database]
+  C2 --> D2[External API]
+        </pre>
         <aside class="speaker-notes">
           Before we start building, we need to set up our workspace. This is one of the most overlooked steps in working with agent mode: if you skip the preparation, you'll spend twice as long correcting mistakes later. Think of it as equipping your agent with the right tools and intelligence before sending it into the field.
         </aside>
@@ -294,6 +320,7 @@
           <li><strong>Custom agents</strong> - <code>.github/agents/*.agent.md</code> for specialized personas</li>
         </ul>
         <p>If you've taken "Prompts, Instructions, Skills, and Agents," this should look familiar. Today we put these to work in a real codebase.</p>
+
         <aside class="speaker-notes">
           Let's quickly review the customization primitives. Repo-wide instructions in copilot-instructions.md apply to every Copilot interaction in this workspace. Scoped instructions use applyTo globs to target specific file patterns. Prompt files capture reusable tasks you can run from the chat picker. And custom agents define specialized personas with restricted tools and focused workflows. If you took the PISA course, you created all of these from scratch. Today we're going to create them specifically for the OctoCAT Supply codebase. The difference is that now these files will target real project conventions, real frameworks, and real testing patterns. This is where customization moves from academic exercise to practical workflow.
         </aside>
@@ -326,6 +353,7 @@
 ## Database
 - SQLite via better-sqlite3
 - Always use parameterized queries (never string concatenation)</code></pre>
+
         <aside class="speaker-notes">
           Here's what a good copilot-instructions.md looks like for this project. It covers language and framework choices, style conventions, testing standards, and database patterns. Notice how every rule is specific and actionable. "TypeScript with strict mode" is clear. "Use Vitest, not Jest" eliminates ambiguity. "Always use parameterized queries" prevents SQL injection. These instructions will apply to every Copilot interaction in this workspace. When agent mode creates a new API endpoint, it will use TypeScript. When it writes tests, it will use Vitest. When it queries the database, it will use parameterized queries. You write these rules once, and they shape every response going forward. The real skill is knowing what to put in this file. Start with the corrections you find yourself making over and over. If you keep telling Copilot "no, use Vitest, not Jest," that rule belongs in this file.
         </aside>
@@ -365,6 +393,7 @@
 current stock levels grouped by category. Follow the route pattern
 in api/routes/products.ts. Include a Vitest test file.
 Use the existing database connection from api/db/index.ts."</code></pre>
+
         <aside class="speaker-notes">
           The quality of your agent mode output is directly proportional to the quality of your prompt. A vague prompt like "add a reports feature" leaves agent mode guessing about almost everything: file locations, naming conventions, data structure, testing approach. A good prompt has four parts. First, state the goal: "Create a GET endpoint that returns inventory data." Second, specify constraints: "Follow the route pattern in products.ts." Third, define done: "Include a Vitest test file." Fourth, reference existing code so the agent knows what conventions to follow. The reference is especially important. When you say "follow the pattern in products.ts," agent mode reads that file, extracts the conventions (middleware, error handling, response format), and applies them to the new code. This is how you get consistent, idiomatic output without writing a novel of instructions. Think of it this way: you're not programming a machine. You're briefing a new team member on a task. The more context you give in the briefing, the less back-and-forth you'll have.
         </aside>
@@ -383,6 +412,7 @@ Use the existing database connection from api/db/index.ts."</code></pre>
           <li><strong>Step 3</strong> - Let it run the tests and fix any failures automatically</li>
         </ul>
         <p>Agent mode handles file creation, route registration, database queries, and test execution in a single loop. You review the output at the end.</p>
+
         <aside class="speaker-notes">
           Here's how the backend build works in practice. You write a clear prompt describing the endpoint you want. Agent mode starts its loop. It reads existing route files to understand the pattern. It creates a new route file with the endpoint. It opens the app entry point and registers the new route. It writes the database query using the existing connection module. Then it runs the tests. If a test fails, it reads the error, adjusts the code, and runs the tests again. This whole sequence might take ten or fifteen iterations. That's normal. The important thing is that each iteration builds on the previous one. You don't have to manually switch between files, remember import paths, or run test commands. Agent mode handles the mechanics; you handle the direction.
         </aside>
@@ -405,6 +435,8 @@ that fetches data from GET /api/reports/inventory and displays it
 in a table. Use the same data fetching pattern as ProductList.tsx.
 Add a route for /reports/inventory in the router config and a
 navigation link in the sidebar."</code></pre>
+
+        <img src="img/TODO-diagram-multi-agent-orchestration.png" alt="Diagram of multi-agent orchestration with specialist agents" />
         <aside class="speaker-notes">
           The frontend build follows the same pattern. Write a clear prompt with a specific file path, a reference to existing code, and a definition of done. In this case, we're telling agent mode where to create the file, which API endpoint to call, which existing component to use as a pattern reference, and that it should wire up routing and navigation. Agent mode will read ProductList.tsx to understand the data fetching pattern, create the new component using the same conventions, add the route to the router config file, add a navigation link in the sidebar, and then check for any diagnostic errors. The reference to ProductList.tsx is doing a lot of heavy lifting here. Instead of describing the entire data fetching pattern in your prompt, you point to the example and let agent mode extract the pattern itself. This works because agent mode reads files, not just prompt text.
         </aside>
@@ -436,6 +468,7 @@ navigation link in the sidebar."</code></pre>
           <li>Use specific language: "Write unit tests for the inventory route. Test the happy path, empty results, and invalid parameters."</li>
           <li>Let the agent run <code>make test</code> and iterate on failures</li>
         </ul>
+
         <aside class="speaker-notes">
           Testing is one of agent mode's strongest workflows. Here's why: the feedback loop is tight. Agent mode writes a test, runs it, reads the output, and immediately knows whether it passed or failed. If it failed, it reads the error message, figures out the fix, and tries again. This iterate-until-green pattern is exactly how a developer would work, but agent mode does it faster because it doesn't need to switch contexts. The key to good test generation is specificity. Don't just say "write tests." Say "write unit tests for the inventory route. Test the happy path with valid data, the empty result case, and the invalid parameter case." Also reference existing test files. "Follow the pattern in products.test.ts" gives agent mode a concrete example of your team's testing style: how you set up fixtures, how you organize describe blocks, what assertions you prefer.
         </aside>
@@ -454,6 +487,7 @@ navigation link in the sidebar."</code></pre>
           <li>Use <strong>Edit mode</strong> for surgical, single-file changes after the agent has done the heavy lifting</li>
           <li>Use <strong>Ask mode</strong> to discuss trade-offs before committing to a direction</li>
         </ul>
+
         <aside class="speaker-notes">
           Agent mode rarely produces perfect output on the first pass, and that's fine. The real workflow is iterative. The agent builds the initial version, you review the diff, and then you refine. For broad adjustments, stay in agent mode: "The error handling should return a 400 for invalid input, not a 500." For surgical fixes to a specific file, switch to edit mode. It's more precise and doesn't trigger the full agentic loop. For design discussions, switch to ask mode: "What are the trade-offs between returning all results versus paginating?" This mode switching is a skill. Over time you'll develop a rhythm: agent mode for the initial build, ask mode for design questions, edit mode for targeted fixes. Don't be afraid to switch modes in the middle of a task. Each mode is a different tool in your toolbox.
         </aside>
@@ -488,6 +522,7 @@ navigation link in the sidebar."</code></pre>
 "Rename the 'stock' field to 'quantity' across the entire codebase.
 Update the database schema, API responses, frontend components,
 and all test assertions. Run the tests after to verify nothing broke."</code></pre>
+
         <aside class="speaker-notes">
           Here's a concrete example. Suppose you need to rename a field from "stock" to "quantity" across the entire stack. In a traditional workflow, you'd manually update the database schema, every API response, every frontend component that reads the field, and every test assertion. With agent mode, you describe the change once, and the agent does the cross-file coordination. It searches for every occurrence, makes the changes, and runs the tests to verify. This is not a find-and-replace. Agent mode understands context. It knows that renaming a database field means updating the column definition, the SELECT queries, the API response mapping, the TypeScript types, and the React components that display the data. It handles each file differently based on what that file does.
         </aside>
@@ -507,6 +542,7 @@ and all test assertions. Run the tests after to verify nothing broke."</code></p
           <li><strong>External service dependencies</strong> - The agent can't access services it doesn't have credentials for</li>
         </ul>
         <p>When in doubt: break the task down, give the agent reference files, and iterate.</p>
+
         <aside class="speaker-notes">
           Let's be honest about where agent mode struggles. Ambiguous goals are the number one cause of poor output. If you say "make it better" or "refactor this," the agent has to guess what you mean. Lack of reference code is the second most common issue. If there are no existing patterns to follow, the agent falls back on generic conventions that may not match your project. Very large changes are risky because the agent may lose context partway through. Break big features into smaller pieces: build the API first, then the frontend, then the tests, then wire them together. External services are a hard limit. If your feature requires authentication against a third-party API and the agent doesn't have credentials, it can't test its work. In those cases, mock the external dependency and test the integration separately. These aren't failures of agent mode; they're constraints of any development workflow. The more you understand them, the better you'll be at structuring prompts that work within these limits.
         </aside>
@@ -534,6 +570,7 @@ handles ${input:httpMethod} requests to /api/${input:routeName}.
 - Create a test file at api/routes/${input:routeName}.test.ts
 - Run make test to verify</code></pre>
         <p>Save common patterns as prompt files. Run them with a click from the <code>/</code> picker.</p>
+
         <aside class="speaker-notes">
           Once you've done something well in agent mode, save the prompt as a file so the whole team benefits. This example is a prompt file for scaffolding new API endpoints. Notice the input variables: routeName and httpMethod. When you run this prompt from the picker, Copilot asks you for those values and fills them in. The prompt body references existing code, specifies the file path convention, and includes a test run as the success criteria. This is the bridge between the PISA course and this one. In PISA, you learned the primitives. Here, you're using them in a real project with real conventions. A well-stocked .github/prompts folder means any developer on the team can scaffold a new endpoint, component, or test file in seconds, and the output will match the project's conventions.
         </aside>
@@ -587,6 +624,7 @@ handles ${input:httpMethod} requests to /api/${input:routeName}.
           <li><strong>Let the agent iterate on tests</strong>. The plan-act-observe loop works best with tight feedback.</li>
           <li><strong>Save good prompts as files</strong>. One developer's insight becomes the whole team's workflow.</li>
         </ul>
+
         <aside class="speaker-notes">
           These are the six patterns I want you to take away from today. First, always reference existing code. "Follow the pattern in products.ts" produces better output than a paragraph of instructions because agent mode can read the actual code and extract conventions. Second, use the right mode. Agent mode isn't always the answer. Sometimes Ask or Edit is more efficient. Third, set up instructions before you start building. Front-loading the preparation pays dividends throughout the session. Fourth, break big tasks into pieces. Build the backend, build the frontend, wire them together, run the tests. Each piece is a focused agent mode task. Fifth, let the agent iterate on tests. The tight feedback loop between running a test and reading the result is where agent mode excels. And sixth, save your good prompts. When you find a prompt that consistently produces great results, commit it as a prompt file. That turns individual expertise into team institutional knowledge.
         </aside>

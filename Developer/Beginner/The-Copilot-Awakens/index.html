@@ -103,7 +103,15 @@
           <li><strong>Your code stays yours</strong> - Copilot Business and Enterprise do not retain prompts or suggestions for model training</li>
         </ul>
 
-        <img src="img/TODO-diagram-copilot-architecture-flow.png" alt="Diagram showing how Copilot gathers context, sends it to the LLM, and returns suggestions" />
+        <pre class="mermaid">
+graph LR
+  A[Your Code &amp; Context] --> B[GitHub Infrastructure]
+  B --> C[Selected LLM]
+  C --> D[Suggestion Returned]
+  D --> E{Accept?}
+  E -->|Tab| F[Code Inserted]
+  E -->|Esc| A
+        </pre>
         <aside class="speaker-notes">
           So how does it actually work? There are three steps. First, context gathering: Copilot looks at the file you have open, the neighboring tabs, your comments, function signatures, and variable names. It's building a picture of what you're working on. Second, model inference: it sends that context to whichever large language model you've selected in the model picker. GitHub hosts the infrastructure, and the model generates a completion. You can change your model at any time, and we'll cover the picker in detail later. Third, suggestion delivery: that completion comes back to your editor as either grey "ghost text" right inline, or as a full response in Chat. Now, here's the important privacy point, especially if you're in an enterprise environment: on the Business and Enterprise plans, GitHub does not retain your prompts or suggestions for model training. Your code stays yours. And to answer the question I know some of you are thinking: for inline completions, Copilot sends a limited context window from the current file and nearby tabs. Other features like @workspace and Agent mode can access your full project.
         </aside>

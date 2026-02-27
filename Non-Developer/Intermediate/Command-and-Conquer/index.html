@@ -77,6 +77,7 @@
           <li>Time-to-merge, deployment frequency, and cycle time are better, but harder to attribute directly to AI</li>
           <li>The real question is not "Does AI help?" but "How much, where, and is the investment justified?"</li>
         </ul>
+
         <aside class="speaker-notes">
           If you have been in any leadership meeting in the last two years, you have heard the claims: AI will make developers 55% more productive, it will cut development costs in half, it will transform how your teams work. Some of those claims are backed by research; many are not. The challenge for executives is that anecdotes and vendor marketing do not satisfy a CFO or a board of directors. You need real, measurable data tied to your organization's specific context. Developer satisfaction is important, and it is worth measuring, but it is a lagging indicator of sentiment, not a leading indicator of output. What you need are metrics that connect AI tool usage to engineering outcomes you already care about: velocity, quality, and cost. That is exactly what we are going to build toward in this session.
         </aside>
@@ -107,6 +108,7 @@
             <p>A phased rollout plan that moves from pilot to enterprise with clear success criteria at each stage.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Let's distill the executive need into four pillars. First, visibility: you need to see what is happening with Copilot across your organization in real time, not in a quarterly report that arrives six weeks late. Second, control: you need the ability to set policies, restrict features in regulated environments, and protect intellectual property. Third, justification: every dollar you spend on Copilot licenses needs to be defensible. You need a framework that connects usage metrics to business outcomes your CFO will sign off on. Fourth, strategy: you need a plan for scaling from a small pilot to full enterprise adoption, with clear milestones and decision gates along the way. The rest of this session will give you the tools and frameworks to address all four.
         </aside>
@@ -136,6 +138,8 @@
           <li>Enterprise endpoints aggregate data across all organizations in your GitHub Enterprise account</li>
           <li>Authentication uses a personal access token or GitHub App with the <code>manage_billing:copilot</code> scope</li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-metrics-api-dashboard.png" alt="Screenshot of the Copilot Metrics API response or built-in dashboard" />
         <aside class="speaker-notes">
           The Copilot Metrics API is your primary programmatic interface to usage data. It operates at two levels: organization and enterprise. At the organization level, you get daily metrics for a single GitHub org, including total suggestions made, total acceptances, the number of active users, and breakdowns by programming language and IDE. At the enterprise level, the API aggregates data across every organization in your GitHub Enterprise account, giving you a single view for the entire company. Usage data is available with daily granularity through the Copilot usage metrics endpoints, and you can filter by team to compare adoption across different engineering groups. Authentication is straightforward; you need a token with the manage_billing:copilot scope. Many organizations build automated dashboards by calling this API on a schedule and pushing the results into their existing BI tools.
         </aside>
@@ -156,6 +160,8 @@
             <p>For Enterprise Cloud customers, the enterprise-level dashboard rolls up metrics from every organization, giving executives a single pane of glass across the company.</p>
           </div>
         </div>
+
+        <img src="img/TODO-screenshot-copilot-org-dashboard.png" alt="Screenshot of the built-in Copilot dashboard in GitHub organization settings" />
         <aside class="speaker-notes">
           If you do not want to build your own dashboard, GitHub provides built-in views in both the organization and enterprise settings pages. The organization-level dashboard shows you seat utilization at a glance: how many licenses are assigned, how many are actively in use, daily acceptance rates, and trend lines over the past 28 days. For Enterprise Cloud customers, the enterprise dashboard aggregates these metrics across all organizations, which is critical if your company has multiple GitHub orgs. These dashboards are available today with no configuration or additional cost. They are the fastest way for a non-technical executive to get a snapshot of Copilot adoption. For more advanced analysis, such as correlating Copilot usage with DORA metrics or sprint velocity, you would use the API to feed data into your own BI platform.
         </aside>
@@ -174,6 +180,7 @@
           <li><strong>Language Breakdown</strong> - Which programming languages see the most Copilot activity. Helps you target training and enablement.</li>
           <li><strong>Chat &amp; IDE Engagement</strong> - How often developers use Copilot Chat, inline completions, and other features.</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's walk through the key data points the API and dashboards provide. Total seats tells you how many licenses you are paying for versus how many are actually in use. This is your first line of defense against wasted spend; if 30% of your seats are idle, you need to either reallocate them or investigate why adoption is lagging. Active users counts how many developers used Copilot at least once in the reporting window. This is your adoption metric. Suggestions and acceptances tell you how much value developers are getting from Copilot's code completions. The acceptance rate, typically between 25% and 40%, is a useful proxy for how well Copilot understands your codebase. Language breakdown is particularly useful for targeting enablement efforts; if Copilot is heavily used in JavaScript but barely used in Java, you may need Java-specific training. Finally, chat and IDE engagement metrics help you understand which Copilot features are resonating with your teams.
         </aside>
@@ -194,6 +201,7 @@
             <p>Multiply accepted suggestions by average time-per-suggestion (typically 30-90 seconds) to estimate hours returned to developers each week. This is the number your CFO wants.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Two metrics consistently resonate with executive audiences. The first is adoption velocity: what percentage of your licensed developers are actually using the tool, and how quickly is that number growing? A successful pilot should see 60-80% utilization within the first 30 days. If you are below 40% after a month, something is blocking adoption and you need to investigate. The second metric is developer hours saved. This requires a simple calculation: take the number of accepted suggestions, multiply by an estimated time savings per suggestion (industry benchmarks range from 30 to 90 seconds depending on complexity), and convert to hours. Even using conservative estimates, the numbers are compelling. A team of 100 developers accepting 30 suggestions per day at 45 seconds each saves roughly 37 developer-hours per day. Over a year, that is more than 9,000 hours. Translate that into fully loaded developer cost and you have a dollar figure your finance team can work with.
         </aside>
@@ -222,6 +230,8 @@
           <li><strong>Retention &amp; Satisfaction</strong> - Developer experience surveys and attrition rates. Developers increasingly expect AI tools; not providing them is a recruiting disadvantage.</li>
           <li><strong>Time-to-Onboard</strong> - Measure how quickly new developers make their first meaningful contribution with and without Copilot assistance.</li>
         </ul>
+
+        <img src="img/TODO-diagram-copilot-roi-framework.png" alt="Diagram of the Copilot ROI calculation framework" />
         <aside class="speaker-notes">
           There are five lenses through which you can build a Copilot ROI case, and the strongest presentations use at least three. Cost avoidance is the simplest: multiply hours saved by your average fully loaded developer cost. Throughput gains require a before-and-after comparison of engineering output metrics; PRs merged per developer per week is a good starting point. Quality impact is harder to attribute directly to Copilot, but organizations consistently report faster code review cycles and fewer boilerplate bugs after adoption. Retention and satisfaction matter more than many executives realize. In a competitive job market, developers actively seek employers that provide modern AI tooling. Not offering Copilot is increasingly seen as a red flag during recruiting. Finally, time-to-onboard is a powerful metric for organizations with high hiring volumes. If Copilot helps a new developer contribute meaningfully two weeks sooner, that is real value you can quantify.
         </aside>
@@ -240,6 +250,7 @@
           <li><strong>Example:</strong> 500 developers &times; 30 accepted suggestions/day &times; 55 seconds = 229 hours/day saved</li>
           <li>At $85/hour fully loaded: <strong>$19,500/day</strong> in developer time recovered, against ~$317/day in license cost</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's walk through a concrete example. Start with your fully loaded cost per developer hour. For most US-based tech companies, this ranges from $70 to $120 per hour when you include salary, benefits, office costs, and tooling. Next, pull the accepted suggestions count from the Metrics API. Multiply that by a conservative estimate of time saved per suggestion. Industry data suggests 55 seconds is a reasonable baseline for code completions, though complex multi-line suggestions save considerably more. Annualize the result and compare it against your total license spend. In our example with 500 developers, even using conservative numbers, the daily value of time recovered is roughly $19,500, while the daily cost of Copilot Business licenses for 500 seats is approximately $317. That is a return of more than 60x. Even if you discount the time savings by 75% to account for context switching and suggestions that required modification, the ROI remains overwhelming. This is the kind of analysis that gets CFO sign-off.
         </aside>
@@ -281,6 +292,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Every organization needs a clear Copilot usage policy, and it should be documented, communicated, and enforced. On the "allow" side, the vast majority of development activities benefit from Copilot: writing code, explaining code, generating tests, summarizing pull requests, and producing documentation. These are high-value, low-risk use cases. On the "restrict" side, you need to think about regulatory and compliance boundaries. If your organization handles classified information, export-controlled technology, or sensitive health data, you may need to exclude specific repositories from Copilot entirely. Safety-critical code, such as avionics, medical devices, or financial trading systems, should always require human review regardless of whether AI assisted in writing it. The key principle is that Copilot is a tool that assists developers; it does not replace engineering judgment, code review, or compliance processes.
         </aside>
@@ -299,6 +311,7 @@
           <li>Copilot Business and Enterprise include IP indemnity from Microsoft</li>
           <li>Review your exclusion patterns quarterly to keep them current with your repository structure</li>
         </ul>
+
         <aside class="speaker-notes">
           Content exclusions are one of the most important governance features for enterprise customers. They allow you to define file patterns and repository paths that Copilot will completely ignore. It will not read those files for context, and it will not generate suggestions based on their content. This is configured at the organization level, so it applies automatically to every developer without requiring individual setup. Common exclusion patterns include secrets directories, proprietary algorithm implementations, and third-party code with restrictive licenses. It is also important to understand the data handling guarantees. With Copilot Business and Enterprise, your code is not used to train the model, prompts and suggestions are not retained after processing, and telemetry is limited to aggregate usage metrics. For organizations with strict IP concerns, Copilot Business and Enterprise include IP indemnity from Microsoft, providing an additional layer of legal protection.
         </aside>
@@ -317,6 +330,8 @@
           <li><strong>Audit logs:</strong> All Copilot administrative actions are captured in the GitHub audit log for compliance</li>
           <li><strong>SSO integration:</strong> Copilot access is governed by your existing SAML SSO and SCIM provisioning</li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-org-level-controls.png" alt="Screenshot of Copilot organization-level policy controls in GitHub settings" />
         <aside class="speaker-notes">
           GitHub gives you comprehensive administrative controls for managing Copilot at scale. Seat management lets you assign licenses to specific users, to entire teams, or to the whole organization. Feature toggles let you control which Copilot capabilities are available; for example, you might enable code completions company-wide but restrict Copilot Chat to specific teams during an initial rollout. Policy inheritance is particularly important for enterprises with multiple organizations. Policies set at the enterprise level cascade down, and organization admins can only add restrictions, never remove them. This ensures consistent governance across the company. The suggestion matching filter blocks any suggestion that closely matches publicly available code, which is a common requirement for legal and compliance teams. All administrative actions are captured in the audit log, giving your security team full visibility into who changed what and when. Finally, Copilot access integrates with your existing SSO and SCIM setup, so you manage it through the same identity infrastructure you already use.
         </aside>
@@ -358,6 +373,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Not all stakeholders need the same report. Your board of directors cares about three things: cost justification, competitive advantage, and risk. Give them the ROI calculation, the adoption trajectory, and a clear statement on IP protections and compliance. Keep it to one or two pages. Engineering leadership needs more granularity. They want to know which teams are adopting quickly, which are lagging, and what the acceptance rates look like across different languages and repositories. They also want actionable recommendations: which teams need training, where should you reallocate unused seats, and which Copilot features should you enable next. You can generate both reports using data from the Metrics API. Several organizations use Copilot itself to help draft these reports by feeding it the raw metrics and asking it to produce executive summaries, which is a fitting use of the tool to report on itself.
         </aside>
@@ -375,6 +391,7 @@
           <li><strong>Narrative:</strong> Numbers without context are noise. Frame every metric around a business outcome.</li>
           <li><strong>Recommendations:</strong> Every report should end with 2-3 specific actions, not just data</li>
         </ul>
+
         <aside class="speaker-notes">
           The best reporting cadence is monthly for engineering leadership and quarterly for the board. Monthly reports catch adoption problems early, while quarterly board reports show meaningful trends rather than noise. Automate data collection using the Metrics API so you are not spending hours pulling numbers manually. Benchmarking is valuable for context; GitHub publishes research on average acceptance rates and adoption curves that you can compare against. The most important advice here is to lead with narrative, not numbers. A slide that says "Acceptance rate: 32%" means nothing to a board member. A slide that says "Developers are keeping one in three AI suggestions, saving an estimated 4,200 hours per quarter, equivalent to $360,000 in developer time" tells a compelling story. Always end your reports with specific recommendations. Data without action items is just decoration.
         </aside>
@@ -424,6 +441,12 @@
             </ul>
           </div>
         </div>
+
+        <pre class="mermaid">
+graph LR
+  A[Phase 1: Pilot] -->|60%+ active users| B[Phase 2: Expand]
+  B -->|75%+ utilization| C[Phase 3: Optimize]
+        </pre>
         <aside class="speaker-notes">
           A phased rollout reduces risk and builds organizational confidence. In Phase 1, you pilot with two or three teams that are willing and enthusiastic. Define your success metrics upfront so you know what "good" looks like before the pilot begins. Collect baseline data on development velocity and quality so you have a fair point of comparison. Assign a Copilot champion on each pilot team to drive adoption and surface issues. In Phase 2, you expand to the full engineering organization. This is where governance becomes critical: publish your usage policies, configure content exclusions, and stand up automated reporting. Address adoption blockers team by team, because the reasons one team is not using Copilot may be completely different from another team's reasons. Phase 3 is ongoing optimization: reclaim unused seats, invest in advanced training, and start correlating Copilot metrics with your existing engineering metrics like DORA. Use clear decision gates between phases. Do not expand from the pilot until you see at least 60% active utilization and positive developer feedback.
         </aside>
@@ -467,6 +490,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           When your board or peers ask "Why Copilot instead of alternatives?", focus on what differentiates the platform for enterprise customers. GitHub Copilot's primary advantage is its native integration with the GitHub platform. Copilot does not just generate code; it understands your pull requests, your issues, your Actions workflows, and your security findings. No other tool has that level of integration with the platform where your code already lives. Enterprise governance is another key differentiator: content exclusions, audit logging, policy inheritance across organizations, and SSO integration are table stakes for large companies, and Copilot delivers all of them. The multi-model architecture means you are not locked into a single AI provider; Copilot can leverage models from OpenAI, Anthropic, and Google. When evaluating any AI coding tool, focus on five criteria: suggestion quality in your specific languages, enterprise controls, DevOps integration, data privacy, and total cost of ownership. Run a structured evaluation if your organization requires it, but ensure you are comparing like-for-like on the governance and compliance dimensions, not just completion accuracy.
         </aside>

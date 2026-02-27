@@ -86,6 +86,7 @@
           <li><strong>Inconsistency:</strong> different reviewers enforce different standards, leading to style debates</li>
           <li><strong>Delayed feedback:</strong> pull requests sit open for hours or days waiting for review</li>
         </ul>
+
         <aside class="speaker-notes">
           Every developer has experienced this. You open a pull request, and then you wait. Research shows that after about two hundred to four hundred lines, a reviewer's ability to catch defects drops significantly. On top of that, reviewing pulls developers out of their own work, creating expensive context switches. In most teams, a small group of senior engineers end up reviewing the majority of code because they have the domain knowledge. That creates a single point of failure. And different reviewers apply different standards, so you end up with inconsistent feedback and style debates in comments. The result is delayed feedback loops: PRs sit open for hours, sometimes days, waiting for someone to look at them. This slows down the entire delivery pipeline.
         </aside>
@@ -116,6 +117,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The cost is real on both sides. For developers, slow reviews mean PRs pile up, merge conflicts increase, and people waste time rebasing. New team members are especially impacted because they need feedback the most, but they are often last in the review queue. On the business side, slow reviews directly translate to slower release cycles. More critically, when people rush through reviews to unblock others, security vulnerabilities slip through. We have all seen it: a PR gets a quick "LGTM" because the reviewer is under pressure, and a SQL injection or hardcoded secret makes it to production. Under deadline pressure, teams sometimes bypass required reviews entirely, creating compliance gaps. This is the problem that automated code review addresses.
         </aside>
@@ -148,6 +150,15 @@
           <li>Copilot code review works best with popular languages including Python, JavaScript, TypeScript, Java, Go, C#, and Ruby, with broader language support continuing to expand</li>
           <li>Does <strong>not</strong> replace human reviewers; it augments them by catching the obvious issues first</li>
         </ul>
+
+        <pre class="mermaid">
+graph LR
+  A[PR Opened] --> B[Diff Extracted]
+  B --> C[Copilot Analyzes]
+  C --> D[Comments Posted]
+  D --> E[Author Fixes]
+  E --> F[Re-review]
+        </pre>
         <aside class="speaker-notes">
           Copilot code review works on the diff of your pull request. It does not scan your entire codebase; it focuses on what changed. It analyzes those changes for common issues: potential bugs, security vulnerabilities, readability problems, and deviations from best practices. The feedback appears directly on the pull request as review comments, exactly the same way a human reviewer would leave them. This means there is no new tool to learn and no new workflow to adopt. Copilot code review works best with popular languages including Python, JavaScript, TypeScript, Java, Go, C#, and Ruby, with broader language support continuing to expand. An important point: Copilot code review is not a replacement for human reviewers. It is a first pass that catches the mechanical issues, so human reviewers can focus on architecture, design, and business logic.
         </aside>
@@ -178,6 +189,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           There are two ways to trigger Copilot code review. The first is auto-review. You assign Copilot as a reviewer on the pull request, either manually or through a CODEOWNERS file. When the PR is opened or updated, Copilot reviews it automatically. This is ideal for teams that want consistent, automated feedback on every pull request without any manual steps. The second is on-demand review. You click the Copilot button in the PR review toolbar, and Copilot reviews your entire PR diff. This gives developers more control. They can use it to self-check their own code before requesting a human review, or to get quick feedback on a specific area. Many teams use both: auto-review for broad coverage and on-demand for targeted analysis.
         </aside>
@@ -197,6 +209,8 @@
           <li>Each review comment addresses a specific code location independently</li>
           <li>Each comment is an AI-generated inline suggestion on a specific location in the diff</li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-review-comments-pr.png" alt="Screenshot of Copilot review comments and inline suggestions on a pull request" />
         <aside class="speaker-notes">
           When Copilot reviews your code, it leaves three types of feedback. First, comments: these explain what the issue is and why it matters. For example, "This function does not handle the case where the input is null." Second, suggestions: these are concrete code changes, presented as GitHub suggestion blocks. You can accept them with a single click, and they become a commit on your branch. Third, you can batch-commit multiple suggestions at once, which is a huge time saver for style fixes. Each review comment addresses a specific code location independently. Each comment is an AI-generated inline suggestion on a specific location in the diff.
         </aside>
@@ -223,6 +237,7 @@ function getUser(id) {
   const user = db.query("SELECT * FROM users WHERE id = $1", [id]);
   return user;
 }</code></pre>
+
         <aside class="speaker-notes">
           Here is a concrete example. Imagine a PR where someone writes a database query using string interpolation. Copilot flags it as a bug and security issue: SQL injection vulnerability. It explains why the code is dangerous and provides a suggestion that uses parameterized queries instead. The developer can accept that suggestion with one click, and it becomes a commit on the branch. No back-and-forth needed. This is the kind of issue that a human reviewer might catch, but it can also slip through during a rushed review. With Copilot, it gets flagged every time, consistently.
         </aside>
@@ -255,6 +270,7 @@ function getUser(id) {
           <li>Examples: "All API endpoints must validate input," "React components must use TypeScript interfaces for props"</li>
           <li>Guidelines are enforced across every PR; no more "it depends who reviews it"</li>
         </ul>
+
         <aside class="speaker-notes">
           Custom coding guidelines let you teach Copilot what your team cares about. You define them in your repository settings or at the organization level. Each guideline has a title, a natural language description of the rule, and optional file path patterns that scope the rule to specific parts of your codebase. For example, you might have a guideline that says "All API endpoints must validate input parameters before processing." Copilot will then specifically check for that pattern during review. Or "React components must use TypeScript interfaces for props, not inline types." The power here is consistency. It does not matter who opens the PR or who reviews it; the guidelines are enforced every time. This eliminates the "it depends on who reviews it" problem entirely.
         </aside>
@@ -278,6 +294,7 @@ File patterns:
   - src/api/**
   - src/routes/**</code></pre>
         <p>Configure guidelines in <strong>Repository Settings &gt; Code Review &gt; Copilot</strong>, or at the organization level for consistency across all repositories.</p>
+
         <aside class="speaker-notes">
           Here is what a coding guideline looks like. The title is short and descriptive: "API input validation required." The description is a natural language explanation of the rule: every public API endpoint must validate parameters using the shared validation library. You can be specific about what tools or libraries to use; in this case, we reference the @acme/validation package. The file patterns scope the guideline to the directories where API routes live. Copilot will only apply this rule when reviewing changes in those directories. You configure these guidelines in your repository settings under Code Review, Copilot, or at the organization level if you want them applied to every repository. Organization-level guidelines are especially powerful for enterprise teams that need consistent standards across hundreds of repositories.
         </aside>
@@ -310,6 +327,8 @@ File patterns:
           <li>Results appear as <strong>alerts</strong> in the Security tab and as <strong>annotations</strong> on pull requests</li>
           <li>Free for public repositories; included with <strong>GitHub Advanced Security</strong> for private repositories</li>
         </ul>
+
+        <img src="img/TODO-diagram-codeql-analysis-pipeline.png" alt="Diagram of the CodeQL code scanning analysis pipeline" />
         <aside class="speaker-notes">
           Code scanning is GitHub's built-in static analysis service. It automatically searches your repository for security vulnerabilities and common coding errors. Under the hood, it is powered by CodeQL, GitHub's semantic code analysis engine. CodeQL treats your code as data: it builds a database from your source code and then runs queries against that database to find patterns that match known vulnerability types. Code scanning runs as a GitHub Actions workflow. You can trigger it on every push, on pull requests, or on a schedule. Results appear in two places: as alerts in the Security tab of your repository, and as inline annotations on pull requests. For public repositories, code scanning is free. For private repositories, it is included with GitHub Advanced Security.
         </aside>
@@ -329,6 +348,7 @@ File patterns:
           <li>Supports <strong>C/C++, C#, Go, Java/Kotlin, JavaScript/TypeScript, Python, Ruby, and Swift</strong></li>
           <li>You can write <strong>custom CodeQL queries</strong> for organization-specific patterns</li>
         </ul>
+
         <aside class="speaker-notes">
           CodeQL works differently from a simple linter. It compiles your code into a relational database that captures the full structure: data flow, control flow, type information, and call graphs. Then it runs hundreds of security queries per language. These queries cover the OWASP Top 10, the CWE Top 25, and many more vulnerability patterns. One of its most powerful features is taint tracking. CodeQL can follow a piece of user input from where it enters the application, through function calls and transformations, all the way to a dangerous sink like a SQL query, a shell command, or a file write. If the data reaches the sink unsanitized, CodeQL flags it. It supports eight language ecosystems today. And if you have organization-specific patterns you want to detect, you can write custom CodeQL queries and add them to your scanning configuration.
         </aside>
@@ -361,6 +381,8 @@ File patterns:
           <li>You review the fix, then <strong>commit it with one click</strong> or open a PR</li>
           <li>Reduces mean time to remediation from <strong>days to minutes</strong></li>
         </ul>
+
+        <img src="img/TODO-screenshot-copilot-autofix-suggestion.png" alt="Screenshot of Copilot Autofix generating a fix for a security vulnerability" />
         <aside class="speaker-notes">
           Copilot Autofix bridges the gap between detection and remediation. When code scanning identifies a vulnerability, Copilot Autofix automatically generates a fix for it. The fix appears directly on the code scanning alert as a suggested change. It includes a natural language explanation of what the fix does and why, so you understand the change before applying it. You review the fix, and if it looks good, you commit it with one click or open a pull request. The impact is dramatic: teams that adopted Autofix report reducing their mean time to remediation from days to minutes. This is especially important for vulnerabilities found in production code, where every hour counts. Autofix currently supports JavaScript, TypeScript, Python, Java, C#, Go, Ruby, and C/C++.
         </aside>
@@ -389,6 +411,7 @@ from markupsafe import escape
 def search():
     query = request.args.get("q", "")
     return f"&lt;h1&gt;Results for: {escape(query)}&lt;/h1&gt;"</code></pre>
+
         <aside class="speaker-notes">
           Here is a real-world example. CodeQL finds a reflected cross-site scripting vulnerability in a Python Flask application. The search function takes user input from the query string and renders it directly into HTML without escaping. An attacker could inject malicious JavaScript through the query parameter. Copilot Autofix generates a fix: import the escape function from markupsafe and wrap the user input with it before rendering. The fix is minimal, targeted, and correct. It does not refactor the rest of the function or change the logic; it only addresses the vulnerability. You review the explanation, confirm it makes sense, and commit it. The whole process takes about thirty seconds.
         </aside>
@@ -421,6 +444,7 @@ def search():
           <li>Code scanning produces a CI status check; Copilot code review submits a pull request review. Both can block merging, but through different mechanisms: required status checks vs. required reviewers</li>
           <li>Human reviewers focus on <strong>architecture and business logic</strong>, not mechanical checks</li>
         </ul>
+
         <aside class="speaker-notes">
           The power of this approach is layering. Layer one is Copilot code review, which catches quality issues, readability concerns, and best-practice violations directly on the pull request. Layer two is code scanning with CodeQL, which runs as a CI check on every push or pull request and catches security vulnerabilities. Layer three is Copilot Autofix, which generates fixes for the vulnerabilities that code scanning finds. Code scanning produces a CI status check, while Copilot code review submits a pull request review. Both can block merging, but through different mechanisms: required status checks vs. required reviewers. This creates an automated quality gate. Human reviewers still play a critical role, but they focus on what they do best: evaluating architecture decisions, verifying business logic, and mentoring junior developers. The mechanical checks are handled by automation.
         </aside>
@@ -456,6 +480,7 @@ jobs:
         with:
           languages: ${{ matrix.language }}
       - uses: github/codeql-action/analyze@v3</code></pre>
+
         <aside class="speaker-notes">
           Here is a typical code scanning workflow. It triggers on pushes to main, on pull requests targeting main, and on a weekly schedule for catching issues in dormant code. The analyze job uses the official CodeQL actions. First, it checks out the code. Then it initializes CodeQL for the specified languages; in this case, JavaScript and Python as a matrix build. Finally, the analyze step runs the queries and uploads the results. That is it. Three steps and you have continuous security scanning. The results appear in the Security tab and as PR annotations. If you want Copilot Autofix to generate fixes automatically, you enable it in your repository's code security settings. No changes to the workflow file are needed; Autofix hooks into the existing code scanning pipeline.
         </aside>
@@ -489,6 +514,8 @@ jobs:
           <li>Admins can review bypass requests and audit all detected secrets in the Security tab</li>
           <li>Admins define custom secret scanning patterns using regex. GitHub's AI-powered generic secret detection can detect unstructured credentials without explicit patterns</li>
         </ul>
+
+        <img src="img/TODO-screenshot-push-protection-blocking.png" alt="Screenshot of push protection blocking a commit containing a detected secret" />
         <aside class="speaker-notes">
           Secret scanning is one of the most immediately valuable security features on GitHub. It scans your repository for known token patterns: API keys, passwords, certificates, connection strings, and more. It supports over two hundred patterns from providers like AWS, Azure, Google Cloud, Slack, Stripe, and many others. But detection after the fact is not ideal. That is why push protection exists. Push protection intercepts the git push on the server side and blocks it before the secret ever lands in the remote repository. The developer sees a clear error message explaining which secret was found, what line it is on, and how to fix it. They can remove the secret, mark it as a false positive, or request a bypass. Bypass requests go to an admin for review. All detected secrets are auditable in the Security tab. Admins can define custom secret scanning patterns using regex for organization-specific secret formats. GitHub's AI-powered generic secret detection can also detect unstructured credentials without explicit patterns.
         </aside>
@@ -522,6 +549,7 @@ jobs:
           <li>Combine with <strong>CODEOWNERS</strong> for domain-specific approval workflows</li>
           <li>Supports regulatory frameworks: SOC 2, ISO 27001, FedRAMP, and more</li>
         </ul>
+
         <aside class="speaker-notes">
           Enterprise governance ties all of these tools into a policy framework. Repository rulesets let you define exactly what must happen before code can be merged: required reviews, passing status checks, commit signing, and more. You can define these rulesets at the organization level, so every repository automatically inherits the same policies. This is critical for compliance. You can require Copilot code review as a merge prerequisite, meaning no PR can be merged without automated review. You can require code scanning to pass, meaning no PR can be merged with open high-severity vulnerabilities. The audit log provides a complete record of who approved, who merged, who bypassed a rule, and who dismissed a security alert. CODEOWNERS files add another layer by requiring domain-specific approvals; for example, changes to the authentication module require sign-off from the security team. Together, these controls support regulatory frameworks like SOC 2, ISO 27001, and FedRAMP.
         </aside>

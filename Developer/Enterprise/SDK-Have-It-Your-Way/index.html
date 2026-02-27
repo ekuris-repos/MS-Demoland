@@ -99,6 +99,8 @@
             </ul>
           </div>
         </div>
+
+        <img src="img/TODO-diagram-copilot-sdk-architecture.png" alt="Diagram of the Copilot SDK architecture: app, SDK, GitHub API, and model" />
         <aside class="speaker-notes">
           The Copilot SDK opens up a wide range of scenarios. On the customer-facing side, you can embed Copilot intelligence into your own web applications, build chat widgets that sit inside your product, or integrate AI into mobile experiences. On the internal side, think Slack bots that answer engineering questions, CLI tools that help developers automate repetitive tasks, or internal portals that surface knowledge from your organization's documentation. The key idea is that Copilot is no longer confined to the editor; it becomes a service you can call from anywhere.
         </aside>
@@ -119,6 +121,7 @@
           <li><strong>Model abstraction:</strong> Switch between GitHub Models and Azure OpenAI with minimal configuration changes</li>
           <li><strong>Production hardened:</strong> A client SDK for building applications powered by the Copilot platform</li>
         </ul>
+
         <aside class="speaker-notes">
           You might wonder why you need an SDK at all when you could just call model APIs directly. The answer is that the SDK does a lot of heavy lifting for you. It manages sessions and conversation state, orchestrates tool calls automatically, handles streaming with proper backpressure, and integrates with GitHub's authentication system so you do not need separate API keys. It also gives you model abstraction: you can switch between GitHub Models and Azure OpenAI with minimal configuration changes. The SDK provides a client library for building applications powered by the Copilot platform, so you get a well-supported foundation out of the box.
         </aside>
@@ -151,6 +154,7 @@
           <li><strong>Tool definitions:</strong> JSON Schema descriptions of functions the model can invoke during a conversation</li>
           <li><strong>Response stream:</strong> An async iterable that yields tokens, tool-call events, and completion signals</li>
         </ul>
+
         <aside class="speaker-notes">
           The SDK is built around a handful of core components. The CopilotClient is your main entry point; you create one, authenticate it, and use it to open sessions. A Session represents a single conversation with its own message history and model configuration. Messages are individual turns in the conversation, each tagged with a role like "user" or "assistant." Tool definitions let you describe functions the model can call, and the response stream gives you an async iterable you can consume token by token for real-time output. These components compose together cleanly, and we will see each one in action as we build our first app.
         </aside>
@@ -171,6 +175,7 @@
           <li>If a <strong>tool call</strong> is requested, the SDK invokes your registered handler and returns the result to the model</li>
           <li>The <strong>final response</strong> is returned to your application as a complete message or a token stream</li>
         </ol>
+
         <aside class="speaker-notes">
           Let's walk through the message flow step by step. Your application creates a CopilotClient and opens a session. When the user types something, you send that message through the SDK. The SDK packages it up with session context and forwards it to the Copilot service. The model processes the message and either generates a direct response or requests a tool call. If a tool call is requested, the SDK automatically invokes your registered handler, feeds the result back to the model, and the model produces its final response. Your application receives either a complete message or a streaming token sequence. The important takeaway is that tool-call orchestration is fully automatic; you just register your handlers and the SDK does the rest.
         </aside>
@@ -184,6 +189,16 @@
       <div class="slide-inner">
         <span class="badge">Part 3</span>
         <h2>Getting Started</h2>
+        <pre class="mermaid">
+graph LR
+  A[User Message] --> B[SDK Client]
+  B --> C[Copilot Service]
+  C --> D{Stream?}
+  D -->|Yes| E[Token Chunks]
+  D -->|No| F[Complete Response]
+  E --> G[Client Renders]
+  F --> G
+        </pre>
         <aside class="speaker-notes">
           With the architecture in mind, let's scaffold a project and look at the file structure we will be working with.
         </aside>
@@ -207,6 +222,7 @@ npm install</code></pre>
           <li>An <code>azure.yaml</code> manifest for <code>azd up</code> deployment</li>
           <li>Example tool definitions and handlers</li>
         </ul>
+
         <aside class="speaker-notes">
           The quickest way to get started is with the azd template. Run "azd init --template azure-samples/copilot-sdk-service" and you get a project that is ready to deploy from day one. The template gives you an Express server pre-wired with the Copilot SDK, Bicep infrastructure files for Container Apps deployment, an azure.yaml manifest so you can deploy with a single "azd up" command, and example tool definitions you can customize. You will not need to configure authentication, set up build pipelines, or wire up infrastructure from scratch. This is the recommended starting point for any production project.
         </aside>
@@ -229,6 +245,7 @@ npm install</code></pre>
 ├── package.json
 └── tsconfig.json</code></pre>
         <p>The <code>src/api/</code> directory contains the Express server and Copilot SDK integration. The <code>src/web/</code> directory provides a React-based UI. The <code>infra/</code> directory defines Azure resources in Bicep, and <code>azure.yaml</code> ties everything together for <code>azd</code> deployments.</p>
+
         <aside class="speaker-notes">
           The template gives you a complete project with two main areas. The src/api directory contains the Express server and Copilot SDK integration. The src/web directory provides a React-based front end. The infra directory has Bicep files for Azure infrastructure, and azure.yaml ties everything together for azd deployments. This structure keeps concerns separated cleanly: your API logic, your front-end code, and your infrastructure are all in distinct directories.
         </aside>
@@ -269,6 +286,19 @@ const response = await session.sendAndWait(
 );
 
 console.log(response);</code></pre>
+
+        <pre class="mermaid">
+sequenceDiagram
+  participant User
+  participant SDK as SDK Agent
+  participant Tool as Tool Handler
+  User->>SDK: Send message
+  SDK->>SDK: Model requests tool call
+  SDK->>Tool: Invoke handler
+  Tool-->>SDK: Return result
+  SDK->>SDK: Feed result to model
+  SDK-->>User: Final response
+        </pre>
         <aside class="speaker-notes">
           This is the simplest possible Copilot SDK application. You import CopilotClient from the package, create an instance with your GitHub token, and open a session. Then you call sendAndWait with a user message and get back a response. That is it: a few lines of meaningful code to get a working Copilot integration. Notice that you do not specify a model, manage context windows, or handle retries. The SDK takes care of all of that. In production you would not hardcode the token, of course, but this shows just how simple the happy path is.
         </aside>
@@ -303,6 +333,7 @@ app.post("/chat", async (req, res) =&gt; {
 });
 
 app.listen(3000);</code></pre>
+
         <aside class="speaker-notes">
           Here we wire the SDK into an Express server. The /chat endpoint accepts a message and creates a new session. The response includes both the assistant's reply and the session ID so the client can reference it in future requests. This is the pattern you will use for web applications, chat widgets, and API services. The key thing to notice is createSession: it initializes a new conversation that you can then interact with through the session object.
         </aside>
@@ -343,6 +374,7 @@ app.listen(3000);</code></pre>
   res.write("data: [DONE]\n\n");
   res.end();
 });</code></pre>
+
         <aside class="speaker-notes">
           Streaming is essential for a good user experience. Instead of waiting for the entire response to generate, you send chunks to the client as they arrive. The SDK's send method returns an async iterable that you consume in a for-await loop. We use Server-Sent Events here, but you could also use WebSockets or any other streaming transport. The key difference from sendAndWait is that send does not block. You iterate over the stream and forward each chunk to your client. This gives users near-instant feedback and makes long responses feel fast.
         </aside>
@@ -375,6 +407,8 @@ app.listen(3000);</code></pre>
 // Register tools with the session
 const session = await client.createSession({ tools });</code></pre>
         <p>The SDK handles tool orchestration automatically. When the model decides to invoke a tool, the SDK manages the call and feeds the result back into the conversation.</p>
+
+        <img src="img/TODO-diagram-sdk-multi-turn-state.png" alt="Diagram of multi-turn conversation state management in the SDK" />
         <aside class="speaker-notes">
           Tool integration is where the SDK really shines. You define tools as JSON Schema objects with a name, description, and parameter schema. Then you pass them when you create a session. When the model decides it needs to invoke a tool, the SDK handles the orchestration automatically and feeds the result back into the conversation. This pattern works for database lookups, API calls, file operations, or any other server-side action you want the model to invoke.
         </aside>
@@ -418,6 +452,7 @@ const session = await client.createSession({ tools });</code></pre>
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The SDK gives you two levels of context management. By default, it handles everything automatically: message history is tracked in the session, context windows are managed so you do not exceed token limits, and tool-call results are retained for the model to reference later. When you need more control, you can provide additional context through system messages in the conversation. You can also persist sessions for continuity across HTTP requests. This balance of automatic and explicit control means most applications work out of the box, but you can fine-tune when you need to.
         </aside>
@@ -448,6 +483,7 @@ const r3 = await session.sendAndWait(
   + "within 24 hours. Is it too late to cancel?"
 );
 // Model checks order date against the stated policy</code></pre>
+
         <aside class="speaker-notes">
           Here is a practical example of multi-turn in action. In turn one, the user asks about an order, and the model automatically calls the lookup_order tool. In turn two, the user says "Can you cancel it?" and the model resolves "it" to ORD-1234 from the session history. In turn three, we provide additional context directly in the user message, and the model factors that context into its response. This is the experience your users expect from a conversational interface: natural follow-ups, pronoun resolution, and context-aware answers. The SDK handles the complexity of maintaining conversation state.
         </aside>
@@ -496,6 +532,7 @@ const session = await client.createSession({
           <li><strong>Data residency:</strong> Keep data within your Azure region and subscription</li>
           <li><strong>Custom models:</strong> Point to any OpenAI-compatible endpoint</li>
         </ul>
+
         <aside class="speaker-notes">
           Bring Your Own Model, or BYOM, is critical for enterprise adoption. Many organizations require data residency guarantees or have existing Azure OpenAI deployments they want to leverage. With the SDK, you configure the provider at the session level, passing a pre-fetched bearer token and your Azure OpenAI endpoint. The rest of your code stays the same: tools, streaming, and multi-turn conversations all work identically regardless of the model backend. You can also point to any OpenAI-compatible endpoint, so self-hosted models are supported too.
         </aside>
@@ -530,6 +567,7 @@ const session = await client.createSession({
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The decision between GitHub Models and BYOM depends on your requirements. GitHub Models is the fastest path: no Azure subscription, automatic model updates, and built-in rate limits. It is perfect for prototypes, developer tools, and internal applications where simplicity matters. BYOM with Azure OpenAI is the choice when you need data residency guarantees, custom fine-tuned models, managed identity authentication, or dedicated capacity via Provisioned Throughput Units. Regulated industries, healthcare, finance, and government workloads will almost always need BYOM. The good news is that you can start with GitHub Models and switch to BYOM later with minimal configuration changes.
         </aside>
@@ -565,6 +603,7 @@ azd up --environment production</code></pre>
           <li><strong>Infrastructure as code:</strong> Bicep files in the <code>infra/</code> directory define all resources</li>
           <li><strong>CI/CD:</strong> The template includes a GitHub Actions workflow for automated deployments</li>
         </ul>
+
         <aside class="speaker-notes">
           Deployment is straightforward because the azd template includes everything you need. Run "azd up" and the CLI provisions your Azure resources, builds your application, and deploys it. The template targets Container Apps by default, which gives you Kubernetes-based infrastructure, scale-to-zero capability, and Dapr integration for microservices. App Service is also possible but would require Bicep modifications. The infrastructure is defined in the Bicep files under the infra directory, so everything is fully codified and reproducible. The template also includes a GitHub Actions workflow, so you can set up automated deployments from day one.
         </aside>
@@ -585,6 +624,7 @@ azd up --environment production</code></pre>
           <li><strong>Alerts:</strong> Set thresholds for error rates, latency spikes, and quota consumption</li>
         </ul>
         <p>Use Azure Application Insights or your preferred logging framework to track Copilot-specific metrics. The azd template configures Application Insights automatically, so request tracing and dependency tracking are available out of the box.</p>
+
         <aside class="speaker-notes">
           Once your app is in production, observability is essential. The azd template configures Application Insights automatically, giving you request tracing, dependency tracking, and exception logging out of the box. Beyond the basics, you should track Copilot-specific metrics: token usage per session so you can forecast costs, time-to-first-token for user experience monitoring, and tool-call analytics to understand which tools are being used and how often they fail. Use standard logging and Application Insights custom events to capture these metrics. Set alerts on error rates and latency spikes so you catch issues before your users do.
         </aside>
@@ -630,6 +670,7 @@ azd up --environment production</code></pre>
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Authentication is the most critical security consideration for any Copilot SDK application. When using GitHub Models, you authenticate with a GitHub token. In production, this should be a GitHub App installation token or an OAuth App token stored in Azure Key Vault, never in environment variables or source code. Implement token rotation on a schedule and monitor for unauthorized usage. When using BYOM with Azure OpenAI, the picture is simpler: use managed identities and you have no secrets to manage at all. DefaultAzureCredential handles credential rotation automatically. Whichever path you choose, apply the principle of least privilege. Your application should only have access to the models and tools it needs, nothing more.
         </aside>
@@ -650,6 +691,7 @@ azd up --environment production</code></pre>
           <li><strong>Network security:</strong> Run your service in a virtual network. Restrict outbound traffic to known endpoints</li>
           <li><strong>Prompt injection defense:</strong> Use system instructions to constrain model behavior. Validate tool outputs before acting on them</li>
         </ul>
+
         <aside class="speaker-notes">
           Beyond authentication, there are several security practices you should follow. Validate all user input before sending it to the model, and validate tool-call arguments against your JSON schemas to prevent injection attacks. Filter model responses for sensitive data; the model might inadvertently surface information from its context that should not reach the end user. Implement per-user rate limits to prevent both abuse and runaway costs. Log everything: every tool call, every model interaction, every authentication event. These logs are essential for incident response and compliance audits. Run your service in a virtual network and restrict outbound traffic to only the endpoints it needs. Finally, design your system instructions to constrain the model's behavior and treat tool outputs as untrusted input that needs validation before acting on it.
         </aside>

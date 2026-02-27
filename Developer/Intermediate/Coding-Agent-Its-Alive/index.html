@@ -84,6 +84,16 @@
           <li>Uses your repository's context: code, docs, instructions, and setup files</li>
           <li>Available on <strong>Copilot Pro+, Business, and Enterprise</strong> plans</li>
         </ul>
+
+        <pre class="mermaid">
+graph LR
+  A[Issue Assigned] --> B[VM Spun Up]
+  B --> C[Repo Cloned]
+  C --> D[Plan Created]
+  D --> E[Code Written]
+  E --> F[Tests Run]
+  F --> G[PR Opened]
+        </pre>
         <aside class="speaker-notes">
           The GitHub Coding Agent is a cloud-based autonomous agent that runs entirely on GitHub's infrastructure. You do not need VS Code open; you do not need your laptop running. You assign an issue to the agent, and it spins up a fresh virtual machine, clones your repository, reads the issue description, plans its approach, writes code, and opens a pull request. Each session runs in an isolated, ephemeral environment. That means the agent starts clean every time and cannot persist state between sessions. It has access to your repository's code, documentation, and instruction files, but nothing outside that boundary. The Coding Agent is available on Copilot Pro+, Business, and Enterprise plans.
         </aside>
@@ -118,6 +128,8 @@
             </ul>
           </div>
         </div>
+
+        <img src="img/TODO-diagram-coding-agent-environment.png" alt="Diagram of the coding agent's isolated Firecracker VM environment" />
         <aside class="speaker-notes">
           This is where people often get confused, so let's be explicit. The Coding Agent and VS Code agent mode are both "agentic" experiences, but they run in completely different environments. The Coding Agent is cloud-based. It runs on GitHub, is triggered by assigning an issue, and works asynchronously. You can literally close your laptop and come back later to find a pull request waiting for you. VS Code agent mode is local. It runs inside your editor, is triggered by chat prompts, and you interact with it in real time. It can access your local files, run terminal commands, and use MCP servers. Think of it this way: VS Code agent mode is your hands-on workshop; the Coding Agent is your off-hours assistant. They complement each other, and we will cover how to hand work between them later in this session.
         </aside>
@@ -138,6 +150,7 @@
           <li><strong>5. Pull request</strong> - It opens a PR with a description, links to the issue, and a summary of changes</li>
           <li><strong>6. Review loop</strong> - You review, leave comments, and the agent can address feedback</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's walk through the lifecycle step by step. It starts when you assign an issue to the Coding Agent, either by tagging @copilot in a comment, requesting changes in a code review, or using the "Assign to Copilot" button on the issue. The agent then spins up a fresh virtual machine and runs your copilot-setup-steps.yml file to install dependencies and build the project. Next, it enters a planning phase where it reads the issue description, your custom instructions, and the relevant parts of your codebase. Then it implements the changes: writing code, running tests, and iterating if tests fail. When it is satisfied, it opens a pull request that links back to the original issue and includes a summary of what it did and why. Finally, you review the PR. If you leave comments requesting changes, the agent can pick those up and push additional commits. It is a full review loop, not just a one-shot code dump.
         </aside>
@@ -151,6 +164,7 @@
       <div class="slide-inner">
         <span class="badge">Part 2</span>
         <h2>Triggering the Coding Agent</h2>
+        <img src="img/TODO-screenshot-assign-agent-to-issue.png" alt="Screenshot of assigning the Copilot coding agent to a GitHub issue" />
         <aside class="speaker-notes">
           Now that we understand what the Coding Agent is, let's look at how to actually trigger it and set it up for success.
         </aside>
@@ -170,6 +184,8 @@
           <li>The agent starts working within seconds and posts a status comment on the issue</li>
           <li>You can track progress directly in the issue thread</li>
         </ul>
+
+        <img src="img/TODO-screenshot-agent-progress-session.png" alt="Screenshot of watching the coding agent's progress in real time" />
         <aside class="speaker-notes">
           There are a few ways to trigger the Coding Agent. The simplest is clicking the "Assign to Copilot" button that appears in the issue sidebar. You can also mention @copilot in a comment on the issue, which is useful if you want to add specific instructions beyond the issue description. A third option is selecting Copilot from the assignee dropdown, just like you would assign an issue to a teammate. Whichever method you choose, the agent starts working within seconds and posts a status comment on the issue so you can track its progress. It will update that comment as it moves through planning, implementation, and PR creation.
         </aside>
@@ -204,6 +220,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           The quality of the issue description directly determines the quality of the agent's output. Think of the issue as your spec. A good issue has a clear, specific title and describes the desired outcome, not just the problem. It lists acceptance criteria so the agent knows what "done" looks like. It references specific files, functions, or APIs when relevant. And critically, it is scoped to a single task. The agent does much better with focused changes than with sweeping refactors. On the other hand, vague issues like "Fix the bug" or "Update the UI" give the agent almost nothing to work with. Multi-part issues that bundle unrelated tasks together will also produce poor results. The agent works best when it can focus on one coherent piece of work.
         </aside>
@@ -223,6 +240,8 @@
           <li>You can <strong>reply to those questions</strong> and the agent will incorporate your answers</li>
           <li>The session also appears in <strong>Copilot's activity feed</strong> on github.com</li>
         </ul>
+
+        <img src="img/TODO-screenshot-agent-setup-steps-config.png" alt="Screenshot of the copilot-setup-steps.yml configuration file" />
         <aside class="speaker-notes">
           One of the great things about the Coding Agent is transparency. It does not just disappear into a black box. As it works, it posts real-time updates as comments on the issue. You can see the plan it formulates before it starts writing code. If it encounters ambiguity or gets stuck, it will post a clarifying question right in the issue thread. You can reply to that question, and the agent will incorporate your answer into its approach. This makes it a collaborative process, not a fire-and-forget one. You can also monitor all active sessions through Copilot's activity feed on github.com, which gives you an overview of everything the agent is working on across your organization.
         </aside>
@@ -255,6 +274,7 @@
           <li>Great for: coding standards, language preferences, required patterns, security policies</li>
           <li>The Coding Agent reads these instructions <strong>before</strong> it starts planning</li>
         </ul>
+
         <aside class="speaker-notes">
           Organization-level instructions are the broadest layer of configuration. Every GitHub organization can have a special repository called ".github" which holds org-wide configuration files. Inside that repository, you create a file at .github/copilot-instructions.md. The Coding Agent reads this file before it begins planning on any repository in your organization. This makes it the right place for universal standards: coding conventions, language preferences, required patterns, and security policies. For example, if your organization mandates that all new code must include unit tests, or that SQL queries must use parameterized statements, that belongs in the org-level instructions. Think of it as the baseline that applies everywhere unless a repository overrides it.
         </aside>
@@ -283,6 +303,7 @@
 - Keep PRs focused on a single concern.
 - Include a clear description of what changed and why.
 - Reference the originating issue number.</code></pre>
+
         <aside class="speaker-notes">
           Here is what an organization-level copilot-instructions.md file might look like. It starts with general rules: default to TypeScript, use the repo's ESLint and Prettier configs, and always include unit tests. Then it has a security section covering secrets, parameterized queries, and input validation. Finally, there are pull request standards for how the agent should structure its PRs. Notice the tone: these are clear, direct instructions. The agent follows them literally, so avoid vague guidance like "write good code." Be specific about what "good" means in your organization. This file lives in the .github repository at the org level, inside the .github directory of that repo.
         </aside>
@@ -302,6 +323,7 @@
           <li>The agent reads both org-level and repo-level instructions together</li>
           <li>Repo-level instructions can <strong>specialize</strong> (not override) org-level ones</li>
         </ul>
+
         <aside class="speaker-notes">
           In addition to organization-level instructions, each repository can have its own copilot-instructions.md file in its .github directory. These instructions are scoped to that single repository. This is where you put project-specific guidance: the framework you use, architectural patterns, naming conventions, and any rules that are unique to this codebase. The agent reads both layers together. Org-level instructions set the baseline; repo-level instructions add specificity. For example, your org instructions might say "write TypeScript," and your repo instructions might add "use the NestJS framework with the repository pattern." They compose together rather than one replacing the other.
         </aside>
@@ -328,6 +350,8 @@
 ## Styling
 - Use Tailwind CSS utility classes. Do not create custom CSS files.
 - Follow the design tokens defined in `tailwind.config.ts`.</code></pre>
+
+        <img src="img/TODO-diagram-issue-quality-agent-output.png" alt="Diagram showing how issue clarity affects coding agent output quality" />
         <aside class="speaker-notes">
           Here is a repository-level instructions file for a Next.js project. It tells the Coding Agent exactly what framework is in use, where files should go, which testing tools to use, and how to handle styling. Notice how specific this is: "API routes live in app/api and use Route Handlers," "Place unit tests next to the source file." This level of detail helps the agent produce code that fits naturally into your existing codebase. Without these instructions, the agent would have to infer the architecture from the code alone, which works sometimes but not always. Being explicit eliminates guesswork and produces better results on the first try.
         </aside>
@@ -353,6 +377,7 @@
           <li>Instructions from all layers are combined. Avoid conflicts between layers, as conflicting instructions may produce unpredictable behavior</li>
           <li>Keep each layer focused: org = universal, repo = project, issue = task</li>
         </ul>
+
         <aside class="speaker-notes">
           Understanding how these layers compose is key to configuring the Coding Agent effectively. The agent reads instructions from three sources: organization-level, repository-level, and the issue description itself. All three layers are combined into a single context for the agent to follow. If there are conflicts between layers, the behavior may be unpredictable, so avoid placing contradictory instructions at different levels. The best practice is to keep each layer focused on its scope. Organization instructions set universal standards. Repository instructions define project-specific patterns. Issue descriptions provide task-specific context. When you maintain this discipline, the layers work together cleanly and the agent produces consistent, predictable output.
         </aside>
@@ -385,6 +410,7 @@
           <li>Installs dependencies, builds the project, and prepares the environment</li>
           <li>Without this file, the agent <strong>cannot verify its own work</strong> by running tests or builds</li>
         </ul>
+
         <aside class="speaker-notes">
           The copilot-setup-steps.yml file is one of the most important configuration files for the Coding Agent. It lives at .github/copilot-setup-steps.yml in your repository. This file tells the agent what commands to run to set up the development environment before it starts writing code. It uses the same step syntax as GitHub Actions, so if you have experience with Actions workflows, this will look very familiar. The setup steps typically install dependencies, build the project, and verify that the test suite passes. This is critical because it lets the agent validate its own work. If you skip this file, the agent has no way to run your tests or build your project, which means it is coding blind. Always provide setup steps.
         </aside>
@@ -414,6 +440,7 @@
           <li>Keep setup steps <strong>fast</strong>; every second adds to the agent's turnaround time</li>
           <li>Use <code>npm ci</code> instead of <code>npm install</code> for deterministic, faster installs</li>
         </ul>
+
         <aside class="speaker-notes">
           Here is a straightforward example for a Node.js project. It uses the setup-node action to configure Node 20, runs npm ci to install dependencies deterministically, builds the project, and then runs the test suite. The agent executes these steps in order before it starts its work, and it will also re-run the tests after making changes to verify everything still passes. One important tip: keep your setup steps fast. Every second your setup takes is added to the agent's total turnaround time. Use npm ci instead of npm install because it is faster and deterministic. Avoid heavy build steps that are not necessary for the agent's work. If your project has a lengthy compilation step, consider whether a lighter alternative exists for the agent's environment.
         </aside>
@@ -446,6 +473,7 @@
           <li>Leave <strong>review comments</strong>; the agent can push follow-up commits to address them</li>
           <li>If the changes are fundamentally wrong, <strong>close the PR</strong> and refine the issue</li>
         </ul>
+
         <aside class="speaker-notes">
           When the Coding Agent finishes, it opens a pull request linked to the originating issue. The PR includes a description summarizing what the agent did, which files it changed, and its reasoning. Review this PR exactly as you would review a PR from a teammate. Check correctness: does the code actually solve the problem? Check style: does it follow your conventions? Check test coverage: did it add or update tests? Check edge cases: did it handle error scenarios? If you find issues, leave review comments. The agent can pick up those comments and push follow-up commits. This works just like a normal review cycle. If the approach is fundamentally wrong, the better option is to close the PR, refine the issue description with more detail, and reassign it.
         </aside>
@@ -480,6 +508,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Over time, you will notice patterns in what the Coding Agent excels at and where it needs extra scrutiny. The agent is strong at generating boilerplate, CRUD endpoints, data models, unit tests for existing functions, documentation updates, and small, well-scoped refactors. These are tasks with clear patterns and limited ambiguity. Where you should review more carefully: complex business logic with lots of edge cases, performance-sensitive code, security-critical flows like authentication and authorization, cross-service integration points, and large-scale architectural changes. The agent can attempt all of these, but the risk of subtle mistakes is higher. The rule of thumb is simple: the more ambiguity in the task, the more carefully you should review the output.
         </aside>
@@ -499,6 +528,7 @@
           <li>Assign the issue to the Coding Agent to <strong>complete the implementation</strong></li>
           <li>This frees you to move on to other work while the agent finishes the task</li>
         </ul>
+
         <aside class="speaker-notes">
           One of the most powerful workflows is starting a task locally and then handing it off to the Coding Agent. Here is how it works. You begin in VS Code agent mode, using Copilot interactively to prototype, explore the codebase, and figure out the right approach. Once you have a clear picture of what needs to happen, you write a detailed GitHub Issue capturing everything you learned: which files need to change, which functions are involved, and what the acceptance criteria are. Then you assign that issue to the Coding Agent. Because you have already done the exploration, the issue description is detailed and specific, which means the agent is set up for success. Meanwhile, you are free to move on to other work. This pattern is especially effective for tasks that are conceptually straightforward but time-consuming to implement, like propagating a pattern across multiple files.
         </aside>
@@ -518,6 +548,7 @@
           <li>Push your refinements to the same branch; the PR updates automatically</li>
           <li>This "agent start, human finish" pattern combines speed with precision</li>
         </ul>
+
         <aside class="speaker-notes">
           The reverse handoff is just as valuable. The Coding Agent opens a PR, and you check out that branch locally in VS Code. Now you have the agent's work in your editor, and you can use VS Code agent mode or Copilot Chat to refine it. Maybe you want to adjust the styling, add a few more test cases, or tweak the error handling. You can also run the app locally to verify behavior that automated tests might not cover, like the look and feel of a UI change. Any commits you push to that branch automatically update the pull request. This "agent start, human finish" pattern is extremely productive. The agent handles the bulk of the implementation, and you add the polish and nuance that require human judgment.
         </aside>
@@ -550,6 +581,7 @@
           <li>Organization admins can <strong>enable or disable</strong> the Coding Agent at the org and repo level</li>
           <li>Monitor usage through <strong>Copilot metrics</strong> in your organization settings</li>
         </ul>
+
         <aside class="speaker-notes">
           The Coding Agent is not unlimited. Each run consumes GitHub Actions minutes. On Pro+ plans, you have an included Actions minutes allocation. On Business and Enterprise, minutes are drawn from an organization-level pool. Organization admins should monitor usage through the Copilot metrics dashboard in GitHub's organization settings. Planning-wise, keep in mind that sessions are ephemeral. The agent starts fresh every time, which means it does not learn from previous runs. If you need to build on previous work, reference it explicitly in the issue description. Admins can also control access: the Coding Agent can be enabled or disabled at the organization level, and it can be turned off for specific repositories if needed. This gives you fine-grained control over where the agent is active.
         </aside>
@@ -570,6 +602,7 @@
           <li>The agent's changes go through your <strong>normal review process</strong>: branch protection, CI, and code review</li>
           <li>Organization policies and <strong>rulesets</strong> apply to agent-created branches and PRs</li>
         </ul>
+
         <aside class="speaker-notes">
           Security is understandably a top concern when giving an AI agent write access to your codebase. Here is what you need to know. The Coding Agent has read and write access to the repository it is assigned to; it creates branches, commits code, and opens pull requests. It cannot access repository secrets or Actions environment variables. The agent does have outbound network access for installing dependencies from public registries. Each session runs in a sandboxed VM that is destroyed when the session ends. On Business and Enterprise plans, no prompts or code are retained for model training. Importantly, the agent's output goes through all of your existing safeguards. Branch protection rules still apply. CI pipelines still run. Code review is still required before merging. The agent does not bypass any of your organization's policies or rulesets. It is subject to the same guardrails as any other contributor.
         </aside>
@@ -591,6 +624,7 @@
           <li><strong>Use handoff workflows</strong>; explore locally, then delegate to the agent (and vice versa)</li>
           <li><strong>Monitor capacity</strong>; track Actions minutes usage across your organization</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's distill everything we have covered into actionable best practices. First, write detailed issues. The issue is the agent's spec; the more precise it is, the better the output. Second, scope tasks tightly. One issue should map to one focused change. Third, always provide copilot-setup-steps.yml so the agent can build and test your project. Fourth, layer your instructions thoughtfully: organization-level for universal standards, repository-level for project specifics. Fifth, review iteratively. Leave comments on the PR and let the agent address them rather than closing and starting over. Sixth, use handoff workflows. Start locally in VS Code to explore, then hand off to the agent for implementation, or vice versa. Seventh, monitor capacity. Track how many Actions minutes your organization is using so you can plan accordingly.
         </aside>

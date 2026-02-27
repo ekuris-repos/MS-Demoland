@@ -88,6 +88,8 @@
           <li>The protocol handles discovery, invocation, and response formatting automatically</li>
           <li>Think of MCP as a <strong>universal adapter</strong> between AI and your organization's systems</li>
         </ul>
+
+        <img src="img/TODO-diagram-enterprise-mcp-architecture.png" alt="Diagram of MCP architecture in an enterprise environment" />
         <aside class="speaker-notes">
           MCP is the Model Context Protocol, an open standard originally created by Anthropic and now widely adopted across the AI tooling ecosystem. It defines how AI clients, such as GitHub Copilot, VS Code, or other model hosts, communicate with external servers that provide tools, resources, prompts, sampling, and elicitation. The key benefit is standardization: instead of writing custom integrations for every AI client, you build one MCP server and any compatible client can use it. This is the foundation everything else in this course builds on.
         </aside>
@@ -107,6 +109,7 @@
           <li><strong>Composability:</strong> Multiple servers can be combined to build complex workflows</li>
           <li><strong>Governance:</strong> Centralized control over which tools are approved and how they are used</li>
         </ul>
+
         <aside class="speaker-notes">
           At enterprise scale, MCP solves several critical problems. First, it replaces ad-hoc integrations with a single, well-defined protocol. Second, it provides a natural security boundary; the MCP server decides exactly what data to expose and what actions to allow. Third, because tools are self-describing with JSON schemas, clients can discover and validate them automatically. Finally, composability means you can combine multiple MCP servers into sophisticated workflows without modifying any individual server. These properties make MCP uniquely suited for enterprise environments where governance, security, and maintainability are paramount.
         </aside>
@@ -120,6 +123,14 @@
       <div class="slide-inner">
         <span class="badge">Part 2</span>
         <h2>Architecture Deep Dive</h2>
+        <pre class="mermaid">
+graph LR
+  A[Discover] --> B[Connect]
+  B --> C[Invoke]
+  C --> D[Monitor]
+  D --> E[Update]
+  E --> B
+        </pre>
         <aside class="speaker-notes">
           Now let's go deeper into the architecture of MCP. Understanding the client-server model and transport layers is essential for making good design decisions when building production servers.
         </aside>
@@ -140,6 +151,7 @@
           <li>A host can manage <strong>multiple clients</strong>, each connected to a different server</li>
           <li>Communication uses <strong>JSON-RPC 2.0</strong> as the message format</li>
         </ul>
+
         <aside class="speaker-notes">
           The MCP architecture has three layers. The host is the user-facing application, such as VS Code or GitHub Copilot Chat. Inside the host, one or more MCP clients are created, each maintaining a one-to-one connection with an MCP server. The server is a separate process that exposes capabilities through the protocol. All communication uses JSON-RPC 2.0, which provides a standardized request-response format with support for notifications. This separation of concerns means servers can be developed, tested, and deployed independently from clients.
         </aside>
@@ -162,6 +174,7 @@
             <p>Server runs as an HTTP endpoint. Supports both request-response and server-sent events for streaming. The recommended transport for remote and production deployments.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           MCP supports two primary transport mechanisms. The stdio transport runs the server as a local child process, communicating through standard input and output streams. This is the simplest option and works well for local development in VS Code. The Streamable HTTP transport, which supersedes the older HTTP+SSE transport, runs the server as an HTTP endpoint. It uses standard HTTP POST for client-to-server messages and server-sent events for server-to-client streaming. Streamable HTTP is the recommended choice for remote deployments, shared team servers, and production environments. When planning your architecture, start with stdio for development and target Streamable HTTP for production.
         </aside>
@@ -181,6 +194,7 @@
           <li><strong>Notify:</strong> Either side can send notifications (e.g., tool list changed, progress updates)</li>
           <li><strong>Shutdown:</strong> Graceful disconnection with cleanup</li>
         </ul>
+
         <aside class="speaker-notes">
           Every MCP session follows a predictable lifecycle. The client initiates with an initialize request, declaring its capabilities. The server responds with its own capabilities, including which protocol features it supports. After initialization, the client discovers available tools, resources, and prompts by querying the server. During the active session, the client can invoke tools by sending requests with typed arguments. The server validates those arguments against the tool's schema, executes the operation, and returns structured results. Both sides can send notifications for events like tool list changes or progress updates. Finally, either side can initiate a graceful shutdown. Understanding this lifecycle helps you design servers that handle each phase correctly.
         </aside>
@@ -226,6 +240,19 @@
             <p>Community SDKs available for Java, Go, Rust, and more. The protocol is language-agnostic; any language that can handle JSON-RPC over stdio or HTTP can implement a server.</p>
           </div>
         </div>
+
+        <pre class="mermaid">
+sequenceDiagram
+  participant Client as MCP Client
+  participant Server as MCP Server
+  participant Auth as Auth Provider
+  Client->>Auth: Request token
+  Auth-->>Client: Token issued
+  Client->>Server: Connect + token
+  Server->>Auth: Validate token
+  Auth-->>Server: Token valid
+  Server-->>Client: Connection established
+        </pre>
         <aside class="speaker-notes">
           You can build MCP servers in any language, but three have official SDK support. The TypeScript SDK is the most mature and is maintained by the MCP specification team. It provides decorators and helper functions that make server creation straightforward. The Python SDK uses an async-first design and is excellent for data science and ML integrations. The C# SDK integrates with ASP.NET Core and is the natural choice for .NET shops, especially those deploying to Azure. Community SDKs exist for Java, Go, Rust, and other languages. Choose based on your team's expertise and your existing infrastructure.
         </aside>
@@ -259,6 +286,7 @@ server.tool(
 
 const transport = new StdioServerTransport();
 await server.connect(transport);</code></pre>
+
         <aside class="speaker-notes">
           Here is a minimal TypeScript MCP server. We import the McpServer class and the stdio transport from the official SDK. We create a server instance with a name and version, then register a tool using the server.tool method. The tool has a name, description, a Zod schema for input validation, and an async handler function. The handler calls your internal API, in this case an inventory service, and returns structured content. Finally, we connect the server to the stdio transport. This pattern scales well; you simply add more tool registrations as your server grows. Notice how Zod handles input validation automatically, rejecting malformed requests before they reach your handler.
         </aside>
@@ -279,6 +307,7 @@ await server.connect(transport);</code></pre>
           <li><strong>Idempotent reads:</strong> GET-style tools should be safe to call multiple times without side effects</li>
           <li><strong>Explicit mutations:</strong> Tools that modify data should clearly state that in their description</li>
         </ul>
+
         <aside class="speaker-notes">
           Good tool design is critical because the AI model uses your tool names, descriptions, and schemas to decide when and how to call them. Name your tools with a clear verb-noun pattern so the model can infer intent. Write descriptions that are specific; instead of "query the database," say "search the product catalog by name, category, or price range." Define every parameter with a type, description, and any constraints like minimum values or allowed enum values. Make read operations idempotent so the model can call them freely without concern about side effects. For tools that modify state, be explicit in the description so the model and user both understand the consequences of invocation.
         </aside>
@@ -313,6 +342,7 @@ await server.connect(transport);</code></pre>
     }
   }
 );</code></pre>
+
         <aside class="speaker-notes">
           Robust error handling is essential for production MCP servers. The schema layer provides your first line of defense; Zod validates inputs before your handler ever runs, rejecting invalid UUIDs, missing fields, or out-of-range values automatically. Inside your handler, use try-catch blocks to handle API failures gracefully. When something goes wrong, return a response with isError set to true and a clear, descriptive message. This tells the AI model that the operation failed and provides enough context for it to either retry with corrected inputs or explain the failure to the user. Never let unhandled exceptions crash your server; always catch and return structured errors.
         </aside>
@@ -326,6 +356,7 @@ await server.connect(transport);</code></pre>
       <div class="slide-inner">
         <span class="badge">Part 4</span>
         <h2>Connecting to Internal APIs</h2>
+        <img src="img/TODO-diagram-mcp-governance-model.png" alt="Diagram of MCP governance model for enterprise organizations" />
         <aside class="speaker-notes">
           Now we get to the core value proposition of enterprise MCP: wrapping your organization's existing APIs so that Copilot can interact with them through natural language.
         </aside>
@@ -358,6 +389,7 @@ await server.connect(transport);</code></pre>
     return { content: [{ type: "text", text: JSON.stringify(data.result) }] };
   }
 );</code></pre>
+
         <aside class="speaker-notes">
           This example shows how to wrap a REST API, in this case ServiceNow, as an MCP tool. The pattern is straightforward: define a tool with a descriptive name and schema, then implement a handler that translates the MCP request into an HTTP call to your internal API. Notice that the schema uses enums for the state parameter, which constrains the model's choices to valid values. The priority parameter is optional with min/max bounds. The handler constructs the URL, adds authentication headers, makes the request, and returns the response. This pattern works for any REST API: map the relevant endpoints to tools and let the schema guide the model's usage.
         </aside>
@@ -391,6 +423,7 @@ await server.connect(transport);</code></pre>
     return { content: [{ type: "text", text: JSON.stringify(data.team) }] };
   }
 );</code></pre>
+
         <aside class="speaker-notes">
           GraphQL APIs follow the same wrapping pattern with one key difference: instead of constructing URL parameters, you build a GraphQL query string. The tool's schema captures the high-level parameters the model needs to provide, and your handler translates those into the appropriate GraphQL query and variables. This approach hides the complexity of the GraphQL schema from the model, giving it a simple, focused interface. For large GraphQL APIs, create multiple MCP tools that each handle a specific query or mutation rather than exposing the full GraphQL interface. This keeps each tool's purpose clear and makes it easier for the model to select the right one.
         </aside>
@@ -423,6 +456,7 @@ await server.connect(transport);</code></pre>
           <li><strong>Schema exposure:</strong> Expose table and column names as MCP resources so the model understands the data structure</li>
           <li><strong>Audit logging:</strong> Log every query executed through the MCP server with the user context</li>
         </ul>
+
         <aside class="speaker-notes">
           Database integration requires a security-first approach. Start by creating a dedicated database user with read-only permissions; this is your most important safeguard. Always use parameterized queries, never string concatenation, to prevent SQL injection attacks. Enforce row limits on every query so a broad query does not accidentally return millions of rows and overwhelm the response. Expose the database schema as MCP resources so the model can discover available tables and columns. Finally, log every query with the requesting user's identity for audit purposes. These patterns ensure that database access through MCP is both useful and safe.
         </aside>
@@ -457,6 +491,7 @@ await server.connect(transport);</code></pre>
     return { content: [{ type: "text", text: JSON.stringify(result.rows) }] };
   }
 );</code></pre>
+
         <aside class="speaker-notes">
           This example demonstrates a safe database query tool. Notice several key safety features. The schema constrains inputs to specific, well-defined parameters; the model cannot write arbitrary SQL. The query uses parameterized placeholders ($1, $2, $3, $4) instead of string interpolation, preventing injection attacks. A hard limit of 100 rows is enforced at the schema level, with a default of 25. The database connection itself should use a read-only user, providing defense in depth. This pattern lets the model query real business data while maintaining strict security boundaries.
         </aside>
@@ -502,6 +537,7 @@ await server.connect(transport);</code></pre>
             <p>Use client credentials flow for backend-to-backend communication. The MCP server authenticates as itself to downstream APIs using certificates or shared secrets.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           There are four primary authentication strategies for MCP servers, and you will often combine more than one in a single server. API keys are the simplest approach and work well for internal services where a static credential is acceptable. OAuth 2.1 is necessary when your MCP tools need to access resources scoped to the current user; the MCP protocol includes native OAuth 2.1 support with authorization code flows. Azure Managed Identities eliminate credentials entirely by letting the platform handle token acquisition and rotation. For backend-to-backend calls where no user context is needed, use the OAuth client credentials flow. Choose the strategy that matches your security requirements and the APIs you are connecting to.
         </aside>
@@ -522,6 +558,7 @@ await server.connect(transport);</code></pre>
           <li><strong>PKCE</strong> (Proof Key for Code Exchange) is mandatory under OAuth 2.1, not optional</li>
           <li>Enables <strong>user-scoped access</strong>: each developer sees only what they are authorized to see</li>
         </ul>
+
         <aside class="speaker-notes">
           The MCP protocol includes first-class support for OAuth 2.1 when using the Streamable HTTP transport. The flow works as follows: the remote MCP server exposes its OAuth metadata at a well-known URL. When a client connects and the server requires authentication, the client opens a browser window for the user to authorize. After authorization, the client exchanges the code for tokens and stores them securely. All subsequent MCP requests include the access token automatically. OAuth 2.1 mandates PKCE, which is especially important when the client is a desktop application like VS Code. The result is user-scoped access, where each developer's MCP requests carry their own identity and permissions.
         </aside>
@@ -567,6 +604,7 @@ await server.connect(transport);</code></pre>
             <p>Serverless option for lightweight MCP servers. Note: MCP's Streamable HTTP transport requires persistent HTTP endpoints with SSE streaming, which may conflict with Consumption plan timeouts and cold starts. A Premium or Dedicated plan is more appropriate for production MCP servers.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           There are several viable deployment strategies for remote MCP servers. Azure Container Apps is often the best starting point because it provides auto-scaling, managed identity, and HTTPS out of the box. Azure App Service is another strong option, especially for teams already using it for web applications. For development and staging, Docker Compose lets you run multiple MCP servers locally behind a reverse proxy to simulate a production topology. Azure Functions can host MCP servers, but the Streamable HTTP transport's need for persistent connections and SSE streaming may conflict with Consumption plan timeouts and cold starts; a Premium or Dedicated Functions plan is a better fit for production workloads. The right choice depends on your traffic patterns, existing infrastructure, and operational preferences.
         </aside>
@@ -586,6 +624,7 @@ await server.connect(transport);</code></pre>
           <li>Organizations can build private extensions with MCP tools available only to their developers</li>
           <li>Public extensions on the GitHub Marketplace can also use MCP under the hood</li>
         </ul>
+
         <aside class="speaker-notes">
           GitHub Copilot Extensions and MCP servers are complementary but distinct integration surfaces. Copilot Extensions use their own tool-registration mechanism and are distributed through the GitHub Marketplace with built-in authentication and user management. MCP servers are configured at the editor level via .vscode/mcp.json or user settings and use the Model Context Protocol for communication. While both provide tools to Copilot, they operate through different channels. Organizations can create private extensions that are only available to their developers, making this a viable path for enterprise-internal tool distribution.
         </aside>
@@ -619,6 +658,7 @@ await server.connect(transport);</code></pre>
           <li>The model handles orchestration; you provide the primitives</li>
           <li>Use clear descriptions so the model understands the logical order of operations</li>
         </ul>
+
         <aside class="speaker-notes">
           One of MCP's most powerful capabilities is tool chaining, where the model calls multiple tools in sequence to accomplish a complex workflow. For example, a developer might ask Copilot to "find the highest priority bug and start working on it." Copilot would call search_tickets to find bugs, get_ticket_details to read the top result, create_branch to set up a working branch, and update_ticket_status to mark it as in progress. You do not need to build this orchestration logic yourself. Instead, design each tool as a focused, composable building block and let the model figure out the sequence. The key is returning rich enough context from each tool so the model can make informed decisions about what to do next.
         </aside>
@@ -639,6 +679,7 @@ await server.connect(transport);</code></pre>
           <li><strong>Change management:</strong> Version your MCP servers and use staged rollouts for updates</li>
           <li><strong>Documentation:</strong> Maintain a tool catalog so teams know what is available and how to use it</li>
         </ul>
+
         <aside class="speaker-notes">
           Enterprise governance is what separates a hobby project from a production-grade deployment. Start by establishing a tool approval process; every MCP tool should go through a security review before it reaches production, evaluating data exposure, authentication requirements, and the blast radius of potential misuse. Use allowlisting at the organization level to control which MCP servers developers can connect to. Implement role-based access on the server side so that tools like "delete_deployment" are only available to users with appropriate permissions. Version your servers and use staged rollouts, deploying to a canary group before rolling out organization-wide. Finally, maintain a tool catalog so developers can discover approved tools and understand their capabilities.
         </aside>
@@ -659,6 +700,7 @@ await server.connect(transport);</code></pre>
           <li><strong>Distributed tracing:</strong> Propagate trace IDs from the MCP client through to downstream API calls</li>
           <li><strong>Usage analytics:</strong> Understand which tools are most used, by whom, and for what workflows</li>
         </ul>
+
         <aside class="speaker-notes">
           Monitoring is essential for operating MCP servers reliably. Implement structured logging that captures every tool invocation with the tool name, sanitized input parameters, execution duration, and result status. Make sure to sanitize any sensitive data like tokens or personal information before it reaches your logs. Expose health and readiness endpoints so container orchestrators and load balancers can route traffic correctly. Track metrics such as invocation counts, error rates, and latency percentiles using your existing observability stack. Set up alerts for error rate spikes and latency degradation so your team can respond before users are impacted. Usage analytics help you understand adoption, identify popular tools, and plan capacity.
         </aside>
@@ -679,6 +721,7 @@ await server.connect(transport);</code></pre>
           <li><strong>Async operations:</strong> For long-running tasks, return immediately with a task ID and provide a separate status-check tool</li>
           <li><strong>Response shaping:</strong> Return only the fields the model needs, not the full API response</li>
         </ul>
+
         <aside class="speaker-notes">
           Performance optimization prevents your MCP server from becoming a bottleneck. Start with response caching for data that changes infrequently, such as organization charts, team rosters, or documentation pages. Set appropriate TTLs based on how often the data actually changes. Use connection pooling for databases and HTTP clients so you are not paying connection setup costs on every request. Implement rate limiting to protect downstream services; an AI model can generate many tool calls in quick succession, and your backend APIs may not be designed for that access pattern. Return bounded result sets with pagination support, and shape your responses to include only the fields the model needs. For long-running operations, use an async pattern where the tool returns a task ID immediately, and a separate tool lets the model check status.
         </aside>
@@ -714,6 +757,7 @@ await server.connect(transport);</code></pre>
             <p>Tools: <code>search_incidents</code>, <code>get_incident</code>, <code>create_change_request</code>, <code>check_approval_status</code>. On-call engineers use Copilot to triage incidents and initiate change requests during incident response.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Issue tracking integrations are among the most valuable MCP use cases. A Jira MCP server typically exposes five to seven tools covering search, read, create, transition, and comment operations. Developers can ask Copilot to find their assigned bugs, read the details, create a branch named after the issue, and update the issue status, all without leaving VS Code. A ServiceNow MCP server serves a different workflow: on-call engineers can search incidents, read details, and create change requests through natural language during an incident response when speed matters and context-switching is costly. Both integrations follow the same pattern of wrapping REST APIs as focused, composable MCP tools.
         </aside>
@@ -734,6 +778,7 @@ await server.connect(transport);</code></pre>
           <li><strong>rollback_deployment:</strong> Trigger a rollback to a previous known-good version</li>
         </ul>
         <p>Enables developers to monitor, diagnose, and act on CI/CD status without leaving their editor.</p>
+
         <aside class="speaker-notes">
           CI/CD pipeline integration brings your deployment workflow into Copilot Chat. A developer can ask "what's the status of my build?" and Copilot calls check_pipeline_status. If a test failed, the developer asks "show me the failures" and Copilot calls get_test_results with the relevant run ID. After fixing the issue and pushing, the developer can ask Copilot to trigger a staging deployment. For mutation tools like trigger_deployment and rollback_deployment, implement confirmation prompts in your tool descriptions and consider requiring explicit approval flags in the tool schema. This integration is especially valuable for teams with complex multi-stage pipelines where navigating the CI/CD web interface is time-consuming.
         </aside>
@@ -754,6 +799,7 @@ await server.connect(transport);</code></pre>
           <li>Transforms tribal knowledge into <strong>instantly accessible context</strong> for every developer</li>
           <li>Pairs well with MCP <strong>resources</strong> for providing static reference data</li>
         </ul>
+
         <aside class="speaker-notes">
           Internal knowledge base integration is one of the highest-impact MCP use cases because it addresses a universal problem: tribal knowledge is hard to find. A wiki search tool lets developers ask Copilot questions like "how do we configure the payment gateway in staging?" and get answers drawn from your actual internal documentation. Runbook search helps on-call engineers find the right procedure during an incident. API documentation tools let developers discover and understand internal service interfaces without hunting through wikis. The key to making this work well is good search relevance; consider using a search backend that supports semantic or hybrid search to go beyond simple keyword matching.
         </aside>
@@ -775,6 +821,7 @@ await server.connect(transport);</code></pre>
           <li><strong>6. Test with Copilot:</strong> Verify that the model selects the right tools and chains them correctly</li>
           <li><strong>7. Deploy and monitor:</strong> Ship to production with logging, metrics, and alerting in place</li>
         </ul>
+
         <aside class="speaker-notes">
           Here is the end-to-end process for building a complete MCP integration. Start by clearly identifying the developer workflow you want to enable, focusing on specific pain points where context switching is costly. Map that workflow to discrete tools, keeping each one focused on a single operation. Design your input schemas carefully, because they directly determine how well the model uses your tools. Implement handlers with robust error handling and sanitized response formatting. Add the authentication layer appropriate for your environment. Then test extensively with Copilot to verify that the model selects the right tools and chains them in a logical order. Finally, deploy with full observability so you can monitor adoption, catch errors, and optimize performance over time.
         </aside>

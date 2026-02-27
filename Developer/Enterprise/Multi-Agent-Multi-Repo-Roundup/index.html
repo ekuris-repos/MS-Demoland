@@ -170,7 +170,16 @@
           <li>This gap leads to <strong>inconsistent suggestions</strong>, duplicated code, and integration errors</li>
         </ul>
 
-        <img src="img/TODO-diagram-cross-repo-context-gathering.png" alt="Diagram showing cross-repository context gathering by agents" />
+        <pre class="mermaid">
+graph TD
+  A[Agent] --> B[Repo A]
+  A --> C[Repo B]
+  A --> D[Repo C]
+  B --> E[Unified Context]
+  C --> E
+  D --> E
+  E --> F[Informed Suggestion]
+        </pre>
         <aside class="speaker-notes">
           Here is the core problem. When a developer working in Service A needs to call an API defined in Service B, Copilot does not automatically know the shape of that API. It might guess based on naming conventions or general training data, but it will not know your organization's specific interface contracts, error handling patterns, or versioning scheme. The same applies to shared libraries: if your design system components live in a separate repo, Copilot cannot reference their props or usage patterns when suggesting code in a consuming app. In the lab, you will experience this firsthand with OctoCAT Supply, a React frontend in one repo and an Express API in another, where Copilot initially lacks the cross-repo context it needs. This context gap is the central challenge we will spend the rest of this session addressing.
         </aside>
@@ -293,7 +302,15 @@
       <div class="slide-inner">
         <span class="badge">Part 4</span>
         <h2>Repository-Indexed Search &amp; Cross-Repo Context</h2>
-        <img src="img/TODO-diagram-orchestration-coordinator.png" alt="Diagram of coordinator-specialist orchestration pattern" />
+        <pre class="mermaid">
+graph TD
+  A[Coordinator] --> B[Agent: Frontend]
+  A --> C[Agent: API]
+  A --> D[Agent: Shared Lib]
+  B --> E[Merge Results]
+  C --> E
+  D --> E
+        </pre>
         <aside class="speaker-notes">
           Beyond instructions, Copilot offers repository-indexed search as a way to provide richer, document-level context across repositories. Let's look at how this works and where it fits.
         </aside>
