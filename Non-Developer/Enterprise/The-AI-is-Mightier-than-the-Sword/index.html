@@ -346,7 +346,28 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE 17 - Research Use Case: Competitive Landscape
+         SLIDE 17 - Parallel Context Windows for Research
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Parallel Context Windows for Research</h2>
+        <ul>
+          <li>LLM inference is slow: queue time plus response generation. A single Chat window means <strong>idle waiting</strong>.</li>
+          <li>Click <strong>"Open in Editor"</strong> to pop Chat into an editor tab; open Chat again for a fresh session</li>
+          <li>Each tab is an <strong>independent research agent</strong> with its own context and conversation</li>
+          <li>Run your specialist agents in parallel: security auditor in one tab, cost analyst in another, architecture reviewer in a third</li>
+          <li>When all agents report back, feed their findings into a <strong>synthesis agent</strong> in one final tab</li>
+          <li><strong>You are the research director.</strong> Assign clear scopes, gather results, and resolve contradictions.</li>
+        </ul>
+
+        <aside class="speaker-notes">
+          We just discussed building a specialist research team and composing agents. Here is the productivity technique that makes it practical. When you send a prompt, there is inherent latency. The request enters a queue, the model processes your input, and then it streams the response back. If you have one chat session open, you are idle for that entire duration. The solution is the "Open in Editor" button at the top of the Chat panel. Click it, and your current conversation moves into a standalone editor tab. Open the Chat panel again, and you have a brand-new, independent session. Now you can run your specialist agents in parallel. Tab one: the security auditor is analyzing vulnerability reports. Tab two: the cost analyst is reviewing pricing models. Tab three: the architecture reviewer is mapping system dependencies. Each tab has its own context and its own agent session. They do not interfere with each other. When all three specialists have produced their findings, open one more tab for a synthesis agent. Paste the structured outputs from each specialist into the synthesis prompt, and the synthesis agent merges, reconciles, and highlights contradictions. You go from a serial, hour-long research pipeline to a parallel workflow that completes in a fraction of the time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Research Use Case: Competitive Landscape
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">

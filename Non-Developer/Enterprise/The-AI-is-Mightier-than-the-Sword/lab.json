@@ -192,7 +192,7 @@
         }
       ]
     },
-    "20": {
+    "21": {
       "steps": [
         {
           "title": "Plan Your MCP Configuration",
@@ -217,7 +217,7 @@
         }
       ]
     },
-    "23": {
+    "24": {
       "steps": [
         {
           "title": "Stress-Test Agent Output",
@@ -247,7 +247,7 @@
         }
       ]
     },
-    "26": {
+    "27": {
       "steps": [
         {
           "title": "Enterprise Scenario Challenge",
@@ -270,7 +270,7 @@
         }
       ]
     },
-    "27": {
+    "28": {
       "steps": [
         {
           "title": "Document Your Playbook",
@@ -292,7 +292,7 @@
         }
       ]
     },
-    "30": {
+    "31": {
       "steps": [
         {
           "title": "Lab Complete!",

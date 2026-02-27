@@ -446,7 +446,28 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE 17 - Workspace Config (Section)
+         SLIDE 17 - Open in Editor: Parallel Context Windows
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Open in Editor: Parallel Context Windows</h2>
+        <ul>
+          <li>LLM inference is slow: you wait in the queue, then wait for the response to generate</li>
+          <li>A single Copilot Chat window means <strong>idle time</strong> while the model works</li>
+          <li>Click <strong>"Open in Editor"</strong> (pencil icon at the top of Chat) to pop Copilot into an <strong>editor tab</strong></li>
+          <li>Each editor tab is an <strong>independent context window</strong> with its own conversation</li>
+          <li>Open the Chat panel again and you have a fresh session; open another editor tab and you have three</li>
+          <li><strong>Result:</strong> while one agent writes tests, another can scaffold a component, and a third can draft docs</li>
+        </ul>
+
+        <aside class="speaker-notes">
+          Here is a productivity technique that most people miss. When you send a prompt to Copilot, there is inherent latency. The request enters a queue, the model processes your input, and then it streams the response back token by token. If you are working in a single Chat panel, you are sitting idle for that entire duration. The fix is simple: click the "Open in Editor" button at the top of the Chat panel. This pops your current conversation into a standalone editor tab. Now open the Chat panel again. You have a brand-new, independent conversation. You can repeat this as many times as you want. Each tab has its own context, its own history, and its own agent session. While one agent is busy writing unit tests, you can ask another to scaffold a new component, and a third to draft documentation. You are parallelizing your work, and the only cost is managing the results. We will revisit this technique in later courses because it becomes essential for real-world, multi-task workflows.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Workspace Config (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">

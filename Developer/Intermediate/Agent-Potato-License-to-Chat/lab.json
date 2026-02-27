@@ -237,7 +237,7 @@
         }
       ]
     },
-    "22": {
+    "23": {
       "steps": [
         {
           "title": "Write Comprehensive Tests",
@@ -275,7 +275,7 @@
         }
       ]
     },
-    "23": {
+    "24": {
       "steps": [
         {
           "title": "Iterative Refinement",
@@ -300,7 +300,7 @@
         }
       ]
     },
-    "25": {
+    "26": {
       "steps": [
         {
           "title": "Cross-Stack Rename",
@@ -331,7 +331,7 @@
         }
       ]
     },
-    "27": {
+    "28": {
       "steps": [
         {
           "title": "Create a Reusable Prompt File",
@@ -357,7 +357,7 @@
         }
       ]
     },
-    "29": {
+    "30": {
       "steps": [
         {
           "title": "Mission Recap",
@@ -366,7 +366,7 @@
         }
       ]
     },
-    "32": {
+    "33": {
       "steps": [
         {
           "title": "Lab Complete!",

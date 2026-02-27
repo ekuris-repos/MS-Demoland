@@ -444,7 +444,29 @@ navigation link in the sidebar."</code></pre>
     </section>
 
     <!-- ============================================================
-         SLIDE 21 - Quality Assurance (Section)
+         SLIDE 21 - Parallelizing Agent Work
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Parallelizing Agent Work</h2>
+        <ul>
+          <li>Inference is slow. A single Chat window means <strong>idle time</strong> while the model generates output.</li>
+          <li>Use <strong>"Open in Editor"</strong> to pop your Chat session into an editor tab, then open a fresh Chat panel</li>
+          <li>Run agents in parallel: one builds the backend route while another scaffolds the React component</li>
+          <li><strong>You are the manager.</strong> Each agent is an employee. Assign clear, non-overlapping tasks.</li>
+          <li><strong>Rat race risk:</strong> if two agents edit the same file, you get conflicts. Scope prompts to separate files or directories.</li>
+          <li>When overlap is unavoidable, use <strong>git worktrees</strong>: <code>git worktree add ../feature-branch feature-branch</code></li>
+          <li>Each worktree is an independent working directory. Agents cannot collide. Merge when both are done.</li>
+        </ul>
+
+        <aside class="speaker-notes">
+          Before we move into quality assurance, let's talk about a technique that doubles or triples your throughput. You just built a backend route and a frontend component in sequence, one agent session at a time. But inference is slow. Every prompt you send waits in a queue and then takes time to generate the response. A single Chat window means you are idle for that entire duration. Instead, click "Open in Editor" on your Chat panel to pop that conversation into an editor tab. Now open the Chat panel again. That is a brand-new, independent context. You can have one agent building the inventory API route while a second agent scaffolds the React component, and a third agent writes database migrations. You manage the agents like a team lead: assign clear, non-overlapping tasks. The critical thing to understand is that you are responsible for coordination. If two agents edit the same file at the same time, you will get merge conflicts. The simplest prevention is scoping each agent's prompt to specific files or directories. When overlap is unavoidable, use git worktrees. Run "git worktree add" to create a separate working directory on a feature branch. Open that directory in a new VS Code window and run your second agent there. Each worktree has its own file state, so agents cannot collide. When both are done, merge the branches and resolve any conflicts in one pass.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - Quality Assurance (Section)
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">

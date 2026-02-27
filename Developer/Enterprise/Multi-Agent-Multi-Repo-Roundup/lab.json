@@ -149,14 +149,20 @@
         {
           "title": "Design a Custom Cross-Repo MCP Tool",
           "instruction": "Use agent mode to scaffold a custom MCP server that bridges the API and frontend repos. Ask:<br><br><kbd>Create an MCP server in TypeScript using @modelcontextprotocol/sdk that exposes a tool called \"get-api-spec\". The tool should read the api-swagger.json file from the octocat-supply-api workspace folder and return the endpoints, request/response schemas, and status codes as structured text. This gives any repo in the workspace programmatic access to the API contract.</kbd><br><br>Review the generated code. Verify it uses the MCP SDK's standard tool registration pattern and does not hardcode file paths.",
-          "focus": ["editor", "right"],
+          "focus": [
+            "editor",
+            "right"
+          ],
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Add a Second Cross-Repo Tool",
           "instruction": "Extend the MCP server with a second tool. In agent mode, ask:<br><br><kbd>Add another tool called \"get-api-models\" that reads all TypeScript files from the octocat-supply-api/src/models/ directory, extracts the exported interfaces and types, and returns them as a formatted list. This helps the frontend team generate matching types without browsing the API source code.</kbd><br><br>Having multiple tools on one MCP server creates a composable cross-repo context layer. Each tool answers a different question about the sibling repository.",
-          "focus": ["editor", "right"]
+          "focus": [
+            "editor",
+            "right"
+          ]
         },
         {
           "title": "Register the Custom Server",
@@ -201,7 +207,7 @@
         }
       ]
     },
-    "24": {
+    "25": {
       "steps": [
         {
           "title": "Create a Cross-Repo Dispatch Workflow",
@@ -237,7 +243,7 @@
         }
       ]
     },
-    "27": {
+    "28": {
       "steps": [
         {
           "title": "Design a Consumer Registry",
@@ -259,7 +265,7 @@
         }
       ]
     },
-    "32": {
+    "33": {
       "steps": [
         {
           "title": "Audit Agent Permissions",
@@ -292,7 +298,7 @@
         }
       ]
     },
-    "38": {
+    "39": {
       "steps": [
         {
           "title": "Build Your Enterprise Action Plan",
@@ -314,7 +320,7 @@
         }
       ]
     },
-    "41": {
+    "42": {
       "steps": [
         {
           "title": "Lab Complete!",

@@ -137,7 +137,44 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE 7 - How the Coding Agent Works
+         SLIDE 7 - Parallelizing Agent Work: Local and Cloud
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Parallelizing Agent Work</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Local: Open in Editor</h3>
+            <ul>
+              <li>Click <strong>"Open in Editor"</strong> to pop Chat into an editor tab</li>
+              <li>Open the Chat panel again for a fresh session</li>
+              <li>Run <strong>multiple agents</strong> in parallel on different tasks</li>
+              <li>Use <strong>git worktrees</strong> when agents may edit the same files</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Cloud: Multiple Issues</h3>
+            <ul>
+              <li>Assign <strong>separate issues</strong> to <code>@copilot</code> in different repos or branches</li>
+              <li>Each runs in its own <strong>isolated VM</strong> in parallel</li>
+              <li>Review the PRs independently; merge when ready</li>
+              <li>Combine with a local agent for a <strong>three-way split</strong></li>
+            </ul>
+          </div>
+        </div>
+        <ul>
+          <li><strong>You manage the agents.</strong> Scope tasks to avoid overlapping file edits. When conflict is likely, use worktrees or separate branches.</li>
+          <li>You can also use <strong>agent handoff</strong> to have Copilot create a worktree for you: ask it to "create a git worktree for this task on a new branch"</li>
+        </ul>
+
+        <aside class="speaker-notes">
+          Now that you understand both environments, let's talk about running them in parallel. Inference is slow. When you send a prompt, you wait for the queue and then for the model to generate its response. A single Chat window means wasted time. Locally, click "Open in Editor" to pop your Chat session into a standalone editor tab, then open the Chat panel again for a fresh conversation. You can do this as many times as you want. Each tab is an independent agent session. On the cloud side, you can assign multiple issues to the Coding Agent across different repos or even the same repo on different branches. Each issue spins up its own VM and runs in isolation. Combine both approaches and you have a three-way split: two local agents working on different aspects of your code and a cloud agent tackling a third issue asynchronously. The critical skill here is scoping. You manage the agents. If two agents edit the same file, you will get merge conflicts. Prevent this by targeting each agent at specific files or directories. When overlap is unavoidable, use git worktrees. A worktree gives each agent its own working directory, so they physically cannot collide. You can even ask Copilot to create a worktree for you by prompting "create a git worktree for this task on a new branch." After both branches are complete, merge them and resolve any conflicts in one pass.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 - How the Coding Agent Works
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">

@@ -232,7 +232,37 @@
         }
       ]
     },
-    "20": {
+    "19": {
+      "steps": [
+        {
+          "title": "Open in Editor",
+          "instruction": "Look at the top of the <strong>Copilot Chat</strong> panel. Find the <strong>\"Open in Editor\"</strong> button (pencil icon) at the top-right of the Chat panel.<br><br>Click it. Your current chat session moves into an <strong>editor tab</strong>.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Open a Second Chat",
+          "instruction": "Now open the <strong>Chat panel</strong> again with <kbd>Ctrl+Alt+I</kbd>. You now have <strong>two independent sessions</strong>: one in an editor tab and one in the sidebar.<br><br>Type a different question in each one. Notice they have completely separate contexts and histories.",
+          "focus": "right"
+        },
+        {
+          "title": "Why This Matters",
+          "instruction": "LLM inference is slow. Every prompt waits in a queue, then the model generates its response token by token.<br><br>With two sessions, you can ask one agent to write tests while the other explains a function. Neither blocks the other. In later courses, you will use this technique to run entire parallel workflows.",
+          "tip": "You can repeat this as many times as you want. Every \"Open in Editor\" click creates another independent context window.",
+          "onLeave": [
+            "workbench.action.closeActiveEditor",
+            "workbench.action.closeSidebar"
+          ]
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab and sidebar for you.<br><br>For future reference:<br>&bull; <strong>Open in Editor</strong>: pencil icon at top of Chat panel<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "21": {
       "steps": [
         {
           "title": "Explore Copilot Settings",
@@ -262,7 +292,7 @@
         }
       ]
     },
-    "23": {
+    "24": {
       "steps": [
         {
           "title": "Open the Terminal",
@@ -292,7 +322,7 @@
         }
       ]
     },
-    "29": {
+    "30": {
       "steps": [
         {
           "title": "Lab Complete!",

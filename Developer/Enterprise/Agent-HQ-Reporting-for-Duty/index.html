@@ -87,6 +87,8 @@
           <li>The goal: every surface becomes an entry point for AI-assisted work, with shared context and consistent behavior</li>
           <li>Without coordination, agents operate in silos; with it, they form a connected workforce</li>
         </ul>
+
+        <img src="img/TODO-diagram-agent-ecosystem-overview.png" alt="Diagram showing the ecosystem of custom agent files and their relationships" />
         <aside class="speaker-notes">
           Think about how your team works today. Developers write code in VS Code, review pull requests on GitHub.com, run commands in the terminal, and communicate in Slack or Teams. Each of these surfaces is a potential entry point for AI-assisted work. Agent coordination is the practice of making those entry points work together instead of in isolation. When an agent in one surface can trigger work in another, share context, and contribute to a unified workflow, you move from having a collection of disconnected AI tools to having an integrated AI workforce. This is the enterprise-grade approach to AI-assisted development.
         </aside>
@@ -119,6 +121,7 @@
             <p>Copilot in Slack for cross-functional queries and Copilot Extensions for custom, domain-specific agent capabilities.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Here is a quick overview of the four major surface categories. VS Code is where most interactive development happens, and agent mode gives Copilot the ability to take autonomous, multi-step actions. GitHub.com is the collaboration surface where Copilot operates in issues, PRs, and code review, and where the Coding Agent runs autonomously. The CLI surface targets terminal-first developers with command suggestions and explanations. Finally, Slack and Copilot Extensions extend agent capabilities beyond the core development tools into communication platforms and custom integrations. Each surface has distinct strengths, and the real power comes from connecting them.
         </aside>
@@ -164,6 +167,7 @@
             <p>Autonomous, multi-step execution. Copilot reads files, runs terminal commands, fixes errors, and iterates until the task is complete.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           VS Code offers four distinct modes for interacting with Copilot, each suited to different tasks. Inline suggestions are the most lightweight: they appear as you type and require no explicit prompt. Chat mode opens a conversational sidebar where you can ask questions and generate code. Edits mode takes a single prompt and applies coordinated changes across multiple files. Agent mode is the most powerful: it operates autonomously, reading files, running terminal commands, interpreting errors, and iterating until the task is finished. Understanding when to use each mode is essential. Use inline for quick completions, chat for questions, edits for broad refactors, and agent mode for complex, multi-step tasks that require tool use.
         </aside>
@@ -184,6 +188,7 @@
           <li><strong>Context awareness</strong>: agent mode uses workspace indexing, open files, and custom instructions to inform its decisions</li>
           <li><strong>Best for</strong>: implementing features end to end, debugging complex issues, scaffolding projects, and running multi-file refactors</li>
         </ul>
+
         <aside class="speaker-notes">
           Agent mode transforms Copilot from a suggestion engine into an autonomous collaborator. When you enter a prompt in agent mode, Copilot formulates a plan, identifies which files to read, determines what terminal commands to run, and executes the steps in sequence. If it encounters an error, such as a failing test or a compilation error, it reads the output and adjusts. The critical safeguard is the human-in-the-loop approval model: by default, file edits and terminal commands require user approval before execution, though auto-approve settings can be configured for trusted workflows. This gives you full visibility and control while still benefiting from autonomous planning and iteration. Agent mode draws on workspace indexing, open editor tabs, and any custom instructions files to make informed decisions about how to complete the task.
         </aside>
@@ -197,6 +202,7 @@
       <div class="slide-inner">
         <span class="badge">Part 3</span>
         <h2>Copilot Across Surfaces</h2>
+        <img src="img/TODO-screenshot-prompt-file-variables.png" alt="Screenshot of a .prompt.md file demonstrating template variables" />
         <aside class="speaker-notes">
           Now let's look beyond VS Code at the other surfaces where Copilot agents operate, starting with GitHub.com.
         </aside>
@@ -217,6 +223,7 @@
           <li><strong>Knowledge search</strong>: query repositories using Copilot's repository-indexed search and Bing web search</li>
           <li>All interactions respect repository permissions and organization policies</li>
         </ul>
+
         <aside class="speaker-notes">
           On GitHub.com, Copilot integrates directly into the workflows developers already use every day. In pull requests, Copilot can generate summaries that explain the intent and scope of changes, making code review faster and more consistent. Reviewers can ask Copilot to explain specific sections of a diff or suggest improvements. In issues, Copilot helps authors and triagers break down requirements and suggest approaches. The Copilot Chat interface on GitHub.com lets you ask questions about any repository you have access to, search across documentation, and get contextual answers. Every interaction respects the repository's permission model and the organization's Copilot policies, so there is no risk of data leaking across access boundaries.
         </aside>
@@ -237,6 +244,7 @@
           <li>Ideal for DevOps engineers, SREs, and developers who work primarily in the terminal</li>
           <li>Context is scoped to the conversation; it does not read local files automatically</li>
         </ul>
+
         <aside class="speaker-notes">
           Copilot in the CLI is powered by the GitHub CLI extension and provides two core capabilities: suggest and explain. The suggest command lets you describe a task in natural language and receive the appropriate shell command, gh command, or git operation. The explain command does the reverse: you paste a complex command, and Copilot breaks it down into plain language. This surface is particularly valuable for DevOps engineers and SREs who manage infrastructure from the terminal. It is worth noting that the CLI surface is conversational but does not automatically read your local file system. It works best for quick command lookups and explanations rather than multi-step, file-based tasks.
         </aside>
@@ -257,6 +265,7 @@
           <li>Authentication ties to GitHub identity, so access is governed by the same permissions as GitHub.com</li>
           <li>Corporate use cases: incident triage, status checks, onboarding Q&amp;A, cross-team alignment</li>
         </ul>
+
         <aside class="speaker-notes">
           Copilot in Slack brings AI-assisted development into the communication layer of your organization. Once the GitHub Copilot app is installed in your Slack workspace, any team member can ask questions about repositories, pull requests, and issues directly in Slack. This is particularly powerful for non-developers. A project manager can ask about the status of a pull request. A designer can look up whether an issue has been resolved. Leadership can get PR summaries and check on repository activity. Authentication flows through GitHub identity, so all access respects existing repository and organization permissions. Common enterprise use cases include incident triage, deployment status checks, onboarding Q&amp;A, and cross-team alignment on technical decisions.
         </aside>
@@ -270,6 +279,7 @@
       <div class="slide-inner">
         <span class="badge">Part 4</span>
         <h2>The Copilot Coding Agent</h2>
+        <img src="img/TODO-diagram-multi-agent-team-composition.png" alt="Diagram of a multi-agent team with specialized roles" />
         <aside class="speaker-notes">
           The Copilot Coding Agent represents a fundamentally different model of AI assistance. Instead of working interactively with a developer, it operates autonomously in the background.
         </aside>
@@ -290,6 +300,7 @@
           <li>Designed for <strong>well-scoped, low-ambiguity tasks</strong> such as bug fixes, small features, and refactors</li>
           <li>The pull request it creates goes through the same review and CI/CD process as any human-authored PR</li>
         </ul>
+
         <aside class="speaker-notes">
           The Copilot Coding Agent is a fully autonomous agent that works on GitHub issues without requiring a developer to have their IDE open. You assign a GitHub issue to Copilot, and the Coding Agent spins up a secure, cloud-hosted environment with a clone of the repository. It reads the issue description, analyzes the codebase, creates a feature branch, implements the changes, and opens a pull request. The PR goes through your normal review process and CI/CD pipeline, so there is no special workflow required. The Coding Agent follows any custom instructions defined in the repository, which means it respects your coding standards, testing requirements, and architectural guidelines. It is designed for well-scoped tasks where the requirements are clear.
         </aside>
@@ -310,6 +321,7 @@
           <li><strong>Step 5</strong>: Code changes are made, tests are run, and errors are addressed iteratively</li>
           <li><strong>Step 6</strong>: A pull request is opened with a summary of changes, and the developer reviews as usual</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's walk through the lifecycle step by step. It begins when an issue is assigned to Copilot, either by setting Copilot as the assignee or by mentioning @copilot in the issue. The agent reads everything available: the issue title and body, all comments, labels, and any linked issues or documentation. Next, a secure cloud environment is provisioned. This environment has a full clone of the repository with dependencies installed, so the agent can build and test just like a developer would. The agent then explores the codebase to understand the architecture and identify the files that need to change. It implements the changes, runs available tests, and if something fails, it reads the error output and iterates. Once the implementation passes, the agent opens a pull request with a clear summary of what was done and why. From there, the process is entirely human-driven: code review, CI checks, and merge.
         </aside>
@@ -346,6 +358,7 @@
             </ul>
           </div>
         </div>
+
         <aside class="speaker-notes">
           Knowing when to use the Coding Agent and when to keep a task for a human developer is critical. The best candidates are well-scoped tasks with clear requirements: a bug report with reproduction steps, a request to add test coverage for a specific module, a small feature with an obvious implementation path, or a straightforward refactor. Documentation updates and dependency version bumps are also excellent fits. On the other hand, the Coding Agent is not ideal for ambiguous tasks that require stakeholder discussion, large architectural changes that span many systems, or security-critical code paths that demand specialized expertise. The general rule is this: if you could write a clear, complete specification for the task in a GitHub issue, the Coding Agent can probably handle it.
         </aside>
@@ -378,6 +391,7 @@
           <li>Use @copilot to <strong>generate test plans</strong> based on the PR's changes</li>
           <li>Copilot responds in context, referencing the specific issue or PR where it was mentioned</li>
         </ul>
+
         <aside class="speaker-notes">
           The @copilot mention is one of the simplest and most versatile ways to invoke AI assistance on GitHub.com. In an issue, you can mention @copilot and ask it to analyze the problem, suggest an implementation approach, or break a large issue into smaller tasks. In a pull request, you can ask @copilot to review the changes, explain a particularly complex diff, or generate a test plan that covers the new functionality. Copilot responds directly in the comment thread, so the entire conversation is visible to the team. This makes it easy to use Copilot as a collaborative tool in asynchronous workflows where team members are reviewing and discussing at different times.
         </aside>
@@ -398,6 +412,8 @@
           <li>Reduces manual triage burden, especially for high-volume open-source or internal projects</li>
           <li>Human reviewers still make the final call; Copilot provides recommendations, not decisions</li>
         </ul>
+
+        <img src="img/TODO-diagram-agent-governance-controls.png" alt="Diagram of governance controls for managing custom agents at scale" />
         <aside class="speaker-notes">
           Automated triage is one of the highest-impact enterprise use cases for Copilot on GitHub.com. By combining GitHub Actions with the @copilot mention, you can build workflows that automatically analyze incoming issues. When a new issue is opened, a GitHub Action triggers and asks Copilot to classify the issue type, suggest labels, estimate priority, and recommend an assignee based on the code area involved. You can also build a custom workflow that asks Copilot to compare new issues against recently filed ones to flag potential duplicates. This is especially valuable for high-volume repositories where manual triage becomes a bottleneck. The key design principle is that Copilot provides recommendations, not decisions. A human reviewer still confirms the labels, priority, and assignment before they are finalized.
         </aside>
@@ -443,6 +459,7 @@
             <p>Agents work autonomously up to a checkpoint, then pause for human review. After approval, the next phase begins. Balances speed with oversight.</p>
           </div>
         </div>
+
         <aside class="speaker-notes">
           There are four primary patterns for coordinating multiple agents. The sequential pipeline runs agents in sequence, with GitHub Actions workflows or manual steps connecting each phase. Agents cannot invoke other agents directly; coordination must be built explicitly. The fan-out/fan-in pattern launches multiple agents in parallel to work on different aspects of the same task, then collects and reconciles their results. The event-driven pattern uses GitHub Actions workflows to respond to repository events and invoke agents as needed. For example, a workflow could assign the Coding Agent when a CI check fails. These are custom-built workflows, not built-in agent types. The human-in-the-loop pattern introduces checkpoints where autonomous work pauses for human review before proceeding. Most real-world workflows combine these patterns. For example, a sequential pipeline with human-in-the-loop checkpoints after each major phase.
         </aside>
@@ -450,7 +467,64 @@
     </section>
 
     <!-- ============================================================
-         SLIDE 23 - End-to-End Workflow
+         SLIDE 23 - Parallel Context Windows in VS Code
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Parallel Context Windows in VS Code</h2>
+        <ul>
+          <li>LLM inference is inherently slow: queue wait time plus token generation time</li>
+          <li>A single Chat panel is a <strong>serial bottleneck</strong>. You are idle while the model works.</li>
+          <li>Click <strong>"Open in Editor"</strong> to pop Chat into an editor tab; open the Chat panel again for a fresh session</li>
+          <li>Each editor tab is an <strong>independent context window</strong> with its own conversation and agent state</li>
+          <li>Enterprise pattern: run 3-4 agents simultaneously on different tasks, the same way you would delegate to team members</li>
+        </ul>
+
+        <pre class="mermaid">
+graph LR
+  A[You] -->|Tab 1| B[Agent: API migration]
+  A -->|Tab 2| C[Agent: Test coverage]
+  A -->|Tab 3| D[Agent: Docs update]
+  A -->|Issue| E[Coding Agent: Refactor]
+        </pre>
+        <aside class="speaker-notes">
+          We covered fan-out and sequential pipeline patterns for cloud-based orchestration. But there is an equally powerful parallelization technique on your local workstation that most teams overlook. LLM inference is inherently slow. Every request waits in a queue, and then the model generates its response token by token. If you are working in a single Chat panel, you are blocked for that entire duration. The fix is the "Open in Editor" button at the top of the Chat panel. Click it, and your current conversation moves into a standalone editor tab. Open the Chat panel again, and you have a brand-new, independent session. Repeat this as many times as you want. Each tab maintains its own context, its own conversation history, and its own agent state. In an enterprise workflow, this means you can run three or four agents simultaneously: one migrating an API, another backfilling test coverage, a third updating documentation, and a cloud Coding Agent handling a refactor in a separate repo. You are the orchestrator. You assign tasks, check on progress, and coordinate the results.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Managing Parallel Agents
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Managing Parallel Agents</h2>
+        <ul>
+          <li><strong>You are the manager.</strong> Agents are your employees. You assign work, you review output, you resolve conflicts.</li>
+          <li><strong>Scope tasks cleanly:</strong> each agent gets a specific file set, directory, or concern. No overlapping file edits.</li>
+          <li><strong>Rat race risk:</strong> two agents editing the same file produces merge conflicts. Prevention beats resolution.</li>
+          <li>When overlap is unavoidable, use <strong>git worktrees</strong> to give each agent its own working directory:</li>
+        </ul>
+        <pre><code># Create an isolated worktree for the second agent
+git worktree add ../migration-work migration-branch
+# Open it in a new VS Code window
+code ../migration-work
+# When done, merge and clean up
+git merge migration-branch
+git worktree remove ../migration-work</code></pre>
+        <ul>
+          <li>You can also ask Copilot: <em>"Create a git worktree on a new branch for this task"</em>. Agent handoff handles the setup.</li>
+          <li>After both agents finish, merge branches and resolve any conflicts in a single pass</li>
+        </ul>
+
+        <aside class="speaker-notes">
+          Running multiple agents is powerful, but it requires management discipline. Think of yourself as a team lead and each agent as a direct report. You assign clear, non-overlapping tasks. You check in on progress. You resolve conflicts. The most important rule is scope separation. Each agent should work on a specific file set, directory, or architectural concern. If Agent A is building the API routes and Agent B is writing tests, they are unlikely to collide because they are editing different files. The problem arises when two agents need to touch the same code. This is a rat race, and the result is merge conflicts that can be painful to untangle. The prevention is git worktrees. A worktree creates a completely separate working directory linked to the same repository. Each agent operates in its own directory, on its own branch, with its own file state. They physically cannot edit each other's files. When both are done, you merge the branches and handle any conflicts in one structured pass instead of discovering them mid-flight. You can even delegate the worktree creation to Copilot itself. Ask it to create a git worktree on a new branch, and it will run the commands for you. This is agent handoff in action: one agent spawning the environment for a parallel workflow.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - End-to-End Workflow
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -464,6 +538,7 @@
           <li><strong>6. Human review</strong>: a developer reviews the PR, approves, and merges</li>
           <li><strong>7. Slack follow-up</strong>: team members query Copilot in Slack for a summary of the fix</li>
         </ul>
+
         <aside class="speaker-notes">
           Let's trace a complete workflow from issue to merge. A bug report comes in with clear reproduction steps. A GitHub Action fires and invokes Copilot to triage the issue: it applies labels, sets priority, and suggests an assignee. The team decides to assign it to the Coding Agent. The agent spins up a secure environment, analyzes the codebase, creates a fix branch, implements the change, writes a test, and opens a pull request. Copilot then reviews the PR, flagging any style issues or missing test coverage. The CI pipeline runs, and if something fails, the Coding Agent reads the error and iterates. Once CI passes, a human developer reviews the PR, provides final approval, and merges. After the merge, team members can query Copilot in Slack for a summary of the fix. The entire flow involves multiple agents across multiple surfaces, all coordinated through standard GitHub events and workflows.
         </aside>
@@ -497,6 +572,7 @@
           <li>Registered through the <strong>GitHub Marketplace</strong> (public) or your <strong>organization settings</strong> (private)</li>
           <li>Enterprise organizations control which extensions are allowed through <strong>policy settings</strong></li>
         </ul>
+
         <aside class="speaker-notes">
           Copilot Extensions are the extensibility mechanism for building specialized agents that plug into the Copilot ecosystem. An extension is an HTTP endpoint that receives messages from Copilot Chat and returns responses. Users invoke extensions with an @mention, just like they would mention a teammate. Extensions can connect to any system your organization uses: internal APIs, databases, monitoring dashboards, CI/CD platforms, or proprietary business tools. This makes them ideal for encoding domain-specific capabilities that the general-purpose Copilot model does not have. Extensions can be published to the GitHub Marketplace for public use or registered privately within your organization. Enterprise administrators control which extensions are available to their developers through policy settings, ensuring that only approved extensions can be used.
         </aside>
@@ -527,6 +603,7 @@ app.post("/agent", async (req, res) =&gt; {
           <li>The code above is simplified pseudocode. Production extensions must use server-sent events (SSE) for streaming responses</li>
           <li>Implement authentication with your organization's identity provider for secure access to internal systems</li>
         </ul>
+
         <aside class="speaker-notes">
           At its core, a Copilot Extension is a web service that implements a simple request-response protocol. The endpoint receives the conversation history as an array of messages and returns a response. This example shows a simplified handler that extracts the user's latest message, queries an internal API for relevant context, and builds a response. The JSON response pattern shown above is a simplification. In production, extensions must use server-sent events to stream the response back to the user. You would also implement proper authentication to ensure the extension can securely access your internal systems. The architecture is deliberately simple, so teams can build extensions using whatever language, framework, and hosting platform they prefer. The barrier to entry is low, which encourages teams to build domain-specific extensions that address their unique needs.
         </aside>
@@ -560,6 +637,7 @@ app.post("/agent", async (req, res) =&gt; {
           <li>Instructions are <strong>additive</strong>: repo-level, folder-level, and user-level instructions combine at runtime</li>
           <li>Version-control your instructions alongside your code so they evolve with the project</li>
         </ul>
+
         <aside class="speaker-notes">
           The copilot-instructions.md file in the .github directory is the most important file for agent coordination. It defines how Copilot behaves whenever it interacts with your repository, regardless of the surface. Whether a developer is using agent mode in VS Code, chatting on GitHub.com, or the Coding Agent is working autonomously, the same instructions apply. This consistency is what makes multi-surface coordination practical. You define your coding standards, architectural constraints, testing requirements, and style preferences once, and every agent follows them. For more granular control, you can create .instructions.md files with applyTo globs that target specific file types or directories. Instructions are additive, meaning repo-level, folder-level, and user-level instructions all combine at runtime. And since these files are version-controlled, they evolve with your codebase.
         </aside>
@@ -580,6 +658,7 @@ app.post("/agent", async (req, res) =&gt; {
           <li><strong>Seat management</strong>: assign Copilot licenses to individuals, teams, or the entire organization</li>
           <li><strong>IP indemnity</strong>: GitHub Copilot Business and Enterprise plans include IP indemnification for Copilot-generated code</li>
         </ul>
+
         <aside class="speaker-notes">
           Enterprise governance starts with the controls available in your GitHub organization settings. Administrators can enable or disable specific Copilot features at the organization level and override settings for individual repositories when needed. The Coding Agent can be enabled for the entire organization or restricted to specific repositories where autonomous AI work is appropriate. Extension allowlists let administrators control which Copilot Extensions developers can use, preventing unapproved third-party extensions from accessing proprietary code. Content exclusions allow you to designate specific files, directories, or patterns as off-limits, so Copilot never ingests or references sensitive configurations, secrets, or proprietary algorithms. Seat management provides fine-grained control over licensing. And for organizations on Business or Enterprise plans, GitHub provides IP indemnification for code generated by Copilot.
         </aside>
@@ -600,6 +679,7 @@ app.post("/agent", async (req, res) =&gt; {
           <li>Stream audit logs to your <strong>SIEM</strong> (Splunk, Sentinel, Datadog) for centralized monitoring</li>
           <li>Correlate agent activity with CI/CD outcomes to measure impact on velocity and quality</li>
         </ul>
+
         <aside class="speaker-notes">
           Observability is the other half of governance. GitHub provides comprehensive audit logging for all Copilot activity within your organization. Administrative actions and governance events (such as seat assignments, policy changes, and content exclusion updates) are recorded with the actor, the action taken, the target resource, and a timestamp. For the Coding Agent specifically, you can track which issues were assigned, which branches were created, which PRs were opened, and whether those PRs were ultimately merged. The REST API for Copilot usage metrics gives you programmatic access to usage data, including acceptance rates, active users, language distribution, and feature adoption. You can stream audit logs to your SIEM of choice, whether that is Splunk, Microsoft Sentinel, Datadog, or another platform. By correlating agent activity with CI/CD outcomes, you can measure the concrete impact of AI-assisted development on your organization's velocity and code quality.
         </aside>
@@ -633,6 +713,7 @@ app.post("/agent", async (req, res) =&gt; {
           <li><strong>Slack follow-up</strong>: the security team queries Copilot in Slack for a summary of the fix</li>
           <li><strong>Result</strong>: mean time to remediation drops from days to hours</li>
         </ul>
+
         <aside class="speaker-notes">
           Security vulnerability remediation is one of the most compelling use cases for multi-agent coordination. The flow begins when Dependabot or an external security scanner creates an issue for a critical vulnerability. A GitHub Action triggers and invokes @copilot to assess the severity, identify which files and modules are affected, and suggest a remediation plan. If the remediation is straightforward, such as a dependency version bump with minor API adjustments, the issue is assigned to the Coding Agent. The agent updates the dependency, modifies any code that relies on changed APIs, runs the test suite, and opens a pull request. Copilot reviews the PR for completeness, and a human security engineer gives the final sign-off. After the merge, the security team can query Copilot in Slack for a summary of the remediation. The entire process, which typically takes days of developer time, can be compressed to hours.
         </aside>
@@ -653,6 +734,7 @@ app.post("/agent", async (req, res) =&gt; {
           <li><strong>Dashboard</strong>: a custom GitHub Action aggregates PR status across all repositories into a tracking issue</li>
           <li><strong>Result</strong>: what previously took weeks of coordinated developer effort completes in a single day</li>
         </ul>
+
         <aside class="speaker-notes">
           Large organizations frequently need to roll out updates across hundreds of repositories when a shared library, framework, or API changes. Traditionally, this requires coordinating multiple developers across multiple teams over several weeks. With multi-agent coordination, the process is dramatically faster. A central script creates a standardized issue in every affected repository, each containing clear instructions for the update. Each issue is assigned to the Coding Agent, which works in its own secure environment to update the dependency, adjust any usage patterns that changed, and open a pull request. Because each agent operates independently, they work in parallel across all repositories (subject to per-organization concurrency limits). A custom GitHub Action aggregates the status of all PRs into a single tracking issue, giving leadership real-time visibility into the rollout progress. Human reviewers still approve every PR, but the implementation work is handled by agents.
         </aside>
@@ -673,6 +755,7 @@ app.post("/agent", async (req, res) =&gt; {
           <li><strong>Slack integration</strong>: Copilot in Slack answers questions from teams adopting the new API version</li>
           <li><strong>Result</strong>: documentation stays in sync with code, and adoption friction decreases</li>
         </ul>
+
         <aside class="speaker-notes">
           Documentation is one of the areas where AI agents can deliver the most value because it is frequently deprioritized in favor of feature work. In this scenario, a new API version is released, and documentation needs to be updated across the main repository and several consumer repositories. A developer uses agent mode in VS Code to generate the initial API reference documentation from the source code, including endpoint descriptions, parameter types, example requests, and response formats. Issues are then created in each consumer repository to update their integration guides, and the Coding Agent handles each one. Technical writers review the generated documentation through the standard PR process, making refinements and ensuring accuracy. Meanwhile, Copilot in Slack fields questions from teams adopting the new API version, surfacing relevant documentation and code examples from the repositories it has access to.
         </aside>

@@ -474,7 +474,37 @@ server.tool(
     </section>
 
     <!-- ============================================================
-         SLIDE 24 - GitHub Actions as Agent Triggers
+         SLIDE 24 - Local Parallelism with Open in Editor
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Local Parallelism: Open in Editor</h2>
+        <ul>
+          <li>Cloud agents (parallel issues) handle cross-repo automation. <strong>Local agents</strong> handle interactive, multi-repo refinement.</li>
+          <li>Use <strong>"Open in Editor"</strong> to pop Chat into an editor tab; open Chat again for a new session</li>
+          <li>In a multi-repo workspace, each agent can focus on a <strong>different repository</strong></li>
+          <li>Combine with <strong>git worktrees</strong> for complete isolation:</li>
+        </ul>
+        <pre><code># Each repo gets a worktree for the second agent
+cd api-repo &amp;&amp; git worktree add ../api-migration migration
+cd ../frontend-repo &amp;&amp; git worktree add ../frontend-migration migration
+# Open worktrees in separate windows, run agents in parallel
+code ../api-migration
+code ../frontend-migration</code></pre>
+        <ul>
+          <li><strong>Merge strategy:</strong> complete work in each worktree, merge branches per-repo, resolve conflicts repo by repo</li>
+          <li>Agent handoff: ask Copilot to <em>"create a git worktree for this cross-repo task on a new branch"</em></li>
+          <li><strong>You are the coordinator.</strong> Agents do not know about each other. You set scope, track progress, and sequence merges.</li>
+        </ul>
+
+        <aside class="speaker-notes">
+          We just covered cloud-side parallelism with the Coding Agent handling issues in multiple repos simultaneously. But there is an equally important local pattern. When you are working interactively in VS Code across a multi-repo workspace, inference latency is your bottleneck. Every prompt you send sits in a queue, then generates token by token. Click "Open in Editor" to pop your Chat session into an editor tab, then open the Chat panel again for a brand-new context. Now you have two independent agents. In a multi-repo workspace, you can point each agent at a different repository: one refining the API contract while another updates the frontend client. For complete isolation, use git worktrees. Create a worktree for each repo's feature branch, open each worktree in its own VS Code window, and run agents in parallel across them. The agents physically cannot collide because each worktree has its own file state. When both are done, merge each branch back into its repo's main branch and resolve conflicts repo by repo. You can even delegate the worktree creation to Copilot itself. Ask it to create a git worktree on a new branch, and it handles the setup for you. The key discipline is that you are the coordinator. Your agents do not know about each other. You set the scope, track progress, and decide the merge order.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - GitHub Actions as Agent Triggers
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">

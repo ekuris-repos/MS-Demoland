@@ -36,7 +36,7 @@
         }
       ]
     },
-    "7": {
+    "8": {
       "steps": [
         {
           "title": "Trace the Agent Lifecycle",
@@ -63,7 +63,7 @@
         }
       ]
     },
-    "10": {
+    "11": {
       "steps": [
         {
           "title": "Draft an Agent-Ready Issue",
@@ -97,7 +97,7 @@
         }
       ]
     },
-    "13": {
+    "14": {
       "steps": [
         {
           "title": "Design Org-Level Instructions",
@@ -136,7 +136,7 @@
         }
       ]
     },
-    "15": {
+    "16": {
       "steps": [
         {
           "title": "Design Repo-Level Instructions",
@@ -159,7 +159,7 @@
         }
       ]
     },
-    "19": {
+    "20": {
       "steps": [
         {
           "title": "Create the Setup Steps File",
@@ -200,7 +200,7 @@
         }
       ]
     },
-    "22": {
+    "23": {
       "steps": [
         {
           "title": "Build a PR Review Checklist",
@@ -244,7 +244,7 @@
         }
       ]
     },
-    "24": {
+    "25": {
       "steps": [
         {
           "title": "Plan an IDE-to-Agent Handoff",
@@ -288,7 +288,7 @@
         }
       ]
     },
-    "27": {
+    "28": {
       "steps": [
         {
           "title": "Estimate Capacity Needs",
@@ -310,7 +310,7 @@
         }
       ]
     },
-    "29": {
+    "30": {
       "steps": [
         {
           "title": "Assemble Your Configuration Package",
@@ -340,7 +340,7 @@
         }
       ]
     },
-    "33": {
+    "34": {
       "steps": [
         {
           "title": "Lab Complete!",

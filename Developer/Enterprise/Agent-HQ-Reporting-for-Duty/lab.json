@@ -181,7 +181,7 @@
         }
       ]
     },
-    "26": {
+    "28": {
       "steps": [
         {
           "title": "Scaffold a Copilot Extension",
@@ -221,7 +221,7 @@
         }
       ]
     },
-    "28": {
+    "30": {
       "steps": [
         {
           "title": "Create Enterprise-Wide Instructions",
@@ -250,7 +250,7 @@
         }
       ]
     },
-    "30": {
+    "32": {
       "steps": [
         {
           "title": "Build a Usage Metrics Dashboard Script",
@@ -273,7 +273,7 @@
         }
       ]
     },
-    "32": {
+    "34": {
       "steps": [
         {
           "title": "Build a Security Remediation Pipeline",
@@ -298,7 +298,7 @@
         },
         {
           "title": "Review Changes in Source Control",
-          "instruction": "Open <strong>Source Control</strong> to see all the files the agent generated during this lab.<br><br>Review the change list \u2014 you should see workflow YAML files, issue templates, scripts, and the Copilot Extension project. In an enterprise workflow, this is where a senior engineer reviews agent-generated changes before they are committed and pushed.",
+          "instruction": "Open <strong>Source Control</strong> to see all the files the agent generated during this lab.<br><br>Review the change list — you should see workflow YAML files, issue templates, scripts, and the Copilot Extension project. In an enterprise workflow, this is where a senior engineer reviews agent-generated changes before they are committed and pushed.",
           "focus": "left",
           "action": "workbench.view.scm",
           "onLeave": "workbench.action.closeSidebar"
@@ -310,7 +310,7 @@
         }
       ]
     },
-    "37": {
+    "39": {
       "steps": [
         {
           "title": "Lab Complete!",
