@@ -54,6 +54,9 @@
           case 'toggleNotes':
             toggleNotes();
             break;
+          case 'setNotes':
+            setNotes(e.data.visible);
+            break;
         }
       });
     }
@@ -162,6 +165,14 @@
   /* ---- Toggle speaker notes ---- */
   function toggleNotes() {
     document.body.classList.toggle("show-notes");
+  }
+
+  function setNotes(visible) {
+    if (visible) {
+      document.body.classList.add("show-notes");
+    } else {
+      document.body.classList.remove("show-notes");
+    }
   }
 
   /* ---- Extension banner for browser viewers ---- */
