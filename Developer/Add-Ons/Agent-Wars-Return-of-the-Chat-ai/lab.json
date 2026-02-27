@@ -23,7 +23,7 @@
           "title": "Rank the Opportunities",
           "instruction": "Now challenge Copilot to prioritize. Ask it to rank the ChatOps opportunities by effort vs. impact:<br><br><kbd>Rank those ChatOps opportunities by implementation effort (low/medium/high) and developer time saved. Which should we adopt first?</kbd><br><br>Compare the ranking to your own intuition. Note where Copilot's assessment matches your experience and where it diverges.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Discover ChatOps Commands",
@@ -35,7 +35,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar and Command Palette for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
+          "instruction": "We've closed the Chat panel and Command Palette for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -48,7 +48,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Copilot may conflate the Teams integration with VS Code capabilities. Part of the challenge is spotting those differences.",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -79,11 +79,11 @@
           "title": "Battle: Structured vs. Freeform Queries",
           "instruction": "Try two versions of the same question, one structured and one freeform:<br><br>Structured: <kbd>List open PRs in contoso/web-app. For each, show: title, author, review status, and CI status.</kbd><br><br>Freeform: <kbd>What PRs need attention in contoso/web-app?</kbd><br><br>Note the differences in output quality, completeness, and actionability. Which prompt style would you standardize for your team's playbook?",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -121,7 +121,7 @@
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
           "tip": "Over-subscribing is the most common ChatOps mistake. Fewer, targeted subscriptions beat an \"everything\" firehose.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
@@ -148,11 +148,11 @@
           "title": "Battle: Built-in vs. Extension",
           "instruction": "Ask Copilot to compare approaches:<br><br><kbd>For checking deployment status, compare: (1) using the built-in GitHub Copilot Teams integration, (2) using a marketplace Copilot Extension, (3) building a custom Copilot Extension. What are the tradeoffs in setup time, flexibility, and maintenance?</kbd><br><br>Rate the response. Did Copilot accurately distinguish the three tiers?",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -171,7 +171,7 @@
           "instruction": "Look at Copilot's proposed architecture and identify at least three security concerns that are not addressed. Consider: input validation, authorization scope, rate limiting, secret storage, and audit logging.<br><br>Ask Copilot to address your concerns:<br><br><kbd>What security gaps exist in this design? How would you mitigate each one?</kbd><br><br>Score Copilot's security awareness. Did it catch the gaps you identified, or did it miss some?",
           "focus": "right",
           "tip": "A good ChatOps integration is only as secure as its weakest authorization check. The bot should never have more permissions than the user invoking it.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Check for Code Warnings",
@@ -209,7 +209,7 @@
           "title": "Evaluate the Generated Code",
           "instruction": "Switch to <strong>Ask</strong> mode and paste the generated server code. Ask:<br><br><kbd>Review this Copilot Extension endpoint for production readiness. Check for: proper error handling, input sanitization, response streaming compliance, and graceful shutdown. Rate it on a scale of 1-5 for each category.</kbd><br><br>Compare Copilot's self-assessment to your own review. Would you ship this code as-is?",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Test the Extension Server",
@@ -221,7 +221,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar and terminal for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "instruction": "We've closed the Chat panel and terminal for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -245,7 +245,7 @@
           ],
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Check Extension Output",
@@ -290,12 +290,12 @@
           "instruction": "Ask Copilot to compare governance approaches:<br><br><kbd>Compare two ChatOps governance models: (1) centralized, where a platform team controls all integrations and extensions, vs. (2) federated, where each team can install and build their own. What are the risks and benefits of each for a 200-person org?</kbd><br><br>Add the key points to your rollout plan. Which model fits your organization better?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

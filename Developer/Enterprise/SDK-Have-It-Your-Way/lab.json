@@ -193,7 +193,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Configure Azure OpenAI Provider",

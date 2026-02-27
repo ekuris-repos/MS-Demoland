@@ -51,11 +51,11 @@
           "title": "Build Your Mental Model",
           "instruction": "Keep exploring until you can answer these without opening a file:<br><br>&bull; What frameworks does the frontend use?<br>&bull; How are API routes organized?<br>&bull; What database is used and how is it accessed?<br>&bull; What testing framework is in place?<br><br>This knowledge will be essential for writing effective prompts later.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -68,7 +68,7 @@
           "tip": "The command to run tests in this project is <code>make test</code>. Try asking agent mode to discover and run it.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -81,7 +81,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar and settings tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
+          "instruction": "We've closed the Chat panel and settings tab for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
           "focus": "slides"
         }
       ]
@@ -116,11 +116,11 @@
           "title": "Back to Agent Mode",
           "instruction": "Switch back to <strong>Agent</strong> mode for the rest of the lab. You now know when to reach for each mode:<br><br>&bull; <strong>Ask</strong> for exploration and questions<br>&bull; <strong>Edit</strong> for targeted single-file changes<br>&bull; <strong>Agent</strong> for multi-step, multi-file builds",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -140,7 +140,7 @@
           "instruction": "Save the file as <code>.github/copilot-instructions.md</code>. Then open <strong>Copilot Chat</strong> in agent mode and ask it what instructions it has loaded for this workspace.<br><br>Copilot should reference your new file. From here on, every response will follow your project's conventions.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat",
           "validate": [
             {
@@ -158,7 +158,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -213,7 +213,10 @@
           "instruction": "Open the <strong>Source Control</strong> panel to see every file agent mode created or modified. Review the diffs.<br><br>Look for files you didn't expect. Agent mode sometimes creates helper files or modifies configuration beyond what you asked for.",
           "focus": "left",
           "action": "workbench.view.scm",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": [
+            "workbench.action.closeSidebar",
+            "workbench.action.closeAuxiliaryBar"
+          ],
           "actionLabel": "Open Source Control",
           "validate": [
             {
@@ -250,7 +253,7 @@
           "instruction": "Ask agent mode to start the development servers so you can verify the feature works end-to-end.<br><br>Check that the API serves data, the frontend page renders, and the navigation link appears in the sidebar.",
           "tip": "If the component doesn't render correctly, describe the problem to agent mode. For example: \"The table is empty even though the API returns data.\"",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "validate": [
             {
               "type": "fileExists",
@@ -267,7 +270,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -286,7 +289,7 @@
           "title": "Run the Full Test Suite",
           "instruction": "Ask agent mode to run the complete test suite and fix any failures. This verifies your new code doesn't break existing functionality.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Verify Tests Independently",
@@ -318,12 +321,12 @@
           "tip": "Try switching to Edit mode for a small fix like adding Swagger documentation to a single endpoint. The precision of Edit mode is better for single-file changes.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -343,12 +346,15 @@
           "instruction": "Open <strong>Source Control</strong> to review all changed files. The diff view shows exactly what was renamed and whether any references were missed.<br><br>This is a habit worth building: agent mode proposes, Source Control verifies.",
           "focus": "left",
           "action": "workbench.view.scm",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": [
+            "workbench.action.closeSidebar",
+            "workbench.action.closeAuxiliaryBar"
+          ],
           "actionLabel": "Open Source Control"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -369,12 +375,12 @@
           "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>/</kbd> to open the prompt picker. Select your new prompt file and give it a test run with a different route name.<br><br>If the prompt produces good output, your whole team benefits from your work.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

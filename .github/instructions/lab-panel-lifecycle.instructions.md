@@ -37,7 +37,7 @@ before the user moves on. This is handled with two mechanisms: **`onLeave`** and
 
 | Open action | Close command (`onLeave`) |
 |---|---|
-| `workbench.action.chat.open` | `workbench.action.closeSidebar` |
+| `workbench.action.chat.open` | `workbench.action.closeAuxiliaryBar` |
 | `workbench.view.explorer` | `workbench.action.closeSidebar` |
 | `workbench.view.scm` | `workbench.action.closeSidebar` |
 | `workbench.view.extensions` | `workbench.action.closeSidebar` |

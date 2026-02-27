@@ -50,7 +50,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "tip": "Tool confirmation is the safety net that makes MCP practical for production use. Sampling and elicitation ensure the AI never takes actions you haven't approved."
         },
         {
@@ -105,7 +105,7 @@
           "actionLabel": "Open Output Panel",
           "onLeave": [
             "workbench.action.closePanel",
-            "workbench.action.closeSidebar"
+            "workbench.action.closeAuxiliaryBar"
           ],
           "tip": "The Output panel is your best friend for debugging MCP connectivity. Check it first whenever something isn't working."
         },
@@ -129,7 +129,7 @@
           "title": "Filter by Label",
           "instruction": "Try a more targeted query. Type:<br><br><kbd>Show me issues labeled 'bug'</kbd><br><br>Copilot uses the same MCP tool but passes the label filter. Notice how natural language maps to structured API calls behind the scenes.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
@@ -152,7 +152,7 @@
           "title": "Verify the Comment",
           "instruction": "After approving the action, check that the comment was posted. You can ask:<br><br><kbd>Show me the comments on issue #[number]</kbd><br><br>Alternatively, open the issue in your browser to verify the comment appears.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
@@ -174,7 +174,7 @@
           "title": "Combine Search With Reasoning",
           "instruction": "Now combine search with Copilot's reasoning. Try:<br><br><kbd>Find all HTML files that use speaker notes and tell me which ones are missing them</kbd><br><br>Copilot searches the code, analyzes the results, and gives you an intelligent summary. This is MCP + LLM reasoning working together.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
@@ -227,7 +227,7 @@
           "title": "Use the New Server",
           "instruction": "Let's confirm it works. In Copilot Chat, type:<br><br><kbd>Use the fetch tool to get the content of https://modelcontextprotocol.io and summarize what MCP is</kbd><br><br>Copilot calls the fetch server to retrieve the page, then summarizes the content. You now have two MCP servers running side by side: GitHub for issues and code, Fetch for web content.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
@@ -288,7 +288,7 @@
           "title": "Complete the Workflow",
           "instruction": "Step 4-5: Wrap up the workflow:<br><br>&bull; Ask Copilot to <strong>add a comment</strong> to the issue with your findings<br>&bull; If appropriate, ask Copilot to <strong>close</strong> the issue<br><br>You've now completed an end-to-end issue workflow entirely from within VS Code!",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "tip": "In a real workflow, you'd fix the code, push a commit, and link it to the issue before closing. The demo shows the MCP interaction pattern."
         },
         {

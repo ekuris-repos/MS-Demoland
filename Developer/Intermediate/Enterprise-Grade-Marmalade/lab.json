@@ -27,12 +27,15 @@
           "instruction": "Now compare the CCPR template to your actual needs. In <strong>Copilot Chat</strong>, ask:<br><br><kbd>Look at the ccpr_root folder in my workspace. Then consider: what coding conventions, architectural decisions, and team-specific knowledge would a new developer need to learn about a typical project? List at least five things that are not yet captured in this CCPR template.</kbd><br><br>Keep this list handy. You will encode these gaps into the CCPR throughout the lab.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": [
+            "workbench.action.closeSidebar",
+            "workbench.action.closeAuxiliaryBar"
+          ],
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -111,7 +114,7 @@
           "instruction": "The slides present four distribution approaches: git submodules, npm packages, symlinks, and copy-on-clone. Your challenge: choose the best approach for a team of your size and stack.<br><br>Open <strong>Copilot Chat</strong> and explore the trade-offs:<br><br><kbd>Compare git submodules vs npm packages for distributing shared prompt files across 10 repositories. My team uses Node.js and TypeScript. Which approach would you recommend and why?</kbd><br><br>There is no single right answer. The best choice depends on your team's existing workflows.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -173,12 +176,12 @@
           "instruction": "Open <strong>Copilot Chat</strong> and type <kbd>/</kbd> to open the prompt picker. Find your new template and run it with sample input.<br><br>Evaluate the output:<br>&bull; Does it follow the structure you defined?<br>&bull; Does it enforce your team's standards?<br>&bull; Would a junior developer get value from this template?<br><br>Iterate on the template until you are satisfied with the output quality.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -211,7 +214,7 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>What instructions are active for this workspace? List them and summarize their rules.</kbd><br><br>Confirm that both your language and framework instruction files are loaded. Then test them: ask Copilot to generate a small piece of code and verify the output follows both sets of rules.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -236,12 +239,12 @@
           "instruction": "Ask <strong>Copilot Chat</strong> a question that your skill should be able to answer. For example, if you wrote a deployment pipeline skill:<br><br><kbd>How do I deploy a new service to production? What approvals are needed?</kbd><br><br>Does Copilot reference your skill file and provide organization-specific guidance? Or does it give generic advice? If it misses your skill, check that the file is in the correct location and has a clear description at the top.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -261,12 +264,12 @@
           "instruction": "Open <strong>Copilot Chat</strong> and switch to your new agent using the <kbd>@</kbd> mention or the mode selector. Give it a task that exercises its specialty.<br><br>Evaluate the response:<br>&bull; Does it stay in character for its defined role?<br>&bull; Does it reference the skills and instructions you linked?<br>&bull; Would this agent save your team time compared to a generic Copilot prompt?<br><br>Refine the agent definition until its output consistently meets your expectations.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

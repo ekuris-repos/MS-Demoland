@@ -17,7 +17,7 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask a complex, multi-domain question. For example:<br><br><kbd>Evaluate the trade-offs of adopting a multi-cloud strategy for an enterprise with strict data residency requirements, considering cost, security, compliance, operational complexity, and vendor lock-in.</kbd><br><br>Read the response critically. Note where the answer stays surface-level, repeats itself, or fails to weigh competing concerns.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -28,7 +28,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -52,11 +52,11 @@
           "title": "Synthesize as the Judge",
           "instruction": "Open a <strong>third chat session</strong>. Paste both arguments (or summarize them) and prompt:<br><br><kbd>You are a neutral judge evaluating two positions on build vs. buy for an enterprise AI platform. Review both arguments, identify the strongest and weakest claims in each, flag areas of agreement, and produce a balanced recommendation with conditions.</kbd><br><br>Evaluate the synthesis. Is it more nuanced than the single-agent answer from Slide 5?",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -77,12 +77,12 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Agent quality is directly proportional to instruction quality. Vague instructions produce vague output.",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -110,12 +110,12 @@
           "instruction": "Now test both agents against the <strong>same question</strong>:<br><br><kbd>Our company is considering storing European customer data in a US-based cloud region. What should we consider?</kbd><br><br>Ask <strong>@security-auditor</strong> first, then ask <strong>@compliance-researcher</strong> the same question in a separate session. Compare their outputs: where do they overlap? Where does each agent surface concerns the other missed?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -144,12 +144,12 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "A good specialist agent should decline or flag questions outside its domain rather than guessing. Test this by asking a security question to your cost analyst.",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar and the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel and the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -177,7 +177,7 @@
           "instruction": "Invoke each specialist agent with its assigned sub-question. Collect the outputs. For example, your security auditor might evaluate the startup's security posture, while your cost analyst models the total cost of acquisition vs. internal hiring.<br><br>After collecting all outputs, feed them to a synthesis prompt:<br><br><kbd>You are a strategic advisor. Here are findings from four specialist analysts on the build vs. acquire decision: [paste findings]. Identify areas of agreement, flag contradictions, and produce a recommendation with clear conditions and risks.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -187,7 +187,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -237,12 +237,12 @@
           "instruction": "Create (or invoke) a <strong>@fact-checker</strong> agent. Feed it one of the claims you flagged:<br><br><kbd>@fact-checker Verify the following claim from a research synthesis: \"[paste claim here]\". Check whether this claim is supported, partially supported, or unsupported. Explain your reasoning and rate your confidence.</kbd><br><br>Does the fact-checker's assessment change your confidence in the original finding?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar and the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel and the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -260,12 +260,12 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "The quality of your executive summary is the measure of the lab. A strong summary demonstrates mastery of the multi-agent research pattern.",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

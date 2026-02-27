@@ -18,7 +18,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Think about async vs. interactive, access to local tools vs. cloud isolation, and fire-and-forget vs. real-time guidance.",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -81,7 +81,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -92,7 +92,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -113,7 +113,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "Great org instructions are short and universal. If a rule only applies to some projects, it belongs at the repo level instead.",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -182,7 +182,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -251,7 +251,7 @@
           "instruction": "You have been prototyping a feature in VS Code agent mode. Now you want to hand it off to the Coding Agent to finish.<br><br>Open <strong>Copilot Chat</strong> and ask it to help you write a handoff issue:<br><br><kbd>I've been exploring a feature locally. Help me write a detailed GitHub Issue that captures my findings so the Coding Agent can complete the implementation. The feature is: [describe a realistic feature].</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -295,7 +295,7 @@
           "instruction": "The Coding Agent consumes GitHub Actions minutes. For your team's expected usage, estimate the monthly cost.<br><br>Ask <strong>Copilot Chat</strong>:<br><br><kbd>If a team of 10 developers assigns an average of 4 issues per week to the Coding Agent, and each session uses roughly 15 minutes of Actions time, what is the monthly Actions minute consumption?</kbd><br><br>Challenge: How does this compare to your current Actions usage? Is the ROI worth it?",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -305,7 +305,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -330,12 +330,12 @@
           "instruction": "Challenge: Could a teammate pick up your configuration files and start using the Coding Agent effectively today? Open <strong>Copilot Chat</strong> and ask:<br><br><kbd>I created a Coding Agent configuration package with org instructions, repo instructions, and setup steps. What is missing that could cause problems for a new team adopting the agent?</kbd><br><br>Fill any gaps the review identifies.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

@@ -41,7 +41,7 @@
           "title": "Verify Cross-Repo Context",
           "instruction": "With all three repos in your workspace, ask the same question again:<br><br><kbd>What endpoints does the OctoCAT Supply API expose? What data models does it use?</kbd><br><br>Now Copilot can read the API source code directly. Compare the accuracy of this response to the earlier attempt. The workspace boundary defines what Copilot knows.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Examine the CCPR Template",
@@ -76,12 +76,12 @@
           "instruction": "Open <strong>Copilot Chat</strong> in agent mode. Ask:<br><br><kbd>What instructions have you loaded for this workspace? List the rules from each instructions file you can see across all workspace folders.</kbd><br><br>Copilot should reference instruction files from all three repos. Then test the layering:<br><br><kbd>Generate a new API endpoint for the OctoCAT Supply API that lists product categories. Follow the patterns and conventions from the instruction files.</kbd><br><br>Verify the output follows both the org-level conventions and the API repo's specific patterns (repository pattern, Swagger docs, custom error types).",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -107,11 +107,11 @@
           "title": "Test the Cross-Repo Prompt",
           "instruction": "Type <kbd>/</kbd> in Copilot Chat to open the prompt picker. Select <strong>sync-api-types</strong> and run it.<br><br>Review the generated types. Do they match the models in the API's <code>src/models/</code> directory? This demonstrates how prompt files can encode cross-repo knowledge. The template encapsulates the 'how to sync types' pattern so any developer can run it without knowing the API repo's internals.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -135,11 +135,11 @@
           "title": "Test Cross-Repo MCP Access",
           "instruction": "With the GitHub MCP Server configured, test its cross-repo capabilities. In agent mode, ask:<br><br><kbd>Using the GitHub MCP server, search for repositories in the ekuris-repos organization. List what you find and describe each repo's purpose.</kbd><br><br>The GitHub MCP Server provides live, authenticated access to your organization's repositories without adding them to the workspace. This is how you access repos that are too large or sensitive to clone locally.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -198,11 +198,11 @@
           "title": "Simulate a Cross-Repo Issue",
           "instruction": "Imagine the API team adds a new <code>status</code> field to the Supplier model. In agent mode, design coordinated issues:<br><br><kbd>The OctoCAT Supply API just added a \"status\" field (enum: active, inactive, suspended) to the Supplier model. Write two GitHub issue bodies: one for the API repo (add the field to the database migration and seed data) and one for the frontend repo (update the Supplier display components and add filtering by status). Each issue should contain enough context — diffs, file references, and before/after examples — for the coding agent to work without asking questions.</kbd><br><br>Review the generated issues. Each should be self-contained with all the cross-repo context embedded.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -226,7 +226,7 @@
           "title": "Add Agent Auto-Assignment",
           "instruction": "Extend the receiver workflow to automatically assign the coding agent. In agent mode, ask:<br><br><kbd>Modify handle-api-update.yml to also assign the \"copilot\" user as an assignee on the newly created issue, so the coding agent picks it up automatically. Add error handling in case the agent is not available for this repo.</kbd><br><br>Review the result. This completes the automation chain: API release → dispatch → issue creation → agent assignment.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Validate Workflow Syntax",
@@ -256,11 +256,11 @@
           "title": "Generate the Fan-Out Workflow",
           "instruction": "Use agent mode to create a workflow that reads the registry and fans out in priority order:<br><br><kbd>Create a GitHub Actions workflow at octocat-supply-api/.github/workflows/fan-out-update.yml. It should read consumer-registry.json, group consumers by priority, and dispatch repository_dispatch events in batches. High-priority repos go first (the real frontend repo). The workflow should include a tracking step that creates a master issue listing all downstream repos and their update status.</kbd><br><br>Review the generated workflow. This is the coordinator pattern: automated, sequenced, and tracked across real repositories.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -272,7 +272,7 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask it to help you audit your cross-repo automation's permission model. Reference the real repos in your workspace:<br><br><kbd>I'm setting up cross-repo automation between octocat-supply-api and octocat-supply-frontend using GitHub Actions and the coding agent. Help me design a least-privilege permission model. I need: (1) minimum GitHub App permissions for creating issues and dispatching events between these repos, (2) MCP server token scopes for read-only access to both repos, and (3) a checklist of branch protection rules for agent-created PRs.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -281,7 +281,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Review Changes in Source Control",
@@ -311,11 +311,11 @@
           "title": "Identify Departing Patterns",
           "instruction": "Review the artifacts you built with a critical eye. In agent mode, ask:<br><br><kbd>Which of the patterns and configurations I built in this workspace — the CCPR template, custom MCP servers, dispatch workflows, issue templates — are most likely to be simplified or replaced by upcoming GitHub Copilot features? Flag any workarounds that exist only because native cross-repo capabilities are not yet available. For each, suggest what to watch for and when to reconsider the approach.</kbd><br><br>This exercise builds the habit of evaluating your automation for long-term maintainability as the platform evolves.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

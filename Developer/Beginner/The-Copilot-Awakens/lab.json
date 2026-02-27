@@ -112,7 +112,7 @@
           "title": "Ask a Context-Aware Question",
           "instruction": "With the file you wrote earlier still open, type:<br><br><kbd>How could I improve the functions in my current file?</kbd><br><br>Notice that Copilot sees your open file and gives specific feedback — not generic advice. This <strong>context awareness</strong> is what makes Chat so much more useful than a web search.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Try Inline Chat",
@@ -122,7 +122,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -145,7 +145,7 @@
           "title": "Switch and Compare",
           "instruction": "Select a different model from the dropdown. Now ask a question you asked earlier:<br><br><kbd>How could I improve the functions in my current file?</kbd><br><br>Notice how different models may give different suggestions, levels of detail, or coding styles. There is no single \"best\" model; it depends on the task.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Done with Models",
@@ -153,7 +153,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -252,12 +252,12 @@
           "tip": "You can repeat this as many times as you want. Every \"Open in Editor\" click creates another independent context window.",
           "onLeave": [
             "workbench.action.closeActiveEditor",
-            "workbench.action.closeSidebar"
+            "workbench.action.closeAuxiliaryBar"
           ]
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the editor tab and sidebar for you.<br><br>For future reference:<br>&bull; <strong>Open in Editor</strong>: pencil icon at top of Chat panel<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
+          "instruction": "We've closed the editor tab and Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Open in Editor</strong>: pencil icon at top of Chat panel<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]

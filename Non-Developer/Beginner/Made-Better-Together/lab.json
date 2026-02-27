@@ -29,11 +29,11 @@
           "instruction": "Now ask a follow-up question in the same chat:<br><br><kbd>Why would an organization use both Azure DevOps and GitHub at the same time?</kbd><br><br>Copilot remembers the conversation context, so the answer builds on what it already told you. This is how you can use Copilot Chat as a learning tool.",
           "focus": "right",
           "tip": "Copilot Chat remembers your conversation history. Each follow-up question builds on the previous answers, so you can explore a topic in depth.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

@@ -34,7 +34,7 @@
           ],
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Check the Project Structure",
@@ -66,7 +66,7 @@
           "focus": "chat",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Register the Tools",
@@ -77,7 +77,7 @@
           ],
           "action": "workbench.action.chat.open",
           "tip": "The update_stock_level tool modifies state. Its description should clearly say so, e.g., \"Adjust the stock quantity for a product. This is a write operation.\"",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Check for TypeScript Errors",
@@ -103,7 +103,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Apply Error Handling to All Tools",
@@ -113,11 +113,11 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -132,7 +132,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Add Environment Configuration",
@@ -143,7 +143,7 @@
           ],
           "action": "workbench.action.chat.open",
           "tip": "Never hardcode API keys or secrets in source code. Always use environment variables or a secret manager.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Test With a .mcp.json Configuration",
@@ -153,11 +153,11 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Configure MCP Settings",
-          "instruction": "Open <strong>Settings</strong> and search for <kbd>mcp</kbd>. Review the MCP-related settings:<br><br>&bull; <strong>chat.mcp.enabled</strong> \u2014 must be <code>true</code> for your server to connect<br>&bull; <strong>chat.agent.autoApprove</strong> \u2014 controls which tools run without confirmation<br><br>Ensure MCP is enabled. In production, configure tool approval policies per server.",
+          "instruction": "Open <strong>Settings</strong> and search for <kbd>mcp</kbd>. Review the MCP-related settings:<br><br>&bull; <strong>chat.mcp.enabled</strong> — must be <code>true</code> for your server to connect<br>&bull; <strong>chat.agent.autoApprove</strong> — controls which tools run without confirmation<br><br>Ensure MCP is enabled. In production, configure tool approval policies per server.",
           "focus": "editor",
           "action": "workbench.action.openSettings",
           "onLeave": "workbench.action.closeActiveEditor"
@@ -192,11 +192,11 @@
           "instruction": "Review your database tool against the safety checklist from the previous slide:<br><br>&bull; Is the database connection read-only? (SELECT only)<br>&bull; Are all queries parameterized? (No string interpolation)<br>&bull; Is there a hard row limit? (max 100 in schema)<br>&bull; Does errorhandling prevent leaking internal details?<br><br>If any check fails, refactor the tool before moving on. Production database access demands defense in depth.",
           "focus": "editor",
           "tip": "In production, create a dedicated database user with SELECT-only permissions. Never reuse a write-capable connection for MCP queries.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -217,11 +217,11 @@
           "instruction": "Review the generated <code>src/auth.ts</code> file. Verify that the OAuth path:<br><br>&bull; Caches the access token in memory<br>&bull; Checks <code>expires_in</code> and refreshes before expiry<br>&bull; Does not log or expose the token value<br>&bull; Returns a clear error if token acquisition fails<br><br>If the caching logic is missing or incomplete, ask Copilot to add it. Token caching prevents your server from hitting the token endpoint on every tool call.",
           "focus": "editor",
           "tip": "For Azure deployments, consider using Managed Identity via @azure/identity instead of client credentials. It eliminates secrets entirely.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -234,7 +234,7 @@
           "focus": "editor",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Add Streamable HTTP Transport",
@@ -244,7 +244,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Review Changes in Source Control",
@@ -281,11 +281,11 @@
           "title": "Observe the Confirmation Flow",
           "instruction": "Notice how Copilot handles the write operation. When it reaches <code>update_stock_level</code>, it should show a <strong>confirmation dialog</strong> before executing.<br><br>Review the tool call sequence in the chat output. Verify that:<br><br>&bull; Read tools (search, check_stock) executed without confirmation<br>&bull; The write tool (update_stock_level) prompted for approval<br>&bull; Each tool's output provided enough context for the next call<br><br>This is the composable building block pattern in action.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -300,7 +300,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Add a Health Endpoint with Metrics",
@@ -310,7 +310,7 @@
             "right"
           ],
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Verify Logging Output",
@@ -321,7 +321,7 @@
         },
         {
           "title": "Check MCP Server Output Logs",
-          "instruction": "Open the <strong>Output</strong> panel and look for your MCP server's channel in the dropdown. Select it to view the server's structured log output.<br><br>Compare what you see in Output with the terminal logs. The Output panel shows the MCP protocol-level communication between VS Code and your server \u2014 tool invocations, responses, and errors. This is the primary debugging surface for MCP servers in production.",
+          "instruction": "Open the <strong>Output</strong> panel and look for your MCP server's channel in the dropdown. Select it to view the server's structured log output.<br><br>Compare what you see in Output with the terminal logs. The Output panel shows the MCP protocol-level communication between VS Code and your server — tool invocations, responses, and errors. This is the primary debugging surface for MCP servers in production.",
           "focus": "bottom",
           "action": "workbench.action.output.toggleOutput",
           "onLeave": "workbench.action.closePanel"
@@ -357,11 +357,11 @@
           "title": "Configure and Test",
           "instruction": "Add the new server to your <code>.mcp.json</code> alongside the inventory server. Reload VS Code (<kbd>Ctrl+Shift+P</kbd> then <strong>Reload Window</strong>).<br><br>Open Copilot Chat and verify both servers' tools appear in the tools list. Try a prompt that chains tools from both servers:<br><br><kbd>Look up product SKU-1234 in the inventory system, then create a Jira ticket for restocking if the quantity is below threshold.</kbd><br><br>This demonstrates MCP's composability: multiple servers working together in a single workflow.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

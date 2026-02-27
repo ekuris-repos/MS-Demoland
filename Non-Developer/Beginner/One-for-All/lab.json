@@ -73,11 +73,11 @@
           "title": "Learn About Traceability",
           "instruction": "Now ask a follow-up question:<br><br><kbd>How does closing an issue automatically when a pull request merges work?</kbd><br><br>This traceability is one of the most powerful features for non-developers. It means every code change can be traced back to the business need that requested it. Compliance and audit teams benefit greatly from this built-in connection.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -193,11 +193,11 @@
           "title": "Ask a Platform Question",
           "instruction": "Type a question that connects to today's tour:<br><br><kbd>Summarize how GitHub Issues, pull requests, Actions, and security scanning work together as a single workflow.</kbd><br><br>Copilot draws on its knowledge of the GitHub platform to give you a connected answer. This is a great way to reinforce what you learned in the slides.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -215,11 +215,11 @@
           "title": "Learn About Audit Logs",
           "instruction": "Ask a follow-up:<br><br><kbd>What kinds of events are captured in the GitHub audit log, and how do compliance teams use this data?</kbd><br><br>The audit log is often the single most important feature for compliance officers. It records every significant action across the organization, creating the paper trail that auditors require.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

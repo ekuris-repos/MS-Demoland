@@ -85,7 +85,7 @@
           "instruction": "Open <strong>Copilot Chat</strong> using the shortcut <kbd>Ctrl+Shift+I</kbd>, or run the command <strong>Chat: Open Chat</strong> from the Command Palette (<kbd>Ctrl+Shift+P</kbd>). In the chat input, type <kbd>/</kbd> to open the prompt picker.<br><br>You should see both <strong>generate-test</strong> and <strong>document-function</strong> in the list. Select <strong>generate-test</strong> to run it.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -104,7 +104,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -129,7 +129,7 @@
           "instruction": "Open <strong>Copilot Chat</strong> and ask it to generate some code:<br><br><kbd>Write a function that fetches user data from an API and returns the parsed response</kbd><br><br>Check the output carefully: Does it use TypeScript? Async/await? Single quotes? Named exports? Your instructions should be shaping every response now.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -139,7 +139,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -167,12 +167,12 @@
           "instruction": "Ask Copilot to explain the difference:<br><br><kbd>When I'm editing a .test.ts file, which instruction files does Copilot load? What about when I'm editing a .tsx component?</kbd><br><br>The answer: repo-wide instructions load <strong>always</strong>. Scoped instructions load <strong>only</strong> when the active file matches the <code>applyTo</code> pattern. Both sets combine when applicable.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -201,12 +201,12 @@
           "focus": "chat",
           "action": "workbench.action.chat.open",
           "tip": "If a rule should apply everywhere (\"use TypeScript\"), make it an instruction. If knowledge is deep but situational (\"how to deploy to Azure\"), make it a skill.",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -258,7 +258,7 @@
           "instruction": "Open <strong>Copilot Chat</strong>. At the top of the chat panel, click the <strong>chat mode selector dropdown</strong> (where it shows the current mode like Ask, Edit, or Agent). Your <strong>code-reviewer</strong> agent should appear in the list.<br><br>Select it and ask:<br><br><kbd>Review the prompt and instruction files I've created in this lab.</kbd><br><br>Watch how the agent applies its specialized persona — it should give structured feedback with severity levels.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -274,7 +274,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -301,7 +301,7 @@
           "instruction": "Copilot has a <strong>persistent memory system</strong> with three scopes. Ask Copilot in chat:<br><br><kbd>What do you currently have in your memory?</kbd><br><br>Copilot will show you any existing user, repository, or session memories. If this is a fresh workspace, memory may be empty.",
           "focus": "chat",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -322,7 +322,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

@@ -24,11 +24,11 @@
           "instruction": "Copilot's initial response is a starting point, not a final answer. Your challenge: identify at least <strong>two areas</strong> where the response is incomplete or could be more specific.<br><br>Ask a follow-up question that forces deeper analysis. For example:<br><br><kbd>How does the EU AI Act classify a code-generation AI assistant? What risk tier does it fall into, and what are the specific obligations at that tier?</kbd><br><br>A governance professional validates AI-generated analysis; they do not accept it at face value.",
           "tip": "Compare Copilot's classification against the EU AI Act's four-tier risk system. Code-generation assistants are generally considered limited-risk, but the classification depends on the use case.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -46,7 +46,7 @@
           "title": "Refine: Context-Specific Risks",
           "instruction": "The initial matrix is generic. Make it specific to your scenario:<br><br><kbd>Now adjust this matrix for a company that handles personally identifiable health information (PHI) in some repositories. How do the risk ratings change? What additional controls are needed?</kbd><br><br>Governance is never one-size-fits-all. Proving trust means demonstrating that your risk assessment reflects your actual operating context.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Document Your Risk Matrix",
@@ -77,7 +77,7 @@
           "instruction": "An auditor asks: \"Why did you exclude these specific paths, and how do you ensure the exclusion list stays current?\"<br><br>Draft a one-paragraph justification for each exclusion category. Then ask Copilot:<br><br><kbd>Write a quarterly review checklist for maintaining content exclusion rules. Include triggers for when exclusions should be added, modified, or removed.</kbd><br><br>Your artifact: an exclusion policy with rationale and a maintenance process.",
           "tip": "Strong governance documentation always answers \"why\" alongside \"what.\" An exclusion without a documented rationale is an audit finding waiting to happen.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Inspect Exclusion Configuration",
@@ -107,7 +107,7 @@
           "title": "Challenge: SIEM Alert Rules",
           "instruction": "Now translate monitoring into actionable alerts. Ask Copilot:<br><br><kbd>Write three SIEM alert rules in plain language for Copilot audit events: one for unauthorized policy changes, one for seat assignments to non-human identities, and one for exclusion rule removals. Include the trigger condition, severity level, and response action for each.</kbd><br><br>Your challenge: evaluate whether the severity levels are appropriate. Would you escalate the same way?",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Explore Audit Log Access",
@@ -138,11 +138,11 @@
           "instruction": "Your legal team wants a one-page FAQ they can share with executives. Ask Copilot to help draft it:<br><br><kbd>Draft a 5-question FAQ about GitHub Copilot IP risk for executive stakeholders. Cover: Does Copilot copy code? What is the duplicate detection filter? What does IP indemnity cover? What are our obligations? What happens if we receive an IP claim?</kbd><br><br>Review each answer. Flag any statement that overpromises or oversimplifies the actual indemnity terms.",
           "tip": "IP indemnity requires that the customer used the product as intended. Make sure the FAQ does not imply blanket coverage regardless of usage patterns.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -168,11 +168,11 @@
           "title": "Challenge: Defend Your Choices",
           "instruction": "A department head argues that the regulated organization should get the same settings as the core organization to avoid slowing developers down.<br><br>Draft a rebuttal in Copilot Chat:<br><br><kbd>Write a brief justification for why the engineering-regulated organization needs stricter Copilot policies than engineering-core. Reference specific regulatory requirements (HIPAA, PHI handling) and explain the risk of relaxing controls.</kbd><br><br>Governance professionals must be able to defend their policy decisions clearly.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -191,11 +191,11 @@
           "instruction": "Review Copilot's mapping critically. Some principles are harder to map than others.<br><br>Identify at least one mapping that feels like a stretch. Ask Copilot:<br><br><kbd>For the principle you mapped to [weakest control], is this a genuine product control or more of an organizational process? What gap does this reveal, and how would you address it with a supplementary policy?</kbd><br><br>Honest governance acknowledges gaps rather than hiding them.",
           "tip": "Fairness and Inclusiveness are often the hardest to map to technical controls. These typically require organizational processes rather than product features.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -218,7 +218,7 @@
           "title": "Challenge: Define the Review Cadence",
           "instruction": "A playbook without maintenance is a dead document. Define your governance rhythm:<br><br><kbd>Create a governance review calendar covering weekly, monthly, quarterly, and annual activities for AI tool oversight. Include what is reviewed, who is responsible, and what decisions or outputs each review produces.</kbd><br><br>Evaluate: is the cadence realistic for your organization's size, or does it create review fatigue?",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Create Your Playbook Document",
@@ -257,11 +257,11 @@
           "instruction": "A regulator has requested evidence of your AI governance controls. Ask Copilot:<br><br><kbd>List the evidence artifacts a regulator would expect to see when auditing an organization's use of AI coding tools. Organize them by control category: preventive controls, detective controls, corrective controls, and administrative controls. For each artifact, note whether GitHub Copilot provides it natively or whether it requires organizational effort to produce.</kbd><br><br>Final challenge: identify which artifacts you produced during this lab session.",
           "tip": "Throughout this lab, you created risk assessments, exclusion policies, audit plans, policy matrices, governance mappings, a playbook section, and a board report outline. These are real governance artifacts.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]

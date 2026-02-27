@@ -23,11 +23,11 @@
           "title": "Your First PM Prompt",
           "instruction": "Type this prompt into Copilot Chat:<br><br><kbd>I'm a project manager working with a development team on GitHub. What are the top 5 ways I can use you to be more effective in my role without writing any code?</kbd><br><br>Review the response. These are the capabilities you will practice throughout this lab.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -54,7 +54,7 @@
           "instruction": "Now ask Copilot to create a reusable sprint planning checklist:<br><br><kbd>Create a sprint planning checklist I can use at the start of every sprint. Include steps for backlog grooming, capacity planning, goal setting, and team alignment. Format it as a markdown checklist.</kbd><br><br>This is something you can save and reuse every sprint.",
           "focus": "right",
           "tip": "Save prompts that produce useful outputs. Over time you will build a personal prompt library for recurring PM tasks.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
@@ -84,11 +84,11 @@
           "title": "Create a Milestone Plan",
           "instruction": "Ask Copilot to help structure your milestones:<br><br><kbd>I have a product release planned for Q3. Help me break this into monthly milestones with clear goals. The release includes a new dashboard feature, API performance improvements, and mobile app bug fixes.</kbd><br><br>Notice how Copilot organizes work into time-boxed milestones with specific deliverables.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -147,11 +147,11 @@
           "title": "Break It Down into Sub-Issues",
           "instruction": "Finally, ask Copilot to decompose the work:<br><br><kbd>Split this issue into 3-4 smaller, independently deliverable sub-issues. Each should be completable in one sprint or less. Format as a markdown list with a title and one-sentence description per sub-issue.</kbd><br><br>This is exactly what you would create as sub-issues linked to an epic in GitHub Issues.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -202,11 +202,11 @@
           "title": "Prepare Talking Points for Standup",
           "instruction": "Ask a follow-up:<br><br><kbd>Based on these risks, write 3 bullet points I should raise in tomorrow's standup. Keep each to one sentence.</kbd><br><br>These are ready-to-use talking points that address real problems instead of generic status updates.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -252,7 +252,7 @@
           "title": "Create an Internal Version",
           "instruction": "Now ask for the engineering team's version:<br><br><kbd>Now write an internal version of these release notes for the engineering team. Include technical details, areas of the codebase affected, and any follow-up work needed.</kbd><br><br>Compare the two versions. Same source data, tailored for two different audiences.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",

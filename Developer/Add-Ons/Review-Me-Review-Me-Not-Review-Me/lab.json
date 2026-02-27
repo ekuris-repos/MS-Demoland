@@ -23,11 +23,11 @@
           "title": "Quantify the Cost",
           "instruction": "Follow up with a more specific question:<br><br><kbd>If each mechanical review comment takes 3 minutes to write and our reviewers leave an average of 5 per PR, how much time per week could we save with automated review?</kbd><br><br>Think about how these numbers map to your own team. Which categories of feedback (style, bugs, security, architecture) could be automated?",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -54,11 +54,11 @@
           "instruction": "Ask Copilot to help you think through when each approach is appropriate:<br><br><kbd>When should a team use auto-review (Copilot assigned via CODEOWNERS) vs. on-demand review (clicking the Copilot button)? Give me a decision matrix based on team size, PR volume, and risk tolerance.</kbd><br><br>Consider which approach you would recommend for a team you work with.",
           "focus": "right",
           "tip": "Many teams use both: auto-review for broad coverage and on-demand for targeted analysis before requesting human reviewers.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -87,7 +87,7 @@
           "title": "Iterate on the Fixes",
           "instruction": "Apply Copilot's suggested fixes, then ask it to review the corrected code again:<br><br><kbd>I've applied your fixes. Review the updated code and confirm whether all issues are resolved, or if any new concerns were introduced.</kbd><br><br>This review-fix-review loop mirrors how Copilot code review works on real pull requests.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Review the Diff",
@@ -99,7 +99,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
@@ -120,7 +120,7 @@
           "instruction": "Paste your guidelines into <strong>Copilot Chat</strong> and ask it to review a code sample against them:<br><br><kbd>Here are my team's coding guidelines: [paste guidelines]. Now review this code against those guidelines and flag any violations.</kbd><br><br>Write or paste a code snippet that intentionally violates one or two of your guidelines. Verify Copilot catches the violations.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -133,7 +133,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar and Command Palette for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
+          "instruction": "We've closed the Chat panel and Command Palette for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -152,7 +152,7 @@
           "instruction": "Now challenge yourself: ask Copilot how to sanitize the tainted data at each point in the chain.<br><br><kbd>For the taint path you just showed me, what are the possible sanitization points? Show me how to break the taint chain at each level: input validation, intermediate sanitization, and sink-level protection.</kbd><br><br>Understanding taint paths helps you write code that CodeQL will not flag in the first place.",
           "focus": "right",
           "tip": "Defense in depth means sanitizing at multiple points. Do not rely on a single sanitization step.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Inspect Code Problems",
@@ -193,7 +193,7 @@
           "title": "Try Multiple Languages",
           "instruction": "Repeat the exercise in a different language. Write a similar vulnerability in Java, C#, or Go and ask Copilot to generate the Autofix-style remediation.<br><br>Notice how the fix pattern changes across languages. The vulnerability concept is the same, but the remediation tools differ.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Check Extension Output",
@@ -235,7 +235,7 @@
           "instruction": "Ask Copilot to review your completed workflow for correctness:<br><br><kbd>Review this GitHub Actions workflow for code scanning. Check for missing permissions, incorrect action versions, and any configuration issues.</kbd><br><br>Fix any issues Copilot identifies. A misconfigured scanning workflow gives false confidence.",
           "focus": "right",
           "tip": "The permissions block is commonly misconfigured. Code scanning needs <code>security-events: write</code> at minimum.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Lint the Workflow Syntax",
@@ -259,7 +259,7 @@
           "instruction": "Secret scanning supports custom patterns via regex. Ask Copilot to help you design one:<br><br><kbd>My organization uses internal API tokens that follow the pattern ACME-[A-Z0-9]{32}. Write a custom secret scanning pattern definition that detects these tokens, including a test string that should match and one that should not.</kbd><br><br>Think about what organization-specific secrets your team uses that the default patterns would not catch.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -302,7 +302,7 @@
           "instruction": "Follow up by mapping your ruleset to a compliance framework:<br><br><kbd>Map each rule in the ruleset to the relevant SOC 2 Trust Services Criteria or ISO 27001 controls. Show which compliance requirement each automated check satisfies.</kbd><br><br>This exercise demonstrates how automated code review translates directly to audit evidence.",
           "focus": "right",
           "tip": "Auditors care about evidence of consistent enforcement. Automated rulesets provide that evidence for every single merge.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",

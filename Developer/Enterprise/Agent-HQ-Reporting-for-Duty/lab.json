@@ -17,7 +17,7 @@
           "instruction": "Before coordinating agents, you need to know what surfaces are available. Open <strong>Copilot Chat</strong> and switch to <strong>Agent</strong> mode.<br><br>Type:<br><br><kbd>List every surface where GitHub Copilot agents can operate. For each surface, describe what actions the agent can take and what limitations exist.</kbd><br><br>Compare the agent's answer against the slide content. Verify it covers VS Code, GitHub.com, CLI, and Slack.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
@@ -60,7 +60,7 @@
           "title": "Clean Up",
           "instruction": "Delete the test file by telling agent mode:<br><br><kbd>Delete test-recovery.js, it was just a recovery test.</kbd><br><br>Approve the deletion. In production workflows, agent cleanup is part of the coordination pipeline.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Check Copilot Extension Logs",
@@ -107,7 +107,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Review the Template",
@@ -144,7 +144,7 @@
           "title": "Add Duplicate Detection",
           "instruction": "Extend the workflow with a duplicate detection step. Tell agent mode:<br><br><kbd>Add a second job to the auto-triage workflow that uses gh issue list to fetch the 20 most recent issues for the repository. Post a follow-up comment mentioning @copilot asking it to compare the new issue against those recent issues and flag potential duplicates with links. Gate this job behind a condition that the issue has more than 50 words.</kbd>",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Review the Workflow",
@@ -154,7 +154,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -172,11 +172,11 @@
           "title": "Add Human-in-the-Loop Checkpoints",
           "instruction": "Extend the workflow with approval gates. Tell agent mode:<br><br><kbd>Add an environment called \"production-review\" to the reconcile job in fan-out-update.yml so it requires manual approval before running. Also add a step at the end that uses gh issue comment to post a status table showing which update jobs succeeded and which failed.</kbd><br><br>This combines the fan-out pattern with human-in-the-loop governance.",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -189,7 +189,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Review the Extension Architecture",
@@ -205,7 +205,7 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "tip": "In production, register the extension in your organization settings under Copilot > Extensions. Only organization owners can register private extensions.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Check Extension Server Logs",
@@ -240,12 +240,12 @@
           "instruction": "These instructions will govern agent behavior in VS Code, on GitHub.com, and for the Coding Agent. Verify the setup by asking agent mode:<br><br><kbd>What instructions are loaded for this workspace? List the repo-level and scoped instruction files you found, and summarize the key rules from each.</kbd><br><br>Confirm that both the repo-wide and scoped files are detected. This is the single source of truth for consistent agent behavior across every surface.",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "onLeave": "workbench.action.closeSidebar",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -264,11 +264,11 @@
           "instruction": "Build a companion script for audit log analysis:<br><br><kbd>Create scripts/coding-agent-audit.sh that uses gh api to query the organization audit log filtered to copilot events. It should list recent Coding Agent sessions showing: timestamp, repository, issue number, and outcome (PR opened or failed). Format the output as a markdown table. Accept org name and number of days to look back as arguments.</kbd><br><br>These scripts give enterprise teams visibility into agent activity without a third-party dashboard.",
           "focus": "right",
           "tip": "In production, schedule these scripts as GitHub Actions cron jobs and post the reports to a Slack channel or tracking issue.",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -286,7 +286,7 @@
           "title": "Add the Review Gate",
           "instruction": "Extend the workflow with a review enforcement step:<br><br><kbd>Add a second workflow at .github/workflows/security-review-gate.yml that triggers on pull_request with the \"security-fix\" label. The workflow should: 1) Post a comment mentioning @copilot asking it to review the PR for completeness, verify that tests pass, and check that no new vulnerabilities are introduced. 2) Require the \"security-team\" team as a reviewer using gh pr edit. 3) Add a checklist comment with items: dependency updated, breaking changes addressed, tests pass, security review approved.</kbd>",
           "focus": "right",
-          "onLeave": "workbench.action.closeSidebar"
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Review the Full Pipeline",
@@ -305,7 +305,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd>",
           "focus": "slides"
         }
       ]
