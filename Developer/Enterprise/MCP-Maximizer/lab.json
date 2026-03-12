@@ -1,11 +1,11 @@
 {
-  "title": "Advanced MCP — MCP Maximizer",
+  "title": "Advanced MCP: MCP Maximizer",
   "slides": {
     "1": {
       "steps": [
         {
           "title": "Welcome to the Lab",
-          "instruction": "Welcome to the MCP Maximizer lab! In this hands-on session you will build a production-grade MCP server from scratch, register typed tools, wrap internal APIs, add authentication, containerize for deployment, and configure monitoring.<br><br>This lab assumes you have completed the Beginner MCP course and are comfortable with MCP concepts, VS Code, and TypeScript or Python. The guide panel will update as you advance through the slides.",
+          "instruction": "Welcome to the MCP Maximizer lab! In this hands-on session you will build a production-grade MCP server from scratch, register typed tools, wrap internal APIs, add authentication, containerize for deployment, and configure monitoring.<br><br>This lab assumes you have completed the Beginner MCP course and are comfortable with MCP concepts, VS Code, and TypeScript or Python. The guide panel will update as you advance through the slides.<br><br><strong>Note:</strong> All lab exercises use TypeScript. Python and C# developers should follow along conceptually and adapt the patterns to the <code>mcp</code> Python SDK or the <code>ModelContextProtocol</code> .NET package respectively.",
           "focus": "guide"
         }
       ]
@@ -53,7 +53,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
           "focus": "slides"
         }
       ]
@@ -88,7 +88,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Problems Panel</strong>: <kbd>Ctrl+Shift+M</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Problems Panel</strong>: <kbd>Ctrl+Shift+M</kbd>",
           "focus": "slides"
         }
       ]
@@ -117,7 +117,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -146,8 +146,8 @@
           "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
-          "title": "Test With a .mcp.json Configuration",
-          "instruction": "Create a <code>.mcp.json</code> file at your workspace root to test the server in VS Code:<br><br><kbd>Create a .mcp.json file that configures my inventory-service MCP server using stdio transport. The command should be \"npx\" with args [\"tsx\", \"src/index.ts\"]. Set env variables INVENTORY_API_BASE and INVENTORY_API_KEY to placeholder values.</kbd>",
+          "title": "Test With a .vscode/mcp.json Configuration",
+          "instruction": "Create a <code>.vscode/mcp.json</code> file in your workspace to register the server with VS Code:<br><br><kbd>Create a .vscode/mcp.json file that configures my inventory-service MCP server using stdio transport. The command should be \"npx\" with args [\"tsx\", \"src/index.ts\"]. Set env variables INVENTORY_API_BASE and INVENTORY_API_KEY to placeholder values.</kbd>",
           "focus": [
             "editor",
             "right"
@@ -156,8 +156,8 @@
           "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
-          "title": "Configure MCP Settings",
-          "instruction": "Open <strong>Settings</strong> and search for <kbd>mcp</kbd>. Review the MCP-related settings:<br><br>&bull; <strong>chat.mcp.enabled</strong> — must be <code>true</code> for your server to connect<br>&bull; <strong>chat.agent.autoApprove</strong> — controls which tools run without confirmation<br><br>Ensure MCP is enabled. In production, configure tool approval policies per server.",
+          "title": "Verify MCP Server Connection",
+          "instruction": "With your <code>.vscode/mcp.json</code> configured, VS Code discovers and starts the server automatically.<br><br>Open <strong>Copilot Chat</strong> (<kbd>Ctrl+Alt+I</kbd>), click the <strong>Tools</strong> button, and confirm your inventory-service tools appear in the list. VS Code will show a <strong>trust dialog</strong> the first time a tool is invoked — approve it to grant the server permission to run.<br><br>For reference, open <strong>Settings</strong> (<kbd>Ctrl+,</kbd>) and search <kbd>mcp</kbd> to see available MCP-related settings. The key setting is <strong>chat.mcp.autoStart</strong>, which controls whether servers configured in <code>.vscode/mcp.json</code> start automatically when VS Code loads.",
           "focus": "editor",
           "action": "workbench.action.openSettings",
           "onLeave": "workbench.action.closeActiveEditor"
@@ -171,7 +171,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd><br>&bull; <strong>Command Palette</strong>: <kbd>Ctrl+Shift+P</kbd>",
           "focus": "slides"
         }
       ]
@@ -189,14 +189,14 @@
         },
         {
           "title": "Review the Safety Checklist",
-          "instruction": "Review your database tool against the safety checklist from the previous slide:<br><br>&bull; Is the database connection read-only? (SELECT only)<br>&bull; Are all queries parameterized? (No string interpolation)<br>&bull; Is there a hard row limit? (max 100 in schema)<br>&bull; Does errorhandling prevent leaking internal details?<br><br>If any check fails, refactor the tool before moving on. Production database access demands defense in depth.",
+          "instruction": "Review your database tool against the safety checklist from the previous slide:<br><br>&bull; Is the database connection read-only? (SELECT only)<br>&bull; Are all queries parameterized? (No string interpolation)<br>&bull; Is there a hard row limit? (max 100 in schema)<br>&bull; Does error handling prevent leaking internal details?<br><br>If any check fails, refactor the tool before moving on. Production database access demands defense in depth.",
           "focus": "editor",
           "tip": "In production, create a dedicated database user with SELECT-only permissions. Never reuse a write-capable connection for MCP queries.",
           "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -221,7 +221,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -230,7 +230,7 @@
       "steps": [
         {
           "title": "Create a Dockerfile",
-          "instruction": "Containerize your MCP server for remote deployment. Ask Copilot:<br><br><kbd>Create a Dockerfile for my TypeScript MCP server. Use a multi-stage build: first stage compiles TypeScript, second stage uses node:20-slim for the runtime image. Copy only the compiled output and production node_modules. Expose port 3000. Set NODE_ENV=production. The CMD should run the compiled server with Streamable HTTP transport.</kbd>",
+          "instruction": "Containerize your MCP server for remote deployment. Ask Copilot:<br><br><kbd>Create a Dockerfile for my TypeScript MCP server. Use a multi-stage build: first stage compiles TypeScript, second stage uses node:22-slim for the runtime image. Copy only the compiled output and production node_modules. Expose port 3000. Set NODE_ENV=production. The CMD should run the compiled server with Streamable HTTP transport.</kbd>",
           "focus": "editor",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
@@ -263,7 +263,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
           "focus": "slides"
         }
       ]
@@ -285,7 +285,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -328,7 +328,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
+          "instruction": "We've closed the panels for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd><br>&bull; <strong>Output Panel</strong>: <kbd>Ctrl+Shift+U</kbd>",
           "focus": "slides"
         }
       ]
@@ -355,13 +355,13 @@
         },
         {
           "title": "Configure and Test",
-          "instruction": "Add the new server to your <code>.mcp.json</code> alongside the inventory server. Reload VS Code (<kbd>Ctrl+Shift+P</kbd> then <strong>Reload Window</strong>).<br><br>Open Copilot Chat and verify both servers' tools appear in the tools list. Try a prompt that chains tools from both servers:<br><br><kbd>Look up product SKU-1234 in the inventory system, then create a Jira ticket for restocking if the quantity is below threshold.</kbd><br><br>This demonstrates MCP's composability: multiple servers working together in a single workflow.",
+          "instruction": "Add the new server to your <code>.vscode/mcp.json</code> alongside the inventory server. Reload VS Code (<kbd>Ctrl+Shift+P</kbd> then <strong>Reload Window</strong>).<br><br>Open Copilot Chat and verify both servers' tools appear in the tools list. Try a prompt that chains tools from both servers:<br><br><kbd>Look up product SKU-1234 in the inventory system, then create a Jira ticket for restocking if the quantity is below threshold.</kbd><br><br>This demonstrates MCP's composability: multiple servers working together in a single workflow.",
           "focus": "right",
           "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
           "focus": "slides"
         }
       ]
