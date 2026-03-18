@@ -324,7 +324,7 @@ applyTo: "**/*.test.ts"
           </ul>
         </div>
 
-        <img src="img/TODO-screenshot-copilot-instructions-vscode.png" alt="Screenshot showing copilot-instructions.md editing experience in VS Code" />
+        <img src="img/copilot-instructions-vscode.png" alt="Screenshot showing copilot-instructions.md editing experience in VS Code" />
         <aside class="speaker-notes">
           Now let's look at scoped instructions. See that "applyTo" field in the frontmatter? That's a glob pattern - standard file-matching syntax that you probably already know from .gitignore. In this example, the testing instructions only activate when you're working on files that end in .test.ts. So when you're editing a React component, these rules stay out of the way. When you open a test file, they kick in automatically. You can create as many scoped instruction files as you need: one for React components with applyTo targeting "src/components/", one for API routes targeting "src/api/", one for database migrations. This keeps instructions focused and avoids loading irrelevant guidance. And the scoped instructions are additive - they combine with your repo-wide copilot-instructions.md, they don't replace it.
         </aside>
@@ -358,7 +358,7 @@ applyTo: "**/*.test.ts"
           <li>Great for: deployment procedures, API patterns, compliance rules, framework guides</li>
         </ul>
 
-        <img src="img/TODO-screenshot-instruction-file-frontmatter.png" alt="Screenshot of an instruction file with applyTo glob pattern in frontmatter" />
+        <img src="img/instruction-file-frontmatter.png" alt="Screenshot of an instruction file with applyTo glob pattern in frontmatter" />
         <aside class="speaker-notes">
           The distinction between instructions and skills is subtle but important, so let me make it concrete. Instructions are always injected into every conversation - they're lightweight rules like "use TypeScript strict mode." Skills are heavier, more detailed knowledge packages that agents pull in only when the task at hand requires them. Think of it this way: instructions are "always follow these rules." Skills are "here's a manual you can consult when you need it." This lazy-loading approach is really smart. A skill about Azure deployment doesn't consume tokens when you're writing React components. It's only loaded when an agent recognizes that the current task matches the skill's description. This is why skills are great for things like deployment procedures, API patterns, compliance rules, and framework guides - knowledge that's detailed and important, but not needed in every conversation.
         </aside>
@@ -421,7 +421,7 @@ description: >
           </div>
         </div>
 
-        <img src="img/TODO-screenshot-prompt-file-in-action.png" alt="Screenshot of a .prompt.md file being invoked in Copilot Chat" />
+        <img src="img/prompt-file-in-action.png" alt="Screenshot of a .prompt.md file being invoked in Copilot Chat" />
         <aside class="speaker-notes">
           Let me give you three scenarios where skills really shine. First, onboarding. When a new developer joins your team, instead of spending days reading wikis and asking colleagues "how do we deploy this?," they can use an agent that has access to skills covering deployment, testing, architecture, and team conventions. The answer is instant and always up to date. Second, consistency. When ten developers on your team use the same deployment skill, they all follow the same steps, in the same order, with the same patterns. No more "well, I do it this way" discrepancies. Third, scaling expertise. Your best platform engineer writes a skill once, and every developer on the team benefits from their knowledge through every agent interaction. Skills turn institutional knowledge from something that lives in people's heads into something that lives in your repo and is accessible to everyone.
         </aside>
@@ -515,7 +515,7 @@ You are a senior security engineer. When reviewing code:
           </div>
         </div>
 
-        <img src="img/TODO-screenshot-agent-file-definition.png" alt="Screenshot of a custom agent defined in an .agent.md file" />
+        <img src="img/agent-file-definition.png" alt="Screenshot of a custom agent defined in an .agent.md file" />
         <aside class="speaker-notes">
           Open the chat mode selector dropdown at the top of the chat panel, and you'll see your custom agents listed right alongside the built-in modes: Ask, Edit, and Agent. When you select a custom agent, it brings its own persona and instructions into the conversation. Context is scoped to the current chat session; when you start a new session, Copilot starts fresh. Here's where it gets really interesting: agents can invoke skills automatically. If your security reviewer encounters code that deploys to Azure, and you have an Azure deployment skill in your repo, the agent can pull in that knowledge without you asking. And you can chain agents together. Ask a code-generation agent to build a feature, then ask a review agent to audit it, then ask a documentation agent to write the README section. Each agent brings its specialized perspective, and they compose naturally through the chat interface.
         </aside>
@@ -562,7 +562,7 @@ You are a senior security engineer. When reviewing code:
       <div class="slide-inner">
         <span class="badge badge--purple">Putting It Together</span>
         <h2>The Decision Framework</h2>
-        <img src="img/TODO-screenshot-custom-agent-invocation.png" alt="Screenshot of invoking a custom agent with @agent-name in Copilot Chat" />
+        <img src="img/custom-agent-invocation.png" alt="Screenshot of invoking a custom agent with @agent-name in Copilot Chat" />
         <aside class="speaker-notes">
           Now that we've covered each primitive individually, let's put them together. This is the section that helps you decide which primitive to reach for in any given situation.
         </aside>

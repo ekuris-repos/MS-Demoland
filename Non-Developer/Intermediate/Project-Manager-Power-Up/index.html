@@ -273,7 +273,14 @@
           <li><strong>Resources:</strong> links to designs, specs, related issues, or relevant PRs</li>
         </ul>
 
-        <img src="img/TODO-diagram-well-structured-issue-anatomy.png" alt="Diagram showing the anatomy of a well-structured GitHub issue" />
+        <pre class="mermaid">
+      graph TD
+        Issue[Well-Structured Issue] --> Context[Background]
+        Issue --> Goal[Clear Goal]
+        Issue --> Criteria[Acceptance Criteria]
+        Issue --> Scope[Scope and Constraints]
+        Issue --> Links[Related Links]
+        </pre>
         <aside class="speaker-notes">
           A well-written issue saves hours of back-and-forth. The title should be specific and action-oriented: "Add export button to dashboard" is better than "Dashboard improvements." Context explains why the work matters: who requested it, what problem it solves, and how it connects to broader goals. Acceptance criteria define "done" in testable terms: "User can click Export and receive a CSV file within 5 seconds." Scope boundaries are just as important. State what is not included to prevent scope creep. Finally, link to relevant designs, specs, or related issues so the developer has everything in one place.
         </aside>
@@ -379,7 +386,13 @@
           <li><strong>Inactive contributors:</strong> team members with no commits may need support or reassignment</li>
         </ul>
 
-        <img src="img/TODO-diagram-project-health-signals.png" alt="Diagram of project health signals: aging issues, blocked items, PR bottlenecks" />
+        <pre class="mermaid">
+      graph LR
+        Aging[Aging Issues] --> Health[Project Health]
+        Blocked[Blocked Items] --> Health
+        PRs[PR Bottlenecks] --> Health
+        Health --> Action[Prioritized Actions]
+        </pre>
         <aside class="speaker-notes">
           Every project has health signals hiding in plain sight. Aging issues, those sitting open for two or more sprints, are a red flag. They often indicate unclear requirements, underestimated complexity, or a feature nobody wants to tackle. Blocked items are another signal: look for the "blocked" label or PRs that have been waiting for review for days. PR review bottlenecks deserve special attention. If PRs sit for three or more days without a review, the entire team slows down. Sprint carryover is a planning signal: if you consistently carry 20% of your sprint into the next one, your estimation process needs adjustment. Finally, watch for inactive contributors. Someone with no commits for a sprint might be stuck, underloaded, or overwhelmed with meetings. Each of these signals is actionable if you catch them early.
         </aside>

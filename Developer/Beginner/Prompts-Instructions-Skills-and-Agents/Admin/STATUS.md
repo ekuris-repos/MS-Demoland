@@ -9,7 +9,7 @@
 <!-- Set it to the LOWEST status from the table below.                  -->
 <!-- Values: Not Started | In Progress | Ready for Review | Complete    -->
 
-`Status: Complete`
+`Status: In Progress`
 
 <!-- AGENT SYNC: When changing this status, you MUST also update the matching -->
 <!-- entry in api/course-statuses.json so the nav page stays in sync. -->

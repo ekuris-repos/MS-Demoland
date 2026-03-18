@@ -107,7 +107,14 @@
           </div>
         </div>
 
-        <img src="img/TODO-diagram-ai-assisted-ops-model.png" alt="Diagram comparing traditional ops workflows to AI-assisted operations" />
+        <pre class="mermaid">
+      graph LR
+        Signal[Operational Signals] --> Correlate[AI Correlation]
+        Correlate --> Diagnose[Root Cause Draft]
+        Diagnose --> Recommend[Action Recommendations]
+        Recommend --> Human[Human Validation]
+        Human --> Resolve[Incident Resolution]
+        </pre>
         <aside class="speaker-notes">
           Here is the shift we are proposing. On the left, the traditional model: SSH into machines, grep through log files line by line, copy from runbooks that may or may not be current, manually assemble dashboards, and write postmortems from memory days after the incident. On the right, the AI-assisted model. Copilot generates the exact log query you need in seconds. Runbooks live in a repository and are maintained and updated through pull requests. Dashboard queries for KQL, PromQL, or Grafana are generated conversationally. Postmortem drafts are assembled from the actual incident timeline, alerts, and resolution steps. This is not about replacing engineers. It is about freeing engineers from repetitive toil so they can focus on architecture, reliability, and strategy.
         </aside>
@@ -302,7 +309,16 @@ graph LR
           <li>Reduces mean-time-to-identify (MTTI) by focusing engineers on the right signals</li>
         </ul>
 
-        <img src="img/TODO-diagram-alert-correlation-timeline.png" alt="Diagram showing correlated alerts on a timeline with root cause identification" />
+        <pre class="mermaid">
+      sequenceDiagram
+        participant Monitor as Monitoring
+        participant AI as AI Correlator
+        participant Ops as Ops Team
+        Monitor->>AI: Alert A, B, C
+        AI->>AI: Cluster and correlate
+        AI->>Ops: Probable root cause
+        Ops->>Monitor: Apply mitigation
+        </pre>
         <aside class="speaker-notes">
           During a major incident, your alerting system may fire dozens of notifications across multiple services. The challenge is figuring out which alerts are symptoms and which one points to the actual root cause. You can paste the alert timeline into Copilot Chat and ask: "Which of these alerts are related, and what is the likely root cause?" Copilot uses the service names, error messages, and timing to identify upstream and downstream dependencies. It will suggest where to start your investigation. For example, it might say: "The database connection pool exhaustion on service-db-01 started 2 minutes before the HTTP 503 errors on the API gateway. Start there." This reduces your mean-time-to-identify by helping engineers focus on the right signals from the start rather than chasing symptoms across multiple dashboards.
         </aside>
@@ -434,7 +450,15 @@ graph LR
           <li><strong>Repository templates</strong> - Standardize project setup: CI/CD, linting, security scanning, and documentation</li>
         </ul>
 
-        <img src="img/TODO-diagram-enterprise-org-structure.png" alt="Diagram of enterprise GitHub organization structure with teams and permissions" />
+        <pre class="mermaid">
+      graph TD
+        Org[Enterprise Org] --> Platform[Platform Team]
+        Org --> Product[Product Teams]
+        Org --> Security[Security Team]
+        Platform --> Shared[Shared Repos]
+        Product --> Service[Service Repos]
+        Security --> Policies[Policy Repos]
+        </pre>
         <aside class="speaker-notes">
           At enterprise scale, how you structure your GitHub organization matters enormously. The choice between multiple organizations and a single organization depends on regulatory needs, billing, and team autonomy. Within your organization, use team-based permissions to control access. Set the base permission to "read" and layer on write or admin access through team membership. Keep in mind that "read" enables innersource discoverability but may conflict with compliance requirements. For regulated industries, "no permission" may be more appropriate as the base level. Innersource is a powerful practice: make internal repositories discoverable across business groups. Add contribution guidelines and CODEOWNERS files so that anyone in the company can contribute, with clear ownership and review processes. Repository templates let you standardize the setup for new projects. Every new repo starts with CI/CD, linting, security scanning, and documentation scaffolding already in place. This consistency reduces onboarding time and ensures best practices are followed from day one.
         </aside>

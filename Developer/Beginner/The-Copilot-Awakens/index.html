@@ -192,7 +192,7 @@ graph LR
       <div class="slide-inner">
         <span class="badge">Part 2</span>
         <h2>Getting Started</h2>
-        <img src="img/TODO-screenshot-ghost-text-in-editor.png" alt="Screenshot of Copilot ghost-text suggestion appearing inline in VS Code" />
+        <img src="img/ghost-text-in-editor.png" alt="Screenshot of Copilot ghost-text suggestion appearing inline in VS Code" />
         <aside class="speaker-notes">
           Alright, enough theory - let's get Copilot up and running. If you have VS Code open, now's the time to follow along.
         </aside>
@@ -267,7 +267,7 @@ graph LR
       <div class="slide-inner">
         <span class="badge">Part 3</span>
         <h2>Inline Completions</h2>
-        <img src="img/TODO-screenshot-model-picker-dropdown.png" alt="Screenshot of the Copilot model picker in VS Code showing available models" />
+        <img src="img/model-picker-dropdown.png" alt="Screenshot of the Copilot model picker in VS Code showing available models" />
         <aside class="speaker-notes">
           Now we're getting to the good stuff. Inline completions are the feature most developers encounter first, and for many people, it's the moment Copilot goes from "interesting" to "I can't code without this." Let's see how it works.
         </aside>
@@ -362,7 +362,7 @@ graph LR
           </div>
           <div>
             <div class="screenshot">
-              <img src="img/TODO-screenshot-copilot-chat-panel.png" alt="Screenshot of the Copilot Chat panel in VS Code" />
+              <img src="img/copilot-chat-panel.png" alt="Screenshot of the Copilot Chat panel in VS Code" />
             </div>
           </div>
         </div>
@@ -386,7 +386,7 @@ graph LR
           <li>You can switch models between messages, even within the same conversation</li>
         </ul>
 
-        <img src="img/TODO-screenshot-agent-mode-in-action.png" alt="Screenshot of Agent Mode executing a multi-step task in VS Code" />
+        <img src="img/agent-mode-in-action.png" alt="Screenshot of Agent Mode executing a multi-step task in VS Code" />
         <aside class="speaker-notes">
           One of the most powerful aspects of Copilot today is the model selector. At the top of the Chat panel, you'll see a dropdown that lets you pick which large language model powers your conversation. You have models from OpenAI like GPT-4o and the o-series reasoning models, Claude from Anthropic, Gemini from Google, and others that are added regularly. Each model has different characteristics. Some are faster for quick questions, some are better at deep reasoning or multi-step problems, and some handle very large files or context windows. The tradeoff is cost: premium models consume more of your monthly premium requests per message, and the selector shows the multiplier so you can make an informed choice. A good rule of thumb: use a fast model for simple questions and a reasoning model for complex debugging or architecture discussions. And you can switch models between messages in the same conversation, so you're never locked in.
         </aside>
@@ -438,7 +438,7 @@ graph LR
           <li><strong>Vision</strong>: drag or paste an image into Chat and Copilot will analyze it; great for mocking up UI from screenshots or reading error dialogs</li>
         </ul>
 
-        <img src="img/TODO-screenshot-custom-instructions-file.png" alt="Screenshot of a .github/copilot-instructions.md file in a repository" />
+        <img src="img/custom-instructions-file.png" alt="Screenshot of a .github/copilot-instructions.md file in a repository" />
         <aside class="speaker-notes">
           Copilot Chat has three distinct modes, and understanding when to use each one is a core skill. Ask mode is the default: you ask a question, Copilot answers. It reads your files for context but doesn't change anything. This is perfect for exploration, learning, and brainstorming. Edit mode is the next step up. You describe what you want changed, and Copilot proposes edits across multiple files at once. You see a diff for each file and can accept or reject individually. This is great for refactoring, adding a feature that touches several files, or making consistent style changes. Agent mode is the most powerful. When you switch to Agent, Copilot doesn't just suggest code; it autonomously plans and executes a sequence of steps. It can create new files, run terminal commands, install packages, read error output, and iterate until the task is done. Think of it as delegating an entire task rather than asking a question. The mode selector sits right next to the model picker at the top of the Chat panel. One more thing: you can drag or paste images directly into Chat. Copilot's vision capability lets it analyze screenshots, UI mockups, error dialogs, or diagrams and respond with code or explanations. This is very useful for reproducing a design from a mockup or diagnosing a visual bug.
         </aside>
@@ -500,7 +500,7 @@ graph LR
   }
 }</code></pre>
 
-        <img src="img/TODO-screenshot-copilot-workspace-settings.png" alt="Screenshot of Copilot configuration in VS Code settings" />
+        <img src="img/copilot-workspace-settings.png" alt="Screenshot of Copilot configuration in VS Code settings" />
         <aside class="speaker-notes">
           Let me walk you through the key settings. Open Settings with Ctrl+Comma and search for "copilot." The most useful setting is "github.copilot.enable" - this is a per-language toggle. You can turn Copilot on for Python and JavaScript but off for Markdown or plain text, where it might not add much value. There's also "editor.inlineSuggest.enabled," which is the master switch for ghost text. And if you need chat responses in a specific language, "github.copilot.chat.localeOverride" lets you force that. Here's the team play: put these settings in a .vscode/settings.json file in your repository and commit it. Now every developer who clones the repo gets the same configuration automatically. No more "works on my machine" for Copilot settings.
         </aside>
