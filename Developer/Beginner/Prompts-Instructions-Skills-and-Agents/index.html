@@ -323,7 +323,6 @@ applyTo: "**/*.test.ts"
           </ul>
         </div>
 
-        <img src="img/copilot-instructions-vscode.png" alt="Screenshot showing copilot-instructions.md editing experience in VS Code" />
         <aside class="speaker-notes">
           Now let's look at scoped instructions. See that "applyTo" field in the frontmatter? That's a glob pattern - standard file-matching syntax that you probably already know from .gitignore. In this example, the testing instructions only activate when you're working on files that end in .test.ts. So when you're editing a React component, these rules stay out of the way. When you open a test file, they kick in automatically. You can create as many scoped instruction files as you need: one for React components with applyTo targeting "src/components/", one for API routes targeting "src/api/", one for database migrations. This keeps instructions focused and avoids loading irrelevant guidance. And the scoped instructions are additive - they combine with your repo-wide copilot-instructions.md, they don't replace it.
         </aside>
