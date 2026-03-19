@@ -97,7 +97,6 @@
           </div>
         </div>
 
-        <img src="img/TODO-diagram-prompt-quality-spectrum.png" alt="Diagram showing the relationship between prompt quality and output quality" />
         <aside class="speaker-notes">
           Here are the four primitives. Prompts are things you actively run - like saved chat messages you invoke with a click. Instructions are things that run automatically in the background - they shape every Copilot response without you having to do anything. Skills are knowledge packages that agents pull in on demand - they're only loaded when relevant. And agents are the orchestrators that tie everything together - they have their own persona, tools, and can invoke skills. Here's the beautiful part: every single one of these is just a Markdown file. No SDK, no compilation, no deployment pipeline. You create a file, commit it to your repo, and Copilot finds it. That's it.
         </aside>
@@ -358,7 +357,6 @@ applyTo: "**/*.test.ts"
           <li>Great for: deployment procedures, API patterns, compliance rules, framework guides</li>
         </ul>
 
-        <img src="img/instruction-file-frontmatter.png" alt="Screenshot of an instruction file with applyTo glob pattern in frontmatter" />
         <aside class="speaker-notes">
           The distinction between instructions and skills is subtle but important, so let me make it concrete. Instructions are always injected into every conversation - they're lightweight rules like "use TypeScript strict mode." Skills are heavier, more detailed knowledge packages that agents pull in only when the task at hand requires them. Think of it this way: instructions are "always follow these rules." Skills are "here's a manual you can consult when you need it." This lazy-loading approach is really smart. A skill about Azure deployment doesn't consume tokens when you're writing React components. It's only loaded when an agent recognizes that the current task matches the skill's description. This is why skills are great for things like deployment procedures, API patterns, compliance rules, and framework guides - knowledge that's detailed and important, but not needed in every conversation.
         </aside>
@@ -421,7 +419,6 @@ description: >
           </div>
         </div>
 
-        <img src="img/prompt-file-in-action.png" alt="Screenshot of a .prompt.md file being invoked in Copilot Chat" />
         <aside class="speaker-notes">
           Let me give you three scenarios where skills really shine. First, onboarding. When a new developer joins your team, instead of spending days reading wikis and asking colleagues "how do we deploy this?," they can use an agent that has access to skills covering deployment, testing, architecture, and team conventions. The answer is instant and always up to date. Second, consistency. When ten developers on your team use the same deployment skill, they all follow the same steps, in the same order, with the same patterns. No more "well, I do it this way" discrepancies. Third, scaling expertise. Your best platform engineer writes a skill once, and every developer on the team benefits from their knowledge through every agent interaction. Skills turn institutional knowledge from something that lives in people's heads into something that lives in your repo and is accessible to everyone.
         </aside>
@@ -562,7 +559,6 @@ You are a senior security engineer. When reviewing code:
       <div class="slide-inner">
         <span class="badge badge--purple">Putting It Together</span>
         <h2>The Decision Framework</h2>
-        <img src="img/custom-agent-invocation.png" alt="Screenshot of invoking a custom agent with @agent-name in Copilot Chat" />
         <aside class="speaker-notes">
           Now that we've covered each primitive individually, let's put them together. This is the section that helps you decide which primitive to reach for in any given situation.
         </aside>
