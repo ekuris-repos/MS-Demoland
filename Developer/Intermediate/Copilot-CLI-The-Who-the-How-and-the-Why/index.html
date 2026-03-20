@@ -105,7 +105,6 @@
           <li>An internet connection (commands are processed in the cloud)</li>
         </ul>
 
-        <img src="img/TODO-screenshot-copilot-cli-suggest-output.png" alt="Screenshot of gh copilot suggest generating a command in the terminal" />
         <aside class="speaker-notes">
           Before we install anything, let's make sure the prerequisites are in place. You need a recent version of the GitHub CLI, 2.40 or later. Run <code>gh --version</code> to check. You also need to be authenticated; if you have not done that yet, <code>gh auth login</code> will walk you through it. And of course you need a Copilot license. Any tier works: Free, Pro, Pro+, Business, or Enterprise. One thing to note is that Copilot CLI requires an internet connection. The AI processing happens on GitHub's servers, not locally. We will talk more about what goes to the cloud later in the security section.
         </aside>
@@ -140,7 +139,6 @@ gh extension upgrade gh-copilot</code></pre>
       <div class="slide-inner">
         <span class="badge">Part 2</span>
         <h2>Core Commands</h2>
-        <img src="img/TODO-screenshot-copilot-suggest-interactive.png" alt="Screenshot of the interactive gh copilot suggest session" />
         <aside class="speaker-notes">
           Now that we are installed, let's explore the two commands that make up the heart of Copilot CLI.
         </aside>
@@ -167,7 +165,6 @@ gh copilot suggest -t gh "list my open pull requests"</code></pre>
           <li>Target types: <strong>shell</strong> (default), <strong>gh</strong> (GitHub CLI), <strong>git</strong></li>
         </ul>
 
-        <img src="img/TODO-screenshot-copilot-explain-output.png" alt="Screenshot of gh copilot explain breaking down a complex command" />
         <aside class="speaker-notes">
           The suggest command is the one you will use most often. You describe what you want to accomplish in natural language, and Copilot returns a command you can run. By default, it generates a shell command for your current environment. You can override this with the <code>-t</code> flag to specify a target type: shell for general commands, gh for GitHub CLI commands, or git for Git operations. After the suggestion appears, you get three options: run the command immediately, copy it to your clipboard, or revise your request. That revision option is key. If the first suggestion is close but not quite right, you can refine your description and get a better result without starting over.
         </aside>
