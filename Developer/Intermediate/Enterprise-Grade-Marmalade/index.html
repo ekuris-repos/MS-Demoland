@@ -346,7 +346,6 @@ graph LR
   --save-dev</code></pre>          
 </div>        
 </div>        
-<img src="img/reusable-prompt-template.png" alt="Screenshot of a reusable .prompt.md file with variable placeholders" />        
 <aside class="speaker-notes">          There are four main strategies for distributing central prompt files, and the right one depends on your organization's existing workflows. The first option is git submodules. You add the central repo as a submodule in each consuming project, typically under a .copilot/shared directory. Each project pins to a specific commit or tag, which means updates are explicit. Developers run git submodule update to pull in new versions. The second option is publishing an npm package, or whatever package registry your ecosystem uses. This approach fits naturally into projects that already manage dependencies through a package manager. You install the package as a dev dependency, and updates are handled through the standard version resolution process. Both of these approaches support versioning, which is critical for enterprise environments where you cannot afford to have untested prompt changes break production workflows.        
 </aside>      
 </div>    
@@ -499,7 +498,6 @@ central-prompts/archive/v2.1.0.tar.gz \
 /instructions/frameworks/   @org/framework-leads
 /agents/                    @org/platform-engineering
 /skills/                    @org/architecture-team</code></pre>        
-<img src="img/custom-agent-with-tools.png" alt="Screenshot of a custom agent .agent.md file with tool access configuration" />        
 <aside class="speaker-notes">          Governance starts with clear ownership. Designate a maintainer team made up of senior engineers from different parts of the organization. They don't write every prompt; they review and approve contributions. Use a CODEOWNERS file to enforce that changes to specific directories require approval from the right people. Language-specific instructions should be reviewed by the language standards team. Agent definitions should go through platform engineering. At the same time, keep the contribution process open. Any developer should be able to open a PR to propose a new prompt template or improve an existing instruction file. This keeps the repo alive and reflective of real team needs. Rotate reviewers within the maintainer team to prevent any single person from becoming a bottleneck. And schedule quarterly reviews to clean house: retire prompts that no one uses, update instructions for new library versions, and realign with any changes in organizational strategy.        
 </aside>      
 </div>    
