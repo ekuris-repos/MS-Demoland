@@ -105,8 +105,14 @@
 </li>          
 <li>When someone leaves, their carefully tuned Copilot setup walks out the door with them
 </li>        
-</ul>        <pre class="mermaid">        graph LR          Generic[Generic Prompt] --> GenericOut[Inconsistent Output]          Context[Org Context + Standards] --> Guided[Guided Prompt]          Guided --> Consistent[Consistent Output]        </pre>        
-<aside class="speaker-notes">          Here's the scenario we see in almost every large organization. Copilot is rolled out, developers love it, and productivity goes up. But it goes up unevenly. Senior engineers who already understand the codebase write excellent prompts and get excellent results. Junior developers, who would arguably benefit the most, struggle to get the same quality. Meanwhile, different teams adopt completely different conventions for how they interact with Copilot. There is no shared playbook, no standard instructions, and no way to capture what's working. When a senior developer leaves the company, all of the context they injected into their Copilot workflow leaves with them. The knowledge was never codified; it was always personal.        
+</ul>
+        <pre class="mermaid">
+graph LR
+  Generic[Generic Prompt] --> GenericOut[Inconsistent Output]
+  Context[Org Context + Standards] --> Guided[Guided Prompt]
+  Guided --> Consistent[Consistent Output]
+        </pre>
+        <aside class="speaker-notes">          Here's the scenario we see in almost every large organization. Copilot is rolled out, developers love it, and productivity goes up. But it goes up unevenly. Senior engineers who already understand the codebase write excellent prompts and get excellent results. Junior developers, who would arguably benefit the most, struggle to get the same quality. Meanwhile, different teams adopt completely different conventions for how they interact with Copilot. There is no shared playbook, no standard instructions, and no way to capture what's working. When a senior developer leaves the company, all of the context they injected into their Copilot workflow leaves with them. The knowledge was never codified; it was always personal.        
 </aside>      
 </div>    
 </section>    
