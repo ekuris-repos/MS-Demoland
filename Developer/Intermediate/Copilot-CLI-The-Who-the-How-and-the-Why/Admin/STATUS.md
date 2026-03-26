@@ -1,7 +1,7 @@
 # GitHub Copilot CLI — Content Status
 
 > **Track:** Developer | **Level:** Intermediate
-> **Last Updated:** 2026-02-26
+> **Last Updated:** 2026-03-25
 
 ## Rollup Status
 
@@ -18,10 +18,10 @@
 
 | Area                  | Status           |
 |-----------------------|------------------|
-| Slide Content         | Ready for Review |
-| Speaker Notes         | Ready for Review |
-| Images & Diagrams     | Ready for Review |
-| Demo / Lab Content    | N/A              |
+| Slide Content         | In Progress      |
+| Speaker Notes         | In Progress      |
+| Images & Diagrams     | Not Started      |
+| Demo / Lab Content    | In Progress      |
 | Reviewed & Approved   | Not Started      |
 
 > **How to update:** Set each area to `Not Started`, `In Progress`, `Ready for Review`, or `Complete`.
