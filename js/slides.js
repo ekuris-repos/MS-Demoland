@@ -120,11 +120,14 @@
     updateUI();
     history.replaceState(null, "", `#slide-${current + 1}`);
 
-    // Re-render mermaid diagrams on the now-visible slide
-    // (diagrams in display:none slides render at zero size)
+    // Re-render mermaid diagrams on the now-visible slide.
+    // Deferred to next frame so the browser has finished layout after display:flex kicks in.
     if (typeof mermaid !== "undefined") {
-      var els = slides[index].querySelectorAll("pre.mermaid");
-      if (els.length) { mermaid.run({ nodes: els }); }
+      var slide = slides[index];
+      requestAnimationFrame(function () {
+        var els = slide.querySelectorAll("pre.mermaid:not([data-processed])");
+        if (els.length) { mermaid.run({ nodes: els }); }
+      });
     }
   }
 
