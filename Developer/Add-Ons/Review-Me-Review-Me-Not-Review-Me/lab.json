@@ -5,7 +5,7 @@
       "steps": [
         {
           "title": "Welcome to the Lab",
-          "instruction": "Welcome! In this hands-on lab you will explore the full spectrum of automated code review on GitHub: Copilot code review, custom coding guidelines, CodeQL scanning, Copilot Autofix, secret scanning, and enterprise governance.<br><br>This is a challenge lab. You already know the basics of GitHub Copilot; now you will apply that knowledge to build review workflows and security pipelines. Follow the steps in this panel as you advance through the slides.",
+          "instruction": "Welcome! In this hands-on lab you will explore the full spectrum of automated code review on GitHub: Copilot code review, custom review instructions, CodeQL scanning, Copilot Autofix, secret scanning, and enterprise governance.<br><br>This is a challenge lab. You already know the basics of GitHub Copilot; now you will apply that knowledge to build review workflows and security pipelines. Follow the steps in this panel as you advance through the slides.",
           "focus": "guide"
         }
       ]
@@ -36,7 +36,7 @@
       "steps": [
         {
           "title": "Explore Project Configuration",
-          "instruction": "Open the <strong>Explorer</strong> sidebar and look for project configuration files. In a real repository, this is where you would find <code>.github/</code> folders, <code>CODEOWNERS</code> files, and workflow configs.<br><br>Understanding the project layout helps you decide where review automation configuration should live and which paths need which reviewers.",
+          "instruction": "Open the <strong>Explorer</strong> sidebar and look for project configuration files. In a real repository, this is where you would find <code>.github/</code> folders, custom instruction files, and workflow configs.<br><br>Understanding the project layout helps you decide where review automation configuration should live and which paths need custom instructions.",
           "focus": "left",
           "action": "workbench.view.explorer",
           "actionLabel": "Open Explorer",
@@ -44,14 +44,14 @@
         },
         {
           "title": "Plan Your Review Strategy",
-          "instruction": "The slides describe two trigger modes: auto-review and on-demand. Use Copilot to help you draft a CODEOWNERS file that assigns Copilot as a reviewer.<br><br><kbd>Write a CODEOWNERS file for a project with src/api/, src/frontend/, and src/shared/ directories. Assign Copilot as a reviewer for all paths and add human team leads for their respective areas.</kbd>",
+          "instruction": "The slides describe two trigger modes: auto-review and on-demand. Use Copilot to help you draft a custom instructions file for code review.<br><br><kbd>Write a .github/copilot-instructions.md file for a project with src/api/, src/frontend/, and src/shared/ directories. Include instructions for code review that enforce input validation on API routes, accessibility standards on frontend components, and consistent error handling in shared utilities.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Compare the Approaches",
-          "instruction": "Ask Copilot to help you think through when each approach is appropriate:<br><br><kbd>When should a team use auto-review (Copilot assigned via CODEOWNERS) vs. on-demand review (clicking the Copilot button)? Give me a decision matrix based on team size, PR volume, and risk tolerance.</kbd><br><br>Consider which approach you would recommend for a team you work with.",
+          "instruction": "Ask Copilot to help you think through when each approach is appropriate:<br><br><kbd>When should a team use auto-review (configured in repository settings) vs. on-demand review (selecting Copilot from the Reviewers menu)? Give me a decision matrix based on team size, PR volume, and risk tolerance.</kbd><br><br>Consider which approach you would recommend for a team you work with.",
           "focus": "right",
           "tip": "Many teams use both: auto-review for broad coverage and on-demand for targeted analysis before requesting human reviewers.",
           "onLeave": "workbench.action.closeAuxiliaryBar"
@@ -107,8 +107,8 @@
     "13": {
       "steps": [
         {
-          "title": "Draft Your Team's Guidelines",
-          "instruction": "Coding guidelines shape what Copilot focuses on during review. Create a new file and draft 3-5 coding guidelines for a project of your choice.<br><br>Each guideline needs a <strong>title</strong>, a <strong>description</strong>, and <strong>file path patterns</strong>. Think about the rules your team enforces inconsistently today.",
+          "title": "Draft Your Team's Instructions",
+          "instruction": "Custom instructions shape what Copilot focuses on during review. Create a new file named <code>.github/copilot-instructions.md</code> and draft 3-5 review instructions for a project of your choice.<br><br>Each instruction should be a clear, natural language statement describing a rule your team cares about. Think about the rules your team enforces inconsistently today.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Good guidelines are specific and actionable. \"Write clean code\" is too vague. \"All public API functions must include JSDoc with @param and @returns tags\" is enforceable.",
@@ -116,8 +116,8 @@
           "actionLabel": "Open New File"
         },
         {
-          "title": "Test Your Guidelines",
-          "instruction": "Paste your guidelines into <strong>Copilot Chat</strong> and ask it to review a code sample against them:<br><br><kbd>Here are my team's coding guidelines: [paste guidelines]. Now review this code against those guidelines and flag any violations.</kbd><br><br>Write or paste a code snippet that intentionally violates one or two of your guidelines. Verify Copilot catches the violations.",
+          "title": "Test Your Instructions",
+          "instruction": "Paste your instructions into <strong>Copilot Chat</strong> and ask it to review a code sample against them:<br><br><kbd>Here are my team's review instructions: [paste instructions]. Now review this code against those instructions and flag any violations.</kbd><br><br>Write or paste a code snippet that intentionally violates one or two of your instructions. Verify Copilot catches the violations.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "onLeave": "workbench.action.closeAuxiliaryBar",
@@ -125,7 +125,7 @@
         },
         {
           "title": "Discover Review Commands",
-          "instruction": "Open the <strong>Command Palette</strong> and type <kbd>copilot review</kbd> to explore available review-related commands. Notice which commands are available for triggering reviews, managing guidelines, and configuring Copilot's behavior.<br><br>These commands are how power users interact with review features without navigating menus.",
+          "instruction": "Open the <strong>Command Palette</strong> and type <kbd>copilot review</kbd> to explore available review-related commands. Notice which commands are available for triggering reviews, configuring instructions, and customizing Copilot's behavior.<br><br>These commands are how power users interact with review features without navigating menus.",
           "focus": "top",
           "action": "workbench.action.showCommands",
           "actionLabel": "Open Command Palette",
@@ -292,7 +292,7 @@
         },
         {
           "title": "Design a Ruleset",
-          "instruction": "Ask Copilot to help you design an organization-level ruleset that combines all the tools from this session:<br><br><kbd>Design a GitHub repository ruleset for an organization that requires: Copilot code review approval, passing CodeQL scans with no high-severity alerts, at least one human reviewer from CODEOWNERS, and signed commits. Format it as a summary table with the rule name, type, and enforcement level.</kbd>",
+          "instruction": "Ask Copilot to help you design an organization-level ruleset that combines all the tools from this session:<br><br><kbd>Design a GitHub repository ruleset for an organization that requires: passing CodeQL scans with no high-severity alerts, at least one human reviewer from CODEOWNERS, and signed commits. Also include Copilot code review as an automatic reviewer that provides feedback (but note it cannot block merging since it only leaves Comment reviews). Format it as a summary table with the rule name, type, and enforcement level.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
@@ -315,7 +315,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> You have completed Review Me, Review Me Not, Review Me.<br><br>You explored:<br>&bull; How Copilot code review catches quality and security issues on PRs<br>&bull; Writing custom coding guidelines that shape automated reviews<br>&bull; CodeQL taint tracking and how it identifies vulnerability paths<br>&bull; Copilot Autofix for generating minimal, targeted security fixes<br>&bull; Building and validating code scanning workflows<br>&bull; Custom secret scanning patterns and push protection<br>&bull; Enterprise governance rulesets mapped to compliance frameworks<br><br>Next steps: enable code scanning on one of your repositories and assign Copilot as a reviewer on your next PR.",
+          "instruction": "<strong>Congratulations!</strong> You have completed Review Me, Review Me Not, Review Me.<br><br>You explored:<br>&bull; How Copilot code review catches quality and security issues on PRs<br>&bull; Writing custom review instructions that shape automated reviews<br>&bull; CodeQL taint tracking and how it identifies vulnerability paths<br>&bull; Copilot Autofix for generating minimal, targeted security fixes<br>&bull; Building and validating code scanning workflows<br>&bull; Custom secret scanning patterns and push protection<br>&bull; Enterprise governance rulesets mapped to compliance frameworks<br><br>Next steps: enable code scanning on one of your repositories and assign Copilot as a reviewer on your next PR.",
           "focus": "guide"
         }
       ]
