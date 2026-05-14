@@ -34,7 +34,12 @@
     if (document.querySelector("pre.mermaid")) {
       var s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
-      s.onload = function () { mermaid.initialize({ startOnLoad: true, theme: "neutral" }); mermaid.run(); };
+      s.onload = function () {
+        mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+        // Only render the active slide's diagram; hidden slides have no dimensions
+        var active = slides[current].querySelectorAll("pre.mermaid");
+        if (active.length) { mermaid.run({ nodes: active }); }
+      };
       document.head.appendChild(s);
     }
 
@@ -114,6 +119,13 @@
     current = index;
     updateUI();
     history.replaceState(null, "", `#slide-${current + 1}`);
+
+    // Re-render mermaid diagrams on the now-visible slide
+    // (diagrams in display:none slides render at zero size)
+    if (typeof mermaid !== "undefined") {
+      var els = slides[index].querySelectorAll("pre.mermaid");
+      if (els.length) { mermaid.run({ nodes: els }); }
+    }
   }
 
   function next() {
