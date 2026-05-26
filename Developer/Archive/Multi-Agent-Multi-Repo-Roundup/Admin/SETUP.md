@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Developer\Enterprise\Multi-Agent-Multi-Repo-Roundup"
+   cd "Developer\Archive\Multi-Agent-Multi-Repo-Roundup"
    ```
 2. Install dependencies:
    ```

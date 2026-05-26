@@ -12,7 +12,7 @@
 
 1. Open a terminal in the course folder:
    ```
-   cd "Developer\Add-Ons\Agent-Wars-Return-of-the-Chat-ai"
+   cd "Developer\Archive\Agent-Wars-Return-of-the-Chat-ai"
    ```
 2. Install dependencies:
    ```
