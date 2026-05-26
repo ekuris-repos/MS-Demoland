@@ -5,7 +5,7 @@
       "steps": [
         {
           "title": "Welcome to the Lab",
-          "instruction": "Welcome to the <strong>Copilot Billing - From PRUs to Usage-Based Billing</strong> lab.<br><br>In this short hands-on sequence, you will practice three spend-aware workflows: narrowing a task with inline chat, using comment-first scaffolding with autocomplete, and switching Copilot Chat to <strong>Auto</strong> so model routing can match task complexity more efficiently.",
+          "instruction": "Welcome to the <strong>Copilot Billing - From PRUs to Usage-Based Billing</strong> lab.<br><br>In this short hands-on sequence, you will practice three spend-aware workflows and one rollout exercise: narrowing a task with inline chat, using comment-first scaffolding with autocomplete, switching Copilot Chat to <strong>Auto</strong> so model routing can match task complexity more efficiently, and drafting a 30-day rollout plan you can reuse with your team.",
           "focus": "guide"
         }
       ]
@@ -106,7 +106,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> You have completed the usage-based billing lab.<br><br>You practiced:<br>&bull; Narrowing scope with selection-based editing instead of broad prompts<br>&bull; Using comments plus completions for lightweight drafting work<br>&bull; Switching Copilot Chat to <strong>Auto</strong> for more efficient model routing<br>&bull; Drafting a rollout plan that turns billing knowledge into team policy",
+          "instruction": "<strong>Congratulations!</strong> You have completed the usage-based billing lab.<br><br>You practiced four things:<br>&bull; Narrowing scope with selection-based editing instead of broad prompts<br>&bull; Using comments plus completions for lightweight drafting work<br>&bull; Switching Copilot Chat to <strong>Auto</strong> for more efficient model routing<br>&bull; Drafting a rollout plan that turns billing knowledge into team policy",
           "focus": "guide"
         }
       ]

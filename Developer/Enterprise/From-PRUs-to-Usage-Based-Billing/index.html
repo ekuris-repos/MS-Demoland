@@ -179,13 +179,13 @@
         <h2>Migration Timing and Transitional Details</h2>
         <ul>
           <li><strong>June 1, 2026:</strong> monthly Copilot plans move to usage-based billing</li>
-          <li>Copilot Pro and Pro+ annual subscribers stay on request-based billing until renewal, then transition</li>
+          <li>Copilot Pro and Pro+ annual subscribers stay on request-based billing until expiry, then move to Copilot Free unless they convert to a monthly paid plan earlier</li>
           <li>Existing Business and Enterprise customers receive <strong>promotional included usage</strong> for June, July, and August</li>
           <li>GitHub launched a <strong>preview bill experience</strong> ahead of the cutover so customers can estimate spend</li>
           <li>Now is the time to publish budget policy, model guidance, and team expectations before the first full billing cycle closes</li>
         </ul>
         <aside class="speaker-notes">
-          The timing matters because many organizations are in a transition window right now. Monthly plans are straightforward. Annual plans create a staggered edge case, especially for individuals. For businesses and enterprises, GitHub intentionally added promotional included usage to soften the landing for the first three months. That gives teams a short runway to learn what their normal usage pattern looks like before they tighten or expand budgets.
+          The timing matters because many organizations are in a transition window right now. Monthly plans are straightforward. Annual plans create a staggered edge case for individuals because they stay on request-based billing until expiry, then move to Copilot Free unless the subscriber converts to a monthly paid plan earlier. For businesses and enterprises, GitHub intentionally added promotional included usage to soften the landing for the first three months. That gives teams a short runway to learn what their normal usage pattern looks like before they tighten or expand budgets.
         </aside>
       </div>
     </section>
@@ -427,12 +427,13 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Budget Hierarchy</h2>
+        <h2>Budget Control Scopes</h2>
         <pre class="mermaid">
 graph TD
-  A[Enterprise budget] --> B[Organization budget]
-  B --> C[Cost center budget]
-  C --> D[User budget]
+  A[Available budget scopes] --> B[Enterprise]
+  A --> C[Organization]
+  A --> D[Cost center]
+  A --> E[User]
         </pre>
         <ul>
           <li>Budgets can be used for visibility, alerts, or hard stops</li>
@@ -441,7 +442,7 @@ graph TD
           <li>Good governance starts broad, then narrows only where behavior data shows a real need</li>
         </ul>
         <aside class="speaker-notes">
-          GitHub gives you four levels of budget control, but that does not mean you should use all four aggressively on day one. Start by deciding what you are trying to achieve. Do you want guardrails, budgeting visibility, or strict enforcement? Usually the right path is to set enterprise and organization visibility first, then use cost centers for pilot programs, and finally apply user-level hard stops to specific high-risk or high-cost cohorts if needed.
+          GitHub gives you four budget scopes, but that does not mean you should treat them as a strict inheritance chain or use all four aggressively on day one. Start by deciding what you are trying to achieve. Do you want guardrails, budgeting visibility, or strict enforcement? Usually the right path is to set enterprise and organization visibility first, then use cost centers for pilot programs, and finally apply user-level hard stops to specific high-risk or high-cost cohorts if needed.
         </aside>
       </div>
     </section>
@@ -525,8 +526,6 @@ graph TD
           <li>Copilot code review usage and corresponding GitHub Actions minutes</li>
           <li>Budget alerts, blocked users, and unexpected workflow spikes</li>
         </ul>
-        <img src="img/TODO-screenshot-copilot-billing-overview.png" alt="TODO: Add screenshot for &quot;Billing Overview and Weekly Review&quot;" />
-
         <aside class="speaker-notes">
           Your weekly review should not be a finance-only artifact. It should be an engineering operations ritual. Look for changes in model mix, not just raw totals. If spend rises because a reliability team used cloud agent heavily during a critical remediation effort, that may be excellent value. If spend rises because everyone kept one mega-chat open for five days, that is coaching material. The billing overview gives you the raw signal. Your job is to interpret it in context.
         </aside>
@@ -952,15 +951,15 @@ function parseProductRow(row) {
       <div class="slide-inner">
         <h2>Resources</h2>
         <ul>
-          <li><strong>Official blog:</strong> GitHub Copilot is moving to usage-based billing</li>
-          <li><strong>GitHub Docs:</strong> Usage-based billing for organizations and enterprises</li>
-          <li><strong>GitHub Docs:</strong> Models and pricing for GitHub Copilot</li>
-          <li><strong>GitHub Docs:</strong> About Copilot auto model selection</li>
-          <li><strong>GitHub Docs:</strong> AI model comparison for GitHub Copilot</li>
-          <li><strong>External reading:</strong> token optimization guidance from Anthropic, IBM, Portkey, and broader coding-assistant practitioners</li>
+          <li><strong>Official blog:</strong> <a href="https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/">GitHub Copilot is moving to usage-based billing</a></li>
+          <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-organizations-and-enterprises">Usage-based billing for organizations and enterprises</a></li>
+          <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing">Models and pricing for GitHub Copilot</a></li>
+          <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/concepts/models/auto-model-selection">About Copilot auto model selection</a></li>
+          <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/how-tos/manage-and-track-spending/manage-company-spending">Managing your company's spending on GitHub Copilot</a></li>
+          <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/how-tos/manage-and-track-spending/prepare-for-usage-based-billing">Preparing your organization for usage-based billing</a></li>
         </ul>
         <aside class="speaker-notes">
-          These are the five official sources I would keep in your rollout packet, plus a sixth category for broader prompt-efficiency practice. The GitHub docs tell you how the billing model works. The external sources help teams build habits that reduce cost and often improve quality anyway. That combination is what makes the guidance durable instead of reactive.
+          These are the official sources I would keep in your rollout packet. The first three explain the billing mechanics and pricing. The last two help admins turn the policy into concrete budgets, reporting, and rollout actions.
         </aside>
       </div>
     </section>
