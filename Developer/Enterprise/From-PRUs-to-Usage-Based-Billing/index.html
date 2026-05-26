@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copilot Billing - From PRUs to Usage-Based Billing - MS Demoland</title>
+  <link rel="stylesheet" href="../../../css/primer-brand.css" />
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- ============================================================
+         SLIDE 1 - Title
+         ============================================================ -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge">Enterprise | 1 Hour</span>
+        <h1>Copilot Billing - From PRUs to Usage-Based Billing</h1>
+        <p class="subtitle">Prepare your team for GitHub AI Credits, budget guardrails, and lower-cost workflows that keep Copilot productive without surprise spend</p>
+        <aside class="speaker-notes">
+          Welcome to this course on GitHub Copilot's transition from premium request units, or PRUs, to usage-based billing. This session is built for engineering leaders, platform teams, Copilot administrators, and senior developers who need to explain the change clearly and operationalize it safely. Over the next hour, we will cover what changed on June 1, how GitHub AI Credits work, what admins can control, and how developers can reduce spend without reducing output. The goal is not just to understand the billing model. The goal is to help your organization keep Copilot useful, fast, and financially predictable.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 2 - Overview
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Overview</span>
+        <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          We will begin with the business reason for the change, then translate the official announcement into plain operational language. After that, we will look at the new AI Credit model, plan allowances, pooled budgets, and the governance controls available to organizations and enterprises. The second half of the session focuses on habits: which Copilot surfaces cost credits, which do not, how Auto routing helps, and how prompt discipline lowers spend. We will finish with rollout guidance, real scenarios, and a team checklist you can adopt immediately.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 3 - Agenda
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Today's Agenda</h2>
+        <ul>
+          <li><strong>Why GitHub changed the billing model</strong> and what it means for developers</li>
+          <li><strong>PRUs vs. AI Credits</strong> in plain English</li>
+          <li><strong>What is billed and what is not</strong> across Copilot surfaces</li>
+          <li><strong>Included usage, pooling, and budgets</strong> for individuals, businesses, and enterprises</li>
+          <li><strong>Developer habits that lower spend</strong> without lowering quality</li>
+          <li><strong>Model strategy</strong>, including Auto routing and manual overrides</li>
+          <li><strong>Rollout playbooks</strong> for admins, platform teams, and engineering leaders</li>
+        </ul>
+        <aside class="speaker-notes">
+          Here is the roadmap for our session. First, we will anchor on the official blog announcement so everyone has the same baseline. Next, we will unpack what a token-priced system means in practice, especially for agentic and multi-step workflows. Then we will switch into decision-making mode: what surfaces are effectively free, what surfaces burn credits quickly, and how to route work to the cheapest tool that still solves the problem. We will close with rollout and governance patterns so you can turn this information into policy.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 4 - Part 1 Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>Why GitHub Changed Billing</h2>
+        <aside class="speaker-notes">
+          The right way to explain the transition is to start with why GitHub made it in the first place. If your team only hears, "billing changed," they will assume it is a pure finance story. It is not. It is a product shape story, because Copilot has become much more agentic, multi-step, and compute-intensive than it was when PRUs were introduced.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - Why the Change
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Why Move Away From PRUs?</h2>
+        <ul>
+          <li>Copilot has evolved from a quick in-editor assistant into an <strong>agentic platform</strong> that can work across whole repositories</li>
+          <li>A short chat question and a long autonomous coding session should not cost the same</li>
+          <li>PRUs masked real differences in <strong>compute intensity</strong>, model choice, and session length</li>
+          <li>Usage-based billing aligns price to <strong>actual token consumption</strong> and the model used</li>
+          <li>GitHub positions the change as a way to improve <strong>long-term reliability</strong> and reduce the need for blunt gating</li>
+        </ul>
+        <aside class="speaker-notes">
+          The official blog is explicit about the motivation. Copilot is not the same product it was a year earlier. Agentic usage is becoming the default, and that means longer runs, more tool use, more context, and higher inference cost. PRUs were too coarse for that reality. Usage-based billing moves the system closer to actual cost drivers: tokens and model selection. For your organization, that means the economics now reward disciplined task shaping instead of treating all advanced usage as equivalent.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 6 - PRUs vs AI Credits
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>PRUs vs. AI Credits</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>PRUs</th>
+              <th>Usage-Based Billing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Billing unit</td>
+              <td>Premium request units</td>
+              <td>GitHub AI Credits</td>
+            </tr>
+            <tr>
+              <td>Primary cost signal</td>
+              <td>Request count with multipliers</td>
+              <td>Input, output, and cached tokens by model</td>
+            </tr>
+            <tr>
+              <td>Best fit</td>
+              <td>Simple request metering</td>
+              <td>Mixed workloads from quick chat to long agent runs</td>
+            </tr>
+            <tr>
+              <td>Admin control</td>
+              <td>Limited allowance management</td>
+              <td>Pooled credits, budgets, alerts, and hard stops</td>
+            </tr>
+            <tr>
+              <td>After allowance is exhausted</td>
+              <td>Fallback could apply in some cases</td>
+              <td>Usage is charged or blocked based on budget policy</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          This is the simplest comparison slide in the deck, and it is one your audience will likely photograph. Under PRUs, the mental model was request counting plus model multipliers. Under usage-based billing, the mental model is credits, tokens, and model rates. That change matters because it gives admins much better budget control, but it also means engineers need a better instinct for scope, verbosity, and model selection. The metering is now closer to how the work is actually done.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 - What Stays Same / Changes
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Stays the Same, What Changes</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Stays the Same</h3>
+            <ul>
+              <li>Base seat prices do <strong>not</strong> change</li>
+              <li>Code completions stay included</li>
+              <li>Next Edit Suggestions stay included</li>
+              <li>Teams still manage model access through policy</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Changes</h3>
+            <ul>
+              <li>Usage is priced from token consumption and model rates</li>
+              <li>Budgets can be set at enterprise, org, cost center, and user levels</li>
+              <li>No automatic fallback to a cheaper model when budget is exhausted</li>
+              <li>Copilot code review also consumes GitHub Actions minutes</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          This slide helps calm the room. GitHub did not turn every Copilot interaction into a surprise bill, and they did not start charging for completions. The core seat pricing remains the same. The important changes are where the variable spend now shows up, how precisely it can be managed, and the fact that code review now has a second meter in GitHub Actions minutes. That last point is easy to miss and worth repeating to platform and finance stakeholders.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 - Migration Timing
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Migration Timing and Transitional Details</h2>
+        <ul>
+          <li><strong>June 1, 2026:</strong> monthly Copilot plans move to usage-based billing</li>
+          <li>Copilot Pro and Pro+ annual subscribers stay on request-based billing until renewal, then transition</li>
+          <li>Existing Business and Enterprise customers receive <strong>promotional included usage</strong> for June, July, and August</li>
+          <li>GitHub launched a <strong>preview bill experience</strong> ahead of the cutover so customers can estimate spend</li>
+          <li>Now is the time to publish budget policy, model guidance, and team expectations before the first full billing cycle closes</li>
+        </ul>
+        <aside class="speaker-notes">
+          The timing matters because many organizations are in a transition window right now. Monthly plans are straightforward. Annual plans create a staggered edge case, especially for individuals. For businesses and enterprises, GitHub intentionally added promotional included usage to soften the landing for the first three months. That gives teams a short runway to learn what their normal usage pattern looks like before they tighten or expand budgets.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 - Part 2 Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>How Usage-Based Billing Works</h2>
+        <aside class="speaker-notes">
+          Now that we know why the model changed, we can talk about mechanics. This section gives the mental model your teams need in order to reason about spend before they open the bill page. The key terms are AI Credits, tokens, model rates, and included allowances.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 - What Is an AI Credit?
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Is a GitHub AI Credit?</h2>
+        <ul>
+          <li>GitHub AI Credits are the new billing unit for Copilot usage</li>
+          <li><strong>1 AI credit = $0.01 USD</strong></li>
+          <li>Each interaction consumes <strong>input</strong>, <strong>output</strong>, and sometimes <strong>cached</strong> tokens</li>
+          <li>The total token usage is converted into AI Credits using the published rate for the model used</li>
+          <li>A fast lightweight task may cost a fraction of a credit; a long agent run over many files costs more because it does more work</li>
+        </ul>
+        <aside class="speaker-notes">
+          If your audience remembers one line from this slide, make it this one: one AI credit equals one cent. That is the bridge from engineering behavior to finance language. Everything else follows from that. More context, more output, and heavier models cost more. Less context, tighter prompts, and cheaper models cost less. It sounds obvious, but PRUs trained many teams not to think this way, so it is worth stating directly.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - Billed vs Not Billed
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Is Billed and What Is Not?</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Surface</th>
+              <th>Uses AI Credits?</th>
+              <th>Operational note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Copilot Chat</td>
+              <td>Yes</td>
+              <td>Scope and model choice matter immediately</td>
+            </tr>
+            <tr>
+              <td>Copilot CLI</td>
+              <td>Yes</td>
+              <td>Long transcripts and agentic loops can add up quickly</td>
+            </tr>
+            <tr>
+              <td>Copilot cloud agent</td>
+              <td>Yes</td>
+              <td>Multi-step agent sessions are high-value and high-consumption</td>
+            </tr>
+            <tr>
+              <td>Copilot code review</td>
+              <td>Yes</td>
+              <td>Also consumes GitHub Actions minutes</td>
+            </tr>
+            <tr>
+              <td>Code completions</td>
+              <td>No</td>
+              <td>Still included in paid plans</td>
+            </tr>
+            <tr>
+              <td>Next Edit Suggestions</td>
+              <td>No</td>
+              <td>Still included in paid plans</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          This slide is the practical pivot point for behavior change. If the work can be accomplished with completions or Next Edit Suggestions, do that first because those surfaces remain included. Chat, CLI, cloud agent, and code review are where the metered usage lives. That does not mean avoid them. It means use them intentionally and reserve them for tasks where their extra capability creates real value.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 - Included Usage by Plan
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Included Usage by Plan</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Monthly price</th>
+              <th>Included AI Credits</th>
+              <th>Pooled?</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Copilot Pro</td>
+              <td>$10</td>
+              <td>1,500 total</td>
+              <td>No</td>
+              <td>1,000 base + 500 flex</td>
+            </tr>
+            <tr>
+              <td>Copilot Pro+</td>
+              <td>$39</td>
+              <td>7,000 total</td>
+              <td>No</td>
+              <td>3,900 base + 3,100 flex</td>
+            </tr>
+            <tr>
+              <td>Copilot Max</td>
+              <td>$100</td>
+              <td>20,000 total</td>
+              <td>No</td>
+              <td>10,000 base + 10,000 flex</td>
+            </tr>
+            <tr>
+              <td>Copilot Business</td>
+              <td>$19 per user</td>
+              <td>1,900 per seat</td>
+              <td>Yes</td>
+              <td>3,000 per seat promo through Aug 2026 for existing customers</td>
+            </tr>
+            <tr>
+              <td>Copilot Enterprise</td>
+              <td>$39 per user</td>
+              <td>3,900 per seat</td>
+              <td>Yes</td>
+              <td>7,000 per seat promo through Aug 2026 for existing customers</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Even in an enterprise-focused session, it helps to show the full landscape because some attendees are comparing personal usage to team usage. The most important enterprise concept on this slide is pooling. Business and Enterprise do not create one tiny bucket per person. They create a shared pool at the billing entity level. That is a much better fit for real organizations, where a few power users often do much more high-value agentic work than everyone else.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 - Spend Flow
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>How Spend Accumulates</h2>
+        <pre class="mermaid">
+graph LR
+  A[Prompt or agent task] --> B[Context gathered]
+  B --> C[Model selected]
+  C --> D[Input + output + cached tokens]
+  D --> E[AI credits consumed]
+  E --> F{Pool or budget available?}
+  F -->|Yes| G[Usage continues]
+  F -->|No, overage allowed| H[Additional billed usage]
+  F -->|No, overage blocked| I[Usage stops]
+        </pre>
+        <aside class="speaker-notes">
+          This flow is simple on purpose. Every user action becomes context, then a model choice, then tokens, then credits. The organization's controls only show up at the end of that path. That means cost management is partly an admin problem and partly a workflow design problem. If you only tune the budgets and ignore the prompt patterns, you will always be reacting instead of steering.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 14 - Spend Levers
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Four Spend Levers You Control</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Scope</h3>
+            <p>Narrow prompts, smaller selections, and fewer irrelevant files reduce input tokens immediately.</p>
+          </div>
+          <div class="card">
+            <h3>Surface</h3>
+            <p>Use completions or Next Edit Suggestions when they can solve the task instead of starting a billed chat or agent session.</p>
+          </div>
+        </div>
+        <div class="columns" style="margin-top:1rem">
+          <div class="card">
+            <h3>Model</h3>
+            <p>Lower-cost, faster models are enough for simple edits. Save deeper reasoning models for real complexity.</p>
+          </div>
+          <div class="card">
+            <h3>Session Length</h3>
+            <p>Long conversations accumulate cost and noise. New task, new chat is often both cheaper and clearer.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          These four levers are the backbone of the rest of the course. Most spend spikes can be explained by one of them. Either the scope was too broad, the wrong surface was used, the model was overpowered for the task, or the session kept dragging stale context forward. If teams learn to inspect usage through these four lenses, the billing page becomes much easier to explain and improve.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 - Part 3 Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>Admin Controls and Governance</h2>
+        <aside class="speaker-notes">
+          Now we move from mechanics to governance. GitHub added much better controls for organizations and enterprises, but controls only help if you use them in a deliberate policy structure. This section gives you the operating model, not just the feature list.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 - Pooling
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Pooled Credits Change the Economics</h2>
+        <ul>
+          <li>Each Business or Enterprise seat adds monthly included AI Credits to a <strong>shared pool</strong></li>
+          <li>A company with 100 Business seats gets <strong>190,000 pooled credits</strong>, not 100 isolated buckets</li>
+          <li>Power users can consume more when they are creating disproportionate value</li>
+          <li>Lighter users offset that consumption naturally without manual transfer or reallocation</li>
+          <li>Adding licenses mid-cycle increases the pool immediately; removing licenses reduces the pool at the next billing cycle</li>
+        </ul>
+        <aside class="speaker-notes">
+          Pooling is one of the best parts of the new model for enterprise buyers. It recognizes that useful AI usage is unevenly distributed across a team. Your staff engineer doing multi-repo remediation work is going to consume more than a developer who only asks for occasional summaries. Under pooling, that is fine. The job of governance is no longer to flatten usage. It is to ensure high usage is intentional, justified, and visible.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 - Budget Hierarchy
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Budget Hierarchy</h2>
+        <pre class="mermaid">
+graph TD
+  A[Enterprise budget] --> B[Organization budget]
+  B --> C[Cost center budget]
+  C --> D[User budget]
+        </pre>
+        <ul>
+          <li>Budgets can be used for visibility, alerts, or hard stops</li>
+          <li>User-level budgets are the sharpest control and can be set to <strong>$0</strong> if needed</li>
+          <li>Cost centers help separate experiments, platform teams, and business units</li>
+          <li>Good governance starts broad, then narrows only where behavior data shows a real need</li>
+        </ul>
+        <aside class="speaker-notes">
+          GitHub gives you four levels of budget control, but that does not mean you should use all four aggressively on day one. Start by deciding what you are trying to achieve. Do you want guardrails, budgeting visibility, or strict enforcement? Usually the right path is to set enterprise and organization visibility first, then use cost centers for pilot programs, and finally apply user-level hard stops to specific high-risk or high-cost cohorts if needed.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Exceeding the Pool
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Happens When the Pool Runs Out?</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Additional Usage Allowed</h3>
+            <p>Work continues and overage is billed at published rates. This is best when velocity matters more than a hard cap.</p>
+          </div>
+          <div class="card">
+            <h3>Additional Usage Blocked</h3>
+            <p>Usage stops until the next cycle. This is best when finance requires a firm ceiling.</p>
+          </div>
+        </div>
+        <p style="margin-top:1rem"><strong>Important:</strong> if a user-level budget is exhausted, that user stops even if the broader pool still has headroom. There is no automatic fallback to a cheaper model when budget is exhausted.</p>
+        <aside class="speaker-notes">
+          This is a subtle but important rule. Organizations often assume pooled credits mean everyone can continue until the pool itself is empty. That is not true if you set user budgets. User-level caps override broader capacity. Also note that GitHub explicitly removed the old notion of falling back to a cheaper model when a limit is hit. Under the new system, you either keep paying or you stop. That makes your pre-set policy far more important.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 19 - Starting Policy
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Sane Starting Policy</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Starting point</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enterprise</td>
+              <td>Set alert thresholds, not hard stops</td>
+              <td>Learn usage patterns before enforcing ceilings</td>
+            </tr>
+            <tr>
+              <td>Organization</td>
+              <td>Track spend by org and flag outliers</td>
+              <td>Find teams with unusual workflows early</td>
+            </tr>
+            <tr>
+              <td>Cost center</td>
+              <td>Use for pilots or special initiatives</td>
+              <td>Separates experiments from normal engineering spend</td>
+            </tr>
+            <tr>
+              <td>User</td>
+              <td>Apply only to exception groups at first</td>
+              <td>Avoid punishing legitimate heavy users before you understand ROI</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Many teams will be tempted to lock everything down immediately. That is usually a mistake. The first month of a new billing model is a measurement exercise. Start with alerting and observation, not fear. Then identify where credits are going, which workflows are productive, and where poor habits are creating unnecessary cost. After that, budget controls become a scalpel instead of a hammer.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 - Weekly Review
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What to Review Every Week</h2>
+        <ul>
+          <li>Total AI Credits consumed vs. included pool remaining</li>
+          <li>Top users, teams, and cost centers by spend</li>
+          <li>Model mix: fast help vs. deep reasoning vs. agentic usage</li>
+          <li>Copilot code review usage and corresponding GitHub Actions minutes</li>
+          <li>Budget alerts, blocked users, and unexpected workflow spikes</li>
+        </ul>
+        <img src="img/TODO-screenshot-copilot-billing-overview.png" alt="TODO: Add screenshot for &quot;Billing Overview and Weekly Review&quot;" />
+
+        <aside class="speaker-notes">
+          Your weekly review should not be a finance-only artifact. It should be an engineering operations ritual. Look for changes in model mix, not just raw totals. If spend rises because a reliability team used cloud agent heavily during a critical remediation effort, that may be excellent value. If spend rises because everyone kept one mega-chat open for five days, that is coaching material. The billing overview gives you the raw signal. Your job is to interpret it in context.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 21 - Part 4 Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Developer Habits That Lower Spend</h2>
+        <aside class="speaker-notes">
+          This is the part most developers care about. They do not want a lecture about billing. They want to know how to keep using Copilot effectively without becoming the reason the budget review gets tense. The answer is not to stop using AI. The answer is to choose the right surface, the right model, and the right context size for the job.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - Choose the Right Surface
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Choose the Cheapest Surface That Still Solves the Task</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Need</th>
+              <th>Lower-cost default</th>
+              <th>Why it helps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>One line, one block, one file</td>
+              <td>Autocomplete or Next Edit Suggestions</td>
+              <td>These remain included and avoid chat overhead</td>
+            </tr>
+            <tr>
+              <td>Question about a specific function</td>
+              <td>Inline chat on a selection</td>
+              <td>Smaller context means fewer billed tokens</td>
+            </tr>
+            <tr>
+              <td>Typical coding or explanation task</td>
+              <td>Copilot Chat with explicit file references</td>
+              <td>You keep scope tighter than a broad repo scan</td>
+            </tr>
+            <tr>
+              <td>Large, multi-step autonomous work</td>
+              <td>Cloud agent or CLI agent</td>
+              <td>Use the expensive path only when the autonomy pays for itself</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          This is probably the most useful habit slide in the deck. Developers often go straight to chat because it feels universal. Under usage-based billing, that is not always the smartest first move. If completions can draft the change, use them. If the question is about one function, use inline chat on that selection. Save fully agentic workflows for work that genuinely benefits from multi-step reasoning and tool use.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - Inline Chat Example
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Example: Use Inline Chat on a Single Function</h2>
+        <pre><code>function calculateInvoiceTotal(lines, taxRate, discountPct) {
+  const subtotal = lines.reduce((sum, line) => sum + line.qty * line.price, 0);
+  const discount = subtotal * discountPct;
+  return subtotal - discount + subtotal * taxRate;
+}</code></pre>
+        <ul>
+          <li>Select only the function you want to change</li>
+          <li>Ask a precise prompt such as <code>Fix the rounding bug and add a guard for negative discounts. Stay inside this function.</code></li>
+          <li>Avoid broad prompts like <code>@workspace fix invoice math</code> for a local issue</li>
+          <li>Start narrow, verify the fix, then widen scope only if needed</li>
+        </ul>
+        <aside class="speaker-notes">
+          Inline chat is a great middle ground between free completions and broad chat sessions. The selection itself carries most of the context, so you do not need to drag the rest of the repository into the prompt. That reduces input tokens and usually improves answer quality because the model is not guessing which file or function you mean. It also naturally encourages developers to state the expected fix more clearly.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Comment First + Autocomplete
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Example: Architect with Comments, Then Let Completions Fill It In</h2>
+        <pre><code>// Parse a CSV row into columns.
+// Reject rows with missing sku or price.
+// Normalize sku to uppercase and trim whitespace.
+// Return a Product object with price converted to cents.
+
+function parseProductRow(row) {
+  
+}</code></pre>
+        <ul>
+          <li>Use comments to define structure, validation rules, and output shape</li>
+          <li>Let autocomplete or Next Edit Suggestions expand each block</li>
+          <li>This shifts lightweight drafting work to <strong>unbilled</strong> completion surfaces</li>
+          <li>Use billed chat only if the implementation or edge cases become genuinely tricky</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is one of the highest-leverage spend habits because it moves work from a metered surface to an included surface. The comments do the architectural thinking in plain English, and completions draft the mechanical code. For a huge percentage of CRUD, parsing, mapping, and validation tasks, that is enough. Developers still get acceleration, but the organization does not pay chat or agent costs for work that completions can handle well.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Auto Mode
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Use Auto for the Default Path</h2>
+        <ul>
+          <li>Copilot Auto model selection is available across GitHub Copilot plans</li>
+          <li>In VS Code chat, task-optimized Auto combines <strong>real-time system health</strong> with <strong>task complexity</strong> routing</li>
+          <li>Auto is designed to reserve higher-cost reasoning models for problems that truly need them</li>
+          <li>Straightforward tasks are routed to faster, lower-cost models that still solve the problem efficiently</li>
+          <li>Policies still apply: Auto only chooses from models allowed by your plan and admin settings</li>
+        </ul>
+        <aside class="speaker-notes">
+          If your audience wants one simple model policy, it is this: default to Auto. GitHub's current Auto routing is explicitly designed to improve cost efficiency by matching task complexity to model choice. That means developers do not need to manually think about frontier reasoning models for every prompt. Auto also keeps reliability and availability in the loop, which makes it a strong default for day-to-day work. Manual model picks should be the exception, not the default.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 26 - Manual Overrides
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Override Auto Only When the Task Justifies It</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Task shape</th>
+              <th>Best fit</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Quick syntax, repetitive edits, tiny utilities</td>
+              <td>Fast help / lightweight models</td>
+              <td>Low latency and lower cost are enough</td>
+            </tr>
+            <tr>
+              <td>Normal coding, summaries, documentation</td>
+              <td>General-purpose models</td>
+              <td>Good balance of quality, speed, and cost</td>
+            </tr>
+            <tr>
+              <td>Complex debugging, refactors, architecture</td>
+              <td>Deep reasoning models</td>
+              <td>The task needs stronger reasoning across more context</td>
+            </tr>
+            <tr>
+              <td>Autonomous multi-step implementation</td>
+              <td>Agentic coding models</td>
+              <td>The workflow benefits from planning, tools, and iteration</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          The official model comparison guide is useful here because it frames model choice by task, not vendor preference. The mistake teams make is treating the most powerful model as the safest default. In practice, that is often slower and more expensive than needed. If the task is basically a small edit or explanation, use a lightweight or general-purpose path. Escalate to deep reasoning only when the problem is truly multi-step, ambiguous, or architecture-heavy.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - Concise and Batched Prompts
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Keep Prompts Concise and Batch Related Asks</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Wasteful Pattern</h3>
+            <p>Five follow-up messages for one task: "make it blue," "darker," "add padding," "fix the border," "one more thing."</p>
+          </div>
+          <div class="card">
+            <h3>Efficient Pattern</h3>
+            <p>One prompt with all changes, desired output format, and acceptance criteria in a single round-trip.</p>
+          </div>
+        </div>
+        <ul style="margin-top:1rem">
+          <li>Remove filler, repetition, and narrative backstory that does not help the model solve the task</li>
+          <li>Ask for a constrained output such as a checklist, diff summary, or five bullets max</li>
+          <li>Include success criteria once instead of re-explaining them across multiple messages</li>
+        </ul>
+        <aside class="speaker-notes">
+          Multiple external prompt-engineering sources converge on the same advice: verbosity is expensive twice. It costs more because it adds tokens, and it costs more because it often causes clarifying back-and-forth. Batching related asks into a single clean prompt usually reduces both cost and cycle time. Also note that concise does not mean vague. A short but specific prompt is ideal. A short ambiguous prompt is a rework generator.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Reset or Compact
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Reset or Compact Long Sessions</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>In Copilot</h3>
+            <p>Use a new chat when the task changes. One task, one conversation is cheaper and usually more accurate.</p>
+          </div>
+          <div class="card">
+            <h3>Cross-Tool Pattern</h3>
+            <p>If your coding agent supports transcript compaction, summarize the session instead of carrying the full history forever.</p>
+          </div>
+        </div>
+        <pre><code>/compact Focus on the accepted API changes, remaining test failures, and files already modified.</code></pre>
+        <p><strong>Note:</strong> <code>/compact</code> is an example from other coding agents, not a Copilot chat command. The principle still applies: summarize stale context and carry only the decisions that matter.</p>
+        <aside class="speaker-notes">
+          The core idea here is larger than any one product. Long transcripts get expensive and noisy. In Copilot, the practical answer is often to start a fresh chat for a fresh task. In other tools that support compaction or summarization commands, the right move is to compress the transcript into a shorter working memory. The reason is the same in both cases: carry decisions forward, not the entire conversation history.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 29 - Other Internet-Tested Tactics
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Other Internet-Tested Tactics That Translate Well</h2>
+        <ul>
+          <li><strong>Share only the files you need.</strong> Local bug? Reference the file or selection, not the entire workspace.</li>
+          <li><strong>Do trivial edits yourself.</strong> Renames, imports, and tiny formatting fixes are often faster than opening a billed session.</li>
+          <li><strong>Keep instruction files lean.</strong> Shared context should be current and useful, not a 500-line manifesto loaded every time.</li>
+          <li><strong>Chunk complex work semantically.</strong> Break a large task into meaningful parts instead of asking for everything in one giant prompt.</li>
+          <li><strong>Prefer structured outputs.</strong> Tables, checklists, and concise summaries reduce unnecessary response length.</li>
+        </ul>
+        <aside class="speaker-notes">
+          These tactics come from broader LLM and coding-assistant guidance across the web, and they hold up well in a Copilot environment. They all push in the same direction: less irrelevant context, fewer unnecessary round-trips, and better bounded outputs. I would not present them as magic tricks. They are workflow hygiene. But good workflow hygiene becomes much more visible when your AI platform starts billing by actual usage.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 30 - Part 5 Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Rollout and Real Scenarios</h2>
+        <aside class="speaker-notes">
+          We now have the concepts and the habits. The last step is turning them into rollout guidance that a real organization can use. These scenario slides help explain when cheaper patterns are enough and when higher-cost AI workflows are absolutely justified.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 31 - Cheap Workflow Scenario
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Scenario: Same Bug, Cheaper Workflow</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Approach</th>
+              <th>What happens</th>
+              <th>Likely spend pattern</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Expensive default</td>
+              <td>Open a broad chat, describe the bug vaguely, let the model explore multiple files, then refine through several follow-ups</td>
+              <td>Higher input tokens, more round-trips, higher chance of rework</td>
+            </tr>
+            <tr>
+              <td>Efficient default</td>
+              <td>Select the function, use inline chat for the bug, or write a comment scaffold and accept completions for the fix</td>
+              <td>Lower context cost and better first-pass accuracy</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          This scenario is useful because it does not ask developers to stop using AI. It simply asks them to pick a smarter entry point. The expensive path is not wrong. It is just wasteful for a small, local issue. The cheaper path narrows context, reduces prompt churn, and often produces a more precise answer because the model is not wandering through the codebase looking for the problem.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 32 - Higher Spend Scenario
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Scenario: When Higher Spend Is the Right Call</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Good Use of Higher-Cost AI</h3>
+            <ul>
+              <li>Multi-file refactor with tests</li>
+              <li>Architecture trade-off analysis</li>
+              <li>Repo-wide remediation campaign</li>
+              <li>Agentic workflow with clear acceptance criteria</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Poor Use of Higher-Cost AI</h3>
+            <ul>
+              <li>Single-function bug fix</li>
+              <li>Simple boilerplate the editor can complete</li>
+              <li>Repeated formatting or rename tasks</li>
+              <li>Vague prompts that force unnecessary exploration</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          A spend-aware culture should not become a fear culture. There are absolutely situations where deeper reasoning models, chat, CLI, or cloud agent are worth every credit. The key test is leverage. If the workflow replaces meaningful human effort, lowers risk, or accelerates a multi-step task that would otherwise be slow and error-prone, higher spend can be excellent value. The anti-pattern is using that same power for tiny jobs that cheaper surfaces solve just as well.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 33 - 30 Day Plan
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Practical 30-Day Rollout Plan</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Window</th>
+              <th>What to do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Week 0</td>
+              <td>Review official plan allowances, enable preview billing visibility, and align finance with engineering on overage policy</td>
+            </tr>
+            <tr>
+              <td>Week 1</td>
+              <td>Publish model guidance: default to Auto, use inline chat for local work, and prefer completions for lightweight drafting</td>
+            </tr>
+            <tr>
+              <td>Week 2</td>
+              <td>Create cost centers for pilots or special programs, then start weekly usage reviews</td>
+            </tr>
+            <tr>
+              <td>Week 3</td>
+              <td>Identify expensive but low-value patterns and coach teams on better workflows</td>
+            </tr>
+            <tr>
+              <td>Week 4</td>
+              <td>Adjust budgets, document proven practices, and decide where user-level caps are actually needed</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          A 30-day plan matters because this transition is behavioral as much as technical. Week 1 is communication. Week 2 is observation. Week 3 is coaching. Week 4 is policy refinement. If you reverse that order and start with restrictive caps before your teams understand the new model, you will create frustration without actually learning which workflows deserve investment.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 34 - Team Checklist
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Team Policy Checklist</h2>
+        <ul>
+          <li>Default to <strong>Auto</strong> unless there is a clear reason to override it</li>
+          <li>Prefer <strong>completions and Next Edit Suggestions</strong> for drafting and local edits</li>
+          <li>Use <strong>inline chat on a selection</strong> before escalating to broad chat or agentic workflows</li>
+          <li>One task, one chat. Start fresh when the task changes</li>
+          <li>Batch related asks and ask for concise outputs</li>
+          <li>Monitor both <strong>AI Credits</strong> and <strong>GitHub Actions minutes</strong> for code review</li>
+          <li>Review expensive workflows weekly and document the ones that are worth the spend</li>
+        </ul>
+        <aside class="speaker-notes">
+          This checklist is intentionally short. If you hand teams a ten-page guidance document, they will ignore it. These seven points are enough to establish a spend-aware default culture. Over time, you can refine them with team-specific examples, but keep the top-level message simple: use the cheapest tool that still solves the task, and reserve high-cost AI for high-leverage work.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 35 - Summary Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--green">Summary</span>
+        <h2>Wrap-Up and Next Steps</h2>
+        <aside class="speaker-notes">
+          We have covered the official shift, the pricing model, the governance controls, and the developer behaviors that matter most. Let us close with the takeaways you want people to remember after the meeting ends and the links they will actually need when they go implement this.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 36 - Key Takeaways
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li>PRUs are gone; Copilot usage now maps more directly to <strong>tokens, models, and AI Credits</strong></li>
+          <li>Seat prices stay the same, but variable usage becomes much more visible and controllable</li>
+          <li>For enterprises, <strong>pooling and budgets</strong> are the two biggest governance improvements</li>
+          <li>Code completions and Next Edit Suggestions remain your best low-cost drafting surfaces</li>
+          <li>Inline chat, concise prompts, and fresh sessions reduce both cost and noise</li>
+          <li>Auto model selection should be the default for most teams</li>
+          <li>The right goal is not minimal usage. The right goal is <strong>high-value usage</strong></li>
+        </ul>
+        <aside class="speaker-notes">
+          If the room leaves with only these points, the course has done its job. The biggest mindset shift is that optimization is no longer about avoiding advanced features. It is about matching the feature, model, and scope to the value of the task. Good teams will still spend credits. They will just spend them on work that deserves them.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 37 - Resources
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Resources</h2>
+        <ul>
+          <li><strong>Official blog:</strong> GitHub Copilot is moving to usage-based billing</li>
+          <li><strong>GitHub Docs:</strong> Usage-based billing for organizations and enterprises</li>
+          <li><strong>GitHub Docs:</strong> Models and pricing for GitHub Copilot</li>
+          <li><strong>GitHub Docs:</strong> About Copilot auto model selection</li>
+          <li><strong>GitHub Docs:</strong> AI model comparison for GitHub Copilot</li>
+          <li><strong>External reading:</strong> token optimization guidance from Anthropic, IBM, Portkey, and broader coding-assistant practitioners</li>
+        </ul>
+        <aside class="speaker-notes">
+          These are the five official sources I would keep in your rollout packet, plus a sixth category for broader prompt-efficiency practice. The GitHub docs tell you how the billing model works. The external sources help teams build habits that reduce cost and often improve quality anyway. That combination is what makes the guidance durable instead of reactive.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 38 - Closing
+         ============================================================ -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <h1>Thank You</h1>
+        <p class="subtitle">Use the new billing model as a steering mechanism, not a reason to retreat from high-value AI workflows.</p>
+        <aside class="speaker-notes">
+          Thank you for attending. The shift from PRUs to usage-based billing is a good forcing function for better engineering habits and clearer governance. If you guide teams toward the right surfaces, the right model defaults, and the right budget structure, Copilot becomes easier to justify rather than harder to defend. Use the first billing cycle to learn, coach, and refine. Do not waste it by treating the change as a purely financial event.
+        </aside>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="../../../js/slides.js"></script>
+</body>
+</html>

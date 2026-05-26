@@ -1,0 +1,115 @@
+{
+  "title": "Copilot Billing — From PRUs to Usage-Based Billing",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the <strong>Copilot Billing - From PRUs to Usage-Based Billing</strong> lab.<br><br>In this short hands-on sequence, you will practice three spend-aware workflows: narrowing a task with inline chat, using comment-first scaffolding with autocomplete, and switching Copilot Chat to <strong>Auto</strong> so model routing can match task complexity more efficiently.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Open a Scratch File",
+          "instruction": "We've opened a new scratch file for you so you can try a selection-scoped workflow without touching your project files.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Practice a Narrow Fix",
+          "instruction": "Paste a small function into the scratch file, such as a rounding helper or invoice total function.<br><br>Select only that function, then use <strong>inline chat</strong> to ask for a precise change, for example:<br><br><kbd>Fix the rounding bug and add a guard for negative discounts. Stay inside this function.</kbd><br><br>The goal is to keep the prompt local and avoid dragging unrelated files into the context.",
+          "focus": "editor",
+          "tip": "If the issue is local, do not start with a broad workspace prompt. Start with the smallest selection that contains the bug.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "24": {
+      "steps": [
+        {
+          "title": "Open Another Scratch File",
+          "instruction": "We've opened a fresh scratch file for a completions-first exercise.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Use Comment-First Scaffolding",
+          "instruction": "Write only comments that describe a small function's structure, for example:<br><br><code>// Parse a CSV row<br>// Validate required columns<br>// Normalize the SKU<br>// Return a Product object</code><br><br>Then let <strong>autocomplete</strong> or <strong>Next Edit Suggestions</strong> draft the code block by block. This practice keeps lightweight drafting on unbilled completion surfaces.",
+          "focus": "editor",
+          "tip": "Use chat only if the implementation becomes genuinely complex. For routine scaffolding, comments plus completions are usually enough.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "25": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We've opened <strong>Copilot Chat</strong> so you can change the model picker to <strong>Auto</strong>.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Switch to Auto",
+          "instruction": "At the bottom of <strong>Copilot Chat</strong>, open the model dropdown and choose <strong>Auto</strong>.<br><br>Ask one simple question and one harder debugging question. After each response, hover the model label to see what Copilot used. This helps you see how Auto can reserve heavier reasoning for tasks that need it.",
+          "focus": "right",
+          "tip": "Auto is the safest team default. Use manual overrides only when you know the task needs a different model family.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "33": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We've opened <strong>Copilot Chat</strong> so you can turn the course guidance into an actionable rollout plan.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Draft a 30-Day Rollout Plan",
+          "instruction": "Ask Copilot to draft a rollout memo using the structure from the slide:<br><br><kbd>Draft a 30-day rollout plan for our engineering organization as GitHub Copilot moves from PRUs to usage-based billing. Include: week 0 finance alignment, week 1 model guidance, week 2 cost-center setup, week 3 coaching on wasteful prompt patterns, and week 4 budget adjustment.</kbd><br><br>Compare the answer to the slide and tighten anything that is too vague.",
+          "focus": "right",
+          "tip": "This is a good example of a task where chat earns its cost. The value is in turning policy into a clear deliverable your team can actually use.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "38": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You have completed the usage-based billing lab.<br><br>You practiced:<br>&bull; Narrowing scope with selection-based editing instead of broad prompts<br>&bull; Using comments plus completions for lightweight drafting work<br>&bull; Switching Copilot Chat to <strong>Auto</strong> for more efficient model routing<br>&bull; Drafting a rollout plan that turns billing knowledge into team policy",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}
