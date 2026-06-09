@@ -47,7 +47,7 @@
 - [x] Slide 15 — Conversational AI in Your Editor
 - [x] Slide 16 — Choosing Your Model
 - [x] Slide 17 — Useful Chat Commands
-- [x] Slide 18 — Chat Modes: Ask, Edit & Agent
+- [x] Slide 18 — Chat Modes: Ask, Plan & Agent
 - [x] Slide 19 — Open in Editor: Parallel Context Windows
 - [x] Slide 20 — Configuring Your Workspace (section divider)
 - [x] Slide 21 — Key Copilot Settings

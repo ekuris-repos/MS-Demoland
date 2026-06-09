@@ -201,7 +201,7 @@
       "steps": [
         {
           "title": "Find the Mode Selector",
-          "instruction": "Look at the <strong>top of the Chat panel</strong>, next to the model picker. You’ll see a dropdown for the current <strong>mode</strong> (Ask, Edit, or Agent).<br><br>It may default to <strong>Ask</strong>. Click it to see all three options.",
+"instruction": "Look at the <strong>top of the Chat panel</strong>, next to the model picker. You'll see a dropdown for the current <strong>mode</strong> (Ask, Plan, or Agent).<br><br>It may default to <strong>Ask</strong>. Click it to see all three options.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
@@ -212,8 +212,8 @@
           "focus": "right"
         },
         {
-          "title": "Try Edit Mode",
-          "instruction": "Switch to <strong>Edit</strong> mode using the mode selector. Type:<br><br><kbd>Add JSDoc comments to all functions in my open file</kbd><br><br>Copilot proposes changes as <strong>diffs</strong>. Review each change and click <strong>Accept</strong> or <strong>Discard</strong> individually. Edit mode is ideal for targeted refactoring across one or more files.",
+          "title": "Try Plan Mode",
+          "instruction": "Switch to <strong>Plan</strong> mode using the mode selector. Type:<br><br><kbd>Add JSDoc comments to all functions in my open file</kbd><br><br>Copilot creates a <strong>step-by-step plan</strong>, then proposes changes as <strong>diffs</strong>. Review the plan and each change, then click <strong>Accept</strong> or <strong>Discard</strong> individually. Plan mode is ideal for targeted refactoring across one or more files.",
           "focus": "right"
         },
         {
@@ -325,7 +325,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> 🎉 You’ve activated Copilot, explored <strong>Next Edit Suggestions</strong>, browsed the <strong>model selector</strong>, used all three <strong>chat modes</strong> (Ask, Edit, Agent), tried <strong>Vision</strong>, worked with slash commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>, <code>/doc</code>, <code>@workspace</code>), used both sidebar and inline chat, worked in the terminal, and configured settings.<br><br>You’re ready for the next course: <strong>Prompts, Instructions, Skills, and Agents</strong>.",
+"instruction": "<strong>Congratulations!</strong> 🎉 You've activated Copilot, explored <strong>Next Edit Suggestions</strong>, browsed the <strong>model selector</strong>, used all three <strong>chat modes</strong> (Ask, Plan, Agent), tried <strong>Vision</strong>, worked with slash commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>, <code>/doc</code>, <code>@workspace</code>), used both sidebar and inline chat, worked in the terminal, and configured settings.<br><br>You're ready for the next course: <strong>Prompts, Instructions, Skills, and Agents</strong>.",
           "focus": "guide"
         }
       ]

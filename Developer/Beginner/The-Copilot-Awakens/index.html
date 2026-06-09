@@ -434,14 +434,14 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE - Chat Modes: Ask, Edit & Agent
+         SLIDE - Chat Modes: Ask, Plan & Agent
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Chat Modes: Ask, Edit &amp; Agent</h2>
+        <h2>Chat Modes: Ask, Plan &amp; Agent</h2>
         <ul>
           <li><strong>Ask mode</strong> (default): question answering, code explanations, and brainstorming. Copilot responds but does not modify your files.</li>
-          <li><strong>Edit mode</strong>: describe changes and Copilot applies them across <strong>multiple files</strong> simultaneously. Review diffs before accepting.</li>
+          <li><strong>Plan mode</strong>: describe changes and Copilot creates a <strong>step-by-step plan</strong>, then applies edits across multiple files. Review the plan and diffs before accepting.</li>
           <li><strong>Agent mode</strong>: Copilot <strong>autonomously</strong> plans and executes multi-step tasks: creates files, runs terminal commands, installs dependencies, and iterates on errors.</li>
           <li>Switch modes with the <strong>mode selector</strong> at the top of the Chat panel, next to the model picker</li>
           <li><strong>Vision</strong>: drag or paste an image into Chat and Copilot will analyze it; great for mocking up UI from screenshots or reading error dialogs</li>
@@ -449,7 +449,7 @@ graph LR
 
         <img src="img/agent-mode-in-action.png" alt="Screenshot of Agent Mode executing a multi-step task in VS Code" />
         <aside class="speaker-notes">
-          Copilot Chat has three distinct modes, and understanding when to use each one is a core skill. Ask mode is the default: you ask a question, Copilot answers. It reads your files for context but doesn't change anything. This is perfect for exploration, learning, and brainstorming. Edit mode is the next step up. You describe what you want changed, and Copilot proposes edits across multiple files at once. You see a diff for each file and can accept or reject individually. This is great for refactoring, adding a feature that touches several files, or making consistent style changes. Agent mode is the most powerful. When you switch to Agent, Copilot doesn't just suggest code; it autonomously plans and executes a sequence of steps. It can create new files, run terminal commands, install packages, read error output, and iterate until the task is done. Think of it as delegating an entire task rather than asking a question. The mode selector sits right next to the model picker at the top of the Chat panel. One more thing: you can drag or paste images directly into Chat. Copilot's vision capability lets it analyze screenshots, UI mockups, error dialogs, or diagrams and respond with code or explanations. This is very useful for reproducing a design from a mockup or diagnosing a visual bug.
+          Copilot Chat has three distinct modes, and understanding when to use each one is a core skill. Ask mode is the default: you ask a question, Copilot answers. It reads your files for context but doesn't change anything. This is perfect for exploration, learning, and brainstorming. Plan mode is the next step up. You describe what you want changed, and Copilot creates a step-by-step plan showing how it will approach the task, then proposes edits across multiple files. You review the plan, see a diff for each file, and can accept or reject individually. This is great for refactoring, adding a feature that touches several files, or making consistent style changes. Agent mode is the most powerful. When you switch to Agent, Copilot doesn't just suggest code; it autonomously plans and executes a sequence of steps. It can create new files, run terminal commands, install packages, read error output, and iterate until the task is done. Think of it as delegating an entire task rather than asking a question. The mode selector sits right next to the model picker at the top of the Chat panel. One more thing: you can drag or paste images directly into Chat. Copilot's vision capability lets it analyze screenshots, UI mockups, error dialogs, or diagrams and respond with code or explanations. This is very useful for reproducing a design from a mockup or diagnosing a visual bug.
         </aside>
       </div>
     </section>
@@ -643,12 +643,12 @@ function parseCSV(csvString) {
         <ul>
           <li>GitHub Copilot is your <strong>AI pair programmer</strong>: inline completions, chat with multiple modes, and a catalog of AI models</li>
           <li><strong>Ghost text</strong> and <strong>Next Edit Suggestions</strong> give you real-time help as you type</li>
-          <li><strong>Chat modes</strong>: <strong>Ask</strong> for exploration, <strong>Edit</strong> for multi-file changes, <strong>Agent</strong> for autonomous task execution</li>
+          <li><strong>Chat modes</strong>: <strong>Ask</strong> for exploration, <strong>Plan</strong> for multi-file changes, <strong>Agent</strong> for autonomous task execution</li>
           <li><strong>Workspace settings</strong> and <strong>custom instructions</strong> keep your team aligned</li>
           <li>Always <strong>review</strong> AI suggestions; you're the pilot, Copilot is your co-pilot</li>
         </ul>
         <aside class="speaker-notes">
-          Here are the big takeaways. GitHub Copilot is your AI pair programmer. It gives you inline completions, a full chat interface with three modes, and a catalog of AI models you choose from. Ghost text and Next Edit Suggestions are the fastest way to get help: just type and press Tab. Copilot Chat gives you three powerful modes: Ask for exploration and learning, Edit for targeted multi-file changes, and Agent for autonomous task execution. Workspace settings and custom instructions let you standardize Copilot's behavior across your entire team. And the most important takeaway of all: always review what the AI produces. You are the developer. You're the pilot. Copilot is your co-pilot. It's a powerful assistant, but the responsibility for the code is always yours.
+          Here are the big takeaways. GitHub Copilot is your AI pair programmer. It gives you inline completions, a full chat interface with three modes, and a catalog of AI models you choose from. Ghost text and Next Edit Suggestions are the fastest way to get help: just type and press Tab. Copilot Chat gives you three powerful modes: Ask for exploration and learning, Plan for targeted multi-file changes with a visible step-by-step approach, and Agent for autonomous task execution. Workspace settings and custom instructions let you standardize Copilot's behavior across your entire team. And the most important takeaway of all: always review what the AI produces. You are the developer. You're the pilot. Copilot is your co-pilot. It's a powerful assistant, but the responsibility for the code is always yours.
         </aside>
       </div>
     </section>
