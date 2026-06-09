@@ -38,29 +38,32 @@
 - [x] Slide 6 — How Copilot Works
 - [x] Slide 7 — Copilot Plans comparison
 - [x] Slide 8 — Getting Started (section divider)
-- [x] Slide 9 — Installing & Activating Copilot
+- [x] Slide 9 — Signing In & Activating Copilot
 - [x] Slide 10 — Signing In & Verifying Your License
 - [x] Slide 11 — Inline Completions (section divider)
 - [x] Slide 12 — Ghost Text — Your New Superpower
 - [x] Slide 13 — Getting Better Suggestions
 - [x] Slide 14 — Copilot Chat (section divider)
 - [x] Slide 15 — Conversational AI in Your Editor
-- [x] Slide 16 — Useful Chat Commands
-- [x] Slide 17 — Configuring Your Workspace (section divider)
-- [x] Slide 18 — Key Copilot Settings
-- [x] Slide 19 — Custom Instructions
-- [x] Slide 20 — Live Demo (section divider)
-- [x] Slide 21 — Demo: Writing a Function with Copilot
-- [x] Slide 22 — Demo: Using Chat to Refactor
-- [x] Slide 23 — Tips for Getting the Most from Copilot
-- [x] Slide 24 — Summary (section divider)
-- [x] Slide 25 — Key Takeaways
-- [x] Slide 26 — Where to Go Next
-- [x] Slide 27 — Closing slide
+- [x] Slide 16 — Choosing Your Model
+- [x] Slide 17 — Useful Chat Commands
+- [x] Slide 18 — Chat Modes: Ask, Edit & Agent
+- [x] Slide 19 — Open in Editor: Parallel Context Windows
+- [x] Slide 20 — Configuring Your Workspace (section divider)
+- [x] Slide 21 — Key Copilot Settings
+- [x] Slide 22 — Custom Instructions
+- [x] Slide 23 — Live Demo (section divider)
+- [x] Slide 24 — Demo: Writing a Function with Copilot
+- [x] Slide 25 — Demo: Using Chat to Refactor
+- [x] Slide 26 — Tips for Getting the Most from Copilot
+- [x] Slide 27 — Wrap-Up & Next Steps (section divider)
+- [x] Slide 28 — Key Takeaways
+- [x] Slide 29 — Where to Go Next
+- [x] Slide 30 — Closing slide
 
 ## Lab Script
 
-- [x] `lab.json` created with 12 full-depth steps
+- [x] `lab.json` created with 50 steps across 12 slides
 - [x] Simulated chat messages with realistic Copilot responses
 - [x] Highlight effects on chat UI elements
 - [x] Auto-type animations on assistant responses

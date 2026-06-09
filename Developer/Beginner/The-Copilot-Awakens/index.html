@@ -128,7 +128,7 @@ graph LR
           <div class="card" style="display:flex;gap:1em;align-items:flex-start">
             <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
               <h3>Free</h3>
-              <p>50 premium requests/mo &bull; 2,000 completions/mo</p>
+              <p>2,000 completions/mo &bull; Limited chat and agent usage</p>
               <p>Inline completions, chat, CLI. Great for trying Copilot at zero cost.</p>
             </div>
             <div style="text-align:right;white-space:nowrap;width:7em">
@@ -138,8 +138,8 @@ graph LR
           <div class="card" style="display:flex;gap:1em;align-items:flex-start">
             <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
               <h3>Pro</h3>
-              <p>300 premium requests/mo &bull; Unlimited completions</p>
-              <p>Coding agent, code review, premium model access. Free for students and OSS maintainers.</p>
+              <p>$15 AI credits/mo &bull; Unlimited completions</p>
+              <p>Cloud agent, code review, model selection. Free for verified teachers and popular OSS maintainers.</p>
             </div>
             <div style="text-align:right;white-space:nowrap;width:7em">
               <p class="price">$10 <span style="font-size:0.6em;opacity:0.7">USD/user/mo</span></p>
@@ -148,8 +148,8 @@ graph LR
           <div class="card" style="display:flex;gap:1em;align-items:flex-start">
             <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
               <h3>Pro+</h3>
-              <p>1,500 premium requests/mo &bull; Unlimited completions</p>
-              <p>Everything in Pro plus access to advanced models and higher usage limits for power users.</p>
+              <p>$70 AI credits/mo &bull; Unlimited completions</p>
+              <p>Everything in Pro plus access to premium models (including Opus) and audit logs.</p>
             </div>
             <div style="text-align:right;white-space:nowrap;width:7em">
               <p class="price">$39 <span style="font-size:0.6em;opacity:0.7">USD/user/mo</span></p>
@@ -157,8 +157,18 @@ graph LR
           </div>
           <div class="card" style="display:flex;gap:1em;align-items:flex-start">
             <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
+              <h3>Max</h3>
+              <p>$200 AI credits/mo &bull; Unlimited completions</p>
+              <p>Everything in Pro+ plus priority access to new models and our highest individual credit allowance.</p>
+            </div>
+            <div style="text-align:right;white-space:nowrap;width:7em">
+              <p class="price">$100 <span style="font-size:0.6em;opacity:0.7">USD/user/mo</span></p>
+            </div>
+          </div>
+          <div class="card" style="display:flex;gap:1em;align-items:flex-start">
+            <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
               <h3>Business</h3>
-              <p>300 premium requests/user/mo &bull; Unlimited completions</p>
+              <p>$19 in pooled AI credits per seat &bull; Unlimited completions</p>
               <p>Organization management, policy controls, audit logs, IP indemnity. No code retention.</p>
             </div>
             <div style="text-align:right;white-space:nowrap;width:7em">
@@ -168,19 +178,19 @@ graph LR
           <div class="card" style="display:flex;gap:1em;align-items:flex-start">
             <div style="flex:1;border-right:2px solid var(--brand-color-border-default);padding-right:1em">
               <h3>Enterprise</h3>
-              <p>1,000 premium requests/user/mo &bull; Unlimited completions</p>
-              <p>Everything in Business plus repository-indexed search, content exclusion, and organization-wide custom instructions.</p>
+              <p>$39 in pooled AI credits per seat &bull; Unlimited completions</p>
+              <p>Everything in Business plus content exclusion, organization-wide custom instructions, and priority access to new models.</p>
             </div>
             <div style="text-align:right;white-space:nowrap;width:7em">
               <p class="price">$39 <span style="font-size:0.6em;opacity:0.7">USD/seat/mo</span></p>
             </div>
           </div>
         </div>
-        <p style="font-size:0.65rem;opacity:0.6;margin-top:0.5em">Premium requests are consumed by chat messages multiplied by the model multiplier. Additional requests available at $0.04/request.</p>
-        <p style="font-size:0.6rem;opacity:0.5;margin-top:0.25em">⚠️ Plans, pricing, and quotas shown are as of <strong>February 2026</strong>. Check <code>github.com/features/copilot</code> for the latest.</p>
+        <p style="font-size:0.65rem;opacity:0.6;margin-top:0.5em">AI credits (1 credit = $0.01 USD) are consumed by chat, CLI, cloud agent, and code review. Code completions and Next Edit Suggestions remain included. Credit allotments may vary over time.</p>
+        <p style="font-size:0.6rem;opacity:0.5;margin-top:0.25em">⚠️ Plans, pricing, and quotas shown are as of <strong>June 2026</strong>. Check <code>github.com/features/copilot</code> for the latest.</p>
 
         <aside class="speaker-notes">
-          Let's quickly look at the plans. There are five tiers. The Free plan gives you 50 premium requests per month and 2,000 completions, more than enough to try Copilot and see if it fits your workflow. Pro, at ten dollars a month, bumps you up to 300 premium requests with unlimited completions, and adds the coding agent and code review features. It's also free for students and open-source maintainers. Pro+, at thirty-nine dollars a month, is designed for individual power users who want access to the most advanced models and higher usage limits; it includes 1,500 premium requests per month. Business, at nineteen dollars per seat, is where organizations come in - you get centralized management, audit logs, IP indemnity, and the guarantee that no code is retained. Enterprise, at thirty-nine dollars per seat, takes it further with a thousand premium requests, repository-indexed search, content exclusion, and organization-wide custom instructions. One thing to note: these plans and quotas are current as of February 2026 and may have changed, so always check github.com/features/copilot for the latest. Also, premium requests are consumed when you send chat messages, and the cost depends on which model you select. You can always buy additional requests at four cents each. The full details are on github.com/features/copilot, and they update regularly - so check there for the latest.
+          Let's quickly look at the plans. There are six tiers. The Free plan gives you 2,000 completions per month with limited chat and agent usage, more than enough to try Copilot and see if it fits your workflow. Pro, at ten dollars a month, gives you fifteen dollars in monthly AI credits with unlimited completions, and adds the cloud agent, code review, and model selection. It's also free for verified teachers and popular open-source maintainers. Pro+, at thirty-nine dollars a month, is designed for power users who want premium models like Opus; it includes seventy dollars in monthly AI credits. Max, at a hundred dollars a month, is the highest individual tier with two hundred dollars in monthly AI credits and priority access to new models and features. Business, at nineteen dollars per seat, is where organizations come in - you get centralized management, audit logs, IP indemnity, a pooled credit allowance, and the guarantee that no code is retained. Enterprise, at thirty-nine dollars per seat, takes it further with a larger credit pool, content exclusion, organization-wide custom instructions, and priority access to new models. One thing to note: these plans and quotas are current as of June 2026 and may have changed, so always check github.com/features/copilot for the latest. AI credits are consumed by chat, CLI, cloud agent, and code review usage; code completions and Next Edit Suggestions remain included in paid plans. Different models cost different credit amounts, and the credit cost is shown in the model selector. The full details are on github.com/features/copilot, and they update regularly - so check there for the latest.
         </aside>
       </div>
     </section>
@@ -267,7 +277,6 @@ graph LR
       <div class="slide-inner">
         <span class="badge">Part 3</span>
         <h2>Inline Completions</h2>
-        <img src="img/model-picker-dropdown.png" alt="Screenshot of the Copilot model picker in VS Code showing available models" />
         <aside class="speaker-notes">
           Now we're getting to the good stuff. Inline completions are the feature most developers encounter first, and for many people, it's the moment Copilot goes from "interesting" to "I can't code without this." Let's see how it works.
         </aside>
@@ -382,13 +391,13 @@ graph LR
           <li>Click the <strong>model selector</strong> at the top of the Chat panel to browse all available models</li>
           <li>Models from <strong>multiple providers</strong>: OpenAI (GPT-4o, o-series), Anthropic (Claude), Google (Gemini), and more</li>
           <li>Each model has different strengths: <strong>speed</strong>, <strong>reasoning depth</strong>, <strong>context window size</strong>, and <strong>cost</strong></li>
-          <li><strong>Premium models</strong> consume more premium requests per message; the multiplier is shown in the selector</li>
+          <li><strong>Premium models</strong> consume more AI credits per message; the credit cost is shown in the selector</li>
           <li>You can switch models between messages, even within the same conversation</li>
         </ul>
 
-        <img src="img/agent-mode-in-action.png" alt="Screenshot of Agent Mode executing a multi-step task in VS Code" />
+        <img src="img/model-picker-dropdown.png" alt="Screenshot of the Copilot model picker in VS Code showing available models" />
         <aside class="speaker-notes">
-          One of the most powerful aspects of Copilot today is the model selector. At the top of the Chat panel, you'll see a dropdown that lets you pick which large language model powers your conversation. You have models from OpenAI like GPT-4o and the o-series reasoning models, Claude from Anthropic, Gemini from Google, and others that are added regularly. Each model has different characteristics. Some are faster for quick questions, some are better at deep reasoning or multi-step problems, and some handle very large files or context windows. The tradeoff is cost: premium models consume more of your monthly premium requests per message, and the selector shows the multiplier so you can make an informed choice. A good rule of thumb: use a fast model for simple questions and a reasoning model for complex debugging or architecture discussions. And you can switch models between messages in the same conversation, so you're never locked in.
+          One of the most powerful aspects of Copilot today is the model selector. At the top of the Chat panel, you'll see a dropdown that lets you pick which large language model powers your conversation. You have models from OpenAI like GPT-4o and the o-series reasoning models, Claude from Anthropic, Gemini from Google, and others that are added regularly. Each model has different characteristics. Some are faster for quick questions, some are better at deep reasoning or multi-step problems, and some handle very large files or context windows. The tradeoff is cost: premium models consume more of your monthly AI credits per message, and the selector shows the credit cost so you can make an informed choice. A good rule of thumb: use a fast model for simple questions and a reasoning model for complex debugging or architecture discussions. And you can switch models between messages in the same conversation, so you're never locked in.
         </aside>
       </div>
     </section>
@@ -438,7 +447,7 @@ graph LR
           <li><strong>Vision</strong>: drag or paste an image into Chat and Copilot will analyze it; great for mocking up UI from screenshots or reading error dialogs</li>
         </ul>
 
-        <img src="img/custom-instructions-file.png" alt="Screenshot of a .github/copilot-instructions.md file in a repository" />
+        <img src="img/agent-mode-in-action.png" alt="Screenshot of Agent Mode executing a multi-step task in VS Code" />
         <aside class="speaker-notes">
           Copilot Chat has three distinct modes, and understanding when to use each one is a core skill. Ask mode is the default: you ask a question, Copilot answers. It reads your files for context but doesn't change anything. This is perfect for exploration, learning, and brainstorming. Edit mode is the next step up. You describe what you want changed, and Copilot proposes edits across multiple files at once. You see a diff for each file and can accept or reject individually. This is great for refactoring, adding a feature that touches several files, or making consistent style changes. Agent mode is the most powerful. When you switch to Agent, Copilot doesn't just suggest code; it autonomously plans and executes a sequence of steps. It can create new files, run terminal commands, install packages, read error output, and iterate until the task is done. Think of it as delegating an entire task rather than asking a question. The mode selector sits right next to the model picker at the top of the Chat panel. One more thing: you can drag or paste images directly into Chat. Copilot's vision capability lets it analyze screenshots, UI mockups, error dialogs, or diagrams and respond with code or explanations. This is very useful for reproducing a design from a mockup or diagnosing a visual bug.
         </aside>
@@ -519,6 +528,7 @@ graph LR
           <li>Great for enforcing coding standards: "Always use TypeScript strict mode", "Prefer async/await over callbacks"</li>
           <li>Team consistency - every developer gets the same AI guidance from day one</li>
         </ul>
+        <img src="img/custom-instructions-file.png" alt="Screenshot of a .github/copilot-instructions.md file in a repository" />
 
         <aside class="speaker-notes">
           This feature is a game-changer for teams. You can create a file called copilot-instructions.md in the .github directory of any repository, and Copilot will read it and apply those instructions to every single interaction in that project. Think about that for a second. You can write things like "Always use TypeScript strict mode," "Follow our internal API naming conventions," or "Prefer async/await over raw Promises" - and Copilot will actually follow them. Every developer on your team gets the same AI guidance from day one, without having to remember to type it into every chat. It's like codifying your team's institutional knowledge into a file that the AI actually respects. If this concept excites you, the next course in our track - "Prompts, Instructions, Skills, and Agents" - goes much deeper into all the customization primitives.

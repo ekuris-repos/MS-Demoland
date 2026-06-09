@@ -29,7 +29,11 @@
           ],
           "action": "workbench.action.files.newUntitledFile",
           "onLeave": "workbench.action.closeActiveEditor",
-          "actionLabel": "Open New File"
+          "actionLabel": "Open New File",
+          "validate": [
+            {"type": "fileExists", "path": "agent-surface-inventory.md", "label": "Surface inventory file exists"},
+            {"type": "fileContains", "path": "agent-surface-inventory.md", "pattern": "VS Code|Agent Mode", "label": "Inventory includes VS Code agent mode"}
+          ]
         },
         {
           "title": "Panels Closed",
@@ -76,7 +80,7 @@
         }
       ]
     },
-    "12": {
+    "13": {
       "steps": [
         {
           "title": "Try Copilot CLI Suggest",
@@ -99,7 +103,7 @@
         }
       ]
     },
-    "16": {
+    "17": {
       "steps": [
         {
           "title": "Create a Coding Agent Issue Template",
@@ -107,7 +111,11 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeAuxiliaryBar"
+          "onLeave": "workbench.action.closeAuxiliaryBar",
+          "validate": [
+            {"type": "fileExists", "path": ".github/ISSUE_TEMPLATE/coding-agent-task.yml", "label": "Issue template file exists"},
+            {"type": "fileContains", "path": ".github/ISSUE_TEMPLATE/coding-agent-task.yml", "pattern": "copilot", "label": "Template includes copilot label"}
+          ]
         },
         {
           "title": "Review the Template",
@@ -131,14 +139,18 @@
         }
       ]
     },
-    "20": {
+    "21": {
       "steps": [
         {
           "title": "Scaffold an Automated Triage Workflow",
           "instruction": "Now build the GitHub Actions workflow that powers automated triage. In agent mode, type:<br><br><kbd>Create a GitHub Actions workflow at .github/workflows/auto-triage.yml that triggers when a new issue is opened. The workflow should: 1) Use the gh CLI to post a comment mentioning @copilot asking it to classify the issue type (bug, feature, docs, question), suggest priority (P0-P3), and recommend which team should own it. 2) Apply initial labels based on the issue body keywords. Include appropriate permissions for issues: write.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "validate": [
+            {"type": "fileExists", "path": ".github/workflows/auto-triage.yml", "label": "Triage workflow file exists"},
+            {"type": "fileContains", "path": ".github/workflows/auto-triage.yml", "pattern": "issues:\\s*\\[opened\\]|issues.*opened", "label": "Workflow triggers on issue opened"}
+          ]
         },
         {
           "title": "Add Duplicate Detection",
@@ -159,14 +171,18 @@
         }
       ]
     },
-    "22": {
+    "23": {
       "steps": [
         {
           "title": "Design a Fan-Out Coordination Pipeline",
           "instruction": "Build a coordination workflow that demonstrates the fan-out/fan-in pattern. In agent mode, type:<br><br><kbd>Create a GitHub Actions workflow at .github/workflows/fan-out-update.yml that is triggered by workflow_dispatch with an input for \"library_version\". The workflow should have three parallel jobs: update-api (updates backend dependencies), update-frontend (updates frontend dependencies), and update-tests (updates test fixtures). Each job should create a separate branch, make a commit, and open a draft PR. Add a final \"reconcile\" job that depends on all three and posts a summary comment to a tracking issue.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "validate": [
+            {"type": "fileExists", "path": ".github/workflows/fan-out-update.yml", "label": "Fan-out workflow file exists"},
+            {"type": "fileContains", "path": ".github/workflows/fan-out-update.yml", "pattern": "workflow_dispatch", "label": "Workflow uses workflow_dispatch trigger"}
+          ]
         },
         {
           "title": "Add Human-in-the-Loop Checkpoints",
@@ -181,7 +197,7 @@
         }
       ]
     },
-    "28": {
+    "29": {
       "steps": [
         {
           "title": "Scaffold a Copilot Extension",
@@ -189,7 +205,11 @@
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat",
-          "onLeave": "workbench.action.closeAuxiliaryBar"
+          "onLeave": "workbench.action.closeAuxiliaryBar",
+          "validate": [
+            {"type": "fileExists", "path": "copilot-extension/index.js", "label": "Extension entry point exists"},
+            {"type": "fileExists", "path": "copilot-extension/package.json", "label": "Extension package.json exists"}
+          ]
         },
         {
           "title": "Review the Extension Architecture",
@@ -221,19 +241,27 @@
         }
       ]
     },
-    "30": {
+    "31": {
       "steps": [
         {
           "title": "Create Enterprise-Wide Instructions",
           "instruction": "Build a comprehensive <code>.github/copilot-instructions.md</code> that governs agent behavior across all surfaces. In agent mode, type:<br><br><kbd>Create a .github/copilot-instructions.md file with enterprise-grade instructions covering: 1) Code standards (TypeScript strict, ESLint, Prettier). 2) Security rules (no hardcoded secrets, parameterized queries, input validation). 3) Testing requirements (minimum coverage, test naming conventions). 4) Architecture constraints (microservices boundaries, API versioning). 5) Agent-specific rules (always run tests before opening PRs, include migration scripts for DB changes).</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "validate": [
+            {"type": "fileExists", "path": ".github/copilot-instructions.md", "label": "Custom instructions file exists"},
+            {"type": "fileContains", "path": ".github/copilot-instructions.md", "pattern": "security|testing|standards", "label": "Instructions cover key enterprise concerns"}
+          ]
         },
         {
           "title": "Add Scoped Instructions",
           "instruction": "Create a folder-scoped instructions file. In agent mode, type:<br><br><kbd>Create .github/instructions/api-routes.instructions.md with an applyTo glob for \"api/routes/**/*.ts\". Include rules specific to API development: use Zod for request validation, return RFC 7807 problem details for errors, version all endpoints under /api/v{n}/, include OpenAPI JSDoc annotations, and wrap database calls in try-catch with proper error logging.</kbd>",
-          "focus": "right"
+          "focus": "right",
+          "validate": [
+            {"type": "fileExists", "path": ".github/instructions/api-routes.instructions.md", "label": "Scoped instructions file exists"},
+            {"type": "fileContains", "path": ".github/instructions/api-routes.instructions.md", "pattern": "applyTo|api/routes", "label": "Instructions include applyTo glob"}
+          ]
         },
         {
           "title": "Verify Multi-Surface Consistency",
@@ -250,14 +278,18 @@
         }
       ]
     },
-    "32": {
+    "33": {
       "steps": [
         {
           "title": "Build a Usage Metrics Dashboard Script",
           "instruction": "Create a script that pulls Copilot usage data via the REST API. In agent mode, type:<br><br><kbd>Create a script at scripts/copilot-metrics.sh that uses the gh api command to fetch Copilot usage metrics for the organization. It should call GET /orgs/{org}/copilot/usage and format the output as a markdown table showing: date, total active users, total suggestions, total acceptances, and acceptance rate. Accept the org name as a command-line argument.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "validate": [
+            {"type": "fileExists", "path": "scripts/copilot-metrics.sh", "label": "Metrics script exists"},
+            {"type": "fileContains", "path": "scripts/copilot-metrics.sh", "pattern": "copilot/usage|gh api", "label": "Script calls Copilot usage API"}
+          ]
         },
         {
           "title": "Create an Audit Log Query",
@@ -273,14 +305,18 @@
         }
       ]
     },
-    "34": {
+    "35": {
       "steps": [
         {
           "title": "Build a Security Remediation Pipeline",
           "instruction": "Wire up the full security remediation scenario from the slides. In agent mode, type:<br><br><kbd>Create a GitHub Actions workflow at .github/workflows/security-remediation.yml that triggers on the \"dependabot\" label being added to an issue. The workflow should: 1) Post a comment mentioning @copilot asking it to assess the severity and identify affected files. 2) If the issue title contains \"critical\" or \"high\", automatically assign the issue to Copilot so the Coding Agent picks it up. 3) Add a notification step that posts a summary to a Slack webhook URL stored in a repository secret called SLACK_WEBHOOK.</kbd>",
           "focus": "right",
           "action": "workbench.action.chat.open",
-          "actionLabel": "Open Copilot Chat"
+          "actionLabel": "Open Copilot Chat",
+          "validate": [
+            {"type": "fileExists", "path": ".github/workflows/security-remediation.yml", "label": "Security remediation workflow exists"},
+            {"type": "fileContains", "path": ".github/workflows/security-remediation.yml", "pattern": "dependabot|security", "label": "Workflow handles security issues"}
+          ]
         },
         {
           "title": "Add the Review Gate",
@@ -310,7 +346,7 @@
         }
       ]
     },
-    "39": {
+    "40": {
       "steps": [
         {
           "title": "Lab Complete!",

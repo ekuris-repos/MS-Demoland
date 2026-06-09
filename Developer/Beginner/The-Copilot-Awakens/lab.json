@@ -20,16 +20,17 @@
         },
         {
           "title": "Check the Extension Details",
-          "instruction": "Click on the <strong>GitHub Copilot</strong> extension in the list to open its details page. Scroll through to see what's included:<br><br>• Inline completions (ghost text)<br>• Copilot Chat panel and inline chat<br>• Terminal integration<br><br>Notice the <strong>Disable</strong> and <strong>Uninstall</strong> buttons. You won't need those today, but it's good to know where they are."
+          "instruction": "Click on the <strong>GitHub Copilot</strong> extension in the list to open its details page. Scroll through to see what's included:<br><br>&bull; Inline completions (ghost text)<br>&bull; Copilot Chat panel and inline chat<br>&bull; Terminal integration<br><br>Notice the <strong>Disable</strong> and <strong>Uninstall</strong> buttons. You won't need those today, but it's good to know where they are."
         },
         {
           "title": "Verify the Status Bar",
-          "instruction": "Look at the <strong>bottom-right</strong> corner of VS Code. You should see a small <strong>Copilot icon</strong> (a sparkle) in the status bar.<br><br>If it's visible and not greyed out, the extension is active. Click it to see quick actions like signing in, checking status, or disabling Copilot temporarily."
+          "instruction": "Look at the <strong>bottom-right</strong> corner of VS Code. You should see a small <strong>Copilot icon</strong> (a sparkle) in the status bar.<br><br>If it's visible and not greyed out, the extension is active. Click it to see quick actions like signing in, checking status, or disabling Copilot temporarily.",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
-          "title": "Close Extensions",
-          "instruction": "We've closed the Extensions panel for you. You explored the Copilot extension, verified it's installed, and checked the status bar icon.<br><br>You can reopen Extensions any time with <kbd>Ctrl+Shift+X</kbd>.",
-          "onLeave": "workbench.action.closeSidebar"
+          "title": "Panels Closed",
+          "instruction": "We've closed the Extensions panel for you.<br><br>For future reference:<br>&bull; <strong>Extensions</strong>: <kbd>Ctrl+Shift+X</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -138,7 +139,7 @@
         },
         {
           "title": "Browse Available Models",
-          "instruction": "The model selector shows all available models grouped by provider. Notice the <strong>multiplier</strong> next to each model; this tells you how many premium requests each message consumes.<br><br>A 1× model uses one request per message; a higher multiplier uses more. Choose based on the task: fast models for quick questions, reasoning models for complex problems.",
+          "instruction": "The model selector shows all available models grouped by provider. Notice the <strong>credit cost</strong> next to each model; this tells you how many AI credits each message consumes.<br><br>Lower-cost models are great for quick questions; premium models cost more credits but offer deeper reasoning. Choose based on the task.",
           "focus": "right"
         },
         {
@@ -186,12 +187,13 @@
           "title": "Ask About Your Workspace",
           "instruction": "Now try the <kbd>@workspace</kbd> participant. Type:<br><br><kbd>@workspace What files are in this project and what do they do?</kbd><br><br>Unlike regular chat, <code>@workspace</code> indexes your entire project — not just the open file. It can answer questions about project structure, dependencies, and cross-file relationships.",
           "focus": "right",
-          "tip": "Type <kbd>/</kbd> in the chat input to see all available commands. There are more than the ones we covered here."
+          "tip": "Type <kbd>/</kbd> in the chat input to see all available commands. There are more than the ones we covered here.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
-          "title": "Close Chat",
-          "instruction": "We’ve closed the Chat panel for you. Across these sections you opened the sidebar chat, chose a model, asked context-aware questions, used inline chat (<kbd>Ctrl+I</kbd>), and tried slash commands like <kbd>/explain</kbd>, <kbd>/fix</kbd>, <kbd>/tests</kbd>, <kbd>/doc</kbd>, and <kbd>@workspace</kbd>.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Alt+I</kbd>.",
-          "onLeave": "workbench.action.closeAuxiliaryBar"
+          "title": "Panels Closed",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -223,12 +225,13 @@
         {
           "title": "Try Vision",
           "instruction": "Take a screenshot of anything on your screen (or use any image file). <strong>Drag and drop</strong> or <strong>paste</strong> (<kbd>Ctrl+V</kbd>) the image directly into the Chat input.<br><br>Type: <kbd>What does this show?</kbd><br><br>Copilot analyzes the image and responds. This works with UI mockups, error screenshots, architecture diagrams, and more.",
-          "focus": "right"
+          "focus": "right",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
         },
         {
-          "title": "Back to Ask Mode",
-          "instruction": "Switch back to <strong>Ask</strong> mode. We’ve closed the Chat panel for you.<br><br>You’ve now used all three chat modes: <strong>Ask</strong> for exploration, <strong>Edit</strong> for targeted changes, and <strong>Agent</strong> for autonomous execution. Plus <strong>Vision</strong> for image analysis.",
-          "onLeave": "workbench.action.closeAuxiliaryBar"
+          "title": "Panels Closed",
+          "instruction": "We've closed the Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -257,7 +260,7 @@
         },
         {
           "title": "Panels Closed",
-          "instruction": "We've closed the editor tab and Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Open in Editor</strong>: pencil icon at top of Chat panel<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Alt+I</kbd>",
+          "instruction": "We've closed the editor tab and Chat panel for you.<br><br>For future reference:<br>&bull; <strong>Open in Editor</strong>: pencil icon at top of Chat panel<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
           "focus": "slides"
         }
       ]
@@ -268,7 +271,6 @@
           "title": "Explore Copilot Settings",
           "instruction": "We've opened <strong>Settings</strong> for you (<kbd>Ctrl+,</kbd>). Search for <strong>copilot</strong> to see all available options.<br><br>Find <code>github.copilot.enable</code> and notice it accepts per-language toggles — you can enable Copilot for Python but disable it for Markdown.",
           "focus": "left",
-          "focusLabel": "Settings",
           "action": "workbench.action.openSettings",
           "actionLabel": "Open Settings"
         },
@@ -276,19 +278,18 @@
           "title": "Try a Per-Language Toggle",
           "instruction": "Click <strong>Edit in settings.json</strong> next to the <code>github.copilot.enable</code> setting and add:<br><br><kbd>\"github.copilot.enable\": { \"*\": true, \"markdown\": false }</kbd><br><br>This keeps Copilot active everywhere except Markdown files. Teams often disable it for plain text and config files where suggestions aren't helpful.",
           "focus": "left",
-          "focusLabel": "Settings",
           "tip": "Put these settings in <code>.vscode/settings.json</code> (not your user settings) and commit the file. Everyone who clones the repo gets the same configuration."
         },
         {
           "title": "Preview Custom Instructions",
           "instruction": "Search for <strong>copilot instructions</strong> in Settings. You'll see the option to point Copilot at a <code>.github/copilot-instructions.md</code> file.<br><br>This file lets you encode team standards (\"always use async/await\", \"prefer named exports\") so Copilot follows them automatically. The next course in this track covers custom instructions in depth.",
           "focus": "left",
-          "focusLabel": "Settings"
+          "onLeave": "workbench.action.closeActiveEditor"
         },
         {
-          "title": "Close Settings",
-          "instruction": "We've closed the Settings tab for you. Remember, you can always bring it back with <kbd>Ctrl+,</kbd> and search for <strong>copilot</strong> to find most Copilot-related settings.",
-          "onLeave": "workbench.action.closeActiveEditor"
+          "title": "Panels Closed",
+          "instruction": "We've closed the Settings tab for you.<br><br>For future reference:<br>&bull; <strong>Settings</strong>: <kbd>Ctrl+,</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -310,15 +311,13 @@
         {
           "title": "Ask for a Multi-Step Workflow",
           "instruction": "In the Chat panel, try a more complex request:<br><br><kbd>@terminal How do I create a new git branch, make a commit, and push it to origin?</kbd><br><br>Copilot gives you the full sequence of commands with explanations. This is great for CLI workflows you don't use every day.",
-          "focus": [
-            "bottom",
-            "right"
-          ]
+          "focus": "bottom,right",
+          "onLeave": "workbench.action.closePanel"
         },
         {
-          "title": "Close the Terminal",
-          "instruction": "We've closed the terminal for you. You used <kbd>@terminal</kbd> in Chat to get CLI help, tried inline terminal suggestions with <kbd>Ctrl+I</kbd>, and asked for multi-step command workflows.<br><br>Toggle the terminal back any time with <kbd>Ctrl+`</kbd>.",
-          "onLeave": "workbench.action.closePanel"
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
         }
       ]
     },
@@ -327,7 +326,6 @@
         {
           "title": "Lab Complete!",
           "instruction": "<strong>Congratulations!</strong> 🎉 You’ve activated Copilot, explored <strong>Next Edit Suggestions</strong>, browsed the <strong>model selector</strong>, used all three <strong>chat modes</strong> (Ask, Edit, Agent), tried <strong>Vision</strong>, worked with slash commands (<code>/explain</code>, <code>/fix</code>, <code>/tests</code>, <code>/doc</code>, <code>@workspace</code>), used both sidebar and inline chat, worked in the terminal, and configured settings.<br><br>You’re ready for the next course: <strong>Prompts, Instructions, Skills, and Agents</strong>.",
-          "tip": "Head back to the slides on the left for a recap, or close this panel to explore on your own.",
           "focus": "guide"
         }
       ]

@@ -6,6 +6,9 @@
 		{
 			"name": "lab-guide",
 			"path": "../MS-Demoland-Lab-Guide"
+		},
+		{
+			"path": "../CCPR/ccpr_root"
 		}
 	],
 	"settings": {
