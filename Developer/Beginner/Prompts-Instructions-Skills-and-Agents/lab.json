@@ -23,7 +23,7 @@
         },
         {
           "title": "Create the Folder Structure",
-          "instruction": "Open the <strong>integrated terminal</strong> and run these commands to create the folder structure:<br><br><kbd>mkdir -p .github/prompts .github/instructions .github/skills .github/agents</kbd><br><br>This sets up the conventional layout for all four primitives.",
+          "instruction": "Open the <strong>integrated terminal</strong> and run this command to create the folder structure.<br><br>On <strong>PowerShell</strong> (Windows default):<br><kbd>New-Item -ItemType Directory -Force .github/prompts, .github/instructions, .github/skills, .github/agents</kbd><br><br>On <strong>bash/zsh</strong> (Mac/Linux):<br><kbd>mkdir -p .github/prompts .github/instructions .github/skills .github/agents</kbd><br><br>This sets up the conventional layout for all four primitives.",
           "focus": [
             "terminal",
             "chat"
@@ -52,7 +52,7 @@
       "steps": [
         {
           "title": "Create a Test-Generation Prompt",
-          "instruction": "We've opened a <strong>new file</strong> for you. Save it as <code>.github/prompts/generate-test.prompt.md</code>.<br><br>Type the following YAML frontmatter and prompt body:<br><br><kbd>---<br>mode: ask<br>description: Generate a unit test for the selected function<br>tools:<br>  - changes<br>---<br><br>Write a comprehensive unit test for the function in the current selection.</kbd>",
+          "instruction": "We've opened a <strong>new file</strong> for you. Save it as <code>.github/prompts/generate-test.prompt.md</code>.<br><br>Type the following YAML frontmatter and prompt body:<br><br><kbd>---<br>agent: ask<br>description: Generate a unit test for the selected function<br>tools:<br>  - changes<br>---<br><br>Write a comprehensive unit test for the function in the current selection.</kbd>",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "actionLabel": "Open New File"
@@ -64,7 +64,7 @@
         },
         {
           "title": "Create a Documentation Prompt",
-          "instruction": "Create a <strong>second</strong> prompt file and save it as <code>.github/prompts/document-function.prompt.md</code>:<br><br><kbd>---<br>mode: ask<br>description: Generate documentation for the selected code<br>---<br><br>Write clear documentation for the code in the current selection.<br><br>**Include:**<br>- A one-sentence summary<br>- Parameter descriptions with types<br>- Return value description<br>- One usage example</kbd><br><br>Having multiple prompt files builds a <strong>team library</strong> of reliable, reusable tasks.",
+          "instruction": "Create a <strong>second</strong> prompt file and save it as <code>.github/prompts/document-function.prompt.md</code>:<br><br><kbd>---<br>agent: ask<br>description: Generate documentation for the selected code<br>---<br><br>Write clear documentation for the code in the current selection.<br><br>**Include:**<br>- A one-sentence summary<br>- Parameter descriptions with types<br>- Return value description<br>- One usage example</kbd><br><br>Having multiple prompt files builds a <strong>team library</strong> of reliable, reusable tasks.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "tip": "Good prompt libraries grow organically. When someone on the team writes a great prompt, save it as a file and share it.",
@@ -100,7 +100,7 @@
           "title": "Compare the Two Prompts",
           "instruction": "Run both prompts on the <strong>same function</strong> and compare the results. One generates tests, the other generates documentation — same input, different outputs because the prompt body drives the behavior.<br><br>This is why prompt files are so powerful: they make a complex, multi-paragraph prompt feel like a one-click action.",
           "focus": "chat",
-          "tip": "You can also run prompts by right-clicking a file in the Explorer → <strong>Copilot</strong> → <strong>Run Prompt</strong>."
+          "tip": "You may also be able to right-click a file in the Explorer → <strong>Copilot</strong> → <strong>Run Prompt</strong>, depending on your VS Code version. The <strong>Chat: Run Prompt</strong> command in the Command Palette (<kbd>Ctrl+Shift+P</kbd>) is the most reliable method."
         },
         {
           "title": "Panels Closed",
@@ -181,19 +181,24 @@
       "steps": [
         {
           "title": "Create an API Design Skill",
-          "instruction": "Create a new file at <code>.github/skills/api-patterns/SKILL.md</code>.<br><br>Write a skill with YAML frontmatter containing the description, followed by the knowledge payload:<br><br><kbd>---<br>description: Use this skill when creating REST API endpoints.<br>---<br><br># API Design Skill<br><br>## Patterns<br>- Use Express Router for route grouping<br>- Return consistent JSON: { data, error, meta }<br>- Validate input with zod schemas<br>- Handle errors with middleware, not try/catch in routes</kbd><br><br>The <code>description</code> field in the frontmatter is what agents use to decide when to invoke this skill.",
+          "instruction": "Create a new file at <code>.github/skills/api-patterns/SKILL.md</code>.<br><br>Write a skill with YAML frontmatter containing the description, followed by the knowledge payload:<br><br><kbd>---<br>name: api-patterns<br>description: Use this skill when creating REST API endpoints.<br>---<br><br># API Design Skill<br><br>## Patterns<br>- Use Express Router for route grouping<br>- Return consistent JSON: { data, error, meta }<br>- Validate input with zod schemas<br>- Handle errors with middleware, not try/catch in routes</kbd><br><br>The <code>description</code> field in the frontmatter is what agents use to decide when to invoke this skill.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
-          "tip": "Skills use subfolders (like <code>api-patterns/SKILL.md</code>) because the folder name becomes the skill's identifier and you can include supporting files alongside the SKILL.md. See the Copilot customization spec at code.visualstudio.com/docs/copilot/copilot-customization for details.",
+          "tip": "Skills use subfolders (like <code>api-patterns/SKILL.md</code>) because the folder name becomes the skill's identifier and you can include supporting files alongside the SKILL.md. The <code>name</code> field in the frontmatter must match the folder name exactly. See the full spec at code.visualstudio.com/docs/agent-customization/agent-skills for details.",
           "actionLabel": "Open New File"
         },
         {
           "title": "Create a Database Skill",
-          "instruction": "Create a second skill at <code>.github/skills/database/SKILL.md</code>:<br><br><kbd>---<br>description: Use this skill when writing database queries or migrations.<br>---<br><br># Database Patterns Skill<br><br>## Patterns<br>- Use Prisma as the ORM<br>- Always use parameterized queries (never string concatenation)<br>- Wrap multi-table operations in transactions<br>- Name migrations descriptively: add_user_email_index</kbd><br><br>Multiple skills let agents draw on the <strong>right</strong> knowledge for the <strong>right</strong> task.",
+          "instruction": "Create a second skill at <code>.github/skills/database/SKILL.md</code>:<br><br><kbd>---<br>name: database<br>description: Use this skill when writing database queries or migrations.<br>---<br><br># Database Patterns Skill<br><br>## Patterns<br>- Use Prisma as the ORM<br>- Always use parameterized queries (never string concatenation)<br>- Wrap multi-table operations in transactions<br>- Name migrations descriptively: add_user_email_index</kbd><br><br>Multiple skills let agents draw on the <strong>right</strong> knowledge for the <strong>right</strong> task.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
           "onLeave": "workbench.action.closeActiveEditor",
           "actionLabel": "Open New File"
+        },
+        {
+          "title": "Validate Your Skills",
+          "instruction": "Two rules that cause skills to silently fail if broken:<br><br><strong>1. The <code>name</code> field must match the parent folder name exactly.</strong><br>For <code>.github/skills/api-patterns/SKILL.md</code>, the <code>name</code> must be <code>api-patterns</code>. For <code>.github/skills/database/SKILL.md</code>, the <code>name</code> must be <code>database</code>.<br><br><strong>2. Names can only use lowercase letters, numbers, and hyphens.</strong><br>No slashes, colons, dots, or uppercase characters.<br><br>Open each <code>SKILL.md</code> you just created and verify both requirements before continuing.",
+          "focus": "editor"
         },
         {
           "title": "Instructions vs. Skills",
@@ -240,9 +245,9 @@
         },
         {
           "title": "Explore Available Tools",
-          "instruction": "The <code>tools</code> field controls what an agent can do. Common tools include:<br><br><strong>changes</strong> - see file diffs<br><strong>codebase</strong> - search the project<br><strong>fetch</strong> - read URLs<br><strong>terminal</strong> - run commands<br><strong>problems</strong> - see diagnostics<br><strong>editFiles</strong> - modify files<br><br>For the full and up-to-date list, see <code>code.visualstudio.com/docs/copilot/copilot-customization</code>.",
+          "instruction": "The <code>tools</code> field controls what an agent can do. Common tools include:<br><br><strong>changes</strong> - see file diffs<br><strong>codebase</strong> - search the project<br><strong>fetch</strong> - read URLs<br><strong>terminal</strong> - run commands<br><strong>problems</strong> - see diagnostics<br><strong>editFiles</strong> - modify files<br><br><strong>Security principle:</strong> grant <code>terminal</code> and file-editing tools only when the workflow genuinely requires them. Start every agent with read-only tools and expand deliberately.<br><br>For the full and up-to-date list, see <code>code.visualstudio.com/docs/agent-customization/custom-agents</code>.",
           "focus": "guide",
-          "tip": "Restricting tools is how you control an agent's power level. A read-only reviewer might only get <code>changes</code> and <code>codebase</code>."
+          "tip": "A read-only reviewer should only get <code>changes</code> and <code>codebase</code>. Add <code>terminal</code> or <code>editFiles</code> only when the agent's role explicitly requires it."
         },
         {
           "title": "Panels Closed",
@@ -288,9 +293,9 @@
         },
         {
           "title": "Legacy: .chatmode.md",
-          "instruction": "You may encounter references to a legacy format called <code>.chatmode.md</code>. This was the original file format for defining custom chat modes in VS Code. It is still supported for <strong>backwards compatibility</strong>, but the <code>.agent.md</code> format has replaced it entirely.<br><br>If you have existing <code>.chatmode.md</code> files, they will continue to work, but new customization files should always use the <code>.agent.md</code> extension.",
+          "instruction": "You may encounter <code>.chatmode.md</code> files in older repositories. This was the original format for custom chat modes in VS Code. Microsoft recommends <strong>renaming them to <code>.agent.md</code></strong> — the frontmatter and body format are fully compatible. New files should always use <code>.agent.md</code>.",
           "focus": "guide",
-          "tip": "If you inherit a repo with <code>.chatmode.md</code> files, consider renaming them to <code>.agent.md</code>. The frontmatter and body format are compatible."
+          "tip": "To migrate: rename the file to <code>.agent.md</code> and move it to the <code>.github/agents/</code> folder (or the path configured in <code>chat.agentFilesLocations</code>)."
         }
       ]
     },
@@ -306,7 +311,7 @@
         },
         {
           "title": "Create a User Memory",
-          "instruction": "User memory persists across <strong>all workspaces</strong> and conversations. Tell Copilot:<br><br><kbd>Remember that I prefer Vitest over Jest for testing, and I always want TypeScript strict mode enabled.</kbd><br><br>Copilot stores this preference. From now on, it will factor this into responses in every project you work on.",
+          "instruction": "User memory persists across <strong>all workspaces</strong> and conversations. Tell Copilot:<br><br><kbd>Remember that I prefer Vitest over Jest for testing, and I always want TypeScript strict mode enabled.</kbd><br><br>Copilot stores this preference. From now on, it will factor this into responses in every project you work on. Memory availability varies by plan and organization policy — check your Copilot settings if memory does not appear to be working.",
           "focus": "chat"
         },
         {
@@ -331,7 +336,7 @@
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> 🎉 You've created all four Copilot customization primitives and explored memory:<br><br>✅ <strong>Prompt files</strong> — <code>generate-test</code> and <code>document-function</code><br>✅ <strong>Instruction files</strong> — repo-wide standards, test-scoped rules, and component-scoped rules<br>✅ <strong>Skills</strong> — API design and database pattern knowledge<br>✅ <strong>Agents</strong> — a code reviewer and a documentation writer<br>✅ <strong>Memory</strong> — user preferences and repository context<br><br>Commit these files to your repo and your entire team gets the same AI-powered workflow from day one.",
+          "instruction": "<strong>Congratulations!</strong> 🎉 You've created all four Copilot customization primitives and explored memory:<br><br>✅ <strong>Prompt files</strong> — <code>generate-test</code> and <code>document-function</code><br>✅ <strong>Instruction files</strong> — repo-wide standards, test-scoped rules, and component-scoped rules<br>✅ <strong>Skills</strong> — API design and database pattern knowledge<br>✅ <strong>Agents</strong> — a code reviewer and a documentation writer<br>✅ <strong>Memory</strong> — user preferences and repository context<br><br>Commit these files to your repo and your entire team gets the same AI-powered workflow from day one.<br><br><strong>Note:</strong> Team members need workspace trust enabled and the relevant customization discovery settings active for files to load automatically.",
           "tip": "Next up: <strong>Agent Potato: License to Chat</strong> — put these primitives to work building a full-stack app.",
           "focus": "guide"
         }

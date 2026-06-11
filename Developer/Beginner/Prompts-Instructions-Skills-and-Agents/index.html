@@ -167,7 +167,7 @@ graph TD
   D --> E[User Prompt]
         </pre>
         <aside class="speaker-notes">
-          A prompt file is essentially a saved chat message that you've refined until it reliably produces the result you want. Think about it - how many times have you typed a long, detailed prompt into Copilot Chat, got exactly the result you wanted, and then... couldn't remember what you typed the next day? That's what prompt files solve. You save it once as a dot-prompt-dot-md file, commit it to your repo, and now you - and everyone on your team - can run it with a single click from the chat picker. This is what moves prompt engineering from an individual skill to a team asset. When someone on your team writes a great prompt, everyone benefits.
+          A prompt file is essentially a saved chat message that you've refined until it reliably produces the result you want. Think about it - how many times have you typed a long, detailed prompt into Copilot Chat, got exactly the result you wanted, and then... couldn't remember what you typed the next day? That's what prompt files solve. You save it once as a dot-prompt-dot-md file, commit it to your repo, and now you - and everyone on your team - can run it with a single click from the chat picker. This is what moves prompt engineering from an individual skill to a team asset. When someone on your team writes a great prompt, everyone benefits. The context layering diagram on this slide is a conceptual model of how different instruction sources combine; the actual internal composition may vary by product version and active customizations.
         </aside>
       </div>
     </section>
@@ -179,7 +179,7 @@ graph TD
       <div class="slide-inner">
         <h2>Anatomy of a Prompt File</h2>
         <pre><code>---
-mode: ask
+agent: ask
 description: Generate a unit test for the selected function
 tools:
   - changes
@@ -266,7 +266,7 @@ current selection.
         </ul>
 
         <aside class="speaker-notes">
-          This is the "aha" moment for most teams. Instruction files let you encode your coding standards, architectural decisions, and team conventions into a file that Copilot respects in every single interaction. Think about how many times you've told Copilot "use TypeScript strict mode" or "prefer async/await." With an instruction file, you write it once and it applies everywhere, automatically. No enforcement overhead, no hoping developers remember to include it in their prompts - it's just injected behind the scenes every time. There are two flavors. The first is copilot-instructions.md in the .github directory - that one applies to every Copilot interaction in the entire repo. The second is scoped instruction files with the dot-instructions-dot-md extension - these have an "applyTo" pattern that limits when they activate. The key distinction from prompts: prompts are active, you choose to run them. Instructions are passive, they apply automatically.
+          This is the "aha" moment for most teams. Instruction files let you encode your coding standards, architectural decisions, and team conventions into a file that Copilot respects in every single interaction. Think about how many times you've told Copilot "use TypeScript strict mode" or "prefer async/await." With an instruction file, you write it once and it applies everywhere, automatically. No enforcement overhead, no hoping developers remember to include it in their prompts - it's just injected behind the scenes every time. There are two flavors. The first is copilot-instructions.md in the .github directory - that one applies to every Copilot interaction in the entire repo. The second is scoped instruction files with the dot-instructions-dot-md extension - these have an "applyTo" pattern that limits when they activate. The key distinction from prompts: prompts are active, you choose to run them. Instructions are passive, they apply automatically. VS Code also supports AGENTS.md files, which are useful when working alongside multiple AI agents in a workspace, and organization-level instructions that a GitHub organization admin can define to apply across all repositories in the org.
         </aside>
       </div>
     </section>
@@ -369,6 +369,7 @@ applyTo: "**/*.test.ts"
       <div class="slide-inner">
         <h2>Anatomy of a SKILL.md</h2>
         <pre><code>---
+name: azure-deploy
 description: >
   Use this skill when deploying services to Azure
   Container Apps. Covers Bicep templates, azd
@@ -532,7 +533,7 @@ You are a senior security engineer. When reviewing code:
               <li><strong>Edit</strong> - can modify files you specify</li>
               <li><strong>Agent</strong> - full autonomy: edit, create, run commands</li>
             </ul>
-            <p>Built-in modes control <em>what Copilot can do</em>.</p>
+            <p>Built-in modes control <em>what Copilot can do</em>. Additional modes such as <strong>Plan</strong> may appear depending on your VS Code version and settings.</p>
           </div>
           <div class="card">
             <h3><code>.agent.md</code> = Agents + Custom Modes</h3>
@@ -546,7 +547,7 @@ You are a senior security engineer. When reviewing code:
         </div>
 
         <aside class="speaker-notes">
-          Let's clear up a common point of confusion. VS Code has three built-in modes: Ask, Edit, and Agent. These are capability levels that determine what Copilot is allowed to do. Ask is read-only. Edit can modify files you point at. Agent mode has full autonomy. On top of these built-in modes, the dot-agent-dot-md file format lets you create both custom agents and custom modes. If you define a file with a specific persona, restricted tools, and a focused workflow, that is effectively a custom mode. If you define a file with broad tool access and a specialized role, that is a custom agent. Same file format, both use cases. You may see references to a legacy format called dot-chatmode-dot-md. That format is still supported for backwards compatibility, but dot-agent-dot-md is the current standard and handles everything that dot-chatmode-dot-md used to do.
+          Let's clear up a common point of confusion. VS Code has built-in modes, typically Ask, Edit, and Agent, though additional modes like Plan may appear in newer versions. These are capability levels that determine what Copilot is allowed to do. Ask is read-only. Edit can modify files you point at. Agent mode has full autonomy. On top of these built-in modes, the dot-agent-dot-md file format lets you create both custom agents and custom modes. If you define a file with a specific persona, restricted tools, and a focused workflow, that is effectively a custom mode. If you define a file with broad tool access and a specialized role, that is a custom agent. Same file format, both use cases. You may encounter dot-chatmode-dot-md files in older repositories. Microsoft recommends renaming them to dot-agent-dot-md since the format is fully compatible. New files should always use dot-agent-dot-md.
         </aside>
       </div>
     </section>
@@ -636,10 +637,10 @@ You are a senior security engineer. When reviewing code:
             <p>Task-specific notes for the <strong>current conversation</strong> only. Cleared when the session ends.</p>
           </div>
         </div>
-        <p style="margin-top:0.8em">Tell Copilot to <strong>remember</strong> something and it persists. Memory makes Copilot smarter the more you use it.</p>
+        <p style="margin-top:0.8em">Tell Copilot to <strong>remember</strong> something and it persists. Memory makes Copilot smarter the more you use it. Memory availability and scope may vary by plan and organization settings.</p>
 
         <aside class="speaker-notes">
-          Memory is a fundamental part of how Copilot carries context forward. Instead of re-explaining your preferences every session, Copilot remembers what it has learned. There are three scopes. User memory stores personal preferences like "I prefer tabs over spaces" or "always use Vitest." These persist across every workspace and every conversation. Repository memory stores project-specific facts like "this project uses Express for the API" or "the deploy command is npm run deploy:prod." These are scoped to the current workspace and persist across sessions for the same user. Repository memory is stored locally, not committed to git. Session memory is ephemeral: plans, intermediate results, things relevant only to the current task. It clears when the conversation ends. The key insight is that memory complements instruction files. Instructions are explicit rules you define up front in a file. Memory is knowledge Copilot accumulates through working with you. Together, they give Copilot both the rules to follow and the context to apply them intelligently.
+          Memory is a fundamental part of how Copilot carries context forward. Instead of re-explaining your preferences every session, Copilot remembers what it has learned. There are three scopes. User memory stores personal preferences like "I prefer tabs over spaces" or "always use Vitest." These persist across every workspace and every conversation. Repository memory stores project-specific facts like "this project uses Express for the API" or "the deploy command is npm run deploy:prod." These are scoped to the current workspace and persist across sessions for the same user. Repository memory is stored locally, not committed to git. Session memory is ephemeral: plans, intermediate results, things relevant only to the current task. It clears when the conversation ends. The key insight is that memory complements instruction files. Instructions are explicit rules you define up front in a file. Memory is knowledge Copilot accumulates through working with you. Together, they give Copilot both the rules to follow and the context to apply them intelligently. Note that memory feature availability may vary depending on your Copilot plan and organization settings.
         </aside>
       </div>
     </section>
@@ -686,8 +687,8 @@ You are a senior security engineer. When reviewing code:
         <ul>
           <li><strong>Agent Potato: License to Chat</strong> - Build a full-stack app using Copilot agents end-to-end</li>
           <li><strong>Enterprise Grade Marmalade</strong> - Central prompt repos, organization-level instructions, and governance</li>
-          <li><strong>Copilot Customization Docs</strong> - <code>docs.github.com/copilot/customizing-copilot</code></li>
-          <li><strong>VS Code Copilot Chat Docs</strong> - <code>code.visualstudio.com/docs/copilot</code></li>
+          <li><strong>Copilot and GitHub Docs</strong> - <code>docs.github.com/en/copilot</code></li>
+          <li><strong>VS Code Agent Customization Docs</strong> - <code>code.visualstudio.com/docs/agent-customization/overview</code></li>
         </ul>
         <aside class="speaker-notes">
           If you want to keep building on what we covered today, there are two great next courses. "Agent Potato: License to Chat" is the intermediate course that puts these primitives to work, building a full-stack application using Copilot agents end to end. "Enterprise Grade Marmalade" covers the organizational layer: central prompt repositories, cross-repo instructions, and governance at scale. For self-paced learning, the official docs at docs.github.com/copilot/customizing-copilot and code.visualstudio.com/docs/copilot are excellent resources and kept up to date. Thanks for joining this session. If you have the lab environment set up, keep working through the lab steps at your own pace. Happy customizing!
