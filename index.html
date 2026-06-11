@@ -233,58 +233,6 @@
       color: #3fb950;
     }
 
-    /* Setup bar */
-    .install-extension-bar {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: var(--brand-space-3);
-    }
-
-    .install-extension-btn {
-      padding: var(--brand-space-2) var(--brand-space-4);
-      min-width: 280px;
-      text-align: center;
-      border-radius: 999px;
-      border: 1px solid var(--brand-color-accent-primary);
-      background: transparent;
-      color: #ffffff;
-      font-family: var(--brand-font-family);
-      font-size: var(--brand-body-size-sm);
-      font-weight: var(--brand-font-weight-semibold);
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .install-extension-btn:hover {
-      background: rgba(31, 111, 235, 0.12);
-      color: #ffffff;
-    }
-
-    .install-extension-btn--active {
-      border-color: #3fb950;
-      color: #3fb950;
-      cursor: default;
-    }
-
-    .install-extension-btn--active:hover {
-      background: transparent;
-      color: #3fb950;
-    }
-
-    .setup-link {
-      margin-top: var(--brand-space-2);
-      color: #484f58;
-      font-size: var(--brand-body-size-xs);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .setup-link:hover {
-      color: #8b949e;
-    }
-
     @media (max-width: 640px) {
       .course-grid {
         grid-template-columns: 1fr;
@@ -301,14 +249,6 @@
       <img src="img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
       <h1>MS Demoland</h1>
       <p>Choose a track and course to get started</p>
-    </div>
-
-    <!-- Setup -->
-    <div class="install-extension-bar">
-      <a class="install-extension-btn" id="setupBtn" href="extension.html">
-        &#128230; Interactive Labs with VS Code Extension
-      </a>
-      <span class="setup-link">Courses work standalone, but the extension adds guided steps, auto-actions, and hands-on labs</span>
     </div>
 
     <!-- Track Tabs -->
@@ -350,6 +290,12 @@
         <span class="level-label level-label--intermediate">Intermediate</span>
         <span class="level-tagline">Each course opens with a real problem to solve. The slides teach the techniques you need, and the labs give hints rather than answers so you can work through it yourself.</span>
         <div class="course-grid">
+          <a class="course-card" href="Developer/Intermediate/Copilot-Power-Hour/index.html" data-status-path="Developer/Intermediate/Copilot-Power-Hour/Admin/STATUS.md">
+            <span class="course-badge course-badge--new">★ New</span>
+            <h3>Copilot Power Hour</h3>
+            <p>One session covering the full Copilot picture: the platform landscape, context engineering, token optimization, and a live CLI demo you can replicate right away</p>
+            <div class="card-footer"><span class="status-badge status-badge--in-progress">In Progress</span><span class="card-arrow">&#8594;</span></div>
+          </a>
           <a class="course-card" href="Developer/Intermediate/Agent-Potato-License-to-Chat/index.html" data-status-path="Developer/Intermediate/Agent-Potato-License-to-Chat/Admin/STATUS.md">
             <h3>Full AI Stack - Agent Potato: License to Chat</h3>
             <p>Follow Agent Potato on a mission to build a complete React frontend and Node backend, from first feature to deployment, all in one session</p>

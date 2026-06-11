@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Copilot Power Hour - MS Demoland</title>
+  <link rel="stylesheet" href="../../../css/primer-brand.css" />
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- ============================================================
+         SLIDE 1 - Title
+         ============================================================ -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge">Intermediate · 1 Hour</span>
+        <h1>GitHub Copilot Power Hour</h1>
+        <p class="subtitle">One session covering the full picture: where Copilot lives today, how to engineer context for it, how to keep token spend lean, and a live demo you can run yourself tomorrow</p>
+        <aside class="speaker-notes">
+          Welcome to the GitHub Copilot Power Hour. This is a breadth-first session. We are not going twenty slides deep on any single topic; instead we are covering the four areas that have the most immediate impact on how productively you use Copilot every day. By the end of this hour you will have a clear mental model of where Copilot lives, how to shape its behavior with the right files and instructions, how to be a smart consumer of AI credits, and a concrete demo you can replicate in your terminal tonight.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 2 - Agenda Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Overview</span>
+        <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Let's look at the plan before we dive in.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 3 - Agenda Items
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Today's Agenda</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Topic</th>
+              <th>What You'll Leave With</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5 min</td>
+              <td><strong>Introduction:</strong> GitHub Copilot Today</td>
+              <td>A map of where Copilot lives: IDE, CLI, SDK, and more</td>
+            </tr>
+            <tr>
+              <td>15 min</td>
+              <td><strong>Context Engineering</strong></td>
+              <td>How to maximize plugins, skills, instructions, prompts, and agents</td>
+            </tr>
+            <tr>
+              <td>15 min</td>
+              <td><strong>Token Optimization</strong></td>
+              <td>Context hygiene, prompt discipline, model selection, scope, and tools</td>
+            </tr>
+            <tr>
+              <td>15 min</td>
+              <td><strong>Live Demo:</strong> Copilot CLI</td>
+              <td>Terminal-native development and parallel workstreams in action</td>
+            </tr>
+            <tr>
+              <td>10 min</td>
+              <td><strong>Q&amp;A</strong></td>
+              <td>Specific guidance on applying Copilot to your work</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Here is the breakdown. Five minutes on the landscape so everyone shares the same vocabulary. Fifteen minutes on context engineering, which is the highest-leverage skill you can develop as a Copilot user. Fifteen minutes on token optimization, because the moment AI credits appear on your team's budget someone will ask what we're spending them on. A fifteen-minute live demo using Copilot CLI that you can replicate step-for-step. And then ten minutes for Q&A where we get specific about your context, your tools, and your team.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PART 1: INTRODUCTION
+         ============================================================ -->
+
+    <!-- ============================================================
+         SLIDE 4 - Intro Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1 · 5 min</span>
+        <h2>GitHub Copilot Today</h2>
+        <aside class="speaker-notes">
+          Let's start with the landscape. GitHub Copilot is moving fast, and the product people are using today looks very different from what shipped two years ago. This section is five minutes of grounding so we all share the same vocabulary before we go deeper.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 - Where Copilot Lives
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Where Copilot Lives Today</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>IDE</h3>
+            <p>Inline completions, Chat, Agent mode, and Next Edit Suggestions inside VS Code, JetBrains, Neovim, and Visual Studio.</p>
+          </div>
+          <div class="card">
+            <h3>CLI</h3>
+            <p>A standalone agentic AI in your terminal. Reads files, writes code, runs commands, and connects to GitHub without opening an editor.</p>
+          </div>
+          <div class="card">
+            <h3>github.com</h3>
+            <p>Copilot Chat on github.com, the GitHub Coding Agent that works in Issues and Pull Requests, and automated code review.</p>
+          </div>
+          <div class="card">
+            <h3>SDK</h3>
+            <p>Build AI-powered applications and workflows outside the editor using the Copilot SDK and agent runtime.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Four surfaces, four different jobs. The IDE is the most familiar: inline ghost-text completions, Chat for conversation and code generation, Agent mode for multi-step autonomous tasks. The CLI is newer and more powerful than most people realize. It is a fully agentic tool that can read your project files, write code, run shell commands, and file pull requests directly from your terminal. GitHub.com has its own Copilot surfaces: Chat on the site itself, the Coding Agent that can pick up a task from an Issue and open a PR when it is done, and automated code review. And then there is the SDK for teams building AI capabilities into their own products and pipelines. This session focuses on the IDE and CLI surfaces.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 6 - The Model Catalog
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>One Product, Many Models</h2>
+        <ul>
+          <li>Copilot is backed by a <strong>catalog of large language models</strong> from OpenAI, Anthropic, Google, and more</li>
+          <li>Switch models mid-conversation using the <strong>model selector</strong> in the Chat panel or CLI</li>
+          <li>Different models have different strengths: <strong>speed</strong>, <strong>reasoning depth</strong>, <strong>context window</strong>, and <strong>credit cost</strong></li>
+          <li>The model selector shows the <strong>credit cost per message</strong> so you can make an informed choice</li>
+          <li>Rule of thumb: fast model for simple questions, reasoning model for complex debugging or architecture</li>
+        </ul>
+
+        <pre class="mermaid">
+graph LR
+  A["Your prompt + context"] --> B["GitHub infrastructure"]
+  B --> C{"Model selector"}
+  C --> D["GPT-4o (fast)"]
+  C --> E["o3 (reasoning)"]
+  C --> F["Claude Sonnet (balanced)"]
+  C --> G["Gemini (large context)"]
+        </pre>
+        <aside class="speaker-notes">
+          The model selector is one of the most underused levers in Copilot. Every paid plan gives you access to models from OpenAI, Anthropic, and Google. They are not all the same, and the differences matter. A fast model like GPT-4o will answer a simple "what does this function do" question in a second. A reasoning model like o3 will spend more time and more credits thinking through a complex refactoring problem but produce a significantly better result. Premium models cost more credits per message, and the selector shows you the cost before you send. Building the habit of choosing the right model for the task at hand is one of the simplest ways to improve both output quality and credit efficiency.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 - Plans Overview
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Plans at a Glance</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Price</th>
+              <th>Monthly AI Credits</th>
+              <th>Key Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Free</strong></td>
+              <td>$0</td>
+              <td>Limited</td>
+              <td>Limited AI credits for chat and agents; 2,000 code completions/mo</td>
+            </tr>
+            <tr>
+              <td><strong>Pro</strong></td>
+              <td>$10/user/mo</td>
+              <td>$15</td>
+              <td>$15 AI credits/mo; unlimited code completions; cloud agent, code review, model picker</td>
+            </tr>
+            <tr>
+              <td><strong>Business</strong></td>
+              <td>$19/seat/mo</td>
+              <td>$19 pooled/seat</td>
+              <td>$19 pooled AI credits/seat; org management, audit logs, IP indemnity, no code retention</td>
+            </tr>
+            <tr>
+              <td><strong>Enterprise</strong></td>
+              <td>$39/seat/mo</td>
+              <td>$39 pooled/seat</td>
+              <td>$39 pooled AI credits/seat; content exclusion, org-wide custom instructions</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.6rem;opacity:0.5;margin-top:0.5em">1 AI credit = $0.01 USD. Completions and Next Edit Suggestions remain included. Pricing as of June 2026. Check github.com/features/copilot for current rates.</p>
+        <aside class="speaker-notes">
+          Quick plan reference. I want to highlight two things. First, completions and Next Edit Suggestions are included in paid plans; they do not draw from your credit pool. The credit pool is consumed by Chat, CLI, cloud agent, and code review interactions. Second, Business and Enterprise plans pool credits across all seats, so one heavy user does not immediately hit a wall. The Enterprise plan also gives admins content exclusion controls and organization-wide custom instructions, which we will touch on in the Context Engineering section. If you are a solo developer, Pro is almost always the right entry point.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PART 2: CONTEXT ENGINEERING
+         ============================================================ -->
+
+    <!-- ============================================================
+         SLIDE 8 - Context Engineering Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2 · 15 min</span>
+        <h2>Context Engineering</h2>
+        <aside class="speaker-notes">
+          Context engineering is the skill of deliberately shaping what information Copilot has access to when it responds. Most developers think of Copilot as a chat interface where the quality of the output depends on the quality of the question. That is true, but only a fraction of the picture. The files you have open, the instructions in your repo, the plugins you have connected, the agent you are using: all of these are part of the context that shapes every single response. Mastering context engineering is how you go from "Copilot is pretty good" to "Copilot feels like it actually knows our codebase."
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 - What is Context Engineering
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Is Context Engineering?</h2>
+        <ul>
+          <li>Every Copilot response is generated from a <strong>context window</strong>: a fixed-size payload of text sent to the model</li>
+          <li>Context engineering is the practice of <strong>deliberately filling that window with the right information</strong></li>
+          <li>Inputs to the context window include: open files, selected code, chat history, instruction files, skills, MCP tool results, and your prompt</li>
+          <li>More relevant context = better output; irrelevant or missing context = vague, generic, or wrong output</li>
+          <li>You do not need to type everything into the chat. <strong>Files and instructions do the work for you, automatically.</strong></li>
+        </ul>
+        <pre class="mermaid">
+graph TD
+  A["copilot-instructions.md"] --> Z["Context Window"]
+  B["Open files and selection"] --> Z
+  C["Instruction files (.instructions.md)"] --> Z
+  D["Skills (SKILL.md)"] --> Z
+  E["MCP tool outputs"] --> Z
+  F["Your prompt"] --> Z
+  Z --> G["Model response"]
+        </pre>
+        <aside class="speaker-notes">
+          The context window is the fundamental constraint. Every model has a maximum number of tokens it can process at once. That window is filled by everything Copilot knows about your current situation: the files you have open, the code you have selected, your chat history, any instruction files in your repo, and your actual prompt. The art of context engineering is making sure that window contains the most useful signal and the least noise. The good news: most of the heavy lifting can be automated. You write instruction files and skills once, commit them to your repo, and they are automatically injected into every relevant interaction. You do not have to remember to include context; the files do it for you.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 - The Four Primitives
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Four Customization Primitives</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Prompts</h3>
+            <p><code>.prompt.md</code> files that capture reusable tasks. Run them from chat like saved commands. Share them with your team by committing to <code>.github/prompts/</code>.</p>
+          </div>
+          <div class="card">
+            <h3>Instructions</h3>
+            <p><code>.instructions.md</code> files that automatically shape every Copilot response in your workspace. Write once, applies everywhere. No effort per-prompt.</p>
+          </div>
+          <div class="card">
+            <h3>Skills</h3>
+            <p><code>SKILL.md</code> files that package domain knowledge agents can invoke on demand. Only loaded when relevant, so complex knowledge does not add cost to unrelated tasks.</p>
+          </div>
+          <div class="card">
+            <h3>Agents</h3>
+            <p><code>.agent.md</code> files that define specialized modes combining instructions, skills, and tools. A virtual team member with a specific role and persona.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Four primitives, all plain Markdown files, all committed to your repo. Prompts are things you actively run, like saved chat commands for recurring tasks. Instructions are passive and automatic, they shape every response without you doing anything per-session. Skills are domain knowledge packages that agents pull in only when they recognize the task as relevant. Agents are the orchestrators: they have their own persona, tool access, and can invoke skills. Here is the key insight about why these are called primitives: they compose. An agent can reference instruction files and declare which skills it is allowed to use. A skill can include examples and schemas. An instruction can be scoped to a specific file pattern. They are building blocks, and the interesting stuff happens when you combine them.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 11 - MCP Plugins
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>MCP: Giving Copilot More to Work With</h2>
+        <ul>
+          <li><strong>Model Context Protocol (MCP)</strong> is an open standard for connecting AI agents to external tools and data sources</li>
+          <li>MCP servers expose <strong>tools, resources, and prompts</strong> that Copilot can call during a conversation</li>
+          <li>Copilot ships pre-configured with the <strong>GitHub MCP server</strong> (Issues, PRs, repos, code search)</li>
+          <li>Add third-party MCP servers in VS Code settings or the Copilot CLI config file to connect databases, Jira, Slack, internal APIs, and more</li>
+          <li>Each tool call returns real data into the context window; Copilot can reason over live information, not just static files</li>
+        </ul>
+        <img src="img/TODO-diagram-mcp-server-connection-flow.png" alt="TODO: Add diagram for &quot;MCP server connection flow&quot;" />
+        <aside class="speaker-notes">
+          MCP is arguably the biggest force multiplier in the current Copilot ecosystem. The core idea: instead of pasting data into your prompt, you connect an MCP server that Copilot can query in real time. Ask Copilot to review a PR and it can fetch the actual diff, the CI status, and the related issue thread, all without you copying anything. Connect a database MCP server and Copilot can query your schema directly when you ask it to write a migration. Connect a Jira server and it can read the requirements ticket while it writes the implementation. Every tool call adds fresh, specific data to the context window. VS Code and Copilot CLI both support MCP configuration. In VS Code you add servers in your settings JSON. In the CLI you edit a configuration file. The process takes about five minutes per server.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 12 - Custom Instructions
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Custom Instructions: Copilot That Knows Your Standards</h2>
+        <pre><code># .github/copilot-instructions.md
+
+## Language and Framework
+- Always use TypeScript with strict mode enabled
+- Prefer async/await over raw Promises or callbacks
+- Use functional components with hooks (no class components)
+
+## Testing
+- Write tests using Vitest, not Jest
+- Every public function must have at least one test
+
+## Style
+- Use single quotes for strings
+- Maximum line length: 100 characters</code></pre>
+        <ul>
+          <li>Copilot reads this file and applies the rules to <strong>every interaction in the repo</strong>, automatically</li>
+          <li>Use <code>applyTo</code> in scoped <code>.instructions.md</code> files to activate rules only for specific file patterns</li>
+          <li>Enterprise orgs can define <strong>organization-wide instructions</strong> that apply across all repositories</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is the highest-ROI change most teams can make today. Create a file called copilot-instructions.md in your .github directory and Copilot reads it before every response in that repo. You are encoding your team's coding standards into a file the AI actually respects. Every developer gets consistent guidance from day one without having to know what to ask for. The scoped variant, an .instructions.md file with an applyTo glob pattern, lets you be more targeted. Testing rules only activate for test files. React component rules only activate for component files. This keeps instructions focused and avoids loading irrelevant content. For Enterprise customers, organization-wide instructions let admins set baseline expectations across every repo in the org. A practical tip: start with five to ten rules, commit them, and add more as you discover places where Copilot's default behavior does not match your team's preferences.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 13 - Context Engineering Decision Framework
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Context Engineering: Decision Framework</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Situation</th>
+              <th>Reach for</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>You type the same detailed prompt every morning</td>
+              <td><strong>Prompt file</strong></td>
+              <td>Save it once, share it with your team, run it from the picker</td>
+            </tr>
+            <tr>
+              <td>Copilot keeps generating code that breaks your team's conventions</td>
+              <td><strong>Instruction file</strong></td>
+              <td>Always-on, zero per-session effort, applies to every response</td>
+            </tr>
+            <tr>
+              <td>Your deployment procedure is a 20-step wiki nobody reads</td>
+              <td><strong>Skill</strong></td>
+              <td>Agents pull it in on demand; it is only loaded when relevant</td>
+            </tr>
+            <tr>
+              <td>You want a security reviewer who uses your specific standards</td>
+              <td><strong>Agent</strong></td>
+              <td>A virtual team member with its own persona, tools, and methodology</td>
+            </tr>
+            <tr>
+              <td>Copilot needs live data from an external system</td>
+              <td><strong>MCP server</strong></td>
+              <td>Tool calls fetch real-time information into the context window</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          The framework in one slide. Repeating a task? Prompt file. Enforcing a standard? Instruction file. Documenting expertise? Skill. Need a specialist? Agent. Need live data? MCP server. The most common mistake I see is people trying to solve all five of these with longer and longer prompts typed directly into chat. That works once. It does not scale. These five primitives are how you turn a personal productivity tool into a team productivity platform.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PART 3: TOKEN OPTIMIZATION
+         ============================================================ -->
+
+    <!-- ============================================================
+         SLIDE 14 - Token Optimization Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3 · 15 min</span>
+        <h2>Token Optimization</h2>
+        <aside class="speaker-notes">
+          Token optimization is the practice of getting the most value out of every credit you spend. The goal is not to use Copilot less. The goal is to be deliberate. A well-scoped prompt on a well-chosen model with clean context produces a better result than a vague prompt on a premium model with a cluttered context window, and it costs less.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 15 - Credits Recap
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Drives Credit Spend</h2>
+        <ul>
+          <li><strong>1 AI credit = $0.01 USD.</strong> Every billed interaction consumes input, output, and sometimes cached tokens.</li>
+          <li>Token usage is converted to credits at the <strong>model's published rate</strong>. Premium models cost more per token.</li>
+          <li><strong>What is billed:</strong> Chat messages, CLI sessions, cloud agent tasks, code review</li>
+          <li><strong>What is not billed from credits:</strong> Inline completions and Next Edit Suggestions (included in paid plans)</li>
+          <li>Business and Enterprise seats contribute to a <strong>shared, pooled credit balance</strong></li>
+        </ul>
+        <pre class="mermaid">
+graph LR
+  A["Input tokens (your context)"] --> C["Credit charge"]
+  B["Output tokens (Copilot's response)"] --> C
+  D["Model tier"] --> C
+        </pre>
+        <aside class="speaker-notes">
+          One credit is one cent. Every interaction that consumes tokens draws from that pool. Input tokens are what you send: your prompt, your open files, your instruction files, your chat history. Output tokens are what the model returns. Both cost credits, and the rate varies by model. This means your context engineering decisions from Part 2 directly affect your spending. More context is not always better. The right context is better. If your instruction file is three thousand words of guidance that only fifteen percent of it applies to the current task, you are burning tokens on noise. That is the central insight of token optimization: precision is cheaper than volume.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 16 - Context Hygiene
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Context Hygiene</h2>
+        <ul>
+          <li><strong>Close irrelevant tabs.</strong> Copilot reads neighboring open files as context. Every unnecessary tab adds noise and costs tokens.</li>
+          <li><strong>Select before you ask.</strong> Highlight the specific function or block you are asking about instead of leaving the entire file in context.</li>
+          <li><strong>Start a new chat for unrelated tasks.</strong> Chat history accumulates. An old debugging conversation pollutes context for a documentation request.</li>
+          <li><strong>Keep instruction files focused.</strong> Scoped <code>applyTo</code> patterns prevent testing instructions from loading during an architecture discussion.</li>
+          <li><strong>Avoid pasting large blobs.</strong> Use <code>@workspace</code> or <code>#file:</code> references so Copilot can fetch precisely what it needs.</li>
+        </ul>
+        <aside class="speaker-notes">
+          Context hygiene is not glamorous but it is effective. Think of your context window as a whiteboard in a meeting room. If the whiteboard is covered with notes from twelve previous meetings, the current meeting suffers. The simplest habit: before you ask a complex question, close the tabs that are not relevant, select the specific code you care about, and start a fresh chat thread. Thirty seconds of setup saves tokens and usually gets you a better answer on the first try rather than two or three follow-ups. The tab closure point is frequently underestimated. In a busy VS Code session with twenty files open, a significant fraction of your context window is consumed by files you opened an hour ago and forgot about.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 17 - Prompt Discipline
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Prompt Discipline</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Be specific about scope</h3>
+            <p>Tell Copilot exactly what it should and should not touch. "Refactor the error handler in <code>api/routes.ts</code>, do not change the interface" beats "clean up my code."</p>
+          </div>
+          <div class="card">
+            <h3>State your constraints upfront</h3>
+            <p>Tell Copilot what framework, version, or pattern you are using before it makes assumptions. Assumptions generate output tokens that you have to correct.</p>
+          </div>
+          <div class="card">
+            <h3>Request the format you need</h3>
+            <p>Ask for a function, not an explanation of a function. Ask for a diff, not a description of what changed. Output tokens cost just as much as input tokens.</p>
+          </div>
+          <div class="card">
+            <h3>One task per prompt</h3>
+            <p>Multi-goal prompts lead to long, diffuse responses. Split complex work into sequential focused prompts. Each one is easier to verify and cheaper to correct if wrong.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Prompt discipline is about respecting both your time and your credit balance. Vague prompts produce long, hedging responses that require follow-up, which means you are paying for the correction round-trip on top of the original vague answer. The four disciplines on this slide are worth turning into a checklist until they become habit. Scope: what exactly, in which file. Constraints: what versions, patterns, and frameworks are in play. Format: ask for the artifact you actually need. Atomicity: one task, one prompt. I have seen teams cut their credit spend by thirty percent with nothing other than prompt discipline. The output quality went up at the same time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Model Selection
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Model Selection as a Cost Lever</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Task type</th>
+              <th>Model tier</th>
+              <th>Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Quick syntax question, code lookup</td>
+              <td>Fast (GPT-4o, Claude Haiku)</td>
+              <td>Speed matters more than depth; premium models add no value here</td>
+            </tr>
+            <tr>
+              <td>Refactoring, feature implementation</td>
+              <td>Balanced (Claude Sonnet, GPT-4o)</td>
+              <td>Good reasoning at moderate cost; right for most daily tasks</td>
+            </tr>
+            <tr>
+              <td>Architecture review, complex debugging</td>
+              <td>Reasoning (o3, Claude Opus)</td>
+              <td>Multi-step reasoning justifies the higher cost; faster to the right answer</td>
+            </tr>
+            <tr>
+              <td>Large file analysis, codebase search</td>
+              <td>Large context (Gemini)</td>
+              <td>Big context windows reduce the need to summarize and re-prompt</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Model selection is the most direct cost lever you have. The credit cost difference between a fast model and a reasoning model for the same task can be an order of magnitude. Paying that premium is absolutely worth it when you are debugging a race condition across a distributed system. Paying it to find out what the Array.map method returns is not. Build the habit of asking yourself: "Does this task actually need reasoning, or do I just want the best model because it feels safer?" Often, the fast model is more than sufficient and returns the answer in a third of the time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 19 - Token Anti-Patterns
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Token Anti-Patterns to Avoid</h2>
+        <ul>
+          <li><strong>Conversational sprawl:</strong> Using a single chat thread all day accumulates history that is irrelevant to your current task. Start fresh threads for new tasks.</li>
+          <li><strong>Overkill model selection:</strong> Running every request through a premium reasoning model. Match the model to the complexity of the task.</li>
+          <li><strong>Over-loaded instruction files:</strong> A five-thousand-word copilot-instructions.md injected into every single interaction. Scope long guides to skills or agents where they are only loaded when relevant.</li>
+          <li><strong>Undirected agent mode:</strong> Asking an agent to "improve my code" without a defined scope. Agents loop, generating significant token spend without a clear stopping condition.</li>
+          <li><strong>Redundant context:</strong> Pasting code into chat that is already in an open file Copilot can already see. Use <code>#file:</code> references instead.</li>
+        </ul>
+        <aside class="speaker-notes">
+          These are the five anti-patterns I see most often in team rollouts. Conversational sprawl is the sneakiest: a developer starts a session at 9am and is still in the same chat thread at 5pm. By afternoon, the context is full of morning work that has nothing to do with the current task. The model is spending tokens processing irrelevant history. The fix is trivially easy: Ctrl+L to start a new thread. Over-loaded instruction files are also common. Teams write a comprehensive guide for Copilot and put it all in copilot-instructions.md. That file is injected into every single interaction, including quick inline completions. The right structure is a lean copilot-instructions.md with the fundamentals, and Skills for the detailed domain knowledge that only needs to load when it is actually relevant.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 20 - Optimization Checklist
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Quick Optimization Checklist</h2>
+        <ul>
+          <li>Before asking: <strong>close irrelevant tabs, select the relevant code block, start a new thread if context is stale</strong></li>
+          <li>When writing a prompt: <strong>scope it to a specific file and task, state your constraints, specify the output format</strong></li>
+          <li>When choosing a model: <strong>default to a balanced tier; upgrade to reasoning only when the task needs it</strong></li>
+          <li>For team scale: <strong>keep copilot-instructions.md lean; move deep expertise into Skills; use scoped applyTo patterns</strong></li>
+          <li>For agent tasks: <strong>describe a clear stopping condition; review plans in plan mode before execution</strong></li>
+        </ul>
+        <aside class="speaker-notes">
+          Five habits. Before asking: clean your context. When writing: be specific. When choosing a model: match complexity to cost. For the team: keep instructions lean and use skills for depth. For agent tasks: define what done looks like before you start. Print this slide, put it next to your monitor, and follow it for two weeks. Your output quality will go up and your credit consumption will go down. Those two outcomes are not in tension; they are the same outcome. Better context produces better results in fewer tokens.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PART 4: LIVE DEMO
+         ============================================================ -->
+
+    <!-- ============================================================
+         SLIDE 21 - Live Demo Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Part 4 · 15 min</span>
+        <h2>Live Demo: Copilot CLI</h2>
+        <aside class="speaker-notes">
+          Demo time. We are going to use Copilot CLI to show three things in fifteen minutes: terminal-native development without opening an editor, parallel workstreams using the Open in Editor technique, and a GitHub integration task. Everything I do here you can replicate on your own machine tonight.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 22 - Demo: Install and Launch
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo: Install and Launch Copilot CLI</h2>
+        <pre><code># Install (requires Node.js 22+)
+npm install -g @github/copilot
+
+# Or use WinGet on Windows
+winget install GitHub.Copilot
+
+# Verify
+copilot --version
+
+# Navigate to your project and launch
+cd my-project
+copilot</code></pre>
+        <ul>
+          <li>On first launch, Copilot asks you to <strong>trust the current directory</strong>. Confirm if you want it to read and write files there.</li>
+          <li>Sign in with <code>/login</code> if prompted</li>
+          <li>Press <kbd>Shift+Tab</kbd> to cycle between <strong>standard</strong>, <strong>plan</strong>, and <strong>autopilot</strong> modes</li>
+        </ul>
+        <aside class="speaker-notes">
+          Install takes about thirty seconds. npm install -g @github/copilot, then copilot to launch. You will be asked to trust the directory the first time. This is a meaningful security prompt: in the trusted directory, Copilot can read, write, and execute files. Only trust directories you are comfortable with. The three interaction modes are important. Standard mode is like chat: you prompt, it acts, it asks for approval before each tool use. Plan mode is deliberate: Copilot analyzes the task, asks clarifying questions, and builds a step-by-step plan for you to review before touching a single file. Autopilot completes multi-step tasks without stopping for approval at each step. Use plan mode when you are not certain about scope. Use autopilot only in trusted, well-understood workflows.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 23 - Demo: Terminal-Native Development
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo: Terminal-Native Development</h2>
+        <ul>
+          <li>Reference specific files with <code>@</code>: <code>Explain the error handling in @src/api/routes.ts</code></li>
+          <li>Ask Copilot to make changes: <code>Add input validation to the createUser handler in @src/api/users.ts</code></li>
+          <li>Copilot shows the proposed edit, asks for approval, then writes the file</li>
+          <li>Run your tests from the same session: <code>Run the test suite and fix any failures</code></li>
+          <li>Copilot executes the test command, reads the output, diagnoses failures, and proposes fixes</li>
+        </ul>
+        <pre class="mermaid">
+sequenceDiagram
+  participant Dev as You
+  participant CLI as Copilot CLI
+  participant FS as File System
+  Dev->>CLI: "Add input validation to @src/api/users.ts"
+  CLI->>FS: Read users.ts
+  CLI->>Dev: Propose edit (approval required)
+  Dev->>CLI: Approve
+  CLI->>FS: Write updated file
+  Dev->>CLI: "Run the test suite and fix any failures"
+  CLI->>FS: Execute npm test
+  CLI->>Dev: Diagnose failures, propose fixes
+        </pre>
+        <aside class="speaker-notes">
+          This is the core workflow. You describe what you want in plain English, reference files with the @ prefix, and Copilot handles the rest. The critical difference from the old CLI is that it can iterate. If the test suite fails after it writes the code, it reads the failure output and keeps going. You do not have to copy error messages into a chat window and ask what they mean; it already knows. Tab completion works for file paths in the @ references, which makes navigation fast. One important note: Copilot requests approval before each tool use in standard mode. You are always in control of what actually runs. Only approve tool calls that look correct.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 24 - Demo: Parallel Workstreams
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo: Parallel Workstreams</h2>
+        <ul>
+          <li>LLM inference has inherent latency: queue time plus token generation time</li>
+          <li>A single Chat panel means idle time while the model works</li>
+          <li>In VS Code: click <strong>"Open in Editor"</strong> (pencil icon at top of Chat) to pop the current session into a tab</li>
+          <li>Open Chat again: you now have a <strong>second, independent session</strong> running in parallel</li>
+          <li>In the CLI: open a <strong>second terminal window</strong> and launch <code>copilot</code> from a different directory or with a focused task</li>
+        </ul>
+        <pre class="mermaid">
+gantt
+  title Parallel vs Sequential Copilot Sessions
+  dateFormat X
+  axisFormat %s
+
+  section Sequential
+  Write tests          :a1, 0, 3
+  Scaffold component   :a2, after a1, 3
+  Draft docs           :a3, after a2, 3
+
+  section Parallel
+  Write tests          :b1, 0, 3
+  Scaffold component   :b2, 0, 3
+  Draft docs           :b3, 0, 3
+        </pre>
+        <aside class="speaker-notes">
+          This is one of the most practical productivity techniques in this entire session. Copilot is fast, but it is not instant. While it is writing your unit tests, you can open a second session and ask it to scaffold the component those tests will cover. While that one is running, open a third and draft the documentation. Three tasks run in roughly the same time as one. The pattern works in VS Code using the Open in Editor button to create independent editor-tab sessions. It works in Copilot CLI by opening multiple terminal windows. The only cost is managing the output from all three streams. Start small: two parallel sessions. Once that feels natural, add a third. This is particularly powerful for the "write code, write tests, write docs" cycle that usually runs sequentially.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 25 - Demo: GitHub Integration
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo: GitHub Integration via MCP</h2>
+        <ul>
+          <li>Copilot CLI ships with the <strong>GitHub MCP server pre-configured</strong></li>
+          <li>From the terminal, ask it to interact with your GitHub repositories directly:</li>
+        </ul>
+        <pre><code># List open PRs needing review
+What pull requests are open in my-org/my-repo that are ready for review?
+
+# Investigate a failing CI run
+The latest CI run on PR #142 failed. Diagnose the failure and suggest a fix.
+
+# Create a PR from local changes
+I've made the changes we discussed. Create a PR with a descriptive title and body
+summarizing what changed and why.</code></pre>
+        <ul>
+          <li>No browser switching required: everything stays in the terminal</li>
+          <li>Copilot fetches live GitHub data via the MCP server and reasons over it alongside your local files</li>
+        </ul>
+        <aside class="speaker-notes">
+          The GitHub MCP server is configured out of the box. That means Copilot CLI can query Issues, Pull Requests, your repo, and your CI results the moment you install it. Ask it to find open PRs that need review and it will list them with summaries. Ask it to diagnose a failed CI run and it will fetch the log, identify the root cause, and suggest a fix. Ask it to create a PR from your local changes and it will write a title and body based on the diff. This is the "stay in the terminal" promise made concrete: the feedback loop between local development and GitHub never requires you to open a browser tab.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PART 5: Q&A
+         ============================================================ -->
+
+    <!-- ============================================================
+         SLIDE 26 - Q&A Section
+         ============================================================ -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5 · 10 min</span>
+        <h2>Q&amp;A</h2>
+        <aside class="speaker-notes">
+          Ten minutes for questions. I want to get specific about your context: your tools, your team size, your workflows. The questions that tend to generate the most value in this block are the "I tried X and it didn't work well" kind. Let's diagnose.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 27 - Key Takeaways
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li><strong>Copilot is not just an IDE plugin anymore.</strong> The CLI, SDK, and github.com surfaces each unlock different workflows; know which one fits your task.</li>
+          <li><strong>Context engineering is the core skill.</strong> Instruction files, skills, agents, and MCP servers let you automate the context that previously lived in your head.</li>
+          <li><strong>Precision beats volume.</strong> A focused prompt on the right model with clean context outperforms a vague prompt on a premium model every time.</li>
+          <li><strong>Parallelize deliberately.</strong> Multiple independent Copilot sessions running concurrently collapse the time for tasks that used to be sequential.</li>
+          <li><strong>Start small, iterate fast.</strong> Create one instruction file this week. Add one prompt file. Try the CLI on one task. Build the habit before adding complexity.</li>
+        </ul>
+        <aside class="speaker-notes">
+          Five takeaways to close. Copilot is a platform now, not a plugin. Context engineering is the skill that separates effective users from exceptional ones. Precision beats volume, both in output quality and credit spend. Parallelism is free if you build the habit. And start small: one instruction file, one prompt file, one CLI session. Those three changes are achievable this week and will make a measurable difference by Friday.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 28 - Next Steps and Resources
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Next Steps</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Go deeper on Context Engineering</h3>
+            <p><strong>Copilot Primitives - Prompts, Instructions, Skills, and Agents</strong> (Beginner, 30 min)</p>
+            <p>Master all four primitives with step-by-step examples.</p>
+          </div>
+          <div class="card">
+            <h3>Master the CLI</h3>
+            <p><strong>Terminal AI - Copilot CLI: The Who, the How, and the Why</strong> (Intermediate, 1 hr)</p>
+            <p>Full deep-dive on every CLI feature, use case, and customization option.</p>
+          </div>
+          <div class="card">
+            <h3>Optimize at scale</h3>
+            <p><strong>Token Optimization - The Credit Crunch</strong> (Enterprise, 1 hr)</p>
+            <p>Define workflows, build lean artifacts, and operationalize spend-aware AI across your org.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Three paths forward depending on where you want to go. If context engineering resonated, take the Copilot Primitives course next. It is thirty minutes and goes deep on every primitive with examples you can adapt directly. If the CLI demo was the highlight, the CLI deep-dive covers every feature we did not have time for today: session resumption, programmatic mode for CI/CD, custom agents in the terminal, and full MCP configuration. And if the token optimization section was most relevant to your organization, the Credit Crunch course is an enterprise-focused hour that covers the 30-day plan for rolling out spend-aware AI at scale. All three courses are in the same catalog you accessed to get here today. Thank you for the time. Questions?
+        </aside>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="../../../js/slides.js"></script>
+</body>
+</html>
