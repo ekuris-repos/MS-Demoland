@@ -1,0 +1,138 @@
+{
+  "title": "Token Optimization — The Credit Crunch",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the <strong>Token Optimization - The Credit Crunch</strong> lab.<br><br>In this hands-on sequence you will optimize a real workflow end to end. You will define a <strong>dependency upgrade and migration assistant</strong> workflow, author a lean instructions file for it, then use <code>/create-skill</code> and <code>/create-agent</code> to scaffold the supporting artifacts. Finally, you will inspect what context Copilot actually sends so you can optimize with evidence instead of guesswork.<br><br>The theme throughout: define the workflow first, then build artifacts that keep it token-efficient.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "14": {
+      "steps": [
+        {
+          "title": "Open a Scratch File",
+          "instruction": "We've opened a new scratch file so you can draft a workflow definition without touching your project files.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Define the Migration Workflow",
+          "instruction": "Write a short workflow specification for a <strong>dependency upgrade and migration assistant</strong>. Capture the four parts from the slide:<br>&bull; <strong>Inputs:</strong> target package and version, the lockfile and manifest, the test command<br>&bull; <strong>Steps:</strong> read release notes, apply documented codemods, update affected modules<br>&bull; <strong>Guardrails:</strong> stay within the affected modules only<br>&bull; <strong>Definition of done:</strong> the build passes, tests pass, and a concise summary lists the breaking changes addressed<br><br>Keep it tight. A clear definition is what stops an agent from over-exploring and burning tokens.",
+          "focus": "editor",
+          "tip": "The guardrail \"stay within affected modules only\" is a cost control as much as a correctness rule. It keeps the agent from reading the whole repository.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "17": {
+      "steps": [
+        {
+          "title": "Open a Scratch File",
+          "instruction": "We've opened a fresh scratch file so you can draft a lean instructions file for the migration workflow.",
+          "focus": "editor",
+          "action": "workbench.action.files.newUntitledFile",
+          "actionLabel": "Open New File"
+        },
+        {
+          "title": "Draft Lean Standing Rules",
+          "instruction": "Write only the <strong>standing rules</strong> that should apply to every migration interaction, for example:<br><br><code>// Use the project's existing package manager.<br>// Run the test suite with the documented test command.<br>// Touch only the modules affected by the upgrade.<br>// Summarize breaking changes addressed at the end.</code><br><br>Notice what you are <em>not</em> putting here: the detailed upgrade procedure. That belongs in a skill, loaded on demand. Instructions load on every request in scope, so keep them lean.",
+          "focus": "editor",
+          "tip": "A bloated instructions file is a recurring tax on every prompt. If a section is only sometimes relevant, it belongs in a skill, not in instructions.",
+          "onLeave": "workbench.action.closeActiveEditor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the editor tab for you.<br><br>For future reference:<br>&bull; <strong>New File</strong>: <kbd>Ctrl+N</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "18": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We've opened <strong>Copilot Chat</strong> so you can scaffold a skill for the detailed migration procedure.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Scaffold a Skill with /create-skill",
+          "instruction": "In the chat input, run the skill scaffolding command and describe the procedure from your workflow definition:<br><br><kbd>/create-skill A dependency upgrade procedure: read release notes and breaking changes, apply documented codemods, update only the affected modules, then run the test suite and summarize the breaking changes addressed.</kbd><br><br>The detailed procedure belongs in a skill so it only loads when the task matches, instead of being re-explained in every chat.",
+          "focus": "chat",
+          "tip": "Reach for /create-skill when a procedure is repeatable and worth reusing across the team. A precise description is what makes the skill trigger on the right tasks.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "19": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We've opened <strong>Copilot Chat</strong> so you can scaffold an agent persona for the migration workflow.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Scaffold a Persona with /create-agent",
+          "instruction": "In the chat input, run the agent scaffolding command and describe a focused role with a constrained tool set:<br><br><kbd>/create-agent A migration assistant that upgrades dependencies. It reads release notes, edits only the affected modules, and runs the test suite. Keep its tools limited to file edits and running tests so it stays on task.</kbd><br><br>A constrained tool set is a cost lever: an agent with fewer tools explores less and spends fewer tokens.",
+          "focus": "chat",
+          "tip": "Reach for /create-agent when a workflow recurs and benefits from a dedicated operator with a fixed role. Scope the tools tightly to the workflow's needs.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "27": {
+      "steps": [
+        {
+          "title": "Open Copilot Chat",
+          "instruction": "We've opened <strong>Copilot Chat</strong> so you can send a request and then inspect what it actually cost.",
+          "focus": "right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Read the Debug Metadata",
+          "instruction": "Send a small request, then open Copilot's <strong>debug metadata</strong> for that turn and read the cost fields:<br>&bull; <code>usage</code>: compare <strong>prompt_tokens</strong> to <strong>completion_tokens</strong> and note how much of the input was <strong>cached_tokens</strong><br>&bull; <code>tools (n)</code>: every available tool schema is part of the request<br>&bull; <code>copilotUsage</code>: the real <strong>AIC</strong> spend for that single turn<br><br>This turns token optimization into evidence: bloated instruction files, oversized context, and large tool sets all show up here.",
+          "focus": "right",
+          "tip": "Menu paths evolve with the Copilot tooling. If you don't see the debug metadata, check the Command Palette for a Copilot debug or log-level command and confirm the steps against your VS Code version.",
+          "onLeave": "workbench.action.closeAuxiliaryBar"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar for you.<br><br>For future reference:<br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "40": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You have completed the Token Optimization lab.<br><br>You practiced the full workflow-first loop:<br>&bull; Defined a dependency migration workflow with inputs, steps, guardrails, and a definition of done<br>&bull; Authored a lean instructions file for the standing rules<br>&bull; Used <code>/create-skill</code> to scaffold the detailed procedure as an on-demand skill<br>&bull; Used <code>/create-agent</code> to scaffold a constrained migration assistant persona<br>&bull; Inspected the assembled request so you can optimize tokens with evidence<br><br>Define the workflow first, capture it in durable artifacts, and let every credit buy more value.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}
