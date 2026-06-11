@@ -179,7 +179,19 @@
             </ul>
           </div>
         </div>
-        <img src="img/TODO-diagram-unstructured-vs-workflow-token-cost.png" alt="TODO: Add diagram for &quot;The Hidden Cost of Unstructured AI Use&quot; showing repeated context re-explanation versus reusable artifacts" />
+        <pre class="mermaid">
+graph TD
+  subgraph Unstructured [Unstructured: pay every time]
+    U1[Developer 1 re-explains context] --> UT[Same context billed again and again]
+    U2[Developer 2 re-explains context] --> UT
+    U3[Developer 3 re-explains context] --> UT
+    UT --> UC[High input tokens per session]
+  end
+  subgraph WorkflowDriven [Workflow-driven: pay once]
+    W1[Capture context in a shared artifact] --> WR[Reused automatically by everyone]
+    WR --> WC[Near-zero marginal cost per use]
+  end
+        </pre>
 
         <aside class="speaker-notes">
           The most expensive pattern in most organizations is not a single heavy agent run. It is repetition. Ten developers independently re-explaining the same build process, the same coding standards, and the same migration steps, over and over, every session. Each explanation is paid for in input tokens, every single time. Workflow-driven teams pay for that knowledge once by capturing it in an artifact, and then reuse it for almost nothing. That contrast is the entire thesis of this course.
@@ -329,7 +341,22 @@ graph TD
           </div>
         </div>
         <p style="margin-top:1rem"><strong>Definition of done:</strong> the upgrade builds, tests pass, and a concise summary lists the breaking changes addressed.</p>
-        <img src="img/TODO-diagram-migration-workflow-anatomy.png" alt="TODO: Add diagram for &quot;Anatomy of a Defined Workflow&quot; showing inputs, steps, guardrails, and definition of done for the migration assistant" />
+        <pre class="mermaid">
+graph LR
+  subgraph Inputs
+    I1[Target package and version]
+    I2[Lockfile and manifest]
+    I3[Project test command]
+  end
+  subgraph Steps [Steps within guardrails]
+    S1[Read release notes and breaking changes] --> S2[Apply documented codemods]
+    S2 --> S3[Touch only affected modules]
+    S3 --> S4[Run tests and report changes]
+  end
+  DoD[Definition of done: builds, tests pass, breaking changes summarized]
+  Inputs --> Steps
+  Steps --> DoD
+        </pre>
 
         <aside class="speaker-notes">
           A defined workflow is more than a sentence. It has explicit inputs, a bounded set of steps, guardrails that keep the agent from wandering, and a clear definition of done. Look at the guardrails in particular. Stay within the affected modules only is a token-saving instruction as much as a correctness one, because it stops the agent from reading the entire repository. This is the workflow we will turn into artifacts in the next part, and the one you will build in the lab.
@@ -803,7 +830,6 @@ graph LR
           <li>Celebrate high-value spend; coach on high-cost, low-value patterns</li>
           <li>Feed what you learn back into the workflow definitions and artifacts</li>
         </ul>
-        <img src="img/TODO-screenshot-token-spend-dashboard.png" alt="TODO: Add screenshot for &quot;Measure Workflow Efficiency&quot; showing a credit-spend dashboard broken down by workflow and model mix" />
 
         <aside class="speaker-notes">
           Total spend is a lagging, blunt metric. Efficiency per workflow is what tells you whether your optimization work is paying off. The most powerful measurement is a simple before-and-after: capture the typical credit cost of a workflow, introduce the artifacts, then measure again. That number makes the value of this entire approach concrete to both engineering and finance. Model mix and tool-call counts are useful leading indicators. And the loop closes by feeding insights back into the workflow definitions, which is the operationalize step we turn to next.
