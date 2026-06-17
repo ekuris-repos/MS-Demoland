@@ -1,0 +1,330 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Add-Ons</S>
+      <S N="Name">Review-Me-Review-Me-Not-Review-Me</S>
+      <S N="ID">Developer/Add-Ons/Review-Me-Review-Me-Not-Review-Me</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="1">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Archive</S>
+      <S N="Name">Agent-Wars-Return-of-the-Chat-ai</S>
+      <S N="ID">Developer/Archive/Agent-Wars-Return-of-the-Chat-ai</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="2">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Archive</S>
+      <S N="Name">Multi-Agent-Multi-Repo-Roundup</S>
+      <S N="ID">Developer/Archive/Multi-Agent-Multi-Repo-Roundup</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">Ready for Review`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">Ready for Review</S>
+    </MS>
+  </Obj>
+  <Obj RefId="3">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Beginner</S>
+      <S N="Name">MCP-for-You-and-Me</S>
+      <S N="ID">Developer/Beginner/MCP-for-You-and-Me</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="4">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Beginner</S>
+      <S N="Name">Prompts-Instructions-Skills-and-Agents</S>
+      <S N="ID">Developer/Beginner/Prompts-Instructions-Skills-and-Agents</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="5">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Beginner</S>
+      <S N="Name">The-Copilot-Awakens</S>
+      <S N="ID">Developer/Beginner/The-Copilot-Awakens</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">Complete`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">Complete</S>
+    </MS>
+  </Obj>
+  <Obj RefId="6">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Enterprise</S>
+      <S N="Name">Agent-HQ-Reporting-for-Duty</S>
+      <S N="ID">Developer/Enterprise/Agent-HQ-Reporting-for-Duty</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="7">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Enterprise</S>
+      <S N="Name">From-PRUs-to-Usage-Based-Billing</S>
+      <S N="ID">Developer/Enterprise/From-PRUs-to-Usage-Based-Billing</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="8">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Enterprise</S>
+      <S N="Name">MCP-Maximizer</S>
+      <S N="ID">Developer/Enterprise/MCP-Maximizer</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="9">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Enterprise</S>
+      <S N="Name">SDK-Have-It-Your-Way</S>
+      <S N="ID">Developer/Enterprise/SDK-Have-It-Your-Way</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="10">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Enterprise</S>
+      <S N="Name">Token-Optimization-The-Credit-Crunch</S>
+      <S N="ID">Developer/Enterprise/Token-Optimization-The-Credit-Crunch</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">Ready for Review`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">Ready for Review</S>
+    </MS>
+  </Obj>
+  <Obj RefId="11">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Agent-Potato-License-to-Chat</S>
+      <S N="ID">Developer/Intermediate/Agent-Potato-License-to-Chat</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="12">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Coding-Agent-Its-Alive</S>
+      <S N="ID">Developer/Intermediate/Coding-Agent-Its-Alive</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="13">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Copilot-CLI-The-Who-the-How-and-the-Why</S>
+      <S N="ID">Developer/Intermediate/Copilot-CLI-The-Who-the-How-and-the-Why</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="14">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Copilot-Power-Hour</S>
+      <S N="ID">Developer/Intermediate/Copilot-Power-Hour</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">false</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="15">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Enterprise-Grade-Marmalade</S>
+      <S N="ID">Developer/Intermediate/Enterprise-Grade-Marmalade</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">Ready for Review`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">Ready for Review</S>
+    </MS>
+  </Obj>
+  <Obj RefId="16">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Beginner</S>
+      <S N="Name">Copilot-and-the-Thing</S>
+      <S N="ID">Non-Developer/Beginner/Copilot-and-the-Thing</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="17">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Beginner</S>
+      <S N="Name">Made-Better-Together</S>
+      <S N="ID">Non-Developer/Beginner/Made-Better-Together</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="18">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Beginner</S>
+      <S N="Name">One-for-All</S>
+      <S N="ID">Non-Developer/Beginner/One-for-All</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">Ready for Review`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">Ready for Review</S>
+    </MS>
+  </Obj>
+  <Obj RefId="19">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Enterprise</S>
+      <S N="Name">Proving-Trust-in-the-System</S>
+      <S N="ID">Non-Developer/Enterprise/Proving-Trust-in-the-System</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="20">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Enterprise</S>
+      <S N="Name">The-AI-is-Mightier-than-the-Sword</S>
+      <S N="ID">Non-Developer/Enterprise/The-AI-is-Mightier-than-the-Sword</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="21">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Command-and-Conquer</S>
+      <S N="ID">Non-Developer/Intermediate/Command-and-Conquer</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="22">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Dragon-Scales-You-Need-Enterprise-Scale</S>
+      <S N="ID">Non-Developer/Intermediate/Dragon-Scales-You-Need-Enterprise-Scale</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="23">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">Project-Manager-Power-Up</S>
+      <S N="ID">Non-Developer/Intermediate/Project-Manager-Power-Up</S>
+      <B N="Index">true</B>
+      <S N="StatusMD">In Progress`</S>
+      <B N="LabJSON">true</B>
+      <S N="JSONStatus">In Progress</S>
+    </MS>
+  </Obj>
+  <Obj RefId="24">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="Track">Non-Developer</S>
+      <S N="Level">Intermediate</S>
+      <S N="Name">The-AI-is-Mightier-than-the-Sword</S>
+      <S N="ID">Non-Developer/Intermediate/The-AI-is-Mightier-than-the-Sword</S>
+      <B N="Index">false</B>
+      <S N="StatusMD">Missing</S>
+      <B N="LabJSON">false</B>
+      <Nil N="JSONStatus" />
+    </MS>
+  </Obj>
+</Objs>

@@ -225,9 +225,9 @@
     const base = document.querySelector('link[href*="primer-brand.css"]');
     if (base) {
       const cssHref = new URL(base.href);
-      window.location.href = cssHref.href.replace(/\/css\/primer-brand\.css.*$/, '/');
+      window.location.href = cssHref.href.replace(/\/css\/primer-brand\.css.*$/, '/index.html');
     } else {
-      window.location.href = '/';
+      window.location.href = '/index.html';
     }
   }
 
