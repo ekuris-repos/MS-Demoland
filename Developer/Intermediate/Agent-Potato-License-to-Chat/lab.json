@@ -1,5 +1,5 @@
 {
-  "title": "Full AI Stack: Agent Potato - License to Chat",
+  "title": "Full AI Stack - Agent Potato: License to Chat",
   "repo": "https://github.com/msft-common-demos/octocat_supply-ubiquitous-octo-bassoon.git",
   "slides": {
     "1": {
@@ -11,7 +11,7 @@
         }
       ]
     },
-    "4": {
+    "3": {
       "steps": [
         {
           "title": "Read the Mission Briefing",
@@ -20,7 +20,7 @@
         }
       ]
     },
-    "6": {
+    "5": {
       "steps": [
         {
           "title": "Explore the Project Structure",
@@ -37,7 +37,7 @@
         }
       ]
     },
-    "7": {
+    "6": {
       "steps": [
         {
           "title": "Start Your Reconnaissance",
@@ -60,7 +60,7 @@
         }
       ]
     },
-    "11": {
+    "9": {
       "steps": [
         {
           "title": "Review Approval Gates",
@@ -73,7 +73,7 @@
         },
         {
           "title": "Check Auto-Approve Settings",
-          "instruction": "Open <strong>Settings</strong> and search for <code>chat.tools.terminal.autoApprove</code>. This controls whether agent mode runs terminal commands without asking. It is pattern-based: you can allow specific commands while blocking others.<br><br>Leave it off for now. Manual approval teaches you what commands the agent wants to run.",
+          "instruction": "Open <strong>Settings</strong> and search for <code>chat.permissions.default</code> to see the <strong>Permission Level</strong> control. This is the primary dial for agent autonomy: Default Approvals (respects your per-tool settings), Bypass Approvals (skips all confirmation dialogs), and Autopilot (fully autonomous).<br><br>For fine-grained terminal command control, search for <code>chat.tools.terminal.autoApprove</code>. VS Code already blocks destructive commands by default. Use this setting only to add exceptions for commands specific to your workflow.<br><br>Leave the permission level at Default Approvals for now. Manual approval teaches you what commands the agent runs.",
           "focus": "top",
           "action": "workbench.action.openSettings",
           "onLeave": "workbench.action.closeActiveEditor",
@@ -86,15 +86,15 @@
         }
       ]
     },
-    "13": {
+    "11": {
       "steps": [
         {
           "title": "Explore the Agent Picker",
-          "instruction": "Open the <strong>Command Palette</strong> and type <code>Chat: Change Agent</code> to see the available commands for switching between Agent, Plan, and Ask.<br><br>Close the palette when you've seen the options.",
+          "instruction": "Open <strong>Copilot Chat</strong> if it is not already open. Click the <strong>agent name</strong> in the chat input area (showing \"Agent\", \"Plan\", or \"Ask\") to open the agent dropdown and see all available agents.<br><br>Close the chat panel when you've seen the options.",
           "focus": "top",
-          "action": "workbench.action.showCommands",
-          "onLeave": "workbench.action.closeQuickOpen",
-          "actionLabel": "Open Command Palette"
+          "action": "workbench.action.chat.open",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
+          "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Try Ask",
@@ -106,7 +106,7 @@
         },
         {
           "title": "Try Plan",
-          "instruction": "Switch to <strong>Plan</strong>. Ask it to plan out how you would add a new API endpoint.<br><br>Plan creates a <strong>step-by-step implementation plan</strong> before writing any code. When the plan looks right, it hands off to Agent to execute.",
+          "instruction": "Switch to <strong>Plan</strong>. Ask it to plan out how you would add a new API endpoint.<br><br>Plan creates a <strong>step-by-step implementation plan</strong> before writing any code. When the plan looks right, choose to continue in the same session or launch a Copilot CLI session to implement it in the background.",
           "focus": [
             "editor",
             "right"
@@ -125,11 +125,11 @@
         }
       ]
     },
-    "16": {
+    "13": {
       "steps": [
         {
           "title": "Create Your Instructions File",
-          "instruction": "Before building anything, set up a <code>.github/copilot-instructions.md</code> file for this project.<br><br>Think about what you learned during reconnaissance: the frameworks, testing tools, database patterns, and style conventions. Encode those as rules so every Copilot response follows the project's conventions.<br><br>The slide shows an example of what good instructions look like.",
+          "instruction": "Before building anything, set up a <code>.github/copilot-instructions.md</code> file for this project.<br><br>Type <code>/init</code> in agent mode chat to let VS Code generate a starter file tailored to this codebase, then refine it with the rules the slide shows.<br><br>The slide shows an example of what good instructions look like.",
           "tip": "Key rules to include: TypeScript strict mode, React 18 with hooks, Vitest (not Jest), Tailwind CSS, parameterized SQLite queries, named exports, async/await.",
           "focus": "editor",
           "action": "workbench.action.files.newUntitledFile",
@@ -163,7 +163,7 @@
         }
       ]
     },
-    "17": {
+    "14": {
       "steps": [
         {
           "title": "Create a Scoped Instruction File",
@@ -181,7 +181,7 @@
         }
       ]
     },
-    "19": {
+    "16": {
       "steps": [
         {
           "title": "Build the Backend: Your Mission Starts Now",
@@ -238,7 +238,7 @@
         }
       ]
     },
-    "21": {
+    "17": {
       "steps": [
         {
           "title": "Build the Frontend Component",
@@ -275,7 +275,7 @@
         }
       ]
     },
-    "24": {
+    "20": {
       "steps": [
         {
           "title": "Strengthen Your Tests",
@@ -313,7 +313,7 @@
         }
       ]
     },
-    "25": {
+    "21": {
       "steps": [
         {
           "title": "Iterative Refinement",
@@ -331,7 +331,7 @@
         }
       ]
     },
-    "27": {
+    "23": {
       "steps": [
         {
           "title": "Cross-Stack Rename Challenge",
@@ -359,7 +359,7 @@
         }
       ]
     },
-    "29": {
+    "25": {
       "steps": [
         {
           "title": "Create a Reusable Prompt File",
@@ -385,7 +385,7 @@
         }
       ]
     },
-    "30": {
+    "26": {
       "steps": [
         {
           "title": "Compare Your Approach",
@@ -394,7 +394,7 @@
         }
       ]
     },
-    "32": {
+    "28": {
       "steps": [
         {
           "title": "Final Mission Validation",
@@ -430,11 +430,11 @@
         }
       ]
     },
-    "35": {
+    "30": {
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Mission accomplished!</strong> You've completed Agent Potato: License to Chat.<br><br>You now know how to:<br>&bull; Use agent mode to navigate and build across a full-stack codebase<br>&bull; Write effective prompts with references to existing code<br>&bull; Set up instructions that shape every Copilot response<br>&bull; Switch between Agent, Plan, and Ask for the right task<br>&bull; Create reusable prompt files for your team<br><br>Next courses: <strong>MCP Maximizer</strong> to extend agent mode's tools, or <strong>Coding Agent: It's Alive!</strong> for cloud-based autonomous agents.",
+          "instruction": "<strong>Mission accomplished!</strong> You've completed Agent Potato: License to Chat.<br><br>You now know how to:<br>&bull; Use agent mode to navigate and build across a full-stack codebase<br>&bull; Write effective prompts with references to existing code<br>&bull; Set up instructions that shape every Copilot response<br>&bull; Switch between Agent, Plan, and Ask for the right task<br>&bull; Create reusable prompt files for your team<br><br>Next at the same level: <strong>Copilot CLI: The Who, the How, and the Why</strong> and <strong>Coding Agent: It's Alive!</strong> (both Intermediate). When you're ready to step up: <strong>MCP Maximizer</strong> and <strong>SDK: Have It Your Way</strong> (both Enterprise).",
           "focus": "guide"
         }
       ]
