@@ -1,6 +1,6 @@
 # Review Me Review Me Not Review Me: Setup Instructions
 
-> **Track:** Developer | **Level:** Add-Ons
+> **Track:** Developer | **Level:** Intermediate
 
 ## Course Environment
 

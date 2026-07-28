@@ -620,10 +620,10 @@ COURSES = [
         ],
     },
     {
-        "path": "Developer/Add-Ons/Review-Me-Review-Me-Not-Review-Me",
-        "title": "Automated Code Review - Review Me, Review Me Not, Review Me",
-        "tagline": "Automate PR reviews, run code quality scans, and remediate vulnerabilities end-to-end so your team ships secure code faster",
-        "duration": "30 Minutes",
+        "path": "Developer/Intermediate/Review-Me-Review-Me-Not-Review-Me",
+        "title": "Agentic Delivery - Review Me, Review Me Not, Review Me",
+        "tagline": "Prepare work locally, delegate it to Copilot cloud agent, and route CodeQL findings through agentic remediation and human review",
+        "duration": "45 Minutes",
         "prereqs": [
             "GitHub repository with branch protection enabled",
             "GitHub Advanced Security or Copilot code review enabled",

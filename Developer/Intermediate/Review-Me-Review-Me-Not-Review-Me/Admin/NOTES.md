@@ -1,6 +1,6 @@
 # Review Me Review Me Not Review Me: Class Notes
 
-> **Track:** Developer | **Level:** Add-Ons | **Target:** 45 minutes
+> **Track:** Developer | **Level:** Intermediate | **Target:** 45 minutes
 
 ## Course Positioning
 
