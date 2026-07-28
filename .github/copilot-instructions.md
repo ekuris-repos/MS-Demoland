@@ -45,6 +45,23 @@ same commit/change set.
 4. Add a new entry to `api/course-statuses.json`.
 5. Add a course card to `index.html` in the appropriate track/level section.
 
+## Catalog categories
+
+The root `index.html` provides a second navigation layer inside both tracks.
+Each course card must have exactly one `data-category` value:
+
+| Value | Use for courses primarily about... |
+|---|---|
+| `foundations` | GitHub platform concepts, collaboration, Copilot fundamentals, prompts, MCP, SDKs, APIs, or project workflows |
+| `automation` | GitHub Actions, Coding Agent, Copilot CLI, agent orchestration, CI/CD, deployment pipelines, or Azure DevOps integration |
+| `security` | Code review, CodeQL, code scanning, Dependabot, secret scanning, Copilot governance, billing controls, or usage and token optimization |
+
+Use the course's primary hands-on learning outcome to choose one category.
+Keep secondary topics in the card description instead of assigning multiple
+categories or duplicating the card. The `all` category is reserved for the
+catalog tab controls. When adding or moving a course, verify both the focused
+category tab and the All courses view in the Developer or Non-Developer track.
+
 ## GitHub Pages
 
 This site is designed to run on GitHub Pages as a static site — no build step
