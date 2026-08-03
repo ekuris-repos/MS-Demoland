@@ -90,9 +90,10 @@
             <p>GitHub is an end-to-end software delivery platform: plan, build, test, secure, deploy, and govern, all in one place.</p>
           </div>
         </div>
+        <p><strong>Discuss:</strong> Where does your organization plan, build, approve, and govern work today?</p>
 
         <aside class="speaker-notes">
-          The most common misconception about GitHub is that it is "just a code host." In reality, GitHub has grown into a full software delivery platform that covers the entire lifecycle. Planning happens in Issues and Projects. Building and testing happen through Actions. Security is built into every pull request through scanning tools. Deployment pipelines run directly from the repository. And enterprise controls give administrators visibility and governance across the entire organization. Understanding this broader picture is the purpose of today's session.
+          The most common misconception about GitHub is that it is "just a code host." In reality, GitHub has grown into a full software delivery platform that covers the entire lifecycle. Planning can happen in Issues and Projects. Building and testing can happen through Actions. Security tools can provide feedback during pull requests. Deployment pipelines can run directly from the repository. Enterprise controls give administrators visibility and governance across the organization. Feature availability varies by plan, repository visibility, organizational policy, and configuration. Understanding this broader picture, including the choices each organization makes, is the purpose of today's session. Use the discussion question to identify where learners currently switch tools or lose context.
         </aside>
       </div>
     </section>
@@ -104,12 +105,12 @@
       <div class="slide-inner">
         <h2>The Platform at a Glance</h2>
         <ul>
-          <li><strong>Plan</strong> - Issues, Projects, Milestones, and Discussions</li>
-          <li><strong>Build</strong> - Repositories, Pull Requests, Code Review, and Copilot</li>
-          <li><strong>Test &amp; Automate</strong> - GitHub Actions with CI/CD workflows</li>
-          <li><strong>Secure</strong> - Dependabot, Secret Scanning, Code Scanning, and Push Protection</li>
-          <li><strong>Deploy</strong> - Environments, deployment protection rules, and release management</li>
-          <li><strong>Govern</strong> - Audit logs, policies, SAML/SCIM, and compliance reporting</li>
+          <li><strong>Plan:</strong> Issues, Projects, milestones, and Discussions</li>
+          <li><strong>Build:</strong> Repositories, pull requests, code review, and Copilot</li>
+          <li><strong>Test &amp; Automate:</strong> GitHub Actions with CI/CD workflows</li>
+          <li><strong>Secure:</strong> Dependabot, secret scanning, code scanning, and push protection</li>
+          <li><strong>Deploy:</strong> Environments, deployment protection rules, and release management</li>
+          <li><strong>Govern:</strong> Audit logs, policies, identity integration, and compliance reporting</li>
         </ul>
 
         <pre class="mermaid">
@@ -121,7 +122,7 @@ graph LR
   E --> F[Govern]
         </pre>
         <aside class="speaker-notes">
-          This slide gives you the full map. GitHub covers six major areas of the software lifecycle. Planning tools let you capture and prioritize work. Build tools give teams a shared workspace with AI assistance. Automation handles testing and deployment through Actions. Security tools scan for vulnerabilities, leaked secrets, and risky dependencies automatically. Deployment features add approval gates and environment protection. And governance features give enterprise administrators the visibility and control they need for compliance. Each of these areas is integrated, meaning data and context flow between them without manual handoffs.
+          This slide gives you the full map. GitHub covers six major areas of the software lifecycle. Planning tools let you capture and prioritize work. Build tools give teams a shared workspace with AI assistance. Configured Actions workflows can handle testing and deployment. Security tools can scan for vulnerabilities, leaked secrets, and risky dependencies. Deployment features can add approval gates and environment protection. Governance features give enterprise administrators visibility and control for compliance. These areas share repository context, reducing many manual handoffs. Availability and behavior vary by plan, policy, and configuration.
         </aside>
       </div>
     </section>
@@ -154,7 +155,7 @@ graph LR
         </ul>
 
         <aside class="speaker-notes">
-          Think of a repository as a project folder with a built-in time machine. Every change that anyone makes is recorded, so you can always see who changed what and when. When someone wants to make a change, they create a branch, which is an isolated copy of the project. They do their work in the branch, then open a pull request to propose merging those changes back. The pull request is where collaboration happens: teammates review the code, leave comments, suggest improvements, and ultimately approve or request changes. This model ensures that nothing reaches the main project without being reviewed first.
+          Think of a repository as a project folder with a built-in time machine. Every committed change is recorded, so you can see who changed what and when. A contributor can create a branch, work independently, and open a pull request to propose merging those changes. The pull request is where teammates review the code, leave comments, suggest improvements, and approve or request changes. Organizations can use branch rules or rulesets to require this review process before changes reach the main branch.
         </aside>
       </div>
     </section>
@@ -206,11 +207,12 @@ graph LR
           <li>Each issue has a title, description, labels, assignees, and a full comment thread</li>
           <li>Issues link directly to pull requests, so you can trace a change back to the reason it was made</li>
           <li>Templates standardize how teams file issues, reducing back-and-forth</li>
+          <li>Issue fields add consistent priority, effort, date, and custom business data across repositories</li>
           <li>Sub-issues and task lists break large work items into smaller, trackable pieces</li>
         </ul>
 
         <aside class="speaker-notes">
-          GitHub Issues are the starting point for tracking work. An issue can be anything: a bug report, a feature request, a compliance task, or a question that needs resolution. Every issue has a clear structure with labels for categorization, assignees for ownership, and a comment thread for discussion. One of the most powerful aspects is the link between issues and pull requests. When a developer opens a pull request that fixes issue number 42, merging the pull request automatically closes the issue. This traceability is critical for auditing and governance because you can always trace a code change back to the business need that drove it. Issue templates let teams standardize the information they need, which reduces confusion and speeds up triage.
+          GitHub Issues are the starting point for tracking work. An issue can be a bug report, feature request, compliance task, or question. Labels support categorization, assignees establish ownership, and comments capture discussion. Issue fields add structured business data such as priority, effort, start date, and target date. A pull request can close an issue automatically when it uses a supported closing keyword and merges into the default branch. This traceability connects a change to the business need that drove it. Issue templates standardize the information teams need, reducing confusion and speeding up triage.
         </aside>
       </div>
     </section>
@@ -231,9 +233,10 @@ graph LR
             <p>Switch to a spreadsheet-style table for sorting and filtering, or use the roadmap view to see work plotted on a timeline with start and target dates.</p>
           </div>
         </div>
+        <p><strong>Discuss:</strong> Which information must stay current for leaders to trust a project view?</p>
 
         <aside class="speaker-notes">
-          GitHub Projects takes issues and pull requests and organizes them into flexible views. The board view is familiar to anyone who has used Kanban: columns represent stages of work, and you move cards across as work progresses. But Projects also offers table views, which work like spreadsheets where you can sort, filter, and group by any custom field. The roadmap view plots work items on a timeline, making it easy for project managers and leadership to see delivery progress. The key advantage is that Projects pulls data directly from your repositories. Automation workflows such as auto-moving items when a pull request is merged must be explicitly enabled by the project owner, but once configured, the corresponding issue moves automatically. There is no manual status updating or syncing between separate tools after the initial setup.
+          GitHub Projects organizes issues and pull requests into flexible views. A board shows stages of work, a table supports sorting and filtering, and a roadmap plots work on a timeline. Projects pulls data directly from repositories. Some workflows are enabled by default in new projects, while others, such as changing status when a pull request merges, must be configured by the project owner. Automation can reduce manual updates, but teams still need clear ownership for the business data that automation cannot infer. Use the discussion question to surface which fields matter to this audience.
         </aside>
       </div>
     </section>
@@ -290,16 +293,17 @@ graph LR
         <div class="columns">
           <div class="card">
             <h3>Continuous Integration</h3>
-            <p>Every pull request triggers automated builds and tests. Broken code is caught before it reaches the main branch, reducing risk and rework.</p>
+            <p>Configured workflows can build and test pull requests. Required checks can prevent failing changes from reaching the main branch.</p>
           </div>
           <div class="card">
             <h3>Continuous Deployment</h3>
-            <p>After code is merged, Actions can deploy it automatically to staging or production environments with approval gates and rollback capabilities.</p>
+            <p>After a merge, workflows can deploy to staging or production with approval gates and organization-defined rollback procedures.</p>
           </div>
         </div>
+        <p><strong>Discuss:</strong> What would you automate first, and which decision should remain human?</p>
 
         <aside class="speaker-notes">
-          In practice, Actions typically splits into two phases. Continuous integration runs on every pull request: the application is built, tests are executed, and the results are posted directly on the pull request. If anything fails, the team sees it immediately and can fix the issue before merging. Continuous deployment happens after a merge. Actions can automatically deploy the updated application to staging environments, run additional validation, and then promote to production. Deployment protection rules let you require manual approvals for sensitive environments. If something goes wrong, the same pipeline can handle rollback. The key takeaway for non-developers is that this automation replaces manual, error-prone processes with repeatable, auditable workflows.
+          Actions often supports two phases. For continuous integration, teams configure workflows to build and test selected pull requests. Results appear on the pull request, and required checks can block a merge when validation fails. For continuous deployment, teams can configure workflows to deploy merged changes to staging, run additional validation, and promote to production. Deployment protection rules can require approval for sensitive environments. Teams can also automate their own rollback procedures, but rollback is not an automatic guarantee. Thoughtfully designed automation replaces many manual, error-prone steps with repeatable, observable workflows.
         </aside>
       </div>
     </section>
@@ -324,11 +328,12 @@ graph LR
       <div class="slide-inner">
         <h2>Protecting Quality at Every Step</h2>
         <ul>
-          <li><strong>Branch protection rules</strong> prevent direct changes to the main branch</li>
-          <li><strong>Required reviews</strong> ensure at least one (or more) teammates approve every change</li>
-          <li><strong>Required status checks</strong> block merging until automated tests pass</li>
-          <li><strong>CODEOWNERS</strong> files automatically assign reviewers based on which files are changed</li>
+          <li><strong>Branch rules</strong> can require pull requests and restrict who may push or bypass controls</li>
+          <li><strong>Required reviews</strong> can set how many approvals a change needs before merge</li>
+          <li><strong>Required status checks</strong> can block merging until selected automated checks pass</li>
+          <li><strong>CODEOWNERS</strong> identifies responsible reviewers for specific areas of a repository</li>
           <li><strong>Rulesets</strong> let administrators define and enforce policies across many repositories at once</li>
+          <li><strong>GitHub Code Quality</strong> can find reliability, maintainability, and coverage issues before merge</li>
         </ul>
 
         <pre class="mermaid">
@@ -341,7 +346,7 @@ graph LR
   D -->|No| F
         </pre>
         <aside class="speaker-notes">
-          Code quality on GitHub is enforced through a layered system of rules. Branch protection prevents anyone from pushing code directly to the main branch; all changes must go through a pull request. Required reviews mean that at least one other person must approve the change before it can be merged. Required status checks integrate with Actions so that failing tests block the merge entirely. CODEOWNERS files allow teams to define which people or groups must review changes to specific parts of the codebase. And rulesets are a newer, more powerful way for enterprise administrators to define policies that apply across dozens or hundreds of repositories at once. Together, these features ensure that quality is enforced systematically, not through willpower or hope.
+          Code quality on GitHub can be supported through people, rules, and automated analysis. Branch protection rules and rulesets can require pull requests, reviews, and selected status checks. They can also restrict pushes, although administrators must decide who can bypass those controls. CODEOWNERS identifies the people or groups responsible for reviewing specific areas. GitHub Code Quality is a separate paid product that combines deterministic and AI-assisted analysis to find reliability and maintainability issues, report coverage, suggest fixes, and support quality gates. Availability varies by plan and configuration.
         </aside>
       </div>
     </section>
@@ -360,7 +365,7 @@ graph LR
         </ul>
 
         <aside class="speaker-notes">
-          It is easy to think of code review as a gate to slow things down, but it serves a much deeper purpose. Reviews spread knowledge across the team so that no single person is the only one who understands a given area. They catch bugs and security issues that automated tests might miss. The conversation in a review creates a written record of the reasoning behind design decisions, which is invaluable when revisiting code months later. GitHub's suggested changes feature makes the process efficient: a reviewer can propose a specific edit, and the author can accept it with a single click. For leaders and stakeholders, the key point is that code review is one of the highest-value quality investments a team can make.
+          Code review spreads knowledge so that no single person is the only one who understands a given area. It can catch bugs, security issues, and design concerns that automated checks miss. The conversation creates a written record of decisions and trade-offs. Copilot code review can add another source of feedback when requested or configured, but GitHub recommends validating its feedback and supplementing it with human review. Ask learners where judgment, accountability, or business context makes a human reviewer essential.
         </aside>
       </div>
     </section>
@@ -373,7 +378,7 @@ graph LR
         <span class="badge">Part 6</span>
         <h2>Security</h2>
         <aside class="speaker-notes">
-          Security is not an afterthought on GitHub. It is built into the developer workflow. Let's look at the four main security features.
+          Security does not need to be a separate final phase. GitHub provides capabilities that teams can configure throughout the developer workflow. Some are included broadly, while private and internal repositories may require GitHub Code Security or GitHub Secret Protection.
         </aside>
       </div>
     </section>
@@ -387,16 +392,16 @@ graph LR
         <div class="columns">
           <div class="card">
             <h3>Dependabot</h3>
-            <p>Monitors third-party dependencies for known vulnerabilities and automatically opens pull requests with updated, patched versions.</p>
+            <p>Monitors supported dependencies for known vulnerabilities and can open update pull requests when enabled and a fix is available.</p>
           </div>
           <div class="card">
             <h3>Secret Scanning</h3>
-            <p>Detects leaked credentials (API keys, tokens, passwords) in code and alerts the team before the secret can be exploited.</p>
+            <p>Detects supported credentials in repository content and alerts the team so exposed secrets can be investigated and revoked.</p>
           </div>
         </div>
 
         <aside class="speaker-notes">
-          GitHub provides four interconnected security features. Dependabot watches the open-source libraries your code depends on. When a vulnerability is disclosed in one of those libraries, Dependabot alerts the team and automatically opens a pull request with the updated version. This turns a manual, error-prone audit into an automated, ongoing process. Secret scanning continuously monitors the codebase for leaked credentials like API keys, database passwords, and access tokens. If a secret is found, the team is alerted immediately for remediation. For compliance officers, these features mean that vulnerability management and credential hygiene are automated rather than relying on periodic manual reviews.
+          Dependabot alerts monitor supported dependencies for known vulnerabilities. Dependabot security updates can open a pull request when the feature is enabled, the dependency is supported, and a patched version is available. Secret scanning searches repository content for supported secret patterns and alerts the team so a credential can be investigated and revoked. GitHub Secret Protection adds capabilities for private and internal repositories, custom patterns, AI-detected secrets, and stronger bypass governance. Teams still need owners and response processes for the alerts these tools produce.
         </aside>
       </div>
     </section>
@@ -410,16 +415,17 @@ graph LR
         <div class="columns">
           <div class="card">
             <h3>Code Scanning</h3>
-            <p>Automatically analyzes code for security vulnerabilities and coding errors on every pull request, powered by CodeQL and third-party tools.</p>
+            <p>Can analyze configured pull requests and branches for vulnerabilities using CodeQL or compatible third-party tools.</p>
           </div>
           <div class="card">
             <h3>Push Protection</h3>
-            <p>Blocks developers from pushing code that contains known secret patterns. Prevention is stronger than detection after the fact.</p>
+            <p>Can block supported secrets during a push, with bypass and approval behavior controlled by organizational policy.</p>
           </div>
         </div>
+        <p><strong>Discuss:</strong> Who owns an alert after GitHub identifies a dependency, code, or secret risk?</p>
 
         <aside class="speaker-notes">
-          Code scanning takes security analysis a step further by examining the code itself, not just its dependencies. Powered by CodeQL, GitHub's semantic analysis engine, it identifies patterns that lead to vulnerabilities such as SQL injection, cross-site scripting, and insecure data handling. Results appear directly on pull requests so developers can fix issues before merging. Push protection is the most proactive control: it stops a push from completing if the code contains a recognized secret pattern. Instead of alerting after a secret has been committed, push protection prevents the leak entirely. For organizations concerned about data breaches and regulatory compliance, push protection is a significant risk reduction measure. Together, these four security features create a defense-in-depth strategy that operates continuously and automatically.
+          Code scanning examines code rather than only its dependencies. Teams can configure CodeQL or compatible third-party tools to analyze pull requests and branches. For private and internal repositories, code scanning generally requires GitHub Code Security. Push protection can block supported secret patterns before they enter a repository. Repository-level push protection must be enabled, and bypass behavior depends on policy; GitHub Secret Protection adds delegated bypass controls. These capabilities reduce risk, but they do not replace ownership, triage, remediation, or incident response.
         </aside>
       </div>
     </section>
@@ -444,19 +450,17 @@ graph LR
       <div class="slide-inner">
         <h2>AI Assistance Across the Platform</h2>
         <ul>
-          <li><strong>Code suggestions</strong> in the editor help developers write code faster and with fewer errors</li>
-          <li><strong>Copilot Chat</strong> answers questions about the codebase, explains unfamiliar code, and suggests fixes</li>
-          <li><strong>Agent mode</strong> lets Copilot plan and execute multi-step tasks autonomously within the editor</li>
-          <li><strong>Coding agent</strong> works asynchronously on GitHub issues, opening pull requests with proposed changes</li>
-          <li><strong>Copilot code review</strong> provides AI-generated review comments on pull requests alongside human reviewers</li>
-          <li><strong>Pull request summaries</strong> automatically generate descriptions of what changed and why</li>
-          <li><strong>Copilot in the CLI</strong> helps with command-line tasks, Git operations, and shell scripting</li>
-          <li><strong>Copilot for security</strong> suggests fixes for vulnerabilities found by code scanning</li>
-          <li><strong>Plan tiers:</strong> Free, Pro, Pro+, Business, and Enterprise offer increasing capabilities for individuals and organizations</li>
+          <li><strong>Assist:</strong> Code suggestions and Chat help people write, understand, and improve work</li>
+          <li><strong>Work locally:</strong> Agent mode plans and performs multi-step tasks in the developer's environment</li>
+          <li><strong>Delegate in the cloud:</strong> Copilot cloud agent can research, plan, change a branch, and create a pull request</li>
+          <li><strong>Review:</strong> Copilot can summarize pull requests and provide feedback when requested or configured</li>
+          <li><strong>Operate:</strong> Copilot CLI can answer questions, edit files, run approved tools, and interact with GitHub</li>
+          <li><strong>Govern:</strong> Plans, policies, budgets, and AI Credits determine access and usage</li>
         </ul>
+        <p><strong>Discuss:</strong> Where could AI remove toil, and where must a person remain accountable?</p>
 
         <aside class="speaker-notes">
-          GitHub Copilot is an AI assistant that works across the entire platform, not just inside the code editor. In the editor, it provides real-time code suggestions that help developers write code faster. Copilot Chat acts as an interactive assistant that can answer questions about the codebase, explain complex logic, and suggest solutions to bugs. Agent mode takes this further by letting Copilot plan and execute multi-step coding tasks autonomously within the editor. The coding agent works asynchronously on GitHub issues, creating branches and opening pull requests with proposed changes for human review. Copilot code review provides AI-generated feedback on pull requests alongside human reviewers, catching issues earlier. On pull requests, Copilot can also automatically generate summaries that explain what changed. In the command line, it helps with Git commands and shell scripts. It can even suggest fixes for security vulnerabilities that code scanning identifies. Copilot is available across several plan tiers: Free for individuals, Pro and Pro+ for power users, and Business and Enterprise for organizations that need admin controls, policy management, and audit capabilities. For leaders, the key benefit is that Copilot accelerates work at every stage of the development process while keeping humans in control of every decision.
+          GitHub Copilot works across the platform, not only inside the code editor. Code suggestions and Chat assist people as they work. Agent mode performs multi-step tasks locally in a developer's environment. Copilot cloud agent is distinct: it works asynchronously in a GitHub Actions-powered environment and can research a repository, create a plan, change a branch, and optionally open a pull request. Copilot code review provides feedback when requested, or automatically when configured, and its output still requires human validation. Copilot CLI is a broader terminal agent that can answer questions, edit files, run approved tools, and create pull requests. Access is shaped by plan, administrator policy, budgets, and AI Credits. Focus the discussion on useful delegation, review, and accountability.
         </aside>
       </div>
     </section>
@@ -481,15 +485,16 @@ graph LR
       <div class="slide-inner">
         <h2>Governance and Compliance</h2>
         <ul>
-          <li><strong>Audit log</strong> records every significant action across the organization: who did what, when, and where</li>
+          <li><strong>Audit log</strong> records defined enterprise, organization, repository, and user events</li>
           <li><strong>SAML SSO &amp; SCIM</strong> integrate with your identity provider for centralized authentication and provisioning</li>
           <li><strong>Repository policies</strong> enforce naming conventions, visibility rules, and default branch settings</li>
-          <li><strong>IP allow lists</strong> restrict access to your GitHub organization from approved networks only</li>
-          <li><strong>License management</strong> provides visibility into seat usage and Copilot adoption across teams</li>
+          <li><strong>IP allow lists</strong> restrict supported access paths to protected enterprise resources</li>
+          <li><strong>Usage and license metrics</strong> show seat allocation, adoption, usage, and selected Copilot outcomes</li>
         </ul>
+        <p><strong>Discuss:</strong> What evidence would leadership need before expanding GitHub or Copilot?</p>
 
         <aside class="speaker-notes">
-          GitHub Enterprise gives administrators the controls that large organizations require. The audit log is a comprehensive record of every action: repository creation, permission changes, policy updates, and more. It integrates with SIEM tools for security monitoring. SAML single sign-on and SCIM provisioning let you manage access through your existing identity provider, such as Entra ID or Okta. Repository policies enforce organizational standards automatically. IP allow lists add network-level access controls. And license management dashboards give clear visibility into how many seats are in use and how actively teams are using Copilot. For IT leaders and compliance officers, these features mean that GitHub fits into your existing security and governance framework rather than operating as a separate silo.
+          GitHub Enterprise gives administrators controls for access, policy, monitoring, and compliance. The audit log records defined events such as repository creation, permission changes, and policy updates. It supports search, export, APIs, and streaming, but it does not record every workflow step. SAML single sign-on and SCIM provisioning integrate access with identity providers such as Microsoft Entra ID or Okta. Repository policies and rulesets establish organizational standards. IP allow lists restrict supported authenticated access paths to protected resources, but anonymous access to public resources and some application scenarios are outside their scope. Usage and license reporting can show allocation, adoption, and selected Copilot outcomes.
         </aside>
       </div>
     </section>
@@ -514,12 +519,12 @@ graph LR
       <div class="slide-inner">
         <h2>From Idea to Production</h2>
         <ul>
-          <li><strong>1. Capture</strong> - A stakeholder files an Issue describing the need; the Issue is added to a Project board</li>
-          <li><strong>2. Build</strong> - A developer creates a branch, writes code with Copilot, and opens a pull request linked to the Issue</li>
-          <li><strong>3. Review</strong> - Teammates review the code; branch protection ensures required approvals and passing checks</li>
-          <li><strong>4. Secure</strong> - Code scanning, secret scanning, and Dependabot run automatically on the pull request</li>
-          <li><strong>5. Deploy</strong> - Actions deploys the merged code to staging, then production with approval gates</li>
-          <li><strong>6. Govern</strong> - Every step is recorded in the audit log; the Issue closes automatically when the PR merges</li>
+          <li><strong>1. Capture:</strong> A stakeholder files an Issue and adds structured business context</li>
+          <li><strong>2. Build:</strong> A contributor creates a branch and opens a pull request linked to the Issue</li>
+          <li><strong>3. Review:</strong> People review the change; configured rules require selected approvals and checks</li>
+          <li><strong>4. Secure:</strong> Enabled security tools analyze code, dependencies, and supported secret patterns</li>
+          <li><strong>5. Deploy:</strong> Configured Actions workflows promote the change through protected environments</li>
+          <li><strong>6. Govern:</strong> Defined events are audited; configured links and workflows update planning records</li>
         </ul>
 
         <pre class="mermaid">
@@ -531,7 +536,7 @@ graph LR
   E --> F[6. Govern]
         </pre>
         <aside class="speaker-notes">
-          This is the "One for All" moment: seeing how every feature we discussed works together as a single system. It starts when a stakeholder creates an Issue to capture a need. That Issue appears on a Project board for prioritization. A developer picks it up, creates a branch, and writes code with Copilot's assistance. When they open a pull request, it links back to the original Issue. Branch protection rules ensure the right people review it and all automated checks pass. Security scans run automatically on the pull request. Once approved and merged, Actions deploys the change through staging and production environments with appropriate approval gates. The Issue closes automatically, the Project board updates, and every action is recorded in the audit log. No manual handoffs, no context switching between tools, no gaps in traceability. This connected workflow is why GitHub is more than the sum of its individual features.
+          This is the "One for All" moment: seeing how the capabilities can work together as a connected system. A stakeholder creates an Issue with the business context needed for prioritization. A contributor opens a linked pull request. Configured rules can require reviewers and checks. Enabled security tools can analyze code, dependencies, and supported secret patterns. After approval and merge, Actions workflows can deploy through protected environments. Supported closing keywords can close the Issue after a merge into the default branch, and configured Project workflows can update planning records. Defined events appear in the audit log. Teams still choose the policies, automation, ownership, and human decisions that make the workflow trustworthy.
         </aside>
       </div>
     </section>
@@ -558,13 +563,13 @@ graph LR
         <ul>
           <li>GitHub is a unified platform that covers planning, building, testing, securing, deploying, and governing software</li>
           <li>Issues and Projects connect business needs to the code changes that address them</li>
-          <li>Actions automates repetitive work, reducing human error and increasing delivery speed</li>
-          <li>Security is not a separate step; it is embedded in every pull request through scanning and push protection</li>
-          <li>Copilot accelerates work at every stage while keeping humans in control</li>
+          <li>Configured Actions workflows automate repetitive work, reducing human error and increasing delivery speed</li>
+          <li>Enabled security tools bring risk feedback into the development workflow instead of waiting for a final audit</li>
+          <li>Copilot can accelerate work, while people remain responsible for review and outcomes</li>
           <li>Enterprise controls provide the audit trails, access management, and policy enforcement that organizations require</li>
         </ul>
         <aside class="speaker-notes">
-          Here are the core messages to take away from today's session. First, GitHub is not just code hosting; it is a complete delivery platform. Second, the planning and tracking tools create direct links between business goals and the code that achieves them. Third, automation through Actions eliminates manual steps and reduces risk. Fourth, security is built into the developer workflow, not bolted on afterward. Fifth, Copilot brings AI assistance to every stage of the process. And sixth, enterprise governance features ensure that all of this works within your organization's compliance requirements. The real power comes from the integration between these areas, not from any one feature in isolation.
+          GitHub is not just code hosting; it is a complete delivery platform. Planning tools can link business goals to the changes that address them. Thoughtfully configured Actions workflows reduce manual steps and risk. Enabled security tools bring feedback into the development workflow. Copilot can assist and take on delegated work, while people remain accountable for review and outcomes. Enterprise governance features help align the platform with organizational requirements. The real power comes from integrating these areas intentionally, not from enabling every feature by default.
         </aside>
       </div>
     </section>
@@ -589,7 +594,7 @@ graph LR
             <ul>
               <li>Intermediate: "Command and Conquer" for hands-on GitHub administration</li>
               <li>Enterprise: "Proving Trust in the System" for compliance and governance deep-dives</li>
-              <li>Visit <strong>github.com/features</strong> for detailed documentation on every capability</li>
+              <li>Visit <strong>docs.github.com</strong> for current documentation and availability details</li>
             </ul>
           </div>
         </div>
