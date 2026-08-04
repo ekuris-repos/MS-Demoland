@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Before You Share</title>
+  <link rel="stylesheet" href="../../../css/primer-brand.css" />
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge">Intermediate · 45 Minutes</span>
+        <h1>Secure Before You Share</h1>
+        <p class="subtitle">Review locally. Remediate deliberately. Let the platform verify.</p>
+        <aside class="speaker-notes">
+          Welcome to Secure Before You Share. Today we are starting where developers actually work: in the local diff, before a pull request exists and before a scanner has a chance to tell us what went wrong. We will use GitHub Copilot to inspect a change, fix what the evidence supports, and then let CodeQL and Copilot Autofix challenge our work on the platform. The goal is not to hand security to a tool. The goal is to build a workflow where developers catch risk early and GitHub makes that protection consistent.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Challenge -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Challenge</span>
+        <h2>Stop the Vulnerability Before the PR</h2>
+        <p>A feature works, but its diff crosses a trust boundary. Your mission is to review it locally, remediate supported findings, and open a pull request that can survive CodeQL and human review.</p>
+        <div class="columns">
+          <div class="card">
+            <h3>Starting State</h3>
+            <p>Passing feature tests, unreviewed data flow, and a developer ready to commit.</p>
+          </div>
+          <div class="card">
+            <h3>Done State</h3>
+            <p>Documented local review, verified remediation, clean platform checks, and accountable approval.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Here is the situation: the feature works, the tests pass, and you are one command away from committing it. That is exactly when security issues are easiest to overlook, because everything feels finished. In our challenge, the diff crosses a trust boundary, so we are going to slow down before the pull request and use the context we still have in our heads. You will work in a disposable repository with an intentionally vulnerable branch, which gives us room to investigate and make mistakes safely.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Outcomes -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What You Will Be Able to Do</h2>
+        <ul>
+          <li>Review a local diff with a security-focused Copilot prompt</li>
+          <li>Separate evidence-backed findings from speculation</li>
+          <li>Remediate vulnerabilities without changing intended behavior</li>
+          <li>Use CodeQL results to trace source, flow, and sink</li>
+          <li>Evaluate Copilot Autofix as a proposed patch, not an automatic verdict</li>
+          <li>Explain how rulesets and required checks protect teams at scale</li>
+        </ul>
+        <aside class="speaker-notes">
+          By the end of this session, you will have practiced the whole path from a local diff to a protected pull request. We will use Copilot for contextual review, but we will not accept findings without evidence. We will use CodeQL for repeatable data-flow analysis, and we will treat Autofix as a proposed patch that still needs review. Finally, we will connect those developer actions to rulesets and required checks, because a good habit becomes much more valuable when the platform can reinforce it across every repository.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Workflow -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Secure Change Loop</h2>
+        <pre class="mermaid">
+graph LR
+  A[Inspect diff] --> B[Review locally]
+  B --> C[Remediate]
+  C --> D[Validate behavior]
+  D --> E[Open PR]
+  E --> F[CodeQL analyzes]
+  F --> G[Autofix proposes]
+  G --> H[Human decides]
+        </pre>
+        <aside class="speaker-notes">
+          This is our path for the session. We begin with the diff, review it locally, remediate what we can prove, and validate that the feature still behaves correctly. Only then do we open the pull request. Once the change reaches GitHub, CodeQL gives us an independent analysis, Autofix may offer a remediation, and a human makes the final decision. Notice that this is a loop, not a conveyor belt. New evidence can send us back to the code at any point.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Section -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">1. Inspect</span>
+        <h2>Start with the Change You Actually Made</h2>
+        <aside class="speaker-notes">
+          Let's begin with the change in front of us. A bounded diff gives us something concrete to reason about, and it keeps the review tied to the work we are about to share. Before we ask Copilot anything, we need three things: a clean baseline, a clear statement of intended behavior, and an honest look at every file that changed.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Baseline -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Lab Checkpoint</span>
+        <h2>Establish a Trustworthy Baseline</h2>
+        <ul>
+          <li>Confirm the branch and inspect <code>git status --short</code></li>
+          <li>Run the repository's tests, lint, and build commands</li>
+          <li>Read the full diff, including generated and dependency files</li>
+          <li>State the intended behavior in one sentence</li>
+          <li>Identify inputs, outputs, credentials, and external systems touched</li>
+        </ul>
+        <aside class="speaker-notes">
+          Our first job is to establish what was true before we touch the code again. If the tests were already failing, we need to know that now, because neither Copilot nor CodeQL can read our memory and separate an inherited problem from a new regression. Also, do not limit the diff to files you remember editing. Package managers, generators, and assistants can change files quietly, and those changes are still part of what you are asking the team to review.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Threat model -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Threat-Model the Diff, Not the Entire World</h2>
+        <table>
+          <thead>
+            <tr><th>Question</th><th>Look For</th><th>Evidence</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>What enters?</td><td>User input, files, headers, events</td><td>Call sites and schemas</td></tr>
+            <tr><td>Where does it travel?</td><td>Transforms, storage, subprocesses</td><td>Data-flow path</td></tr>
+            <tr><td>What trusts it?</td><td>Queries, templates, shells, APIs</td><td>Validation boundary</td></tr>
+            <tr><td>What can escape?</td><td>Secrets, logs, errors, responses</td><td>Output and telemetry</td></tr>
+            <tr><td>Who can invoke it?</td><td>Users, roles, services, workflows</td><td>Authorization checks</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          We are not threat-modeling the entire application in the next five minutes. We are threat-modeling this change. Ask what enters, where it travels, what eventually trusts it, and what could leave the system as a result. That gives us a simple but useful path from an untrusted source toward a sensitive operation. It also gives Copilot something much sharper to inspect than a vague request to find security bugs.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Prompt -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Ask for Findings You Can Verify</h2>
+        <pre><code>Review my uncommitted diff as a security reviewer.
+
+Focus on changed code and its immediate call paths. Trace untrusted
+inputs to sensitive sinks. Check authorization, injection, secret
+exposure, unsafe deserialization, path handling, and dependency risk.
+
+For each finding, provide:
+1. severity and affected file
+2. source-to-sink evidence
+3. a safe remediation
+4. a regression test that would fail before the fix
+
+Do not edit files. Mark uncertain claims as hypotheses.</code></pre>
+        <aside class="speaker-notes">
+          This prompt does a few important things. It keeps the review close to the changed code, asks Copilot to trace a real path, and requires evidence for every finding. It also tells Copilot not to edit yet. We want to understand and classify the risk before we start changing files. Adjust the categories for your stack, and let repository instructions provide the framework conventions, build commands, and security rules that should apply every time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Local review -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Lab Checkpoint</span>
+        <h2>Run the Local Security Review</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Copilot Provides</h3>
+            <p>Candidate findings, code-path context, remediation options, and test ideas.</p>
+          </div>
+          <div class="card">
+            <h3>You Provide</h3>
+            <p>Intent, risk tolerance, runtime evidence, validation, and the decision to change code.</p>
+          </div>
+        </div>
+        <p><strong>Capture the review:</strong> record confirmed findings, rejected hypotheses, and validation plans in <code>docs/security-review.md</code>.</p>
+        <aside class="speaker-notes">
+          Now it is your turn to run the review. Copilot is going to give you candidate findings, not verdicts. Your job is to trace each claim back to the code and decide whether the evidence holds up. We are writing that reasoning into a review record because a chat response should never become an invisible authority. If Copilot makes a weak claim, say why it is weak and record what evidence is missing.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Triage -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Triage Before You Edit</h2>
+        <table>
+          <thead>
+            <tr><th>Classification</th><th>Meaning</th><th>Next Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Confirmed</td><td>Code path and impact are supported</td><td>Remediate and test</td></tr>
+            <tr><td>Needs evidence</td><td>Plausible, but runtime or call path is unclear</td><td>Investigate before editing</td></tr>
+            <tr><td>False positive</td><td>Control or invariant breaks the claimed path</td><td>Document the control</td></tr>
+            <tr><td>Out of scope</td><td>Real issue outside the current change</td><td>Create tracked follow-up</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          A strong review is not the one with the most accepted comments. It is the one where every decision has a reason. Some findings will be confirmed, some will need another test or call-path check, and some will be false positives because an existing control breaks the path. If you reject a finding, point to that control. Silent dismissal teaches the team nothing and leaves the next reviewer to repeat the same investigation.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: Remediate -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--green">Lab Checkpoint</span>
+        <h2>Remediate Without Hiding the Risk</h2>
+        <ul>
+          <li>Fix the trust boundary rather than filtering one known payload</li>
+          <li>Prefer safe APIs, parameterization, allowlists, and least privilege</li>
+          <li>Add a regression test that demonstrates the original weakness</li>
+          <li>Run focused tests first, then the full local validation suite</li>
+          <li>Ask Copilot to review the revised diff for bypasses and regressions</li>
+          <li>Update the security review artifact with the evidence</li>
+        </ul>
+        <aside class="speaker-notes">
+          Once we have a confirmed finding, we want the smallest complete fix. That means repairing the trust boundary, not blocking the one payload we happened to demonstrate. Prefer the safe API or established framework pattern, then add a regression test that fails for the vulnerable behavior and passes after the fix. That test tells the next developer why this code matters and makes it harder for the same weakness to return.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: Section -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--green">2. Transition</span>
+        <h2>Move from Developer Evidence to Platform Evidence</h2>
+        <aside class="speaker-notes">
+          At this point, we have done the work that is easiest to do locally. We understand the intent, we have reviewed the diff, and our tests support the remediation. Now we are ready to commit and let the platform challenge our conclusions. GitHub is not replacing the developer's review here. It is repeating important checks in a consistent environment and adding evidence we may not have had locally.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: Layer comparison -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Each Layer Sees Something Different</h2>
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Strength</th><th>Limitation</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Developer</td><td>Intent and local runtime context</td><td>Manual and inconsistent</td></tr>
+            <tr><td>Copilot local review</td><td>Contextual reasoning across the change</td><td>May miss or overstate findings</td></tr>
+            <tr><td>Tests and lint</td><td>Repeatable expected behavior</td><td>Only check encoded assertions</td></tr>
+            <tr><td>CodeQL</td><td>Deterministic semantic data flow</td><td>Limited to configured queries and languages</td></tr>
+            <tr><td>Human reviewer</td><td>Business risk and accountable judgment</td><td>Time and attention are finite</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          No single layer on this table sees the whole picture. The developer understands why the feature exists. Copilot can reason across the surrounding code, but its answers can vary. Tests are repeatable, but they only prove what we thought to assert. CodeQL follows configured security patterns consistently, but it does not know every business rule. We layer these checks because their blind spots are different, and we keep a human reviewer at the end because someone still has to own the decision.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: CodeQL -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>CodeQL Treats Code as Data</h2>
+        <pre class="mermaid">
+graph LR
+  A[Untrusted source] --> B[Program flow]
+  B --> C{Sanitizer?}
+  C -->|No| D[Sensitive sink]
+  C -->|Yes| E[Safe path]
+  D --> F[Code scanning alert]
+        </pre>
+        <p>Read an alert as a path: source, propagation, missing control, sink, and impact.</p>
+        <aside class="speaker-notes">
+          CodeQL looks at code differently than a text search or a chat response. It builds a database representation of the program and runs queries over relationships and data flow. When an alert includes a path, follow it from the untrusted source through each important step to the sensitive sink. The highlighted line may be where the problem becomes visible, but the missing control can be much earlier in the flow.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: Results -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Treat the Scan as New Evidence</h2>
+        <ul>
+          <li>Confirm the workflow analyzed the pull-request commit</li>
+          <li>Check the query, severity, precision, and affected language</li>
+          <li>Follow every path step before deciding on a fix</li>
+          <li>Compare the alert with the local review artifact</li>
+          <li>Investigate why local review missed any new finding</li>
+          <li>Dismiss only with a documented, reviewable reason</li>
+        </ul>
+        <img src="img/TODO-screenshot-codeql-data-flow-path.png" alt="TODO: Add screenshot for &quot;CodeQL alert data-flow path in a pull request&quot;" />
+
+        <aside class="speaker-notes">
+          A clean local review does not promise a clean CodeQL result, and that is useful. If CodeQL finds something we missed, we should ask why. Did our prompt ignore a call path? Were the repository instructions missing an important security rule? Did we need a regression test? Sometimes the answer is simply that CodeQL has a deterministic query designed for this exact pattern. The difference between the two reviews helps us improve the workflow.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: Open PR -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Lab Checkpoint</span>
+        <h2>Open a Draft Pull Request</h2>
+        <ul>
+          <li>Commit only the reviewed change and its regression test</li>
+          <li>Link <code>docs/security-review.md</code> in the pull-request description</li>
+          <li>State the trust boundary, confirmed finding, and remediation</li>
+          <li>Include exact local validation commands and results</li>
+          <li>Wait for CodeQL and required checks before requesting approval</li>
+        </ul>
+        <aside class="speaker-notes">
+          When we open the pull request, we want the next reviewer to inherit our reasoning, not reconstruct it from scratch. The description should explain the trust boundary, the finding, the fix, and the commands we ran locally. Keep the pull request in draft while the platform checks are still running. The local review record now becomes a useful comparison point when CodeQL reports its result.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: Section -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">3. Remediate</span>
+        <h2>Use Autofix as a Proposal, Not Permission</h2>
+        <aside class="speaker-notes">
+          Now we are moving from detection to remediation. Copilot Autofix can shorten the time between a CodeQL alert and a candidate patch, which is valuable when teams are carrying a large security backlog. But faster is only better if the fix is sound. We still need to understand the alert, inspect every changed line, and prove that the application behaves correctly afterward.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: Product boundaries -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Know Which System Is Acting</h2>
+        <table>
+          <thead>
+            <tr><th>Capability</th><th>Input</th><th>Output</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CodeQL</td><td>Code database and queries</td><td>Deterministic alert and path</td></tr>
+            <tr><td>Copilot Autofix</td><td>Alert context and relevant code</td><td>Suggested code change</td></tr>
+            <tr><td>Agentic Autofix</td><td>Assigned alert and repository</td><td>Iterated draft pull request</td></tr>
+            <tr><td>Copilot code review</td><td>Pull-request diff and context</td><td>Review comments</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          These names are easy to blur together, so let's separate the jobs. CodeQL produces the alert and the data-flow path. Copilot Autofix uses that alert context to suggest a code change. Agentic Autofix, where it is available, can go further by exploring the repository, making changes, rerunning analysis, and opening a draft pull request. Copilot code review comments on the pull-request diff. Each capability adds evidence or a proposal, but none of them gets to approve its own work.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: Evaluate patch -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Review an Autofix Like Production Code</h2>
+        <ul>
+          <li>Does the patch break the complete source-to-sink path?</li>
+          <li>Does it use the framework's safe API or invent a custom filter?</li>
+          <li>Are alternate paths, encodings, and error branches still exposed?</li>
+          <li>Did authorization, logging, dependencies, or permissions change?</li>
+          <li>Does the regression test fail on the vulnerable code?</li>
+          <li>Do functional tests and CodeQL pass after the patch?</li>
+        </ul>
+        <aside class="speaker-notes">
+          Review this suggestion exactly as you would review production code from a teammate. Does it break the whole unsafe path, or only the example that triggered the alert? Does it use the framework's safe API? Did it quietly change authorization, logging, dependencies, or error handling? An alert disappearing is good evidence, but a patch that breaks the feature or opens another path is not a successful fix.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: Autofix lab -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--green">Lab Checkpoint</span>
+        <h2>Accept, Revise, or Reject the Suggestion</h2>
+        <pre class="mermaid">
+graph LR
+  A[Inspect alert] --> B[Read Autofix]
+  B --> C{Breaks full path?}
+  C -->|No| D[Reject or revise]
+  C -->|Yes| E[Run tests]
+  E --> F[Run CodeQL]
+  F --> G[Human review]
+        </pre>
+        <img src="img/TODO-screenshot-copilot-autofix-suggestion.png" alt="TODO: Add screenshot for &quot;Copilot Autofix suggestion with code changes&quot;" />
+
+        <aside class="speaker-notes">
+          Here is the decision point: accept, revise, or reject. Start with the CodeQL path, then compare it with the proposed change. If the patch breaks the full path and preserves behavior, validate it. If it only handles part of the problem, revise it. If it introduces more risk than it removes, reject it and explain why. In the lab, we use a prepared vulnerable pull request so everyone can evaluate the same alert even if your local fix already prevented it.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: Organization controls -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Platform Makes Good Practice Repeatable</h2>
+        <ul>
+          <li>Default setup or advanced workflows run CodeQL consistently</li>
+          <li>Repository rulesets require code-scanning results before merge</li>
+          <li>Severity thresholds prevent high-risk alerts from being ignored</li>
+          <li>Branch protection requires tests and accountable human approval</li>
+          <li>Security campaigns and alert assignment organize remediation work</li>
+          <li>Audit history preserves decisions, dismissals, and review evidence</li>
+        </ul>
+        <aside class="speaker-notes">
+          So far we have focused on one developer and one change. The platform is what makes this practice repeatable when an organization has hundreds of developers and thousands of pull requests. CodeQL workflows run the same analysis consistently. Rulesets can stop high-risk findings from being ignored. Required checks and human approval keep the merge decision accountable. These controls create a dependable floor, but they work best when developers arrive at the pull request having already done the local review.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: Responsibilities -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Protection Is a Shared System</h2>
+        <table>
+          <thead>
+            <tr><th>Role</th><th>Primary Responsibility</th><th>Evidence Produced</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Developer</td><td>Inspect, remediate, test, explain</td><td>Diff, tests, review record</td></tr>
+            <tr><td>Repository platform</td><td>Run consistent checks and gates</td><td>Check runs and alerts</td></tr>
+            <tr><td>Security team</td><td>Configure queries, policy, and response</td><td>Rulesets and guidance</td></tr>
+            <tr><td>Reviewer</td><td>Evaluate risk and approve</td><td>Comments and decision</td></tr>
+            <tr><td>Organization</td><td>Measure and improve the system</td><td>Trends and audit history</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Secure development is shared work, but shared does not mean vague. The developer owns the change and the evidence behind it. The platform runs consistent checks. The security team maintains policy, queries, and guidance. The reviewer evaluates the complete risk and makes the approval decision. At the organization level, we use trends and audit history to improve the system, not to turn security findings into a blame report.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: Final gate -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Final Checkpoint</span>
+        <h2>Prove the Change Is Ready</h2>
+        <ul>
+          <li>The complete diff matches the stated intent</li>
+          <li>Confirmed local findings have evidence-backed remediation</li>
+          <li>Regression tests fail before the fix and pass after it</li>
+          <li>Required tests, lint, build, and CodeQL checks pass</li>
+          <li>Autofix changes were reviewed, revised, or rejected explicitly</li>
+          <li>No security alert was dismissed without a documented reason</li>
+          <li>An accountable human reviewer makes the merge decision</li>
+        </ul>
+        <aside class="speaker-notes">
+          Before this pull request is ready, we should be able to prove every item on this list. The diff matches the intended feature. The confirmed finding has a real remediation and a regression test. Local and platform checks apply to the current commit. Any Autofix change has been reviewed rather than trusted by default. Passing checks matter, but they do not tell us whether this is the right change for the business. That final judgment still belongs to an accountable human reviewer.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: Completion -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge badge--green">Challenge Complete</span>
+        <h1>Security Starts Before the PR</h1>
+        <p class="subtitle">Developer context finds risk early. Platform controls make protection consistent.</p>
+        <aside class="speaker-notes">
+          Let's close with the habit I want you to take back to your next change: security starts before the pull request. Inspect the diff while the intent is still fresh. Use Copilot to challenge your assumptions, but require evidence. Fix the trust boundary and prove it with a regression test. Then let CodeQL and Autofix challenge that work again on the platform. When a pull request arrives with that security story already documented, reviewers can spend their time on the decisions that truly require human judgment.
+        </aside>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="../../../js/slides.js"></script>
+</body>
+</html>

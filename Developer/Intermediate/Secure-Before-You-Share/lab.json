@@ -1,0 +1,231 @@
+{
+  "title": "Secure Development — Secure Before You Share",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the <strong>Secure Before You Share</strong> lab. You will inspect an intentionally vulnerable local change, use <strong>GitHub Copilot</strong> to perform an evidence-based security review, remediate the risk, and then compare your work with <strong>CodeQL</strong> and <strong>Copilot Autofix</strong>.<br><br>This is a challenge lab. Work only in the disposable repository prepared for class.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "6": {
+      "steps": [
+        {
+          "title": "Inspect the Working Tree",
+          "instruction": "We've opened <strong>Source Control</strong>. Confirm that you are on the prepared feature branch. Inspect every changed file, including dependency manifests and generated files.<br><br>Challenge: state the intended behavior in one sentence and identify which changed lines cross a trust boundary.",
+          "focus": "editor,left",
+          "action": "workbench.view.scm",
+          "actionLabel": "Open Source Control",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Record the Baseline",
+          "instruction": "We've opened the <strong>Terminal</strong>. Run <kbd>git status --short</kbd> and <kbd>git diff --check</kbd>, followed by the repository's normal tests, lint, and build commands.<br><br>Record any inherited failure before changing code. The security review needs a trustworthy baseline.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the sidebar and terminal for you.<br><br>For future reference:<br>&bull; <strong>Source Control</strong>: <kbd>Ctrl+Shift+G</kbd><br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Start a Review Record",
+          "instruction": "We've opened the <strong>Explorer</strong>. Create <code>docs/security-review.md</code> with these headings:<br>&bull; <code># Intended behavior</code><br>&bull; <code>## Trust boundaries</code><br>&bull; <code>## Confirmed findings</code><br>&bull; <code>## Rejected hypotheses</code><br>&bull; <code>## Validation</code>",
+          "focus": "editor,left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Ask Copilot to Review",
+          "instruction": "We've opened <strong>Copilot Chat</strong>. Ask Copilot to review the uncommitted diff. Bound the review to changed code and immediate call paths. Require severity, file location, source-to-sink evidence, remediation, and a regression-test idea for each finding.<br><br>Tell Copilot not to edit files and to label uncertain claims as hypotheses.",
+          "tip": "Use the prompt on slide 8 as a starting point, then add the language, framework, and trust boundary you identified.",
+          "focus": "editor,right",
+          "action": "workbench.action.chat.open",
+          "actionLabel": "Open Copilot Chat"
+        },
+        {
+          "title": "Triage the Findings",
+          "instruction": "Classify each result as <strong>confirmed</strong>, <strong>needs evidence</strong>, <strong>false positive</strong>, or <strong>out of scope</strong>. Record supporting code paths or controls in <code>docs/security-review.md</code>.<br><br>Run <strong>Check Mission Progress</strong> when the review record distinguishes confirmed findings from rejected hypotheses.",
+          "focus": "editor,right",
+          "onLeave": "workbench.action.closeAuxiliaryBar",
+          "validate": [
+            {
+              "type": "fileExists",
+              "path": "docs/security-review.md",
+              "label": "Security review record exists"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/security-review.md",
+              "pattern": "trust boundaries",
+              "label": "Trust boundaries are documented"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/security-review.md",
+              "pattern": "confirmed findings",
+              "label": "Confirmed findings are documented"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/security-review.md",
+              "pattern": "rejected hypotheses",
+              "label": "Rejected hypotheses are documented"
+            }
+          ]
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the Explorer and Chat panels for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd><br>&bull; <strong>Copilot Chat</strong>: <kbd>Ctrl+Shift+I</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "11": {
+      "steps": [
+        {
+          "title": "Implement the Smallest Complete Fix",
+          "instruction": "Use the confirmed source-to-sink path to repair the trust boundary. Prefer the framework's safe API, parameterization, an allowlist, or a least-privilege control over a custom string filter.<br><br>Add a regression test that demonstrates the original weakness. Preserve the intended feature behavior.",
+          "focus": "editor"
+        },
+        {
+          "title": "Validate the Remediation",
+          "instruction": "We've opened the <strong>Terminal</strong>. Run the focused regression test, then the repository's full tests, lint, and build commands. Inspect <kbd>git diff</kbd> again.<br><br>Update the <code>## Validation</code> section with the exact commands, results, and why the revised path is safe.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Check the Evidence",
+          "instruction": "Run <strong>Check Mission Progress</strong>. The review record should describe remediation and reproducible validation, not merely claim that the issue is fixed.",
+          "focus": "guide",
+          "validate": [
+            {
+              "type": "fileContains",
+              "path": "docs/security-review.md",
+              "pattern": "validation",
+              "label": "Validation section exists"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/security-review.md",
+              "pattern": "test|lint|build",
+              "label": "Validation commands are recorded"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/security-review.md",
+              "pattern": "remediat|fix|safe",
+              "label": "Remediation reasoning is recorded"
+            }
+          ]
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "16": {
+      "steps": [
+        {
+          "title": "Create a Reviewed Commit",
+          "instruction": "We've opened the <strong>Terminal</strong>. Inspect <kbd>git diff --check</kbd> and <kbd>git status --short</kbd> one final time. Commit only the reviewed implementation, regression test, and <code>docs/security-review.md</code>.<br><br>Do not include unrelated working-tree changes.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal"
+        },
+        {
+          "title": "Open a Draft Pull Request",
+          "instruction": "Push the feature branch, then run <kbd>gh pr create --draft --fill</kbd>. In the description, summarize the trust boundary, confirmed finding, remediation, and local validation. Link to <code>docs/security-review.md</code>.<br><br>Leave the pull request in draft while CodeQL and required checks run.",
+          "focus": "terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "18": {
+      "steps": [
+        {
+          "title": "Identify the Evidence Source",
+          "instruction": "In the prepared pull request, identify which capability produced each item:<br>&bull; <strong>CodeQL</strong> alert and data-flow path<br>&bull; <strong>Copilot Autofix</strong> code suggestion<br>&bull; <strong>Agentic Autofix</strong> draft pull request, if enabled<br>&bull; <strong>Copilot code review</strong> comments<br><br>Do not treat these outputs as interchangeable.",
+          "focus": "guide"
+        },
+        {
+          "title": "Trace the CodeQL Alert",
+          "instruction": "Open the prepared code-scanning alert. Record the untrusted source, propagation steps, missing control, sensitive sink, query name, and severity.<br><br>Compare the deterministic path with your local review. Identify which evidence agrees and which evidence is new.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "20": {
+      "steps": [
+        {
+          "title": "Evaluate the Autofix",
+          "instruction": "Inspect the complete <strong>Copilot Autofix</strong> suggestion. Decide whether it breaks the full source-to-sink path, uses an established safe API, preserves intended behavior, and covers alternate paths.<br><br>Choose <strong>accept</strong>, <strong>revise</strong>, or <strong>reject</strong>. Record the evidence behind your decision in the pull request or review record.",
+          "focus": "guide"
+        },
+        {
+          "title": "Verify the Proposed Patch",
+          "instruction": "We've opened the <strong>Terminal</strong>. Check out the prepared remediation branch if directed by the instructor. Run the regression test, full validation suite, and <kbd>gh pr checks</kbd>.<br><br>A disappearing alert is one piece of evidence. Confirm that behavior and adjacent security controls remain correct.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "23": {
+      "steps": [
+        {
+          "title": "Inspect Every Gate",
+          "instruction": "We've opened the <strong>Terminal</strong>. Run <kbd>gh pr checks</kbd> and <kbd>gh pr diff</kbd>. Confirm that tests, lint, build, and code scanning apply to the current pull-request commit.<br><br>Compare the final diff with the intended behavior and the local security review record.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Make the Human Decision",
+          "instruction": "Confirm that every alert is resolved or has a documented dismissal reason, every generated change was reviewed, and an accountable human approval is still required.<br><br>Stop before merge unless you are the authorized approver for this disposable repository.",
+          "focus": "guide"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "24": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You completed the secure change loop.<br><br>You practiced:<br>&bull; Inspecting and threat-modeling a local diff<br>&bull; Using Copilot for an evidence-based security review<br>&bull; Triaging findings before editing<br>&bull; Remediating with regression tests and reproducible validation<br>&bull; Comparing local reasoning with CodeQL data-flow evidence<br>&bull; Evaluating Copilot Autofix as a proposed patch<br>&bull; Preserving human accountability at merge<br><br>The key result is a pull request that arrives with a security story already supported by evidence.",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}
