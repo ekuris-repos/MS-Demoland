@@ -86,7 +86,7 @@
           <li>Business and Enterprise seats contribute to a <strong>shared, pooled</strong> credit balance</li>
         </ul>
         <aside class="speaker-notes">
-          This is the entire prior course compressed into one slide. If your audience took the billing course, treat this as a five-second refresher. If they did not, this is the minimum they need. The key line is that credits map to tokens and tokens map to behavior. More context, longer output, and heavier models cost more. That single fact is what makes workflow design a financial decision and not just an engineering preference.
+          If you joined us for the billing course, this is a quick refresher. If you did not, here is the foundation we need: credits map to tokens, and tokens map to behavior. More context, longer output, and heavier models generally cost more. That makes workflow design more than an engineering preference. At enterprise scale, it becomes a financial decision because a small inefficiency is multiplied across people, repositories, and repeated runs.
         </aside>
       </div>
     </section>
@@ -172,10 +172,10 @@
           <div class="card">
             <h3>Workflow-Driven</h3>
             <ul>
-              <li>Shared artifacts carry context once, not per developer</li>
+              <li>Shared artifacts reduce repeated explanations and discovery</li>
               <li>Clear scope means the agent acts instead of exploring</li>
               <li>One task, one focused session with only relevant context</li>
-              <li>Knowledge is captured once and reused at near-zero marginal cost</li>
+              <li>Relevant knowledge loads consistently when the workflow needs it</li>
             </ul>
           </div>
         </div>
@@ -187,14 +187,14 @@ graph TD
     U3[Developer 3 re-explains context] --> UT
     UT --> UC[High input tokens per session]
   end
-  subgraph WorkflowDriven [Workflow-driven: pay once]
+  subgraph WorkflowDriven [Workflow-driven: reduce repeated work]
     W1[Capture context in a shared artifact] --> WR[Reused automatically by everyone]
-    WR --> WC[Near-zero marginal cost per use]
+    WR --> WC[Less redundant context and exploration]
   end
         </pre>
 
         <aside class="speaker-notes">
-          The most expensive pattern in most organizations is not a single heavy agent run. It is repetition. Ten developers independently re-explaining the same build process, the same coding standards, and the same migration steps, over and over, every session. Each explanation is paid for in input tokens, every single time. Workflow-driven teams pay for that knowledge once by capturing it in an artifact, and then reuse it for almost nothing. That contrast is the entire thesis of this course.
+          The most expensive pattern in most organizations is not a single heavy agent run. It is repetition. Ten developers independently re-explaining the same build process, the same coding standards, and the same migration steps creates repeated input and often repeated discovery. Workflow-driven teams capture that knowledge in an artifact so it loads consistently when relevant. The artifact still consumes context when loaded, but it can reduce redundant explanation, retries, and tool calls. That measurable reduction is the thesis of this course.
         </aside>
       </div>
     </section>
@@ -245,7 +245,7 @@ graph TD
           <li><strong>High-leverage:</strong> it saves meaningful human effort or reduces real risk</li>
         </ul>
         <aside class="speaker-notes">
-          Not every task deserves an AI workflow. The best candidates are repeatable, well-scoped, rules-based, verifiable, and high-leverage. When a task has all five properties, you can capture it in an artifact and the AI can execute it reliably and cheaply. When a task is a one-off, ambiguous, or impossible to verify, automating it usually costs more than it saves because you pay for exploration and then pay again for human rework. Use these five criteria as a filter before you invest in any artifact.
+          A useful enterprise test is whether three teams could run the same workflow and agree that it succeeded. If the inputs, rules, and acceptance evidence are clear enough to support that agreement, automation can scale without multiplying review effort. If success depends on unwritten judgment, the organization pays twice: first for agent exploration, then for people to interpret or repair the result. These criteria help us invest where automation can produce repeatable evidence, not merely plausible output.
         </aside>
       </div>
     </section>
@@ -287,7 +287,7 @@ graph TD
           </tbody>
         </table>
         <aside class="speaker-notes">
-          This is the slide to photograph. The left column shares a pattern: known steps, clear conventions, and a verifiable result. Those are exactly the workflows where AI is both effective and cheap, because the work is bounded. The right column shares the opposite pattern: ambiguity, long-term consequences, or missing context. Forcing AI into the right column tends to generate cost without confidence. Notice the very first item on the left, dependency upgrades with a known migration path. That is the worked example we will carry through the rest of the course.
+          The important distinction here is not whether AI can attempt the task. It is whether the organization can define and verify the outcome well enough to delegate it responsibly. Work on the left has known steps, clear conventions, and evidence that tells us when it is done. Work on the right contains ambiguity, long-term consequences, or business context that still needs accountable human judgment. Our dependency-upgrade example belongs on the left because it has a known migration path and a testable result. We will carry that example into the workflow design that follows.
         </aside>
       </div>
     </section>
@@ -309,7 +309,7 @@ graph TD
   E -->|High| G[Define workflow and build artifacts]
         </pre>
         <aside class="speaker-notes">
-          You do not have to define every workflow at once. Use a simple decision flow to prioritize. Start by listing the tasks your team repeats. Filter for the ones that are rules-based and verifiable, since those are automatable. Then prioritize by frequency and effort, because that is where the savings concentrate. The high-frequency, high-effort, rules-based, verifiable tasks are where you invest in artifacts first. Everything else goes to a backlog or stays human-led. This keeps your optimization effort focused on the workflows that actually move the credit needle.
+          Think of workflow selection as portfolio management. A task performed once a quarter may be expensive, but it rarely justifies the same artifact investment as a task repeated hundreds of times across engineering. Frequency creates the multiplier, effort sets the potential return, and verification limits the risk. Start where all three align. That gives the organization a result it can measure quickly, while ambiguous or low-frequency work remains human-led until the economics or evidence change.
         </aside>
       </div>
     </section>
@@ -410,7 +410,7 @@ graph LR
           </tbody>
         </table>
         <aside class="speaker-notes">
-          These three artifacts are complementary, not competing. Instructions are the standing rules that should always shape behavior, so they load automatically. Skills are heavier, detailed procedures that you only want loaded when they are relevant, which is why their description-based triggering matters so much for cost. Agent personas bundle a role, a mindset, and a constrained tool set for invoking on demand. The art is matching each part of your defined workflow to the right artifact, which is what the next few slides cover.
+          These artifacts solve different persistence problems. The cost question is where a piece of guidance should live so it appears often enough to help, but not so often that it becomes recurring overhead. A universal convention may justify automatic loading. A detailed procedure should wait until the matching task appears. A specialized role is useful only when its model or tool boundaries change how the work is performed. That placement decision matters more than the number of artifacts a team creates.
         </aside>
       </div>
     </section>
@@ -477,22 +477,16 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>How Artifacts Cut Token Cost</h2>
-        <pre class="mermaid">
-graph LR
-  subgraph Without artifacts
-    A1[Developer re-explains context] --> A2[Agent explores repo to find intent]
-    A2 --> A3[Many tool calls + large context]
-    A3 --> A4[High credits per run]
-  end
-  subgraph With artifacts
-    B1[Instructions carry standing rules] --> B2[Skill supplies the exact procedure]
-    B2 --> B3[Persona limits tools and scope]
-    B3 --> B4[Lower credits per run]
-  end
-        </pre>
+        <h2>Build the Smallest Sufficient Artifact</h2>
+        <ul>
+          <li>Start with the lightest artifact that removes a measured source of repetition or drift</li>
+          <li>Add instructions only for standing rules that justify recurring context</li>
+          <li>Add a skill when a detailed procedure is reused and should load only for matching work</li>
+          <li>Add a custom agent when the workflow needs a durable role, model, or constrained tool set</li>
+          <li>Do not build all three by default; every artifact adds maintenance and can add context when active</li>
+        </ul>
         <aside class="speaker-notes">
-          This diagram makes the savings concrete. Without artifacts, the developer pays to re-explain context, the agent pays to explore and find intent, and the run accumulates many tool calls and a large context window. With artifacts, the standing rules are already present and lean, the skill supplies the exact procedure so no exploration is needed, and the persona limits the tools and scope so the agent acts directly. Same workflow, far fewer tokens. And critically, that reduction applies to every developer and every run, not just one.
+          Optimization does not mean creating the maximum number of customizations. It means adding the smallest artifact that removes a specific source of waste. Start with observed behavior: a repeated convention may justify an instruction, a repeated procedure may justify a skill, and a recurring operator with special tools may justify a custom agent. Stop when the workflow is reliable. An unused or overlapping artifact adds maintenance and may add context without improving the outcome.
         </aside>
       </div>
     </section>
@@ -528,14 +522,14 @@ graph LR
               <td><code>/create-agent</code></td>
             </tr>
             <tr>
-              <td>A mix of all three</td>
-              <td>Instructions + skill + persona together</td>
-              <td>Author rules, then <code>/create-skill</code> and <code>/create-agent</code></td>
+              <td>Multiple measured needs</td>
+              <td>Combine only the artifacts each need justifies</td>
+              <td>Add incrementally and measure after each change</td>
             </tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          This is the decision table for the lab. Read the signal in your defined workflow, then build the matching artifact. A rule that always applies is an instruction file, and it is light enough to write directly. A detailed but occasional procedure is a skill, and create-skill is the fast way to scaffold it. A recurring role with a fixed tool set is a persona, and create-agent scaffolds it. Most mature workflows use all three together, which is exactly what you will build for the migration assistant in the hands-on lab.
+          Choosing the wrong artifact creates a predictable kind of waste. Put an occasional procedure in always-loaded instructions and every matching request carries irrelevant detail. Put a standing rule in an optional skill and behavior becomes inconsistent when the skill does not load. Create a custom agent without a distinct role or tool boundary and the team gains another object to govern without changing the outcome. Start with the lightest fit, measure it, and add another layer only when a separate need remains.
         </aside>
       </div>
     </section>
@@ -577,23 +571,17 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Reuse Artifacts Instead of Re-Explaining</h2>
-        <div class="columns">
-          <div class="card">
-            <h3>Re-Explain (Wasteful)</h3>
-            <p>Each developer pastes the same standards, build steps, and migration process into chat, paying input tokens for the same knowledge every time.</p>
-          </div>
-          <div class="card">
-            <h3>Reuse (Efficient)</h3>
-            <p>The knowledge lives in instructions and skills. It is captured once and applied automatically or on demand, at near-zero marginal cost per use.</p>
-          </div>
-        </div>
-        <ul style="margin-top:1rem">
-          <li>Treat repeated explanations in chat as a signal to build or extend an artifact</li>
-          <li>If you explain the same thing twice, capture it once so you never pay to explain it again</li>
+        <h2>Bound Agent Sessions With AI Credit Limits</h2>
+        <ul>
+          <li>Copilot CLI and the Copilot SDK can apply a soft AI-credit limit to one session</li>
+          <li>Use <code>/limits</code> in an interactive CLI session to view, set, or remove the cap</li>
+          <li>Use <code>--max-ai-credits &lt;credits&gt;</code> for a bounded noninteractive run</li>
+          <li>The limit covers model calls, subagents, and background work such as compaction</li>
+          <li>An in-flight response can finish after the threshold, so actual usage can slightly exceed the limit</li>
+          <li>Session limits complement monthly budgets and spending limits; they do not replace them</li>
         </ul>
         <aside class="speaker-notes">
-          This slide reframes a simple rule. The second time you find yourself explaining the same context to Copilot, stop and capture it. Re-explaining is paying full price for knowledge you already have. Reuse converts that into a one-time cost. This is also a practical trigger for artifact creation: your own repeated explanations are the clearest signal that a skill or an instruction file is overdue. The migration workflow is a perfect example. Nobody should be re-typing the upgrade steps in chat once the skill exists.
+          Treat a session limit as a circuit breaker for one run, not as a substitute for financial governance. Begin with evidence from successful executions, then set the limit high enough to complete normal work while stopping unusual exploration. If healthy runs repeatedly hit the threshold, the answer may be a larger limit, but it may also be a smaller workflow with clearer checkpoints. Because the cap is soft, operators still need monitoring and an escalation path. Monthly budgets govern aggregate exposure; session limits contain the behavior of an individual task.
         </aside>
       </div>
     </section>
@@ -628,10 +616,11 @@ graph LR
           <li>Straightforward steps in a workflow are routed to faster, lower-cost models</li>
           <li>Override manually only when you know the task needs a specific model family</li>
           <li>A well-defined workflow makes routing easier, because each step has a clear complexity profile</li>
+          <li>Auto switches only at cache boundaries and gives paid plans a 10% model-cost discount</li>
           <li>This builds on the model strategy from the billing course; here it is one lever among several</li>
         </ul>
         <aside class="speaker-notes">
-          We covered model strategy in depth in the billing course, so this is a focused reminder rather than a deep dive. Default to Auto and let routing match model cost to task complexity. The connection to this course is that well-defined workflows make routing more effective. When a workflow has clear steps, each step has a predictable complexity, so the routing has better signal. Manual model selection should stay the exception, reserved for steps you know require a particular model family.
+          At enterprise scale, manual model selection can become another source of inconsistency. Auto provides a reasonable operating default and a paid-plan cost advantage, while preserving cache continuity by switching only at natural boundaries. A team should pin a model when it has evidence that a workflow depends on a specific capability, not because a more expensive model feels safer. During a before-and-after experiment, keep the routing strategy and reasoning effort unchanged so the artifact remains the variable you are actually measuring.
         </aside>
       </div>
     </section>
@@ -641,23 +630,17 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>See What You Actually Send</h2>
-        <p>You cannot optimize what you cannot see. Copilot's <strong>debug metadata</strong> exposes the real cost of a single turn, and the <code>usage</code> block is where token spend and AI Credits are reported:</p>
-        <pre><code>usage:
-  prompt_tokens          : 61729     # everything sent to the model
-  completion_tokens      : 2113      # the model's actual reply
-  total_tokens           : 63842
-  prompt_tokens_details:
-    cached_tokens        : 57198     # reused from cache
-    cache_creation_tokens: 4529      # written to cache this turn
-  copilotUsage           : 10.97 AIC # AI Credit cost for this turn  (1 AIC = $0.01)</code></pre>
+        <h2>Measure the Turn and the Session</h2>
+        <p>You cannot optimize what you cannot see. Current VS Code surfaces cost at three useful levels:</p>
         <ul>
-          <li>The cost of a turn is the <strong>assembled request</strong>, not just the words you typed</li>
-          <li>The headline ratio is stark: <strong>61,729</strong> tokens of input produced only <strong>2,113</strong> tokens of output</li>
-          <li>The next two slides break this block down field by field, then explain why caching changes the math</li>
+          <li><strong>Single request:</strong> hover over a chat response to see the AI Credits consumed by that turn</li>
+          <li><strong>Whole session:</strong> open the context-window control to see cumulative credits and token usage</li>
+          <li><strong>Monthly usage:</strong> open the Copilot status dashboard from the VS Code Status Bar</li>
+          <li>Record the same measures before and after changing a workflow or artifact</li>
+          <li>Compare successful runs with the same outcome, model strategy, and acceptance criteria</li>
         </ul>
         <aside class="speaker-notes">
-          You cannot optimize what you cannot see, and the usage block is where you see it. Open Copilot's debug metadata for a single chat turn and you get an itemized receipt for that request. The headline to anchor on first is the ratio between input and output. Roughly sixty-two thousand tokens went into the model and only about two thousand came back. That is the whole reason this course focuses on context discipline rather than on writing shorter prompts or shorter answers: the input side is where the money goes and where you have the most leverage. Do not try to interpret every field on this slide. Use it to set up the two slides that follow, where we walk the fields one at a time and then explain the caching economics that make reuse so much cheaper than re-sending. In the lab you will open this exact view on a real request. Treat the menu path as a starting point and confirm it against your current VS Code version, since the Copilot tooling evolves quickly.
+          These measurements answer different management questions. A response cost helps an engineer compare one turn. Session usage reveals whether the workflow required extra loops or accumulated context. Monthly usage shows whether local improvements matter at portfolio scale. For a controlled experiment, keep the repository, request, model strategy, and acceptance bar constant. Change one artifact, then compare successful outcomes. That gives us evidence about the workflow rather than a number distorted by several moving variables.
         </aside>
       </div>
     </section>
@@ -667,50 +650,40 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Anatomy of the Usage Block</h2>
+        <h2>Inspect the Agent With Debug Logs</h2>
         <table>
           <thead>
             <tr>
-              <th>Field</th>
-              <th>What it represents</th>
-              <th>Why it matters for cost</th>
+              <th>View</th>
+              <th>What it shows</th>
+              <th>Optimization question</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>prompt_tokens</code></td>
-              <td>All input sent: your message, chat history, attached files, instruction files, and every available tool schema</td>
-              <td>The largest and most controllable cost; right-sizing context moves this number directly</td>
+              <td>Summary</td>
+              <td>Session token usage, tool-call count, errors, and duration</td>
+              <td>Did the optimized run use fewer turns, tools, or tokens?</td>
             </tr>
             <tr>
-              <td><code>completion_tokens</code></td>
-              <td>The tokens the model generated in its reply</td>
-              <td>Usually small next to input, so shortening answers rarely saves much</td>
+              <td>Logs</td>
+              <td>Chronological LLM requests, tool executions, and discovery events</td>
+              <td>Where did exploration or retry loops begin?</td>
             </tr>
             <tr>
-              <td><code>total_tokens</code></td>
-              <td>Prompt plus completion</td>
-              <td>The headline volume for the turn</td>
+              <td>Chat Debug</td>
+              <td>Raw system prompt, user prompt, context, and tool payloads</td>
+              <td>Which customizations and context were actually sent?</td>
             </tr>
             <tr>
-              <td><code>cached_tokens</code></td>
-              <td>The portion of the input served from cache</td>
-              <td>Billed at a fraction of fresh input, so reuse is cheaper than re-sending</td>
-            </tr>
-            <tr>
-              <td><code>cache_creation_tokens</code></td>
-              <td>New input written to the cache this turn</td>
-              <td>Billed at a premium above standard input</td>
-            </tr>
-            <tr>
-              <td><code>copilotUsage</code></td>
-              <td>The turn rolled up into AI Credits</td>
-              <td>The single number engineering and finance can both track</td>
+              <td>Cache Explorer</td>
+              <td>Cache-hit percentage, reused input tokens, and the first prefix divergence</td>
+              <td>Did a settings, tool, instruction, or model change break the cache?</td>
             </tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          Now walk the fields one at a time. Prompt tokens is the big one, and it is broader than people expect. It is not just the message you typed. It includes the running chat history, every file you attached, the instruction files in scope, and the JSON schema for every tool the agent can call. That is why an over-scoped agent or a bloated instruction file shows up here as real cost on every single turn. Completion tokens is the reply, and it is usually small by comparison, which is why trying to save money by asking for terse answers misses the point. Total tokens is just the sum. The two cache fields are the interesting part and we give them their own slide next, but the short version is that cached tokens are cheap reused input and cache-creation tokens are the premium you pay to write new entries. Finally, copilotUsage is the line that translates all of this into AI Credits, and it is the number worth tracking over time because both engineering and finance understand it.
+          Suppose the optimized run costs more even though we added only a short instruction. We can begin with the session summary to see whether the increase came from tokens, tools, errors, or duration. If tool calls grew, the chronological log may reveal an exploration loop. If input grew, Chat Debug can confirm whether overlapping instructions or unexpected context loaded. Cache Explorer becomes relevant only when consecutive turns show poor reuse. This symptom-first approach keeps diagnosis focused and avoids exposing detailed prompt data unless the investigation truly needs it.
         </aside>
       </div>
     </section>
@@ -722,15 +695,15 @@ graph LR
       <div class="slide-inner">
         <h2>Why Caching Changes the Math</h2>
         <ul>
-          <li>In this turn, <strong>57,198 of 61,729</strong> prompt tokens (about 93%) were served from cache and billed at a fraction of fresh input</li>
-          <li>Cache <strong>hits</strong> are cheap; cache <strong>writes</strong> (<code>cache_creation_tokens</code>) are billed at a premium above standard input</li>
+          <li>Cached input is typically billed below fresh input; consult the current model pricing table for exact rates</li>
+          <li>Some models publish a separate cache-write rate, while many models do not</li>
           <li>Caching is calculated <strong>at the model provider</strong>, so an Anthropic model and an OpenAI model decide what is cacheable differently</li>
           <li>You do <strong>not</strong> control caching directly. It is a provider optimization, not a setting you tune</li>
-          <li>What you <strong>do</strong> control is <code>prompt_tokens</code>: shrink the input and the whole turn gets cheaper, cache or no cache</li>
-          <li>The practical levers are <strong>summarization</strong> and <strong>compaction</strong> (for example a <code>/compact</code> command) to carry forward only what matters instead of the full history</li>
+          <li>Keep the request prefix stable by choosing the model strategy, tools, and instructions before the session</li>
+          <li>Use <strong>Cache Explorer</strong> to find the first divergence and <code>/compact</code> to continue from a shorter summary</li>
         </ul>
         <aside class="speaker-notes">
-          This slide is the payoff, but it comes with an important clarification so nobody leaves with the wrong mental model. Caching is real and it matters: on this turn over ninety percent of the input was served from cache at a fraction of the price of fresh input. But caching is decided at the model provider, not by you. Anthropic and OpenAI implement prompt caching differently, with their own rules for what is eligible, how long entries live, and how hits and writes are priced. Treat the cache fields as something you observe and benefit from, not a dial you turn. The dial you actually control is the input itself. Prompt tokens is the lever. If you send less, the turn is cheaper whether or not the provider caches it, and you also give the provider a smaller, more stable surface to cache. The concrete tools for shrinking input are summarization and compaction. Many tools expose a compact command, often slash compact, that collapses a long transcript down to the decisions and state that still matter, so the next turn does not re-send the entire history. Tie this back to the habits from earlier in the course: lean instruction files, right-sized context, fresh focused sessions, and compaction when a session must run long. Those are the things you can actually do. Caching is the provider quietly rewarding you for doing them.
+          Caching is real and it matters, but the provider decides what is eligible, how long entries live, and how reads and writes are priced. Cached input is typically cheaper than fresh input. A separate cache-write premium exists only for models whose current pricing table lists one, so never generalize that charge across providers. You cannot turn caching on directly, but you can preserve a stable request prefix: choose tools and settings before the session, avoid changing instructions midstream, and let Auto switch only at cache boundaries. Use Cache Explorer to observe the result, and use slash compact when a long session must continue with a smaller summary.
         </aside>
       </div>
     </section>
@@ -764,7 +737,7 @@ graph LR
         </div>
         <p style="margin-top:1rem">Optimize for <strong>the cheapest correct answer</strong>, not the smallest possible prompt.</p>
         <aside class="speaker-notes">
-          This is the most important nuance in the whole optimization section, and it is the one teams get wrong once they get excited about cutting tokens. Token reduction is not a goal in itself. It has a floor. If you strip context too aggressively, the model does not simply fail quietly. It goes looking for what you withheld. In an agentic setting that means tool calls: it reads files, runs searches, lists directories, and re-discovers the state you could have just handed it. Every one of those tool results comes back as input tokens on the following turn, and the model may need several of these loops before it has enough to answer. So the under-context request that looked cheap on paper can end up more expensive than a well-formed one, and slower, and lower quality on top of that. The mental model to leave them with is a U-shaped cost curve. On the left, too much context, you pay for tokens the model did not need. On the right, too little context, you pay for the model to go re-acquire it through tools. The minimum sits in the middle: curated, right-sized context. This is exactly why the artifact discipline from earlier matters. A good instruction file or skill supplies the standing context the model would otherwise have to hunt for, so you land in that low-cost middle by default. The slogan is the takeaway: optimize for the cheapest correct answer, not the smallest possible prompt.
+          Token reduction is not a goal by itself. If we remove too much context, the model often compensates by reading files, searching directories, and rediscovering state through tool calls. Those results become new input on later turns, so a prompt that looked inexpensive can produce a slower and more costly run. Think of the tradeoff as a U-shaped curve. Too much context pays for information the model did not need. Too little context pays for discovery and retries. The efficient point sits between those extremes, where the model receives enough curated context to produce an accepted outcome without unnecessary exploration. That is why we optimize for the cheapest correct answer, not the smallest prompt.
         </aside>
       </div>
     </section>
@@ -826,13 +799,15 @@ graph LR
         <ul>
           <li>Track credits <strong>per workflow run</strong>, not only the organization-wide total</li>
           <li>Compare before and after you introduce artifacts for a workflow</li>
-          <li>Watch model mix and tool-call counts as leading indicators of cost</li>
+          <li>Copilot CLI OpenTelemetry can export token, cache, tool, duration, and outcome attributes</li>
+          <li>Estimate AI Credits by joining exported token usage to the current rate for each model</li>
+          <li>Keep prompt and response content capture off unless policy and a specific investigation justify it</li>
           <li>Celebrate high-value spend; coach on high-cost, low-value patterns</li>
           <li>Feed what you learn back into the workflow definitions and artifacts</li>
         </ul>
 
         <aside class="speaker-notes">
-          Total spend is a lagging, blunt metric. Efficiency per workflow is what tells you whether your optimization work is paying off. The most powerful measurement is a simple before-and-after: capture the typical credit cost of a workflow, introduce the artifacts, then measure again. That number makes the value of this entire approach concrete to both engineering and finance. Model mix and tool-call counts are useful leading indicators. And the loop closes by feeding insights back into the workflow definitions, which is the operationalize step we turn to next.
+          Total spend is a lagging, blunt metric. Efficiency per workflow is what tells you whether optimization is paying off. The strongest local measurement is a controlled before-and-after run. At scale, Copilot CLI can export OpenTelemetry attributes for tokens, cache use, tools, duration, and outcomes. Token counts are not themselves AI Credits. Join them to the current model rates when you need an independent credit estimate, and preserve the model identity and timestamp because pricing changes. Content capture is disabled by default and should remain so unless governance approves a specific diagnostic need.
         </aside>
       </div>
     </section>
@@ -865,7 +840,7 @@ graph LR
   E --> A
         </pre>
         <aside class="speaker-notes">
-          Optimization is not a project with an end date. It is a loop. Define the workflow, build the artifacts, run it efficiently, measure the cost per run, and refine. Each lap lowers the baseline a little more and captures a little more knowledge. The reason we draw it as a cycle is to set the right expectation: you are establishing a practice, not checking a box. Teams that internalize this loop steadily drive down their cost per outcome while increasing the share of work AI handles well.
+          This loop becomes useful when someone owns it and each pass produces evidence. A platform team might own the measurement method, while workflow owners define acceptance criteria and decide whether an artifact stays. Record the model, rate date, outcome, and major configuration changes with each baseline so comparisons remain meaningful over time. The objective is not endless tuning. It is a stable operating practice that revisits a workflow when cost, quality, tooling, or business requirements change.
         </aside>
       </div>
     </section>
@@ -894,16 +869,16 @@ graph LR
             </tr>
             <tr>
               <td>Week 3</td>
-              <td>Build supporting artifacts: lean instructions, plus skills and personas via <code>/create-skill</code> and <code>/create-agent</code></td>
+              <td>Add the smallest artifact that addresses the first measured problem, then repeat the workflow</td>
             </tr>
             <tr>
               <td>Week 4</td>
-              <td>Measure credits per run before and after, document wins, and feed lessons back into the definitions</td>
+              <td>Keep changes that improve cost per successful outcome; add another artifact only for a distinct remaining need</td>
             </tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          A 30-day plan keeps this from becoming an abstract good intention. Week 1 is selection: do not try to automate everything, pick two or three high-value workflows. Week 2 is definition, the discipline from Part 2. Week 3 is artifact building, where the create commands earn their keep. Week 4 is measurement and feedback, which proves the value and starts the loop. After one month you will have a small set of well-optimized workflows and, just as importantly, a repeatable method for the next ones.
+          A month is enough time to prove the method without turning optimization into a large transformation program. Give each selected workflow an owner, an acceptance bar, and a baseline that finance and engineering can both understand. The exit criterion is not that every artifact was created. It is that the team can show which change improved cost per accepted outcome and which changes were rejected. That evidence creates a credible rollout story for the next set of workflows.
         </aside>
       </div>
     </section>
@@ -920,11 +895,12 @@ graph LR
           <li>Capture standing rules in <strong>lean</strong> instruction files</li>
           <li>Reach for <code>/create-skill</code> when a procedure is worth reusing</li>
           <li>Reach for <code>/create-agent</code> when a recurring role needs a constrained tool set</li>
-          <li>Right-size context, reuse artifacts, and keep sessions focused</li>
-          <li>Inspect real requests and measure credits per workflow run</li>
+          <li>Right-size context, keep sessions focused, and compact only when continuity is valuable</li>
+          <li>Set a session AI-credit limit for bounded or unattended agent work</li>
+          <li>Measure a successful baseline and change one variable at a time</li>
         </ul>
         <aside class="speaker-notes">
-          This checklist is deliberately short so teams will actually use it. The top item is the whole philosophy: define the workflow first. Everything below it is the mechanism. If a team does nothing else, getting them to define workflows before reaching for tools, and to capture repeated knowledge in artifacts, will move their cost per outcome more than any amount of prompt tweaking. Keep this visible, refine it with your own examples, and let it set the default culture.
+          This checklist is deliberately short so teams will actually use it. Define the workflow first, then choose the smallest intervention supported by evidence. Bound unattended work with a session limit, measure a successful baseline, and change one variable at a time. The target is not the fewest tokens in isolation. It is the lowest repeatable cost for an accepted outcome.
         </aside>
       </div>
     </section>
@@ -951,14 +927,14 @@ graph LR
         <ul>
           <li>Workflow design controls your <strong>baseline</strong> cost; budgets only control the ceiling</li>
           <li>Define what AI <strong>should</strong> and <strong>should not</strong> own before reaching for any tool</li>
-          <li>Capture workflows in <strong>instructions, skills, and agent personas</strong> to pay for knowledge once</li>
+          <li>Add the <strong>smallest sufficient artifact</strong> to reduce repeated explanation, exploration, or correction</li>
           <li>Reach for <code>/create-skill</code> and <code>/create-agent</code> when a workflow is worth scaffolding</li>
           <li>Right-size context, reuse artifacts, and keep sessions focused to cut per-run tokens</li>
-          <li>Inspect what you send and measure credits per run to optimize with evidence</li>
+          <li>Use response cost, session usage, Agent Debug Logs, and Cache Explorer to optimize with evidence</li>
           <li>The goal is high value per credit, not minimal usage</li>
         </ul>
         <aside class="speaker-notes">
-          If the room leaves with only these points, the course has done its job. The biggest shift is the order of operations. Workflows first, then artifacts, then techniques. Optimization is not about using AI less. It is about being deliberate so each credit buys more value. Teams that adopt this will still spend credits, and that is fine. They will simply spend them on bounded, high-leverage work that they have measured and improved.
+          The biggest shift is the order of operations: workflows first, then the smallest justified artifact, then optimization techniques supported by measurement. We are not trying to minimize AI use. We are trying to make each credit produce an accepted outcome with less waste and more predictability. Your teams will still spend credits, and high-value usage should be encouraged. The governance question is whether that spend supports bounded work that you can measure, explain, and improve.
         </aside>
       </div>
     </section>
@@ -973,12 +949,15 @@ graph LR
           <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-organizations-and-enterprises">Usage-based billing for organizations and enterprises</a></li>
           <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing">Models and pricing for GitHub Copilot</a></li>
           <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/concepts/models/auto-model-selection">About Copilot auto model selection</a></li>
-          <li><strong>VS Code Docs:</strong> <a href="https://code.visualstudio.com/docs/copilot/copilot-customization">Customize Copilot with instructions, prompts, and chat modes</a></li>
+          <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/set-session-limit">Set an AI credit session limit in Copilot CLI</a></li>
+          <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#opentelemetry-monitoring">Monitor Copilot CLI with OpenTelemetry</a></li>
+          <li><strong>VS Code Docs:</strong> <a href="https://code.visualstudio.com/docs/copilot/chat/chat-debug-view">Troubleshoot chat with Agent Debug Logs and Cache Explorer</a></li>
+          <li><strong>VS Code Docs:</strong> <a href="https://code.visualstudio.com/docs/copilot/customization/overview">Customize AI in VS Code</a></li>
           <li><strong>Prior course:</strong> Copilot Billing - From PRUs to Usage-Based Billing</li>
           <li><strong>Earlier courses:</strong> Prompts, Instructions, Skills, and Agents, plus Enterprise-Grade Marmalade for artifact mechanics</li>
         </ul>
         <aside class="speaker-notes">
-          These are the sources I would keep in your rollout packet. The billing and pricing docs anchor the cost model. The customization docs explain the artifact mechanics in depth. And the prior courses are the prerequisites: the billing course for the financial model, and the prompts-instructions-skills-and-agents and Marmalade courses for how the artifacts are authored. This course assumes that foundation and focuses on the strategy of using it to conserve credits.
+          Keep these sources in the rollout packet because product surfaces and rates evolve. Billing and pricing anchor the cost model. CLI monitoring documents session limits, and the CLI command reference documents OpenTelemetry. The VS Code debug guide covers Agent Debug Logs and Cache Explorer, while the customization overview covers artifact mechanics. Recheck the live docs before using fixed rates or UI paths in policy.
         </aside>
       </div>
     </section>
