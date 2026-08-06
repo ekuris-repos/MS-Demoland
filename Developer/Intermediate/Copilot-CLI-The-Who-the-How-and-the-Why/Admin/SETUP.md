@@ -4,17 +4,16 @@
 
 ## Prerequisites
 
-- [ ] Node.js installed (v18+)
-- [ ] npm or yarn available
-- [ ] Git clone of this repository
+- [ ] A supported GitHub Copilot plan with Copilot CLI enabled by policy
+- [ ] Copilot CLI installed through npm, WinGet, Homebrew, or a direct download
+- [ ] Node.js 22 or later only when using the npm installation route
+- [ ] PowerShell 6 or later on Windows
+- [ ] Git clone of this repository in a location safe for lab changes
 
 ## Quick Start
 
-1. Open a terminal in the course folder:
-   ```
-   cd "Developer\Intermediate\Copilot-CLI-The-Who-the-How-and-the-Why"
-   ```
-2. Install dependencies:
+1. Open a terminal at the repository root.
+2. Install the slide-site dependencies:
    ```
    npm install
    ```
@@ -22,7 +21,10 @@
    ```
    npm run dev
    ```
-4. Open the URL shown in the terminal (typically http://localhost:5173).
+4. Open the course URL:
+   ```
+   http://localhost:5173/Developer/Intermediate/Copilot-CLI-The-Who-the-How-and-the-Why/
+   ```
 
 ## Presenting
 
@@ -34,9 +36,12 @@
 | Issue | Fix |
 |-------|-----|
 | Port already in use | Change port in `vite.config.js` or kill the process using the port |
-| Styles missing | Run `npm install` again to ensure `primer-brand.css` is present |
+| `copilot` command not found | Reopen the terminal and verify the selected installation method |
+| Copilot access denied | Confirm plan eligibility and organization policy with an administrator |
 | Slides not advancing | Check browser console for JS errors in `slides.js` |
 
 ## Additional Setup
 
-_Add any course-specific environment setup, API keys, demo repos, or tooling here._
+- Use a disposable branch or worktree for lab exercises that create files.
+- Authenticate interactively before delivery and verify the GitHub MCP server can read the demo repository.
+- Do not store tokens in the course files or shell history.

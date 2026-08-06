@@ -31,45 +31,37 @@
 ## Slide-by-Slide Checklist
 
 - [x] Slide 1 — Title slide finalized
-- [x] Slide 2 — Overview section divider
-- [x] Slide 3 — Agenda: Today's Journey
-- [x] Slide 4 — Part 1 section divider: What Is Copilot CLI?
-- [x] Slide 5 — Copilot CLI at a Glance
+- [x] Slide 2 — Today's Journey
+- [x] Slide 3 — Copilot CLI at a Glance
+- [x] Slide 4 — Who Is Copilot CLI For?
+- [x] Slide 5 — How Copilot CLI Works
 - [x] Slide 6 — Prerequisites
-- [x] Slide 7 — Installing Copilot CLI (code block)
-- [x] Slide 8 — Part 2 section divider: Core Commands
-- [x] Slide 9 — gh copilot suggest (code block)
-- [x] Slide 10 — gh copilot explain (code block)
-- [x] Slide 11 — The Suggest Workflow
-- [x] Slide 12 — Interactive vs. One-Shot Mode (two-column)
-- [x] Slide 13 — Shell Type Awareness (code block)
-- [x] Slide 14 — Part 3 section divider: CLI vs. VS Code Chat
-- [x] Slide 15 — Key Differences (two-column)
-- [x] Slide 16 — When to Use Which
-- [x] Slide 17 — Combining CLI and Chat
-- [x] Slide 18 — Part 4 section divider: Practical Workflows
-- [x] Slide 19 — Git Operations (code block)
-- [x] Slide 20 — Docker & Infrastructure (code block)
-- [x] Slide 21 — File System & Text Processing (code block)
-- [x] Slide 22 — GitHub CLI Integration (code block)
-- [x] Slide 23 — Part 5 section divider: Session Context & Model Selection
-- [x] Slide 24 — Session Persistence
-- [x] Slide 25 — Model Selection
-- [x] Slide 26 — Part 6 section divider: Enterprise & Security
-- [x] Slide 27 — Enterprise SSO Authentication
-- [x] Slide 28 — Security: What Goes to the Cloud
-- [x] Slide 29 — What Stays Local
-- [x] Slide 30 — Part 7 section divider: Power User Techniques
-- [x] Slide 31 — Aliases & Shell Functions (code block)
-- [x] Slide 32 — Advanced Shell Functions (code block)
-- [x] Slide 33 — Tips for Better Suggestions
-- [x] Slide 34 — Common Pitfalls
-- [x] Slide 35 — Summary section divider
-- [x] Slide 36 — Key Takeaways
-- [x] Slide 37 — Where to Go Next
-- [x] Slide 38 — Closing slide
+- [x] Slide 7 — Installing Copilot CLI
+- [x] Slide 8 — First Launch and Trust
+- [x] Slide 9 — The Interactive Interface
+- [x] Slide 10 — Interaction Modes
+- [x] Slide 11 — Tool Approval
+- [x] Slide 12 — Slash Commands
+- [x] Slide 13 — Programmatic Mode
+- [x] Slide 14 — Customization
+- [x] Slide 15 — Custom Instructions and Memory
+- [x] Slide 16 — MCP Servers
+- [x] Slide 17 — Agents, Hooks, and Model Selection
+- [x] Slide 18 — Local Tasks
+- [x] Slide 19 — GitHub.com Tasks
+- [x] Slide 20 — CLI vs. VS Code Chat
+- [x] Slide 21 — Key Differences
+- [x] Slide 22 — When to Use Which
+- [x] Slide 23 — Trust and Security
+- [x] Slide 24 — Security Considerations
+- [x] Slide 25 — Aliases and Shell Integration
+- [x] Slide 26 — Write a Complete Task Contract
+- [x] Slide 27 — From Features to Practice
+- [x] Slide 28 — Choose the Operating Pattern
+- [x] Slide 29 — Where to Go Next
+- [x] Slide 30 — Closing slide
 
 ## Notes
 
-_Full 38-slide deck written with comprehensive speaker notes. No lab.json for this course. Ready for human review._
+_The deck contains 30 slides with mapped lab exercises and complete speaker notes. Product accuracy, visual review, and delivery rehearsal remain before human review._
 

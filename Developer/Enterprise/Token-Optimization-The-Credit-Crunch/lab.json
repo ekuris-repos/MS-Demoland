@@ -10,7 +10,7 @@
         }
       ]
     },
-    "14": {
+    "10": {
       "steps": [
         {
           "title": "Create the Results Worksheet",
@@ -62,7 +62,7 @@
         }
       ]
     },
-    "17": {
+    "12": {
       "steps": [
         {
           "title": "Create a Scoped Instruction",
@@ -123,7 +123,7 @@
         }
       ]
     },
-    "18": {
+    "13": {
       "steps": [
         {
           "title": "Open Copilot Chat",
@@ -146,7 +146,7 @@
         }
       ]
     },
-    "19": {
+    "14": {
       "steps": [
         {
           "title": "Open Copilot Chat",
@@ -169,7 +169,7 @@
         }
       ]
     },
-    "27": {
+    "20": {
       "steps": [
         {
           "title": "Open Agent Debug Logs",
@@ -192,7 +192,7 @@
         }
       ]
     },
-    "40": {
+    "30": {
       "steps": [
         {
           "title": "Lab Complete!",

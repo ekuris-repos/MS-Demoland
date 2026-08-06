@@ -10,7 +10,7 @@
         }
       ]
     },
-    "9": {
+    "6": {
       "steps": [
         {
           "title": "Verify Node.js Version",
@@ -21,7 +21,7 @@
         },
         {
           "title": "Verify PowerShell Version (Windows)",
-          "instruction": "If you are on Windows, confirm PowerShell v6 or higher:<br><br><kbd>$PSVersionTable.PSVersion</kbd><br><br>If below v6, install PowerShell 7 from <code>winget install Microsoft.PowerShell</code>.",
+          "instruction": "If you are on Windows, confirm PowerShell v6 or higher:<br><br><kbd>$PSVersionTable.PSVersion</kbd><br><br>If below v6, install PowerShell 7 with <kbd>winget install Microsoft.PowerShell</kbd>.",
           "focus": "terminal",
           "onLeave": "workbench.action.closePanel"
         },
@@ -32,11 +32,11 @@
         }
       ]
     },
-    "10": {
+    "7": {
       "steps": [
         {
           "title": "Install Copilot CLI",
-          "instruction": "Install Copilot CLI globally with npm:<br><br><kbd>npm install -g @github/copilot</kbd><br><br>This makes the <code>copilot</code> command available in any terminal session.",
+          "instruction": "This lab uses the npm installation route. Install Copilot CLI globally:<br><br><kbd>npm install -g @github/copilot</kbd><br><br>If you prefer a native installer, use the WinGet or Homebrew command shown on the slide instead.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
           "actionLabel": "Open Terminal"
@@ -55,7 +55,7 @@
         }
       ]
     },
-    "11": {
+    "8": {
       "steps": [
         {
           "title": "Launch Copilot CLI",
@@ -72,7 +72,7 @@
         },
         {
           "title": "Exit the Session",
-          "instruction": "For now, exit the session so we can explore features one at a time:<br><br>Press <kbd>Ctrl+C</kbd> or type <kbd>/exit</kbd>",
+          "instruction": "For now, exit the session so we can explore features one at a time:<br><br>Press <kbd>Ctrl+D</kbd> or type <kbd>/exit</kbd>. Use <kbd>Ctrl+C</kbd> when you need to cancel the current operation or clear the input.",
           "focus": "terminal",
           "onLeave": "workbench.action.closePanel"
         },
@@ -83,11 +83,11 @@
         }
       ]
     },
-    "13": {
+    "9": {
       "steps": [
         {
           "title": "Start an Interactive Session",
-          "instruction": "Launch a new Copilot CLI session:<br><br><kbd>copilot</kbd><br><br>Trust the directory when prompted, then try a simple request:<br><br><kbd>What files are in this directory?</kbd><br><br>Copilot will read your directory and respond. Notice how it requests approval before using any tools.",
+          "instruction": "Launch a new Copilot CLI session:<br><br><kbd>copilot</kbd><br><br>Trust the directory when prompted, then try a simple request:<br><br><kbd>What files are in this directory?</kbd><br><br>Copilot will read your directory and respond. Notice which tools run under the default policy and which actions request approval.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
           "actionLabel": "Open Terminal"
@@ -99,9 +99,9 @@
         },
         {
           "title": "Steer While Thinking",
-          "instruction": "Try sending a message while Copilot is still processing a response. You can queue additional instructions or redirect the conversation without waiting for it to finish.<br><br>This is a powerful feature for staying in control of complex interactions.",
+          "instruction": "Try sending a message while Copilot is still processing a response. Steering input can redirect the active run, while queued input waits for the current work to finish.",
           "focus": "terminal",
-          "tip": "When Copilot is thinking, you can type additional messages that it will process after completing its current response.",
+          "tip": "Use steering to correct the current approach. Use queued input when you want another instruction to run afterward.",
           "onLeave": "workbench.action.closePanel"
         },
         {
@@ -111,7 +111,7 @@
         }
       ]
     },
-    "14": {
+    "10": {
       "steps": [
         {
           "title": "Switch to Plan Mode",
@@ -124,11 +124,11 @@
           "title": "Review the Plan",
           "instruction": "Examine the plan Copilot presents. Check whether it matches your intent:<br><br>&bull; Does it create the right files?<br>&bull; Does it use the approach you expected?<br>&bull; Are there any steps you would change?<br><br>Approve the plan to let Copilot proceed, or provide feedback to adjust it.",
           "focus": "terminal",
-          "tip": "Press <kbd>Shift+Tab</kbd> again to cycle to autopilot mode, then again to return to standard mode. Each mode is suited to different levels of trust and task complexity."
+          "tip": "Press <kbd>Shift+Tab</kbd> again to cycle to autopilot mode, then again to return to standard mode. Choose a mode based on uncertainty, scope, isolation, and how you will verify the result."
         },
         {
           "title": "Explore Autopilot Mode",
-          "instruction": "Press <kbd>Shift+Tab</kbd> until you reach <strong>autopilot mode</strong>. In this mode, Copilot works through multi-step tasks with greater autonomy.<br><br>For a quick test, try: <kbd>List all files in this directory and tell me what each one does</kbd><br><br>Notice that Copilot proceeds through tool calls without asking for individual approval.",
+          "instruction": "Press <kbd>Shift+Tab</kbd> until you reach <strong>autopilot mode</strong>. Use a read-only request for this comparison:<br><br><kbd>List the top-level files in this directory and group them by purpose</kbd><br><br>Before submitting, confirm that the task has a narrow scope and an answer you can verify.",
           "focus": "terminal",
           "tip": "On the command line, use <code>--autopilot</code> and <code>--max-autopilot-continues=N</code> to control autonomous runs.",
           "onLeave": "workbench.action.closePanel"
@@ -140,7 +140,7 @@
         }
       ]
     },
-    "15": {
+    "11": {
       "steps": [
         {
           "title": "Trigger a Tool Approval",
@@ -162,7 +162,7 @@
         }
       ]
     },
-    "16": {
+    "12": {
       "steps": [
         {
           "title": "Try Slash Commands",
@@ -173,9 +173,32 @@
         },
         {
           "title": "Compact the Context",
-          "instruction": "If you have been chatting for a while, try:<br><br><kbd>/compact</kbd><br><br>This manually compresses your conversation history to free up context space. Copilot also does this automatically at 95% capacity, enabling virtually unlimited sessions.",
+          "instruction": "If you have been chatting for a while, try:<br><br><kbd>/compact</kbd><br><br>This summarizes conversation history to free context space. Copilot also compacts automatically near 95% capacity, but a summary can omit detail, so restate critical constraints when precision matters.",
           "focus": "terminal",
           "tip": "Press <kbd>Esc</kbd> to cancel a compaction if you change your mind.",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "13": {
+      "steps": [
+        {
+          "title": "Programmatic Mode",
+          "instruction": "Exit your interactive session if one is running (<kbd>Ctrl+D</kbd> or <kbd>/exit</kbd>). Then try programmatic mode:<br><br><kbd>copilot -p \"What is the current date and time?\"</kbd><br><br>Copilot processes the request and exits. No ongoing session.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal"
+        },
+        {
+          "title": "Use Approval Flags",
+          "instruction": "Run the same task as bounded automation:<br><br><kbd>copilot -p \"Show me this week's git commits and summarize them\" -s --no-ask-user --allow-tool='shell(git)' --max-ai-credits=30</kbd><br><br>This command has one purpose, one tool family, script-friendly output, and a soft AI credit guardrail. A model call can cross the threshold before the next call is blocked.",
+          "focus": "terminal",
+          "tip": "Prefer a small allow pattern over broad access plus a deny list.",
           "onLeave": "workbench.action.closePanel"
         },
         {
@@ -188,31 +211,8 @@
     "18": {
       "steps": [
         {
-          "title": "Programmatic Mode",
-          "instruction": "Exit your interactive session if one is running (<kbd>Ctrl+C</kbd> or <kbd>/exit</kbd>). Then try programmatic mode:<br><br><kbd>copilot -p \"What is the current date and time?\"</kbd><br><br>Copilot processes the request and exits. No ongoing session.",
-          "focus": "terminal",
-          "action": "workbench.action.terminal.toggleTerminal",
-          "actionLabel": "Open Terminal"
-        },
-        {
-          "title": "Use Approval Flags",
-          "instruction": "Try programmatic mode with a tool approval flag:<br><br><kbd>copilot -p \"Show me this week's git commits and summarize them\" --allow-tool='shell(git)'</kbd><br><br>The <code>--allow-tool</code> flag lets Copilot run <code>git</code> commands without prompting. Try modifying the flag to allow other tools.",
-          "focus": "terminal",
-          "tip": "Use <code>--deny-tool='shell(rm)'</code> alongside <code>--allow-all-tools</code> to allow everything except destructive delete commands.",
-          "onLeave": "workbench.action.closePanel"
-        },
-        {
-          "title": "Panels Closed",
-          "instruction": "We've closed the bottom panel for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
-          "focus": "slides"
-        }
-      ]
-    },
-    "25": {
-      "steps": [
-        {
           "title": "Local Task: Code Modification",
-          "instruction": "Start a Copilot CLI session and ask it to make a change to your project:<br><br><kbd>copilot</kbd><br><br>Then try something like:<br><br><kbd>Suggest improvements to the README in this project</kbd><br><br>Watch how Copilot reads the file, analyzes it, and proposes specific changes. Approve or reject each tool action as you see fit.",
+          "instruction": "Start a Copilot CLI session and ask it to make a bounded change:<br><br><kbd>copilot</kbd><br><br>Then enter:<br><br><kbd>Improve the README in this project. Show the proposed diff and wait for my approval before writing.</kbd><br><br>Inspect the evidence and proposed diff before you approve or reject the write action.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
           "actionLabel": "Open Terminal"
@@ -230,7 +230,7 @@
         }
       ]
     },
-    "26": {
+    "19": {
       "steps": [
         {
           "title": "GitHub.com Task",
@@ -253,18 +253,18 @@
         }
       ]
     },
-    "29": {
+    "22": {
       "steps": [
         {
           "title": "CLI for Terminal Tasks",
-          "instruction": "With the <strong>Terminal</strong> open, use Copilot CLI for a terminal-centric task:<br><br><kbd>copilot -p \"What is the total size of this project directory?\" --allow-tool='shell'</kbd><br><br>Now open <strong>Copilot Chat</strong> in VS Code and ask it a code-centric question about the same project. Notice how each tool brings different strengths.",
+          "instruction": "With the <strong>Terminal</strong> open, ask Copilot CLI for a repository summary:<br><br><kbd>copilot -p \"Summarize this repository's purpose and identify its main entry points\"</kbd><br><br>Now ask <strong>Copilot Chat</strong> the same question with <kbd>#codebase</kbd>. Compare which surface makes the supporting evidence easier to inspect.",
           "focus": "terminal,right",
           "action": ["workbench.action.terminal.toggleTerminal", "workbench.action.chat.open"],
           "actionLabel": "Open Terminal and Copilot Chat"
         },
         {
           "title": "Compare the Tools",
-          "instruction": "Try asking the same question to both tools and compare the results:<br><br>&bull; In the <strong>Terminal</strong>, ask Copilot CLI about the project structure<br>&bull; In <strong>Copilot Chat</strong>, ask about the same project using <kbd>@workspace</kbd><br><br>Each tool provides a different perspective based on its capabilities.",
+          "instruction": "Try asking the same question to both tools and compare the results:<br><br>&bull; In the <strong>Terminal</strong>, ask Copilot CLI about the project structure<br>&bull; In <strong>Copilot Chat</strong>, ask about the same project using <kbd>#codebase</kbd><br><br>Compare the cited files, navigation, and review experience rather than judging only the prose.",
           "focus": "terminal,right",
           "onLeave": ["workbench.action.closePanel", "workbench.action.closeAuxiliaryBar"]
         },
@@ -275,18 +275,18 @@
         }
       ]
     },
-    "33": {
+    "25": {
       "steps": [
         {
           "title": "Create Aliases",
-          "instruction": "Set up shortcut aliases for this session:<br><br><strong>PowerShell:</strong><br><kbd>function cpcli { copilot -p @args }</kbd><br><kbd>function cpall { copilot --allow-all-tools -p @args }</kbd><br><br><strong>Bash/Zsh:</strong><br><kbd>alias cpcli='copilot -p'</kbd><br><kbd>alias cpall='copilot --allow-all-tools -p'</kbd><br><br>Test them: <kbd>cpcli \"What is the current date?\"</kbd>",
+          "instruction": "Set up a helper that standardizes output without granting tools:<br><br><strong>PowerShell:</strong><br><kbd>function cpcli { copilot -p @args -s --no-ask-user }</kbd><br><br><strong>Bash/Zsh:</strong><br><kbd>alias cpcli='copilot -p -s --no-ask-user'</kbd><br><br>Test it: <kbd>cpcli \"What is the current date?\"</kbd>",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
           "actionLabel": "Open Terminal"
         },
         {
           "title": "Test Your Aliases",
-          "instruction": "Verify your aliases work with a few quick commands:<br><br>&bull; <kbd>cpcli \"List all running processes\"</kbd><br>&bull; <kbd>cpall \"Show me the git log for the last 3 commits\"</kbd><br><br>If the aliases work, you have reduced the friction to near zero.",
+          "instruction": "Verify the helper, then add permission only where the task needs it:<br><br>&bull; <kbd>cpcli \"Explain semantic versioning\"</kbd><br>&bull; <kbd>cpcli \"Summarize the last 3 commits\" --allow-tool='shell(git)' --max-ai-credits=30</kbd><br><br>The helper standardizes behavior while each call keeps its own authority.",
           "focus": "terminal",
           "tip": "To make aliases permanent, add them to your shell profile: <code>$PROFILE</code> for PowerShell, <code>~/.bashrc</code> for bash, or <code>~/.zshrc</code> for zsh.",
           "onLeave": "workbench.action.closePanel"
@@ -298,18 +298,18 @@
         }
       ]
     },
-    "34": {
+    "26": {
       "steps": [
         {
-          "title": "Prompt Specificity Challenge",
-          "instruction": "Test the impact of prompt specificity. Start an interactive session with <kbd>copilot</kbd>, then compare two requests:<br><br>&bull; Vague: <kbd>Tell me about this project</kbd><br>&bull; Specific: <kbd>Read the package.json and tell me what dependencies this project uses, what the main entry point is, and what scripts are available</kbd><br><br>Compare the depth and usefulness of each response.",
+          "title": "Draft a Task Contract",
+          "instruction": "Start an interactive session with <kbd>copilot</kbd>. Draft a request that includes all six parts from the slide: outcome, evidence, boundaries, constraints, verification, and a stop condition.<br><br>Use a real task from this repository, but ask Copilot to review the contract before taking action.",
           "focus": "terminal",
           "action": "workbench.action.terminal.toggleTerminal",
           "actionLabel": "Open Terminal"
         },
         {
-          "title": "Plan Mode for Complex Tasks",
-          "instruction": "Switch to plan mode (<kbd>Shift+Tab</kbd>) and try a complex, multi-step request:<br><br><kbd>Analyze this project's test coverage, identify areas with no tests, and create a plan to add basic test coverage for the most critical files</kbd><br><br>Review the plan Copilot builds. This is the workflow to use for any task where you want to verify the approach before execution.",
+          "title": "Check the Contract",
+          "instruction": "Review Copilot's critique. Improve any missing boundary or completion check, then submit the revised contract.<br><br>Ask: <kbd>What assumption would still require you to pause and ask me a question?</kbd><br><br>This makes uncertainty visible before execution begins.",
           "focus": "terminal",
           "onLeave": "workbench.action.closePanel"
         },
@@ -320,11 +320,11 @@
         }
       ]
     },
-    "38": {
+    "30": {
       "steps": [
         {
           "title": "Lab Complete!",
-          "instruction": "<strong>Congratulations!</strong> You have completed Copilot CLI: The Who, the How, and the Why.<br><br>You now know how to:<br>&bull; Install Copilot CLI with <code>npm install -g @github/copilot</code><br>&bull; Launch interactive sessions and navigate trusted directory prompts<br>&bull; Use plan mode for complex, multi-step tasks<br>&bull; Manage tool approval to stay in control<br>&bull; Use slash commands to manage sessions, models, and context<br>&bull; Run programmatic mode with approval flags for automation<br>&bull; Interact with GitHub.com via the built-in MCP server<br>&bull; Combine CLI and VS Code Chat for full coverage<br>&bull; Build aliases for near-zero friction<br><br>Next courses: <strong>Enterprise-Grade Marmalade</strong> for governance, <strong>MCP Maximizer</strong> for advanced MCP, or <strong>Agent Potato: License to Chat</strong> for Copilot agent mode.",
+          "instruction": "<strong>Congratulations!</strong> You have completed Copilot CLI: The Who, the How, and the Why.<br><br>You can now:<br>&bull; Establish a trusted interactive session<br>&bull; Choose a mode based on uncertainty and impact<br>&bull; Build bounded automation with explicit tools and cost limits<br>&bull; Extend the CLI with project context and connected tools<br>&bull; Choose between terminal, editor, or an integrated workflow<br>&bull; Write a task contract with evidence and finish criteria<br><br>Next courses: <strong>Enterprise-Grade Marmalade</strong> for governance, <strong>MCP Maximizer</strong> for advanced MCP, or <strong>Agent Potato: License to Chat</strong> for Copilot agent mode.",
           "focus": "guide"
         }
       ]
