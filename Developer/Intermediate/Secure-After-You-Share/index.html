@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure After You Share</title>
+  <link rel="stylesheet" href="../../../css/primer-brand.css" />
+  <style>
+    @media (max-width: 480px) {
+      .slide table {
+        table-layout: fixed;
+      }
+
+      .slide table th,
+      .slide table td {
+        padding-left: var(--brand-space-1);
+        padding-right: var(--brand-space-1);
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge">Intermediate &middot; 45 Minutes</span>
+        <h1>Secure After You Share</h1>
+        <p class="subtitle">Turn every pull request into a cloud-enforced security checkpoint.</p>
+        <aside class="speaker-notes">
+          Welcome to Secure After You Share. Our companion course began in the local diff, where developer context is strongest. This course begins when that change reaches GitHub. We will build a cloud security system around the pull request using Actions, CodeQL, secret scanning, dependency controls, Copilot code review, and rulesets. The goal is not to collect more alerts. The goal is to produce trustworthy evidence before merge.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Challenge -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Challenge</span>
+        <h2>Can This Pull Request Safely Merge?</h2>
+        <p>A pull request passes its unit tests, but it changes a workflow, adds a dependency, exposes a credential, and crosses an application trust boundary.</p>
+        <div class="columns">
+          <div class="card">
+            <h3>Starting State</h3>
+            <p>Green tests, incomplete security signals, broad workflow permissions, and pressure to merge.</p>
+          </div>
+          <div class="card">
+            <h3>Done State</h3>
+            <p>Independent checks, explained findings, least privilege, protected artifacts, and accountable approval.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Here is our challenge. The tests are green, which tells us the expected behavior still works. It does not tell us whether the workflow can be abused, the new package is trustworthy, the credential is exposed, or the data flow is safe. Our scenario follows a pull request through each cloud security signal and asks whether the platform should permit the merge. A green check is evidence, not a verdict.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Outcomes -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What You Will Be Able to Do</h2>
+        <ul>
+          <li>Threat-model a GitHub Actions workflow and reduce its permissions</li>
+          <li>Use CodeQL, secret scanning, and dependency review as distinct controls</li>
+          <li>Evaluate Copilot code review comments with repository evidence</li>
+          <li>Protect cloud deployments with environments, OIDC, and attestations</li>
+          <li>Combine rulesets and required checks into a defensible merge policy</li>
+          <li>Use security campaigns to coordinate alert remediation at scale</li>
+          <li>Explain why a human still owns the final risk decision</li>
+        </ul>
+        <aside class="speaker-notes">
+          By the end, you will be able to explain what each cloud control contributes and where it stops. Actions gives us repeatable execution, but the workflow itself has a threat model. CodeQL reasons about code paths. Secret scanning looks for credentials. Dependency review evaluates supply-chain changes. Copilot code review adds contextual comments, and security campaigns coordinate remediation across repositories. We will combine those capabilities without pretending that any one of them understands the whole business risk.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: System -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Cloud Security Loop</h2>
+        <pre class="mermaid">
+graph LR
+  A[Pull request] --> B[Actions run]
+  B --> C[Security signals]
+  C --> D[Review findings]
+  D --> E[Remediate]
+  E --> B
+  D --> F{Policy satisfied?}
+  F -->|No| E
+  F -->|Yes| G[Human approval]
+        </pre>
+        <aside class="speaker-notes">
+          This loop starts with a pull request event. Actions runs checks in a consistent cloud environment, and specialized controls produce different security signals. We review those findings, remediate the supported risks, and rerun the checks against the new commit. Rulesets evaluate whether policy is satisfied, but they do not replace approval. The final decision belongs to a human who can connect technical evidence to business impact.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Section -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">1. Secure the Runner</span>
+        <h2>Automation Is Part of the Attack Surface</h2>
+        <aside class="speaker-notes">
+          Before we trust what a workflow reports, we need to trust how it runs. A workflow can read code, receive tokens, publish artifacts, and deploy to cloud environments. That makes the workflow both a security control and a potential attack path. We will begin by treating YAML with the same care we apply to application code.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Workflow threat model -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Workflow Review</span>
+        <h2>Threat-Model the Workflow</h2>
+        <table>
+          <thead>
+            <tr><th>Surface</th><th>Question</th><th>Safer Pattern</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Trigger</td><td>Can untrusted code invoke privileged work?</td><td>Separate trusted and untrusted events</td></tr>
+            <tr><td>Token</td><td>What can <code>GITHUB_TOKEN</code> write?</td><td>Declare minimum permissions</td></tr>
+            <tr><td>Action</td><td>Can referenced code change unexpectedly?</td><td>Pin to a full commit SHA</td></tr>
+            <tr><td>Input</td><td>Can event data reach a shell?</td><td>Use environment variables and quoting</td></tr>
+            <tr><td>Runner</td><td>What persists between jobs?</td><td>Prefer isolated hosted runners</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Start with the trigger because it defines who can cause the workflow to run and which context is trusted. Then follow privilege through the token, third-party actions, event inputs, and runner. Pay special attention to workflows that combine untrusted pull-request code with write permissions or secrets. The important question is not whether the YAML is valid. It is whether an attacker can influence a privileged step.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Permissions -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Make Least Privilege Visible</h2>
+        <pre><code>name: pr-security
+on: pull_request
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@FULL_COMMIT_SHA
+      - uses: github/codeql-action/analyze@FULL_COMMIT_SHA</code></pre>
+        <p>Set workflow permissions to read-only by default, then grant each job only what it needs.</p>
+        <aside class="speaker-notes">
+          Explicit permissions make the security boundary reviewable. Begin with read-only access and add a write scope only when a job truly needs it. Job-level permissions can narrow the token further when one workflow contains different responsibilities. Pinning an action to a full commit SHA also prevents a mutable tag from silently changing the code that receives this token.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Cloud auth -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Deploy Without Long-Lived Cloud Secrets</h2>
+        <pre class="mermaid">
+sequenceDiagram
+  participant W as GitHub workflow
+  participant G as GitHub OIDC
+  participant C as Cloud identity
+  participant E as Protected environment
+  W->>G: Request signed token
+  G->>C: Present repository claims
+  C-->>W: Issue short-lived credential
+  W->>E: Request deployment
+  E-->>W: Apply reviewers and policy
+        </pre>
+        <aside class="speaker-notes">
+          OpenID Connect replaces a stored cloud password with a short-lived credential based on signed claims. The cloud provider can restrict trust to a specific organization, repository, branch, tag, or environment. GitHub environments then add deployment reviewers, branch restrictions, and scoped secrets. This reduces credential lifetime and limits where deployment authority can be exercised.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Workflow review -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--green">Hardening Pattern</span>
+        <h2>Harden the Automation Boundary</h2>
+        <ul>
+          <li>Separate pull-request validation from privileged deployment</li>
+          <li>Declare minimum token permissions at workflow and job scope</li>
+          <li>Pin third-party actions and review their source and ownership</li>
+          <li>Keep untrusted event values out of inline shell scripts</li>
+          <li>Use OIDC and protected environments for cloud access</li>
+          <li>Record the threat, control, and residual risk in the pull request</li>
+        </ul>
+        <aside class="speaker-notes">
+          A strong workflow review proposes the smallest complete hardening change. Do not merely remove a permission until the file passes review. Trace what the workflow needs to do, preserve that behavior, and explain why the reduced authority is sufficient. If deployment needs elevated access, move it behind a trusted event and a protected environment instead of granting that access to pull-request code.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Section -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--green">2. Build Independent Signals</span>
+        <h2>Different Risks Need Different Detectors</h2>
+        <aside class="speaker-notes">
+          A secure workflow gives us a trustworthy place to run checks. Now we need checks with different ways of seeing risk. One detector cannot reliably cover source code, credentials, dependencies, and generated artifacts. The value comes from independent signals whose blind spots do not completely overlap.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: Control map -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Match the Control to the Question</h2>
+        <table>
+          <thead>
+            <tr><th>Capability</th><th>Primary Question</th><th>Evidence</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CodeQL</td><td>Does code follow a vulnerable path?</td><td>Semantic alert and data flow</td></tr>
+            <tr><td>Secret scanning</td><td>Does content contain a credential?</td><td>Secret type, location, validity</td></tr>
+            <tr><td>Dependency review</td><td>What supply-chain risk enters this PR?</td><td>Added packages and advisories</td></tr>
+            <tr><td>Dependabot</td><td>Which dependencies need remediation?</td><td>Alerts and update pull requests</td></tr>
+            <tr><td>Copilot code review</td><td>What contextual issue deserves review?</td><td>Comment tied to the diff</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          These capabilities are complementary because they answer different questions. CodeQL follows semantic program relationships. Secret scanning recognizes credential patterns and can check validity for supported token types. Dependency review focuses on what a pull request introduces, while Dependabot tracks known vulnerable versions over time. Copilot code review reasons about the diff and repository context, but its comments remain suggestions that require verification.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: CodeQL -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">CodeQL Analysis</span>
+        <h2>Trace CodeQL from Source to Sink</h2>
+        <pre class="mermaid">
+graph LR
+  A[Untrusted source] --> B[Propagation]
+  B --> C{Control present?}
+  C -->|No| D[Sensitive sink]
+  D --> E[Code scanning alert]
+  C -->|Yes| F[Path interrupted]
+        </pre>
+        <p>Verify the analyzed commit, query, severity, precision, path, and missing control before choosing a remediation.</p>
+        <aside class="speaker-notes">
+          Read a CodeQL alert as a path, not as a highlighted line. Confirm where untrusted data enters, how it propagates, which control is missing, and where the sensitive operation occurs. Then verify that the check analyzed the current pull-request commit. Autofix may propose a change for a supported alert, but the path gives us the evidence needed to judge whether that change addresses the root cause.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: Secrets -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Prevent Secrets Before Detection Becomes Response</h2>
+        <ul>
+          <li>Push protection blocks supported secrets before they reach the repository</li>
+          <li>Secret scanning monitors repository history and other supported surfaces</li>
+          <li>Validity checks help prioritize supported active credentials</li>
+          <li>Custom patterns extend detection to organization-specific formats</li>
+          <li>Bypasses require a reason and create an auditable decision</li>
+          <li>A committed secret must be revoked and rotated, not merely deleted</li>
+        </ul>
+        <img src="img/TODO-screenshot-secret-scanning-push-protection.png" alt="TODO: Add screenshot for &quot;Secret scanning push protection blocking a credential&quot;" />
+
+        <aside class="speaker-notes">
+          Prevention is cheaper than incident response, so push protection is our first preference. If a secret reaches GitHub, deleting the line does not remove it from history or invalidate the credential. We must revoke or rotate it, investigate use, and then remove it safely. Bypass can be necessary for tests or false positives, but the reason should be specific enough for another reviewer to understand and audit.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: Dependencies -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Review the Supply-Chain Delta</h2>
+        <ul>
+          <li>Inspect direct and transitive packages added by the pull request</li>
+          <li>Set dependency review policy for severity and license risk</li>
+          <li>Use the dependency graph as the inventory behind alerts</li>
+          <li>Let Dependabot propose bounded version updates</li>
+          <li>Run tests and security checks against every automated update</li>
+          <li>Group updates only when shared validation makes failures diagnosable</li>
+        </ul>
+        <aside class="speaker-notes">
+          Dependency review is strongest at the moment a package enters or changes in the pull request. It can show direct and transitive additions, known advisories, and license information before merge. Dependabot then helps maintain that inventory by raising alerts and update pull requests. Automated updates reduce toil, but they still need the same tests, scanning, and human review as any other code change.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: Signal triage -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Triage Model</span>
+        <h2>Triage the Signals Without Flattening Them</h2>
+        <table>
+          <thead>
+            <tr><th>Signal</th><th>Immediate Question</th><th>Possible Decision</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CodeQL path</td><td>Is the source-to-sink flow reachable?</td><td>Fix, dismiss with evidence</td></tr>
+            <tr><td>Exposed secret</td><td>Was the credential valid or used?</td><td>Revoke, rotate, investigate</td></tr>
+            <tr><td>Vulnerable package</td><td>Is it reachable and fixable?</td><td>Update, mitigate, accept formally</td></tr>
+            <tr><td>License change</td><td>Does policy permit distribution?</td><td>Replace or approve exception</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          A single severity label does not make these findings interchangeable. A leaked credential creates an incident-response question. A CodeQL result asks us to verify reachability and the missing control. A vulnerable package adds exploitability, exposure, and update availability to the decision. A useful triage record preserves the evidence and owner for each signal instead of collapsing everything into pass or fail.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: Section -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">3. Add Agentic Review</span>
+        <h2>Use AI to Expand Attention, Not Authority</h2>
+        <aside class="speaker-notes">
+          Deterministic checks give us repeatable evidence for known classes of risk. We can now add Copilot code review to look across the diff and repository context for issues that may not map to a scanner query. That broader reasoning is useful, but it also means comments can be incomplete or incorrect. We expand reviewer attention without transferring approval authority.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: Code review -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Give Copilot Review the Right Context</h2>
+        <ul>
+          <li>Keep the pull request bounded and explain its intended behavior</li>
+          <li>Store repository security expectations in custom instructions</li>
+          <li>Request Copilot review manually or through configured rules</li>
+          <li>Apply suggested changes only after inspecting the complete diff</li>
+          <li>Resolve comments with evidence, tests, or a documented rejection</li>
+          <li>Request a fresh review after material changes</li>
+        </ul>
+        <img src="img/TODO-screenshot-copilot-code-review.png" alt="TODO: Add screenshot for &quot;Copilot code review comments on a pull request&quot;" />
+
+        <aside class="speaker-notes">
+          Copilot code review works best when the pull request has a clear purpose and the repository contains explicit conventions. Custom instructions can describe security boundaries, test expectations, and framework patterns that should influence review. Treat every comment as a hypothesis tied to the diff. Confirm it in code, add validation where needed, and explain rejections so the conversation remains useful to human reviewers.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: Review method -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--green">Review Method</span>
+        <h2>Test the Review Comment</h2>
+        <pre class="mermaid">
+graph LR
+  A[Copilot comment] --> B[Locate evidence]
+  B --> C{Claim supported?}
+  C -->|No| D[Reject with reason]
+  C -->|Yes| E[Remediate]
+  E --> F[Add validation]
+  F --> G[Request rereview]
+        </pre>
+        <aside class="speaker-notes">
+          Choose one Copilot review comment and try to falsify it. Follow the relevant call path, inspect existing controls, and determine whether the behavior is reachable. If the claim holds, remediate the root cause and add a test or check that proves the change. If it does not, reject it with the evidence that breaks the claimed path. Either outcome should leave the pull request clearer than before.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: Agent boundaries -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Know Which Agent Is Acting</h2>
+        <table>
+          <thead>
+            <tr><th>Capability</th><th>Primary Output</th><th>Boundary</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Copilot code review</td><td>Pull-request comments</td><td>Does not approve or merge</td></tr>
+            <tr><td>Copilot Autofix</td><td>Suggested alert remediation</td><td>Patch still needs validation</td></tr>
+            <tr><td>Agentic Autofix</td><td>Iterated draft pull request</td><td>Availability and alert support vary</td></tr>
+            <tr><td>Copilot coding agent</td><td>Changes in a pull request</td><td>Runs within configured repository policy</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          These capabilities may all produce code or comments, but they begin from different inputs and have different responsibilities. Copilot code review comments on a diff. Autofix starts from a supported security alert. Agentic Autofix can iterate on assigned alerts where available. The coding agent begins from an assigned development task. None should approve its own output, and every generated change remains subject to repository policy and human review.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: Supply chain -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Carry Trust into the Artifact</h2>
+        <pre class="mermaid">
+graph LR
+  A[Protected source] --> B[Trusted workflow]
+  B --> C[Test and scan]
+  C --> D[Build artifact]
+  D --> E[Artifact attestation]
+  E --> F[Verify before deploy]
+        </pre>
+        <p>Attestations record where and how an artifact was built. Verification connects deployment back to the trusted workflow.</p>
+        <aside class="speaker-notes">
+          Merge protection secures source changes, but production consumes an artifact. Artifact attestations create signed provenance that links the artifact to its repository, workflow, and build event. Verification at deployment helps prevent an untrusted build from bypassing the reviewed path. This does not prove the code is vulnerability-free. It proves that the artifact came from the build process we intended to trust.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: Policy -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Policy Design</span>
+        <h2>Turn Signals into Merge Policy</h2>
+        <ul>
+          <li>Require pull requests and prevent direct changes to protected refs</li>
+          <li>Require current Actions and code-scanning results</li>
+          <li>Block selected dependency risk before merge</li>
+          <li>Require code-owner or designated human approval</li>
+          <li>Dismiss stale approvals after material changes</li>
+          <li>Restrict bypass authority and audit every exception</li>
+        </ul>
+        <aside class="speaker-notes">
+          Rulesets convert team expectations into enforceable repository behavior. Require the checks that represent real risk decisions, and make sure they apply to the current commit. Keep bypass authority narrow because an exception path can quietly become the normal path. Policy should create a dependable security floor while leaving the human reviewer responsible for risks that cannot be encoded as a status check.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: Ownership -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Every Signal Needs an Owner</h2>
+        <table>
+          <thead>
+            <tr><th>Role</th><th>Owns</th><th>Produces</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Developer</td><td>Change intent and remediation</td><td>Code, tests, explanations</td></tr>
+            <tr><td>Platform team</td><td>Secure workflow foundations</td><td>Reusable workflows and runners</td></tr>
+            <tr><td>Security team</td><td>Detection and response policy</td><td>Rules, patterns, triage guidance</td></tr>
+            <tr><td>Reviewer</td><td>Merge risk decision</td><td>Comments and approval</td></tr>
+            <tr><td>Organization</td><td>Exceptions and improvement</td><td>Audit history and trends</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Automation without ownership creates alert queues, not security. Developers own the change and remediation evidence. Platform teams provide secure workflow foundations. Security teams tune detections and define response expectations. Reviewers own the merge decision. The organization watches exceptions and trends to improve the system. Clear ownership keeps a failing check from becoming someone else's problem.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: Campaign section -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">4. Remediate at Scale</span>
+        <h2>Turn Alert Backlogs into Security Campaigns</h2>
+        <aside class="speaker-notes">
+          We have built controls for one pull request and assigned ownership for each signal. Organizations still face a larger problem: hundreds of related alerts spread across many repositories. GitHub security campaigns turn a selected alert cohort into time-bound, visible work. The campaign does not weaken our evidence standards. It gives security teams and developers a shared operating model for applying them repeatedly.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: Campaign purpose -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Campaign Creates Focus and Ownership</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Alert Backlog</h3>
+            <p>Many severities, repositories, owners, causes, and remediation paths compete for attention.</p>
+          </div>
+          <div class="card">
+            <h3>Security Campaign</h3>
+            <p>A related alert cohort receives a purpose, due date, managers, contact path, and visible progress.</p>
+          </div>
+        </div>
+        <p><strong>Use campaigns for coherent work:</strong> one vulnerability class, one training goal, one provider, or one business priority.</p>
+        <aside class="speaker-notes">
+          A campaign is more than a saved filter. It tells developers why this set of alerts matters, when the work is due, and who can answer questions. Closely related alerts also let teams reuse knowledge. Once a developer understands one log-injection path or one exposed token provider, the next alert becomes easier to resolve correctly. Focus creates learning as well as throughput.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: Campaign scope -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Campaign Scope</span>
+        <h2>Choose a Cohort Developers Can Finish</h2>
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>Code Campaign</th><th>Secret Campaign</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Starting point</td><td>Code scanning filters or template</td><td>Secret scanning filters or template</td></tr>
+            <tr><td>Useful focus</td><td>Rule, severity, CWE, language</td><td>Provider, secret type, bypass</td></tr>
+            <tr><td>Repository context</td><td>Custom properties and teams</td><td>Custom properties and teams</td></tr>
+            <tr><td>Alert boundary</td><td>Open alerts on default branches</td><td>Open secret scanning alerts</td></tr>
+          </tbody>
+        </table>
+        <p>Keep each campaign at 1,000 alerts or fewer. Secret scanning campaigns are currently in public preview.</p>
+        <aside class="speaker-notes">
+          Campaign scope determines whether the work feels achievable or arbitrary. Code campaigns can focus on a rule, severity, CWE, language, or repository property. Secret campaigns can focus on a provider, secret type, or push-protection bypass. GitHub limits a campaign to one thousand alerts, but a much smaller, coherent cohort is often more useful. The secret campaign capability is currently preview functionality, so confirm availability and behavior before making it part of a required process.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: Campaign contract -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Publish an Operating Contract</h2>
+        <ul>
+          <li>Name the risk and explain why this cohort matters now</li>
+          <li>Set a due date that reflects severity and team capacity</li>
+          <li>Assign campaign managers who can answer remediation questions</li>
+          <li>Provide a contact link for support and escalation</li>
+          <li>For code campaigns, optionally create tracking issues by repository</li>
+          <li>Publish only after owners agree on scope and response expectations</li>
+        </ul>
+        <aside class="speaker-notes">
+          Publishing creates an operating contract between security and engineering. The name and description should explain the risk, not merely repeat a query name. Managers need authority and technical context to unblock developers. The due date should reflect both urgency and realistic capacity. For code campaigns, repository tracking issues can connect the organization-wide goal to each team's normal planning workflow.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: Campaign remediation -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Route Alerts to the Right Remediation Path</h2>
+        <pre class="mermaid">
+graph LR
+  A[Filter alerts] --> B[Publish campaign]
+  B --> C{Remediation path}
+  C -->|Developer| D[Assign alert]
+  C -->|Supported code alert| E[Copilot Autofix]
+  E --> F[Copilot cloud agent]
+  D --> G[Fix and validate]
+  F --> G
+  G --> H[Campaign progress]
+        </pre>
+        <p>Generated fixes remain pull requests. Repository checks and human review still decide whether they are safe.</p>
+        <aside class="speaker-notes">
+          Campaigns coordinate work without forcing every alert through the same remediation path. A developer can own an alert directly. Code campaigns automatically request Copilot Autofix suggestions as capacity allows. When an Autofix is available, supported alerts can also be assigned to Copilot cloud agent to create a pull request. That pull request still travels through tests, scanning, repository policy, and human review. Scale changes the routing, not the standard of proof.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: Campaign outcomes -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--green">Outcome Review</span>
+        <h2>Measure Risk Reduction, Not Motion</h2>
+        <table>
+          <thead>
+            <tr><th>Signal</th><th>Useful Question</th><th>Weak Proxy</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Resolution</td><td>Was the root cause removed?</td><td>Alert count changed</td></tr>
+            <tr><td>Time</td><td>Did high-risk alert age fall?</td><td>Campaign closed on time</td></tr>
+            <tr><td>Quality</td><td>Did fixes pass policy without reopening?</td><td>Pull requests created</td></tr>
+            <tr><td>Learning</td><td>Did the same weakness recur?</td><td>Training attendance</td></tr>
+            <tr><td>Ownership</td><td>Were exceptions explicit and reviewed?</td><td>Alerts assigned</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          A campaign can generate activity without reducing risk. Measure whether root causes were removed, high-risk alert age fell, fixes remained closed, and exceptions received explicit review. Then feed what you learned back into prevention. A recurring CodeQL class may justify secure coding guidance or a reusable framework control. Repeated secret exposure may justify stronger push protection, custom patterns, or credential architecture changes.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 29: Final gate -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--green">Merge Gate</span>
+        <h2>Make the Merge Decision</h2>
+        <ul>
+          <li>The workflow uses trusted triggers, pinned actions, and minimum permissions</li>
+          <li>CodeQL findings are fixed or dismissed with reviewable evidence</li>
+          <li>Exposed credentials are revoked, rotated, and investigated</li>
+          <li>Dependency and license changes satisfy policy</li>
+          <li>Copilot review comments are verified, resolved, or rejected explicitly</li>
+          <li>Required checks apply to the current commit</li>
+          <li>An authorized human accepts the documented residual risk</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is the decision point. We have secured the workflow, reviewed each specialized signal, tested Copilot's comments, and confirmed that policy applies to the current commit. Any remaining risk should be explicit and owned. If a credential was exposed, a passing secret scan after deletion is not enough; rotation and investigation still matter. When every item has evidence, an authorized human can make a defensible merge decision.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 30: Completion -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge badge--green">Challenge Complete</span>
+        <h1>Make the Cloud Prove It</h1>
+        <p class="subtitle">Independent signals, enforceable policy, and human accountability protect every merge.</p>
+        <aside class="speaker-notes">
+          The local course taught us to arrive at the pull request with a security story. This course taught us to make the cloud challenge that story. Secure the workflow first, run independent controls, verify agentic suggestions, protect the resulting artifact, and encode the minimum acceptable evidence in rulesets. Security campaigns can then coordinate remediation across repositories without lowering the standard of proof. The platform makes protection consistent, but people still define policy, investigate exceptions, and own the final decision.
+        </aside>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="../../../js/slides.js"></script>
+</body>
+</html>

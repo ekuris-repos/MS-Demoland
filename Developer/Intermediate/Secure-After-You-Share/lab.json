@@ -1,0 +1,203 @@
+{
+  "title": "Cloud Security \u2014 Secure After You Share",
+  "slides": {
+    "1": {
+      "steps": [
+        {
+          "title": "Welcome to the Lab",
+          "instruction": "Welcome to the <strong>Secure After You Share</strong> lab. You will investigate a prepared pull request, harden its <strong>GitHub Actions</strong> workflow, triage cloud security signals, evaluate <strong>Copilot code review</strong>, and make an evidence-based merge decision.<br><br>This is a challenge lab. Use the disposable repository and prepared pull request provided for class.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "6": {
+      "steps": [
+        {
+          "title": "Inspect the Workflow Delta",
+          "instruction": "We've opened the <strong>Explorer</strong>. Find the changed workflow under <code>.github/workflows</code>. Identify its trigger, token permissions, third-party actions, event-derived inputs, secrets, and runner.<br><br>Challenge: describe one path where untrusted pull-request content could influence privileged execution.",
+          "focus": "editor,left",
+          "action": "workbench.view.explorer",
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
+        },
+        {
+          "title": "Record the Threat Model",
+          "instruction": "Create <code>docs/cloud-security-review.md</code> with these headings:<br>&bull; <code># Pull request intent</code><br>&bull; <code>## Workflow trust boundary</code><br>&bull; <code>## Security signals</code><br>&bull; <code>## Review decisions</code><br>&bull; <code>## Merge decision</code><br><br>Record the workflow threat, available privilege, and likely impact.",
+          "focus": "editor"
+        },
+        {
+          "title": "Check the Threat Model",
+          "instruction": "Run <strong>Check Mission Progress</strong>. Your review should identify both the workflow's intended behavior and the boundary where untrusted data meets privilege.",
+          "focus": "guide",
+          "validate": [
+            {
+              "type": "fileExists",
+              "path": "docs/cloud-security-review.md",
+              "label": "Cloud security review exists"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/cloud-security-review.md",
+              "pattern": "workflow trust boundary",
+              "label": "Workflow trust boundary is documented"
+            }
+          ]
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the Explorer for you.<br><br>For future reference:<br>&bull; <strong>Explorer</strong>: <kbd>Ctrl+Shift+E</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "9": {
+      "steps": [
+        {
+          "title": "Propose the Smallest Complete Hardening",
+          "instruction": "Revise the workflow so pull-request validation keeps only the authority it needs. Consider explicit token permissions, pinned action references, safe handling of event data, and separation of privileged deployment.<br><br>Preserve the workflow's intended validation behavior. Record the control and residual risk in <code>docs/cloud-security-review.md</code>.",
+          "focus": "editor"
+        },
+        {
+          "title": "Validate the Workflow",
+          "instruction": "We've opened the <strong>Terminal</strong>. Inspect the revised diff and run the repository's workflow lint or validation command if one is available. Use <kbd>git diff --check</kbd> as a minimum formatting check.<br><br>Do not push until you can explain why every remaining permission is required.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "12": {
+      "steps": [
+        {
+          "title": "Trace the CodeQL Result",
+          "instruction": "Open the prepared <strong>CodeQL</strong> alert in the pull request. Record the query, severity, untrusted source, propagation steps, missing control, sensitive sink, and affected commit.<br><br>Decide whether the path is reachable before selecting a remediation.",
+          "focus": "guide"
+        },
+        {
+          "title": "Compare with Autofix",
+          "instruction": "If a <strong>Copilot Autofix</strong> suggestion is available, compare it with the complete source-to-sink path. Record whether you would <strong>accept</strong>, <strong>revise</strong>, or <strong>reject</strong> the patch and what validation your decision requires.",
+          "focus": "guide"
+        }
+      ]
+    },
+    "15": {
+      "steps": [
+        {
+          "title": "Classify Every Cloud Signal",
+          "instruction": "In <code>docs/cloud-security-review.md</code>, add one entry for each prepared signal:<br>&bull; CodeQL data-flow alert<br>&bull; Secret scanning alert or push-protection event<br>&bull; Dependency review finding<br>&bull; License policy change<br><br>For each entry, record the evidence, immediate response, owner, and merge impact.",
+          "focus": "editor"
+        },
+        {
+          "title": "Check Signal Ownership",
+          "instruction": "Run <strong>Check Mission Progress</strong>. The review must distinguish credential response from code remediation and dependency risk instead of treating every finding as the same kind of failure.",
+          "focus": "guide",
+          "validate": [
+            {
+              "type": "fileContains",
+              "path": "docs/cloud-security-review.md",
+              "pattern": "CodeQL",
+              "label": "CodeQL evidence is recorded"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/cloud-security-review.md",
+              "pattern": "secret|credential",
+              "label": "Credential response is recorded"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/cloud-security-review.md",
+              "pattern": "dependenc|package|license",
+              "label": "Supply-chain risk is recorded"
+            }
+          ]
+        }
+      ]
+    },
+    "18": {
+      "steps": [
+        {
+          "title": "Request Copilot Code Review",
+          "instruction": "Use the prepared pull request to request <strong>Copilot code review</strong>. While the review runs, inspect the pull-request description and repository instructions. Identify which security expectations are explicit and which context is missing.",
+          "focus": "guide"
+        },
+        {
+          "title": "Try to Falsify a Comment",
+          "instruction": "Choose one Copilot comment. Trace the relevant code path and inspect existing controls. Classify the claim as <strong>confirmed</strong>, <strong>needs evidence</strong>, or <strong>unsupported</strong>.<br><br>Record the evidence and your proposed response in <code>docs/cloud-security-review.md</code>.",
+          "focus": "editor"
+        }
+      ]
+    },
+    "21": {
+      "steps": [
+        {
+          "title": "Design the Merge Ruleset",
+          "instruction": "Draft a merge policy for this repository. Name the required Actions and code-scanning checks, dependency threshold, approval requirement, stale-approval behavior, and authorized bypass role.<br><br>Every rule should address a risk identified in this pull request. Avoid adding checks that have no owner or response path.",
+          "focus": "editor"
+        },
+        {
+          "title": "Check the Policy",
+          "instruction": "Run <strong>Check Mission Progress</strong>. Your review record should define required checks, human approval, and exception handling clearly enough for another repository administrator to implement.",
+          "focus": "guide",
+          "validate": [
+            {
+              "type": "fileContains",
+              "path": "docs/cloud-security-review.md",
+              "pattern": "required check|ruleset|merge policy",
+              "label": "Required merge policy is documented"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/cloud-security-review.md",
+              "pattern": "approval|reviewer",
+              "label": "Human approval is documented"
+            },
+            {
+              "type": "fileContains",
+              "path": "docs/cloud-security-review.md",
+              "pattern": "bypass|exception",
+              "label": "Exception handling is documented"
+            }
+          ]
+        }
+      ]
+    },
+    "29": {
+      "steps": [
+        {
+          "title": "Inspect the Current Commit",
+          "instruction": "We've opened the <strong>Terminal</strong>. Run <kbd>gh pr checks</kbd>, <kbd>gh pr diff</kbd>, and <kbd>gh pr view</kbd>. Confirm that required checks apply to the current pull-request commit and that no material change landed after the latest approval.",
+          "focus": "terminal",
+          "action": "workbench.action.terminal.toggleTerminal",
+          "actionLabel": "Open Terminal",
+          "onLeave": "workbench.action.closePanel"
+        },
+        {
+          "title": "Record the Merge Decision",
+          "instruction": "Complete <code>## Merge decision</code> with one choice: <strong>approve</strong>, <strong>request changes</strong>, or <strong>block and escalate</strong>. Cite the workflow, code, secret, dependency, review, and policy evidence supporting that choice.<br><br>Stop before merge unless you are the authorized approver for this disposable repository.",
+          "focus": "editor"
+        },
+        {
+          "title": "Panels Closed",
+          "instruction": "We've closed the terminal for you.<br><br>For future reference:<br>&bull; <strong>Terminal</strong>: <kbd>Ctrl+`</kbd>",
+          "focus": "slides"
+        }
+      ]
+    },
+    "30": {
+      "steps": [
+        {
+          "title": "Lab Complete!",
+          "instruction": "<strong>Congratulations!</strong> You completed the cloud security challenge.<br><br>You practiced:<br>&bull; Threat-modeling and hardening a GitHub Actions workflow<br>&bull; Applying least privilege, pinned actions, OIDC, and environments<br>&bull; Tracing CodeQL evidence and evaluating Autofix<br>&bull; Responding correctly to exposed secrets<br>&bull; Reviewing dependency and license changes<br>&bull; Verifying Copilot code review comments<br>&bull; Designing enforceable merge policy<br>&bull; Using security campaigns to coordinate remediation at scale<br>&bull; Preserving human ownership of the final decision",
+          "focus": "guide"
+        }
+      ]
+    }
+  }
+}
