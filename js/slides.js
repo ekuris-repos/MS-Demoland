@@ -70,7 +70,7 @@
   /* ---- Inject navigation elements ---- */
   function injectUI() {
     // Extension banner — shown when slides are viewed in a browser, not inside the extension
-    if (!inExtension) {
+    if (!inExtension && document.body.dataset.extensionBanner !== "false") {
       injectExtensionBanner();
     }
 

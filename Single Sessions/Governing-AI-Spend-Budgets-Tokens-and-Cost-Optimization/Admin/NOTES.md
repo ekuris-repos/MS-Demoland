@@ -1,4 +1,4 @@
-# Budgets for Admins and Leaders
+# Governing AI Spend: Budgets, Tokens, and Cost Optimization
 
 ## Session profile
 
