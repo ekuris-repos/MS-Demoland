@@ -5,6 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Governing AI Spend: Budgets, Tokens, and Cost Optimization</title>
   <link rel="stylesheet" href="../../css/primer-brand.css" />
+  <style>
+    .slide:is(:nth-of-type(2), :nth-of-type(10), :nth-of-type(20), :nth-of-type(34), :nth-of-type(46)).active
+      .slide-inner > :not(.speaker-notes):not(.mermaid) {
+      animation: spend-lift 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .slide:is(:nth-of-type(6), :nth-of-type(17), :nth-of-type(27), :nth-of-type(33), :nth-of-type(43)).active
+      .slide-inner > :not(.speaker-notes):not(.mermaid) {
+      animation: spend-reveal 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .slide:is(:nth-of-type(1), :nth-of-type(19), :nth-of-type(32), :nth-of-type(45), :nth-of-type(50)).active
+      .slide-inner > :not(.speaker-notes):not(.mermaid) {
+      animation: spend-scale 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .slide:is(:nth-of-type(15), :nth-of-type(42), :nth-of-type(49)).active
+      .slide-inner > :not(.speaker-notes):not(.mermaid) {
+      animation: spend-focus 520ms ease-out both;
+    }
+
+    .slide.active .slide-inner > :nth-child(2) { animation-delay: 70ms; }
+    .slide.active .slide-inner > :nth-child(3) { animation-delay: 130ms; }
+    .slide.active .slide-inner > :nth-child(4) { animation-delay: 170ms; }
+
+    @keyframes spend-lift {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spend-reveal {
+      from { opacity: 0; clip-path: inset(0 100% 0 0); }
+      to { opacity: 1; clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes spend-scale {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes spend-focus {
+      from { opacity: 0; filter: blur(8px); }
+      to { opacity: 1; filter: blur(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active .slide-inner > :not(.speaker-notes):not(.mermaid) {
+        animation: none !important;
+      }
+    }
+  </style>
 </head>
 <body data-extension-banner="false">
 
