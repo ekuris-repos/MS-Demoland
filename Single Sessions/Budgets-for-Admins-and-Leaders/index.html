@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budgets for Admins and Leaders</title>
+  <link rel="stylesheet" href="../../css/primer-brand.css" />
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- SLIDE 1 -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge">Session 2</span>
+        <h1>Budgets for Admins and Leaders</h1>
+        <p class="subtitle">AI usage, governance, and spend management</p>
+        <p style="margin-top:1.5rem">12:30 PM to 2:00 PM PT | Erik in person with Guna remote</p>
+        <aside class="speaker-notes">
+          Welcome to our session on managing AI usage as an operational and financial capability. We are going to connect the mechanics of tokens and AI credits to the decisions budget owners actually make: who gets access, where spend belongs, what signals matter, and when a guardrail should stop work.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Question Behind the Dashboard</h2>
+        <p style="font-size:1.75rem"><strong>Are we converting AI consumption into measurable, governed productivity?</strong></p>
+        <div class="columns" style="margin-top:2rem">
+          <div class="card"><h3>Too little control</h3><p>Unexpected spend, unclear ownership, and weak forecasting.</p></div>
+          <div class="card"><h3>Too much control</h3><p>Blocked work, hidden demand, and lower return on licensed tools.</p></div>
+        </div>
+        <aside class="speaker-notes">
+          Cost control is not the same as cost minimization. A perfectly flat usage line can mean disciplined operations, but it can also mean nobody is using the capability. Our goal is to create enough visibility and accountability to support productive usage without allowing variable cost to become an unmanaged surprise.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Today's Run of Show</h2>
+        <table>
+          <thead><tr><th>Time</th><th>Topic</th><th>Format</th></tr></thead>
+          <tbody>
+            <tr><td>12:30</td><td>Usage-based billing fundamentals</td><td>Concepts and examples</td></tr>
+            <tr><td>12:50</td><td>Budget layers and governance</td><td>Decision patterns</td></tr>
+            <tr><td>1:18</td><td>Reset</td><td>Short break</td></tr>
+            <tr><td>1:23</td><td>Usage visibility and reporting</td><td>Live dashboard demo</td></tr>
+            <tr><td>1:48</td><td>Predictability and recommendations</td><td>Operating model</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          We will move from mechanics to controls, then from controls to evidence. The demonstrations are intentionally elastic. We can spend more time exploring your questions in the live environment without losing the core decision framework captured in the slides.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What You Should Leave With</h2>
+        <ul>
+          <li>A plain-language model for tokens, AI credits, included usage, and paid overage</li>
+          <li>A clear distinction between user limits, cost-center controls, and enterprise spending limits</li>
+          <li>A current map of GitHub's billing overview, Metered usage, and AI usage views</li>
+          <li>A reporting cadence that separates adoption, consumption, cost, and business value</li>
+          <li>A practical starting policy that can mature as evidence improves</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is not a product tour disguised as governance. The useful outcome is a set of decisions you can take back to finance, platform engineering, procurement, and business leadership. Each group sees a different part of the system, so we need shared definitions before we can agree on policy.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>One System, Four Stakeholders</h2>
+        <table>
+          <thead><tr><th>Stakeholder</th><th>Primary question</th><th>Useful evidence</th></tr></thead>
+          <tbody>
+            <tr><td>Finance</td><td>Can we forecast and allocate spend?</td><td>Net amount, cost center, trend</td></tr>
+            <tr><td>Platform admin</td><td>Are controls working as intended?</td><td>Pool, budgets, blocked usage</td></tr>
+            <tr><td>Business leader</td><td>Is usage aligned to priorities?</td><td>Adoption, use cases, outcomes</td></tr>
+            <tr><td>User</td><td>Can I complete valuable work?</td><td>Available access and guidance</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Reporting fails when one metric is asked to answer every question. Finance needs cost allocation. Administrators need policy behavior. Leaders need evidence of value. Users need clear expectations. The same source data can support all four, but the dashboard and conversation should be tailored to the decision being made.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Part 1</span>
+        <h2>Usage-Based Billing Fundamentals</h2>
+        <aside class="speaker-notes">
+          We will begin with the unit economics. Once the relationship among prompts, tokens, models, credits, and dollars is clear, the budget controls become much easier to reason about.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Billing Model Changed</h2>
+        <ul>
+          <li>GitHub Copilot usage-based billing became generally available on June 1, 2026</li>
+          <li>Copilot Business and Enterprise usage is measured in <strong>GitHub AI credits</strong></li>
+          <li>Usage now reflects the model selected and tokens consumed</li>
+          <li>Paid usage is enabled by default for organizations and enterprises</li>
+          <li>Existing customer promotional included amounts run through September 1, 2026</li>
+        </ul>
+        <aside class="speaker-notes">
+          The shift matters because a request is no longer treated as a uniform unit. Two interactions can create very different costs depending on the model, the context supplied, and the work performed. As of August 2026, existing customers are still in the introductory period, so current consumption may not predict post-promotion overage without adjustment.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Is an AI Credit?</h2>
+        <p style="font-size:2rem"><strong>1 GitHub AI credit = $0.01 USD</strong></p>
+        <ul style="margin-top:1.5rem">
+          <li>AI credits translate model-specific token charges into one billing unit</li>
+          <li>A lightweight interaction may consume a fraction of a credit</li>
+          <li>A long agent session across many files may consume substantially more</li>
+          <li>A $10 paid-usage budget represents 1,000 AI credits</li>
+        </ul>
+        <aside class="speaker-notes">
+          The one-cent conversion gives finance and engineering a common language. Tokens explain the technical consumption, credits normalize different model rates, and dollars connect the result to a budget. We should still inspect token detail because the same credit total can arise from very different behaviors.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Four Token Categories Matter</h2>
+        <table>
+          <thead><tr><th>Category</th><th>What it represents</th><th>Typical driver</th></tr></thead>
+          <tbody>
+            <tr><td>Input</td><td>Content sent to the model</td><td>Prompt, files, repository context</td></tr>
+            <tr><td>Output</td><td>Content generated by the model</td><td>Answer length and generated code</td></tr>
+            <tr><td>Cache read</td><td>Previously cached context reused</td><td>Repeated stable context</td></tr>
+            <tr><td>Cache write</td><td>Context written for later reuse</td><td>Large reusable context</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Input and output are the easiest categories to visualize, but the current AI usage report also exposes cache reads and writes. That detail is valuable because it helps explain why repeated workflows can have a different cost profile from a new session, even when the visible prompt looks similar.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>From Interaction to Invoice</h2>
+        <pre class="mermaid">
+graph LR
+  A[User task] --> B[Context]
+  B --> C[Model]
+  C --> D[Token categories]
+  D --> E[Model rates]
+  E --> F[AI credits]
+  F --> G[Included or paid]
+  G --> H[Net amount]
+        </pre>
+        <aside class="speaker-notes">
+          There are several transformations between a user action and an invoice. That is why raw prompt counts are weak cost measures. We need to know the model and token volume before we know credit consumption, then know whether those credits came from the included pool or paid usage before we know the billed amount.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Cost Relationship</h2>
+        <p style="font-size:1.55rem"><strong>AI credits = sum of token category quantities multiplied by the model's published rates</strong></p>
+        <div class="columns" style="margin-top:2rem">
+          <div class="card"><h3>Volume</h3><p>More context and output generally increase consumption.</p></div>
+          <div class="card"><h3>Rate</h3><p>Different models price token categories differently.</p></div>
+        </div>
+        <aside class="speaker-notes">
+          We do not need everyone to calculate a model invoice by hand. We do need leaders to understand that model choice and token volume are independent levers. A smaller prompt sent to a high-cost model and a large prompt sent to a lower-cost model can produce similar credit totals for different reasons.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 12 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What Consumes AI Credits?</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Consumes credits</h3>
+            <p>Copilot Chat, Copilot CLI, Copilot cloud agent, Copilot Spaces, Spark, and third-party coding agents.</p>
+          </div>
+          <div class="card">
+            <h3>Included in paid plans</h3>
+            <p>Code completions and next edit suggestions remain unlimited and do not consume AI credits.</p>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          A metered feature is not automatically a bad choice. Agentic work can create enough value to justify substantial consumption. The practical policy is to use the least expensive surface that reliably completes the task, while preserving higher-capability tools for work that benefits from them.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 13 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Included Credits Form a Shared Pool</h2>
+        <table>
+          <thead><tr><th>Plan</th><th>Standard monthly credits per seat</th><th>Enterprise behavior</th></tr></thead>
+          <tbody>
+            <tr><td>Copilot Business</td><td>1,900</td><td>Pooled at the billing entity</td></tr>
+            <tr><td>Copilot Enterprise</td><td>3,900</td><td>Pooled at the billing entity</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:1rem"><strong>Example:</strong> 100 Business seats create a shared pool of 190,000 AI credits.</p>
+        <aside class="speaker-notes">
+          Pooling recognizes that productive usage is uneven. One user may run complex agentic workflows while another relies mainly on completions. The organization does not have to transfer credits manually between them. Governance should preserve this flexibility while preventing a small group from consuming the pool without visibility.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 14 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Pool Lifecycle Rules</h2>
+        <ul>
+          <li>The pool resets at 00:00 UTC on the first day of each calendar month</li>
+          <li>Unused included credits do not carry over</li>
+          <li>Adding licenses increases the pool immediately</li>
+          <li>Removing licenses reduces the pool at the next billing cycle</li>
+          <li>After exhaustion, usage is blocked or becomes paid overage according to policy and budgets</li>
+        </ul>
+        <aside class="speaker-notes">
+          Calendar-month reset behavior matters for forecasting. License invoicing and credit refresh timing can feel like one process, but included usage resets on a fixed UTC boundary. Teams should align recurring reports to that boundary so partial periods are not mistaken for complete monthly trends.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 15 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Simple Planning Example</h2>
+        <table>
+          <thead><tr><th>Input</th><th>Planning value</th></tr></thead>
+          <tbody>
+            <tr><td>Business licenses</td><td>500 seats</td></tr>
+            <tr><td>Standard included pool</td><td>950,000 AI credits</td></tr>
+            <tr><td>Expected monthly consumption</td><td>1,100,000 AI credits</td></tr>
+            <tr><td>Expected paid usage</td><td>150,000 AI credits</td></tr>
+            <tr><td>Expected variable charge</td><td>$1,500 USD</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          This is deliberately simple. It establishes the bridge from seats to included capacity, then from excess credits to dollars. A production forecast should segment users and include uncertainty, but every stakeholder should be able to follow this base calculation before discussing a more sophisticated model.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 16 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Three Common Misreads</h2>
+        <table>
+          <thead><tr><th>Misread</th><th>Correct interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>Credits equal billed dollars</td><td>Included credits may reduce net amount to zero</td></tr>
+            <tr><td>A request has one fixed price</td><td>Token volume and model determine credit use</td></tr>
+            <tr><td>A budget is always a hard cap</td><td>Blocking depends on budget type and configuration</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          These distinctions prevent most billing conversations from going off course. Consumption is not the same as billed cost, a user action is not a uniform billing unit, and a budget threshold can be informational rather than restrictive. We should always name which layer and which measure we mean.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 17 -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--green">Live Demo 1</span>
+        <h2>Trace a Task to AI Credits</h2>
+        <p>Compare a focused interaction with a broad, agentic workflow.</p>
+        <aside class="speaker-notes">
+          Let us make the mechanics visible. We will compare two useful tasks, not a good prompt and a deliberately bad one. The point is to observe how context, model choice, and task length change token composition and credit consumption.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 18 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo Debrief: Value Changes the Interpretation</h2>
+        <div class="columns">
+          <div class="card"><h3>Focused task</h3><p>Lower context, shorter output, predictable completion.</p></div>
+          <div class="card"><h3>Agentic task</h3><p>More context and steps, but potentially much greater business value.</p></div>
+        </div>
+        <p style="margin-top:1.5rem"><strong>Decision:</strong> optimize waste, not capability.</p>
+        <aside class="speaker-notes">
+          Higher consumption is not evidence of misuse by itself. A complex remediation or migration may be exactly where we want credits spent. The review question is whether the task required that capability and produced an outcome worth the consumption, not whether every user stayed close to an average.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 19 -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Part 2</span>
+        <h2>Budget Layers and Governance</h2>
+        <aside class="speaker-notes">
+          We now have the consumption model. The next step is to place controls around it. GitHub provides several controls that work at different phases, so choosing the right one requires more precision than simply setting a dollar amount.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 20 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Control Map</h2>
+        <div class="columns">
+          <div class="card"><h3>User-level budget</h3><p><strong>Caps:</strong> individual total consumption<br /><strong>Active:</strong> pool and paid phases<br /><strong>Stop:</strong> always</p></div>
+          <div class="card"><h3>Included usage control</h3><p><strong>Caps:</strong> cost-center share of pool<br /><strong>Active:</strong> pool phase<br /><strong>Stop:</strong> configurable outcome</p></div>
+        </div>
+        <div class="columns" style="margin-top:1rem">
+          <div class="card"><h3>Cost center or organization</h3><p><strong>Caps:</strong> scoped paid usage<br /><strong>Active:</strong> after pool exhaustion<br /><strong>Stop:</strong> optional</p></div>
+          <div class="card"><h3>Enterprise limit</h3><p><strong>Caps:</strong> enterprise paid usage<br /><strong>Active:</strong> after pool exhaustion<br /><strong>Stop:</strong> optional</p></div>
+        </div>
+        <aside class="speaker-notes">
+          The most important column is when the control becomes active. User-level budgets are unique because they govern both included and paid credits. The broader dollar budgets generally control additional charges only after the shared pool is exhausted.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 21 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>User-Level Budgets Govern Total Consumption</h2>
+        <ul>
+          <li>Apply during both the shared-pool phase and paid-usage phase</li>
+          <li>Always enforce a hard stop</li>
+          <li>A $0 budget blocks AI-credit-consuming features immediately</li>
+          <li>Universal budgets provide a default for all licensed users</li>
+          <li>Users appear in the budget list after they first consume credits in a cycle</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is the strongest fairness control and the easiest one to misuse. A universal user limit can prevent a few users from consuming the pool, but it can also block legitimate power users. Inactive licensed users will not appear in the universal budget list for that cycle, so the licensing page remains the complete population view.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 22 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>User Budget Precedence</h2>
+        <pre class="mermaid">
+graph TD
+  A[Universal per-user default] --> B[Cost center per-user override]
+  B --> C[Individual override]
+  C --> D[Most specific setting wins]
+        </pre>
+        <aside class="speaker-notes">
+          Precedence allows a broad policy with controlled exceptions. Engineering can have a different per-user default from marketing, and an individual working on a major migration can receive a higher limit. The individual setting wins over the cost-center setting, which wins over the universal default.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 23 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Included Usage Controls Protect a Cost Center's Share</h2>
+        <ul>
+          <li>Limit a cost center to credits funded by licenses assigned to it</li>
+          <li>Operate before the enterprise pool is exhausted</li>
+          <li>GitHub calculates the cap from the cost center's license mix</li>
+          <li>The cap adjusts as licensed membership changes</li>
+          <li>At the cap, members can be blocked or continue into paid overage</li>
+        </ul>
+        <aside class="speaker-notes">
+          This control changes the pooling behavior for a cost center. It is useful when departments require protected allocations, but it reduces the flexibility of one large shared pool. That tradeoff should be explicit: stronger internal allocation means less natural balancing between light and heavy users across the enterprise.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 24 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Cost Center Has Two Different Levers</h2>
+        <div class="columns">
+          <div class="card"><h3>Included usage control</h3><p>Limits how much of the shared pool the cost center can draw before metering.</p></div>
+          <div class="card"><h3>Cost center budget</h3><p>Limits the cost center's paid charges after the shared pool is exhausted.</p></div>
+        </div>
+        <aside class="speaker-notes">
+          These controls sound similar because both mention cost centers, but they operate in different phases. One allocates included capacity. The other governs paid overage. A team may use either control or both, depending on whether the concern is fair access to the pool, additional charges, or both.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 25 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Organization Budgets Follow License Attribution</h2>
+        <ul>
+          <li>Cap metered charges for users whose Copilot seat is billed to the organization</li>
+          <li>Become active after the shared pool is exhausted</li>
+          <li>Are the only Copilot budget option available to organization owners</li>
+          <li>Can restrict below enterprise policy but cannot override a higher-level limit</li>
+          <li>Multiple organization licenses can make attribution less predictable</li>
+        </ul>
+        <aside class="speaker-notes">
+          Organization scope is practical when organizations map cleanly to financial ownership. It becomes harder to interpret when a user receives Copilot licenses from multiple organizations, because GitHub selects one billing organization for the cycle. Direct cost-center assignment is more predictable when internal chargeback must be stable.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 26 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Enterprise Limit Is an Overage Limit</h2>
+        <p style="font-size:1.6rem"><strong>Total maximum = fixed license fees + enterprise paid-usage limit</strong></p>
+        <ul style="margin-top:1.5rem">
+          <li>It does not cap total monthly GitHub Copilot cost</li>
+          <li>It applies after the included pool is exhausted</li>
+          <li>Blocking must be explicitly enabled if a firm ceiling is required</li>
+          <li>Cost centers can be excluded when they have independent spending authority</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is a critical finance distinction. A five-thousand-dollar enterprise limit does not mean the total Copilot bill cannot exceed five thousand dollars. License charges remain fixed, and the limit applies to additional usage. A cost-center exclusion can preserve an independently funded team's work even when the broader enterprise limit is reached.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 27 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>How a Request Passes Through Controls</h2>
+        <pre class="mermaid">
+graph LR
+  A[Request] --> B{User limit?}
+  B -->|Available| C{Pool available?}
+  B -->|Exhausted| X[Blocked]
+  C -->|Yes| D[Use included credits]
+  C -->|No| E{Paid usage enabled?}
+  E -->|No| X
+  E -->|Yes| F{Applicable paid budget?}
+  F -->|Available| G[Metered charge]
+  F -->|Blocking limit reached| X
+        </pre>
+        <aside class="speaker-notes">
+          The user limit is checked first. If it blocks the request, a larger enterprise or cost-center budget cannot rescue it. If the user has headroom, GitHub checks the pool, then the paid-usage policy and applicable overage budget. In practice, the control with the least remaining headroom stops the user first.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 28 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Overlapping Controls Create Surprise</h2>
+        <ul>
+          <li>Multiple applicable budgets can count the same paid usage</li>
+          <li>Any exhausted blocking budget can stop the workflow</li>
+          <li>Raising an enterprise limit does not unblock an exhausted user limit</li>
+          <li>Raising user limits without enough paid headroom can shift blockage upstream</li>
+          <li>Simple, documented control sets are easier to forecast and support</li>
+        </ul>
+        <aside class="speaker-notes">
+          More controls do not automatically produce better governance. Every overlapping limit adds another possible explanation for a blocked user. We should be able to identify the governing control quickly and explain why it exists. If two controls have no distinct purpose, one of them is probably unnecessary.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 29 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Cost Allocation Depends on the Product</h2>
+        <table>
+          <thead><tr><th>Billing pattern</th><th>Cost-center attribution</th></tr></thead>
+          <tbody>
+            <tr><td>Usage-based products such as Actions</td><td>Repository or organization where usage occurs</td></tr>
+            <tr><td>License-based products such as Copilot seats</td><td>User assigned to the cost center</td></tr>
+            <tr><td>AI-credit products</td><td>User, or licensing organization if no direct assignment exists</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Cost centers are not a universal tag applied the same way to every product. Repository activity drives some costs, while user assignment drives licenses and AI credits. A chargeback model should follow GitHub's allocation rules instead of assuming that one organizational hierarchy explains every SKU.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 30 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Design Cost Centers Around Financial Decisions</h2>
+        <div class="columns">
+          <div class="card"><h3>Strong boundaries</h3><p>Business units, funded programs, regulated environments, and approved experiments.</p></div>
+          <div class="card"><h3>Weak boundaries</h3><p>Every small team, temporary project, or reporting label with no budget owner.</p></div>
+        </div>
+        <p style="margin-top:1.5rem">Separate cost centers are required when teams need separate budgets.</p>
+        <aside class="speaker-notes">
+          A cost center is useful when someone owns the forecast and can act on the result. Creating one for every organizational wrinkle produces administrative overhead without improving decisions. GitHub supports up to one thousand active cost centers per enterprise, but the practical limit should be the number your operating process can govern well.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 31 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Balanced Starting Configuration</h2>
+        <table>
+          <thead><tr><th>Layer</th><th>Starting posture</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td>Paid-usage policy</td><td>Enabled with a controlled limit</td><td>Avoid abrupt loss of capability</td></tr>
+            <tr><td>Enterprise</td><td>Alerts plus reviewed overage ceiling</td><td>Protect aggregate exposure</td></tr>
+            <tr><td>Cost center</td><td>Only where ownership is clear</td><td>Support allocation and exceptions</td></tr>
+            <tr><td>User</td><td>Universal default plus named exceptions</td><td>Preserve fairness and power users</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          This posture gives the organization a ceiling without treating every user identically. The universal limit establishes a baseline, while cost-center and individual overrides support different roles. We should size these amounts from observed consumption and business demand, then revisit them on a defined cadence.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 32 -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--green">5-Minute Reset</span>
+        <h2>Break</h2>
+        <p>When we return: current reporting views and a live dashboard walkthrough.</p>
+        <aside class="speaker-notes">
+          We have covered the densest policy material. After the reset, we will move into the current GitHub reporting experience and connect each view to a recurring management decision.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 33 -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Part 3</span>
+        <h2>Usage Visibility and Reporting</h2>
+        <aside class="speaker-notes">
+          Visibility is where policy becomes testable. GitHub now separates product summaries, general metered usage, and AI-specific analysis. We will use each view for the question it answers best.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 34 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Three Views, Three Jobs</h2>
+        <table>
+          <thead><tr><th>View</th><th>Best question</th><th>Typical audience</th></tr></thead>
+          <tbody>
+            <tr><td>Billing overview</td><td>What products and licenses are we consuming?</td><td>Owners and billing managers</td></tr>
+            <tr><td>Metered usage</td><td>Where is paid product usage and cost occurring?</td><td>FinOps and platform teams</td></tr>
+            <tr><td>AI usage</td><td>Who and which models are consuming AI credits?</td><td>Enterprise AI governance</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          The reporting experience has become more specialized. The overview is a product-level entry point. Metered usage supports cross-product cost exploration. AI usage adds the model, token, and user detail required to manage Copilot under the new credit model.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 35 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Billing Overview: Start Broad</h2>
+        <ul>
+          <li>Open billing from personal, organization, or enterprise settings</li>
+          <li>Use product tabs to review consumed usage and licenses</li>
+          <li>Open details when a product requires deeper analysis</li>
+          <li>Available data varies by account role and plan</li>
+        </ul>
+        <aside class="speaker-notes">
+          The overview is the right starting point for a periodic account review because it prevents AI spend from being discussed in isolation from licenses and other metered products. It is not the final view for root-cause analysis, but it tells us where deeper investigation is warranted.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 36 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Metered Usage: Explore Cross-Product Cost</h2>
+        <ul>
+          <li>Filter usage directly on the page</li>
+          <li>Group results according to the selected filters</li>
+          <li>Choose the time frame for the chart and breakdown table</li>
+          <li>Inspect quantity, gross amount, discount amount, and net amount</li>
+          <li>Download chart data or request broader usage reports</li>
+        </ul>
+        <aside class="speaker-notes">
+          Metered usage is where we distinguish activity from billable cost. A high gross amount with a matching discount amount may be fully covered by included usage. Net amount is the actual charge, while quantity and discount explain how we arrived there.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 37 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>AI Usage: Analyze Credit Consumption</h2>
+        <ul>
+          <li>Review total AI credits across the enterprise</li>
+          <li>Compare included-pool consumption with additional paid usage</li>
+          <li>Identify high-consumption users and models</li>
+          <li>Assess adoption across licensed organizations</li>
+          <li>Download chart data or request a detailed AI usage report</li>
+        </ul>
+        <aside class="speaker-notes">
+          This is the central operational view for Copilot usage-based billing. It helps us separate a broad adoption increase from a concentrated model or user pattern. The right follow-up is not automatic restriction. It is a conversation about the work behind the consumption and whether the budget structure still fits.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 38 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Role Determines What You Can See</h2>
+        <table>
+          <thead><tr><th>Role</th><th>Relevant visibility</th></tr></thead>
+          <tbody>
+            <tr><td>Enterprise owner or billing manager</td><td>Enterprise usage and direct user filtering in AI usage</td></tr>
+            <tr><td>Organization owner</td><td>Organization usage, without direct user filtering in the AI view</td></tr>
+            <tr><td>Organization owner needing user detail</td><td>Download an applicable usage report</td></tr>
+            <tr><td>Individual</td><td>Personal usage unless the license is assigned by an organization or enterprise</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          A missing filter may be a permissions issue rather than missing data. Enterprise owners and billing managers can filter AI usage by user. Organization owners cannot do that directly in the view, but can obtain per-user detail through a report. We should design the reporting process around the roles that actually hold these permissions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 39 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Choose the Right Download</h2>
+        <table>
+          <thead><tr><th>Report</th><th>Maximum period</th><th>Useful detail</th></tr></thead>
+          <tbody>
+            <tr><td>Summarized usage</td><td>One year</td><td>Date, SKU, organization, repository, cost center</td></tr>
+            <tr><td>Detailed usage</td><td>31 days</td><td>Adds username and workflow path</td></tr>
+            <tr><td>AI usage</td><td>31 days</td><td>User, model, and token categories</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          The report period determines the level of detail available. Long-range summarized data is useful for finance trends. Thirty-one-day detailed data supports operational investigation. Reports are delivered by email, the link expires after twenty-four hours, and only one report per account can be requested at a time.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 40 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Fields That Explain the Bill</h2>
+        <table>
+          <thead><tr><th>Field</th><th>Management meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>quantity</code></td><td>How much of the SKU was consumed</td></tr>
+            <tr><td><code>gross_amount</code></td><td>Cost before included usage and discounts</td></tr>
+            <tr><td><code>discount_amount</code></td><td>Amount covered by inclusion or discount</td></tr>
+            <tr><td><code>net_amount</code></td><td>Actual billable amount</td></tr>
+            <tr><td><code>model</code> and token fields</td><td>Why AI credit consumption occurred</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          A good report preserves both consumption and financial treatment. Gross minus discount equals net. For AI, model and token fields explain the underlying behavior. If we retain only net amount, we lose the ability to understand growing demand that is currently covered by included credits.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 41 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Automate Recurring Reporting with the REST API</h2>
+        <pre><code>gh api \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  /enterprises/ENTERPRISE/settings/billing/usage/summary</code></pre>
+        <ul>
+          <li>Use account-level usage summary or AI usage endpoints</li>
+          <li>Filter by year, month, day, or hour</li>
+          <li>Enterprise summaries can filter by <code>cost_center_id</code></li>
+          <li>Billing usage endpoints currently require a classic personal access token</li>
+        </ul>
+        <aside class="speaker-notes">
+          The API is the right path when billing data must feed a repeatable finance or BI workflow. The usage summary endpoint is aggregated. Detailed web reports contain fields such as username and workflow path that the general REST usage endpoint does not provide, so the automation design should account for that difference.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 42 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Sustainable Reporting Pipeline</h2>
+        <pre class="mermaid">
+graph LR
+  A[GitHub UI and API] --> B[Daily snapshot]
+  B --> C[Curated metrics]
+  C --> D[FinOps dashboard]
+  C --> E[Admin review]
+  C --> F[Leader scorecard]
+  D --> G[Budget decisions]
+  E --> G
+  F --> G
+        </pre>
+        <aside class="speaker-notes">
+          A dashboard should not query a changing operational period and call it a stable trend. A daily snapshot creates a consistent history, curated metrics establish shared definitions, and audience-specific views support different decisions. This also allows internal business context to sit beside GitHub consumption data without changing the source of truth.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 43 -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--green">Live Demo 2</span>
+        <h2>Navigate Billing, Metered Usage, and AI Usage</h2>
+        <p>Filter, group, inspect, and export a management-ready view.</p>
+        <aside class="speaker-notes">
+          We will now follow the path an administrator takes from broad account usage to an explainable AI consumption pattern. We will also compare what the interface shows directly with the detail available through downloaded reports.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 44 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Demo Debrief: Use a Question-Led Workflow</h2>
+        <ol>
+          <li>Start with the decision, not the available chart</li>
+          <li>Select the account level and reporting period</li>
+          <li>Separate consumption from net billed cost</li>
+          <li>Segment by model, user, organization, or cost center</li>
+          <li>Export only when deeper reconciliation is required</li>
+        </ol>
+        <aside class="speaker-notes">
+          The interface offers many ways to slice the data, but exploration should begin with a management question. Are we forecasting overage, investigating an outlier, allocating cost, or measuring adoption? That question determines the correct view, filter, and level of detail.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 45 -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Part 4</span>
+        <h2>Predictability Without Sacrificing Productivity</h2>
+        <aside class="speaker-notes">
+          We have the mechanics, controls, and evidence. The final section combines them into an operating model. Predictability comes from feedback and explicit choices, not from finding one perfect limit and leaving it unchanged.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 46 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Use Four Levers Together</h2>
+        <div class="columns">
+          <div class="card"><h3>Entitlements</h3><p>Match licenses and included capacity to the population that can use them.</p></div>
+          <div class="card"><h3>Guardrails</h3><p>Set user and overage controls according to risk tolerance.</p></div>
+        </div>
+        <div class="columns" style="margin-top:1rem">
+          <div class="card"><h3>Guidance</h3><p>Teach users to choose appropriate surfaces, models, and context.</p></div>
+          <div class="card"><h3>Evidence</h3><p>Review adoption, consumption, cost, and outcomes together.</p></div>
+        </div>
+        <aside class="speaker-notes">
+          Budgets alone are reactive. Entitlements set the population, guardrails bound exposure, guidance changes daily behavior, and evidence tells us whether to adjust. Weakness in any one lever creates pressure on the others. For example, poor guidance often leads administrators to compensate with restrictive limits.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 47 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>A Weekly Operating Cadence</h2>
+        <table>
+          <thead><tr><th>Signal</th><th>Question</th><th>Possible action</th></tr></thead>
+          <tbody>
+            <tr><td>Pool burn rate</td><td>Will included credits last through month end?</td><td>Forecast paid usage</td></tr>
+            <tr><td>Concentration</td><td>Which users, models, or units changed?</td><td>Validate use case</td></tr>
+            <tr><td>Blocked usage</td><td>Is policy stopping valuable work?</td><td>Adjust exception or limit</td></tr>
+            <tr><td>Net amount</td><td>Is overage within approved tolerance?</td><td>Escalate or continue</td></tr>
+            <tr><td>Outcome evidence</td><td>What value did high usage produce?</td><td>Expand, coach, or retire</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Weekly review is frequent enough to catch a changing pattern without turning every interaction into an approval event. The review should connect anomalies to work. A spike caused by an approved migration has a different response from one caused by broad, repetitive context or an abandoned experiment.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 48 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Recommendations by Maturity</h2>
+        <table>
+          <thead><tr><th>Stage</th><th>Recommended focus</th><th>Avoid</th></tr></thead>
+          <tbody>
+            <tr><td>Starting</td><td>Baseline usage, define owners, enable alerts</td><td>Arbitrary tight limits</td></tr>
+            <tr><td>Scaling</td><td>Cost centers, user defaults, recurring reports</td><td>One dashboard for every audience</td></tr>
+            <tr><td>Optimizing</td><td>Segment forecasts, exceptions, outcome measures</td><td>Equating low spend with success</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Controls should mature with evidence. A new program needs a baseline more than a complex hierarchy. A scaling program needs allocation and standard exceptions. An optimizing program can connect usage patterns to value and forecast by cohort. Skipping directly to advanced controls usually creates false precision.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 49 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Your First 30 Days</h2>
+        <ol>
+          <li>Confirm paid-usage policy, budget owners, and alert recipients</li>
+          <li>Inventory licenses, cost-center assignments, and existing budgets</li>
+          <li>Capture a full calendar month of AI usage and net cost</li>
+          <li>Identify high-value power users and unexplained outliers</li>
+          <li>Set or revise universal, cost-center, and individual limits</li>
+          <li>Publish a monthly leader scorecard and weekly admin review</li>
+        </ol>
+        <aside class="speaker-notes">
+          The first month should produce an operating baseline, not a final policy. Confirm who can make each decision, collect one complete cycle, and then tune limits around actual cohorts and approved use cases. The scorecard should show what changed, why it matters, and which action is being taken.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 50 -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <h1>Govern for Value</h1>
+        <p class="subtitle">Make usage visible, ownership explicit, and productive work sustainable.</p>
+        <p style="margin-top:1.5rem"><a href="https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-organizations-and-enterprises">GitHub Copilot usage-based billing</a> | <a href="https://docs.github.com/en/billing/how-tos/products/view-product-use">Usage reporting</a></p>
+        <aside class="speaker-notes">
+          The strongest budget program does three things well: it makes demand visible, assigns decisions to the right owners, and preserves access for work that creates value. AI credits give us a common unit, but governance still depends on judgment. Thank you. Let us use the remaining time for questions and deeper demonstrations.
+        </aside>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="../../js/slides.js"></script>
+</body>
+</html>
