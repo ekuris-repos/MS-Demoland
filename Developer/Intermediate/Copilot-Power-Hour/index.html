@@ -258,11 +258,11 @@ graph TD
     </section>
 
     <!-- ============================================================
-         SLIDE 10 - The Four Primitives
+         SLIDE 10 - The Five Primitives
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>The Four Customization Primitives</h2>
+        <h2>The Five Customization Primitives</h2>
         <div class="columns">
           <div class="card">
             <h3>Prompts</h3>
@@ -277,12 +277,16 @@ graph TD
             <p><code>SKILL.md</code> files that package domain knowledge agents can invoke on demand. Only loaded when relevant, so complex knowledge does not add cost to unrelated tasks.</p>
           </div>
           <div class="card">
+            <h3>Hooks</h3>
+            <p><code>.json</code> configurations that run commands at defined agent lifecycle events. Use them for deterministic validation, logging, and policy checks.</p>
+          </div>
+          <div class="card">
             <h3>Agents</h3>
             <p><code>.agent.md</code> files that define specialized modes combining instructions, skills, and tools. A virtual team member with a specific role and persona.</p>
           </div>
         </div>
         <aside class="speaker-notes">
-          Four primitives, all plain Markdown files, all committed to your repo. Prompts are things you actively run, like saved chat commands for recurring tasks. Instructions are passive and automatic, they shape every response without you doing anything per-session. Skills are domain knowledge packages that agents pull in only when they recognize the task as relevant. Agents are the orchestrators: they have their own persona, tool access, and can invoke skills. Here is the key insight about why these are called primitives: they compose. An agent can reference instruction files and declare which skills it is allowed to use. A skill can include examples and schemas. An instruction can be scoped to a specific file pattern. They are building blocks, and the interesting stuff happens when you combine them.
+          Five primitives, all committed to your repo. Prompts are things you actively run, like saved chat commands for recurring tasks. Instructions are passive and automatic, shaping responses without extra work each session. Skills are domain knowledge packages that agents pull in when a task is relevant. Hooks are different from those Markdown-based primitives: a JSON configuration runs a command at a defined lifecycle event, so validation, logging, or policy checks do not depend on the model remembering them. Agents are the orchestrators, with their own role, tool access, and available skills. Here is the key insight: these primitives compose. An agent can follow instructions, invoke a skill, use tools, and receive the result of a deterministic hook. The interesting work happens when you combine them.
         </aside>
       </div>
     </section>
@@ -300,7 +304,15 @@ graph TD
           <li>Add third-party MCP servers in VS Code settings or the Copilot CLI config file to connect databases, Jira, Slack, internal APIs, and more</li>
           <li>Each tool call returns real data into the context window; Copilot can reason over live information, not just static files</li>
         </ul>
-        <img src="img/TODO-diagram-mcp-server-connection-flow.png" alt="TODO: Add diagram for &quot;MCP server connection flow&quot;" />
+        <pre class="mermaid">
+graph LR
+  A[User request] --> B[Copilot agent]
+  B -->|Call tool| C[MCP server]
+  C -->|Query| D[External system]
+  D -->|Return data| C
+  C -->|Live context| B
+  B --> E[Grounded response]
+        </pre>
         <aside class="speaker-notes">
           MCP is arguably the biggest force multiplier in the current Copilot ecosystem. The core idea: instead of pasting data into your prompt, you connect an MCP server that Copilot can query in real time. Ask Copilot to review a PR and it can fetch the actual diff, the CI status, and the related issue thread, all without you copying anything. Connect a database MCP server and Copilot can query your schema directly when you ask it to write a migration. Connect a Jira server and it can read the requirements ticket while it writes the implementation. Every tool call adds fresh, specific data to the context window. VS Code and Copilot CLI both support MCP configuration. In VS Code you add servers in your settings JSON. In the CLI you edit a configuration file. The process takes about five minutes per server.
         </aside>
@@ -369,6 +381,11 @@ graph TD
               <td>Agents pull it in on demand; it is only loaded when relevant</td>
             </tr>
             <tr>
+              <td>A validation or policy check must run at a specific lifecycle event</td>
+              <td><strong>Hook</strong></td>
+              <td>Runs a deterministic command instead of relying on the model to remember</td>
+            </tr>
+            <tr>
               <td>You want a security reviewer who uses your specific standards</td>
               <td><strong>Agent</strong></td>
               <td>A virtual team member with its own persona, tools, and methodology</td>
@@ -381,7 +398,7 @@ graph TD
           </tbody>
         </table>
         <aside class="speaker-notes">
-          The framework in one slide. Repeating a task? Prompt file. Enforcing a standard? Instruction file. Documenting expertise? Skill. Need a specialist? Agent. Need live data? MCP server. The most common mistake I see is people trying to solve all five of these with longer and longer prompts typed directly into chat. That works once. It does not scale. These five primitives are how you turn a personal productivity tool into a team productivity platform.
+          The framework in one slide. Repeating a task? Prompt file. Guiding a standard? Instruction file. Packaging expertise? Skill. Need a command to run at a guaranteed lifecycle event? Hook. Need a specialist? Agent. Need live data? MCP server. The first five are customization primitives, while MCP connects Copilot to external tools and data. The most common mistake I see is people trying to solve every one of these needs with longer prompts typed directly into chat. That works once. It does not scale. Choosing the right mechanism is how you turn a personal productivity tool into a team productivity platform.
         </aside>
       </div>
     </section>
@@ -448,7 +465,31 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE 17 - Prompt Discipline
+         SLIDE 17 - Context Starvation and Poisoning
+         ============================================================ -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Context Starvation and Context Poisoning</h2>
+        <p>Too little reliable context forces assumptions. Repeated assumptions can become false premises that shape later work.</p>
+        <div class="columns">
+          <div class="card">
+            <h3>Context starvation</h3>
+            <p>The agent lacks requirements, constraints, current code, or decisive evidence. It must guess or spend time rediscovering the task.</p>
+          </div>
+          <div class="card">
+            <h3>Context poisoning</h3>
+            <p>A plausible mistake enters the active context, gets repeated in plans and output, and starts to look like an established fact.</p>
+          </div>
+        </div>
+        <p style="margin-top:1em"><strong>Recovery:</strong> Supply the missing evidence. If a false premise has taken hold, start a clean session with only the corrected objective, verified facts, and relevant evidence.</p>
+        <aside class="speaker-notes">
+          These failure modes need different responses. When context is starved, add the smallest authoritative evidence that resolves the uncertainty: the acceptance criteria, applicable instruction, current code, or decisive test result. Context poisoning is more stubborn. It does not mean the conversation retrained the model. It means an early mistake was repeated until later work began treating it as true. Continuing to debate that mistake in the same session can reinforce it with even more references. When an approach is abandoned or AI-generated reasoning itself is faulty, start a clean session and carry forward only verified facts, the corrected objective, and relevant evidence.
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 18 - Prompt Discipline
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -478,7 +519,7 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE 18 - Model Selection
+         SLIDE 19 - Model Selection
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -494,34 +535,35 @@ graph LR
           <tbody>
             <tr>
               <td>Quick syntax question, code lookup</td>
-              <td>Fast (GPT-4o, Claude Haiku)</td>
-              <td>Speed matters more than depth; premium models add no value here</td>
+              <td>Fast and efficient (GPT-5.4 mini, Claude Haiku 4.5, MAI-Code-1-Flash)</td>
+              <td>Optimize for latency and credit efficiency when the task is narrow</td>
             </tr>
             <tr>
               <td>Refactoring, feature implementation</td>
-              <td>Balanced (Claude Sonnet, GPT-4o)</td>
-              <td>Good reasoning at moderate cost; right for most daily tasks</td>
+              <td>Balanced (GPT-5.4, Claude Sonnet 5)</td>
+              <td>Strong coding and reasoning for most daily development work</td>
             </tr>
             <tr>
-              <td>Architecture review, complex debugging</td>
-              <td>Reasoning (o3, Claude Opus)</td>
-              <td>Multi-step reasoning justifies the higher cost; faster to the right answer</td>
+              <td>Agentic coding, architecture review, complex debugging</td>
+              <td>Coding and reasoning (GPT-5.3-Codex, Claude Opus 5)</td>
+              <td>Use deeper reasoning when multi-step decisions justify additional credits</td>
             </tr>
             <tr>
-              <td>Large file analysis, codebase search</td>
-              <td>Large context (Gemini)</td>
-              <td>Big context windows reduce the need to summarize and re-prompt</td>
+              <td>Large repository or long-document analysis</td>
+              <td>Supported model with extended context</td>
+              <td>Enable the one-million-token context window only when the task needs it</td>
             </tr>
           </tbody>
         </table>
+        <p style="margin-top:1em;opacity:0.85">Availability varies by client, plan, and organization policy. Check the current model picker and credit rate before starting.</p>
         <aside class="speaker-notes">
-          Model selection is the most direct cost lever you have. The credit cost difference between a fast model and a reasoning model for the same task can be an order of magnitude. Paying that premium is absolutely worth it when you are debugging a race condition across a distributed system. Paying it to find out what the Array.map method returns is not. Build the habit of asking yourself: "Does this task actually need reasoning, or do I just want the best model because it feels safer?" Often, the fast model is more than sufficient and returns the answer in a third of the time.
+          Model names change quickly, so the durable skill is matching capability to the task. For a syntax lookup or narrow edit, start with a fast, efficient model. For daily implementation, choose a balanced coding model. Move to a coding-specialized or deeper-reasoning model when the task spans files, requires architectural judgment, or has expensive failure modes. Extended context and higher reasoning levels are options on supported models, not defaults you need for every request. Both consume more tokens and credits. Check the model picker because availability depends on your client, plan, and organization policy, and use the current credit rate rather than memorizing a multiplier that may change.
         </aside>
       </div>
     </section>
 
     <!-- ============================================================
-         SLIDE 19 - Token Anti-Patterns
+         SLIDE 20 - Token Anti-Patterns
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -540,7 +582,7 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE 20 - Optimization Checklist
+         SLIDE 21 - Optimization Checklist
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -563,7 +605,7 @@ graph LR
          ============================================================ -->
 
     <!-- ============================================================
-         SLIDE 21 - Live Demo Section
+         SLIDE 22 - Live Demo Section
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
@@ -576,7 +618,7 @@ graph LR
     </section>
 
     <!-- ============================================================
-         SLIDE 22 - Demo: Install and Launch
+         SLIDE 23 - Demo: Install and Launch
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -605,7 +647,7 @@ copilot</code></pre>
     </section>
 
     <!-- ============================================================
-         SLIDE 23 - Demo: Terminal-Native Development
+         SLIDE 24 - Demo: Terminal-Native Development
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -638,7 +680,7 @@ sequenceDiagram
     </section>
 
     <!-- ============================================================
-         SLIDE 24 - Demo: Parallel Workstreams
+         SLIDE 25 - Demo: Parallel Workstreams
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -673,7 +715,7 @@ gantt
     </section>
 
     <!-- ============================================================
-         SLIDE 25 - Demo: GitHub Integration
+         SLIDE 26 - Demo: GitHub Integration
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -706,7 +748,7 @@ summarizing what changed and why.</code></pre>
          ============================================================ -->
 
     <!-- ============================================================
-         SLIDE 26 - Q&A Section
+         SLIDE 27 - Q&A Section
          ============================================================ -->
     <section class="slide slide--section">
       <div class="slide-inner">
@@ -719,7 +761,7 @@ summarizing what changed and why.</code></pre>
     </section>
 
     <!-- ============================================================
-         SLIDE 27 - Key Takeaways
+         SLIDE 28 - Key Takeaways
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
@@ -738,7 +780,7 @@ summarizing what changed and why.</code></pre>
     </section>
 
     <!-- ============================================================
-         SLIDE 28 - Next Steps and Resources
+         SLIDE 29 - Next Steps and Resources
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
