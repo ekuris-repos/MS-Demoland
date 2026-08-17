@@ -14,10 +14,11 @@
       "steps": [
         {
           "title": "Open the Explorer",
-          "instruction": "We have opened the <strong>Explorer</strong> panel for you (<kbd>Ctrl+Shift+E</kbd>). This is the file browser built into VS Code.<br><br>Notice how the project's files and folders are displayed in a tree structure. This is a direct view of a <strong>GitHub repository</strong> on your local machine. Every file you see here is tracked by Git and stored on GitHub.",
+          "instruction": "We have opened the <strong>Explorer</strong> panel for you (<kbd>Ctrl+Shift+E</kbd>). This is the file browser built into VS Code.<br><br>Notice how the project's files and folders are displayed in a tree structure. This is a view of a local workspace that may be connected to a <strong>GitHub repository</strong>. Committed files and changes can be synchronized with GitHub, but local or untracked files are not automatically stored there.",
           "focus": "left",
           "action": "workbench.view.explorer",
-          "actionLabel": "Open Explorer"
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Open Source Control",
@@ -37,10 +38,11 @@
       "steps": [
         {
           "title": "Navigate the File Tree",
-          "instruction": "We have opened the <strong>Explorer</strong> again. Expand a few folders by clicking the arrows next to them.<br><br>Notice the folder structure: files are organized into directories, just like folders on your desktop. In a GitHub repository, this structure is shared with every team member. When someone adds a file on GitHub, it appears here after you pull the latest changes.",
+          "instruction": "We have opened the <strong>Explorer</strong> again. Expand a few folders by clicking the arrows next to them.<br><br>Notice the folder structure: files are organized into directories, just like folders on your desktop. In a GitHub repository, committed changes can be shared with team members. When someone adds a file on GitHub, it appears here after you pull the latest changes.",
           "focus": "left",
           "action": "workbench.view.explorer",
-          "actionLabel": "Open Explorer"
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Check the Current Branch",
@@ -49,7 +51,7 @@
         },
         {
           "title": "View File History",
-          "instruction": "Open any file by clicking it in the Explorer. Then look at the bottom of the Explorer panel for the <strong>Timeline</strong> section. If it is collapsed, click to expand it.<br><br>The Timeline shows every change that has been made to this file over time, including who made the change and when. This is the \"time machine\" that Git provides: a complete, searchable history of every edit.",
+          "instruction": "Open any file by clicking it in the Explorer. Then look at the bottom of the Explorer panel for the <strong>Timeline</strong> section. If it is collapsed, click to expand it.<br><br>The Timeline can show available Git commits and related file events, including who made a committed change and when. This is one view of the history Git provides; uncommitted edits are not part of that committed history.",
           "focus": "left",
           "onLeave": "workbench.action.closeSidebar"
         },
@@ -93,7 +95,7 @@
         },
         {
           "title": "Close Chat",
-          "instruction": "We have closed the Chat panel for you. You used Copilot to learn about GitHub Issues and Projects, two key planning tools that connect business needs to development work.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Alt+I</kbd>.",
+          "instruction": "We have closed the Chat panel for you. You used Copilot to learn about GitHub Issues and Projects, two key planning tools that connect business needs to development work.<br><br>Bring Copilot Chat back any time with <kbd>Ctrl+Shift+I</kbd>.",
           "onLeave": "workbench.action.closeAuxiliaryBar"
         }
       ]
@@ -105,7 +107,8 @@
           "instruction": "We have opened the <strong>Explorer</strong> for you. Look for a folder called <code>.github</code> at the top of the file tree. If it exists, expand it and look for a <code>workflows</code> subfolder inside.<br><br>Workflow files are YAML files that define automated tasks. Each file describes what triggers the automation (like a pull request being opened) and what steps to run (like building and testing the code). If the folder is not present, that means this repository does not have Actions configured yet.",
           "focus": "left",
           "action": "workbench.view.explorer",
-          "actionLabel": "Open Explorer"
+          "actionLabel": "Open Explorer",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Ask About Actions",
@@ -128,7 +131,7 @@
       "steps": [
         {
           "title": "Open the Problems Panel",
-          "instruction": "We have opened the <strong>Problems</strong> panel for you. This panel shows errors and warnings in your code, similar to how spell-check highlights issues in a document.<br><br>On GitHub, automated tools called <strong>required status checks</strong> perform these inspections on every pull request. If problems are found, the pull request cannot be merged until they are fixed.",
+          "instruction": "We have opened the <strong>Problems</strong> panel for you. This panel shows errors and warnings detected in your local workspace, similar to how spell-check highlights issues in a document.<br><br>On GitHub, separately configured automated tools can report <strong>required status checks</strong> on pull requests. A branch policy can block a merge when a required check does not pass.",
           "focus": "bottom",
           "action": "workbench.action.problems.focus",
           "onLeave": "workbench.action.closePanel",
@@ -159,7 +162,7 @@
         },
         {
           "title": "Understand Push Protection",
-          "instruction": "Ask a follow-up:<br><br><kbd>Why is push protection better than detecting secrets after they have been committed?</kbd><br><br>This is a key concept for compliance: prevention is always stronger than detection. Push protection stops a secret from ever reaching the repository, eliminating the need for costly incident response.",
+          "instruction": "Ask a follow-up:<br><br><kbd>Why is push protection better than detecting secrets after they have been committed?</kbd><br><br>This is a key concept for compliance: prevention can reduce exposure and response costs. When enabled, push protection can block supported secret patterns before they reach the repository, although supported patterns, configuration, and bypass policy still matter.",
           "focus": "right"
         },
         {
@@ -173,7 +176,7 @@
       "steps": [
         {
           "title": "Open Copilot Chat",
-          "instruction": "We have opened <strong>Copilot Chat</strong> for you (<kbd>Ctrl+Alt+I</kbd>). This is the same AI assistant you have been using throughout this lab. Notice that it appears in the right sidebar of VS Code.<br><br>Copilot Chat works across the entire GitHub platform: in VS Code, on github.com, in the terminal, and in mobile apps.",
+          "instruction": "We have opened <strong>Copilot Chat</strong> for you (<kbd>Ctrl+Shift+I</kbd>). This is the same AI assistant you have been using throughout this lab. Notice that it appears in the right sidebar of VS Code.<br><br>Copilot Chat is available across several GitHub and development surfaces, including VS Code, github.com, and supported terminal experiences. Availability and capabilities vary by product, plan, and policy.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
@@ -185,7 +188,7 @@
         },
         {
           "title": "Try the Mode Selector",
-          "instruction": "Next to the model picker, find the <strong>mode selector</strong>. Click it to see the three modes:<br><br>&bull; <strong>Ask</strong> answers questions without changing your files<br>&bull; <strong>Edit</strong> proposes changes you can review and accept<br>&bull; <strong>Agent</strong> plans and executes multi-step tasks autonomously<br><br>For exploring and learning, <strong>Ask</strong> mode is the safest choice. Select it now if it is not already active.",
+          "instruction": "Next to the model picker, find the available <strong>mode or agent-role selector</strong>. The names and options can vary by your VS Code and Copilot version. Choose the question-and-answer option, such as <strong>Ask</strong>, when available; it is the safest choice for exploring because it does not intentionally modify files.",
           "focus": "right",
           "tip": "As a non-developer, Ask mode is your best friend. It lets you learn and explore without any risk of accidentally changing files."
         },
@@ -206,14 +209,14 @@
       "steps": [
         {
           "title": "Ask About Enterprise Controls",
-          "instruction": "In Copilot Chat, ask:<br><br><kbd>What enterprise governance features does GitHub provide for large organizations?</kbd><br><br>Read through the response and look for the features mentioned in the slides: audit logs, SAML SSO, repository policies, IP allow lists, and license management. These are the controls that make GitHub suitable for regulated industries.",
+          "instruction": "In Copilot Chat, ask:<br><br><kbd>What enterprise governance features does GitHub provide for large organizations?</kbd><br><br>Read through the response and look for the features mentioned in the slides: audit logs, SAML SSO, repository policies, IP allow lists, and license management. These controls can help organizations meet governance and compliance needs when they are configured appropriately.",
           "focus": "right",
           "action": "workbench.action.chat.open",
           "actionLabel": "Open Copilot Chat"
         },
         {
           "title": "Learn About Audit Logs",
-          "instruction": "Ask a follow-up:<br><br><kbd>What kinds of events are captured in the GitHub audit log, and how do compliance teams use this data?</kbd><br><br>The audit log is often the single most important feature for compliance officers. It records every significant action across the organization, creating the paper trail that auditors require.",
+          "instruction": "Ask a follow-up:<br><br><kbd>What kinds of events are captured in the GitHub audit log, and how do compliance teams use this data?</kbd><br><br>The audit log records defined events across the enterprise, organizations, repositories, and users. Compliance teams can use that evidence for investigations and reporting, while remembering that the audit log is not a record of every workflow step.",
           "focus": "right",
           "onLeave": "workbench.action.closeAuxiliaryBar"
         },
@@ -228,10 +231,11 @@
       "steps": [
         {
           "title": "Open Source Control",
-          "instruction": "We have opened <strong>Source Control</strong> for you. This is where the end-to-end workflow begins and ends on your local machine.<br><br>Think of the flow: a stakeholder creates an Issue, a developer makes changes here in Source Control, opens a pull request, reviewers approve it, Actions runs automated checks, and the code is deployed. Every step is connected and recorded.",
+          "instruction": "We have opened <strong>Source Control</strong> for you. This is where local changes can be reviewed and committed as part of an end-to-end workflow.<br><br>Think of the flow: a stakeholder creates an Issue, a developer makes changes in the workspace, commits them through Source Control, opens a pull request, reviewers approve it, Actions runs configured checks, and the code may be deployed. The connections and records depend on how the repository is configured.",
           "focus": "left",
           "action": "workbench.view.scm",
-          "actionLabel": "Open Source Control"
+          "actionLabel": "Open Source Control",
+          "onLeave": "workbench.action.closeSidebar"
         },
         {
           "title": "Trace the Full Workflow",
