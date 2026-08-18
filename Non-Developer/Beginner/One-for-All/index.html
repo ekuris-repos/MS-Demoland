@@ -599,24 +599,25 @@ graph LR
       <div class="slide-inner">
         <h2>From Idea to Production</h2>
         <ul>
-          <li><strong>1. Capture:</strong> A stakeholder files an Issue and adds structured business context</li>
-          <li><strong>2. Build:</strong> A contributor creates a branch and opens a pull request linked to the Issue</li>
-          <li><strong>3. Review:</strong> People review the change; configured rules require selected approvals and checks</li>
-          <li><strong>4. Secure:</strong> Enabled security tools analyze code, dependencies, and supported secret patterns</li>
-          <li><strong>5. Deploy:</strong> Configured Actions workflows promote the change through protected environments</li>
-          <li><strong>6. Govern:</strong> Defined events are audited; configured links and workflows update planning records</li>
+          <li><strong>1. Capture:</strong> A stakeholder files an Issue; Copilot can help clarify requirements and summarize context</li>
+          <li><strong>2. Build:</strong> A contributor creates a branch and opens a pull request; Copilot can explain the code and help plan or implement changes</li>
+          <li><strong>3. Review:</strong> People review the change with Copilot feedback as another signal; configured rules require selected approvals and checks</li>
+          <li><strong>4. Secure:</strong> Enabled security tools analyze code, dependencies, and supported secret patterns; Copilot can explain findings and suggest fixes</li>
+          <li><strong>5. Deploy:</strong> Configured Actions workflows promote the change through protected environments; Copilot can help understand workflows and diagnose failures</li>
+          <li><strong>6. Govern:</strong> Defined events are audited and planning records update; Copilot can help interpret policies and usage where enabled</li>
         </ul>
 
         <pre class="mermaid">
 graph LR
-  A[1. Capture] --> B[2. Build]
-  B --> C[3. Review]
-  C --> D[4. Secure]
-  D --> E[5. Deploy]
-  E --> F[6. Govern]
+  A["1. Capture<br/>Copilot: clarify and summarize"] --> B["2. Build<br/>Copilot: plan and implement"]
+  B --> C["3. Review<br/>Copilot: summarize and suggest"]
+  C --> D["4. Secure<br/>Copilot: explain and fix"]
+  D --> E["5. Deploy<br/>Copilot: understand and diagnose"]
+  E --> F["6. Govern<br/>Copilot: interpret and report"]
+  F --> A
         </pre>
         <aside class="speaker-notes">
-          This is the "One for All" moment: seeing how the capabilities can work together as a connected system. A stakeholder creates an Issue with the business context needed for prioritization. A contributor opens a linked pull request. Configured rules can require reviewers and checks. Enabled security tools can analyze code, dependencies, and supported secret patterns. After approval and merge, Actions workflows can deploy through protected environments. Supported closing keywords can close the Issue after a merge into the default branch, and configured Project workflows can update planning records. Defined events appear in the audit log. Teams still choose the policies, automation, ownership, and human decisions that make the workflow trustworthy.
+          This is the "One for All" moment: seeing how the capabilities can work together as a connected system, with Copilot assisting throughout the software lifecycle. Copilot can help clarify an Issue, explain a repository, plan or implement a change, summarize a pull request, and suggest fixes, but people still review its output. Security scanners and configured checks provide independent signals. After approval and merge, Actions workflows can deploy through protected environments, while Copilot can help explain workflow failures or next steps. Supported closing keywords can close the Issue after a merge into the default branch, and configured Project workflows can update planning records. Defined events appear in the audit log. Teams still choose the policies, automation, ownership, and human decisions that make this agentic workflow trustworthy.
         </aside>
       </div>
     </section>
