@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Copilot Quickstart: Install, Orient, and Code</title>
+  <link rel="stylesheet" href="../../css/primer-brand.css" />
+</head>
+<body data-extension-banner="false">
+
+  <div class="slide-deck">
+
+    <!-- SLIDE 1 -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge">18 Minutes</span>
+        <h1>GitHub Copilot Quickstart</h1>
+        <p class="subtitle">Install it, orient yourself, and make one useful change</p>
+        <aside class="speaker-notes">
+          Welcome. This is a practical setup session, not a feature tour. In the next 18 minutes we will get GitHub Copilot running in the standalone app, VS Code, and the terminal. Then we will use one repository to learn two habits that matter immediately: give Copilot precise context and verify every change. The next presenter will take you deeper into the Copilot app, so today we will stop after installation and a first safe session.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Today's Run of Show</h2>
+        <table>
+          <thead><tr><th>Time</th><th>What we will do</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><td>2 min</td><td>Confirm access and prerequisites</td><td>No sign-in surprises</td></tr>
+            <tr><td>7 min</td><td>Install the app, VS Code extension, and CLI</td><td>Three working entry points</td></tr>
+            <tr><td>7 min</td><td>Run two small developer workflows</td><td>Context, modes, and verification</td></tr>
+            <tr><td>2 min</td><td>Build your first-day checklist</td><td>A safe next step</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          Keep this moving. The goal is for attendees to follow along, but do not troubleshoot one machine in front of the whole room. Pair anyone who is blocked with a neighbor and share the official links after the session. If time gets tight, preserve the two workflows and skip the optional npm installation route.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Before You Install</h2>
+        <ul>
+          <li>A <strong>GitHub account</strong> with Copilot Free or an assigned paid plan</li>
+          <li><strong>Git</strong> and a small repository you are allowed to change</li>
+          <li>The latest <strong>Visual Studio Code</strong></li>
+          <li>For managed accounts, ask your administrator to enable both the <strong>Copilot app</strong> and <strong>Copilot CLI</strong> policies</li>
+          <li>For the npm CLI route only: <strong>Node.js 22 or later</strong></li>
+        </ul>
+        <p><strong>Quick check:</strong> Can you sign in at <code>github.com</code> and open the repository you will use?</p>
+        <aside class="speaker-notes">
+          Access is the most common setup blocker. A successful GitHub sign-in does not guarantee that an organization has assigned a Copilot seat or enabled every surface. The Copilot app and Copilot CLI have separate organization policies. Use a disposable sample repository if attendees do not have a safe project. Never make the first experiment in a production working tree with uncommitted work.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Install 1 of 3</span>
+        <h2>GitHub Copilot App</h2>
+        <ol>
+          <li>Open <a href="https://github.com/features/ai/github-app">github.com/features/ai/github-app</a></li>
+          <li>Download and run the installer for your platform</li>
+          <li>Select <strong>Sign in to GitHub</strong> and complete authentication</li>
+          <li>Add one local folder or clone one repository</li>
+          <li>Start an <strong>Interactive</strong> session, then open <strong>Changes</strong> to review its diff</li>
+        </ol>
+        <p><strong>Stop there:</strong> installation and orientation only. The next presenter will explore app workflows in depth.</p>
+        <aside class="speaker-notes">
+          Budget two minutes. Show the download page, authentication, and the project picker. Point out Sessions and Changes, but resist opening My work, Automations, canvases, or parallel agent workflows. For a quick smoke test, use: "Suggest one small, low-risk improvement in this repository. Do not edit yet." This confirms that the app can read the project without consuming the next presenter's content.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Install 2 of 3</span>
+        <h2>GitHub Copilot in VS Code</h2>
+        <ol>
+          <li>Open <strong>Extensions</strong> with <kbd>Ctrl+Shift+X</kbd> or <kbd>Cmd+Shift+X</kbd></li>
+          <li>Search for <strong>GitHub Copilot</strong> by GitHub and select <strong>Install</strong></li>
+          <li>Select the Copilot icon and <strong>Sign in to GitHub</strong></li>
+          <li>Authorize the browser prompt, then return to VS Code</li>
+          <li>Open Copilot Chat and confirm you can select <strong>Ask</strong>, <strong>Plan</strong>, or <strong>Agent</strong></li>
+        </ol>
+        <p><strong>Verify:</strong> ask, "What language and test framework does this repository use?"</p>
+        <aside class="speaker-notes">
+          Budget two minutes. Current VS Code releases may already include the extension, so many attendees only need to sign in. Verify the publisher is GitHub. Explain the three modes in one sentence each: Ask explains without changing files, Plan proposes an approach before implementation, and Agent can edit files and run tools. We will use Ask first because it is the safest way to confirm context.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Install 3 of 3</span>
+        <h2>GitHub Copilot CLI</h2>
+        <pre><code># Windows
+winget install GitHub.Copilot
+
+# macOS or Linux
+brew install --cask copilot-cli
+
+# Any platform with Node.js 22+
+npm install -g @github/copilot
+
+# Verify and launch
+copilot --version
+copilot</code></pre>
+        <p>On first launch, trust only a folder you recognize. Use <code>/login</code> if authentication is required.</p>
+        <aside class="speaker-notes">
+          Budget three minutes. Demonstrate one native package route rather than typing all three. The old gh copilot extension is retired; the current standalone command is copilot. Launch it from the sample repository, discuss the folder trust prompt, and sign in if needed. Trust means the repository may influence the session and the tools it requests, so do not approve an unfamiliar directory automatically.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>One Copilot, Three Work Surfaces</h2>
+        <table>
+          <thead><tr><th>Surface</th><th>Reach for it when...</th><th>Start safely with...</th></tr></thead>
+          <tbody>
+            <tr><td>VS Code</td><td>You are already reading or editing code</td><td>Ask about selected code or an open file</td></tr>
+            <tr><td>CLI</td><td>The workflow starts with commands, logs, tests, or Git</td><td>Inspect first; approve tools deliberately</td></tr>
+            <tr><td>Copilot app</td><td>You want a dedicated workspace for agent sessions</td><td>Interactive mode and a low-risk task</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Rule of thumb:</strong> choose the surface closest to the evidence you need.</p>
+        <aside class="speaker-notes">
+          Do not frame these as competing products. The task should determine the surface. Editor context is strongest when the developer is looking at code. The terminal is natural when the evidence is command output or repository state. The app provides a dedicated agent workspace, which the next presenter will cover. The developer remains responsible for scope, permissions, and the final diff in every surface.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Demo 1</span>
+        <h2>Tip: Point to Evidence, Not Just Intent</h2>
+        <p><strong>Weak:</strong> <code>How does this project work?</code></p>
+        <p><strong>Better:</strong></p>
+        <pre><code>Read the README, package manifest, and the tests for the
+current file. Explain:
+1. how to run the smallest relevant test,
+2. the behavior this file owns, and
+3. one low-risk improvement.
+Do not edit anything yet.</code></pre>
+        <ul>
+          <li>In VS Code, select code or attach the relevant files</li>
+          <li>In the CLI, reference a file with <code>@path/to/file</code></li>
+        </ul>
+        <aside class="speaker-notes">
+          Budget three minutes. Run this in Ask mode in VS Code. The practical lesson is that good context is selected, not dumped. Name the evidence that should constrain the answer and specify that no edit is wanted yet. Ask one follow-up such as, "Which test proves that?" If Copilot cannot cite the repository evidence, do not move to implementation.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Demo 2</span>
+        <h2>Tip: Plan, Change, Verify</h2>
+        <pre><code>Plan a small improvement to the validation error message.
+Keep behavior unchanged except for the message.
+
+Before editing:
+- name the files you expect to touch,
+- identify the smallest relevant test.
+
+After editing:
+- run that test,
+- summarize the diff and any remaining risk.</code></pre>
+        <p><strong>Review sequence:</strong> plan → permissions → diff → test output → your judgment</p>
+        <aside class="speaker-notes">
+          Budget four minutes. Run this from Copilot CLI in standard or plan mode. Use a real low-risk issue from the sample repository, not a fabricated production change. Pause when Copilot requests permission and explain why the command is or is not appropriate. At the end, inspect git diff yourself and compare it with Copilot's summary. A confident summary is not verification; test output and human review are.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Four Habits for Day One</h2>
+        <div class="columns">
+          <div class="card"><h3>Scope it</h3><p>Ask for one bounded outcome and state what must not change.</p></div>
+          <div class="card"><h3>Ground it</h3><p>Attach the files, errors, tests, or documentation that matter.</p></div>
+          <div class="card"><h3>Inspect it</h3><p>Review requested permissions, commands, and every diff.</p></div>
+          <div class="card"><h3>Prove it</h3><p>Run the smallest useful check, then broaden validation when risk warrants it.</p></div>
+        </div>
+        <p><strong>Never paste secrets, tokens, customer data, or content your organization forbids.</strong></p>
+        <aside class="speaker-notes">
+          These four habits transfer across all three surfaces. Scope prevents the agent from solving a larger problem than intended. Grounding reduces guesses. Inspection keeps authority with the developer. Proof turns a plausible answer into evidence. Remind attendees that organizational data-handling rules still apply even when the tool is approved.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Your First-Day Checklist</h2>
+        <ul>
+          <li>Sign in and verify access in the app, VS Code, and CLI</li>
+          <li>Use one safe repository across all three surfaces</li>
+          <li>Ask Copilot to explain a file and cite the evidence it used</li>
+          <li>Make one bounded change with an explicit verification step</li>
+          <li>Review the diff yourself before you keep or share it</li>
+        </ul>
+        <p><strong>Next:</strong> a deeper tour of the GitHub Copilot app and its agent workflows.</p>
+        <aside class="speaker-notes">
+          Close by asking attendees to choose one real, low-risk task they can try today. They now know how to install each surface, how to select the right one, and how to work safely through context and verification. Hand off to the app presenter without previewing their deeper material.
+        </aside>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="../../js/slides.js"></script>
+</body>
+</html>

@@ -131,12 +131,11 @@
             <tr><td>1</td><td>From AI-assisted coding to an agentic SDLC</td><td>10 min</td></tr>
             <tr><td>2</td><td>Repository context and custom agents</td><td>22 min</td></tr>
             <tr><td>3</td><td>Sub-agent orchestration and parallel work</td><td>18 min</td></tr>
-            <tr><td>4</td><td>Implementation, review, and safe integration</td><td>22 min</td></tr>
-            <tr><td>5</td><td>Emerging capabilities, recommendations, and Q&amp;A</td><td>18 min</td></tr>
+            <tr><td>4</td><td>Live demo: multi-agent delegation and agent.md persona creation</td><td>40 min</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          The session moves from workflow design into the mechanics of context, specialization, orchestration, and review. The final section separates practices you can standardize now from capabilities that require a status check or further evaluation. The closing minutes are reserved for DocuSign's priority scenarios and roadmap questions.
+          The session moves from workflow design into the mechanics of context, specialization, and orchestration. The final section uses the remaining time for a live demonstration of persona creation, delegated roles, evidence review, and human approval.
         </aside>
       </div>
     </section>
@@ -626,334 +625,24 @@ graph LR
     <section class="slide slide--section anim-scale">
       <div class="slide-inner">
         <span class="badge badge--purple">Part 5</span>
-        <h2>Agent-Assisted Implementation and Multi-Perspective Review</h2>
+        <h2>Live Demo: Multi-Agent Delegation and agent.md Persona Creation</h2>
         <aside class="speaker-notes">
-          Now we move from the plan into a proposed code change. The core pattern is separation: implementation creates the change, tests challenge behavior, reviewers inspect different risk dimensions, and a human consolidates the evidence before approval.
+          This is the live demonstration block. By this point the audience understands specialized agents and orchestration. We now show the workflow in action: create a focused agent.md persona, split the task across delegated roles, and converge on a reviewed result with clear human ownership.
         </aside>
       </div>
     </section>
 
     <!-- SLIDE 33 -->
-    <section class="slide slide--content anim-reveal">
+    <section class="slide slide--content anim-focus">
       <div class="slide-inner">
-        <h2>Issue to Proposed Change</h2>
-        <pre class="mermaid">
-sequenceDiagram
-  participant H as Human
-  participant P as Planner
-  participant I as Implementer
-  participant T as Tester
-  H->>P: Issue and constraints
-  P-->>H: Plan and decisions
-  H->>I: Approved plan
-  I-->>T: Diff and assumptions
-  T-->>H: Results and gaps
-        </pre>
-        <aside class="speaker-notes">
-          The human checkpoint after planning is important for a cross-cutting change. Once the plan is approved, the implementer works within a defined boundary and exposes assumptions to the tester. The tester evaluates the behavior rather than inheriting the implementer's confidence.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 34 -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Keep Implementation Focused</h2>
-        <ul>
-          <li>Confirm the controlling code path before editing</li>
-          <li>Make the smallest change that satisfies the approved contract</li>
-          <li>Preserve unrelated behavior and public APIs</li>
-          <li>Validate after each meaningful change</li>
-          <li>Report assumptions, tradeoffs, and evidence with the diff</li>
-        </ul>
-        <aside class="speaker-notes">
-          Agentic does not mean broad. Small, validated steps produce better evidence and make review easier. If implementation discovers that the approved plan does not match the code, the right action is to stop and update the decision, not improvise a larger architecture change.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 35 -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Separate Testing From Implementation</h2>
-        <table>
-          <thead><tr><th>Perspective</th><th>Question</th><th>Evidence</th></tr></thead>
-          <tbody>
-            <tr><td>Acceptance</td><td>Does the feature meet the issue?</td><td>Behavioral tests</td></tr>
-            <tr><td>Regression</td><td>What existing behavior could break?</td><td>Focused and suite results</td></tr>
-            <tr><td>Failure</td><td>How does it behave under invalid input or dependency failure?</td><td>Negative tests</td></tr>
-            <tr><td>Operational</td><td>Can we observe and support it?</td><td>Logs, metrics, and runbook checks</td></tr>
-          </tbody>
-        </table>
-        <aside class="speaker-notes">
-          Tests generated alongside implementation often mirror the same assumptions. A separate testing role can begin from acceptance criteria and risk, then look for what the implementation did not anticipate. Independence matters most at boundaries such as authorization, retries, and data filtering.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 36 -->
-    <section class="slide slide--content anim-cascade">
-      <div class="slide-inner">
-        <h2>Review Through Four Lenses</h2>
+        <h2>Demo Flow</h2>
         <div class="columns">
-          <div class="card">
-            <h3>Security</h3>
-            <p><strong>Can the change expose data or expand access?</strong></p>
-            <p>Examine authorization, tenant boundaries, input handling, secrets, and auditability.</p>
-          </div>
-          <div class="card">
-            <h3>Correctness</h3>
-            <p><strong>Does every path honor the intended contract?</strong></p>
-            <p>Examine requirements, edge cases, state changes, errors, and regression behavior.</p>
-          </div>
-          <div class="card">
-            <h3>Performance</h3>
-            <p><strong>Will the design remain efficient at production scale?</strong></p>
-            <p>Examine query patterns, memory, concurrency, latency, limits, and failure recovery.</p>
-          </div>
-          <div class="card">
-            <h3>Maintainability</h3>
-            <p><strong>Can the owning team understand and evolve it safely?</strong></p>
-            <p>Examine complexity, cohesion, duplication, tests, documentation, and ownership.</p>
-          </div>
+          <div class="card"><h3>1. Define the persona</h3><p>Create a focused agent.md that specifies role, boundaries, tools, and expected output.</p></div>
+          <div class="card"><h3>2. Split the task</h3><p>Delegate research, implementation, validation, and review to specialized agents with clean handoff rules.</p></div>
+          <div class="card"><h3>3. Consolidate evidence</h3><p>Review conflicting findings, resolve the tradeoff, and confirm the result is ready for human approval.</p></div>
         </div>
         <aside class="speaker-notes">
-          One generic “review this code” prompt tends to produce a shallow mixture of concerns. Security asks whether the export crosses an authorization or tenant boundary. Correctness traces expected and failure paths against the contract. Performance tests assumptions about data volume and concurrency. Maintainability considers whether the owning team can support and change the implementation without creating fragile coupling. Separate findings make each risk easier to evaluate and resolve.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 37 -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Consolidate Findings Before Approval</h2>
-        <table>
-          <thead><tr><th>Priority</th><th>Meaning</th><th>Required response</th></tr></thead>
-          <tbody>
-            <tr><td>Blocking</td><td>Correctness, security, or contract failure</td><td>Fix and revalidate</td></tr>
-            <tr><td>Important</td><td>Material maintainability or operational risk</td><td>Fix or document decision</td></tr>
-            <tr><td>Advisory</td><td>Optional improvement with limited risk</td><td>Consider separately</td></tr>
-            <tr><td>Conflict</td><td>Reviewers disagree on a requirement or tradeoff</td><td>Human adjudication</td></tr>
-          </tbody>
-        </table>
-        <aside class="speaker-notes">
-          Consolidation removes duplicates, tests findings against the actual diff, and makes disagreement visible. A human should not receive four unranked reports and be expected to infer the decision. The result should state which issues block approval, which tradeoffs were accepted, and what evidence changed.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 38 -->
-    <section class="slide slide--section anim-scale">
-      <div class="slide-inner">
-        <span class="badge badge--purple">Part 6</span>
-        <h2>Asynchronous Development, Guardrails, and Safe Integration</h2>
-        <aside class="speaker-notes">
-          Longer-running tasks can continue asynchronously while engineers focus elsewhere. That changes the interaction model, but not the integration standard. Isolated environments, automated checks, protected branches, and human review create the boundary between delegated work and trusted production code.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 39 -->
-    <section class="slide slide--content anim-lift">
-      <div class="slide-inner">
-        <h2>Bounded Work Is an Engineering Requirement</h2>
-        <p style="font-size:1.35rem"><strong>Developers should send ambiguous work back for clarification before assigning it to an agent.</strong></p>
-        <div class="columns" style="margin-top:1.25rem">
-          <div class="card">
-            <h3>Project management defines</h3>
-            <p>The outcome, priority, acceptance criteria, non-goals, dependencies, and business constraints.</p>
-          </div>
-          <div class="card">
-            <h3>Engineering validates</h3>
-            <p>The system boundary, architecture constraints, repository context, required evidence, risks, and escalation path.</p>
-          </div>
-        </div>
-        <p style="margin-top:1.25rem"><strong>Push back when:</strong> scope is open-ended, success is subjective, dependencies are unresolved, or the task requires an unmade product or architecture decision.</p>
-        <aside class="speaker-notes">
-          Successful AI coding begins with work that is ready for engineering, not merely work that has been named. Developers have to push back constructively when a request lacks boundaries or asks the agent to make a product decision by inference. That pushback is not resistance to delivery. It protects delivery by turning intent into acceptance criteria, non-goals, constraints, and evidence. Once project management defines the desired outcome, engineering can validate that the task fits a coherent system boundary and can return as a reviewable pull request. If those conditions are missing, clarify the work before increasing autonomy.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 40 -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Isolation Is a Safety Control</h2>
-        <pre class="mermaid">
-graph LR
-  A[Issue] --> B[Isolated environment]
-  B --> C[Agent changes]
-  C --> D[Build and tests]
-  D --> E[Pull request]
-  E --> F[Protected branch]
-  F --> G[Human approval]
-        </pre>
-        <aside class="speaker-notes">
-          Isolation limits blast radius and makes the work reproducible. The agent should operate with the minimum credentials and network access needed for the task. Nothing about successful execution in that environment grants permission to bypass the protected integration path.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 41 -->
-    <section class="slide slide--content anim-cascade">
-      <div class="slide-inner">
-        <h2>Required Validation Gates</h2>
-        <table>
-          <thead><tr><th>Gate</th><th>Purpose</th><th>Failure response</th></tr></thead>
-          <tbody>
-            <tr><td>Build and type check</td><td>Structural validity</td><td>Repair before review</td></tr>
-            <tr><td>Focused and regression tests</td><td>Behavioral evidence</td><td>Investigate and rerun</td></tr>
-            <tr><td>Lint and formatting</td><td>Repository consistency</td><td>Apply approved tooling</td></tr>
-            <tr><td>Security and dependency checks</td><td>Known risk detection</td><td>Resolve or formally accept</td></tr>
-            <tr><td>PR policy checks</td><td>Governance and ownership</td><td>Block integration</td></tr>
-          </tbody>
-        </table>
-        <aside class="speaker-notes">
-          Automated checks are evidence, not approval. They catch known classes of failure and enforce repeatable policy. The pull request should make failures visible, and the workflow should never weaken a gate merely to complete an agent task successfully.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 42 -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Safe Integration Requires Independent Authority</h2>
-        <ul>
-          <li>Agents propose changes through normal branches and pull requests</li>
-          <li>Branch protection requires checks and appropriate reviewers</li>
-          <li>CODEOWNERS routes sensitive areas to accountable teams</li>
-          <li>Secrets and production deployment permissions remain restricted</li>
-          <li>A human with authority approves the final integration decision</li>
-        </ul>
-        <aside class="speaker-notes">
-          The same actor should not write, validate, approve, and deploy a sensitive change without independent control. Existing software supply-chain practices remain relevant. Agent identity and activity should be auditable, but the most important boundary is still who has authority to integrate and release.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 43 -->
-    <section class="slide slide--section anim-scale">
-      <div class="slide-inner">
-        <span class="badge badge--purple">Part 7</span>
-        <h2>What's New, Emerging Capabilities, and Roadmap</h2>
-        <aside class="speaker-notes">
-          This section summarizes customer-relevant GitHub Copilot updates current as of August 12, 2026. The releases show Copilot expanding from individual assistance into a portable, governed agent platform across the editor, terminal, GitHub, and enterprise management surfaces. Preview capabilities and directional themes are labeled separately from generally available features.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 44 -->
-    <section class="slide slide--content anim-cascade">
-      <div class="slide-inner">
-        <h2>Agent Plugins 1.0: Build Once, Use Across Tools</h2>
-        <p><span class="badge badge--green">Generally available</span> in VS Code, Copilot CLI, the Copilot SDK, and the Copilot app.</p>
-        <div class="columns" style="margin-top:1.25rem">
-          <div class="card">
-            <h3>Portable specialization</h3>
-            <p>One installable package can carry skills and MCP server configuration across compatible agent clients.</p>
-            <p>Copilot-specific agents, commands, rules, and hooks remain available through a namespaced package.</p>
-          </div>
-          <div class="card">
-            <h3>Enterprise governance</h3>
-            <p>Managed settings can install or block plugins and control approved marketplaces across supported Copilot surfaces.</p>
-            <p>MCP allowlists add control over the servers a plugin may introduce.</p>
-          </div>
-        </div>
-        <aside class="speaker-notes">
-          Agent Plugins 1.0 addresses a practical scaling problem: teams no longer need a separate package for every agent client. A platform team can combine a deployment skill with its MCP integration, publish it once, and make it available across supported tools. Business and Enterprise customers can govern plugin installation and marketplaces through existing managed settings, while MCP allowlists control the connected servers.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 45 -->
-    <section class="slide slide--content anim-cascade">
-      <div class="slide-inner">
-        <h2>Cloud Agent and CLI: Broader Delegation</h2>
-        <div class="columns">
-          <div class="card"><h3>Research before code</h3><p>Copilot cloud agent can research a repository, propose a plan, iterate on a branch, and open a pull request when the change is ready.</p></div>
-          <div class="card"><h3>Reasoning controls</h3><p>Customers can select supported models and reasoning levels for cloud-agent tasks, balancing depth against token consumption.</p></div>
-          <div class="card"><h3>CLI plan and automation</h3><p>Copilot CLI supports interactive planning, programmatic prompts, GitHub operations, custom agents, skills, hooks, and MCP tools.</p></div>
-          <div class="card"><h3>Sandboxed parallel work</h3><p>Local and cloud CLI sandboxes are in public preview. Cloud sessions can preserve state and run multiple isolated tasks in parallel.</p></div>
-        </div>
-        <aside class="speaker-notes">
-          Delegation now spans GitHub and the terminal. Cloud agent supports repository research and planning before a pull request, while model and reasoning controls let teams match effort to task complexity. Copilot CLI adds plan mode, programmatic execution, customization, and GitHub operations. Local and cloud sandboxes are public preview capabilities; cloud sandboxes are especially relevant to parallel work because each task can run in an isolated, persistent environment.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 46 -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Review, Governance, and Visibility Are Expanding</h2>
-        <div class="columns">
-          <div class="card"><h3>Review effort levels</h3><p>Lite and Balanced are generally available, with organization defaults and per-review selection based on risk.</p></div>
-          <div class="card"><h3>Agentic remediation</h3><p>Reviews can use full project context. Passing suggestions to cloud agent for a remediation pull request is in public preview.</p></div>
-          <div class="card"><h3>MCP allowlists</h3><p>Enterprise managed settings can allow or deny MCP servers across VS Code, Copilot CLI, and the Copilot app.</p></div>
-          <div class="card"><h3>Agent-level metrics</h3><p>The usage metrics API can report job starts and sessions by recognized agent app for adoption comparisons.</p></div>
-        </div>
-        <aside class="speaker-notes">
-          The enterprise story is growing alongside agent capability. Review effort levels are generally available, so routine and sensitive changes can receive different analysis depth. Agentic review gathers broader project context, and delegated remediation is in public preview. MCP allowlists provide a fail-closed governance control for connected servers. Agent-level usage metrics help leaders compare adoption across Copilot and partner agents instead of treating all activity as one bucket.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 47 -->
-    <section class="slide slide--content">
-      <div class="slide-inner">
-        <h2>Roadmap Direction: Managed Agentic Delivery</h2>
-        <div class="columns">
-          <div class="card"><h3>Portable specialization</h3><p>Agents, skills, hooks, and MCP integrations move consistently across developer surfaces.</p></div>
-          <div class="card"><h3>Concurrent execution</h3><p>Isolated cloud work makes multiple delegated tasks practical without sharing local state.</p></div>
-          <div class="card"><h3>Richer context</h3><p>Instructions, MCP, skills, and memory deepen repository and organizational understanding.</p></div>
-          <div class="card"><h3>Measurable governance</h3><p>Policies, allowlists, budgets, usage metrics, and outcome reporting mature with autonomy.</p></div>
-        </div>
-        <p style="margin-top:1rem"><strong>Directional view:</strong> these themes reflect current releases and previews, not commitments to unannounced features or delivery dates.</p>
-        <aside class="speaker-notes">
-          The direction visible across these releases is a managed agentic delivery platform. Specialization is becoming portable, execution is moving into isolated and concurrent environments, context is becoming richer and more persistent, and enterprise controls are becoming more granular and measurable. This is the roadmap signal customers can use for planning. It does not imply a commitment to any unannounced feature or date, and preview capabilities should still be evaluated against current limitations.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 48 -->
-    <section class="slide slide--section anim-scale">
-      <div class="slide-inner">
-        <span class="badge badge--purple">Part 8</span>
-        <h2>Best Practices, Recommendations, and Q&amp;A</h2>
-        <aside class="speaker-notes">
-          We will close by turning the patterns into an adoption sequence and a scorecard. The objective is controlled learning: start where the workflow is valuable and measurable, then increase specialization and parallelism only when the evidence supports it.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 49 -->
-    <section class="slide slide--content anim-cascade">
-      <div class="slide-inner">
-        <h2>A Practical Adoption Scorecard</h2>
-        <table>
-          <thead><tr><th>Measure</th><th>Question</th><th>Watch for</th></tr></thead>
-          <tbody>
-            <tr><td>Quality</td><td>Did escaped defects or security findings change?</td><td>Faster output with weaker outcomes</td></tr>
-            <tr><td>Cycle time</td><td>Did issue-to-approved-PR time improve?</td><td>Local speed with integration delay</td></tr>
-            <tr><td>Rework</td><td>How often were plans or changes substantially redone?</td><td>Ambiguous context or poor boundaries</td></tr>
-            <tr><td>Review burden</td><td>Did human review time and finding quality change?</td><td>More generated noise</td></tr>
-            <tr><td>Adoption</td><td>Which high-value workflows repeat successfully?</td><td>Usage without durable value</td></tr>
-          </tbody>
-        </table>
-        <aside class="speaker-notes">
-          Begin with one or two high-value workflows, establish reliable repository context, and assign narrow responsibilities. Parallelize only independent work and retain human review. These measures tell us whether the system improves delivery as a whole instead of merely increasing the volume of generated activity.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 50 -->
-    <section class="slide slide--title anim-scale">
-      <div class="slide-inner">
-        <img src="../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
-        <h1>Build the Workflow, Not Just the Prompt</h1>
-        <p class="subtitle">Reliable context, narrow roles, independent evidence, and human approval.</p>
-        <p style="margin-top:1.5rem"><a href="https://docs.github.com/en/copilot">GitHub Copilot documentation</a> | <a href="https://github.blog/changelog/">GitHub Changelog</a> | <a href="https://github.com/github/roadmap">GitHub public roadmap</a></p>
-        <aside class="speaker-notes">
-          The durable best practice is to design an engineering system around the agent. Start with valuable bounded work, encode repository expectations, specialize only where roles create real separation, and parallelize only where dependencies allow it. Let us use the remaining time to capture DocuSign's priority scenarios, current gaps, and roadmap questions with clear owners for follow-up.
+          The point of the demo is not a clever prompt. It is a repeatable operating model. A strong agent.md gives the agent its default behavior. Specialized roles reduce scope and increase confidence. The final step is human accountability and evidence review, not blind trust in a single model output.
         </aside>
       </div>
     </section>
