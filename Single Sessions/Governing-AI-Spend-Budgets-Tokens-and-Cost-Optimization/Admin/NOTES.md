@@ -1,28 +1,18 @@
-# Governing AI Spend: Budgets, Tokens, and Cost Optimization
+# AI Budgets for Administrators and Leaders
 
 ## Session profile
 
 - Scheduled time: 12:30 PM to 2:00 PM PT
-- Presenters: Erik in person, Guna remote
 - Audience: budget owners, enterprise and organization administrators, finance partners, and account stakeholders
-- Format: 50-slide core with expandable live demonstrations
+- Format: 50-slide core with an expandable live demonstration
 - Labs: none
 - Catalog listing: none
 
 The deck is paced for the listed 90-minute session. If more time is available,
-expand the two demonstrations and discussion prompts. Do not add more lecture.
+expand the live demonstration and discussion prompts. Do not add more lecture.
 
-## Presenter split
-
-- Erik opens the session, covers slides 1 through 18, and facilitates room questions.
-- Guna covers slides 19 through 31 and explains the budget-control sequence.
-- Erik resumes after the break for slides 33 through 42.
-- Guna drives Live Demo 2 remotely while Erik narrates and repeats room questions.
-- Erik closes slides 44 through 50. Guna handles detailed product questions.
-
-Confirm screen sharing, audio, GitHub access, and presenter handoffs before the
-session. Keep one presenter signed into the demo enterprise and the other ready
-with the fallback materials.
+Confirm screen sharing, audio, GitHub access, and the demo environment before the
+session. Keep the demo enterprise signed in and the fallback materials ready.
 
 ## Timing
 
@@ -30,17 +20,17 @@ with the fallback materials.
 |---|---:|---|---:|
 | 12:30 | 1 to 5 | Context and outcomes | 8 min |
 | 12:38 | 6 to 16 | Billing fundamentals | 12 min |
-| 12:50 | 17 to 18 | Live Demo 1 and debrief | 8 min |
+| 12:50 | 17 to 18 | AI credit example and debrief | 8 min |
 | 12:58 | 19 to 31 | Budget layers and governance | 20 min |
 | 1:18 | 32 | Break | 5 min |
 | 1:23 | 33 to 42 | Reporting and automation | 15 min |
-| 1:38 | 43 to 44 | Live Demo 2 and debrief | 10 min |
+| 1:38 | 43 to 44 | Live demo and debrief | 10 min |
 | 1:48 | 45 to 50 | Operating model and close | 12 min |
 
-For a longer delivery, add up to 15 minutes to each demo. Use the extra time to
+For a longer delivery, add up to 15 minutes to the demo. Use the extra time to
 compare audience scenarios, filters, and budget configurations.
 
-## Live Demo 1: Trace a task to AI credits
+## Example: Trace a task to AI credits
 
 ### Goal
 
@@ -70,7 +60,7 @@ If usage data has not refreshed or account access fails, use slides 9 through
 18 as the demonstration. Walk the interaction-to-invoice flow and compare the
 two scenarios without claiming a live credit total.
 
-## Live Demo 2: Current billing and AI reporting
+## Live Demo: Current billing and AI reporting
 
 ### Goal
 

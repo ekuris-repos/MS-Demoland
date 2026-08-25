@@ -95,7 +95,7 @@
     <section class="slide slide--title anim-scale">
       <div class="slide-inner">
         <img src="../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
-        <span class="badge">90 Minutes</span>
+        <span class="badge">10:00 AM - 11:30 AM PT</span>
         <h1>Advanced Software Engineering with GitHub Copilot</h1>
         <p class="subtitle">Agentic workflows, best practices, and emerging capabilities</p>
         <aside class="speaker-notes">
@@ -126,16 +126,17 @@
       <div class="slide-inner">
         <h2>Session Agenda</h2>
         <table>
-          <thead><tr><th>Sequence</th><th>Focus</th><th>Duration</th></tr></thead>
+          <thead><tr><th>Section</th><th>Focus</th></tr></thead>
           <tbody>
-            <tr><td>1</td><td>From AI-assisted coding to an agentic SDLC</td><td>10 min</td></tr>
-            <tr><td>2</td><td>Repository context and custom agents</td><td>22 min</td></tr>
-            <tr><td>3</td><td>Sub-agent orchestration and parallel work</td><td>18 min</td></tr>
-            <tr><td>4</td><td>Live demo: multi-agent delegation and agent.md persona creation</td><td>40 min</td></tr>
+            <tr><td>1</td><td>Progressing from AI assistance to agentic development</td></tr>
+            <tr><td>2</td><td>Structuring repository context, instructions, and custom agents</td></tr>
+            <tr><td>Live Demo</td><td>Repository context, instructions, and custom agents</td></tr>
+            <tr><td>3</td><td>Decomposing and orchestrating complex engineering work<br />Coordinating parallel implementation and review workflows<br />Applying human approval, validation, and integration controls</td></tr>
+            <tr><td>Live Demo</td><td>Multi-agent delegation and agent.md persona creation</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          The session moves from workflow design into the mechanics of context, specialization, and orchestration. The final section uses the remaining time for a live demonstration of persona creation, delegated roles, evidence review, and human approval.
+          The session moves from workflow design into repository context and custom agents, followed by complex engineering orchestration. Live demonstrations separate the repository practices from the parallel implementation, review, and approval workflow.
         </aside>
       </div>
     </section>
@@ -161,7 +162,7 @@
     <section class="slide slide--section anim-scale">
       <div class="slide-inner">
         <span class="badge badge--purple">Part 1</span>
-        <h2>From AI-Assisted Coding to an Agentic SDLC</h2>
+        <h2>Progressing from AI Assistance to Agentic Development</h2>
         <aside class="speaker-notes">
           We begin by changing the unit of work. Suggestions help with the line in front of us. An agentic workflow coordinates a bounded engineering outcome across planning, editing, validation, and review. That broader scope creates leverage, but it also makes responsibility and evidence more important.
         </aside>
@@ -262,7 +263,7 @@ graph LR
     <section class="slide slide--section anim-scale">
       <div class="slide-inner">
         <span class="badge badge--purple">Part 2</span>
-        <h2>Engineering Repository Context for Reliable Agent Behavior</h2>
+        <h2>Structuring Repository Context, Instructions, and Custom Agents</h2>
         <aside class="speaker-notes">
           Reliable behavior starts before the prompt. The repository should explain how work is done, which boundaries matter, and what must pass before a change is complete. This turns institutional knowledge into context that both people and agents can use.
         </aside>
@@ -346,20 +347,9 @@ graph LR
     </section>
 
     <!-- SLIDE 16 -->
-    <section class="slide slide--section anim-scale">
-      <div class="slide-inner">
-        <span class="badge badge--purple">Part 3</span>
-        <h2>Custom Agents as Reusable Engineering Roles</h2>
-        <aside class="speaker-notes">
-          Repository instructions define the environment. Custom agents define reusable roles within it. A useful role has a narrow purpose, appropriate tools, a clear output contract, and an explicit point where its responsibility ends.
-        </aside>
-      </div>
-    </section>
-
-    <!-- SLIDE 17 -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Specialize Around Responsibilities</h2>
+        <h2>Custom Agents as Reusable Engineering Roles</h2>
         <table>
           <thead><tr><th>Agent</th><th>Primary output</th><th>Should not own</th></tr></thead>
           <tbody>
@@ -376,7 +366,7 @@ graph LR
       </div>
     </section>
 
-    <!-- SLIDE 18 -->
+    <!-- SLIDE 17 -->
     <section class="slide slide--content anim-cascade">
       <div class="slide-inner">
         <h2>The Custom Agent Contract</h2>
@@ -394,7 +384,7 @@ graph LR
       </div>
     </section>
 
-    <!-- SLIDE 19 -->
+    <!-- SLIDE 18 -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Scope Tools and MCP Access Deliberately</h2>
@@ -413,7 +403,7 @@ graph LR
       </div>
     </section>
 
-    <!-- SLIDE 20 -->
+    <!-- SLIDE 19 -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Choose Models by Workload</h2>
@@ -427,7 +417,7 @@ graph LR
       </div>
     </section>
 
-    <!-- SLIDE 21 -->
+    <!-- SLIDE 20 -->
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>When Custom Agents Add Value</h2>
@@ -447,11 +437,24 @@ graph LR
       </div>
     </section>
 
+    <!-- SLIDE 21 -->
+    <section class="slide slide--section anim-scale">
+      <div class="slide-inner">
+        <span class="badge badge--green">Live Demo</span>
+        <h2>Repository Context, Instructions, and Custom Agents</h2>
+        <aside class="speaker-notes">
+          We will now see how repository context, instructions, and a custom agent work together in a live engineering workflow.
+        </aside>
+      </div>
+    </section>
+
     <!-- SLIDE 22 -->
     <section class="slide slide--section anim-scale">
       <div class="slide-inner">
-        <span class="badge badge--purple">Part 4</span>
-        <h2>Sub-Agent Orchestration and Parallel Engineering Work</h2>
+        <span class="badge badge--purple">Part 3</span>
+        <h2>Decomposing and Orchestrating Complex Engineering Work</h2>
+        <p>Coordinating parallel implementation and review workflows</p>
+        <p>Applying human approval, validation, and integration controls</p>
         <aside class="speaker-notes">
           This is where agentic workflows become more sophisticated. We will decompose the audit export into responsibilities, isolate context, run truly independent work in parallel, and control the points where outputs must converge.
         </aside>
@@ -624,8 +627,8 @@ graph LR
     <!-- SLIDE 32 -->
     <section class="slide slide--section anim-scale">
       <div class="slide-inner">
-        <span class="badge badge--purple">Part 5</span>
-        <h2>Live Demo: Multi-Agent Delegation and agent.md Persona Creation</h2>
+        <span class="badge badge--green">Live Demo</span>
+        <h2>Multi-Agent Delegation and agent.md Persona Creation</h2>
         <aside class="speaker-notes">
           This is the live demonstration block. By this point the audience understands specialized agents and orchestration. We now show the workflow in action: create a focused agent.md persona, split the task across delegated roles, and converge on a reviewed result with clear human ownership.
         </aside>
