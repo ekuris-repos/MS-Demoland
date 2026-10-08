@@ -283,8 +283,6 @@ graph LR
           <li>Investigate why local review missed any new finding</li>
           <li>Dismiss only with a documented, reviewable reason</li>
         </ul>
-        <img src="img/TODO-screenshot-codeql-data-flow-path.png" alt="TODO: Add screenshot for &quot;CodeQL alert data-flow path in a pull request&quot;" />
-
         <aside class="speaker-notes">
           A clean local review does not promise a clean CodeQL result, and that is useful. If CodeQL finds something we missed, we should ask why. Did our prompt ignore a call path? Were the repository instructions missing an important security rule? Did we need a regression test? Sometimes the answer is simply that CodeQL has a deterministic query designed for this exact pattern. The difference between the two reviews helps us improve the workflow.
         </aside>
@@ -378,8 +376,6 @@ graph LR
   E --> F[Run CodeQL]
   F --> G[Human review]
         </pre>
-        <img src="img/TODO-screenshot-copilot-autofix-suggestion.png" alt="TODO: Add screenshot for &quot;Copilot Autofix suggestion with code changes&quot;" />
-
         <aside class="speaker-notes">
           Here is the decision point: accept, revise, or reject. Start with the CodeQL path, then compare it with the proposed change. If the patch blocks the unsafe path and preserves intended behavior, validate it. If it only handles part of the problem, revise it. If it introduces more risk than it removes, reject it and explain why. In the lab, we use a prepared vulnerable pull request so everyone can evaluate the same alert even if your local fix already prevented it.
         </aside>
