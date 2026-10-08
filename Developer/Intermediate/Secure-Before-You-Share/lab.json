@@ -163,13 +163,18 @@
     "18": {
       "steps": [
         {
-          "title": "Identify the Evidence Source",
-          "instruction": "In the prepared pull request, identify which capability produced each item:<br>&bull; <strong>CodeQL</strong> alert and data-flow path<br>&bull; <strong>Copilot Autofix</strong> code suggestion<br>&bull; <strong>Agentic Autofix</strong> draft pull request, if enabled<br>&bull; <strong>Copilot code review</strong> comments<br><br>Do not treat these outputs as interchangeable.",
+          "title": "Open the CodeQL Alert",
+          "instruction": "Open the prepared pull request's code-scanning alert from the repository's <strong>Security</strong> tab. Confirm the alert severity, query, source, propagation steps, and sensitive sink before requesting a fix.",
           "focus": "guide"
         },
         {
-          "title": "Trace the CodeQL Alert",
-          "instruction": "Open the prepared code-scanning alert. Record the untrusted source, propagation steps, missing control, sensitive sink, query name, and severity.<br><br>Compare the deterministic path with your local review. Identify which evidence agrees and which evidence is new.",
+          "title": "Generate and Read the Fix",
+          "instruction": "Choose the available <strong>Autofix</strong> action for the supported alert. Read the explanation and proposed diff. If the repository offers the separate agentic option, note that assigning the alert starts a cloud-agent workflow instead of producing only a suggestion.<br><br>Do not apply the change yet. Record which evidence agrees with your local review and which evidence is new.",
+          "focus": "guide"
+        },
+        {
+          "title": "Inspect the Candidate Patch",
+          "instruction": "Check whether the suggestion blocks the unsafe source-to-sink path, uses an established safe API, preserves intended behavior, and covers alternate paths. Record questions or rejected hypotheses before moving to the accept, revise, or reject decision.",
           "focus": "guide"
         }
       ]
@@ -178,7 +183,7 @@
       "steps": [
         {
           "title": "Evaluate the Autofix",
-          "instruction": "Inspect the complete <strong>Copilot Autofix</strong> suggestion. Decide whether it breaks the full source-to-sink path, uses an established safe API, preserves intended behavior, and covers alternate paths.<br><br>Choose <strong>accept</strong>, <strong>revise</strong>, or <strong>reject</strong>. Record the evidence behind your decision in the pull request or review record.",
+          "instruction": "Inspect the complete <strong>Copilot Autofix</strong> suggestion. Decide whether it blocks the unsafe source-to-sink path, uses an established safe API, preserves intended behavior, and covers alternate paths.<br><br>Choose <strong>accept</strong>, <strong>revise</strong>, or <strong>reject</strong>. Record the evidence behind your decision in the pull request or review record.",
           "focus": "guide"
         },
         {

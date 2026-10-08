@@ -309,34 +309,39 @@ graph LR
       </div>
     </section>
 
-    <!-- SLIDE 17: Section -->
+    <!-- SLIDE 17: Autofix usage -->
     <section class="slide slide--section">
       <div class="slide-inner">
         <span class="badge badge--purple">3. Remediate</span>
-        <h2>Use Autofix as a Proposal, Not Permission</h2>
+        <h2>How to Use Copilot Autofix</h2>
         <aside class="speaker-notes">
-          Now we are moving from detection to remediation. Copilot Autofix can shorten the time between a CodeQL alert and a candidate patch, which is valuable when teams are carrying a large security backlog. But faster is only better if the fix is sound. We still need to understand the alert, inspect every changed line, and prove that the application behaves correctly afterward.
+          We have reached the point where a CodeQL alert has given us a concrete problem to fix. This is the practical Autofix workflow: open the supported alert, request the available fix, inspect what Copilot proposes, and apply it only after we understand the change. The feature accelerates remediation, but it does not transfer responsibility for the patch or the merge decision.
         </aside>
       </div>
     </section>
 
-    <!-- SLIDE 18: Product boundaries -->
+    <!-- SLIDE 18: Autofix workflow -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Know Which System Is Acting</h2>
-        <table>
-          <thead>
-            <tr><th>Capability</th><th>Input</th><th>Output</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>CodeQL</td><td>Code database and queries</td><td>Deterministic alert and path</td></tr>
-            <tr><td>Copilot Autofix</td><td>Alert context and relevant code</td><td>Suggested code change</td></tr>
-            <tr><td>Agentic Autofix</td><td>Assigned alert and repository</td><td>Iterated draft pull request</td></tr>
-            <tr><td>Copilot code review</td><td>Pull-request diff and context</td><td>Review comments</td></tr>
-          </tbody>
-        </table>
+        <h2>From a CodeQL Alert to a Candidate Patch</h2>
+        <pre class="mermaid">
+graph LR
+  A[Open supported alert] --> B[Read source and sink]
+  B --> C[Choose Autofix]
+  C --> D[Read explanation and diff]
+  D --> E[Apply or revise patch]
+  E --> F[Run tests and CodeQL]
+  F --> G[Human review]
+        </pre>
+        <ol>
+          <li>Open the alert from the repository's <strong>Security</strong> tab and confirm that its path and severity are relevant.</li>
+          <li>Choose the available <strong>Autofix</strong> action for a supported alert, then read the explanation and proposed diff.</li>
+          <li>Apply the suggestion to the working branch only after checking the complete source-to-sink path.</li>
+          <li>Run the regression test, the full validation suite, and CodeQL before requesting approval.</li>
+        </ol>
+        <p><strong>Agentic Autofix is different:</strong> assigning the alert to Copilot can have the cloud agent explore the repository, implement and validate a fix, and open a draft pull request when available.</p>
         <aside class="speaker-notes">
-          These names are easy to blur together, so let's separate the jobs. CodeQL produces the alert and the data-flow path. Copilot Autofix uses that alert context to suggest a code change. Agentic Autofix, where it is available, can go further by exploring the repository, making changes, rerunning analysis, and opening a draft pull request. Copilot code review comments on the pull-request diff. Each capability adds evidence or a proposal, but none of them gets to approve its own work.
+          Here is the click-and-review sequence learners should remember. Start from the alert, not from a blank chat. Read the path first so the proposed change has a security context. Then use the Autofix action that the alert provides, read the explanation and diff, and apply the suggestion to the branch only when it addresses the full path. If the repository offers the separate agentic option, assigning the alert starts a cloud-agent session that can make and validate a change and open a draft pull request. That is a different workflow, and it still produces work for a human to review.
         </aside>
       </div>
     </section>
@@ -346,7 +351,7 @@ graph LR
       <div class="slide-inner">
         <h2>Review an Autofix Like Production Code</h2>
         <ul>
-          <li>Does the patch break the complete source-to-sink path?</li>
+          <li>Does the patch block the unsafe source-to-sink path while preserving behavior?</li>
           <li>Does it use the framework's safe API or invent a custom filter?</li>
           <li>Are alternate paths, encodings, and error branches still exposed?</li>
           <li>Did authorization, logging, dependencies, or permissions change?</li>
@@ -367,7 +372,7 @@ graph LR
         <pre class="mermaid">
 graph LR
   A[Inspect alert] --> B[Read Autofix]
-  B --> C{Breaks full path?}
+  B --> C{Blocks unsafe path?}
   C -->|No| D[Reject or revise]
   C -->|Yes| E[Run tests]
   E --> F[Run CodeQL]
@@ -376,7 +381,7 @@ graph LR
         <img src="img/TODO-screenshot-copilot-autofix-suggestion.png" alt="TODO: Add screenshot for &quot;Copilot Autofix suggestion with code changes&quot;" />
 
         <aside class="speaker-notes">
-          Here is the decision point: accept, revise, or reject. Start with the CodeQL path, then compare it with the proposed change. If the patch breaks the full path and preserves behavior, validate it. If it only handles part of the problem, revise it. If it introduces more risk than it removes, reject it and explain why. In the lab, we use a prepared vulnerable pull request so everyone can evaluate the same alert even if your local fix already prevented it.
+          Here is the decision point: accept, revise, or reject. Start with the CodeQL path, then compare it with the proposed change. If the patch blocks the unsafe path and preserves intended behavior, validate it. If it only handles part of the problem, revise it. If it introduces more risk than it removes, reject it and explain why. In the lab, we use a prepared vulnerable pull request so everyone can evaluate the same alert even if your local fix already prevented it.
         </aside>
       </div>
     </section>

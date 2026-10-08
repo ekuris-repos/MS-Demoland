@@ -19,7 +19,7 @@ Learners should already understand Git branches, pull requests, automated tests,
 | 1-4 | Challenge and secure change loop | 4 min |
 | 5-11 | Local inspection, review, and remediation | 17 min |
 | 12-16 | Transition from local evidence to CodeQL | 9 min |
-| 17-20 | Autofix evaluation | 8 min |
+| 17-20 | Use and evaluate Autofix | 8 min |
 | 21-23 | Platform controls and final gate | 6 min |
 | 24 | Recap | 1 min |
 
@@ -52,6 +52,21 @@ Do not accept a line-level patch without checking the complete path.
 
 Avoid describing any of these systems as an autonomous approver.
 
+### Demonstrate the Autofix Workflow
+
+Show the complete user journey before discussing whether the patch is good:
+
+1. Open a supported CodeQL alert from the repository's Security tab.
+2. Read the alert path and choose the available Autofix action.
+3. Read the generated explanation and inspect the proposed diff.
+4. Apply the suggestion to the branch only after checking the full source-to-sink path.
+5. Run tests and CodeQL, then request human review.
+
+If the repository offers the separate agentic option, explain that assigning the
+alert starts a cloud-agent workflow that can implement, validate, and open a
+draft pull request. Do not present that workflow as the same thing as applying a
+Copilot Autofix suggestion.
+
 ### Connect Local Practice to Platform Protection
 
 The transition should feel cumulative. Local review uses developer context to prevent avoidable findings. CodeQL independently analyzes the committed change. Rulesets ensure that analysis occurs consistently. Autofix can shorten remediation time. Human approval evaluates the full risk and business context.
@@ -83,6 +98,7 @@ State clearly when using prepared output. Do not imitate CodeQL or Autofix behav
 ## Resources
 
 - [About code scanning with CodeQL](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql)
+- [About autofix for code scanning](https://docs.github.com/en/code-security/concepts/code-scanning/autofix-for-code-scanning)
 - [Responsible use of Copilot Autofix](https://docs.github.com/en/code-security/responsible-use/responsible-use-autofix-code-scanning)
 - [Resolving code-scanning alerts](https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/resolving-code-scanning-alerts)
 - [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
