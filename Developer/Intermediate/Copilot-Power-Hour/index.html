@@ -641,7 +641,7 @@ copilot</code></pre>
           <li>Use <code>/help</code> for current controls and <kbd>Shift+Tab</kbd> for plan mode. <strong>Task mode and tool permissions are separate.</strong></li>
         </ul>
         <aside class="speaker-notes">
-          The npm route requires Node.js 22 or later; WinGet is an alternative on Windows. After installation, check the version, launch in a trusted project, and sign in. Trusting a directory means the agent may attempt to read, modify, or execute its contents; it is not permission to stop reviewing actions. Plan mode helps establish scope before implementation. Autopilot can continue a multi-step task, but it does not mean every tool is automatically allowed. Permissions depend on grants, the selected permission mode, and organization policy. Manual permissions are a good demo baseline; assisted permissions can approve assessed-safe requests and ask about others. Neither is a guarantee that every action produces a new prompt. Check /help and /permissions on your installed client, and keep broad allow-all access out of this demo.
+          The npm route requires Node.js 22 or later; WinGet is an alternative on Windows. After installation, check the version, launch in a trusted project, and sign in. Trusting a directory means the agent may attempt to read, modify, or execute its contents; it is not permission to stop reviewing actions. Content exclusion does not cover CLI or Agent mode in IDE Chat, so do not treat it as a local-agent boundary. Plan mode helps establish scope before implementation. Autopilot can continue a multi-step task, but it does not mean every tool is automatically allowed. Permissions depend on grants, the selected permission mode, and organization policy. Manual permissions are a good demo baseline; assisted permissions can approve assessed-safe requests and ask about others. Neither is a guarantee that every action produces a new prompt. Check /help and /permissions on your installed client, and keep broad allow-all access out of this demo.
         </aside>
       </div>
     </section>
@@ -664,12 +664,12 @@ sequenceDiagram
   participant Dev as You
   participant CLI as Copilot CLI
   participant FS as File System
-  Dev->>CLI: "Validate createUser; add focused tests"
+  Dev->>CLI: Validate createUser and add focused tests
   CLI->>FS: Read users.ts
   CLI->>Dev: Request permission if needed
   Dev->>CLI: Review and approve when requested
   CLI->>FS: Write updated file
-  Dev->>CLI: "Run configured focused tests"
+  Dev->>CLI: Run configured focused tests
   CLI->>FS: Execute configured test command
   CLI->>Dev: Summarize diff and test evidence
         </pre>
@@ -795,7 +795,7 @@ Do not commit, push, or create a pull request.</code></pre>
           <div class="card">
             <h3>Master the CLI</h3>
             <p><strong>Terminal AI - Copilot CLI: The Who, the How, and the Why</strong> (Intermediate, 1 hr)</p>
-            <p>Full deep-dive on every CLI feature, use case, and customization option.</p>
+            <p>Go deeper on terminal workflows, use cases, and supported customization options.</p>
           </div>
           <div class="card">
             <h3>Optimize at scale</h3>
@@ -804,7 +804,7 @@ Do not commit, push, or create a pull request.</code></pre>
           </div>
         </div>
         <aside class="speaker-notes">
-          Three paths forward depending on where you want to go. If context engineering resonated, take the Copilot Primitives course next. It is thirty minutes and goes deep on every primitive with examples you can adapt directly. If the CLI demo was the highlight, the CLI deep-dive covers every feature we did not have time for today: session resumption, programmatic mode for CI/CD, custom agents in the terminal, and full MCP configuration. And if the token optimization section was most relevant to your organization, the Credit Crunch course is an enterprise-focused hour that covers the 30-day plan for rolling out spend-aware AI at scale. All three courses are in the same catalog you accessed to get here today. Thank you for the time. Questions?
+          Choose a follow-on based on the problem you want to solve next. Copilot Primitives is the path for reusable context and customization. The CLI course gives terminal workflows more room than we have in this demo. Credit Crunch is the path for organization-scale usage discipline and spend-aware development. Check the current course details and client support rather than assuming any one course captures every new feature. For this week, choose one bounded task, inspect its evidence and result, and use that experience to decide what to learn next. Thank you for the time. What would you like to try first?
         </aside>
       </div>
     </section>

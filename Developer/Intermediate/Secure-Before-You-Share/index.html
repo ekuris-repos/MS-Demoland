@@ -18,7 +18,7 @@
         <h1>Secure Before You Share</h1>
         <p class="subtitle">Review locally. Remediate deliberately. Let the platform verify.</p>
         <aside class="speaker-notes">
-          Welcome to Secure Before You Share. Today we are starting where developers actually work: in the local diff, before a pull request exists and before a scanner has a chance to tell us what went wrong. We will use GitHub Copilot to inspect a change, fix what the evidence supports, and then let CodeQL and Copilot Autofix challenge our work on the platform. The goal is not to hand security to a tool. The goal is to build a workflow where developers catch risk early and GitHub makes that protection consistent.
+          Welcome to Secure Before You Share. Today we are starting where developers actually work: in the local diff, before a pull request exists and before a scanner has a chance to tell us what went wrong. We will use GitHub Copilot to inspect a change, fix what the evidence supports, and then let configured CodeQL analysis challenge our work on the platform. For a supported alert in an enabled environment, we can also evaluate an Autofix proposal. The goal is not to hand security to a tool. The goal is to build a workflow where developers catch risk early and GitHub makes that protection consistent.
         </aside>
       </div>
     </section>
@@ -74,11 +74,13 @@ graph LR
   C --> D[Validate behavior]
   D --> E[Open PR]
   E --> F[CodeQL analyzes]
-  F --> G[Autofix proposes]
+  F -->|Supported alert and access| G[Evaluate Autofix proposal]
+  F -->|No proposal| H[Human decides]
   G --> H[Human decides]
+  H -->|More evidence needed| B
         </pre>
         <aside class="speaker-notes">
-          This is our path for the session. We begin with the diff, review it locally, remediate what we can prove, and validate that the feature still behaves correctly. Only then do we open the pull request. Once the change reaches GitHub, CodeQL gives us an independent analysis, Autofix may offer a remediation, and a human makes the final decision. Notice that this is a loop, not a conveyor belt. New evidence can send us back to the code at any point.
+          This is our path for the session. We begin with the diff, review it locally, remediate what we can prove, and validate that the feature still behaves correctly. Only then do we open the pull request. Configured CodeQL analysis adds independent evidence, but an Autofix suggestion is conditional, not a guaranteed next step for every PR alert. For the Autofix demonstration, we need a supported default-branch backlog alert and verified access in the delivery environment, or a captured proposal. A human makes the final decision, and new evidence can send us back to the code at any point.
         </aside>
       </div>
     </section>
@@ -140,6 +142,9 @@ graph LR
         <h2>Ask for Findings You Can Verify</h2>
         <pre><code>Review my uncommitted diff as a security reviewer.
 
+First list reviewed files and any missing context. Distinguish staged,
+unstaged, and newly added files in the supplied review scope.
+
 Focus on changed code and its immediate call paths. Trace untrusted
 inputs to sensitive sinks. Check authorization, injection, secret
 exposure, unsafe deserialization, path handling, and dependency risk.
@@ -152,7 +157,7 @@ For each finding, provide:
 
 Do not edit files. Mark uncertain claims as hypotheses.</code></pre>
         <aside class="speaker-notes">
-          This prompt does a few important things. It keeps the review close to the changed code, asks Copilot to trace a real path, and requires evidence for every finding. It also tells Copilot not to edit yet. We want to understand and classify the risk before we start changing files. Adjust the categories for your stack, and let repository instructions provide the framework conventions, build commands, and security rules that should apply every time.
+          Before you send this prompt, explicitly provide the intended diff and relevant call paths through your chat interface. Do not assume that opening a file gives Copilot the full change. Include the staged and unstaged changes you intend to share, plus any newly added files, and check its reviewed-file list against your own inventory. The prompt keeps findings close to that scope and requires evidence before editing. Adjust the categories for your stack, and let supported repository instructions provide framework conventions, build commands, and security rules. Missing context is a reason to investigate, not proof that the change is safe.
         </aside>
       </div>
     </section>
@@ -169,12 +174,12 @@ Do not edit files. Mark uncertain claims as hypotheses.</code></pre>
           </div>
           <div class="card">
             <h3>You Provide</h3>
-            <p>Intent, risk tolerance, runtime evidence, validation, and the decision to change code.</p>
+            <p>Explicit diff context, intent, runtime evidence, validation, and the decision to change code.</p>
           </div>
         </div>
         <p><strong>Capture the review:</strong> record confirmed findings, rejected hypotheses, and validation plans in <code>docs/security-review.md</code>.</p>
         <aside class="speaker-notes">
-          Now it is your turn to run the review. Copilot is going to give you candidate findings, not verdicts. Your job is to trace each claim back to the code and decide whether the evidence holds up. We are writing that reasoning into a review record because a chat response should never become an invisible authority. If Copilot makes a weak claim, say why it is weak and record what evidence is missing.
+          Now it is your turn to run the review. First compare the files Copilot says it reviewed with the scope you supplied. Then trace each candidate finding back to the code and decide whether the evidence holds up. We are writing that reasoning into a review record because a chat response should never become an invisible authority. If Copilot makes a weak claim, say why it is weak and record what evidence is missing.
         </aside>
       </div>
     </section>
@@ -243,11 +248,12 @@ Do not edit files. Mark uncertain claims as hypotheses.</code></pre>
             <tr><td>Copilot local review</td><td>Contextual reasoning across the change</td><td>May miss or overstate findings</td></tr>
             <tr><td>Tests and lint</td><td>Repeatable expected behavior</td><td>Only check encoded assertions</td></tr>
             <tr><td>CodeQL</td><td>Deterministic semantic data flow</td><td>Limited to configured queries and languages</td></tr>
+            <tr><td>AI Scan on PRs</td><td>Additional language and framework coverage</td><td>Advisory findings, not merge gates</td></tr>
             <tr><td>Human reviewer</td><td>Business risk and accountable judgment</td><td>Time and attention are finite</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          No single layer on this table sees the whole picture. The developer understands why the feature exists. Copilot can reason across the surrounding code, but its answers can vary. Tests are repeatable, but they only prove what we thought to assert. CodeQL follows configured security patterns consistently, but it does not know every business rule. We layer these checks because their blind spots are different, and we keep a human reviewer at the end because someone still has to own the decision.
+          No single layer on this table sees the whole picture. The developer understands why the feature exists. Copilot can reason across supplied context, but its answers can vary. Tests only prove what we thought to assert. CodeQL follows configured security patterns consistently, but it does not know every business rule. When enabled, AI Scan complements CodeQL for languages and frameworks outside its coverage. Its PR findings have an AI indicator and are advisory: they do not fail the code-scanning check or block merges through rulesets. This is a separate platform scan, not our local Copilot conversation, and it does not use repository custom instructions. We keep a human reviewer because someone still has to own the decision.
         </aside>
       </div>
     </section>
@@ -259,14 +265,14 @@ Do not edit files. Mark uncertain claims as hypotheses.</code></pre>
         <pre class="mermaid">
 graph LR
   A[Untrusted source] --> B[Program flow]
-  B --> C{Sanitizer?}
+  B --> C{Effective modeled control?}
   C -->|No| D[Sensitive sink]
-  C -->|Yes| E[Safe path]
+  C -->|Yes| E[Path blocked for query]
   D --> F[Code scanning alert]
         </pre>
-        <p>Read an alert as a path: source, propagation, missing control, sink, and impact.</p>
+        <p>For a data-flow alert with a path, trace source, propagation, control, sink, and impact. This is a simplified model, not proof of safety.</p>
         <aside class="speaker-notes">
-          CodeQL looks at code differently than a text search or a chat response. It builds a database representation of the program and runs queries over relationships and data flow. When an alert includes a path, follow it from the untrusted source through each important step to the sensitive sink. The highlighted line may be where the problem becomes visible, but the missing control can be much earlier in the flow.
+          CodeQL looks at code differently than a text search or a chat response. It builds a database representation of the program and runs queries over relationships and data flow. Not every query produces a path. When an alert includes one, follow it from the untrusted source to the sensitive sink. A sanitizer name alone does not make that path safe: the control must work for this sink and context, and analysis must model it correctly. This diagram illustrates one query's reasoning, not a guarantee about every possible behavior. The missing control can be much earlier than the highlighted line.
         </aside>
       </div>
     </section>
@@ -278,13 +284,13 @@ graph LR
         <ul>
           <li>Confirm the workflow analyzed the pull-request commit</li>
           <li>Check the query, severity, precision, and affected language</li>
-          <li>Follow every path step before deciding on a fix</li>
+          <li>Follow every path step when the alert provides a path</li>
           <li>Compare the alert with the local review artifact</li>
           <li>Investigate why local review missed any new finding</li>
           <li>Dismiss only with a documented, reviewable reason</li>
         </ul>
         <aside class="speaker-notes">
-          A clean local review does not promise a clean CodeQL result, and that is useful. If CodeQL finds something we missed, we should ask why. Did our prompt ignore a call path? Were the repository instructions missing an important security rule? Did we need a regression test? Sometimes the answer is simply that CodeQL has a deterministic query designed for this exact pattern. The difference between the two reviews helps us improve the workflow.
+          A clean local review does not promise a clean CodeQL result, and that is useful. If CodeQL finds something we missed, did our prompt ignore a call path, or did we need a regression test? Compare the actual evidence. Also check which engine produced the finding. AI Scan results appear only on PRs, not in the alert backlog, and do not run on fork or Dependabot PRs. They depend on effective settings and available Code Security AI Credits. Their advisory status means that a green check can coexist with a finding that still deserves investigation.
         </aside>
       </div>
     </section>
@@ -301,8 +307,9 @@ graph LR
           <li>Include exact local validation commands and results</li>
           <li>Wait for CodeQL and required checks before requesting approval</li>
         </ul>
+        <p><strong>Platform preflight:</strong> confirm configured CodeQL analysis, a supported language, and repository access. Private or internal organization repositories need the relevant GitHub Code Security entitlement.</p>
         <aside class="speaker-notes">
-          When we open the pull request, we want the next reviewer to inherit our reasoning, not reconstruct it from scratch. The description should explain the trust boundary, the finding, the fix, and the commands we ran locally. Keep the pull request in draft while the platform checks are still running. The local review record now becomes a useful comparison point when CodeQL reports its result.
+          When we open the pull request, we want the next reviewer to inherit our reasoning, not reconstruct it from scratch. Explain the trust boundary, finding, fix, and local validation commands. Before expecting a scan, confirm that CodeQL is enabled for a supported language and that the repository has the required access and entitlement. Default setup and advanced setup are both valid, but neither a PR nor a ruleset enables scanning by itself. GitHub-hosted workflow runs can consume Actions minutes. Keep the PR in draft while configured checks run, then compare the results with the local review record.
         </aside>
       </div>
     </section>
@@ -312,8 +319,9 @@ graph LR
       <div class="slide-inner">
         <span class="badge badge--purple">3. Remediate</span>
         <h2>How to Use Copilot Autofix</h2>
+        <p>Preflight a supported default-branch backlog alert and the effective repository settings. Do not assume a PR-only alert offers the same actions.</p>
         <aside class="speaker-notes">
-          We have reached the point where a CodeQL alert has given us a concrete problem to fix. This is the practical Autofix workflow: open the supported alert, request the available fix, inspect what Copilot proposes, and apply it only after we understand the change. The feature accelerates remediation, but it does not transfer responsibility for the patch or the merge decision.
+          We are ready to evaluate a proposed fix, but first we need to know which experience this environment supports. Our documented demonstration route starts from a supported default-branch backlog alert. Official pages differ on one-step Autofix availability for CodeQL alerts found only on a PR, so we will not promise that interface without verifying it here. Agentic autofix specifically cannot take alerts found only on PRs or other branches. If the required alert or access is unavailable, a captured candidate diff lets us practice the same review decision without inventing a live result. Neither experience transfers responsibility for the patch.
         </aside>
       </div>
     </section>
@@ -324,22 +332,21 @@ graph LR
         <h2>From a CodeQL Alert to a Candidate Patch</h2>
         <pre class="mermaid">
 graph LR
-  A[Open supported alert] --> B[Read source and sink]
-  B --> C[Choose Autofix]
-  C --> D[Read explanation and diff]
-  D --> E[Apply or revise patch]
-  E --> F[Run tests and CodeQL]
-  F --> G[Human review]
+  A[Supported backlog alert] --> B[Choose available experience]
+  B --> C[Draft PR and diff]
+  C --> D[Review and test]
+  D --> E[CodeQL evidence]
+  E --> F[Human review]
         </pre>
         <ol>
-          <li>Open the alert from the repository's <strong>Security</strong> tab and confirm that its path and severity are relevant.</li>
-          <li>Choose the available <strong>Autofix</strong> action for a supported alert, then read the explanation and proposed diff.</li>
-          <li>Apply the suggestion to the working branch only after checking the complete source-to-sink path.</li>
-          <li>Run the regression test, the full validation suite, and CodeQL before requesting approval.</li>
+          <li>Open <strong>Security and quality</strong> → <strong>Code scanning</strong> and inspect a supported default-branch alert.</li>
+          <li>For one-step Autofix, choose <strong>Generate fix</strong>, read the proposal, then <strong>Create PR with fix</strong>: a new branch from the default branch and a draft PR.</li>
+          <li>If agentic autofix is enabled, <strong>Assign to Copilot</strong> replaces that action and starts a session that prepares a draft PR.</li>
+          <li>Inspect the actual PR branch and diff, revise as needed, and run tests and CodeQL before approval.</li>
         </ol>
-        <p><strong>Agentic Autofix is different:</strong> assigning the alert to Copilot can have the cloud agent explore the repository, implement and validate a fix, and open a draft pull request when available.</p>
+        <p>No Copilot subscription is required. One-step suggestions do not consume AI credits; agentic sessions consume Code Security AI Credits and Actions minutes.</p>
         <aside class="speaker-notes">
-          Here is the click-and-review sequence learners should remember. Start from the alert, not from a blank chat. Read the path first so the proposed change has a security context. Then use the Autofix action that the alert provides, read the explanation and diff, and apply the suggestion to the branch only when it addresses the full path. If the repository offers the separate agentic option, assigning the alert starts a cloud-agent session that can make and validate a change and open a draft pull request. That is a different workflow, and it still produces work for a human to review.
+          Start from the alert, not a blank chat, and read its path when available. With one-step Autofix, Generate fix gives us a proposal; Create PR with fix puts it on a new branch from the default branch. It does not silently patch your current local branch. If effective policy and settings enable agentic autofix, Assign to Copilot replaces that action. The session explores the codebase and attempts to validate its fix before opening a draft PR. Read the session evidence: validation is best effort, and it cannot confirm fixes for custom queries, security-extended queries, or third-party findings. Agentic sessions consume AI credits and Actions minutes, unlike the free one-step suggestions. Both routes still need our review and tests on the actual proposed branch.
         </aside>
       </div>
     </section>
@@ -376,8 +383,9 @@ graph LR
   E --> F[Run CodeQL]
   F --> G[Human review]
         </pre>
+        <p><strong>Demo prerequisite:</strong> use a verified supported default-branch backlog alert in an isolated disposable repository, or a captured proposal. PR-only Autofix availability must be checked in the delivery environment.</p>
         <aside class="speaker-notes">
-          Here is the decision point: accept, revise, or reject. Start with the CodeQL path, then compare it with the proposed change. If the patch blocks the unsafe path and preserves intended behavior, validate it. If it only handles part of the problem, revise it. If it introduces more risk than it removes, reject it and explain why. In the lab, we use a prepared vulnerable pull request so everyone can evaluate the same alert even if your local fix already prevented it.
+          Here is the decision point: accept, revise, or reject. Compare the alert evidence with the proposed change. If the patch blocks the unsafe path and preserves intended behavior, validate it. If it handles only part of the problem, revise it. If it introduces more risk than it removes, reject it and explain why. A successful local fix may leave no new alert on your PR, which is good. Our separate demonstration needs a supported default-branch backlog alert with verified settings, or a captured candidate diff. A captured proposal supports patch evaluation, but it is not evidence that a live scan passed or a live action was available.
         </aside>
       </div>
     </section>
@@ -388,14 +396,14 @@ graph LR
         <h2>The Platform Makes Good Practice Repeatable</h2>
         <ul>
           <li>Default setup or advanced workflows run CodeQL consistently</li>
-          <li>Repository rulesets require code-scanning results before merge</li>
-          <li>Severity thresholds prevent high-risk alerts from being ignored</li>
-          <li>Branch protection requires tests and accountable human approval</li>
+          <li>Configured rulesets require selected code-scanning results within their supported scope</li>
+          <li>Per-tool severity thresholds block qualifying alerts, not every security risk</li>
+          <li>Required status checks and human approvals are separate configured gates</li>
           <li>Security campaigns and alert assignment organize remediation work</li>
-          <li>Audit history preserves decisions, dismissals, and review evidence</li>
+          <li>Alert timelines and PR records preserve remediation and review evidence</li>
         </ul>
         <aside class="speaker-notes">
-          So far we have focused on one developer and one change. The platform is what makes this practice repeatable when an organization has hundreds of developers and thousands of pull requests. CodeQL workflows run the same analysis consistently. Rulesets can stop high-risk findings from being ignored. Required checks and human approval keep the merge decision accountable. These controls create a dependable floor, but they work best when developers arrive at the pull request having already done the local review.
+          These controls make one developer's good practice repeatable, but only when configured and effective. Require code scanning results is a ruleset rule with selected tools and alert thresholds; it is separate from required status checks and does not enable scanning. A successful analysis job is not the same as a successful Code scanning results check. Current ruleset limitations include merge queue groups and Dependabot PRs analyzed by default setup; alert applicability also depends on locations in the PR diff. AI Scan findings remain advisory and cannot enforce this gate. Required approvals and bypass permissions need deliberate policy choices too. Alert timelines and PR records preserve evidence, but code-scanning timeline events are not automatically entries in the organization audit log. Passing the applicable gates is useful evidence, not proof that every risk was found.
         </aside>
       </div>
     </section>
@@ -431,13 +439,14 @@ graph LR
           <li>The complete diff matches the stated intent</li>
           <li>Confirmed local findings have evidence-backed remediation</li>
           <li>Regression tests fail before the fix and pass after it</li>
-          <li>Required tests, lint, build, and CodeQL checks pass</li>
+          <li>Required tests, lint, build, and code-scanning results cover the current commit</li>
+          <li>Applicable alert thresholds are satisfied; advisory findings were triaged</li>
           <li>Autofix changes were reviewed, revised, or rejected explicitly</li>
           <li>No security alert was dismissed without a documented reason</li>
           <li>An accountable human reviewer makes the merge decision</li>
         </ul>
         <aside class="speaker-notes">
-          Before this pull request is ready, we should be able to prove every item on this list. The diff matches the intended feature. The confirmed finding has a real remediation and a regression test. Local and platform checks apply to the current commit. Any Autofix change has been reviewed rather than trusted by default. Passing checks matter, but they do not tell us whether this is the right change for the business. That final judgment still belongs to an accountable human reviewer.
+          Before this pull request is ready, the evidence must match the actual change and current commit. Confirm that required checks passed and applicable code-scanning thresholds are satisfied, rather than looking only for a successful analysis job. Triage advisory findings too, including AI Scan findings that cannot block merge. If Autofix produced a proposal, review and validate its actual branch; do not treat a captured example as a live check result. Passing gates still cannot establish that every risk was found or that this is the right business change. That final judgment belongs to an accountable human reviewer.
         </aside>
       </div>
     </section>
@@ -450,7 +459,7 @@ graph LR
         <h1>Security Starts Before the PR</h1>
         <p class="subtitle">Developer context finds risk early. Platform controls make protection consistent.</p>
         <aside class="speaker-notes">
-          Let's close with the habit I want you to take back to your next change: security starts before the pull request. Inspect the diff while the intent is still fresh. Use Copilot to challenge your assumptions, but require evidence. Fix the trust boundary and prove it with a regression test. Then let CodeQL and Autofix challenge that work again on the platform. When a pull request arrives with that security story already documented, reviewers can spend their time on the decisions that truly require human judgment.
+          Let's close with the habit I want you to take back to your next change: security starts before the pull request. Inspect the diff while the intent is still fresh. Use Copilot to challenge your assumptions, but require evidence. Fix the trust boundary and prove it with a regression test. Then compare that work with configured CodeQL results and any advisory findings. If an Autofix proposal is available, review it as production code, not as a verdict. When a pull request arrives with that security story already documented, reviewers can spend their time on the decisions that truly require human judgment.
         </aside>
       </div>
     </section>

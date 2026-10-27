@@ -1,7 +1,7 @@
 # GitHub Copilot CLI — Content Status
 
 > **Track:** Developer | **Level:** Intermediate
-> **Last Updated:** 2026-03-25
+> **Last Updated:** 2026-10-27
 
 ## Rollup Status
 
@@ -18,11 +18,11 @@
 
 | Area                  | Status           |
 |-----------------------|------------------|
-| Slide Content         | In Progress      |
-| Speaker Notes         | In Progress      |
-| Images & Diagrams     | Not Started      |
+| Slide Content         | Ready for Review |
+| Speaker Notes         | Ready for Review |
+| Images & Diagrams     | In Progress      |
 | Demo / Lab Content    | In Progress      |
-| Reviewed & Approved   | Not Started      |
+| Reviewed & Approved   | In Progress      |
 
 > **How to update:** Set each area to `Not Started`, `In Progress`, `Ready for Review`, or `Complete`.
 > Then set the **Rollup Status** above to the **lowest** value in the table.
@@ -63,5 +63,13 @@
 
 ## Notes
 
-_The deck contains 30 slides with mapped lab exercises and complete speaker notes. Product accuracy, visual review, and delivery rehearsal remain before human review._
+_The deck contains 30 slides with nonempty speaker notes. Slide-only factual review and targeted corrections were completed on 2026-10-27; this is not human approval or a full-course review. Labs were excluded and their status entries were preserved._
 
+### 2026-10-27 slide-only review
+
+- Corrected local sandboxing to generally available, separated autopilot continuation from tool permissions, added assisted permissions, narrowed Git-history approvals, and clarified instruction applicability across visible text and notes.
+- Added actionable instruction/editor controls, qualified preview credit limits and unverified plan-mode guarantees, bounded the PR example, and corrected shell portability and related-course links.
+- Official sources checked: [local sandboxing GA, 2026-10-07](https://github.blog/changelog/2026-10-07-local-sandboxing-for-github-copilot-now-generally-available/), [assisted permissions GA, 2026-10-26](https://github.blog/changelog/2026-10-26-github-copilot-assisted-permissions-generally-available/), [CLI reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference), [instructions](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions), [autopilot](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/use-autopilot-mode), and [credit limits](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/set-session-limit). Verification date: 2026-10-27.
+- Validation passed: 30 slides and 30 notes, balanced HTML, unchanged explicit-ID set and slide order, no em/en dashes in notes, seven resolving local asset/course links, and Bash/PowerShell example parsing and argument forwarding with harmless command stubs. No install or real agent task was run.
+- Remaining blockers: rendered media/readability review and rehearsal, real CLI/platform behavior verification, conflicting official interactive credit-reset documentation, unverified exact plan-mode enforcement, and human approval. Inline media and local assets were inspected; no screenshots or missing-image placeholders were fabricated.
+- Labs were not read, tested, changed, or approved. Demo / Lab Content remains In Progress. Overall rollup remains In Progress; the orchestrator owns catalog-status JSON synchronization.

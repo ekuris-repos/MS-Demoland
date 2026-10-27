@@ -18,7 +18,7 @@
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Intermediate · 1.5 Hours</span>
         <h1>Full AI Stack - Agent Potato: License to Chat</h1>
-        <p class="subtitle">Follow Agent Potato on a mission to build a complete feature across a React frontend and Express backend, from first prompt to passing tests, all in one session</p>
+        <p class="subtitle">Practice an agent-led React and Express feature mission, from discovery to validation. Implementation requires verified project access; the original sample remains unverified.</p>
         <aside class="speaker-notes">
           Welcome to "Agent Potato: License to Chat." We're putting the beginner track's agent and customization ideas into practice through an inventory-report scenario. The intended stack is React, Express, and SQLite. There is an important limitation: the original sample repository could not be verified, so this deck is not a verified runnable walkthrough. Before implementing, we need an accessible, approved project and must confirm its actual conventions. Until then, we can practice the planning and review decisions without pretending the application has run. The goal is to steer, validate, and review a complete feature, not simply generate more code.
         </aside>
@@ -83,7 +83,7 @@
         <span class="badge">Part 1</span>
         <h2>Reconnaissance</h2>
         <aside class="speaker-notes">
-          Every mission starts with reconnaissance. Before you write a single line of code, you need to understand the terrain. Agent mode is excellent at exploring unfamiliar codebases. This is where your mission begins; without reconnaissance, every prompt you write later will lack the file references that produce accurate output.
+          Every mission starts with reconnaissance. Before writing code, we need to understand the terrain. Agent search and file reading can help us find the routes, schema, and test setup, but we check the supporting files before relying on the answer. That gives the next prompt real project context rather than guessed paths.
         </aside>
       </div>
     </section>
@@ -247,28 +247,16 @@ stateDiagram-v2
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Three Agents, Three Jobs</h2>
-        <div class="columns">
-          <div class="card">
-            <h3>Agent</h3>
-            <p>Implement and validate changes using enabled tools and session permissions.</p>
-          </div>
-          <div class="card">
-            <h3>Plan</h3>
-            <p>Research and propose an implementation plan. Review scope and checks before approving implementation.</p>
-          </div>
-          <div class="card">
-            <h3>Ask</h3>
-            <p>Read-only exploration. Ask questions, get explanations, explore ideas. No files are modified.</p>
-          </div>
-        </div>
         <table>
-          <thead><tr><th>Control</th><th>What it chooses</th></tr></thead>
+          <thead><tr><th>Agent role</th><th>When to use it</th></tr></thead>
           <tbody>
-            <tr><td>Harness</td><td>Copilot or Local: runtime, tools, customization support</td></tr>
-            <tr><td>Agent role</td><td>Ask, Plan, or Agent: research, planning, implementation</td></tr>
-            <tr><td>Model / permissions</td><td>Reasoning model / approval behavior, chosen separately</td></tr>
+            <tr><td>Ask</td><td>Read-only research and explanation, without implementing changes</td></tr>
+            <tr><td>Plan</td><td>Research a plan; review scope and checks before implementation</td></tr>
+            <tr><td>Agent</td><td>Implement and validate using enabled tools and permissions</td></tr>
           </tbody>
         </table>
+        <p><strong>Choose separately:</strong> harness (Copilot or Local), agent role, reasoning model, and permissions.</p>
+        <p>Copilot is the current default harness. Local-only customizations do not automatically work there.</p>
 
         <aside class="speaker-notes">
           Agent, Plan, and Ask describe jobs, not permission levels or models. Our main workflow targets the Copilot harness, the default for new sessions in the current release reviewed on October 27, 2026. Ask uses read-only tools to research without implementing changes. Plan, available through /plan in Copilot, gives us an approach to review before implementation. Agent makes changes and validates them under the selected permissions. Choosing a stronger model does not switch the harness or grant more access. Local is a different harness with different customization support, not a synonym for running on your machine. The optional prompt-file example later requires Local; it cannot be run as a prompt file in the Copilot harness.
@@ -330,7 +318,7 @@ Do not install packages or replace the project stack to match an example.
 Summarize the supporting files so I can review the guidance.</code></pre>
 
         <aside class="speaker-notes">
-          This request works without assuming a particular instruction-generation shortcut. In the Copilot harness, we ask in natural language and review the generated file. Local also has /init, but that shortcut is not available in other harnesses. We do not declare React 18, Vitest, Tailwind, or better-sqlite3 as facts until the manifests and source confirm them. If better-sqlite3 is present, its synchronous API is not something to rewrite into an invented asynchronous database interface. Parameterized values are an important SQL practice, but natural-language instructions do not enforce it. We still inspect query construction, validate identifiers, and test the behavior. A short set of verified conventions is more useful than a confident description of an inaccessible project.
+          This request works without assuming a particular instruction-generation shortcut. In the Copilot harness, we ask in natural language and review the generated file. Local also has /init, but that shortcut is not available in other harnesses. We do not declare specific versions, testing libraries, styling tools, or database drivers as facts until the manifests and source confirm them. If better-sqlite3 is present, its synchronous API is not something to rewrite into an invented asynchronous database interface. Parameterized values are an important SQL practice, but natural-language instructions do not enforce it. We still inspect query construction, validate identifiers, and test the behavior. A short set of verified conventions is more useful than a confident description of an inaccessible project.
         </aside>
       </div>
     </section>
@@ -434,7 +422,7 @@ Do not invent ProductList.tsx, router.tsx, or Sidebar.tsx paths."</code></pre>
         <span class="badge">Part 6</span>
         <h2>Quality Assurance</h2>
         <aside class="speaker-notes">
-          The feature is built. Now comes the part that separates proof-of-concept from production-ready: quality assurance. Agent mode is surprisingly good at this phase. Your mission is not complete until the tests pass; this section gives you the skills to close it out.
+          Implementation is only part of the mission. We still need evidence that the feature meets the agreed requirements and preserves existing behavior. Passing tests help, but they are not enough if the tests assert the wrong contract or the browser is still showing mock data. We will inspect both the change and the validation results before calling the feature ready for review.
         </aside>
       </div>
     </section>
@@ -448,12 +436,18 @@ Do not invent ProductList.tsx, router.tsx, or Sidebar.tsx paths."</code></pre>
         <ul>
           <li>Agent mode can <strong>write tests</strong>, <strong>run them</strong>, and <strong>fix failures</strong> in a single loop</li>
           <li>Point it at existing test files so it matches your team's testing patterns</li>
-          <li>Use specific language: "Write unit tests for the inventory route. Test the happy path, empty results, and invalid parameters."</li>
-          <li>Let the agent run <code>make test</code> and iterate on failures</li>
+          <li>Test aggregation against known fixtures, empty results, and invalid inputs where the contract permits inputs</li>
+          <li>Cover component data, loading, empty, and error states; preserve existing regression assertions</li>
+          <li>Run verified test and lint commands, then check the integrated page with built-in browser tools</li>
         </ul>
+        <pre><code>"Open the running inventory page. Follow its navigation entry,
+compare displayed totals with the API response, and check empty
+and failed-request behavior using the project's supported test setup.
+Report the exact checks, results, console errors, and anything blocked.
+Do not weaken tests or introduce mock production data to pass."</code></pre>
 
         <aside class="speaker-notes">
-          Testing is one of agent mode's strongest workflows. Here's why: the feedback loop is tight. Agent mode writes a test, runs it, reads the output, and immediately knows whether it passed or failed. If it failed, it reads the error message, figures out the fix, and tries again. This iterate-until-green pattern is exactly how a developer would work, but agent mode does it faster because it doesn't need to switch contexts. The key to good test generation is specificity. Don't just say "write tests." Say "write unit tests for the inventory route. Test the happy path with valid data, the empty result case, and the invalid parameter case." Also reference existing test files. "Follow the pattern in products.test.ts" gives agent mode a concrete example of your team's testing style: how you set up fixtures, how you organize describe blocks, what assertions you prefer.
+          The useful loop is implement, run, inspect, and correct, not change assertions until the output is green. We check that the fixtures and expected totals represent the business requirement. The API and component tests should exercise the agreed contract independently, then an integrated browser check verifies the real route, navigation, and data. Built-in browser tools do not require Playwright MCP. A new agent-opened page has isolated browser state; sharing an existing authenticated tab is a separate access decision. We inspect the exact commands, exit results, and browser observations, including anything skipped. Since the sample is unavailable, none of these runtime checks has been certified for this course.
         </aside>
       </div>
     </section>
@@ -485,7 +479,7 @@ Do not invent ProductList.tsx, router.tsx, or Sidebar.tsx paths."</code></pre>
         <span class="badge">Part 7</span>
         <h2>Multi-File Workflows</h2>
         <aside class="speaker-notes">
-          One of the reasons we chose a full-stack codebase for this course is that real features rarely live in a single file. Let's talk about how agent mode handles coordinated changes across multiple files. Your mission requires coordinated changes across the full stack; without these techniques, the integration phase will stall.
+          Real features rarely live in a single file. The report route, response mapping, page, and tests need to agree even when they are implemented in small steps. We will use the shared contract to coordinate those changes, then check the integrated result rather than assuming independent edits fit together.
         </aside>
       </div>
     </section>
@@ -503,11 +497,14 @@ Do not invent ProductList.tsx, router.tsx, or Sidebar.tsx paths."</code></pre>
         </ul>
         <pre><code>// One prompt, multiple files
 "Rename the 'stock' field to 'quantity' across the entire codebase.
-Update the database schema, API responses, frontend components,
-and all test assertions. Run the tests after to verify nothing broke."</code></pre>
+First identify schema, callers, and compatibility requirements.
+Propose a migration and rollback plan before changing persisted data.
+After approval, update queries, API mappings, types, components,
+and affected tests without removing regression coverage.
+Run verified checks and report any callers or data you cannot verify."</code></pre>
 
         <aside class="speaker-notes">
-          Here's a concrete example. Suppose you need to rename a field from "stock" to "quantity" across the entire stack. In a traditional workflow, you'd manually update the database schema, every API response, every frontend component that reads the field, and every test assertion. With agent mode, you describe the change once, and the agent does the cross-file coordination. It searches for every occurrence, makes the changes, and runs the tests to verify. This is not a find-and-replace. Agent mode understands context. It knows that renaming a database field means updating the column definition, the SELECT queries, the API response mapping, the TypeScript types, and the React components that display the data. It handles each file differently based on what that file does.
+          A field rename is an illustrative cross-stack change, not a confirmed requirement or schema fact about this sample. Search can help trace queries, response mappings, types, and components, but it does not guarantee every caller was found. Persisted data and external clients add migration and compatibility decisions that a text replacement cannot solve. We review those decisions before allowing changes, preserve regression coverage, and test the integrated result. If we cannot inspect a caller or database, the agent should report that gap rather than claim nothing broke.
         </aside>
       </div>
     </section>
@@ -522,12 +519,12 @@ and all test assertions. Run the tests after to verify nothing broke."</code></p
           <li><strong>Ambiguous goals</strong> - If you don't know what you want, the agent can't either</li>
           <li><strong>No reference code</strong> - Without examples to follow, output is generic</li>
           <li><strong>Very large changes</strong> - Break big features into smaller, testable increments</li>
-          <li><strong>External service dependencies</strong> - The agent can't access services it doesn't have credentials for</li>
+          <li><strong>External dependencies</strong> - Authentication, network access, trust, and tool availability can block verification</li>
         </ul>
         <p>When in doubt: break the task down, give the agent reference files, and iterate.</p>
 
         <aside class="speaker-notes">
-          Let's be honest about where agent mode struggles. Ambiguous goals are the number one cause of poor output. If you say "make it better" or "refactor this," the agent has to guess what you mean. Lack of reference code is the second most common issue. If there are no existing patterns to follow, the agent falls back on generic conventions that may not match your project. Very large changes are risky because the agent may lose context partway through. Break big features into smaller pieces: build the API first, then the frontend, then the tests, then wire them together. External services are a hard limit. If your feature requires authentication against a third-party API and the agent doesn't have credentials, it can't test its work. In those cases, mock the external dependency and test the integration separately. These aren't failures of agent mode; they're constraints of any development workflow. The more you understand them, the better you'll be at structuring prompts that work within these limits.
+          Ambiguous goals, missing examples, and large changes make it harder to judge progress. We reduce that uncertainty with a contract, real reference files, and small testable steps. External dependencies introduce another kind of gap: a tool may need authentication, network access, or explicit trust. Do not paste credentials into chat or pretend a mocked test proves the live integration. Mocks can support focused tests, but we label them and separately report the real integration as blocked until it is exercised. The unavailable original repository is exactly this kind of honest boundary.
         </aside>
       </div>
     </section>
@@ -538,24 +535,23 @@ and all test assertions. Run the tests after to verify nothing broke."</code></p
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Prompt Files for Common Tasks</h2>
-        <p>File: <code>.github/prompts/new-api-endpoint.prompt.md</code></p>
+        <p><strong>Optional Local-harness example:</strong> <code>.github/prompts/new-api-endpoint.prompt.md</code></p>
         <pre><code>---
 agent: agent
 description: Scaffold a new API endpoint with tests
 ---
 
-Create a new Express route at api/routes/${input:routeName}.ts that
-handles ${input:httpMethod} requests to /api/${input:routeName}.
-
-**Requirements:**
-- Follow the pattern in api/routes/products.ts
-- Add the route to api/index.ts
-- Create a test file at api/routes/${input:routeName}.test.ts
-- Run make test to verify</code></pre>
-        <p>Save common patterns as prompt files. Run them with a click from the <code>/</code> picker.</p>
+Ask for the route, method, and acceptance criteria if not provided.
+Inspect existing route, registration, and test files before proposing paths.
+Present the API contract and file plan; wait for approval before editing.
+Follow verified project conventions and preserve existing guidance.
+Add API tests with the installed runner; keep regression assertions.
+Run verified project checks and report exact results or blockers.
+Do not install dependencies or invent missing source files.</code></pre>
+        <p>Local: run from the <code>/</code> picker. Copilot: use a skill for reusable workflows, or paste the task text directly; <code>.prompt.md</code> files do not run there.</p>
 
         <aside class="speaker-notes">
-          Once you've done something well in agent mode, save the prompt as a file so the whole team benefits. This example is a prompt file for scaffolding new API endpoints. Notice the input variables: routeName and httpMethod. When you run this prompt from the picker, Copilot asks you for those values and fills them in. The prompt body references existing code, specifies the file path convention, and includes a test run as the success criteria. This is the bridge between the PISA course and this one. In PISA, you learned the primitives. Here, you're using them in a real project with real conventions. A well-stocked .github/prompts folder means any developer on the team can scaffold a new endpoint, component, or test file in seconds, and the output will match the project's conventions.
+          Reuse is valuable only when the selected harness can discover and run the format. This optional file runs in Local sessions, which remain in the editor rather than the Agents window. Our main Copilot workflow can reuse the task text in a skill, or simply send the text as a request. We explicitly ask for missing details instead of promising a parameter-entry dialog. The documented input-placeholder syntax is understood by many models, not a guaranteed substitution engine. Before sharing this prompt, we test it on a representative accessible project and review both its changes and reported checks. Detailed skill authoring belongs in the customization course.
         </aside>
       </div>
     </section>
@@ -566,33 +562,20 @@ handles ${input:httpMethod} requests to /api/${input:routeName}.
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Mission Debrief: The Solution</h2>
-        <h3>Recommended Prompts by Phase</h3>
-        <ul>
-          <li><strong>Reconnaissance</strong>: "What does this project do? Walk me through the folder structure, the API routes, the database schema, and the testing setup."</li>
-          <li><strong>Instructions Setup</strong>: "Create a .github/copilot-instructions.md for this project. Cover TypeScript settings, React patterns, Express conventions, Vitest testing, and SQLite query safety."</li>
-          <li><strong>Backend Build</strong>: "Create a new GET /api/reports/inventory endpoint that returns stock levels grouped by category. Follow the pattern in api/routes/products.ts. Include a Vitest test file. Run make test to verify."</li>
-          <li><strong>Frontend Build</strong>: "Create a React component at frontend/src/pages/InventoryReport.tsx that fetches data from GET /api/reports/inventory. Use the same data fetching pattern as ProductList.tsx. Add a route and navigation link."</li>
-          <li><strong>Testing</strong>: "Run make test. Fix any failing tests. Then run the linter and fix any warnings."</li>
-        </ul>
-        <h3>Expected File Changes</h3>
-        <ul>
-          <li><code>.github/copilot-instructions.md</code> (created)</li>
-          <li><code>api/routes/inventory.ts</code> (created)</li>
-          <li><code>api/routes/inventory.test.ts</code> (created)</li>
-          <li><code>api/index.ts</code> (modified to register the new route)</li>
-          <li><code>frontend/src/pages/InventoryReport.tsx</code> (created)</li>
-          <li><code>frontend/src/router.tsx</code> (modified to add the route)</li>
-          <li><code>frontend/src/components/Sidebar.tsx</code> (modified to add the nav link)</li>
-        </ul>
-        <h3>Common Mistakes</h3>
-        <ul>
-          <li><strong>Skipping reconnaissance</strong>: Without understanding the project structure, prompts lack the file path references that produce accurate output</li>
-          <li><strong>Skipping instructions</strong>: Without a copilot-instructions.md, agent mode may use Jest instead of Vitest or default exports instead of named exports</li>
-          <li><strong>One giant prompt</strong>: Trying to build everything in a single prompt leads to context overload. Break it into phases.</li>
-          <li><strong>Not running tests</strong>: If you do not ask agent mode to run and fix tests, you miss the iterative refinement that produces production-quality code</li>
-        </ul>
+        <p>A proposed workflow, not an executed solution for the unavailable sample.</p>
+        <table>
+          <thead><tr><th>Phase</th><th>Expected change or evidence</th></tr></thead>
+          <tbody>
+            <tr><td>Discover</td><td>Accessible revision, real paths, schema, commands, and existing guidance</td></tr>
+            <tr><td>Prepare</td><td>Reviewed project instructions and agreed API contract</td></tr>
+            <tr><td>Backend</td><td>Report route, registration, query, and API tests</td></tr>
+            <tr><td>Frontend</td><td>Report page, component tests, routing, and navigation</td></tr>
+            <tr><td>Validate</td><td>Test/lint results, browser observations, reviewed diff, and explicit blockers</td></tr>
+          </tbody>
+        </table>
+        <p>Paths come from reconnaissance. Green tests alone do not prove contract correctness or a working integration.</p>
         <aside class="speaker-notes">
-          This is the reference solution. Compare your approach to this one. There is no single correct path, but these prompts represent a proven workflow. The key insight is the sequencing: reconnaissance first, then instructions, then backend, then frontend, then testing. Each phase builds context that makes the next phase more effective. If you skipped reconnaissance, your later prompts probably lacked specific file references, which means the output was more generic. If you skipped setting up instructions, agent mode may have made choices that do not match the project's conventions. Look at the expected file changes. Did agent mode create and modify the same files? If not, compare what it did differently and consider whether your approach or this reference produces a more maintainable result.
+          We compare evidence rather than demand identical filenames. Discovery should identify a real source revision and existing conventions. Preparation should produce concise, reviewed instructions and a contract both sides can use. The implementation needs API tests and component tests, plus the route and navigation wiring. Validation records the commands, results, observed browser behavior, and remaining gaps. Common mistakes are guessing paths, replacing the project stack to match an example, and weakening tests to make a run pass. None of the proposed file changes here is a claim that the original sample was executed successfully. That remains blocked until source access and runtime verification are available.
         </aside>
       </div>
     </section>
@@ -625,7 +608,7 @@ handles ${input:httpMethod} requests to /api/${input:routeName}.
           <li>What would you do differently next time?</li>
         </ul>
         <aside class="speaker-notes">
-          This is the reflection moment. Ask the group these questions and give them a minute to think. The most common deviation is skipping reconnaissance and instructions. Learners who jumped straight into building the feature usually needed more iterations and got less consistent output. The second most common issue is trying to do everything in one prompt. Learners who broke the task into phases (backend, then frontend, then testing) generally had smoother sessions. There is no single correct path through this mission, but the sequencing matters. Reconnaissance builds context. Instructions encode conventions. Phased building keeps each prompt focused. Testing closes the loop. Ask learners what they would do differently next time. That reflection is where the real learning happens.
+          What evidence changed your approach? Perhaps reconnaissance revealed a different test runner, or the API contract exposed an aggregation decision before either side started coding. There is no single correct sequence for every project, but small, reviewable phases make it easier to spot an unsupported assumption. If project access was blocked, the useful result is an honest plan and a list of verification gaps, not a claimed working feature. Which assumption would you check earlier next time, and which validation result would make you confident enough to request human review?
         </aside>
       </div>
     </section>

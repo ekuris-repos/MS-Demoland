@@ -1,10 +1,527 @@
-<!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8" />  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <title>Unified Tooling - Copilot and the Thing - MS Demoland</title>  <link rel="stylesheet" href="../../../css/primer-brand.css" /></head><body>  <div class="slide-deck">    <!-- ============================================================         SLIDE 1 - Title         ============================================================ -->    <section class="slide slide--title">      <div class="slide-inner">        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />        <span class="badge">Beginner · 30 Minutes</span>        <h1>Unified Tooling - Copilot and the Thing</h1>        <p class="subtitle">Consolidate scattered repositories, trackers, and knowledge bases into one workflow with Copilot as your central assistant</p>        <aside class="speaker-notes">          Welcome to "Copilot and the Thing." In this session we are going to talk about a problem that every team faces: your work is spread across too many tools. Repos live in one system, issues in another, documentation in a wiki somewhere else, and project tracking in yet another platform. By the end of this 30 minutes, you will understand how GitHub brings all of those capabilities under one roof and how Copilot acts as the glue that ties them together. This session is designed for project managers, team leads, IT admins, and anyone who coordinates work across teams without necessarily writing code.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 2 - Agenda (Section)         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge badge--purple">Overview</span>        <h2>What We'll Cover</h2>        <aside class="speaker-notes">          Let's walk through our agenda so you know what to expect over the next half hour.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 3 - Agenda Items         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Today's Agenda</h2>        <ul>          <li><strong>The Scattered Tools Problem</strong> - why multi-platform sprawl slows teams down</li>          <li><strong>GitHub as a Unified Platform</strong> - Issues, Projects, Discussions, Wikis, and Actions</li>          <li><strong>Copilot Ties It Together</strong> - ask questions across repos, issues, and docs</li>          <li><strong>Copilot on GitHub.com</strong> - chat, PR summaries, and issue summaries on the web</li>          <li><strong>Copilot in VS Code for Non-Developers</strong> - exploring repos without writing code</li>          <li><strong>Practical Workflows</strong> - real questions you can ask Copilot today</li>          <li><strong>Integrations</strong> - connecting external tools like Jira, Azure DevOps, and Slack</li>          <li><strong>Getting Started</strong> - what to consolidate first and migration strategies</li>        </ul>        <aside class="speaker-notes">          Here is the roadmap for our session. We will start by naming the problem that most organizations already feel: too many disconnected tools. Then we will look at the GitHub platform features that replace or consolidate those tools. After that, the focus shifts to Copilot: how it works on GitHub.com, how it works in VS Code even for non-developers, and practical workflows you can start using immediately. We will close with integration options for teams that cannot move everything to GitHub overnight, and a lightweight getting-started guide.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 4 - Section: The Scattered Tools Problem         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 1</span>        <h2>The Scattered Tools Problem</h2>        <aside class="speaker-notes">          Let's start with the pain point. Almost every organization we work with has the same challenge, and it is worth naming it explicitly before we talk about solutions.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 5 - Too Many Tools         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Too Many Tools, Too Many Tabs</h2>        <ul>          <li>Source code lives in one platform; issue tracking lives in another</li>          <li>Documentation is split across wikis, SharePoint, Confluence, and Google Docs</li>          <li>Project boards sit in Jira, Trello, or an internal spreadsheet</li>          <li>Team communication happens in Slack, Teams, and email simultaneously</li>          <li>No single place to ask: "What is the current status of Project X?"</li>        </ul>        <aside class="speaker-notes">          Raise your hand if this sounds familiar. Your developers commit code in GitHub, but the project manager tracks work in Jira. The documentation team writes in Confluence. The executive stakeholders want updates in a PowerPoint deck. And the only person who knows where everything lives is the one team lead who has been here for five years. When that person is on vacation, nobody can find anything. This is the scattered tools problem. It is not about any one tool being bad; it is about the lack of a single source of truth. Every context switch costs time, and important information falls through the cracks when it is spread across five different platforms.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 6 - The Real Cost         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>The Real Cost of Tool Sprawl</h2>        <div class="columns">          <div class="card">            <h3>Time Lost</h3>            <p>Context switching between platforms eats up hours every week. Finding the right document or issue in the wrong system creates friction that compounds over time.</p>          </div>          <div class="card">            <h3>Knowledge Gaps</h3>            <p>When information lives in silos, decisions get made with incomplete data. New team members take weeks to figure out which tool holds which answers.</p>          </div>        </div>        <pre class="mermaid">
-graph TD
-  Work[Project Work] --> Tool1[Planner Tool]
-  Work --> Tool2[Code Tool]
-  Work --> Tool3[Docs Tool]
-  Work --> Tool4[Chat Tool]
-  Tool1 -.silo.-> Tool2
-  Tool2 -.silo.-> Tool3
-  Tool3 -.silo.-> Tool4
-</pre>        <aside class="speaker-notes">          Studies consistently show that context switching is one of the biggest productivity drains in knowledge work. Every time someone has to leave their current tool, open a new tab, log in to a different system, and search for a piece of information, they lose focus. Multiply that by every person on the team, every day, and you are looking at a significant cost. The knowledge gap problem is equally serious. When a new person joins, they have to learn not just the work itself but also the map of which tool holds which information. That onboarding tax is time that could be spent on actual work. Consolidating your tools does not just save time; it makes your team's collective knowledge accessible to everyone.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 7 - Section: GitHub as a Unified Platform         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 2</span>        <h2>GitHub as a Unified Platform</h2>        <aside class="speaker-notes">          Now that we have outlined the problem, let's look at how GitHub addresses it. Many people think of GitHub as a place where developers store code. That is true, but it is only part of the story. GitHub is a full collaboration platform.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 8 - GitHub's Built-In Features         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>More Than Source Code</h2>        <ul>          <li><strong>Issues</strong> - track bugs, feature requests, and tasks with labels, milestones, and assignees</li>          <li><strong>Projects</strong> - Kanban boards, tables, and roadmaps with custom fields and automation</li>          <li><strong>Discussions</strong> - threaded Q&amp;A, announcements, and brainstorming spaces for each repo</li>          <li><strong>Wikis</strong> - built-in documentation that lives alongside the code it describes</li>          <li><strong>Actions</strong> - automated workflows for CI/CD, notifications, and scheduled tasks</li>          <li><strong>Pull Requests</strong> - code review, approval gates, and change tracking in one view</li>        </ul>        <img src="img/TODO-diagram-github-platform-components.png" alt="Diagram of GitHub platform components: Issues, Projects, Discussions, Wikis, Actions" />        <aside class="speaker-notes">          Let's walk through what GitHub offers beyond source code hosting. Issues replace your external bug tracker. Projects replace your separate Kanban board or spreadsheet. Discussions give you a structured forum for team conversations that would otherwise happen in scattered Slack threads. Wikis give you a documentation home that is versioned right alongside the code. Actions automate anything repetitive, from running tests to posting status updates. And Pull Requests are the structured review process that keeps quality high. The key insight is that all of these features share the same identity system, the same permissions model, and the same search index. That means when you search in GitHub, you can find issues, code, discussions, and documentation in one place.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 9 - Why Colocation Matters         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Why Colocation Matters</h2>        <div class="columns">          <div class="card">            <h3>Before: Scattered</h3>            <ul>              <li>Issue in Jira references a PR in GitHub</li>              <li>Design doc in Confluence links to a spreadsheet</li>              <li>Slack thread has context that never gets recorded</li>            </ul>          </div>          <div class="card">            <h3>After: Unified</h3>            <ul>              <li>Issue, PR, and discussion live in the same repo</li>              <li>Wiki documents the feature beside the code</li>              <li>Copilot can search across all of it at once</li>            </ul>          </div>        </div>        <aside class="speaker-notes">          Colocation is the principle that related information should live together. When your issue, the pull request that fixes it, the discussion that proposed the approach, and the documentation that explains the result are all in the same repository, you create a natural chain of context. Anyone can follow that chain to understand what happened, why it happened, and what changed. Contrast that with the scattered model where an issue in Jira mentions a PR number in GitHub, which links to a design doc in Confluence, which references a decision made in a Slack thread that nobody can find anymore. The information still exists, but reconstructing the story requires detective work.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 10 - Section: Copilot Ties It Together         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 3</span>        <h2>Copilot Ties It Together</h2>        <aside class="speaker-notes">          If GitHub is the platform that brings your tools together, Copilot is the assistant that helps you navigate and use everything in that platform more effectively. Let's look at how.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 11 - Copilot as Your Guide         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Your AI-Powered Guide to Everything</h2>        <ul>          <li>Ask Copilot questions in natural language instead of manually searching</li>          <li>Copilot can reference your repositories, issues, pull requests, and discussions</li>          <li>Get instant summaries instead of reading through long threads</li>          <li>No need to remember which repo, issue number, or wiki page holds the answer</li>          <li>Works for everyone on the team, not just developers</li>        </ul>        <aside class="speaker-notes">          This is the part that changes the game for non-developers. Previously, getting information out of GitHub meant you had to know where to look: which repository, which issue label, which project board. Copilot lets you skip that step. You ask a question in plain English, and Copilot finds the answer across your organization's GitHub content. For a project manager, this means you can ask "What is blocking the checkout feature?" instead of hunting through three repos and a dozen issues. For a team lead, you can ask "Summarize what the backend team shipped last week" and get a concise answer drawn from merged pull requests and closed issues. The barrier to entry is gone. If you can describe what you want to know, Copilot can help you find it.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 12 - How Copilot Finds Context         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>How Copilot Finds Context</h2>        <ul>          <li><strong>Repository knowledge</strong> - Copilot retrieves relevant content from your repositories, README files, and documentation</li>          <li><strong>Issue and PR threads</strong> - it reads through comments and review conversations</li>          <li><strong>Organization scope</strong> - Copilot can search across all repositories in your org that your permissions allow</li>        </ul>        <aside class="speaker-notes">          Under the hood, Copilot uses a technique called Retrieval Augmented Generation. It retrieves relevant content from your organization's GitHub data and then generates an answer grounded in that content. This is important because it means the answers you get are based on your actual repos and issues, not just general internet knowledge. Copilot can search across all organization repositories that your permissions allow, so it draws on internal runbooks, architecture decision records, API documentation, and any other content your teams have stored in GitHub. There is no need to manually curate a list of priority repositories; Copilot finds the most relevant content based on the question you ask.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 13 - Section: Copilot on GitHub.com         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 4</span>        <h2>Copilot on GitHub.com</h2>        <aside class="speaker-notes">          Let's get practical. Where exactly do you interact with Copilot, and what can it do? We will start with the web experience on GitHub.com.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 14 - Chat on the Web         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Copilot Chat on GitHub.com</h2>        <ul>          <li>Access Copilot Chat from the chat icon in the top navigation bar</li>          <li>Ask general questions: "How do I set up branch protection rules?"</li>          <li>Ask about your org: "Which repos were updated this week?"</li>          <li>Scope your questions to a specific repository for more focused answers</li>          <li>Conversations are saved so you can pick up where you left off</li>        </ul>        <img src="img/copilot-chat-on-github.png" alt="Screenshot of Copilot Chat interface on GitHub.com" />        <aside class="speaker-notes">          On GitHub.com, Copilot Chat is available directly in your browser. You will see a chat icon in the top navigation bar. Click it, and you can start asking questions immediately. You can ask general platform questions like "How do I configure required reviewers on a branch?" and Copilot will walk you through it. But the real power comes when you ask about your own organization. Try "What open issues are assigned to me across all repos?" or "Summarize the discussion in issue #42 of the payments repo." You can scope your questions to a specific repository for more precise answers, and your conversation history is preserved so you can continue a thread later.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 15 - PR and Issue Summaries         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>PR Summaries &amp; Issue Summaries</h2>        <div class="columns">          <div class="card">            <h3>Pull Request Summaries</h3>            <ul>              <li>Copilot generates a plain-language summary of what changed</li>              <li>Ideal for stakeholders who need context without reading diffs</li>              <li>Available from the PR page with one click</li>            </ul>          </div>          <div class="card">            <h3>Issue Summaries</h3>            <ul>              <li>Long issue threads with 30+ comments get distilled into key points</li>              <li>Quickly understand the current status and any decisions made</li>              <li>No need to scroll through a wall of comments</li>            </ul>          </div>        </div>        <img src="img/copilot-pr-summary.png" alt="Screenshot of a Copilot-generated pull request summary on GitHub" />        <aside class="speaker-notes">          Two of the most immediately useful Copilot features for non-developers are PR summaries and issue summaries. When a developer opens a pull request, Copilot can generate a summary that describes the changes in plain language. Instead of looking at lines of code, a project manager can read "this PR adds form validation to the checkout page and fixes the discount calculation bug." Issue summaries are equally valuable. If an issue has accumulated 30 or more comments over two weeks of discussion, Copilot can distill that entire conversation into a few key bullets: what was proposed, what was decided, and what work remains. This saves enormous time for anyone who needs to stay informed but does not need to read every comment.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 16 - Section: Copilot in VS Code         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 5</span>        <h2>Copilot in VS Code for Non-Developers</h2>        <aside class="speaker-notes">          You might be thinking, "VS Code is for developers, why would I use it?" Fair question. Let's talk about why VS Code with Copilot is a surprisingly useful tool even if you never write a line of code.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 17 - Exploring Without Writing Code         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Exploring Repos Without Writing Code</h2>        <ul>          <li>Clone a repo in VS Code to browse the project structure locally</li>          <li>Ask Copilot: "What does this project do?" and get a plain-language overview</li>          <li>Ask Copilot: "Where is the configuration for the login page?"</li>          <li>Understand architecture decisions without needing to read code yourself</li>          <li>Search across files, READMEs, and inline comments for the answers you need</li>        </ul>        <aside class="speaker-notes">          VS Code is free, lightweight, and available on Windows, Mac, and Linux. When you clone a repository and open it in VS Code with Copilot enabled, you get an AI assistant that understands the entire project. You can ask it high-level questions like "What does this application do?" or very specific ones like "Where are the API endpoints defined?" Copilot reads the code, the README, the configuration files, and the inline comments to give you an answer. For a project manager, this means you can explore a project and understand its structure without asking a developer to walk you through it. For an IT admin, you can check configuration files or environment settings without worrying about accidentally changing anything. You are reading, not editing.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 18 - What Non-Developers Can Do in VS Code         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Practical Tasks in VS Code</h2>        <div class="columns">          <div class="card">            <h3>Read and Understand</h3>            <ul>              <li>"Explain this file to me in simple terms"</li>              <li>"What environment variables does this app need?"</li>              <li>"List all the external APIs this project calls"</li>            </ul>          </div>          <div class="card">            <h3>Edit Docs and Config</h3>            <ul>              <li>Update README files with better descriptions</li>              <li>Edit YAML configuration with Copilot's help</li>              <li>Write release notes based on recent changes</li>            </ul>          </div>        </div>        <aside class="speaker-notes">          Let's get specific about what you can actually do. On the "read and understand" side, you can ask Copilot to explain any file in the project. Point it at a configuration file and ask "What does this do?" Point it at a test file and ask "What scenarios does this test cover?" You can even ask it to list all the external dependencies or API calls in the project. On the "edit" side, many non-developers already contribute to repos by updating documentation, writing release notes, or editing configuration files like YAML. Copilot helps with all of this. Ask it to draft release notes by summarizing recent commits. Ask it to help you write a README section. Ask it to validate your YAML file. These are real, valuable contributions that do not require coding skills.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 19 - Section: Practical Workflows         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 6</span>        <h2>Practical Workflows</h2>        <aside class="speaker-notes">          Now let's put it all together with some real-world scenarios. These are the kinds of questions your team members are asking every day, and Copilot can answer them.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 20 - Workflow: Project Status         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Workflow: "What's the Status of Project X?"</h2>        <ul>          <li><strong>Before:</strong> Check Jira for open tickets, check GitHub for open PRs, ask the tech lead in Slack, compile a summary manually</li>          <li><strong>After:</strong> Ask Copilot: "Summarize the current status of the checkout-redesign project"</li>          <li>Copilot reviews open issues, recent PRs, and milestones to generate a summary</li>          <li>Share the summary directly with stakeholders; no spreadsheet assembly required</li>        </ul>        <img src="img/copilot-project-status-summary.png" alt="Screenshot of Copilot generating a project status summary" />        <aside class="speaker-notes">          Let's walk through a scenario that project managers face weekly. Your director asks "What is the status of the checkout redesign?" In the old world, you open Jira to see how many tickets are done, switch to GitHub to check for open PRs, ping the tech lead in Slack to ask about blockers, and then compile all of this into a paragraph. That takes 20 to 30 minutes if everyone responds quickly. In the new world, you ask Copilot the question, and it pulls together the answer from your GitHub issues, PRs, and milestones. The summary is ready in seconds, and you can paste it directly into your status report or share it in your stand-up. This workflow works best when your project tracking is consolidated in GitHub. The more of your work that lives in one place, the more complete the answer.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 21 - Workflow: Stakeholder Communication         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Workflow: "Summarize This PR for a Stakeholder"</h2>        <ul>          <li>Open a pull request on GitHub.com and click the Copilot summary button</li>          <li>Get a non-technical summary: "This change adds password reset functionality and updates the login page layout"</li>          <li>Copy the summary into an email, Teams message, or status report</li>          <li>No need to understand the code diff yourself</li>        </ul>        <aside class="speaker-notes">          Another common scenario: a developer finishes a feature and opens a pull request. Your VP wants to know what changed. You are not going to send the VP a link to a code diff. Instead, you open the PR, let Copilot generate a summary, and you get a plain-language description of what changed and why. You can copy that text directly into a Teams message or an email. The developer did not have to stop and write a separate summary for you. Copilot did it. This small workflow eliminates a back-and-forth that happens dozens of times per sprint in most teams.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 22 - Workflow: Onboarding and Discovery         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Workflow: Onboarding a New Team Member</h2>        <ul>          <li>New team member asks Copilot: "What repos does the payments team maintain?"</li>          <li>Follow up: "What is the architecture of the payments service?"</li>          <li>Follow up: "Who are the main contributors to this repo?"</li>          <li>The new hire builds context in minutes instead of days of meetings</li>          <li>Institutional knowledge is captured in the repos, not trapped in people's heads</li>        </ul>        <aside class="speaker-notes">          Onboarding is one of the highest-value use cases for this approach. When a new team member joins, they typically spend their first week or two asking basic questions: Where does our code live? Who owns what? What is the architecture? How do we deploy? If your repos have good README files, well-written issues, and organized projects, Copilot can answer all of those questions on demand. The new hire does not have to wait for a series of meetings. They can explore at their own pace, asking Copilot follow-up questions as they go. This is especially powerful for non-developer roles like project managers and QA leads who need to understand the landscape without necessarily diving into the code.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 23 - Section: Integrations         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 7</span>        <h2>Connecting External Tools</h2>        <aside class="speaker-notes">          Not every team can move everything to GitHub overnight. Let's talk about how you connect the tools you already use.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 24 - Integrations and Extensions         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Integrations: Meeting Teams Where They Are</h2>        <ul>          <li><strong>Jira &amp; Azure DevOps</strong> - link and cross-reference work items across GitHub and Jira/Azure DevOps. Full bidirectional issue sync requires third-party tools</li>          <li><strong>Slack &amp; Teams</strong> - receive GitHub notifications, create issues, and trigger workflows from chat</li>          <li><strong>MCP (Model Context Protocol)</strong> - let Copilot query external data sources directly</li>          <li><strong>Copilot Extensions</strong> - add domain-specific capabilities to Copilot Chat</li>          <li>Start with GitHub as the hub; connect external tools as spokes</li>        </ul>        <aside class="speaker-notes">          Consolidation does not mean ripping out every tool on day one. GitHub has robust integration options for the most common enterprise tools. Jira and Azure DevOps integrations let you link and cross-reference work items with GitHub. Full bidirectional issue sync typically requires third-party tools, but the native integrations provide enough connectivity for teams to continue using those platforms while you gradually shift work into GitHub Projects. Slack and Microsoft Teams integrations let you receive GitHub notifications, create issues from chat messages, and trigger Actions workflows without leaving your collaboration tool. For more advanced scenarios, MCP (the Model Context Protocol) allows Copilot to query external data sources. If you have an internal database, a custom API, or a third-party service, an MCP server can expose that data to Copilot so it becomes part of the unified experience. Copilot Extensions work similarly, adding specialized capabilities built by third parties or your own team.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 25 - Section: Getting Started         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge">Part 8</span>        <h2>Getting Started</h2>        <aside class="speaker-notes">          You are convinced. Now what? Let's talk about the practical first steps to consolidate your tools and start using Copilot as your central assistant.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 26 - What to Consolidate First         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>What to Consolidate First</h2>        <ul>          <li><strong>Step 1:</strong> Move issue tracking into GitHub Issues or Projects for one pilot team</li>          <li><strong>Step 2:</strong> Migrate documentation into repo wikis or markdown files in the repo</li>          <li><strong>Step 3:</strong> Enable Copilot for the pilot team and encourage natural-language questions</li>          <li><strong>Step 4:</strong> Set up integrations for tools you cannot migrate yet (Jira, Slack, etc.)</li>          <li><strong>Step 5:</strong> Measure the impact: reduced context switching, faster onboarding, better status visibility</li>        </ul>        <aside class="speaker-notes">          Start small. Pick one team or one project as a pilot. Move their issue tracking into GitHub Issues or Projects. Migrate their documentation into the repository itself, either as markdown files in a docs folder or as wiki pages. Once the content is in GitHub, enable Copilot for that team and encourage them to ask questions. You will see immediate wins because Copilot can now find answers that previously required manual searching across platforms. For tools you cannot migrate right away, set up the integrations we discussed. The goal is not perfection on day one; the goal is reducing the number of places your team has to look for information. After a few weeks, measure the impact. How much less time does the team spend searching for information? How much faster can a new person get productive? Those metrics will help you make the case for broader rollout.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 27 - Migration Tips         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Migration Tips</h2>        <div class="columns">          <div class="card">            <h3>Do</h3>            <ul>              <li>Start with one team, not the whole org</li>              <li>Migrate issues gradually; use integrations as a bridge</li>              <li>Write good README files; they are a high-value source Copilot frequently draws on</li>              <li>Label and organize issues consistently</li>            </ul>          </div>          <div class="card">            <h3>Avoid</h3>            <ul>              <li>Trying to migrate everything at once</li>              <li>Forcing teams to abandon tools before replacements are ready</li>              <li>Treating migration as a one-time event instead of a gradual shift</li>              <li>Neglecting documentation quality; Copilot is only as good as your content</li>            </ul>          </div>        </div>        <aside class="speaker-notes">          A few practical tips from organizations that have done this successfully. First, start with one team. A pilot project gives you real feedback without disrupting the entire organization. Second, migrate issues gradually. Full bidirectional sync requires third-party tools like Unito or Exalate, but the native integrations provide cross-referencing and lightweight status linking as a bridge while teams get comfortable with GitHub Issues. Third, invest in README files. READMEs are a high-value source that Copilot frequently draws on, but Copilot considers all available content based on relevance to the question. A well-written README dramatically improves the quality of Copilot's answers. Finally, be consistent with labels and organization. If every team uses different labels for the same concepts, Copilot will struggle to give you cross-team insights. On the "avoid" side, do not try to migrate everything at once. Do not force teams to abandon tools before the replacements are ready. And remember that Copilot is only as good as the content it can access. Garbage in, garbage out. Clean, well-organized repos produce the best results.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 28 - Section: Summary         ============================================================ -->    <section class="slide slide--section">      <div class="slide-inner">        <span class="badge badge--green">Summary</span>        <h2>Wrap-Up &amp; Next Steps</h2>        <aside class="speaker-notes">          Let's bring it all together and talk about what you can do starting today.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 29 - Key Takeaways         ============================================================ -->    <section class="slide slide--content">      <div class="slide-inner">        <h2>Key Takeaways</h2>        <ul>          <li>Scattered tools cost time and create knowledge gaps; consolidation solves both</li>          <li>GitHub is more than source code: Issues, Projects, Discussions, Wikis, and Actions form a complete platform</li>          <li>Copilot acts as your AI-powered guide: ask questions across all your GitHub content</li>          <li>PR summaries and issue summaries eliminate manual status reporting</li>          <li>VS Code with Copilot is useful even if you never write code</li>          <li>Integrations bridge the gap for tools you cannot migrate immediately</li>          <li>Start small, measure the impact, and expand from there</li>        </ul>        <aside class="speaker-notes">          Here are the key points to take away from this session. The scattered tools problem is real and expensive, but it is solvable. GitHub provides a unified platform that covers issue tracking, project management, documentation, communication, and automation. Copilot ties it all together by letting anyone on the team ask questions in natural language. You do not need to be a developer to benefit from Copilot on GitHub.com or in VS Code. Start with a pilot team, migrate gradually, invest in documentation quality, and set up integrations for the tools you cannot move yet. Measure the impact in terms of time saved, onboarding speed, and status reporting effort. The results will speak for themselves.        </aside>      </div>    </section>    <!-- ============================================================         SLIDE 30 - Closing         ============================================================ -->    <section class="slide slide--title">      <div class="slide-inner">        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />        <h1>Thank You</h1>        <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>        <aside class="speaker-notes">          Thank you for joining this session. If you have questions, you can reach out on Teams or, appropriately enough, open an issue in our training repository. I encourage you to try Copilot Chat on GitHub.com today. Ask it a question about one of your repos and see what comes back. That first experience usually makes the value click.        </aside>      </div>    </section>  </div>  <script type="module" src="../../../js/slides.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unified Tooling - Copilot and the Thing - MS Demoland</title>
+  <link rel="stylesheet" href="../../../css/primer-brand.css" />
+</head>
+<body>
+  <div class="slide-deck">
+    <!-- SLIDE 1 - Title -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <span class="badge">Beginner · 30 Minutes</span>
+        <h1>Unified Tooling - Copilot and the Thing</h1>
+        <p class="subtitle">Connect repositories, trackers, and project knowledge, then use Copilot to draft answers you can verify</p>
+        <aside class="speaker-notes">
+          Welcome to "Copilot and the Thing." Your work may be spread across repositories, issue trackers, documentation, and chat. We will look at how GitHub connects related work and how Copilot can help us understand it. The goal is not to make an assistant responsible for project truth. It is to find useful context, draft an answer, and check the evidence before we share it. This session is designed for project managers, team leads, IT admins, and anyone who coordinates work without necessarily writing code.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 - Agenda (Section) -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--purple">Overview</span>
+        <h2>What We'll Cover</h2>
+        <aside class="speaker-notes">
+          Over the next half hour, we will move from the scattered-tools problem to a small workflow you can try in your browser. We will also see where an integration or an optional editor experience can help.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 - Agenda Items -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Today's Agenda</h2>
+        <ul>
+          <li><strong>The Scattered Tools Problem</strong> - why multi-platform sprawl slows teams down</li>
+          <li><strong>GitHub as a Unified Platform</strong> - Issues, Projects, Discussions, Wikis, and Actions</li>
+          <li><strong>Copilot Ties It Together</strong> - scope questions and organize project context with Spaces</li>
+          <li><strong>Copilot on GitHub.com</strong> - ask questions and review PR and issue summaries</li>
+          <li><strong>Copilot in VS Code for Non-Developers</strong> - an optional repository exploration path</li>
+          <li><strong>Practical Workflows</strong> - draft, check sources, and share</li>
+          <li><strong>Integrations</strong> - connect approved tools like Jira, Azure DevOps, and Slack</li>
+          <li><strong>Getting Started</strong> - pilot one workflow and measure the results</li>
+        </ul>
+        <aside class="speaker-notes">
+          We will start by naming the problem: too many disconnected tools. Then we will look at the GitHub features that can bring related work closer together. Our main practical path is Copilot in the browser, with specific sources and a review step. VS Code is an optional way to explore files, not a prerequisite for the browser examples. We will close with integrations and a gradual pilot rather than a whole-organization migration.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 - Section: The Scattered Tools Problem -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 1</span>
+        <h2>The Scattered Tools Problem</h2>
+        <aside class="speaker-notes">
+          Let's start with the pain point. Many teams have useful information in several places, but no easy way to connect it. It is worth naming that problem before we talk about any replacement tools.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 - Too Many Tools -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Too Many Tools, Too Many Tabs</h2>
+        <ul>
+          <li>Source code lives in one platform; issue tracking lives in another</li>
+          <li>Documentation is split across wikis, SharePoint, Confluence, and Google Docs</li>
+          <li>Project boards sit in Jira, Trello, or an internal spreadsheet</li>
+          <li>Team communication happens in Slack, Teams, and email simultaneously</li>
+          <li>Answering "What is the current status of Project X?" requires several sources</li>
+        </ul>
+        <aside class="speaker-notes">
+          Does this sound familiar? Your developers commit code in GitHub, the project manager tracks work in Jira, and the documentation team writes in Confluence. Stakeholders want an update in a PowerPoint deck. Perhaps one experienced team lead knows where everything lives, but finding the full story becomes harder when that person is away. This is not about any one tool being bad. The problem is reconstructing a decision or a status update across several sources without losing important context.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 - The Real Cost -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>The Real Cost of Tool Sprawl</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Time Lost</h3>
+            <p>Switching platforms and searching for the right source interrupts work. Measure that effort in your own team's pilot.</p>
+          </div>
+          <div class="card">
+            <h3>Knowledge Gaps</h3>
+            <p>When information lives in silos, decisions can miss relevant context. New team members must learn which tool holds each answer.</p>
+          </div>
+        </div>
+        <pre class="mermaid">
+        graph TD
+          Work[Project Work] --> Tool1[Planner Tool]
+          Work --> Tool2[Code Tool]
+          Work --> Tool3[Docs Tool]
+          Work --> Tool4[Chat Tool]
+          Tool1 -.silo.-> Tool2
+          Tool2 -.silo.-> Tool3
+          Tool3 -.silo.-> Tool4
+        </pre>
+        <aside class="speaker-notes">
+          Every extra search, login, and handoff adds friction. We do not need to assume a fixed number of hours saved to see the opportunity. Think about your last status update: which sources did you need, and which details were difficult to confirm? A pilot can measure that effort before and after a change. Bringing related information closer together may reduce the search burden, but the result still depends on good documentation and clear ownership.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 - Section: GitHub as a Unified Platform -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 2</span>
+        <h2>GitHub as a Unified Platform</h2>
+        <aside class="speaker-notes">
+          Now that we have outlined the problem, let's look at how GitHub can help. Many people think of GitHub as a place to store code. That is part of the story, but its collaboration features can also connect the planning and explanation around that code.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 - GitHub's Built-In Features -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>More Than Source Code</h2>
+        <table>
+          <thead>
+            <tr><th>Feature</th><th>How it connects the work</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Issues</td><td>Track tasks, bugs, assignees, milestones, and recorded blockers</td></tr>
+            <tr><td>Projects</td><td>Plan issues and PRs in tables, boards, and roadmaps with custom fields</td></tr>
+            <tr><td>Discussions</td><td>Share Q&amp;A, announcements, and decisions at repository or organization scope</td></tr>
+            <tr><td>Wikis and repo docs</td><td>Explain the project; choose documentation sources explicitly for Copilot</td></tr>
+            <tr><td>Actions</td><td>Automate CI/CD, repository events, and scheduled tasks</td></tr>
+            <tr><td>Pull requests</td><td>Discuss and review proposed changes before merging them</td></tr>
+          </tbody>
+        </table>
+        <aside class="speaker-notes">
+          These features serve different parts of the same story. An issue records the work, a project organizes it, and a pull request proposes a change. Discussions and documentation capture the reasoning around that change. Actions can automate repeatable checks. They share GitHub sign-in and can link related work, but access and search capabilities depend on the resource and feature. Projects can span repositories at user or organization level. A wiki is a documentation home, but putting a page there does not establish that Copilot will automatically retrieve it. For our examples, we will choose the sources we need.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 - Why Colocation Matters -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Why Colocation Matters</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Before: Scattered</h3>
+            <ul>
+              <li>Issue in Jira references a PR in GitHub</li>
+              <li>Design doc in Confluence links to a spreadsheet</li>
+              <li>Slack thread has context that never gets recorded</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>After: Connected</h3>
+            <ul>
+              <li>Related issues, PRs, and discussions link to each other</li>
+              <li>Documentation records decisions near the work</li>
+              <li>Selected sources give Copilot useful project context</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Colocation means bringing related information closer together. When an issue links to the PR that addresses it and the document that explains the decision, you create a chain of context someone else can follow. That is easier than reconstructing a story from an old chat thread and several disconnected links. Copilot can help explain the sources we provide or retrieve, but moving content does not guarantee that every source will be included in an answer. We still need to check which evidence supports the result.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 - Section: Copilot Ties It Together -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 3</span>
+        <h2>Copilot Ties It Together</h2>
+        <aside class="speaker-notes">
+          GitHub can connect related work, and Copilot can help us navigate that context. The useful question is not whether the assistant knows everything. It is whether we have given it enough reliable information to help with this particular task.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 - Copilot as Your Guide -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Your AI-Powered Guide to Project Context</h2>
+        <ul>
+          <li>Ask questions in natural language about a specific project or source</li>
+          <li>Provide repository context, issue or PR links, and relevant documentation</li>
+          <li>Draft summaries of issues, PRs, and discussions you can access</li>
+          <li>Inspect the sources and ask what information is missing</li>
+          <li>Useful to non-developers as well as developers</li>
+        </ul>
+        <aside class="speaker-notes">
+          You do not have to read every line of code to ask a useful project question. A manager can ask which blockers are recorded in a set of issues, or what a particular pull request changes for users. Naming the repository, linking the issue, or attaching a decision document gives Copilot a much better starting point than asking about an unnamed project. It may help discover additional relevant material, but we should not assume that it has searched everything we can access. We will check the sources and make missing context visible.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 12 - How Copilot Finds Context -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>How Copilot Finds Context</h2>
+        <ul>
+          <li><strong>Relevant sources</strong> - choose a repository, file, issue, PR, or discussion for the question</li>
+          <li><strong>Copilot Spaces</strong> - collect project docs and issue/PR references for reusable onboarding context</li>
+          <li><strong>Access still applies</strong> - a shared Space does not grant access to restricted sources</li>
+          <li><strong>Coverage is not guaranteed</strong> - retrieval selects relevant content, not every file or wiki page</li>
+        </ul>
+        <p><a href="https://docs.github.com/en/copilot/concepts/prompting-and-context/spaces">About Copilot Spaces</a></p>
+        <aside class="speaker-notes">
+          Think of context as the evidence available for this question. Copilot can retrieve relevant information, but that is not the same as loading an entire organization into memory. For a repeatable onboarding task, a Space can bring together a README, a decision document, and selected issue or PR references. Adding the most useful sources helps make the answer relevant. GitHub-based sources in a Space stay updated, while uploaded or pasted material needs its own freshness check. Sharing the Space does not give someone access to private sources they could not already read. Wiki coverage is not assumed in this workflow; we use explicitly selected, supported sources.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 13 - Section: Copilot on GitHub.com -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 4</span>
+        <h2>Copilot on GitHub.com</h2>
+        <aside class="speaker-notes">
+          Let's get practical with the browser experience. We will start with a question about a selected source, then look at how to turn the answer into a reviewed summary.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 14 - Chat on the Web -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Copilot Chat on GitHub.com</h2>
+        <ul>
+          <li>Sign in with Copilot access and permission to the repository you want to use</li>
+          <li>Open <a href="https://github.com/copilot">github.com/copilot</a> or use the Copilot entry point on GitHub</li>
+          <li>Start with a repository or a specific issue/PR URL, then ask a focused question</li>
+          <li>Check linked sources, dates, and unresolved questions before using the answer</li>
+          <li>Availability depends on your plan and organizational policies</li>
+        </ul>
+        <img src="img/copilot-chat-on-github.png" alt="Example GitHub Copilot home interface with chat input, repository selector, Spaces, and agent sessions" />
+        <aside class="speaker-notes">
+          The screenshot is an example of the Copilot home interface, not a promise that every account will have the same controls. Sign in, check your Copilot access, and confirm you can read the repository you want to discuss. If a feature is missing, your plan or organization policy may explain why. We can start at github.com/copilot and provide the relevant issue or PR link. Ask for the main points and the evidence behind them. Conversation history can help us continue a thread, but it has retention limits, so reviewed project decisions belong in the team's normal documentation rather than only in a chat.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 15 - PR and Issue Summaries -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>PR Summaries &amp; Issue Summaries</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Pull Request Summaries</h3>
+            <ul>
+              <li>Ask Chat to explain a linked PR for a non-technical stakeholder</li>
+              <li>The editor's Copilot actions → Summary drafts a description or comment</li>
+              <li>Review the result before sharing or posting</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Issue Summaries</h3>
+            <ul>
+              <li>Open the issue in Copilot Chat or supply its URL</li>
+              <li>Ask for decisions, recorded blockers, and unresolved questions</li>
+              <li>Long threads can reduce summary quality; check key comments</li>
+            </ul>
+          </div>
+        </div>
+        <img src="img/copilot-pr-summary.png" alt="Example GitHub pull request conversation with a change description; Copilot summary generation is not shown" />
+        <aside class="speaker-notes">
+          There are two different PR workflows here. If you only need to understand a change, give Chat the PR URL and ask for an explanation for your audience. If you are drafting a PR description or comment, the documented Summary action is inside that text editor under Copilot actions. Review that draft before posting it. Our screenshot is a generic pull request example; it does not demonstrate summary generation or establish that its text was written by Copilot. For issues and discussions, ask Chat to summarize the selected thread. There is no special thirty-comment threshold, and very long conversations can reduce answer quality. Check the comments that support important decisions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 16 - Section: Copilot in VS Code -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 5</span>
+        <h2>Copilot in VS Code for Non-Developers</h2>
+        <aside class="speaker-notes">
+          You might be thinking, "VS Code is for developers, why would I use it?" You do not need it for our browser workflow. It is an optional way to explore files and documentation when that is useful to your role, with a few important boundaries.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 17 - Exploring Without Writing Code -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Exploring Repos Without Writing Code</h2>
+        <ul>
+          <li>With Git and approved Copilot access set up, clone a trusted repo into VS Code</li>
+          <li>Choose a question-focused workflow; review enabled tools and approval settings</li>
+          <li>Ask: "Explain this README and identify the files that support your answer"</li>
+          <li>Do not enable editing or terminal tools for simple exploration</li>
+          <li>Inspect the referenced files; asking a question is not a read-only guarantee</li>
+        </ul>
+        <aside class="speaker-notes">
+          Opening a repository in VS Code lets you browse its files and ask questions about them. Git is needed for the cloning path, and your Copilot access must be configured. Start with a trusted repository and a narrowly scoped question, such as explaining its README. Current chat and agent experiences can also edit files and run tools, so asking for an explanation does not itself enforce read-only access. Review the selected workflow and available tools; leave edit and terminal capabilities disabled when you only need to explore. Do not approve actions you do not understand. For an unfamiliar repository, use the editor's trust protections rather than assuming it is safe because you only intend to read it.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 18 - What Non-Developers Can Do in VS Code -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Practical Tasks in VS Code</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Read and Understand</h3>
+            <ul>
+              <li>"Explain this file in simple terms and point to the evidence"</li>
+              <li>"Which environment variables are documented here?"</li>
+              <li>"Which external APIs can you identify in these selected files?"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Optional Reviewed Edits</h3>
+            <ul>
+              <li>Draft a README improvement or release-note section</li>
+              <li>Inspect the diff before accepting changes</li>
+              <li>Have config changes validated and reviewed through a PR</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          Reading and changing a project are separate decisions. For exploration, attach the file you want explained and check the parts Copilot references. A list of dependencies or API calls may be incomplete, so ask which files were considered and what remains uncertain. If you later choose to contribute documentation, review the proposed diff before keeping it. Configuration files can affect deployment or access even though they are not application code. Copilot can help explain YAML, but an explanation is not schema validation or proof that a configuration is safe. Use the project's normal checks and a knowledgeable reviewer before merging a configuration change. Never paste secret values into a prompt to get an explanation.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 19 - Section: Practical Workflows -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 6</span>
+        <h2>Practical Workflows</h2>
+        <aside class="speaker-notes">
+          Now let's put the pieces together. The same pattern works across these examples: identify the question, supply the relevant context, inspect the evidence, and share a reviewed result.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 20 - Workflow: Project Status -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Workflow: "What's the Status of Project X?"</h2>
+        <ul>
+          <li><strong>Scope:</strong> Select the repository and relevant issue/PR links for checkout-redesign</li>
+          <li><strong>Ask:</strong> "Summarize these sources for the past seven days. Link evidence for progress and recorded blockers; list unknowns"</li>
+          <li><strong>Check:</strong> Open the sources, confirm dates and blocker relationships, and ask owners about gaps</li>
+          <li><strong>Share:</strong> Publish the reviewed draft with source links and an as-of date</li>
+        </ul>
+        <img src="img/TODO-screenshot-copilot-project-status-summary.png" alt="TODO: Add screenshot for &quot;Scoped Copilot project status draft with source links and unresolved questions&quot;" />
+
+        <aside class="speaker-notes">
+          Suppose your director asks about checkout-redesign. Rather than assuming Copilot knows which project that means, select the repository and provide the issue or PR links that define the work. Ask for a seven-day summary, evidence links, and unknowns. Then check that the dates and statuses in those sources match the draft. A recorded blocked-by relationship is useful evidence; an inferred blocker needs confirmation. If the real decision is still in Jira or a private chat, it may not be available in this context. Ask an owner or use an approved connection instead of filling the gap with a guess. Only then share the update with an as-of date. The visual is explicitly unfinished until we capture this actual workflow; an empty Projects chart is not evidence of a Copilot summary.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 21 - Workflow: Stakeholder Communication -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Workflow: "Summarize This PR for a Stakeholder"</h2>
+        <ul>
+          <li>Open Copilot Chat and provide the pull request URL</li>
+          <li>Ask: "Explain this PR for a non-technical stakeholder. Link the evidence and separate proposed changes from confirmed outcomes"</li>
+          <li>Check the PR description, review discussion, and merge state; confirm business impact with its owner</li>
+          <li>Share a reviewed explanation with the source link, not an unchecked AI answer</li>
+        </ul>
+        <aside class="speaker-notes">
+          A pull request proposes a change; it is not proof that the change has shipped. Give Chat the PR URL and name your audience. It can draft a plain-language explanation, but we should check whether the PR is open, merged, or already released, and confirm any claimed business impact. If the summary says a password reset feature is available to customers, for example, the owner may need to confirm deployment. We can then send a clear, reviewed explanation with a source link. This is separate from using the editor's Summary action to draft a PR description or comment.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 22 - Workflow: Onboarding and Discovery -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Workflow: Onboarding a New Team Member</h2>
+        <ul>
+          <li>Start from a team-maintained Space with a README, decision document, and relevant issue/PR links</li>
+          <li>Ask: "Using these sources, explain the payments service and link the supporting files"</li>
+          <li>Follow up: "Which ownership information is documented, and what should I confirm with the team?"</li>
+          <li>Check source access and freshness; ask a person when context is missing</li>
+          <li>Keep reviewed decisions in team documentation so future hires can reuse them</li>
+        </ul>
+        <aside class="speaker-notes">
+          A new teammate should not have to guess which repositories describe a service. A team-maintained Space can offer a useful starting set: a README, an architecture decision, and a few representative issue or PR links. Ask Copilot to explain that material and point back to its sources. If the documents do not identify an owner, the honest answer is that ownership needs confirmation. Commit activity alone is not proof of responsibility. Spaces make context reusable, but they do not capture conversations nobody recorded or bypass source permissions. Combine self-service exploration with a team contact who can fill in those gaps.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 23 - Section: Integrations -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 7</span>
+        <h2>Connecting External Tools</h2>
+        <aside class="speaker-notes">
+          Not every team can or should move everything to GitHub. Let's separate linking work across tools from actually making external data available to an assistant.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 24 - Integrations -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Integrations: Meeting Teams Where They Are</h2>
+        <ul>
+          <li><strong>Jira &amp; Azure Boards</strong> - link GitHub development activity to work items; full issue synchronization needs a separately configured solution</li>
+          <li><strong>Slack &amp; Teams</strong> - approved GitHub apps support notifications and issue collaboration; capabilities depend on the app and version</li>
+          <li><strong>MCP</strong> - approved servers can expose tools or data to supported Copilot surfaces, with appropriate access and policy</li>
+          <li><strong>Check the boundary</strong> - a link or notification does not automatically make external content available to Copilot</li>
+          <li>Keep a clear system of record and connect only the access your workflow needs</li>
+        </ul>
+        <p><a href="https://docs.github.com/en/copilot/concepts/customizations/mcp">MCP surfaces and controls</a> · <a href="https://docs.github.com/en/integrations/how-tos/teams/use-github-in-teams">GitHub in Teams</a></p>
+        <aside class="speaker-notes">
+          Linking and synchronization are not the same thing. Jira and Azure Boards connections can link GitHub development activity to work items without copying every issue between systems. Slack and Teams apps can bring notifications and issue collaboration into chat, but the exact capabilities depend on the app, its version, and permissions. Do not assume a generic workflow-trigger command exists in every connector. For Teams, ask your administrator which current GitHub app is approved rather than installing a legacy one. MCP can expose tools or data to a supported Copilot experience, but setup differs by surface and requires appropriate authorization and organizational policy. Ordinary GitHub.com Chat tools are distinct from repository MCP settings for delegated agents. Server-side GitHub App-based Copilot Extensions were retired in November 2025, so they are not an integration option here. That retirement does not apply to ordinary GitHub Apps or client-side VS Code extensions.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 25 - Section: Getting Started -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge">Part 8</span>
+        <h2>Getting Started</h2>
+        <aside class="speaker-notes">
+          We have seen how the pieces connect and where the boundaries are. The next step is a small pilot that tests one useful question, not an immediate commitment to migrate every tool.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 26 - What to Consolidate First -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>What to Consolidate First</h2>
+        <ul>
+          <li><strong>Step 1:</strong> Choose one pilot team and one status or onboarding question</li>
+          <li><strong>Step 2:</strong> Confirm Copilot access, source permissions, organizational policy, and a system of record</li>
+          <li><strong>Step 3:</strong> Connect relevant issues and repo docs; collect useful context in a Space</li>
+          <li><strong>Step 4:</strong> Use approved integrations for information that must stay elsewhere; check actual retrieval coverage</li>
+          <li><strong>Step 5:</strong> Measure search effort, answer accuracy, onboarding support, and review time</li>
+        </ul>
+        <aside class="speaker-notes">
+          Start with a question people already ask, such as a weekly update or an explanation of one service. Before changing tools, confirm that the pilot team can access Copilot and the required sources under your organization's policies. Choose where the authoritative status will live. If moving some issues or documentation into GitHub helps, do it gradually. For the Copilot example, use selected repository documentation and linked issues, perhaps collected in a Space. A wiki can remain a useful documentation home, but do not assume that moving a page there proves it is included in Copilot's answer. Compare the draft with the real sources and measure both time saved and review effort before expanding.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 27 - Migration Tips -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Migration Tips</h2>
+        <div class="columns">
+          <div class="card">
+            <h3>Do</h3>
+            <ul>
+              <li>Start with one team and a clear system of record</li>
+              <li>Migrate gradually; use approved integrations as a bridge</li>
+              <li>Write useful README files and maintain selected Space sources</li>
+              <li>Label issues consistently and record blockers explicitly</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Avoid</h3>
+            <ul>
+              <li>Trying to migrate everything at once</li>
+              <li>Abandoning tools before replacements are ready</li>
+              <li>Assuming a connector provides complete synchronization or AI context</li>
+              <li>Sharing a generated report without checking its evidence</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="speaker-notes">
+          A pilot gives you feedback without disrupting the entire organization. Native Jira and Azure Boards connections can provide development links while teams keep their current planning system. If you need issue-object synchronization, third-party products such as Unito or Exalate are examples to evaluate, not automatic recommendations. Check the supported fields, access, cost, and conflict-handling rules with your administrators. Good README files and clear issue relationships make project context easier for both people and Copilot to understand. They do not guarantee a complete answer. Keep an owner for documentation and review any uploaded or pasted Space material when the project changes.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 28 - Section: Summary -->
+    <section class="slide slide--section">
+      <div class="slide-inner">
+        <span class="badge badge--green">Summary</span>
+        <h2>Wrap-Up &amp; Next Steps</h2>
+        <aside class="speaker-notes">
+          Let's bring it back to the practical habit we want to keep: connect the relevant work, ask a scoped question, and verify the answer before someone makes a decision from it.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 29 - Key Takeaways -->
+    <section class="slide slide--content">
+      <div class="slide-inner">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li>Connecting related work can reduce searching and knowledge gaps</li>
+          <li>GitHub combines planning, documentation, review, and automation features</li>
+          <li>Copilot answers depend on relevant context and permitted access, not automatic coverage of everything</li>
+          <li>Spaces can make selected project context reusable for the team</li>
+          <li>Summaries help draft updates; people check sources and own the final message</li>
+          <li>VS Code exploration is optional; tool permissions and review still matter</li>
+          <li>Use approved integrations, pilot one workflow, and measure actual results</li>
+        </ul>
+        <aside class="speaker-notes">
+          The biggest change is not replacing every tool or trusting every answer. It is making useful context easier to find and using Copilot to help explain it. GitHub can connect planning and implementation, while a Space can collect sources for a repeatable question. Our responsibility is to check the evidence, make missing information visible, and share only a reviewed result. You can start in the browser without writing code. Try one team and one question, measure the results, and expand only when the workflow is genuinely helping.
+        </aside>
+      </div>
+    </section>
+
+    <!-- SLIDE 30 - Closing -->
+    <section class="slide slide--title">
+      <div class="slide-inner">
+        <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
+        <h1>Thank You</h1>
+        <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
+        <aside class="speaker-notes">
+          Thank you for joining. For a first step, choose a repository you can access, give Copilot one relevant issue or PR link, and ask for a short explanation with supporting evidence. Open the sources and see what the draft gets right and what needs confirmation. If a feature or permission is missing, ask your administrator rather than treating that as a reason to bypass policy. You can reach out on Teams or open an issue in the training repository with questions.
+        </aside>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="../../../js/slides.js"></script>
+</body>
+</html>

@@ -68,7 +68,7 @@
 
 - Slide deck contains 33 slides with nonempty speaker notes; checklist tracks slide authoring, not human approval.
 - lab.json created with interactive steps across slides 1, 8, 12, 13, 15, 16, 17, 20, 22, 28.
-- Architecture is inline Mermaid. Setup/tool-selection images are contextualized; issue-reading and code-search screenshots remain explicit TODO placeholders.
+- Architecture is inline Mermaid. The existing tool-selection image is contextualized; issue-reading and code-search screenshots remain explicit TODO placeholders.
 - Rollup stays "In Progress" until images are added and content is reviewed.
 
 ### 2026-10-27 slide-only factual refresh

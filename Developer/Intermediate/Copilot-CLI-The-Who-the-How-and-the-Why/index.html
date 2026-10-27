@@ -264,8 +264,8 @@ copilot --version</code></pre>
           </thead>
           <tbody>
             <tr>
-              <td><code>/login</code></td>
-              <td>Authenticate with GitHub</td>
+              <td><code>/permissions</code></td>
+              <td>Inspect or change the permission mode</td>
             </tr>
             <tr>
               <td><code>/model</code></td>
@@ -285,7 +285,7 @@ copilot --version</code></pre>
             </tr>
             <tr>
               <td><code>/sandbox enable</code></td>
-              <td>Enable experimental local sandboxing where supported</td>
+              <td>Enable local sandboxing on supported platforms</td>
             </tr>
             <tr>
               <td><code>/resume</code></td>
@@ -293,7 +293,7 @@ copilot --version</code></pre>
             </tr>
             <tr>
               <td><code>/limits</code></td>
-              <td>Inspect or set a soft AI credit limit</td>
+              <td>Inspect or set a preview soft AI credit limit (minimum 30)</td>
             </tr>
             <tr>
               <td><code>/exit</code></td>
@@ -302,7 +302,7 @@ copilot --version</code></pre>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          These commands change the session around the task. <code>/model</code> shows the choices currently available to your account, while <code>/context</code> and <code>/compact</code> expose and manage conversation size. Local sandboxing is experimental and requires platform support, including a Windows Insiders build on Windows. AI credit limits are soft because usage is known only after a model call returns, so a call can cross the threshold before the next one is blocked.
+          These commands change the session around the task. <code>/model</code> shows your available choices, while <code>/context</code> and <code>/compact</code> expose and manage conversation size. Local sandboxing is generally available, but still has <a href="https://docs.github.com/en/copilot/how-tos/cloud-and-local-sandboxes/using-local-sandboxing">platform prerequisites</a>: supported Windows 11 updates or Linux dependencies, not an Insiders-only requirement. Check <code>/sandbox status</code> and <code>/sandbox policy</code>. Credit limits remain preview and soft, with a minimum of 30. For example, <code>/limits set max-ai-credits 30</code> sets a limit. Current official pages disagree about interactive reset scope, so check the installed version and do not treat this as a hard session billing cap.
         </aside>
       </div>
     </section>
@@ -330,19 +330,19 @@ copilot --version</code></pre>
               <td><code>-s</code> and <code>--no-ask-user</code></td>
             </tr>
             <tr>
-              <td>Minimal capability</td>
-              <td><code>--allow-tool='shell(git)'</code></td>
+              <td>Preapprove Git history</td>
+              <td><code>--allow-tool='shell(git log:*)'</code></td>
             </tr>
             <tr>
-              <td>Soft cost guardrail</td>
-              <td><code>--max-ai-credits=N</code></td>
+              <td>Preview soft cost guardrail</td>
+              <td><code>--max-ai-credits=30</code> (minimum 30)</td>
             </tr>
           </tbody>
         </table>
-        <pre><code>copilot -p "Summarize this week's commits" -s --no-ask-user \
-  --allow-tool='shell(git)' --max-ai-credits=30</code></pre>
+        <pre><code># Bash/Zsh or PowerShell, one line
+copilot -p "Summarize git log -5" -s --no-ask-user --allow-tool='shell(git log:*)' --max-ai-credits=30</code></pre>
         <aside class="speaker-notes">
-          Programmatic mode turns one prompt into a command that exits when the response finishes. Here, <code>-s</code> removes usage statistics, <code>--no-ask-user</code> disables the agent's question tool, and the Git permission is supplied explicitly. The credit value is a soft guardrail, not a precise billing cutoff. For automation, pair those controls with deterministic validation and an isolated working environment.
+          Programmatic mode turns one prompt into a command that exits when the response finishes. Here, <code>-s</code> removes usage statistics and <code>--no-ask-user</code> disables clarifying questions; neither grants tool authority. Only the Git log command family is preapproved, rather than all of Git. That matching rule is still not a sandbox. Non-interactive requests needing human approval are denied. The minimum credit limit is 30, and in-progress work can exceed that soft threshold. Pair the command with deterministic validation, isolation, and a stop-and-report instruction when the task cannot be completed within its boundaries.
         </aside>
       </div>
     </section>
@@ -368,14 +368,15 @@ copilot --version</code></pre>
         <h2>Custom Instructions and Memory</h2>
         <ul>
           <li><strong>Custom instructions</strong> give Copilot context about your project: how to build, test, and validate changes</li>
-          <li>All instruction files in your project combine automatically; no priority-based fallback</li>
+          <li><strong>Applicable, enabled instructions</strong> combine without a general precedence order; avoid conflicting rules</li>
+          <li>Start with <code>.github/copilot-instructions.md</code> or <code>AGENTS.md</code>; path-specific <code>.github/instructions/*.instructions.md</code> files use <code>applyTo</code></li>
           <li><strong>Copilot Memory</strong> builds persistent understanding of your repository over time</li>
           <li>Memories capture coding conventions, patterns, and preferences that Copilot deduces as it works</li>
           <li>Memory is in <strong>public preview</strong> and depends on user settings and organization policy</li>
-          <li>Reduces the need to repeat context in every session</li>
+          <li>Use <code>/instructions</code> to inspect discovered sources and enable or disable individual files</li>
         </ul>
         <aside class="speaker-notes">
-          Instructions are authored rules; memory is learned context. The CLI combines applicable instruction sources, so overlapping guidance can still conflict even though there is no single fallback file. Memory can store repository facts and personal preferences, but it is a public preview feature governed by user and organization settings. Stored facts are validated against cited code before use, and unused entries expire after 28 days. Keep durable policy in instructions rather than relying on memory to infer it.
+          Instructions are authored rules; memory is learned context. The CLI discovers sources in supported locations, but not every Markdown file becomes an instruction. Modular files apply when their <code>applyTo</code> pattern matches the files being worked on, and disabled sources are excluded. Applicable sources combine without a general precedence order, so overlapping guidance can still conflict. Inspect them with <code>/instructions</code>. Memory remains a public preview governed by user and organization settings. Repository facts are checked against cited code before use, and unused entries expire after 28 days. Keep durable policy in instructions rather than relying on memory to infer it.
         </aside>
       </div>
     </section>
@@ -469,7 +470,7 @@ Start working on issue #42 in a new branch
 
 # Review and manage PRs
 Check the changes in PR #57 and report any serious errors
-Merge all of the open PRs that I've created in org/repo
+List my PRs in org/repo with checks and review status; do not merge
 
 # Actions and workflows
 List any Actions workflows in this repo that add comments to PRs
@@ -507,7 +508,7 @@ Create a GitHub Actions workflow that runs eslint on pull requests</code></pre>
               <li>Works over SSH, in CI, and in containers</li>
               <li>Agentic: reads and modifies files via tools</li>
               <li>Pre-configured GitHub MCP server</li>
-              <li>Can connect to VS Code for editor context and visual diffs</li>
+              <li>Use <code>/ide</code> to connect to VS Code for context and diffs</li>
               <li>Programmatic mode for automation</li>
             </ul>
           </div>
@@ -524,7 +525,7 @@ Create a GitHub Actions workflow that runs eslint on pull requests</code></pre>
           </div>
         </div>
         <aside class="speaker-notes">
-          Both surfaces can perform agentic work, so the useful distinction is where you need to observe and control it. The CLI travels with the shell and works in remote or automated environments. VS Code makes review, navigation, diagnostics, and inline feedback visible. When the CLI runs inside the integrated terminal, it can connect to the editor and use that context, so this is not a hard product boundary. Choose the surface that makes the current risk easiest to inspect.
+          Both surfaces can perform agentic work, so the useful distinction is where you need to observe and control it. The CLI travels with the shell and works in remote or automated environments. VS Code makes review, navigation, diagnostics, and inline feedback visible. A CLI launched from an external terminal can also connect to a matching trusted workspace; it is not limited to the integrated terminal. Use <code>/ide</code> to inspect or change the connection. Preapproved writes can bypass the proposed-edit approval diff, so verify the changes afterward instead of assuming every edit will pause in the editor.
         </aside>
       </div>
     </section>
@@ -538,10 +539,10 @@ Create a GitHub Actions workflow that runs eslint on pull requests</code></pre>
         <ul>
           <li><strong>Use CLI when:</strong> you are in the terminal, working over SSH, running automation scripts, or managing GitHub operations from the command line</li>
           <li><strong>Use VS Code Chat when:</strong> you want visual diffs, inline code suggestions, or tight integration with editor features like debugging and testing</li>
-          <li><strong>Use both when:</strong> the task begins in the shell but benefits from editor context, visual diffs, diagnostics, or inline review</li>
+          <li><strong>Use both when:</strong> the task begins in the shell but benefits from editor context; manage the connection with <code>/ide</code> and review changes with <code>/diff</code></li>
         </ul>
         <aside class="speaker-notes">
-          Start with the work, not a favorite interface. A remote incident, pipeline, or repository-wide shell operation naturally belongs in the CLI. A change that depends on diagnostics, visual comparison, or line-level feedback benefits from VS Code. Inside the integrated terminal, you can keep the command-line workflow and still use the editor connection for context and review. The best surface is the one that exposes the evidence you need before accepting the result.
+          Start with the work, not a favorite interface. A remote incident, pipeline, or repository-wide shell operation naturally belongs in the CLI. A change that depends on diagnostics, visual comparison, or line-level feedback benefits from VS Code. Connect from an integrated or external terminal to a trusted workspace on the same host, then check the connection with <code>/ide</code>. Use <code>/diff</code> for a CLI review of changes. The best surface is the one that exposes the evidence you need before accepting the result.
         </aside>
       </div>
     </section>
@@ -567,14 +568,14 @@ Create a GitHub Actions workflow that runs eslint on pull requests</code></pre>
         <h2>Security Considerations</h2>
         <ul>
           <li><strong>Trusted directories:</strong> scope expected file access, but are not a hard isolation boundary; do not launch from your home directory</li>
-          <li><strong>Tool approval:</strong> mutating operations generally prompt by default; preapproved tools and selected read-only commands may not</li>
+          <li><strong>Tool approval:</strong> manual, assisted, and allow-all permissions differ; assisted model reviews are not a security guarantee</li>
           <li><strong>Least privilege:</strong> allow only the tool patterns, paths, and URLs required by the task</li>
-          <li><strong>Local sandbox:</strong> use <code>/sandbox enable</code> or <code>--sandbox</code> with experimental features on supported platforms</li>
-          <li><strong>Cost guardrail:</strong> set a soft limit with <code>/limits</code> or <code>--max-ai-credits</code> before autonomous work</li>
+          <li><strong>Local sandbox:</strong> generally available; use <code>/sandbox enable</code> or <code>--sandbox</code> on supported platforms, then inspect <code>/sandbox status</code></li>
+          <li><strong>Cost guardrail:</strong> preview soft limits use <code>/limits</code> or <code>--max-ai-credits</code>; minimum 30 credits, with possible overrun</li>
           <li><strong>Defense in depth:</strong> use a worktree, container, VM, or dedicated runner when the potential impact warrants stronger isolation</li>
         </ul>
         <aside class="speaker-notes">
-          No single control is an isolation guarantee. Folder trust and path checks are heuristic. Permission patterns govern approvals, while the experimental local sandbox restricts commands and tools according to an OS-level policy. Built-in file tools enforce that policy in process on a best-effort basis because the CLI itself is not inside the sandbox. For higher-impact work, add a worktree, container, VM, or dedicated runner and verify the result outside the agent's own report.
+          No single control makes the whole workflow safe. Folder trust and path checks are heuristic, and an assisted permission model can approve an unintended action. Local sandboxing became generally available on October 7, 2026 and restricts commands and tools according to an OS-level policy. Verify platform prerequisites and inspect the effective policy; enabling it is not proof that every resource is blocked. Built-in file tools enforce policy in process on a best-effort basis because the CLI itself is not sandboxed. A worktree separates working changes but is not security isolation. For higher-impact work, add a suitable container, VM, or dedicated runner and verify the result independently. Credit limits are preview soft guardrails, not a replacement for billing controls.
         </aside>
       </div>
     </section>
@@ -585,18 +586,17 @@ Create a GitHub Actions workflow that runs eslint on pull requests</code></pre>
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Aliases &amp; Shell Integration</h2>
-        <pre><code># Bash/Zsh: predictable output, no implicit permissions
-alias cpcli='copilot -p -s --no-ask-user'
+        <pre><code># Bash/Zsh helper: predictable output, no implicit permissions
+cpcli() { copilot -p "$@" -s --no-ask-user; }
 
 # PowerShell equivalent
 function cpcli { copilot -p @args -s --no-ask-user }
 
 # Add the minimum permission at the call site
 cpcli "Explain each of these scripts and offer improvements"
-cpcli "Summarize recent commits" --allow-tool='shell(git)' \
-  --max-ai-credits=30</code></pre>
+cpcli "Summarize git log -5" --allow-tool='shell(git log:*)' --max-ai-credits=30</code></pre>
         <aside class="speaker-notes">
-          A useful helper can standardize output without silently widening authority. Here, <code>-s</code> suppresses usage statistics and <code>--no-ask-user</code> removes the agent's question tool. Neither option approves a shell command or file write. The caller still supplies the minimum permission and a soft credit guardrail for each task, which keeps convenience separate from authorization.
+          A useful helper can standardize output without silently widening authority. These functions forward the prompt and options in their original argument boundaries. Here, <code>-s</code> suppresses usage statistics and <code>--no-ask-user</code> removes the agent's question tool. Neither approves a shell command or file write. The one-line invocation works in Bash, Zsh, or PowerShell; its permission matches Git log, not every Git subcommand. A request to explain scripts still needs whatever read access the task and policy require. The caller supplies task-specific authority and a preview soft credit guardrail, keeping convenience separate from authorization.
         </aside>
       </div>
     </section>
@@ -613,10 +613,10 @@ cpcli "Summarize recent commits" --allow-tool='shell(git)' \
           <li><strong>Boundaries:</strong> name what may change and what must remain untouched</li>
           <li><strong>Constraints:</strong> specify compatibility, policy, framework, or performance requirements</li>
           <li><strong>Verification:</strong> define the tests or checks that prove completion</li>
-          <li><strong>Stop condition:</strong> say when to pause for input instead of guessing</li>
+          <li><strong>Stop condition:</strong> pause for input interactively, or stop and report a blocker in unattended work instead of guessing</li>
         </ul>
         <aside class="speaker-notes">
-          A strong prompt is a small contract. "Fix the login bug" names an activity, but it does not define success or limit the blast radius. A better request points to the failing behavior and evidence, protects unrelated code, names compatibility constraints, and requires a specific test. The stop condition matters when information is missing: asking Copilot to pause is safer than allowing it to invent a product decision. This structure improves both interactive work and unattended automation.
+          A strong prompt is a small contract. "Fix the login bug" names an activity, but it does not define success or limit the blast radius. A better request points to the failing behavior and evidence, protects unrelated code, names compatibility constraints, and requires a specific test. When information is missing, an interactive session can pause for a decision. With questions disabled or no user available, require the agent to stop and report what blocked completion instead of inventing a product decision. This structure improves both interactive work and unattended automation.
         </aside>
       </div>
     </section>
@@ -683,12 +683,12 @@ cpcli "Summarize recent commits" --allow-tool='shell(git)' \
           <li><strong>Capture repository context:</strong> add build, test, and validation instructions</li>
           <li><strong>Bound automation:</strong> specify tools, sandbox policy, finish criteria, and an AI credit limit</li>
           <li><strong>Review the evidence:</strong> compare output quality, runtime, and cost before expanding scope</li>
-          <li><strong>Related courses:</strong> "Enterprise-Grade Marmalade" for governance; "MCP Maximizer" for advanced MCP; "Agent Potato" for Copilot agents</li>
-          <li><strong>Documentation:</strong> <code>copilot --help</code> or visit the GitHub Docs</li>
+          <li><strong>Related courses:</strong> <a href="../Enterprise-Grade-Marmalade/index.html">Enterprise-Grade Marmalade</a> for central prompt repositories; <a href="../../Enterprise/MCP-Maximizer/index.html">MCP Maximizer</a> for advanced MCP; <a href="../Agent-Potato-License-to-Chat/index.html">Agent Potato</a> for full-stack development</li>
+          <li><strong>Documentation:</strong> <code>copilot --help</code> or visit the <a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference">Copilot CLI command reference</a></li>
           <li><strong>Feedback:</strong> use <code>/feedback</code> in any session to share your experience</li>
         </ul>
         <aside class="speaker-notes">
-          Do not begin adoption with the most autonomous task you can imagine. Pick a recurring, read-only job whose answer you already know how to check. Add the repository context it needs, set explicit boundaries, and record whether the result is faster or better than your current method. Expand scope only after the evidence supports it. The related courses take that same operating discipline into governance, MCP design, and editor-based agents.
+          Do not begin adoption with the most autonomous task you can imagine. Pick a recurring, read-only job whose answer you already know how to check. Add the repository context it needs, set explicit boundaries, and record whether the result is faster or better than your current method. Expand scope only after the evidence supports it. The related courses take that discipline into shared prompt repositories, enterprise MCP design, and a full-stack development mission.
         </aside>
       </div>
     </section>

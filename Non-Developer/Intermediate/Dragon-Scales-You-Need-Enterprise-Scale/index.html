@@ -99,24 +99,24 @@
           <div class="card">
             <h3>After: AI-Assisted</h3>
             <ul>
-              <li>Copilot generates log queries on demand</li>
+              <li>Copilot drafts queries from verified context</li>
               <li>Runbooks maintained and updated through pull requests</li>
-              <li>Dashboard queries generated in seconds</li>
-              <li>Postmortem drafts assembled from incident data</li>
+              <li>Dashboard queries reviewed against real telemetry</li>
+              <li>Postmortem drafts from approved, sanitized data</li>
             </ul>
           </div>
         </div>
 
         <pre class="mermaid">
       graph LR
-        Signal[Operational Signals] --> Correlate[AI Correlation]
-        Correlate --> Diagnose[Root Cause Draft]
+        Signal[Sanitized Operational Signals] --> Correlate[AI Correlation Draft]
+        Correlate --> Diagnose[Root Cause Hypothesis]
         Diagnose --> Recommend[Action Recommendations]
         Recommend --> Human[Human Validation]
         Human --> Resolve[Incident Resolution]
         </pre>
         <aside class="speaker-notes">
-          Here is the shift we are proposing. On the left, the traditional model: SSH into machines, grep through log files line by line, copy from runbooks that may or may not be current, manually assemble dashboards, and write postmortems from memory days after the incident. On the right, the AI-assisted model. Copilot generates the exact log query you need in seconds. Runbooks live in a repository and are maintained and updated through pull requests. Dashboard queries for KQL, PromQL, or Grafana are generated conversationally. Postmortem drafts are assembled from the actual incident timeline, alerts, and resolution steps. This is not about replacing engineers. It is about freeing engineers from repetitive toil so they can focus on architecture, reliability, and strategy.
+          Here is the shift we are proposing: use AI to draft, and use evidence to decide. SSH and grep remain useful tools; Copilot adds another way to explore a problem rather than replacing deterministic checks. It can draft KQL or PromQL for a specified data source, including data sources used by Grafana. It does not automatically see your monitoring systems or service dependencies. Provide only authorized, sanitized context. In supported clients, approved MCP connections can supply external context, but they require trusted servers, scoped access, and any applicable organization policy. Neither a connection nor a fluent answer guarantees a correct diagnosis. We review queries against actual telemetry and keep runbooks and postmortems under human review. Measure whether this reduces toil in your environment rather than promising a fixed time saving.
         </aside>
       </div>
     </section>
@@ -138,21 +138,21 @@
         <h2>GitHub Actions for IaC Workflows</h2>
         <ul>
           <li><strong>Infrastructure as Code</strong> - Terraform, Bicep, and Pulumi definitions stored in version control</li>
-          <li><strong>Plan-on-PR</strong> - Automatically run <code>terraform plan</code> or <code>bicep build</code> on every pull request</li>
-          <li><strong>Gated deployments</strong> - Required reviews, environment protection rules, and approval workflows</li>
+          <li><strong>Validate and preview</strong> - <code>terraform plan</code> previews changes; <code>bicep build</code> compiles a template, while Azure deployment what-if previews resource changes</li>
+          <li><strong>Gated deployments</strong> - Configure environment approvals where supported; use scoped OIDC federation for Azure access</li>
           <li><strong>Drift detection</strong> - Scheduled Actions that compare desired state to actual state</li>
         </ul>
 
         <pre class="mermaid">
 graph LR
-  A[PR Opened] --> B[Plan / Build]
+  A[PR Opened] --> B[Validate and Preview]
   B --> C[Review &amp; Approve]
   C --> D[Apply to Staging]
   D --> E[Approval Gate]
   E --> F[Apply to Production]
         </pre>
         <aside class="speaker-notes">
-          GitHub Actions is your automation engine. For infrastructure as code, the pattern is straightforward. Store your Terraform, Bicep, or Pulumi definitions in a repository. Configure a workflow that runs a plan or build step on every pull request so reviewers can see exactly what will change. Use environment protection rules to gate production deployments behind required approvals. Schedule nightly drift-detection runs that compare your desired state to the actual state of your cloud resources and open issues when they diverge. This is not new, but it is the baseline that everything else builds on. Without IaC in version control and automated pipelines, scaling ops is nearly impossible.
+          Store your Terraform, Bicep, or Pulumi definitions in a repository so infrastructure proposals can be reviewed. Terraform plan previews proposed changes. Bicep build compiles a Bicep file into an ARM template; it does not compare the proposal with deployed resources. Use Azure deployment what-if for that preview, with the appropriate scope and permissions, and review its limitations. A preview is evidence, not a guarantee of the eventual result. Configure production environment approvals separately from the workflow YAML and check your plan and repository visibility: required reviewers for private repositories need the appropriate enterprise entitlement. For Azure authentication, prefer OIDC federation with narrowly scoped trust and least-privilege access over long-lived cloud credentials. Scheduled drift checks also require an implemented comparison, authenticated access, and an owner to act on findings.
         </aside>
       </div>
     </section>
@@ -162,14 +162,14 @@ graph LR
       <div class="slide-inner">
         <h2>Using Copilot to Author Pipelines</h2>
         <ul>
-          <li>Ask Copilot Chat: "Write a GitHub Actions workflow that deploys Terraform to Azure with plan-on-PR and manual apply"</li>
+          <li>Ask Copilot Chat: "Draft an Azure Terraform workflow with plan-on-PR, scoped OIDC access, and an apply job gated by a configured environment approval"</li>
           <li>Copilot can generate YAML that may include environment references, concurrency configuration, and caching steps depending on the prompt</li>
-          <li>Iterate conversationally: "Add a Slack notification on failure" or "Pin the Terraform version"</li>
-          <li>Review the generated workflow just as you would review any code contribution</li>
+          <li>Iterate: "Use our approved Terraform version and provider pins" or "Add an authorized Slack failure notification"</li>
+          <li>Review permissions, trust conditions, triggers, and environment setup; test before deployment</li>
         </ul>
 
         <aside class="speaker-notes">
-          Here is where Copilot starts adding value immediately. Writing GitHub Actions YAML from scratch is tedious and error-prone. Instead, open Copilot Chat and describe what you need in plain language. For example: "Write a GitHub Actions workflow that deploys Terraform to Azure with a plan step on pull requests and a manual apply step on merge to main." Copilot can generate YAML that may include references to repository secrets, concurrency configuration, and caching for provider plugins, depending on the specifics of your prompt. If you need adjustments, just ask: "Add a Slack notification on failure," or "Pin the Terraform version to 1.7.5." The key point is that you should still review the generated workflow carefully. Treat it exactly like a code contribution from a colleague. Copilot accelerates authoring; you retain ownership of correctness.
+          We can ask Copilot to draft the workflow, but we still own its trust boundaries. Specify plan-on-PR, an apply job referencing a protected environment, scoped Azure OIDC federation, and the Terraform and provider versions our organization has tested. The job needs permission to request an OIDC token, while Azure needs a matching federated trust and suitable resource permissions. YAML cannot create those approvals or prove the cloud identity is correctly configured. Keep untrusted pull-request code away from privileged deployment credentials. Review triggers, concurrency, and artifact handling, then test in a nonproduction scope. If we add Slack notifications, the integration must already be authorized, and its webhook must not appear in source or logs. Pin versions according to compatibility policy rather than copying an old version number from an example.
         </aside>
       </div>
     </section>
@@ -190,14 +190,14 @@ graph LR
       <div class="slide-inner">
         <h2>Generating Ops Scripts</h2>
         <ul>
-          <li>Copilot writes Bash, PowerShell, and Python scripts from natural-language descriptions</li>
+          <li>Copilot drafts Bash, PowerShell, and Python scripts from natural-language descriptions</li>
           <li>Common use cases: rotating secrets, cleaning up orphaned resources, bulk-tagging assets</li>
           <li>Add guardrails by asking: "Include a dry-run flag and logging to a file"</li>
-          <li>Store generated scripts in a shared repository for reuse across teams</li>
+          <li>Review and test scripts before sharing; verify dry-run behavior and keep secrets out of logs</li>
         </ul>
 
         <aside class="speaker-notes">
-          One of the most immediate wins for ops teams is script generation. Think about the scripts you write every week: rotating secrets, cleaning up orphaned cloud resources, bulk-tagging assets for cost allocation, restarting services in a specific order. Instead of writing these from scratch, describe what you need to Copilot and let it produce a first draft. You can specify the language (Bash, PowerShell, Python) and ask for specific features like a dry-run flag, structured logging, or error handling with retry logic. Once the script is reviewed and tested, store it in a shared ops repository so other engineers on the team can find and reuse it. Over time, you build a library of vetted automation scripts with minimal manual effort.
+          Think about recurring scripts: rotating secrets, identifying potentially orphaned resources, or bulk-tagging assets. Describe the task to Copilot using authorized context, not real credentials, and request a first draft in Bash, PowerShell, or Python. Ask for dry-run behavior, structured logging, and clear failure handling, then inspect whether those safeguards actually work. A flag named dry-run is not proof that no changes occur. Keep sensitive values out of logs, test with limited permissions in a safe scope, and obtain the required approval before production changes. Once reviewed and tested, store the script in an appropriately restricted shared repository. The reusable asset is the vetted automation, not the untested generated output.
         </aside>
       </div>
     </section>
@@ -207,14 +207,14 @@ graph LR
       <div class="slide-inner">
         <h2>Analyzing Logs with Copilot</h2>
         <ul>
-          <li>Paste a log snippet into Copilot Chat and ask: "What is the root cause of this error?"</li>
-          <li>Copilot identifies patterns: stack traces, error codes, repeated failures, and timing correlations</li>
-          <li>Generate filtered queries: "Write a KQL query to find all 5xx errors from the payment service in the last 4 hours"</li>
-          <li>Summarize large log outputs into concise, stakeholder-friendly explanations</li>
+          <li>Use approved, sanitized samples only; remove secrets, personal data, and confidential identifiers</li>
+          <li>Ask: "What hypotheses fit these errors, and what evidence would distinguish them?"</li>
+          <li>Provide verified table and column names to draft a KQL query for payment-service 5xx errors in the last 4 hours</li>
+          <li>Validate queries and summaries against source data before sharing with authorized stakeholders</li>
         </ul>
 
         <aside class="speaker-notes">
-          Log analysis is one of the most time-consuming parts of incident response. You can paste a log snippet directly into Copilot Chat and ask for analysis. Copilot will identify stack traces, error codes, repeated failure patterns, and timing correlations. It can also generate the filtered queries you need to pull more data. For example, ask it to "Write a KQL query to find all 5xx errors from the payment service in the last 4 hours" and it will produce a query ready to paste into Azure Monitor or Log Analytics. Beyond query generation, Copilot can summarize large log outputs into concise explanations suitable for stakeholders who do not need the technical details. This is especially valuable during active incidents when you need to communicate upward quickly.
+          Before sharing a log sample, check our data policy and the approved Copilot service and settings. Remove credentials, tokens, customer or personal data, and confidential identifiers; use a synthetic example when sanitization is uncertain. Copilot can suggest patterns, but a snippet may omit the event that actually caused the failure. Ask for competing hypotheses and the evidence needed to test them. For the payment-service query, provide authorized schema details, status-code types, service labels, and timestamp conventions. Review the generated KQL and test it against a known time window before relying on its results. A stakeholder summary should distinguish observed facts from hypotheses and preserve links to evidence in an access-controlled location.
         </aside>
       </div>
     </section>
@@ -231,7 +231,7 @@ graph LR
         </ul>
 
         <aside class="speaker-notes">
-          Runbooks are critical for operational consistency, but they are notoriously difficult to keep up to date. Copilot can help in two ways. First, it can generate new runbooks from a description of the failure scenario. Ask for structured sections such as symptoms, diagnosis steps, resolution actions, and escalation paths. The output is Markdown, ready to commit directly to a repository. Second, and more importantly, is the maintenance angle. When your architecture changes, open a pull request to update the affected runbooks. You can even ask Copilot to review an existing runbook against the current architecture and flag sections that may be outdated. The goal is to treat runbooks as living documentation, versioned and reviewed with the same rigor as application code.
+          Runbooks are critical for operational consistency, but they are difficult to keep current. Give Copilot an approved scenario and request symptoms, diagnosis steps, resolution actions, and escalation paths. Treat the Markdown as a draft: verify commands, access requirements, rollback conditions, and ownership before proposing it through a pull request. Keep credentials and confidential incident details out of the document. When architecture changes, provide authorized current context and ask Copilot to flag possible inconsistencies in the existing runbook. It cannot verify an architecture it has not been given access to. The goal is living documentation that is tested, versioned, and reviewed, not a plausible checklist committed without validation.
         </aside>
       </div>
     </section>
@@ -255,17 +255,17 @@ graph LR
           <div class="card">
             <h3>KQL (Azure Monitor)</h3>
             <p>"Show me the p95 latency for the orders API, grouped by region, for the last 24 hours."</p>
-            <p>Copilot produces a ready-to-run KQL query with <code>summarize</code>, <code>percentile</code>, and <code>bin</code> functions.</p>
+            <p>Request a draft using <code>summarize</code>, <code>percentile</code>, and <code>bin</code>; verify schema, latency units, and region fields.</p>
           </div>
           <div class="card">
             <h3>PromQL (Prometheus)</h3>
             <p>"Alert me when memory usage exceeds 85% for more than 5 minutes on any production node."</p>
-            <p>Copilot outputs a PromQL gauge comparison (e.g., <code>node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes &lt; 0.15</code>) and alert rule YAML.</p>
+            <p>Linux node_exporter example: <code>node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes &lt; 0.15</code>. Add verified production labels and <code>for: 5m</code> in alert rule YAML.</p>
           </div>
         </div>
 
         <aside class="speaker-notes">
-          One of the biggest friction points in observability is writing the right query. KQL, PromQL, and Grafana query languages each have their own syntax, and it is easy to spend 20 minutes getting a query right. With Copilot, you describe what you need in plain English. For Azure Monitor, you might say: "Show me the p95 latency for the orders API, grouped by region, for the last 24 hours." Copilot produces a KQL query using summarize, percentile, and bin functions. For Prometheus, you might ask: "Alert me when memory usage exceeds 85% for more than 5 minutes on any production node." Copilot generates both the PromQL expression and the alert-rule YAML. You still need to validate these queries against your actual data, but the time savings are significant. Engineers report significant time savings when using Copilot for query authoring.
+          A useful prompt names both the question and the data source. Grafana uses the connected data source's query language; there is no single Grafana query language. For KQL, supply verified table names, latency units, region fields, and time boundaries before asking for a p95 query. For Prometheus, the ratio here illustrates Linux node_exporter memory availability, not every platform's metrics. It does not yet select production nodes or encode a duration. Add your actual production label selectors to both metrics and a for: 5m clause to the alert rule, then check matching series and missing-data behavior. Compare results with known observations before enabling an alert. Measure correctness and reviewer effort as well as elapsed time; faster drafting alone is not evidence of better monitoring.
         </aside>
       </div>
     </section>
@@ -276,13 +276,13 @@ graph LR
         <h2>Building Dashboards Faster</h2>
         <ul>
           <li>Describe the dashboard layout in natural language: panels, time ranges, variables</li>
-          <li>Copilot generates Grafana JSON or Azure Workbook definitions</li>
+          <li>Request draft Grafana JSON or Azure Workbook definitions for your target schema and verified data sources</li>
           <li>Store dashboard-as-code in version control alongside your infrastructure</li>
           <li>Use templates for consistency: every team's service dashboard follows the same pattern</li>
         </ul>
 
         <aside class="speaker-notes">
-          Beyond individual queries, you can use Copilot to scaffold entire dashboards. Describe the layout you want: "Create a Grafana dashboard with four panels showing CPU, memory, disk I/O, and network throughput for the checkout service. Add a variable selector for environment." Copilot generates the Grafana JSON model, which you can import directly. The same approach works for Azure Monitor Workbooks. The real power, though, is dashboard-as-code. Store these definitions in version control so they are versioned, reviewable, and reproducible. Create a standard template: every team's service dashboard follows the same layout with the same panels. This consistency makes it much easier for on-call engineers to context-switch between services during an incident.
+          We can also request a dashboard scaffold, but the target matters. Specify the Grafana version and JSON schema, data source identifiers, available metrics, units, and environment variables. Grafana documents multiple JSON models, so a plausible definition is not necessarily importable into your installation. Validate it in a safe environment and compare panel values with the underlying queries. Apply the same discipline to Azure Workbook definitions, including workspace references and access controls. Store reviewed definitions in version control without embedding credentials or confidential telemetry. A shared template can make service dashboards easier to navigate while leaving each team responsible for validating what its panels actually measure.
         </aside>
       </div>
     </section>
@@ -304,9 +304,9 @@ graph LR
         <h2>Correlating Alerts with AI</h2>
         <ul>
           <li>During an incident, dozens of alerts fire simultaneously across services</li>
-          <li>Paste the alert timeline into Copilot Chat: "Which of these alerts are related, and what is the likely root cause?"</li>
-          <li>Copilot identifies upstream/downstream dependencies and suggests where to look first</li>
-          <li>Reduces mean-time-to-identify (MTTI) by focusing engineers on the right signals</li>
+          <li>Share only an approved, sanitized timeline: "Which hypotheses fit, and what evidence is missing?"</li>
+          <li>Supply verified dependencies; Copilot can suggest correlations, not prove causation</li>
+          <li>Measure mean-time-to-identify (MTTI) and diagnosis quality; improvement is not guaranteed</li>
         </ul>
 
         <pre class="mermaid">
@@ -314,13 +314,14 @@ graph LR
         participant Monitor as Monitoring
         participant AI as AI Correlator
         participant Ops as Ops Team
-        Monitor->>AI: Alert A, B, C
-        AI->>AI: Cluster and correlate
-        AI->>Ops: Probable root cause
-        Ops->>Monitor: Apply mitigation
+        Ops->>AI: Approved sanitized timeline
+        AI->>AI: Suggest correlations
+        AI->>Ops: Hypotheses and evidence gaps
+        Ops->>Monitor: Validate against telemetry
+        Ops->>Monitor: Approved mitigation and checks
         </pre>
         <aside class="speaker-notes">
-          During a major incident, your alerting system may fire dozens of notifications across multiple services. The challenge is figuring out which alerts are symptoms and which one points to the actual root cause. You can paste the alert timeline into Copilot Chat and ask: "Which of these alerts are related, and what is the likely root cause?" Copilot uses the service names, error messages, and timing to identify upstream and downstream dependencies. It will suggest where to start your investigation. For example, it might say: "The database connection pool exhaustion on service-db-01 started 2 minutes before the HTTP 503 errors on the API gateway. Start there." This reduces your mean-time-to-identify by helping engineers focus on the right signals from the start rather than chasing symptoms across multiple dashboards.
+          Several alerts arriving together do not establish which one caused the others. Provide an approved, sanitized timeline with consistent timestamps and verified service dependencies, then ask for possible explanations and missing evidence. Copilot may notice that a database error preceded gateway failures, but timing alone does not prove a causal link. Check traces, deployment records, and service telemetry before choosing a mitigation. The sequence here represents a deliberate human-controlled workflow, not an automatically connected alerting integration. Track MTTI alongside incorrect hypotheses and investigation effort in your own incidents. AI assistance may help focus the search, but this course does not establish a guaranteed reduction in response time.
         </aside>
       </div>
     </section>
@@ -333,23 +334,23 @@ graph LR
           <div class="card">
             <h3>Root Cause Analysis</h3>
             <ul>
-              <li>Feed Copilot the error logs, metrics, and deployment history</li>
+              <li>Provide approved, sanitized logs, metrics, and verified deployment history</li>
               <li>"Was this caused by the deployment at 14:32, or by the config change at 14:28?"</li>
-              <li>Copilot cross-references timestamps and highlights suspicious changes</li>
+              <li>Check suggested correlations against telemetry; separate hypotheses from facts</li>
             </ul>
           </div>
           <div class="card">
             <h3>Remediation Steps</h3>
             <ul>
-              <li>"Generate a rollback plan for the Kubernetes deployment named checkout-v2"</li>
-              <li>Copilot produces kubectl commands with the correct namespace and revision</li>
-              <li>Include verification steps to confirm the rollback succeeded</li>
+              <li>"Draft a rollback plan for checkout-v2; request missing context rather than inventing it"</li>
+              <li>Verify cluster context, namespace, deployment history, and target revision before reviewing <code>kubectl</code> commands</li>
+              <li>Require supported dry-run checks, change approval, and post-change health verification</li>
             </ul>
           </div>
         </div>
 
         <aside class="speaker-notes">
-          Once you have a direction, Copilot can help with deeper root-cause analysis. Feed it the relevant error logs, metrics trends, and recent deployment history. Ask specific questions: "Was this caused by the deployment at 14:32, or by the config change at 14:28?" Copilot cross-references timestamps and highlights suspicious changes. On the remediation side, you can ask for a rollback plan. For example: "Generate a rollback plan for the Kubernetes deployment named checkout-v2." Copilot produces the kubectl commands with the correct namespace, deployment name, and revision number. It can also include verification steps so you can confirm the rollback succeeded. Always validate these commands before executing them in production. Copilot provides a strong starting point, but human judgment is essential for production changes.
+          The deployment at 14:32 and the configuration change at 14:28 are candidate explanations, not a forced choice between two proven causes. Compare each hypothesis with sanitized evidence and document what remains unknown. For a rollback, the name checkout-v2 alone cannot establish the cluster, namespace, or a safe revision. Verify those details and the rollout history through authorized access, then ask for a draft that requests any missing information. Review supported dry-run checks before execution, and get the required production change approval. A Kubernetes Deployment rollback concerns its recorded rollout history; do not assume it also reverses a database migration or an external configuration change. After any approved action, verify rollout status and service health against explicit success criteria.
         </aside>
       </div>
     </section>
@@ -359,14 +360,14 @@ graph LR
       <div class="slide-inner">
         <h2>Drafting Postmortems</h2>
         <ul>
-          <li>After resolution, provide Copilot with the incident timeline, Slack messages, and resolution notes</li>
-          <li>Copilot structures a blameless postmortem: summary, timeline, root cause, impact, action items</li>
+          <li>Use approved, sanitized timeline and resolution extracts; do not paste raw incident chat</li>
+          <li>Request a blameless draft separating confirmed cause, hypotheses, impact, and action items</li>
           <li>Review and refine the draft collaboratively via a pull request</li>
-          <li>Action items become GitHub Issues, tracked to completion with assignees and deadlines</li>
+          <li>Assign follow-up Issues; track target dates in a Project date field or an appropriate milestone</li>
         </ul>
 
         <aside class="speaker-notes">
-          Postmortems are one of the most valuable artifacts an ops team produces, but they are also one of the most dreaded to write. After an exhausting incident, the last thing anyone wants to do is spend two hours assembling a document. Copilot can help. Provide it with the incident timeline, key Slack messages from the response channel, and your resolution notes. Ask it to structure a blameless postmortem with the standard sections: summary, detailed timeline, root cause analysis, customer impact, and action items. The output is a Markdown draft that you can refine collaboratively through a pull request. The action items can be converted directly into GitHub Issues with assignees and due dates, ensuring that follow-up work is tracked and completed. This approach gets postmortems published faster and with higher quality, while they are still fresh in everyone's memory.
+          A postmortem should preserve what we learned, not turn an early guess into the official explanation. Use only approved, sanitized extracts from the timeline and response notes. Raw Slack conversations may contain customer data, credentials, or personal information that should not enter the prompt or repository. Ask for a blameless Markdown draft that distinguishes confirmed facts, unresolved hypotheses, impact, and follow-up work. Review each statement against the source evidence, then publish through a pull request with suitable access and retention. Create Issues with owners and track target dates in a Project date field or a milestone; generating an action-item list does not configure those controls or ensure completion. The team still owns accuracy and follow-through.
         </aside>
       </div>
     </section>
@@ -387,14 +388,14 @@ graph LR
       <div class="slide-inner">
         <h2>Generating SLA/SLO Reports</h2>
         <ul>
-          <li>Define your Service Level Objectives: availability, latency, error rate</li>
-          <li>Use Copilot to generate queries that calculate error budgets from monitoring data</li>
+          <li>Define the measured SLI, target SLO, reporting window, and any separate contractual SLA</li>
+          <li>Draft and validate error-budget queries with explicit eligible events, thresholds, exclusions, and missing-data rules</li>
           <li>Automate weekly or monthly report generation with GitHub Actions (requires custom scripting, API authentication, and data transformation)</li>
-          <li>Output Markdown reports that render directly in the repository for stakeholder review</li>
+          <li>Publish reviewed, sanitized Markdown reports with approved repository visibility and retention</li>
         </ul>
 
         <aside class="speaker-notes">
-          Reliability reporting is essential for building trust with business stakeholders, but it is often manual and inconsistent. Start by defining your Service Level Objectives clearly: what is your target for availability, latency, and error rate? Then use Copilot to generate the monitoring queries that calculate your error budget consumption over a given period. These queries pull data from your observability stack, whether that is Azure Monitor, Datadog, or Prometheus. You can automate report generation with a scheduled GitHub Actions workflow that runs weekly or monthly, but keep in mind this requires custom scripting to query monitoring APIs, handle authentication, and transform the data into a readable format. The workflow produces a Markdown report committed directly to the repository. Stakeholders can review the report in the browser on GitHub without needing access to your monitoring tools. This creates a transparent, auditable history of your reliability performance.
+          A service level indicator, or SLI, is a measurement. An SLO is the target for that measurement, while an SLA is a separate contractual commitment. Agree on eligible requests, good-event criteria, the reporting window, exclusions, and how missing telemetry is handled before calculating a budget. As an illustrative request-based example, one million eligible requests at a 99.9 percent success SLO allow one thousand bad requests in that window. That is not automatically an SLA compliance calculation. Copilot can draft queries, but we validate the arithmetic and source coverage. A scheduled GitHub Actions report still needs custom API queries, authorized authentication, transformation, and failure handling. Publish only approved, sanitized results in a suitably restricted repository, with evidence links and an accountable reviewer. Repository access must not accidentally broaden access to sensitive monitoring information.
         </aside>
       </div>
     </section>
@@ -407,23 +408,23 @@ graph LR
           <div class="card">
             <h3>Analyze Spend</h3>
             <ul>
-              <li>Export cloud billing data to a repository as CSV or JSON</li>
+              <li>Use approved, aggregated billing extracts; redact identifiers before sharing or versioning</li>
               <li>Ask Copilot: "Summarize the top 5 cost drivers this month vs. last month"</li>
-              <li>Identify anomalies: unexpected spikes, orphaned resources, over-provisioned instances</li>
+              <li>Flag spend changes; verify suspected orphaned or oversized resources with inventory and utilization data</li>
             </ul>
           </div>
           <div class="card">
             <h3>Right-Size Recommendations</h3>
             <ul>
-              <li>"Based on this CPU utilization data, suggest right-sized VM SKUs"</li>
-              <li>Copilot can suggest VM SKU categories based on utilization data you provide, but does not have access to live pricing or current SKU availability</li>
-              <li>Generate cost-savings proposals formatted for leadership review</li>
+              <li>"Draft right-sizing options using approved CPU, memory, and workload requirements"</li>
+              <li>Unconnected chat cannot verify current prices or regional SKU availability; use authoritative cloud tools</li>
+              <li>Label assumptions and validate savings before leadership review</li>
             </ul>
           </div>
         </div>
 
         <aside class="speaker-notes">
-          Cost management is a constant challenge at scale. One practical approach is to export your cloud billing data to a repository on a regular schedule. Once the data is available, you can ask Copilot to analyze it: "Summarize the top 5 cost drivers this month compared to last month." Copilot can identify anomalies like unexpected spending spikes, orphaned resources that are still incurring charges, or instances that are significantly over-provisioned. For right-sizing, provide Copilot with CPU and memory utilization data and ask for recommendations. Copilot can suggest VM SKU categories based on the utilization data you provide, but it does not have access to live pricing or current SKU availability. Use cloud-native cost management tools for authoritative right-sizing. The output can be formatted as a cost-savings proposal ready for leadership review. This is not a replacement for dedicated FinOps tooling, but it is a useful complement that lets ops engineers generate initial insights without switching contexts.
+          Start with an approved, aggregated extract rather than committing raw cloud bills. Remove confidential account and customer identifiers, then check access and retention before sharing it with an assistant or repository. Ask for a draft comparison of the top cost drivers, and reconcile totals, currencies, and billing periods against the authoritative source. Billing data alone cannot prove that a resource is orphaned or oversized; we also need ownership, inventory, utilization, and workload requirements. Unconnected chat cannot verify current prices or regional SKU availability. An approved tool connection may retrieve current evidence, but access is not automatic and the source and retrieval time still matter. Validate recommendations with cloud-native cost and capacity tools, account for licensing and performance constraints, and label proposal assumptions. No savings estimate here is a guaranteed production outcome.
         </aside>
       </div>
     </section>
@@ -445,9 +446,9 @@ graph LR
         <h2>Organization Structure &amp; Innersource</h2>
         <ul>
           <li><strong>Multi-org vs. single-org</strong> - Choose a structure that balances autonomy with governance</li>
-          <li><strong>Team-based permissions</strong> - Map org teams to repository access, with base permissions set to "read" (note: "read" enables innersource discoverability but may conflict with compliance requirements; for regulated industries, "no permission" may be more appropriate)</li>
-          <li><strong>Innersource practices</strong> - Internal repositories discoverable across groups, with contribution guidelines and CODEOWNERS</li>
-          <li><strong>Repository templates</strong> - Standardize project setup: CI/CD, linting, security scanning, and documentation</li>
+          <li><strong>Team-based permissions</strong> - Use least-privilege base permissions and explicit team access to private repositories</li>
+          <li><strong>Innersource practices</strong> - Internal repositories have enterprise read visibility even with base permissions set to none; use private repositories for restricted content</li>
+          <li><strong>Repository templates</strong> - Share workflow and documentation scaffolding; configure review rules, security features, and access separately</li>
         </ul>
 
         <pre class="mermaid">
@@ -460,7 +461,7 @@ graph LR
         Security --> Policies[Policy Repos]
         </pre>
         <aside class="speaker-notes">
-          At enterprise scale, how you structure your GitHub organization matters enormously. The choice between multiple organizations and a single organization depends on regulatory needs, billing, and team autonomy. Within your organization, use team-based permissions to control access. Set the base permission to "read" and layer on write or admin access through team membership. Keep in mind that "read" enables innersource discoverability but may conflict with compliance requirements. For regulated industries, "no permission" may be more appropriate as the base level. Innersource is a powerful practice: make internal repositories discoverable across business groups. Add contribution guidelines and CODEOWNERS files so that anyone in the company can contribute, with clear ownership and review processes. Repository templates let you standardize the setup for new projects. Every new repo starts with CI/CD, linting, security scanning, and documentation scaffolding already in place. This consistency reduces onboarding time and ensures best practices are followed from day one.
+          Our runbooks, dashboards, and reports need clear ownership and the right sharing boundary. Choose organization structure according to governance and autonomy needs, then use least-privilege base permissions and team access. Internal visibility is an intentional enterprise sharing choice available under the relevant enterprise ownership; internal repositories retain minimum read visibility even when base permissions are none. Use private repositories and explicit access for restricted operational material. Contribution guidelines and CODEOWNERS clarify how changes are reviewed, but CODEOWNERS alone does not enforce approval. Configure the required review rules separately. Templates provide files and scaffolding, not automatically enabled security features or correct access settings. Check the actual repository configuration before treating a new project as governed.
         </aside>
       </div>
     </section>
@@ -470,14 +471,14 @@ graph LR
       <div class="slide-inner">
         <h2>GitHub Advanced Security at Scale</h2>
         <ul>
-          <li><strong>Code scanning</strong> - CodeQL analysis integrated into CI pipelines across all repositories</li>
-          <li><strong>Secret scanning</strong> - Detect leaked credentials, tokens, and keys before they reach production</li>
-          <li><strong>Dependabot</strong> - Automated dependency updates with grouped pull requests to reduce noise</li>
-          <li><strong>Security overview dashboard</strong> - Org-level visibility into vulnerability trends and open alerts</li>
+          <li><strong>GitHub Code Security</strong> - Code scanning for supported code and configured repositories; private use requires the relevant entitlement</li>
+          <li><strong>GitHub Secret Protection</strong> - Secret scanning detects exposed credentials; configured push protection blocks detected secrets in supported write paths</li>
+          <li><strong>Dependabot</strong> - Broadly available dependency updates; configure grouping to manage pull-request volume</li>
+          <li><strong>Security overview</strong> - Visibility depends on permissions, configuration, and product entitlement</li>
         </ul>
 
         <aside class="speaker-notes">
-          GitHub Advanced Security, or GHAS, is a critical component of enterprise-scale operations. Code scanning with CodeQL can be rolled out across all repositories through a centralized GitHub Actions workflow. Secret scanning detects leaked credentials, API tokens, and keys in commits before they reach production, and push protection can block the commit entirely. Dependabot handles automated dependency updates, and the grouped pull request feature reduces the noise by batching related updates together. The security overview dashboard provides org-level visibility into vulnerability trends and open alerts across all your repositories. For ops teams, this means security is not a separate concern; it is embedded in the platform you already use. You can track your security posture with the same tools you use for code review and deployment.
+          GitHub Advanced Security includes the current GitHub Code Security and GitHub Secret Protection products. Check the organization's actual entitlements rather than assuming every capability is included. CodeQL scanning requires supported code and suitable configuration; it is not meaningful analysis for every repository simply because a workflow runs. Secret scanning detects exposed credentials. For local Git workflows, push protection can block a push containing a detected secret, not the creation of the local commit; it also covers supported GitHub write paths. Detection scope and bypass processes still matter, so do not treat it as a guarantee that every secret is prevented. Dependabot is broadly available and does not by itself require a paid Advanced Security product. Security overview shows information permitted by your access and entitlement. For our operational artifacts, the practical question is which controls are actually enabled and who owns unresolved alerts.
         </aside>
       </div>
     </section>
@@ -499,13 +500,13 @@ graph LR
         <h2>Key Takeaways</h2>
         <ul>
           <li><strong>Automate the foundation</strong> - Infrastructure as Code in GitHub with Actions pipelines is the baseline</li>
-          <li><strong>Accelerate with Copilot</strong> - Scripts, log queries, runbooks, and dashboards in minutes, not hours</li>
-          <li><strong>Respond faster</strong> - AI-assisted alert correlation and root cause analysis reduce MTTI and MTTR</li>
-          <li><strong>Report with confidence</strong> - SLA/SLO and cost reports generated automatically from real data</li>
-          <li><strong>Scale the platform</strong> - Org structure, innersource, GHAS, and templates ensure consistency at scale</li>
+          <li><strong>Draft with Copilot</strong> - Use approved, sanitized context; review scripts, queries, runbooks, and dashboards</li>
+          <li><strong>Investigate with evidence</strong> - Test hypotheses and measure MTTI, MTTR, and diagnosis quality</li>
+          <li><strong>Report with confidence</strong> - Validate source data, calculations, assumptions, and publication access</li>
+          <li><strong>Scale the platform</strong> - Verify permissions, configured controls, ownership, and entitlements</li>
         </ul>
         <aside class="speaker-notes">
-          Let's recap the key takeaways. First, automate the foundation. Infrastructure as Code stored in GitHub with Actions pipelines is the baseline for scalable ops. Without it, everything else is built on sand. Second, accelerate with Copilot. Scripts, log queries, runbooks, and dashboards that used to take hours can be produced in minutes. Third, respond faster. AI-assisted alert correlation and root-cause analysis reduce both your mean-time-to-identify and mean-time-to-resolve. Fourth, report with confidence. Automated SLA/SLO and cost reports generated from real monitoring data replace manual spreadsheets and guesswork. Fifth, scale the platform itself. Organization structure, innersource practices, Advanced Security, and repository templates ensure consistency and governance as you grow. Each of these areas reinforces the others. Automation frees up time for observability. Observability improves incident response. Incident response data feeds into reliability reporting. It is a virtuous cycle.
+          The common pattern is a draft followed by evidence and accountable review. Version infrastructure proposals, understand what each validation step proves, and configure real approval and identity boundaries. Give Copilot only approved, sanitized context, then verify its scripts, queries, and hypotheses. Measure investigation time and quality in your own environment; we have not established guaranteed MTTI or MTTR improvements. For reports, agree on definitions and reconcile calculations with source data before publishing. Finally, check repository visibility, ownership, enabled controls, and product entitlement rather than assuming a template or feature name provides governance. Start with one bounded workflow and judge whether its reviewed output improves the operational decision.
         </aside>
       </div>
     </section>
@@ -517,7 +518,7 @@ graph LR
         <h1>Thank You</h1>
         <p class="subtitle">Questions? Reach out on Teams or open an issue.</p>
         <aside class="speaker-notes">
-          Thank you for your time today. We covered a lot of ground, from the challenges of manual ops at scale through AI-assisted automation, observability, incident response, and reporting. The tools and patterns we discussed are available to you right now. Start with one area, build confidence, and expand from there. If you have questions, feel free to reach out on Teams or open an issue in the training repository. Good luck scaling those dragon-sized operations!
+          Thank you for your time today. We covered AI-assisted automation, observability, incident response, and reporting with human ownership throughout. Before trying a workflow, check the tools, permissions, policies, and entitlements available in your environment. Start with sanitized data and a nonproduction scope, review the evidence, and expand only after validation. If you have questions, use your team's approved contact channel or open an issue without including confidential incident details. Good luck scaling those dragon-sized operations!
         </aside>
       </div>
     </section>

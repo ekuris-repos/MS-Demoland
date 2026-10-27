@@ -35,7 +35,7 @@
           <li><strong>The Credit Crunch:</strong> a quick recap of AI Credits and why optimization is the next frontier</li>
           <li><strong>Define workflows first:</strong> decide what AI <em>should</em> and <em>should not</em> own before choosing tools</li>
           <li><strong>Build supporting artifacts:</strong> skills, instructions, and agent personas that keep workflows lean</li>
-          <li><strong>When to reach for <code>/create-skill</code> and <code>/create-agent</code></strong> as you scaffold those artifacts</li>
+          <li><strong>Scaffold artifacts:</strong> choose the target harness, then use its supported customization tools</li>
           <li><strong>Token optimization techniques:</strong> context sizing, reuse, session hygiene, and model routing</li>
           <li><strong>Inspect and measure:</strong> see what you actually send, and the anti-patterns that waste credits</li>
           <li><strong>Operationalize:</strong> a 30-day plan and a team checklist you can adopt immediately</li>
@@ -107,7 +107,7 @@
             <tr>
               <td>Conversation history</td>
               <td>Prior messages carried forward in a session</td>
-              <td>Long sessions re-send stale turns on every new message</td>
+              <td>Accumulated active history adds input until compacted or reset</td>
             </tr>
             <tr>
               <td>Tool calls and results</td>
@@ -326,12 +326,12 @@ graph LR
             <tr>
               <td>Skills</td>
               <td>Packaged, on-demand procedures for a specific task</td>
-              <td>Only when the task matches the skill description</td>
+              <td>When selected by relevance or invoked explicitly</td>
             </tr>
             <tr>
               <td>Agent personas</td>
               <td>A scoped role with a mindset and a defined tool set</td>
-              <td>When the user invokes that agent</td>
+              <td>When selected, invoked as a subagent, or reached by handoff</td>
             </tr>
           </tbody>
         </table>
@@ -349,7 +349,7 @@ graph LR
         <h2>Instructions: Standing Rules</h2>
         <ul>
           <li>Use instructions for conventions that apply to <strong>every</strong> matching interaction</li>
-          <li>Scope them with an <code>applyTo</code> pattern so they only load for relevant files</li>
+          <li>Use Copilot <code>applyTo</code> patterns for file-targeted rules; verify the selected harness supports the format</li>
           <li>Keep them <strong>lean</strong>: instruction files are sent on every request in scope</li>
           <li>For the migration workflow: pin the package manager, the test command, and the rule to touch only affected modules</li>
           <li>A bloated instruction file is a recurring tax on every prompt, so prune ruthlessly</li>
@@ -368,13 +368,13 @@ graph LR
         <h2>Skills: Packaged Procedures, Loaded on Demand</h2>
         <ul>
           <li>Use a skill when a workflow needs a <strong>detailed, repeatable procedure</strong> that should not load every time</li>
-          <li>The skill description is the trigger, so write it to match the task precisely</li>
+          <li>A precise description supports relevance-based loading; invoke <code>/skill-name</code> explicitly when needed</li>
           <li>Detailed steps stay out of the always-on context until the task actually calls for them</li>
           <li>For the migration workflow: capture the upgrade steps, codemod patterns, and verification process</li>
-          <li><strong>When to reach for it:</strong> scaffold one with <code>/create-skill</code> once the procedure is worth reusing across the team</li>
+          <li><strong>When to reach for it:</strong> use the Customizations editor, or <code>/create-skill</code> where available, once the procedure is worth reusing</li>
         </ul>
         <aside class="speaker-notes">
-          Skills are where detailed knowledge lives, and their on-demand loading is a cost feature, not just an organizational one. The full migration procedure, the codemod patterns, the verification checklist, would be wasteful to send on every prompt. As a skill, it only enters the context when the description matches the task at hand. When you have a defined workflow whose procedure is worth reusing, that is your signal to reach for the create-skill command and scaffold it, rather than re-explaining the steps in chat every time. We are describing when to use it here. You already learned how it works in the earlier courses.
+          Skills keep detailed procedures out of unrelated requests, but discovery and invocation are separate. Names and descriptions provide discovery context; the full instructions load when the agent selects the skill or you invoke it explicitly. Supporting resources load as needed. A matching description helps, but does not guarantee invocation, so check the loaded context on a representative run. For our migration workflow, keep the procedure and verification checklist in the skill, then choose the target harness before creating it in the Customizations editor. Where available, slash create-skill is a convenient shortcut. Reuse still consumes context when loaded; the savings must come from less repeated explanation, discovery, or rework.
         </aside>
       </div>
     </section>
@@ -387,13 +387,13 @@ graph LR
         <h2>Agent Personas: A Scoped Role With a Tool Set</h2>
         <ul>
           <li>Use a persona when a workflow needs a <strong>consistent role, mindset, and a constrained set of tools</strong></li>
-          <li>A focused tool set reduces unnecessary tool calls, and fewer tool calls mean fewer tokens</li>
+          <li>A focused tool set can reduce schema overhead and unnecessary exploration; measure the result</li>
           <li>A defined role keeps the agent on task instead of exploring beyond the workflow</li>
           <li>For the migration workflow: a "migration assistant" persona that reads release notes, edits affected modules, and runs tests</li>
-          <li><strong>When to reach for it:</strong> scaffold one with <code>/create-agent</code> when the workflow recurs and benefits from a dedicated operator</li>
+          <li><strong>When to reach for it:</strong> choose the target harness, then use <strong>New Agent</strong> in the Customizations editor</li>
         </ul>
         <aside class="speaker-notes">
-          Agent personas earn their keep when a workflow recurs and benefits from a dedicated operator with a fixed role and a constrained tool set. The constraint is the cost lever. An agent with access to every tool will explore with every tool. A migration assistant scoped to reading release notes, editing the affected modules, and running tests will not waste tokens spelunking through unrelated parts of the system. When a defined workflow fits that shape, reaching for the create-agent command to scaffold the persona is faster and more consistent than describing the role from scratch each time.
+          A custom agent earns its keep when a recurring workflow benefits from a distinct role, model, or tool boundary. Exposing more tools does not force the agent to call every one, but it can increase context overhead and opportunities for irrelevant exploration. Our migration assistant needs release notes, affected-module edits, and tests, not an unrestricted catalog. Choose the intended harness, open Customizations, and select New Agent; Chat: New Custom Agent is another documented entry point. Do not assume a slash create-agent shortcut is available in every environment. Compare successful runs before and after the change, because a narrower role is a hypothesis about efficiency, not a savings guarantee.
         </aside>
       </div>
     </section>
@@ -421,12 +421,12 @@ graph LR
             <tr>
               <td>A detailed procedure used only sometimes</td>
               <td>Skill</td>
-              <td><code>/create-skill</code></td>
+              <td>Customizations editor; <code>/create-skill</code> where available</td>
             </tr>
             <tr>
               <td>A recurring role with a fixed tool set</td>
               <td>Agent persona</td>
-              <td><code>/create-agent</code></td>
+              <td>Customizations editor: New Agent</td>
             </tr>
             <tr>
               <td>Multiple measured needs</td>
@@ -465,17 +465,17 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Bound Agent Sessions With AI Credit Limits</h2>
+        <h2>Use Preview CLI Credit Limits With Care</h2>
         <ul>
-          <li>Copilot CLI and the Copilot SDK can apply a soft AI-credit limit to one session</li>
-          <li>Use <code>/limits</code> in an interactive CLI session to view, set, or remove the cap</li>
+          <li>Copilot CLI offers <strong>soft AI-credit limits in public preview</strong>; the dedicated guide specifies a minimum of <strong>30 credits</strong></li>
+          <li>Set with <code>/limits set max-ai-credits NUMBER</code>; remove with <code>/limits unset</code></li>
           <li>Use <code>--max-ai-credits &lt;credits&gt;</code> for a bounded noninteractive run</li>
-          <li>The limit covers model calls, subagents, and background work such as compaction</li>
+          <li>Official guides disagree on session-wide versus per-message reset scope; verify the pinned client's behavior before relying on it</li>
           <li>An in-flight response can finish after the threshold, so actual usage can slightly exceed the limit</li>
           <li>Session limits complement monthly budgets and spending limits; they do not replace them</li>
         </ul>
         <aside class="speaker-notes">
-          Treat a session limit as a circuit breaker for one run, not as a substitute for financial governance. Begin with evidence from successful executions, then set the limit high enough to complete normal work while stopping unusual exploration. If healthy runs repeatedly hit the threshold, the answer may be a larger limit, but it may also be a smaller workflow with clearer checkpoints. Because the cap is soft, operators still need monitoring and an escalation path. Monthly budgets govern aggregate exposure; session limits contain the behavior of an individual task.
+          A CLI limit is a preview guardrail, not a guaranteed financial ceiling. The dedicated guide describes a whole-session interactive limit and requires at least thirty credits, while the CLI command reference describes a reset per user message. That discrepancy remains unresolved, so validate the behavior of your approved client before making an unattended-run commitment. We are not claiming an SDK limit contract or guaranteed coverage of background work. Start from successful-run measurements, allow headroom for the in-flight response, and keep aggregate budgets and monitoring in place. If a normal task repeatedly reaches the limit, investigate scope and checkpoints rather than automatically raising it.
         </aside>
       </div>
     </section>
@@ -488,13 +488,13 @@ graph LR
         <h2>Practice Session Hygiene</h2>
         <ul>
           <li>One task, one chat. Start a fresh session when the task changes</li>
-          <li>Long sessions re-send accumulated history on every new message, inflating input tokens</li>
-          <li>A fresh, focused session is usually both cheaper and more accurate</li>
-          <li>If a tool supports transcript compaction, summarize and carry forward only the decisions that matter</li>
+          <li>Active history adds input until it is summarized, compacted, or otherwise managed</li>
+          <li>For the same task, preserve useful continuity and cache reuse instead of repeatedly rediscovering state</li>
+          <li>Use supported compaction to retain decisions in a shorter summary; Copilot CLI also compacts automatically</li>
           <li>Pair fresh sessions with scoped artifacts so each new chat still starts with the right standing context</li>
         </ul>
         <aside class="speaker-notes">
-          Session length is a silent cost driver. Every message in a long conversation carries the entire prior transcript as input, so a sprawling session pays for its own history again and again. The fix is discipline: when the task changes, start a new chat. You lose nothing important because your instructions and skills still supply the standing context automatically. That combination, fresh sessions plus durable artifacts, gives you a clean slate without re-explaining anything.
+          Active history can become expensive when it carries unrelated decisions and large tool results into later requests. It does not grow as an intact transcript forever: clients can summarize or compact it, and Copilot CLI does so automatically during long sessions. Start a new chat when the problem changes. For an ongoing migration, useful history and a reusable prefix may make continuation more efficient than a cold restart. Compact when continuity matters but old detail no longer helps, and check that the summary retains the target version, constraints, and validation evidence. Instructions and skills supply reusable guidance, not every task-specific decision from the previous chat.
         </aside>
       </div>
     </section>
@@ -508,13 +508,13 @@ graph LR
         <ul>
           <li>Default to <strong>Auto</strong> so routing can reserve heavier reasoning models for tasks that need them</li>
           <li>Straightforward steps in a workflow are routed to faster, lower-cost models</li>
-          <li>Override manually only when you know the task needs a specific model family</li>
-          <li>A well-defined workflow makes routing easier, because each step has a clear complexity profile</li>
-          <li>Auto switches only at cache boundaries and gives paid plans a 10% model-cost discount</li>
+          <li>Choose <strong>Efficiency</strong> for cost, <strong>Balance</strong> for cost/quality/latency, or <strong>Intelligence</strong> for quality; tiers share the available model set</li>
+          <li>Keep thinking effort at its default unless a supported model and measured task justify increasing it</li>
+          <li>Auto routes around cache boundaries and large complexity changes; paid plans receive the standard 10% model-cost discount</li>
           <li>This builds on the model strategy from the billing course; here it is one lever among several</li>
         </ul>
         <aside class="speaker-notes">
-          At enterprise scale, manual model selection can become another source of inconsistency. Auto provides a reasonable operating default and a paid-plan cost advantage, while preserving cache continuity by switching only at natural boundaries. A team should pin a model when it has evidence that a workflow depends on a specific capability, not because a more expensive model feels safer. During a before-and-after experiment, keep the routing strategy and reasoning effort unchanged so the artifact remains the variable you are actually measuring.
+          Auto is a useful operating default, but the routing preference is now an explicit tradeoff. Efficiency prioritizes cost, Balance weighs cost, quality, and latency, and Intelligence prioritizes quality. These tiers use the same available model set, subject to your plan and administrator policies; you still pay for the model selected, with the standard paid-plan discount. Routing is cache-aware, not a promise never to switch mid-conversation: a large change in complexity can justify losing reuse. Keep thinking effort at its default unless harder work demonstrably benefits from more reasoning. Pin a model when evidence supports a specific capability. Record the tier, model strategy, and effort so a before-and-after artifact comparison does not accidentally change several variables.
         </aside>
       </div>
     </section>
@@ -545,6 +545,7 @@ graph LR
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Inspect the Agent With Debug Logs</h2>
+        <p><strong>Preview:</strong> enable capture before reproducing the run; logging is not retroactive. Open <strong>Developer: Open Agent Debug Logs</strong>.</p>
         <table>
           <thead>
             <tr>
@@ -576,8 +577,9 @@ graph LR
             </tr>
           </tbody>
         </table>
+        <p>Logs can contain prompts, source, paths, and tool payloads. Review and redact before sharing; reported cache reuse is not proof of provider billing.</p>
         <aside class="speaker-notes">
-          Suppose the optimized run costs more even though we added only a short instruction. We can begin with the session summary to see whether the increase came from tokens, tools, errors, or duration. If tool calls grew, the chronological log may reveal an exploration loop. If input grew, Chat Debug can confirm whether overlapping instructions or unexpected context loaded. Cache Explorer becomes relevant only when consecutive turns show poor reuse. This symptom-first approach keeps diagnosis focused and avoids exposing detailed prompt data unless the investigation truly needs it.
+          Before reproducing the issue, enable the logging setting for your harness. Agent Host sessions use chat.agentHost.agentDebugLog.enabled; Local sessions use github.copilot.chat.agentDebugLog.fileLogging.enabled. These controls are experimental, and the panel is in preview. Open Developer: Open Agent Debug Logs, then reproduce a representative request because capture is not retroactive. Begin with Summary, inspect Logs for exploration loops, and use Chat Debug to confirm loaded instructions or context. Cache Explorer is useful when reported reuse is unexpectedly low, but some providers expose no cache information and a prefix diff does not prove billing. Logs can contain sensitive source, prompts, and tool payloads. Follow your retention policy and review exports for secrets before sharing.
         </aside>
       </div>
     </section>
@@ -592,12 +594,12 @@ graph LR
           <li>Cached input is typically billed below fresh input; consult the current model pricing table for exact rates</li>
           <li>Some models publish a separate cache-write rate, while many models do not</li>
           <li>Caching is calculated <strong>at the model provider</strong>, so an Anthropic model and an OpenAI model decide what is cacheable differently</li>
-          <li>You do <strong>not</strong> control caching directly. It is a provider optimization, not a setting you tune</li>
+          <li>Provider caching is not a guaranteed client setting; you can influence request-prefix stability</li>
           <li>Keep the request prefix stable by choosing the model strategy, tools, and instructions before the session</li>
           <li>Use <strong>Cache Explorer</strong> to find the first divergence and <code>/compact</code> to continue from a shorter summary</li>
         </ul>
         <aside class="speaker-notes">
-          Caching is real and it matters, but the provider decides what is eligible, how long entries live, and how reads and writes are priced. Cached input is typically cheaper than fresh input. A separate cache-write premium exists only for models whose current pricing table lists one, so never generalize that charge across providers. You cannot turn caching on directly, but you can preserve a stable request prefix: choose tools and settings before the session, avoid changing instructions midstream, and let Auto switch only at cache boundaries. Use Cache Explorer to observe the result, and use slash compact when a long session must continue with a smaller summary.
+          The provider determines cache eligibility, lifetime, and read/write pricing, so reuse is not a client-side guarantee. Cached input is typically cheaper than fresh input; apply a cache-write charge only where the current model pricing table lists one. We can influence stability by choosing tools and settings before the session and avoiding unnecessary instruction changes midstream. Auto is cache-aware, but a large complexity change can still justify rerouting. Cache Explorer reports request differences and available reuse metrics, not an authoritative bill. When the same task needs to continue with less old detail, slash compact is an option, but expect the summary to change the request prefix.
         </aside>
       </div>
     </section>
@@ -673,8 +675,13 @@ graph LR
             </tr>
             <tr>
               <td>Mega-sessions</td>
-              <td>Long transcripts re-send history on every message</td>
-              <td>One task, one chat; start fresh when the task changes</td>
+              <td>Unrelated active history adds input and distracts from the task</td>
+              <td>New task, new chat; compact useful ongoing work when needed</td>
+            </tr>
+            <tr>
+              <td>Repeated deterministic tool loops</td>
+              <td>Repeated submit, poll, and retrieve results add avoidable context</td>
+              <td>Use a reviewed batch or script when it can return a concise result</td>
             </tr>
           </tbody>
         </table>
@@ -701,7 +708,7 @@ graph LR
         </ul>
 
         <aside class="speaker-notes">
-          Total spend is a lagging, blunt metric. Efficiency per workflow is what tells you whether optimization is paying off. The strongest local measurement is a controlled before-and-after run. At scale, Copilot CLI can export OpenTelemetry attributes for tokens, cache use, tools, duration, and outcomes. Token counts are not themselves AI Credits. Join them to the current model rates when you need an independent credit estimate, and preserve the model identity and timestamp because pricing changes. Content capture is disabled by default and should remain so unless governance approves a specific diagnostic need.
+          Total spend is a lagging, blunt metric. Compare accepted outcomes across repeated controlled runs, not one unusually good response. CLI OpenTelemetry can report tokens, cache use, tools, duration, and outcomes, but token counts are not themselves AI Credits. Preserve selected model, rate date, context-pricing tier, and routing discount. Separate input, output, cache-read, and cache-creation semantics without counting cached input twice. The github.copilot.cost attribute is a model multiplier, not a monetary amount. Label your calculation an estimate and reconcile it to observed credit usage. Full prompt and response content capture is disabled by default and should stay off unless governance approves a specific investigation.
         </aside>
       </div>
     </section>
@@ -736,14 +743,14 @@ graph LR
           <li>Define the workflow <strong>before</strong> choosing tools or models</li>
           <li>Use the should/should-not filter to decide what AI owns</li>
           <li>Capture standing rules in <strong>lean</strong> instruction files</li>
-          <li>Reach for <code>/create-skill</code> when a procedure is worth reusing</li>
-          <li>Reach for <code>/create-agent</code> when a recurring role needs a constrained tool set</li>
+          <li>Create a skill when a procedure is worth reusing; verify its invocation on representative tasks</li>
+          <li>Create a custom agent when a recurring role needs a distinct tool or model boundary</li>
           <li>Right-size context, keep sessions focused, and compact only when continuity is valuable</li>
-          <li>Set a session AI-credit limit for bounded or unattended agent work</li>
+          <li>Verify preview CLI limit scope on the approved client; retain aggregate budgets and monitoring</li>
           <li>Measure a successful baseline and change one variable at a time</li>
         </ul>
         <aside class="speaker-notes">
-          This checklist is deliberately short so teams will actually use it. Define the workflow first, then choose the smallest intervention supported by evidence. Bound unattended work with a session limit, measure a successful baseline, and change one variable at a time. The target is not the fewest tokens in isolation. It is the lowest repeatable cost for an accepted outcome.
+          This checklist is deliberately short so teams will actually use it. Define the workflow first, then choose the smallest intervention supported by evidence. Verify artifact loading in the intended harness and test preview CLI limit behavior before relying on it for unattended work. A soft limit does not replace aggregate budgets or monitoring. Measure a successful baseline and change one variable at a time. The target is not the fewest tokens in isolation. It is the lowest repeatable cost for an accepted outcome.
         </aside>
       </div>
     </section>
@@ -758,7 +765,7 @@ graph LR
           <li>Workflow design controls your <strong>baseline</strong> cost; budgets only control the ceiling</li>
           <li>Define what AI <strong>should</strong> and <strong>should not</strong> own before reaching for any tool</li>
           <li>Add the <strong>smallest sufficient artifact</strong> to reduce repeated explanation, exploration, or correction</li>
-          <li>Reach for <code>/create-skill</code> and <code>/create-agent</code> when a workflow is worth scaffolding</li>
+          <li>Use the target harness's supported customization tools when a workflow is worth scaffolding</li>
           <li>Right-size context, reuse artifacts, and keep sessions focused to cut per-run tokens</li>
           <li>Use response cost, session usage, Agent Debug Logs, and Cache Explorer to optimize with evidence</li>
           <li>The goal is high value per credit, not minimal usage</li>
@@ -781,8 +788,8 @@ graph LR
           <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/concepts/models/auto-model-selection">About Copilot auto model selection</a></li>
           <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/set-session-limit">Set an AI credit session limit in Copilot CLI</a></li>
           <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#opentelemetry-monitoring">Monitor Copilot CLI with OpenTelemetry</a></li>
-          <li><strong>VS Code Docs:</strong> <a href="https://code.visualstudio.com/docs/copilot/chat/chat-debug-view">Troubleshoot chat with Agent Debug Logs and Cache Explorer</a></li>
-          <li><strong>VS Code Docs:</strong> <a href="https://code.visualstudio.com/docs/copilot/customization/overview">Customize AI in VS Code</a></li>
+          <li><strong>VS Code Docs:</strong> <a href="https://code.visualstudio.com/docs/agents/agent-troubleshooting/chat-debug-view">Troubleshoot chat with Agent Debug Logs and Cache Explorer</a></li>
+          <li><strong>VS Code Docs:</strong> <a href="https://code.visualstudio.com/docs/agent-customization/overview">Customize AI in VS Code for your target harness</a></li>
           <li><strong>Prior course:</strong> Copilot Billing - From PRUs to Usage-Based Billing</li>
           <li><strong>Earlier courses:</strong> Prompts, Instructions, Skills, and Agents, plus Enterprise-Grade Marmalade for artifact mechanics</li>
         </ul>

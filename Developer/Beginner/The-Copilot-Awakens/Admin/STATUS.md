@@ -1,7 +1,7 @@
 # AI Pair Programming — The Copilot Awakens — Content Status
 
 > **Track:** Developer | **Level:** Beginner
-> **Last Updated:** 2026-02-20
+> **Last Updated:** 2026-10-27
 
 ## Rollup Status
 
@@ -9,7 +9,7 @@
 <!-- Set it to the LOWEST status from the table below.                  -->
 <!-- Values: Not Started | In Progress | Complete                       -->
 
-`Status: Complete`
+`Status: In Progress`
 
 <!-- AGENT SYNC: When changing this status, you MUST also update the matching -->
 <!-- entry in api/course-statuses.json so the nav page stays in sync. -->
@@ -20,9 +20,9 @@
 |-----------------------|-------------|
 | Slide Content         | Complete    |
 | Speaker Notes         | Complete    |
-| Images & Diagrams     | Complete    |
+| Images & Diagrams     | In Progress |
 | Demo / Lab Content    | Complete    |
-| Reviewed & Approved   | Complete    |
+| Reviewed & Approved   | In Progress |
 
 > **How to update:** Set each area to `Not Started`, `In Progress`, or `Complete`.
 > Then set the **Rollup Status** above to the **lowest** value in the table.
@@ -48,7 +48,7 @@
 - [x] Slide 16 — Choosing Your Model
 - [x] Slide 17 — Useful Chat Commands
 - [x] Slide 18 — Chat Modes: Ask, Plan & Agent
-- [x] Slide 19 — Open in Editor: Parallel Context Windows
+- [x] Slide 19 — Chat Layouts and Separate Conversations
 - [x] Slide 20 — Configuring Your Workspace (section divider)
 - [x] Slide 21 — Key Copilot Settings
 - [x] Slide 22 — Custom Instructions
@@ -72,7 +72,11 @@
 ## Notes
 
 - Slides and lab content populated 2026-02-20
-- Speaker notes added to all 27 slides 2026-02-20
+- Speaker notes originally added 2026-02-20; all 30 note blocks checked during the slide-only refresh on 2026-10-27.
 - Screenshots added: extension install, finish setup, ghost text hotkeys 2026-02-20
-- Review pass completed and marked Complete 2026-02-20
-
+- Historical review pass marked Complete 2026-02-20; this is not new human approval of the refreshed slides.
+- 2026-10-27 slide-only review and factual refresh: corrected the unified extension ID, Plan/implementation boundary, project-context workflow, model/hosting and retention claims, instruction scope, token-based usage, and current UI guidance. Qualified plan access and keybindings; added explicit review/test steps and a restricted-CSV example.
+- Official references checked 2026-10-27: [setup](https://code.visualstudio.com/docs/setup/copilot), [planning](https://code.visualstudio.com/docs/agents/run/planning), [instructions](https://code.visualstudio.com/docs/agent-customization/custom-instructions), [model hosting](https://docs.github.com/en/copilot/reference/ai-models/model-hosting), [plans](https://docs.github.com/en/copilot/get-started/plans), and [billing change, 2026-06-01](https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans/).
+- Media remains In Progress: explicit TODO screenshots on slides 10, 16, and 18 require real current captures. Other retained UI images are illustrative and still need a current-version visual check.
+- Remaining verification: current-account UI smoke test, customized/platform keybindings, and human review/approval. Unsupported plan-benefit claims were removed rather than asserted verified.
+- Labs explicitly excluded: no lab content or lab status entries were reviewed, validated, or changed. This is not a full-course approval. Rollup is In Progress; the orchestrator owns catalog JSON synchronization for this change set.

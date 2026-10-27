@@ -142,17 +142,23 @@ on: pull_request
 
 permissions:
   contents: read
-  security-events: write
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
-      - uses: actions/checkout@FULL_COMMIT_SHA
-      - uses: github/codeql-action/analyze@FULL_COMMIT_SHA</code></pre>
-        <p>Set workflow permissions to read-only by default, then grant each job only what it needs.</p>
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+        with:
+          languages: javascript-typescript
+          build-mode: none
+      - uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370</code></pre>
+        <p>JavaScript/TypeScript PR analysis: read-only defaults, with alert-upload permission only on the analysis job.</p>
         <aside class="speaker-notes">
-          Explicit permissions make the security boundary reviewable. Begin with read-only access and add a write scope only when a job truly needs it. Job-level permissions can narrow the token further when one workflow contains different responsibilities. Pinning an action to a full commit SHA also prevents a mutable tag from silently changing the code that receives this token.
+          Explicit permissions make the security boundary reviewable. Our workflow starts with read-only contents access. The analysis job repeats that read permission and adds security-events write so it can upload findings; unspecified job permissions become none. Checkout retrieves the source, init creates the JavaScript and TypeScript database without a build, and analyze queries it and uploads results. These are verified checkout v7 and CodeQL Action v4 commit pins as of October 27, 2026, not placeholder refs. Review and update pins to receive fixes, including safer checkout defaults. For another language, choose its supported build strategy. This example requires Actions and a public repository or GitHub Code Security entitlement. Use either default setup or a deliberately configured advanced workflow, not both for the same analysis. For continuous coverage, also configure default-branch and scheduled analysis in the advanced workflow. We have checked the example against official action definitions, but have not run it in your repository.
         </aside>
       </div>
     </section>
@@ -163,18 +169,19 @@ jobs:
         <h2>Deploy Without Long-Lived Cloud Secrets</h2>
         <pre class="mermaid">
 sequenceDiagram
+  participant E as Protected environment
   participant W as GitHub workflow
   participant G as GitHub OIDC
   participant C as Cloud identity
-  participant E as Protected environment
+  E->>W: Allow job after protection rules
   W->>G: Request signed token
-  G->>C: Present repository claims
+  G-->>W: Return OIDC ID token
+  W->>C: Present token for validation
   C-->>W: Issue short-lived credential
-  W->>E: Request deployment
-  E-->>W: Apply reviewers and policy
+  W->>C: Deploy using scoped credential
         </pre>
         <aside class="speaker-notes">
-          OpenID Connect replaces a stored cloud password with a short-lived credential based on signed claims. The cloud provider can restrict trust to a specific organization, repository, branch, tag, or environment. GitHub environments then add deployment reviewers, branch restrictions, and scoped secrets. This reduces credential lifetime and limits where deployment authority can be exercised.
+          The protected environment gates the job before any of its steps run. Our deployment job must reference that environment, satisfy its protection rules, and have id-token write permission to request an ID token. GitHub returns the token to the workflow; the workflow presents it to the cloud provider, which validates its audience, subject, and other trust conditions before issuing a scoped, short-lived credential. The environment is a GitHub job gate, not the cloud deployment target. Available reviewers and protection features depend on repository visibility and plan. Inspect the actual subject before configuring provider trust: on GitHub.com, repositories created, renamed, or transferred after July 15, 2026 use immutable owner and repository IDs in the default subject; older repositories can retain their previous format unless opted in. We still need to validate the selected provider's trust policy and deployment permissions.
         </aside>
       </div>
     </section>
@@ -244,9 +251,9 @@ graph LR
   D --> E[Code scanning alert]
   C -->|Yes| F[Path interrupted]
         </pre>
-        <p>Verify the analyzed commit, query, severity, precision, path, and missing control before choosing a remediation.</p>
+        <p>For a data-flow alert, verify the analyzed commit, query, severity, precision, path, and missing control before choosing a remediation.</p>
         <aside class="speaker-notes">
-          Read a CodeQL alert as a path, not as a highlighted line. Confirm where untrusted data enters, how it propagates, which control is missing, and where the sensitive operation occurs. Then verify that the check analyzed the current pull-request commit. Autofix may propose a change for a supported alert, but the path gives us the evidence needed to judge whether that change addresses the root cause.
+          For a data-flow alert, read the path rather than just the highlighted line. Confirm where untrusted data enters, how it propagates, which control is missing, and where the sensitive operation occurs. Other CodeQL queries report a location or pattern without a source-to-sink path, so interpret each result using its query semantics. In either case, verify which pull-request revision was analyzed. Autofix may propose a change for a supported alert, but the query evidence lets us judge whether the change addresses the root cause.
         </aside>
       </div>
     </section>
@@ -260,13 +267,13 @@ graph LR
           <li>Secret scanning monitors repository history and other supported surfaces</li>
           <li>Validity checks help prioritize supported active credentials</li>
           <li>Custom patterns extend detection to organization-specific formats</li>
-          <li>Bypasses require a reason and create an auditable decision</li>
+          <li>Repository push-protection bypasses record a reason and an audit event</li>
           <li>A committed secret must be revoked and rotated, not merely deleted</li>
         </ul>
         <img src="img/TODO-screenshot-secret-scanning-push-protection.png" alt="TODO: Add screenshot for &quot;Secret scanning push protection blocking a credential&quot;" />
 
         <aside class="speaker-notes">
-          Prevention is cheaper than incident response, so push protection is our first preference. If a secret reaches GitHub, deleting the line does not remove it from history or invalidate the credential. We must revoke or rotate it, investigate use, and then remove it safely. Bypass can be necessary for tests or false positives, but the reason should be specific enough for another reviewer to understand and audit.
+          Prevention is cheaper than incident response, so push protection is our first preference. If a secret reaches GitHub, deleting the line does not remove it from history or invalidate the credential. We must revoke or rotate it and investigate use; history cleanup is a separate decision and does not replace revocation. Bypass can be necessary for tests or false positives, but the reason should be specific enough for another reviewer to understand and audit. Repository push protection records bypasses and generates alerts according to the reason. User-level push protection for public repositories is different: its bypass alone does not generate a repository alert unless repository push protection is enabled too. Confirm repository protection, supported patterns, and the required Secret Protection entitlement rather than assuming every account has the same controls.
         </aside>
       </div>
     </section>
@@ -277,14 +284,14 @@ graph LR
         <h2>Review the Supply-Chain Delta</h2>
         <ul>
           <li>Inspect direct and transitive packages added by the pull request</li>
-          <li>Set dependency review policy for severity and license risk</li>
+          <li>Configure severity and license policy in a required dependency review check</li>
           <li>Use the dependency graph as the inventory behind alerts</li>
           <li>Let Dependabot propose bounded version updates</li>
           <li>Run tests and security checks against every automated update</li>
           <li>Group updates only when shared validation makes failures diagnosable</li>
         </ul>
         <aside class="speaker-notes">
-          Dependency review is strongest at the moment a package enters or changes in the pull request. It can show direct and transitive additions, known advisories, and license information before merge. Dependabot then helps maintain that inventory by raising alerts and update pull requests. Automated updates reduce toil, but they still need the same tests, scanning, and human review as any other code change.
+          Dependency review is strongest at the moment a package enters or changes in the pull request. It can show direct and transitive additions, known advisories, and license information before merge. Viewing that diff does not block a merge by itself. Configure the dependency review action with the severity and license policy, then require its check in the ruleset. Confirm repository eligibility and dependency-graph coverage first. Dependabot then helps maintain that inventory by raising alerts and update pull requests. Automated updates reduce toil, but they still need the same tests, scanning, and human review as any other code change.
         </aside>
       </div>
     </section>
@@ -328,7 +335,7 @@ graph LR
         <h2>Give Copilot Review the Right Context</h2>
         <ul>
           <li>Keep the pull request bounded and explain its intended behavior</li>
-          <li>Store repository security expectations in custom instructions</li>
+          <li>Store security expectations in <code>.github/copilot-instructions.md</code></li>
           <li>Request Copilot review manually or through configured rules</li>
           <li>Apply suggested changes only after inspecting the complete diff</li>
           <li>Resolve comments with evidence, tests, or a documented rejection</li>
@@ -337,7 +344,7 @@ graph LR
         <img src="img/TODO-screenshot-copilot-code-review.png" alt="TODO: Add screenshot for &quot;Copilot code review comments on a pull request&quot;" />
 
         <aside class="speaker-notes">
-          Copilot code review works best when the pull request has a clear purpose and the repository contains explicit conventions. Custom instructions can describe security boundaries, test expectations, and framework patterns that should influence review. Treat every comment as a hypothesis tied to the diff. Confirm it in code, add validation where needed, and explain rejections so the conversation remains useful to human reviewers.
+          Copilot code review works best when the pull request has a clear purpose and the repository contains explicit conventions. The repository-wide .github/copilot-instructions.md file can describe security boundaries, test expectations, and framework patterns that should influence review. Confirm that custom instructions and the organization's code-review policy are enabled, and that usage budgets support the review. Not every agent customization format is supported by code review. Treat every comment as a hypothesis tied to the diff. Confirm it in code, add validation where needed, and explain rejections so the conversation remains useful to human reviewers.
         </aside>
       </div>
     </section>
@@ -373,12 +380,12 @@ graph LR
           <tbody>
             <tr><td>Copilot code review</td><td>Pull-request comments</td><td>Does not approve or merge</td></tr>
             <tr><td>Copilot Autofix</td><td>Suggested alert remediation</td><td>Patch still needs validation</td></tr>
-            <tr><td>Agentic Autofix</td><td>Iterated draft pull request</td><td>Availability and alert support vary</td></tr>
-            <tr><td>Copilot coding agent</td><td>Changes in a pull request</td><td>Runs within configured repository policy</td></tr>
+            <tr><td>Agentic autofix</td><td>Iterated draft pull request</td><td>Assigned default-branch alerts; policy and budget apply</td></tr>
+            <tr><td>Copilot cloud agent</td><td>Proposed code changes</td><td>Runs within configured repository policy</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          These capabilities may all produce code or comments, but they begin from different inputs and have different responsibilities. Copilot code review comments on a diff. Autofix starts from a supported security alert. Agentic Autofix can iterate on assigned alerts where available. The coding agent begins from an assigned development task. None should approve its own output, and every generated change remains subject to repository policy and human review.
+          These capabilities begin from different inputs and have different responsibilities. Copilot code review comments on a diff. Copilot Autofix suggests a single change for a supported alert. Agentic autofix instead investigates one or more assigned default-branch code scanning alerts and opens a draft pull request; it does not require an existing Autofix suggestion. GitHub announced general availability on October 15, 2026, but administrator enablement, eligibility, AI credits, and Actions minutes still matter. The Copilot cloud agent, formerly called coding agent, can also take a development task. None should approve its own output, and every generated change remains subject to repository policy and human review.
         </aside>
       </div>
     </section>
@@ -416,7 +423,7 @@ graph LR
           <li>Restrict bypass authority and audit every exception</li>
         </ul>
         <aside class="speaker-notes">
-          Rulesets convert team expectations into enforceable repository behavior. Require the checks that represent real risk decisions, and make sure they apply to the current commit. Keep bypass authority narrow because an exception path can quietly become the normal path. Policy should create a dependable security floor while leaving the human reviewer responsible for risks that cannot be encoded as a status check.
+          Rulesets convert team expectations into enforceable repository behavior. A successful Actions run is not the same as a code-scanning severity gate: require the intended tools and severity thresholds as well as current status checks, and bind checks to their expected source where appropriate. The dependency review check must be configured and required to enforce package policy. Current documentation also describes a public-preview rule requiring selected secret scanning alerts to be resolved, but its tenant availability remains unverified here; do not make that preview a required dependency of this course. Keep bypass authority narrow because an exception path can quietly become the normal path. Policy should create a dependable security floor while leaving the human reviewer responsible for risks that cannot be encoded as a status check.
         </aside>
       </div>
     </section>
@@ -491,9 +498,9 @@ graph LR
             <tr><td>Alert boundary</td><td>Open alerts on default branches</td><td>Open secret scanning alerts</td></tr>
           </tbody>
         </table>
-        <p>Keep each campaign at 1,000 alerts or fewer. Secret scanning campaigns are currently in public preview.</p>
+        <p>Keep each campaign at 1,000 alerts or fewer. Confirm secret campaign availability: official lifecycle sources conflict.</p>
         <aside class="speaker-notes">
-          Campaign scope determines whether the work feels achievable or arbitrary. Code campaigns can focus on a rule, severity, CWE, language, or repository property. Secret campaigns can focus on a provider, secret type, or push-protection bypass. GitHub limits a campaign to one thousand alerts, but a much smaller, coherent cohort is often more useful. The secret campaign capability is currently preview functionality, so confirm availability and behavior before making it part of a required process.
+          Campaign scope determines whether the work feels achievable or arbitrary. Code campaigns can focus on a rule, severity, CWE, language, or repository property. Secret campaigns can focus on a provider, secret type, or push-protection bypass. GitHub limits a campaign to one thousand alerts, but a much smaller, coherent cohort is often more useful. There is a source discrepancy: GitHub's November 25, 2025 changelog announced general availability for secret campaigns, while the campaign documentation still labels them public preview as checked on October 27, 2026. We cannot settle your tenant's availability from those conflicting labels. Confirm access, supported behavior, and licensing before requiring this capability.
         </aside>
       </div>
     </section>
@@ -525,15 +532,16 @@ graph LR
   A[Filter alerts] --> B[Publish campaign]
   B --> C{Remediation path}
   C -->|Developer| D[Assign alert]
-  C -->|Supported code alert| E[Copilot Autofix]
-  E --> F[Copilot cloud agent]
+  C -->|Supported suggestion| E[Copilot Autofix]
+  C -->|Enabled code alert assignment| F[Agentic autofix]
   D --> G[Fix and validate]
+  E --> G
   F --> G
   G --> H[Campaign progress]
         </pre>
-        <p>Generated fixes remain pull requests. Repository checks and human review still decide whether they are safe.</p>
+        <p>Suggestions and agent-generated pull requests both need validation, repository checks, and human review.</p>
         <aside class="speaker-notes">
-          Campaigns coordinate work without forcing every alert through the same remediation path. A developer can own an alert directly. Code campaigns automatically request Copilot Autofix suggestions as capacity allows. When an Autofix is available, supported alerts can also be assigned to Copilot cloud agent to create a pull request. That pull request still travels through tests, scanning, repository policy, and human review. Scale changes the routing, not the standard of proof.
+          Campaigns coordinate work without forcing every alert through the same remediation path. A developer can own a code or secret alert directly. For supported code alerts, Copilot Autofix can provide a suggestion that a developer inspects and applies. Separately, when agentic autofix is enabled, we can assign up to twenty-five default-branch code scanning alerts to Copilot in one session and receive a draft pull request. We do not need an existing Autofix suggestion first. The agent explores the code and attempts validation, but current documentation says it cannot confirm fixes for custom CodeQL queries, the security-extended suite, or third-party scanning alerts. Secret alerts still require credential response, not this code-remediation route. Confirm the administrator policy, eligibility, AI-credit budget, and Actions capacity before assignment. Every resulting change still travels through tests, scanning, repository policy, and human review. Scale changes the routing, not the standard of proof.
         </aside>
       </div>
     </section>
