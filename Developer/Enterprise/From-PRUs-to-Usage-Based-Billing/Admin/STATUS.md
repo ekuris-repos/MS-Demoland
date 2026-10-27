@@ -1,7 +1,7 @@
 # Copilot Billing - From PRUs to Usage-Based Billing - Content Status
 
 > **Track:** Developer | **Level:** Enterprise
-> **Last Updated:** 2026-05-26
+> **Last Updated:** 2026-10-27
 
 ## Rollup Status
 
@@ -22,7 +22,7 @@
 | Speaker Notes         | Ready for Review |
 | Images & Diagrams     | In Progress      |
 | Demo / Lab Content    | Ready for Review |
-| Reviewed & Approved   | Not Started      |
+| Reviewed & Approved   | In Progress      |
 
 > **How to update:** Set each area to `Not Started`, `In Progress`, `Ready for Review`, or `Complete`.
 > Then set the **Rollup Status** above to the **lowest** value in the table.
@@ -46,10 +46,10 @@
 - [x] Slide 14 - The Four Spend Levers You Control
 - [x] Slide 15 - Part 3 section divider: Admin Controls and Governance
 - [x] Slide 16 - Pooled Credits Change the Economics
-- [x] Slide 17 - Budget Hierarchy (Mermaid flow)
+- [x] Slide 17 - Budget Control Scopes (semantics and precedence table)
 - [x] Slide 18 - What Happens When the Pool Runs Out?
 - [x] Slide 19 - A Sane Starting Policy (table)
-- [x] Slide 20 - What to Review Every Week (screenshot placeholder)
+- [ ] Slide 20 - Current AI usage screenshot still required; explicit TODO placeholder added
 - [x] Slide 21 - Part 4 section divider: Developer Habits That Lower Spend
 - [x] Slide 22 - Choose the Cheapest Surface That Still Solves the Task (table)
 - [x] Slide 23 - Example: Use Inline Chat on a Single Function
@@ -58,7 +58,7 @@
 - [x] Slide 26 - Override Auto Only When the Task Justifies It (table)
 - [x] Slide 27 - Keep Prompts Concise and Batch Related Asks
 - [x] Slide 28 - Reset or Compact Long Sessions
-- [x] Slide 29 - Other Internet-Tested Tactics That Translate Well
+- [x] Slide 29 - Preserve Useful Context, Cut Rework (official cache-aware guidance)
 - [x] Slide 30 - Part 5 section divider: Rollout and Real Scenarios
 - [x] Slide 31 - Scenario: Same Bug, Cheaper Workflow (table)
 - [x] Slide 32 - Scenario: When Higher Spend Is the Right Call (two-column)
@@ -71,7 +71,10 @@
 
 ## Notes
 
-- Official sources used: GitHub blog announcement, GitHub Docs on usage-based billing, models and pricing, auto model selection, and AI model comparison.
-- External tactics researched from broader AI coding guidance and token optimization material were translated into Copilot-safe workflow guidance.
-- One screenshot placeholder remains for the billing overview review slide.
+- 2026-10-27 slide-only automated review and factual refresh: corrected retired preview billing steps, annual-plan exceptions, Copilot CLI compaction, pre-request budget checks, and hosted Actions cost qualifications. Added current budget semantics, paid-usage defaults, cost-center controls, Auto tiers/discount, calendar resets, and cache-aware workflow guidance within the existing 38 slides.
+- Official sources verified 2026-10-27: [organizational billing](https://docs.github.com/en/copilot/concepts/billing-and-usage/organizations-and-enterprises/billing), [individual billing](https://docs.github.com/en/copilot/concepts/billing-and-usage/individuals/billing), [budgets](https://docs.github.com/en/copilot/concepts/billing-and-usage/organizations-and-enterprises/budgets), [models and pricing](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing), [Auto selection](https://docs.github.com/en/copilot/concepts/models/auto-model-selection), [efficiency and compaction](https://docs.github.com/en/copilot/tutorials/optimize-ai-usage), [code review](https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/code-review), and [VS Code inline chat](https://code.visualstudio.com/docs/chat/inline-chat).
+- Dated changelog evidence: [preview retirement, August 4](https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/), [Auto tiers, September 14](https://github.blog/changelog/2026-09-14-configure-cost-and-quality-in-copilot-auto-model-selection/), and [review billing controls, October 8](https://github.blog/changelog/2026-10-08-copilot-code-review-new-organization-billing-options-and-controls/).
+- Media remains In Progress: slide 20 now has an explicit local TODO for a current AI usage screenshot. No screenshot was fabricated. Human approval and browser/media acceptance remain pending; Reviewed & Approved is In Progress, not approved.
+- Labs explicitly excluded: no lab content was opened, reviewed, validated, or changed; all existing lab checklist/area values are preserved. This is not a full-course readiness or approval claim.
+- Rollup remains In Progress, the lowest remaining area status. Catalog JSON synchronization is owned by the orchestrator for this change set.
 - Minimal lab.json included to match the current course folder pattern in this repository.

@@ -18,9 +18,9 @@
         <img src="../../../img/ms-github-logo.svg" alt="Microsoft + GitHub" class="brand-logo" />
         <span class="badge">Beginner · 30 Minutes</span>
         <h1>Copilot Primitives - Prompts, Instructions, Skills, Hooks, and Agents</h1>
-        <p class="subtitle">Guide agent behavior with reusable context, then enforce critical steps with deterministic automation</p>
+        <p class="subtitle">Guide agent behavior with reusable context, then automate critical checks at lifecycle events</p>
         <aside class="speaker-notes">
-          Hey everyone! Welcome to "Prompts, Instructions, Skills, and Hooks." If you've taken "The Copilot Awakens," you already know how to use Copilot Chat and inline suggestions. Today we're going one level deeper: we're going to shape how local agent sessions behave in VS Code using files that live right in the repository. We'll start with prompts, instructions, and skills, which give the model better context. Then we'll cross an important line into hooks, which run commands at specific lifecycle events whether the model remembers to run them or not. Hooks are still a Preview feature in VS Code, so everything you see today targets the current workspace-hook experience. No customization experience needed. Let's get into it.
+          Hey everyone! Welcome to "Copilot Primitives: Prompts, Instructions, Skills, Hooks, and Agents." If you've taken "The Copilot Awakens," you already know how to use Copilot Chat and inline suggestions. Today we're going one level deeper: we're going to shape agent sessions in VS Code using files that live in the repository. Our four building blocks are prompts, instructions, skills, and hooks, with a brief orientation to custom agents near the end. One distinction matters from the start: prompt files run in Local harness sessions, while our hook examples target the Copilot harness. For reusable tasks in Copilot, we'll use skills. Hooks are still a Preview feature in VS Code. No customization experience needed. Let's get into it.
         </aside>
       </div>
     </section>
@@ -46,7 +46,7 @@
         <h2>Today's Journey</h2>
         <ul>
           <li><strong>Four Building Blocks</strong> - How model guidance differs from deterministic automation</li>
-          <li><strong>Prompt Files</strong> - Reusable tasks you invoke on demand</li>
+          <li><strong>Prompt Files</strong> - Reusable tasks you invoke in Local sessions</li>
           <li><strong>Instruction Files</strong> - Repository and file-specific guidance</li>
           <li><strong>Agent Skills</strong> - Portable workflows with instructions, scripts, and resources</li>
           <li><strong>Agent Hooks</strong> - Commands that run at agent lifecycle events</li>
@@ -81,7 +81,7 @@
         <div class="columns">
           <div class="card">
             <h3>Prompts</h3>
-            <p><code>.prompt.md</code> files capture reusable tasks that you invoke from chat.</p>
+            <p><code>.prompt.md</code> files capture reusable tasks that you invoke in Local chat sessions.</p>
           </div>
           <div class="card">
             <h3>Instructions</h3>
@@ -98,7 +98,7 @@
         </div>
 
         <aside class="speaker-notes">
-          Here are the four building blocks side by side. A prompt says, "Here is a task I want to run." Instructions say, "Here is how we work in this repository." A skill says, "Here is a complete workflow and the material you may need to carry it out." All three are written for the model to interpret, so they guide behavior but do not guarantee it. Hooks are different. A hook says, "When this lifecycle event happens, run this command." That makes hooks the right choice when a check or action cannot depend on the model remembering it. Notice one other difference on the slide: prompts, instructions, and skills are Markdown-based, while hook configuration is JSON and usually points to executable code. And remember, this is our course framework, not the complete list of everything VS Code can customize.
+          Here are the four building blocks side by side. A prompt says, "Here is a task I want to run." Instructions say, "Here is how we work in this repository." A skill says, "Here is a complete workflow and the material you may need to carry it out." All three are written for the model to interpret, so they guide behavior but do not guarantee it. Hooks are different. A hook says, "When this lifecycle event happens, run this command." Its invocation does not depend on the model remembering the check, but the command can still fail. Before choosing a file, check the Session Target: prompt files require Local, while today's hooks use Copilot. Switching models does not change harness compatibility. In Copilot, a manually invoked skill can serve the reusable-task role. This is our course framework, not the complete list of everything VS Code can customize.
         </aside>
       </div>
     </section>
@@ -112,7 +112,7 @@
         <pre><code>my-project/
 ├── .github/
 │   ├── copilot-instructions.md    ← repo-wide instructions
-│   ├── prompts/
+│   ├── prompts/                   ← Local prompt files
 │   │   ├── generate-api-test.prompt.md
 │   │   └── explain-error.prompt.md
 │   ├── instructions/
@@ -127,7 +127,7 @@
 └── src/</code></pre>
 
         <aside class="speaker-notes">
-          Let's make this concrete by looking at the file tree. At the top of the .github folder, copilot-instructions.md holds repository-wide guidance. Reusable prompts go under prompts, conditional instructions go under instructions, and each skill gets its own folder under skills. Hooks live under hooks, where a JSON file connects an event to a command or script. These are the default workspace locations VS Code looks in. You can configure additional locations, and VS Code supports some compatible locations from other tools, but dropping a correctly named file anywhere in the repository is not enough. VS Code still has to discover it. Also notice that a skill is a folder, not just one Markdown file. That folder can carry examples, templates, schemas, and scripts alongside SKILL.md.
+          Let's make this concrete by looking at the file tree. At the top of the .github folder, copilot-instructions.md holds repository-wide guidance. Reusable Local prompt files go under prompts, conditional instructions go under instructions, and each skill gets its own folder under skills. Hooks live under hooks, where a JSON file connects an event to a command or script. Sharing a repository does not make every file usable in every harness: Copilot does not load dot-prompt-dot-md files. Select your Session Target, then open Open Customizations to see what that harness discovers. Prefer its native locations, especially when sharing files across clients. Also notice that a skill is a folder, not just one Markdown file. That folder can carry examples, templates, schemas, and scripts alongside SKILL.md.
         </aside>
       </div>
     </section>
@@ -140,7 +140,7 @@
         <span class="badge">Part 2</span>
         <h2>Prompt Files</h2>
         <aside class="speaker-notes">
-          Let's start with prompt files - the simplest and most approachable of the four primitives. If your team is new to Copilot customization, this is the perfect place to begin.
+          Let's start with prompt files, the simplest of our four primitives. Select Local as the Session Target for this section. Copilot harness sessions use skills for reusable workflows instead; creating a prompt file in a Copilot session does not make it runnable there.
         </aside>
       </div>
     </section>
@@ -155,8 +155,8 @@
           <li>A Markdown file with the <code>.prompt.md</code> extension</li>
           <li>Captures a <strong>reusable task</strong> - like a saved chat message you can run again and again</li>
           <li>Can include <strong>variables</strong>, <strong>file references</strong>, and <strong>output format instructions</strong></li>
-          <li>Shows up in the <strong>chat prompt picker</strong> - type <code>/</code> and select it</li>
-          <li>Committed to your repo → shared with your entire team automatically</li>
+          <li>In a <strong>Local session</strong>, type <code>/</code> and select it from the prompt picker</li>
+          <li>Committed under <code>.github/prompts/</code> → shared with teammates using Local</li>
         </ul>
 
         <pre class="mermaid">
@@ -166,7 +166,7 @@ graph LR
   C --> D[Run selected agent]
         </pre>
         <aside class="speaker-notes">
-          Think about the last really good prompt you wrote. Maybe it took a few tries before the output was exactly what you wanted. A prompt file lets you save that work instead of reconstructing it next week. When you invoke the file, VS Code fills in variables like your current selection, attaches any context you've referenced, and runs the built-in or custom agent named in the prompt. The key word here is invoke. Nothing happens until someone chooses to run it. That makes prompt files a great fit for repeatable tasks such as generating tests, drafting documentation, or reviewing an API. Commit the file under .github/prompts, and the rest of the team gets the same reusable task when they open the repository.
+          Think about the last really good prompt you wrote. Maybe it took a few tries before the output was exactly what you wanted. A prompt file lets you save that work instead of reconstructing it next week. In a Local session, VS Code fills in variables like your current selection, attaches referenced context, and runs the built-in or custom agent named in the prompt. The key word here is invoke. Nothing happens until someone chooses to run it. That makes prompt files useful for generating tests, drafting documentation, or reviewing an API. Commit the file under .github/prompts, and teammates can use it in Local sessions. For the Copilot harness, package that reusable task as a skill instead.
         </aside>
       </div>
     </section>
@@ -188,14 +188,13 @@ current selection.
 **Requirements:**
 - Use the project's existing test framework
 - Cover happy path, edge cases, and error conditions
-- Follow the naming convention: `test_&lt;function&gt;_&lt;scenario&gt;`
+- Follow the repository's test naming conventions
 
 **Context:**
-- Test file: #file:${file}
 - Selected code: ${selection}</code></pre>
 
         <aside class="speaker-notes">
-          Let's walk through this file from top to bottom. Between the triple dashes is YAML frontmatter. The agent field tells VS Code which agent should handle the request. Current built-in choices include Ask, Agent, and Plan, and you can name a custom agent as well. We're using Agent here because generating a unit test may require creating or editing a file. The description is what helps you recognize this prompt in the slash-command picker. You can also choose a model or restrict tools in frontmatter, but you don't have to. Below that is the actual prompt in Markdown. At runtime, the file variable becomes the current file, and selection becomes whatever code you've highlighted. So when you run this prompt, you're not just saying "write a test." You're handing the agent the exact code and context it needs.
+          Let's walk through this Local prompt file from top to bottom. Between the triple dashes is YAML frontmatter. The agent field tells VS Code which agent should handle the request. Current built-in choices include Ask, Agent, and Plan, and you can name a custom agent as well. We're using Agent because generating a unit test may require creating or editing a file. The description helps you recognize the prompt in the slash-command picker. Below the frontmatter is the task in Markdown. Highlight a function before running it: selection supplies that highlighted code. For a known supporting file, you can add a Markdown link or a file reference with a path relative to the prompt file. We leave test naming to the repository instructions rather than introduce a conflicting convention here.
         </aside>
       </div>
     </section>
@@ -209,24 +208,25 @@ current selection.
         <div class="columns">
           <div>
             <ul>
-              <li>In chat, type <code>/</code> to open the prompt picker</li>
+              <li>Select <strong>Local</strong> as the Session Target, then type <code>/</code></li>
               <li>Select your prompt file; VS Code resolves its variables and runs it</li>
               <li>Use <strong>Chat: Run Prompt</strong> or the editor play button as alternatives</li>
-              <li>Prompts committed to <code>.github/prompts/</code> are available to every team member</li>
+              <li>Prompts in <code>.github/prompts/</code> are shared with teammates using Local</li>
               <li>Build a <strong>prompt library</strong> - curated, tested prompts for common tasks</li>
             </ul>
           </div>
           <div>
             <div class="screenshot">
-              <img src="img/prompt-picker.png" alt="VS Code chat showing the prompt picker with custom prompt files listed" />
+              <img src="img/prompt-picker.png" alt="Older VS Code general slash-command menu; the course's custom prompt files are not shown" />
               <div class="screenshot-focus" style="top:50%;left:50%;width:50%;height:50%">
-                <span class="screenshot-label" style="top:auto;bottom:-1.6em">Prompt picker in chat</span>
+                <span class="screenshot-label" style="top:auto;bottom:-1.6em">Older slash menu</span>
               </div>
             </div>
           </div>
         </div>
+        <p><strong>TODO:</strong> Recapture a current Local session showing a course prompt. The older screenshot above is illustrative only.</p>
         <aside class="speaker-notes">
-          Once the prompt is saved, how do you run it? The quickest path is to open Chat and type a forward slash. Your prompt files appear in the same menu as user-invocable skills. Select the prompt, add any extra details after the command if you need them, and run it. You can also use Chat: Run Prompt from the Command Palette or select the play button while the prompt file is open. Here's the team benefit: when these files are committed under .github/prompts, everyone works from the same task definition. Treat that prompt library like code. Keep each prompt focused, review changes in pull requests, and update it when the project or the available tools change.
+          Once the prompt is saved, select Local as the Session Target, then type a forward slash in Chat. Your prompt files appear alongside user-invocable skills. The image here is an older general slash menu, not a current capture of our custom prompts; its replacement is still pending. Select your prompt, add any extra details, and run it. Chat: Run Prompt and the editor play button are alternatives in Local sessions. If it is missing, check Open Customizations for the selected harness before changing the prompt text. Try a harmless task and inspect the resulting request or debug evidence to confirm the expected context was included. Treat the shared library like code: review changes and test prompts when the project or tools change.
         </aside>
       </div>
     </section>
@@ -263,7 +263,7 @@ current selection.
         </ul>
 
         <aside class="speaker-notes">
-          Instruction files are where you teach the agent about your coding standards, architecture decisions, and project conventions. The repository-wide file at .github/copilot-instructions.md comes into workspace chat requests automatically. More focused dot-instructions-dot-md files can join the request when a file pattern matches, when their description is relevant to the task, or when you attach them yourself. There are two boundaries to remember. First, instructions guide the model; they do not guarantee that every rule will be followed perfectly. Second, these chat instructions do not control the inline suggestions that appear while you type. VS Code can also read formats such as AGENTS.md and compatible CLAUDE.md files, and your organization may contribute another layer of instructions.
+          Instruction files are where you teach the agent about your coding standards, architecture decisions, and project conventions. The repository-wide file at .github/copilot-instructions.md supplies project guidance in Copilot sessions; Local also discovers it when instruction-file support is enabled. More focused dot-instructions-dot-md files can join when a pattern matches work on a file, when their description is relevant, or when you attach them yourself. Instructions guide the model rather than guarantee compliance, and they do not control inline suggestions. Other formats depend on the harness: AGENTS.md is cross-agent, while CLAUDE.md support is not universal. Local supports compatible CLAUDE.md files. Check the selected harness before assuming a format applies.
         </aside>
       </div>
     </section>
@@ -321,7 +321,7 @@ applyTo: "**/*.test.ts"
         </div>
 
         <aside class="speaker-notes">
-          Now suppose your testing rules are too specific to load for every task. That's where a scoped instruction file helps. The applyTo field is a glob pattern, and this one associates the guidance with TypeScript test files. One subtle point: this is not just about whichever editor tab happens to be active. VS Code considers the files in the request context and the files the agent is working with. You can also add a description so the model recognizes that the instructions are relevant to a testing task. When this file applies, it combines with your repository and organization guidance rather than replacing them. Just don't build a workflow that depends on a particular ordering, because that ordering is not guaranteed.
+          Now suppose your testing rules are too specific to load for every task. That's where a scoped instruction file helps. The applyTo field is a glob pattern, and this one associates the guidance with TypeScript test files the agent creates or modifies. It is not simply a rule for whichever editor tab happens to be active. You can also add a description so the model recognizes relevance to a testing task. When this file applies, it combines with your repository and organization guidance rather than replacing them. Check the request context or agent debug evidence to confirm the expected instructions were included; matching a filename is not proof of compliance. Don't depend on a particular ordering, because that ordering is not guaranteed.
         </aside>
       </div>
     </section>
@@ -348,13 +348,13 @@ applyTo: "**/*.test.ts"
         <ul>
           <li>A folder containing a required <code>SKILL.md</code> and optional supporting resources</li>
           <li>Packages <strong>instructions, scripts, examples, templates, and reference material</strong></li>
-          <li>Loaded progressively when the task matches its description</li>
+          <li>Can load progressively when relevant or explicitly invoked</li>
           <li>Can be invoked manually from chat with <code>/skill-name</code></li>
           <li>Portable across supporting tools, including VS Code and Copilot CLI</li>
         </ul>
 
         <aside class="speaker-notes">
-          Here's the easiest way to separate a skill from an instruction file. Instructions tell the agent how your team works. A skill gives the agent a capability it can pick up for a particular task. And that capability can include much more than prose. A skill folder can carry scripts, examples, templates, and reference material alongside SKILL.md. VS Code starts by exposing only the skill's name and description. If the skill matches the task, it loads the instructions and then pulls in supporting resources as needed. That keeps an Azure deployment manual out of context while you're fixing a React component. By default, the model can select a skill and you can invoke it from the slash-command menu, although frontmatter can limit either entry point.
+          Here's the easiest way to separate a skill from an instruction file. Instructions tell the agent how your team works. A skill gives the agent a capability it can pick up for a particular task. A skill folder can carry scripts, examples, templates, and reference material alongside SKILL.md. VS Code starts by exposing only the skill's name and description. If the agent selects it, it reads the instructions and pulls in supporting resources as needed. Discovery does not guarantee selection for every relevant request. By default, you can also invoke it from the slash-command menu, although frontmatter can limit either entry point. In Copilot, that manual invocation gives us a reusable task without a Local-only prompt file.
         </aside>
       </div>
     </section>
@@ -377,7 +377,7 @@ description: >
 
 ## Prerequisites
 - Azure CLI installed and authenticated
-- azd CLI version 1.5+
+- Supported Azure Developer CLI (azd) installed and authenticated
 
 ## Deployment Steps
 1. Run `azd init` to scaffold the project
@@ -392,9 +392,10 @@ description: >
 ## Resources
 - Read `references/container-apps.md` for platform constraints
 - Run `scripts/validate-bicep.ps1` before deployment</code></pre>
+        <p>Illustrative skill structure, not a complete deployment recipe. No Azure deployment is needed for this course.</p>
 
         <aside class="speaker-notes">
-          Let's open up a skill and look at its anatomy. Every skill gets its own directory, and that directory must contain SKILL.md. The name in frontmatter has to match the folder name exactly, using lowercase letters, numbers, and hyphens. The description is doing important work: it's the signal that tells the agent when this skill is relevant. Below the frontmatter is the workflow itself. This example gives the agent prerequisites, deployment steps, and Bicep conventions, then points to a reference file and a validation script using relative paths. Keep SKILL.md focused on the main path through the task. If you have pages of platform constraints or many examples, move those into supporting files so the agent can load them only when needed. And when a skill includes scripts, make their prerequisites, boundaries, and failure messages clear.
+          Let's open up a skill and look at its anatomy. Every skill gets its own directory containing SKILL.md. The name must match the folder name, using lowercase letters, numbers, and hyphens. The description tells the agent when the skill is relevant. Below it is the workflow, followed by relative paths to supporting material. This Azure example illustrates that structure, not a complete deployment recipe. You do not need to deploy anything today, and azd up can provision real resources with costs. The named reference and validation script are examples you would supply with the skill. In a real workflow, verify the current tool prerequisites and authenticate azd itself rather than assume an Azure CLI login covers it. Keep detailed platform constraints in supporting files and make script prerequisites and failure messages clear.
         </aside>
       </div>
     </section>
@@ -412,7 +413,7 @@ description: >
           </div>
           <div class="card">
             <h3>Load</h3>
-            <p>The agent reads <code>SKILL.md</code> when the task matches or the user invokes the skill with <code>/</code>.</p>
+            <p>The agent reads <code>SKILL.md</code> when it selects the skill or the user invokes it with <code>/</code>.</p>
           </div>
           <div class="card">
             <h3>Execute</h3>
@@ -421,7 +422,7 @@ description: >
         </div>
 
         <aside class="speaker-notes">
-          This three-step flow is what makes skills practical at scale. First, discovery: VS Code shows the agent lightweight metadata, not the whole skill folder. Second, loading: if the description matches the task, or if you invoke the skill yourself with a slash command, the agent reads SKILL.md. Third, execution: the agent follows the workflow and opens the examples, templates, schemas, or scripts it needs along the way. That makes skills a strong fit for procedures like scaffolding a service, deploying an application, running a migration, or debugging a known class of failures. Just remember that the workflow is still interpreted by the model. If a command must run at a guaranteed point in the lifecycle, that's where hooks enter the picture.
+          This three-step flow is what makes skills practical at scale. First, discovery exposes lightweight metadata, not the whole folder. Second, when the agent selects the skill or you invoke it with a slash command, it reads SKILL.md. Third, it follows the workflow and opens the supporting resources it needs. Seeing a skill in Open Customizations proves discovery, not execution. Try a harmless task and inspect the session evidence to confirm it was loaded. To make a reusable Copilot task manual-only, set disable-model-invocation to true in the skill's frontmatter and invoke its slash command yourself. That is the supported alternative to a Local prompt file, not a promise that every prompt-specific agent, model, or tools setting carries over. The workflow is still interpreted by the model; lifecycle-triggered commands are where hooks enter the picture.
         </aside>
       </div>
     </section>
@@ -434,7 +435,7 @@ description: >
         <span class="badge">Part 5</span>
         <h2>Agent Hooks</h2>
         <aside class="speaker-notes">
-          Alright, this is where the execution model changes. Everything we've covered so far gives the model context and asks it to make a good decision. A hook does not ask the model to remember an action. It runs code when a specific event happens in the agent session. That's why hooks are useful for things like formatting, validation, audit trails, and policy checks. One important caveat before we go further: hooks are currently a Preview feature in VS Code. They depend on the chat.hooks.enabled setting, and your organization may restrict them through policy.
+          Alright, this is where the execution model changes. Everything we've covered so far gives the model context and asks it to make a good decision. A hook does not ask the model to remember an action. In the Copilot harness, a configured hook is invoked when its agent-session event occurs, so it can support formatting, validation, audit trails, and policy checks. The VS Code hooks experience is currently in Preview. Before configuring one, select Copilot as the Session Target. The older Local harness uses a separate hook format, so its settings and examples are not instructions for a new Copilot hook.
         </aside>
       </div>
     </section>
@@ -447,14 +448,14 @@ description: >
         <h2>What Is an Agent Hook?</h2>
         <ul>
           <li>A command that runs at a defined point in an <strong>agent session lifecycle</strong></li>
-          <li>Configured for a workspace in <code>.github/hooks/*.json</code></li>
+          <li>Shared repository hooks live in <code>.github/hooks/*.json</code> at the repository root</li>
           <li>Receives structured event data as JSON through <strong>standard input</strong></li>
-          <li>Can report an outcome through standard output or its exit status</li>
-          <li>Runs with the permissions of the VS Code process and current user</li>
+          <li>Can return a JSON object on standard output; its effect depends on the event</li>
+          <li>Runs executable code in the hook runtime, so review commands and limit access</li>
         </ul>
 
         <aside class="speaker-notes">
-          So what is a hook, mechanically? It's a connection between an agent lifecycle event and a shell command. When the event fires, VS Code sends a JSON payload to the command through standard input and waits for a result. Depending on the event, that result can simply record what happened, add context, or influence whether an operation continues. In this course, we're using workspace hook files under .github/hooks. And here's the security point I want you to hear early: the command runs with your local user permissions. A hook is executable automation, not harmless metadata, so review it with the same care you would give a build script or a GitHub Actions workflow.
+          So what is a hook, mechanically? It's a connection between an agent lifecycle event and a command. In the Copilot harness, event data arrives as JSON on standard input, and the command can return a JSON object on standard output. What that output means depends on the event; some events ignore it, while others can add context or affect a tool decision. Shared repository hooks live in .github/hooks at the repository root. Because hooks run executable commands in the runtime environment, review the configuration and scripts, validate their inputs, and give them only the access they need.
         </aside>
       </div>
     </section>
@@ -470,19 +471,20 @@ description: >
             <tr><th>Event</th><th>When it runs</th><th>Typical use</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>SessionStart</code></td><td>A session begins</td><td>Add project context</td></tr>
-            <tr><td><code>UserPromptSubmit</code></td><td>A prompt is submitted</td><td>Record request metadata</td></tr>
-            <tr><td><code>PreToolUse</code></td><td>Before a tool call</td><td>Validate or gate an action</td></tr>
-            <tr><td><code>PostToolUse</code></td><td>After a tool call</td><td>Format, test, or audit</td></tr>
-            <tr><td><code>PreCompact</code></td><td>Before context compaction</td><td>Preserve required context</td></tr>
-            <tr><td><code>SubagentStart</code></td><td>A subagent begins</td><td>Track delegated work</td></tr>
-            <tr><td><code>SubagentStop</code></td><td>A subagent completes</td><td>Capture completion data</td></tr>
-            <tr><td><code>Stop</code></td><td>The agent session stops</td><td>Run final checks</td></tr>
+            <tr><td><code>sessionStart</code></td><td>A session starts or resumes</td><td>Add project context</td></tr>
+            <tr><td><code>userPromptSubmitted</code></td><td>A prompt is submitted</td><td>Observe the request</td></tr>
+            <tr><td><code>preToolUse</code></td><td>Before a tool call</td><td>Inspect or decide on an action</td></tr>
+            <tr><td><code>postToolUse</code></td><td>After a tool call</td><td>Validate a result or add context</td></tr>
+            <tr><td><code>preCompact</code></td><td>Before context compaction</td><td>Save information</td></tr>
+            <tr><td><code>subagentStart</code></td><td>A subagent starts</td><td>Observe delegated work</td></tr>
+            <tr><td><code>subagentStop</code></td><td>A subagent finishes</td><td>Capture completion data</td></tr>
+            <tr><td><code>agentStop</code></td><td>The agent is about to finish its turn</td><td>Check whether it should finish</td></tr>
+            <tr><td><code>sessionEnd</code></td><td>The session terminates</td><td>Clean up or record an event</td></tr>
           </tbody>
         </table>
 
         <aside class="speaker-notes">
-          VS Code gives us eight lifecycle events, and this table groups them by where they happen. SessionStart and Stop sit at the outer boundary of the session. SubagentStart and SubagentStop let you observe delegated work. UserPromptSubmit fires when a person sends a request. PreCompact gives you a chance to preserve required context before VS Code condenses the conversation. The two events you'll probably reach for first are PreToolUse and PostToolUse. PreToolUse can inspect or gate an action before it happens. PostToolUse can run a formatter, test, or audit step after a tool finishes. Choose the narrowest event that fits. If you only need to format edited files, don't attach a broad formatter to every event in the session.
+          The Copilot harness currently supports these nine lifecycle events. sessionStart and sessionEnd mark the session boundary, while agentStop runs as the agent is about to finish its turn. The subagent events let you observe delegated work, and userPromptSubmitted fires when a request is submitted. preCompact happens before context compaction. The two events you'll probably reach for first are preToolUse and postToolUse. The first can inspect a tool call or provide a documented decision; the second can validate a completed result or add context. Choose the narrowest event that fits, and remember that event names, payloads, and output behavior belong to the Copilot format, not the older Local format.
         </aside>
       </div>
     </section>
@@ -494,25 +496,27 @@ description: >
       <div class="slide-inner">
         <h2>Anatomy of a Workspace Hook</h2>
         <pre><code>{
+  "version": 1,
   "hooks": {
-    "PostToolUse": [
+    "postToolUse": [
       {
         "type": "command",
         "command": "node .github/hooks/audit-tool-use.mjs",
         "cwd": ".",
-        "timeout": 10
+        "timeoutSec": 10
       }
     ]
   }
 }</code></pre>
         <ul>
           <li>Each event can run one or more command hooks</li>
-          <li>Commands can define a working directory, environment values, and timeout</li>
-          <li>OS-specific overrides are available when one command is not portable</li>
+          <li>Commands can define a working directory, environment values, and <code>timeoutSec</code></li>
+          <li>Use the documented cross-platform command or platform-specific shell fields</li>
+          <li>This example requires Node.js and the referenced script on the execution host</li>
         </ul>
 
         <aside class="speaker-notes">
-          Let's read this hook configuration together. Under hooks, we choose the PostToolUse event, which means the command runs after a tool call completes. The type says this is a command hook. The command launches a small Node script in our .github/hooks folder. The cwd field sets the working directory, and the ten-second timeout keeps a stuck script from blocking the agent forever. You can also provide environment values or operating-system-specific overrides. Whenever possible, use a runtime that works across your team's environments. If Windows, macOS, and Linux genuinely need different commands, make those differences visible in the configuration rather than hiding them inside a fragile shell expression.
+          Let's read this Copilot hook configuration together. The version field identifies the Copilot format, and lowercase postToolUse runs after a tool call. The command launches a Node script, so Node.js and that script must exist on the host where the runtime executes, including a remote host or container. This slide shows the configuration, not the script implementation. The cwd field sets the working directory, and timeoutSec limits command duration. You can also provide environment values or documented bash or PowerShell command fields. Before relying on it, test with a non-sensitive fixture, then a harmless Copilot session, and confirm the expected sanitized result. A hook appearing in the editor is not proof that its command ran.
         </aside>
       </div>
     </section>
@@ -525,15 +529,15 @@ description: >
         <h2>Hook Execution Flow</h2>
         <pre class="mermaid">
 graph LR
-  A[Lifecycle event] --> B[JSON on stdin]
+  A[Configured event] --> B[JSON on stdin]
   B --> C[Hook command]
-  C --> D{Outcome}
-  D -->|Success| E[Agent continues]
-  D -->|Control result| F[Agent responds]
-  D -->|Timeout or failure| G[Diagnostic]
+  C --> D[Optional JSON on stdout]
+  D --> E[Event-specific behavior]
+  C --> F[Failure or timeout]
+  F --> G[Handling varies by event]
         </pre>
         <aside class="speaker-notes">
-          Here's what happens when that event fires. First, VS Code turns the event data into JSON and sends it to the hook command through standard input. The script reads and validates that payload, does a small, bounded piece of work, and returns an outcome. Some events can use structured output or exit behavior to influence what the agent does next. One practical rule: treat standard output like a protocol channel. If the hook is returning JSON, don't mix random debug messages into the same stream. Send diagnostics to standard error or to a deliberately sanitized log. To configure hooks, use Chat: Configure Hooks or type slash-hooks in chat. If something fails, open the GitHub Copilot Chat Hooks output channel or the agent debug log to see what actually ran.
+          Here's what happens when a configured event fires. The Copilot harness sends event data as JSON on standard input, and a command hook can return one JSON object on standard output. Treat stdout as a protocol channel, so keep diagnostic text separate. The meaning of the output and the effect of an error or timeout vary by event; a hook invocation does not guarantee that its command succeeds or that it blocks the agent. To configure Copilot hooks, select Copilot as the Session Target, then open Hooks in Agent Customizations, or enter /hooks in chat. If something fails, check the agent debug logs and provider diagnostics. Chat: Configure Hooks and the GitHub Copilot Chat Hooks output channel are for the older Local harness, whose hook format is separate.
         </aside>
       </div>
     </section>
@@ -543,7 +547,7 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Hooks Are Executable Policy</h2>
+        <h2>Hooks Are Executable Automation</h2>
         <div class="columns">
           <div class="card">
             <h3>Do</h3>
@@ -566,7 +570,7 @@ graph LR
         </div>
 
         <aside class="speaker-notes">
-          Let's slow down here, because hooks deserve a stronger security posture than the Markdown files we just covered. A hook runs with your user permissions. That means a malicious or careless script could read files, modify the workspace, access credentials available to your process, or send data over the network. Always validate the JSON payload before you use it, and never paste an untrusted value directly into a shell command. Keep hook scripts small enough to review, give them short timeouts, and return useful failure messages. Be especially careful with logging. Prompts and tool payloads can contain source code, customer data, or secrets, so log only the minimum sanitized metadata you need. Before you trust a repository and enable its hooks, inspect the hook configuration and the scripts it invokes.
+          Let's slow down here, because hooks deserve a stronger security posture than the Markdown files we just covered. Hook configuration and scripts are executable code, so review them before use and do not assume they are sandboxed. Validate the JSON payload before using it, and never interpolate an untrusted value into a shell command. Keep scripts small, limit filesystem and network access, and use short timeouts. Be especially careful with logging. Prompts and tool payloads can contain source code, customer data, or secrets, so log only the minimum sanitized metadata you need. Before you trust a repository and enable its hooks, inspect the configuration and the scripts it invokes.
         </aside>
       </div>
     </section>
@@ -580,7 +584,7 @@ graph LR
         <div class="columns">
           <div class="card">
             <h3>Repeat a request?</h3>
-            <p><strong>Prompt file</strong><br />Invoke a focused task on demand.</p>
+            <p><strong>Prompt file in Local</strong><br />In Copilot, use a manually invoked skill.</p>
           </div>
           <div class="card">
             <h3>Guide behavior?</h3>
@@ -591,13 +595,13 @@ graph LR
             <p><strong>Agent Skill</strong><br />Bundle steps, scripts, and resources.</p>
           </div>
           <div class="card">
-            <h3>Guarantee an action?</h3>
-            <p><strong>Agent hook</strong><br />Run code at a lifecycle event.</p>
+            <h3>Automate at an event?</h3>
+            <p><strong>Agent hook</strong><br />Invoke code at a lifecycle event.</p>
           </div>
         </div>
 
         <aside class="speaker-notes">
-          If you remember one decision slide from this course, make it this one. Are you repeating the same request? Save it as a prompt file and run it when you need it. Does the agent need to understand your standards or project context? Put that guidance in instructions. Are you packaging a multi-step workflow with scripts, templates, or reference material? Build a skill. Does a command have to run at a particular lifecycle event whether the model thinks of it or not? Use a hook. Listen to the verbs: prompts request, instructions guide, skills equip, and hooks enforce. A hook doesn't replace your linter, test framework, or policy engine. It gives that deterministic tool a reliable place in the agent lifecycle.
+          If you remember one decision slide from this course, make it this one. Are you repeating the same request? In Local, save a prompt file. In Copilot, use a manually invoked skill for that reusable task. Does the agent need your standards or project context? Put that guidance in instructions. Are you packaging a workflow with scripts, templates, or references? Build a skill. Do you want code invoked at a lifecycle event without relying on the model to request it? Use a hook with the selected harness's format. Prompts request, instructions guide, skills equip, and hooks automate. A hook doesn't replace your linter, tests, permissions, or policy engine. Its invocation is tied to the event, but its command can fail and its effect depends on the event.
         </aside>
       </div>
     </section>
@@ -610,16 +614,17 @@ graph LR
         <h2>How They Work Together</h2>
         <pre class="mermaid">
 graph LR
-  A[Prompt starts task] --> B[Instructions guide output]
+  A[Invoke skill in Copilot] --> B[Instructions guide output]
   B --> C[Skill supplies workflow]
-  C --> D[Agent uses tools]
-  D --> E[Hook runs check]
-  E --> F[Agent handles result]
+  C --> D[Agent workflow]
+  D --> E[Configured hook event]
+  E --> F[Hook command invoked]
+  F --> G[Event-specific handling]
         </pre>
-        <p style="margin-top:1em;opacity:0.85">Prompts request. Instructions guide. Skills equip. Hooks enforce.</p>
+        <p style="margin-top:1em;opacity:0.85">Copilot composition: invoke a skill, apply instructions, run configured hooks. Prompt files remain a Local option.</p>
 
         <aside class="speaker-notes">
-          Let's put all four pieces into one story. A developer invokes a prompt that says, "Create an API endpoint." That prompt starts the task. Repository instructions tell the agent to use TypeScript, async and await, and the team's Express patterns. An API skill gives it the approved workflow, working examples, and a validation script. The agent edits the files and calls the tools it needs. Then a PostToolUse hook runs the formatter or audit check after the relevant operation, and the agent responds to that deterministic result. That's the whole architecture in one sentence: prompts request, instructions guide, skills equip, and hooks enforce. The first three improve the model's decisions. The hook connects those decisions to code that definitely runs.
+          Let's compose a workflow in one supported harness: Copilot. A developer manually invokes an API skill with a request to create an endpoint. Repository instructions supply the team's TypeScript and Express conventions, while the skill supplies the workflow and supporting resources. This is a conceptual view of the roles, not a strict ordering of context loading. As the agent works, configured Copilot lifecycle events invoke their hook commands. A postToolUse hook might audit a completed tool call, but its output cannot undo that action. The command can also fail. If you want to start with a dot-prompt-dot-md file instead, that is a Local workflow and needs Local-compatible hooks; it cannot start this Copilot session. We can combine the roles without pretending the harness formats are interchangeable.
         </aside>
       </div>
     </section>
@@ -667,15 +672,15 @@ graph LR
       <div class="slide-inner">
         <h2>Key Takeaways</h2>
         <ul>
-          <li><strong>Prompt files</strong> (<code>.prompt.md</code>) capture reusable tasks that people invoke on demand</li>
+          <li><strong>Prompt files</strong> (<code>.prompt.md</code>) capture reusable tasks invoked in <strong>Local</strong></li>
           <li><strong>Instruction files</strong> provide repository-wide or conditional guidance for chat</li>
-          <li><strong>Agent Skills</strong> (<code>SKILL.md</code>) package workflows, scripts, and supporting resources</li>
+          <li><strong>Agent Skills</strong> (<code>SKILL.md</code>) package workflows and can be manually invoked in <strong>Copilot</strong></li>
           <li><strong>Agent hooks</strong> (<code>.json</code>) run commands at defined lifecycle events</li>
           <li>Prompts, instructions, and skills <strong>guide the model</strong>; hooks provide <strong>deterministic automation</strong></li>
           <li>All four can be versioned with the repository and reviewed by the team</li>
         </ul>
         <aside class="speaker-notes">
-          Let's bring it all together. Prompt files save a task that someone chooses to start. Instruction files give the agent standards and context for the work in front of it. Agent Skills package a reusable workflow and load supporting material only when it's needed. Hooks run executable commands when lifecycle events occur. The most important distinction is the line between guidance and enforcement. Prompts, instructions, and skills improve what the model decides to do. Hooks connect the agent loop to deterministic automation. Keep all four in supported discovery locations and review them through the repository. And because hooks execute code, keep them especially small, focused, and trustworthy. Remember that hooks are still Preview and may be unavailable if settings or organization policy disable them.
+          Let's bring it all together. Prompt files save tasks for Local sessions. In Copilot, a manually invoked skill can fill that reusable-task role. Instructions provide standards and context. Skills package workflows and load supporting material as needed. Hooks run commands at lifecycle events. The important distinction is between model guidance and event-triggered execution, not a guarantee of enforcement. Keep files in locations supported by the selected harness, verify what actually loads or runs, and review changes through the repository. Because hooks execute code, keep them small and trustworthy. They remain Preview in VS Code and can be restricted by runtime settings or organization policy.
         </aside>
       </div>
     </section>
@@ -694,7 +699,7 @@ graph LR
           <li><strong>GitHub Copilot Docs</strong> - <code>docs.github.com/en/copilot</code></li>
         </ul>
         <aside class="speaker-notes">
-          So where do you go from here? If you want to put these customizations to work in a complete build, "Agent Potato: License to Chat" continues into end-to-end agent workflows. If you're thinking about sharing and governing customizations across teams, "Enterprise Grade Marmalade" is the next stop. For reference material, keep the VS Code Agent Customization overview handy, and use the dedicated Agent Hooks documentation when you need exact event payloads, control output, security guidance, or the latest Preview status. The GitHub Copilot documentation covers cloud and command-line agent surfaces as well, but be careful not to assume their hook details are identical to the local VS Code examples we used today. Thanks for joining me. Now go turn one repeated task into a prompt, one recurring standard into an instruction, one team workflow into a skill, and one must-run check into a hook.
+          So where do you go from here? "Agent Potato: License to Chat" continues into end-to-end agent workflows. For sharing and governance across teams, "Enterprise Grade Marmalade" is the next stop. Keep the VS Code customization overview handy to check harness compatibility, and use the hooks documentation for exact event payloads, output behavior, security guidance, and Preview status. The GitHub Copilot reference covers the shared Copilot harness; the older Local harness has a separate hook format. Start small: turn one repeated task into a Local prompt or manually invoked Copilot skill, one recurring standard into an instruction, and one event-triggered check into a hook. Verify each one before depending on it.
         </aside>
       </div>
     </section>

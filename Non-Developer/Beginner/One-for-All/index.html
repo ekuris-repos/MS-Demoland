@@ -100,7 +100,7 @@
         <h1>GitHub Platform Tour - One for All</h1>
         <p class="subtitle">Tour GitHub Enterprise, Actions, Issues, Projects, Code Quality, and Secret Scanning to see how the platform works as one unified system</p>
         <aside class="speaker-notes">
-          Welcome to "One for All," a guided tour of the GitHub platform designed for anyone in the organization, not just developers. Over the next 30 minutes we will walk through the major capabilities GitHub offers: repositories, Issues, Projects, Actions, code quality controls, security scanning, Copilot, and Enterprise administration. The goal is to show how these features connect into a single, end-to-end system that takes work from idea all the way to production. By the end, you will have a clear mental map of what GitHub does and how each piece reinforces the others.
+          Welcome to "One for All," a guided tour of the GitHub platform designed for anyone in the organization, not just developers. Over the next 30 minutes we will walk through the major capabilities GitHub offers: repositories, Issues, Projects, Actions, code quality controls, security scanning, Copilot, and Enterprise administration. This tour primarily describes GitHub.com and Enterprise Cloud; Enterprise Server availability varies by version and configuration. The goal is to show how these features connect into a single, end-to-end system that takes work from idea all the way to production. By the end, you will have a clear mental map of what GitHub does and how each piece reinforces the others.
         </aside>
       </div>
     </section>
@@ -173,7 +173,7 @@
         <p><strong>Discuss:</strong> Where does your organization plan, build, approve, and govern work today?</p>
 
         <aside class="speaker-notes">
-          The most common misconception about GitHub is that it is "just a code host." In reality, GitHub has grown into a full software delivery platform that covers the entire lifecycle. Planning can happen in Issues and Projects. Building and testing can happen through Actions. Security tools can provide feedback during pull requests. Deployment pipelines can run directly from the repository. Enterprise controls give administrators visibility and governance across the organization. Feature availability varies by plan, repository visibility, organizational policy, and configuration. Understanding this broader picture, including the choices each organization makes, is the purpose of today's session. Use the discussion question to identify where learners currently switch tools or lose context.
+          The most common misconception about GitHub is that it is "just a code host." In reality, GitHub has grown into a full software delivery platform that covers the entire lifecycle. Planning can happen in Issues and Projects. Building and testing can happen through Actions. Security tools can provide feedback during pull requests. Deployment pipelines can run directly from the repository. Enterprise controls give administrators visibility and governance across the organization. Feature availability varies by plan, repository visibility, organizational policy, and configuration. Understanding this broader picture, including the choices each organization makes, is the purpose of today's session. Where do you currently switch tools or lose context as work moves between teams?
         </aside>
       </div>
     </section>
@@ -316,7 +316,7 @@ graph LR
         <p><strong>Discuss:</strong> Which information must stay current for leaders to trust a project view?</p>
 
         <aside class="speaker-notes">
-          GitHub Projects organizes issues and pull requests into flexible views. A board shows stages of work, a table supports sorting and filtering, and a roadmap plots work on a timeline. Projects pulls data directly from repositories. Some workflows are enabled by default in new projects, while others, such as changing status when a pull request merges, must be configured by the project owner. Automation can reduce manual updates, but teams still need clear ownership for the business data that automation cannot infer. Use the discussion question to surface which fields matter to this audience.
+          GitHub Projects organizes issues and pull requests into flexible views. A board shows stages of work, a table supports sorting and filtering, and a roadmap plots work on a timeline. Projects pulls data directly from repositories. Some workflows are enabled by default in new projects, while others, such as changing status when a pull request merges, must be configured by the project owner. Automation can reduce manual updates, but teams still need clear ownership for the business data that automation cannot infer. Which fields would you need to trust before using this view to make a delivery decision?
         </aside>
       </div>
     </section>
@@ -445,7 +445,7 @@ graph LR
         </ul>
 
         <aside class="speaker-notes">
-          Code review spreads knowledge so that no single person is the only one who understands a given area. It can catch bugs, security issues, and design concerns that automated checks miss. The conversation creates a written record of decisions and trade-offs. Copilot code review can add another source of feedback when requested or configured, but GitHub recommends validating its feedback and supplementing it with human review. Ask learners where judgment, accountability, or business context makes a human reviewer essential.
+          Code review spreads knowledge so that no single person is the only one who understands a given area. It can catch bugs, security issues, and design concerns that automated checks miss. The conversation creates a written record of decisions and trade-offs. Copilot code review can add another source of feedback when requested or configured, but GitHub recommends validating its feedback and supplementing it with human review. Where would judgment, accountability, or business context make a human reviewer essential in your team?
         </aside>
       </div>
     </section>
@@ -540,7 +540,7 @@ graph LR
         <p><strong>Discuss:</strong> Where could AI remove toil, and where must a person remain accountable?</p>
 
         <aside class="speaker-notes">
-          GitHub Copilot works across the platform, not only inside the code editor. Code suggestions and Chat assist people as they work. Agent mode performs multi-step tasks locally in a developer's environment. Copilot cloud agent is distinct: it works asynchronously in a GitHub Actions-powered environment and can research a repository, create a plan, change a branch, and optionally open a pull request. Copilot code review provides feedback when requested, or automatically when configured, and its output still requires human validation. Copilot CLI is a broader terminal agent that can answer questions, edit files, run approved tools, and create pull requests. Access is shaped by plan, administrator policy, budgets, and AI Credits. Focus the discussion on useful delegation, review, and accountability.
+          GitHub Copilot works across the platform, not only inside the code editor. Code suggestions and Chat assist people as they work. Agent mode performs multi-step tasks locally in a developer's environment. Copilot cloud agent is distinct: it works asynchronously in a GitHub Actions-powered environment and can research a repository, create a plan, change a branch, and optionally open a pull request. Copilot code review provides feedback when requested, or automatically when configured, and its output still requires human validation. Copilot CLI offers a terminal-based way to delegate work. Permission settings determine which agent actions need your approval; assisted permissions can allow evaluated requests to proceed without a separate prompt. Permission to act is not approval of the result. Access is shaped by plan, administrator policy, budgets, and AI Credits. What would you delegate, and what would you still need to review yourself?
         </aside>
       </div>
     </section>
@@ -553,7 +553,7 @@ graph LR
         <span class="badge">Part 8</span>
         <h2>Enterprise Controls</h2>
         <aside class="speaker-notes">
-          For organizations that need governance, compliance, and administrative oversight, GitHub Enterprise provides a robust control plane.
+          For organizations that need governance, compliance, and administrative oversight, GitHub Enterprise Cloud provides a control plane for access, policy, and audit evidence. The available identity setup depends on the type of enterprise your organization uses.
         </aside>
       </div>
     </section>
@@ -566,15 +566,15 @@ graph LR
         <h2>Governance and Compliance</h2>
         <ul>
           <li><strong>Audit log</strong> records defined enterprise, organization, repository, and user events</li>
-          <li><strong>SAML SSO &amp; SCIM</strong> integrate with your identity provider for centralized authentication and provisioning</li>
-          <li><strong>Repository policies</strong> enforce naming conventions, visibility rules, and default branch settings</li>
+          <li><strong>Identity integration</strong> can use SAML SSO and SCIM for authentication and provisioning, depending on enterprise type and provider configuration</li>
+          <li><strong>Repository policies (public preview)</strong> can restrict naming, visibility, and repository creation, deletion, or transfer</li>
           <li><strong>IP allow lists</strong> restrict supported access paths to protected enterprise resources</li>
           <li><strong>Usage and license metrics</strong> show seat allocation, adoption, usage, and selected Copilot outcomes</li>
         </ul>
         <p><strong>Discuss:</strong> What evidence would leadership need before expanding GitHub or Copilot?</p>
 
         <aside class="speaker-notes">
-          GitHub Enterprise gives administrators controls for access, policy, monitoring, and compliance. The audit log records defined events such as repository creation, permission changes, and policy updates. It supports search, export, APIs, and streaming, but it does not record every workflow step. SAML single sign-on and SCIM provisioning integrate access with identity providers such as Microsoft Entra ID or Okta. Repository policies and rulesets establish organizational standards. IP allow lists restrict supported authenticated access paths to protected resources, but anonymous access to public resources and some application scenarios are outside their scope. Usage and license reporting can show allocation, adoption, and selected Copilot outcomes.
+          GitHub Enterprise Cloud gives administrators controls for access, policy, monitoring, and compliance. The audit log records defined events such as repository creation, permission changes, and policy updates. It supports search, export, APIs, and streaming, but it does not record every workflow step. Authentication and provisioning options depend on whether your enterprise uses personal accounts or managed users, and on its identity-provider configuration. Your administrators choose the supported setup; SAML and SCIM are not one identical recipe for every enterprise. Repository policies, currently in public preview, can restrict repository naming, visibility, creation, deletion, and transfer. Default-branch naming is a separate management policy, while rulesets govern changes to protected branches. Copilot administrators can set defaults for eligible new generally available features, while explicit feature choices are preserved and previews remain opt-in. IP allow lists restrict supported authenticated access paths to protected resources, but anonymous access to public resources and some application scenarios are outside their scope. Usage and license reporting can show allocation, adoption, and selected Copilot outcomes.
         </aside>
       </div>
     </section>
@@ -604,7 +604,7 @@ graph LR
           <li><strong>3. Review:</strong> People review the change with Copilot feedback as another signal; configured rules require selected approvals and checks</li>
           <li><strong>4. Secure:</strong> Enabled security tools analyze code, dependencies, and supported secret patterns; Copilot can explain findings and suggest fixes</li>
           <li><strong>5. Deploy:</strong> Configured Actions workflows promote the change through protected environments; Copilot can help understand workflows and diagnose failures</li>
-          <li><strong>6. Govern:</strong> Defined events are audited and planning records update; Copilot can help interpret policies and usage where enabled</li>
+          <li><strong>6. Govern:</strong> People monitor defined audit events and authorized usage reports; configured workflows update planning records</li>
         </ul>
 
         <pre class="mermaid">
@@ -613,11 +613,11 @@ graph LR
   B --> C["3. Review<br/>Copilot: summarize and suggest"]
   C --> D["4. Secure<br/>Copilot: explain and fix"]
   D --> E["5. Deploy<br/>Copilot: understand and diagnose"]
-  E --> F["6. Govern<br/>Copilot: interpret and report"]
+  E --> F["6. Govern<br/>People: monitor and govern"]
   F --> A
         </pre>
         <aside class="speaker-notes">
-          This is the "One for All" moment: seeing how the capabilities can work together as a connected system, with Copilot assisting throughout the software lifecycle. Copilot can help clarify an Issue, explain a repository, plan or implement a change, summarize a pull request, and suggest fixes, but people still review its output. Security scanners and configured checks provide independent signals. After approval and merge, Actions workflows can deploy through protected environments, while Copilot can help explain workflow failures or next steps. Supported closing keywords can close the Issue after a merge into the default branch, and configured Project workflows can update planning records. Defined events appear in the audit log. Teams still choose the policies, automation, ownership, and human decisions that make this agentic workflow trustworthy.
+          This is the "One for All" moment: seeing how the capabilities can work together as a connected system, with Copilot assisting throughout the software lifecycle. Copilot can help clarify an Issue, explain a repository, plan or implement a change, summarize a pull request, and suggest fixes, but people still review its output. Security scanners and configured checks provide independent signals. After approval and merge, Actions workflows can deploy through protected environments, while Copilot can help explain workflow failures or next steps. Supported closing keywords can close the Issue after a merge into the default branch, and configured Project workflows can update planning records. Defined events appear in the audit log, and authorized people use audit and usage tools to monitor the system. Copilot may help explain context you supply where policy permits, but it does not automatically gain access to enterprise reports or replace authoritative evidence. Teams still choose the policies, automation, ownership, and human decisions that make this agentic workflow trustworthy.
         </aside>
       </div>
     </section>

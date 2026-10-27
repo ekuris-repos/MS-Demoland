@@ -18,7 +18,7 @@
         <h1>Review Me, Review Me Not, Review Me</h1>
         <p class="subtitle">Prepare locally. Delegate deliberately. Validate in the cloud.</p>
         <aside class="speaker-notes">
-          This course is about the complete agentic delivery loop, not a catalog of review products. Learners will begin with an ambiguous task, improve the repository and task for autonomous execution, hand a plan from VS Code to Copilot cloud agent, and use GitHub security as a feedback system. The final decision remains with a human reviewer.
+          We're following a complete delivery loop, not touring a catalog of review products. We'll turn an ambiguous task into a bounded plan, prepare the repository for autonomous work, and delegate from VS Code to Copilot cloud agent. Security findings will give us another source of feedback, but a human still owns the merge decision.
         </aside>
       </div>
     </section>
@@ -40,7 +40,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          Present this as one continuous scenario. The challenge is not simply to make the agent produce code. It is to preserve intent and control while execution moves between local and cloud environments. Ask learners which part of the starting state would create the most expensive failure in their own repositories.
+          Getting code from the agent is only part of our challenge. We also need to preserve intent and control as execution moves between our machine and the cloud. Which gap in this starting state would create the most expensive failure in your repository: unclear scope, missing tests, or an undefined security boundary?
         </aside>
       </div>
     </section>
@@ -54,11 +54,11 @@
           <li>Optimize a repository and task before delegation</li>
           <li>Transfer a local plan into a cloud agent session</li>
           <li>Supervise cloud execution without micromanaging it</li>
-          <li>Route CodeQL findings into agentic remediation</li>
+          <li>Fix PR findings in place and delegate eligible default-branch alerts</li>
           <li>Return work to local validation and human-controlled merge</li>
         </ul>
         <aside class="speaker-notes">
-          These are operational outcomes. The learner should leave with a repeatable decision model and a durable handoff artifact, not merely familiarity with buttons. The lab tests the first, second, third, fifth, and sixth outcomes directly.
+          The goal is a repeatable decision model, not memorizing buttons. You'll know what another agent needs before it starts and which evidence you need before accepting its work. We'll distinguish a new finding on our PR from an existing default-branch alert because those findings have different remediation entry points.
         </aside>
       </div>
     </section>
@@ -77,7 +77,7 @@ graph LR
   F --> G[Return or merge]
         </pre>
         <aside class="speaker-notes">
-          This loop is the agenda and the central mental model. Review and security are not separate after-the-fact products. They are feedback mechanisms that can create another agent session or return the work to a developer. Point out that the loop can run more than once before merge.
+          Here's the loop we'll follow. Review and security can send us back for another iteration rather than simply marking the end of implementation. We might continue with the cloud agent or return to local debugging. Either way, we keep the acceptance criteria and review record connected until the change is ready.
         </aside>
       </div>
     </section>
@@ -97,18 +97,19 @@ graph LR
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>One Job, Three Execution Surfaces</h2>
+        <p>A conceptual execution model, not an exhaustive list of VS Code session targets.</p>
         <table>
           <thead>
             <tr><th>Surface</th><th>Best Fit</th><th>Context</th><th>Interaction</th></tr>
           </thead>
           <tbody>
-            <tr><td>Local agent</td><td>Ambiguous exploration</td><td>Workspace and local tools</td><td>Synchronous</td></tr>
-            <tr><td>Background agent</td><td>Isolated implementation</td><td>Local machine or worktree</td><td>Asynchronous</td></tr>
+            <tr><td>Interactive local work</td><td>Ambiguous exploration</td><td>Workspace and local tools</td><td>Interactive</td></tr>
+            <tr><td>Background local work</td><td>Isolated implementation</td><td>Local machine or worktree</td><td>Asynchronous</td></tr>
             <tr><td>Cloud agent</td><td>Bounded repository task</td><td>GitHub and configured cloud tools</td><td>Asynchronous</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          Emphasize that agent type describes where execution happens and which context is available. The cloud agent works in a GitHub Actions-powered ephemeral environment. It cannot see arbitrary local terminal state, unsaved files, or local-only services. This distinction controls the rest of the course.
+          These rows describe where and how work happens. In current VS Code, a harness controls tools and behavior, while Cloud is an execution target. Both the Copilot and Local harnesses can run on your machine, so the labels aren't interchangeable. Copilot cloud agent runs in an Actions-powered ephemeral environment and cannot see arbitrary local terminal state, unsaved files, or local-only services.
         </aside>
       </div>
     </section>
@@ -129,7 +130,7 @@ graph LR
         </div>
         <p><strong>Decision rule:</strong> delegate execution only after uncertainty has been reduced enough for asynchronous work.</p>
         <aside class="speaker-notes">
-          Avoid framing cloud work as the destination for every task. A cloud agent is strongest when it can independently determine whether it is done. If the developer expects to answer questions every two minutes, the task is not ready for asynchronous execution.
+          Cloud execution isn't the destination for every task. It's useful when the agent has enough context to check whether the work is done. If you expect to answer a design question every two minutes, staying interactive will probably give you a shorter feedback loop.
         </aside>
       </div>
     </section>
@@ -143,15 +144,15 @@ graph LR
             <tr><th>Travels</th><th>Does Not Automatically Travel</th></tr>
           </thead>
           <tbody>
-            <tr><td>Transferred chat history</td><td>Unsaved editor content</td></tr>
+            <tr><td>Chat history through a supported handoff</td><td>Unsaved editor content</td></tr>
             <tr><td>Committed repository files</td><td>Transient terminal output</td></tr>
             <tr><td>Repository instructions</td><td>Local-only services and credentials</td></tr>
-            <tr><td>Configured MCP context</td><td>Unconfigured local tools</td></tr>
+            <tr><td>Cloud-configured MCP tools</td><td>Unconfigured local tools</td></tr>
             <tr><td>Issue and pull request context</td><td>Assumptions held only by the developer</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          The cloud boundary is the reason a handoff artifact matters. Transferring a conversation helps, but it does not make local runtime state available remotely. Durable context belongs in version-controlled files, an issue, or a clearly structured handoff packet.
+          The cloud boundary is why our handoff artifact matters. A supported conversation handoff carries history, but attaching a saved plan to a new session shares that plan, not the entire conversation. Neither transfers local runtime state. Repository files must be available on the target branch, and external tools need their own cloud configuration.
         </aside>
       </div>
     </section>
@@ -162,7 +163,7 @@ graph LR
         <span class="badge badge--green">2. Optimize</span>
         <h2>Prepare Before You Delegate</h2>
         <aside class="speaker-notes">
-          This is the core section requested for the redesign. Optimization means reducing setup discovery, ambiguity, and validation cost before a billable cloud session begins.
+          Before we delegate, we can remove work the agent would otherwise have to rediscover. A predictable setup and a clear completion check reduce both uncertainty and wasted execution time. Let's make the repository easier to work in, not just make the prompt longer.
         </aside>
       </div>
     </section>
@@ -184,7 +185,7 @@ graph LR
           <li>Keep the change within one repository, branch, and pull request</li>
         </ul>
         <aside class="speaker-notes">
-          Optimization is not prompt polishing alone. It is repository engineering. A lock file, a fast test, and a stable setup command often improve results more than another paragraph of instructions. Smaller tasks also reduce AI Credit and Actions-minute consumption.
+          Optimization is not prompt polishing alone. It is repository engineering. A lockfile, a fast test, and a stable setup command often improve results more than another paragraph of instructions. Smaller tasks can reduce retries and AI credit usage, along with billed runner time when GitHub-hosted runners are used.
         </aside>
       </div>
     </section>
@@ -203,7 +204,7 @@ graph LR
           <li>Can the task complete within the cloud session limit?</li>
         </ul>
         <aside class="speaker-notes">
-          Learners create a repository-readiness audit at this point. The hard session maximum is 59 minutes, so a task that cannot set up and validate within that window must be reduced or prepared differently. A failed setup step does not stop the agent from starting, which makes explicit verification especially important.
+          Imagine cloning this repository onto a fresh runner. Which command would fail first, and how would you know? The session maximum is 59 minutes, so setup and validation need to fit inside that window. If a setup step fails, the remaining setup steps are skipped and the agent still starts with the environment it has. We need evidence that preparation actually succeeded.
         </aside>
       </div>
     </section>
@@ -232,7 +233,7 @@ jobs:
       - run: npm ci
       - run: npm test</code></pre>
         <aside class="speaker-notes">
-          The file must be located at .github/workflows/copilot-setup-steps.yml on the default branch, and the job must be named copilot-setup-steps. Use least-privilege permissions. Replace the sample runtime and commands with those required by the demo repository. Validate the workflow through Actions before relying on it in an agent session.
+          This example belongs in .github/workflows/copilot-setup-steps.yml on the default branch, with a single job named copilot-setup-steps. The read-only contents permission is enough for checkout; the agent receives its own credentials separately. npm ci needs a consistent committed lockfile, and npm test needs a real test script. Caching npm downloads doesn't install dependencies. We would run this workflow through Actions before trusting it in a session, using the runtime and commands our repository actually requires.
         </aside>
       </div>
     </section>
@@ -246,15 +247,15 @@ jobs:
             <tr><th>Artifact</th><th>Purpose</th><th>Good Content</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>copilot-instructions.md</code></td><td>Repository-wide standards</td><td>Build, test, architecture, security</td></tr>
-            <tr><td>Path-specific instructions</td><td>Scoped conventions</td><td>API, UI, test, or documentation rules</td></tr>
+            <tr><td><code>.github/copilot-instructions.md</code></td><td>Repository-wide standards</td><td>Build, test, architecture, security</td></tr>
+            <tr><td>Path-specific <code>*.instructions.md</code></td><td>Scoped conventions</td><td>API, UI, test, or documentation rules</td></tr>
             <tr><td><code>AGENTS.md</code></td><td>Agent-facing operational context</td><td>Commands, boundaries, workflow</td></tr>
             <tr><td>Agent skills</td><td>Reusable specialist workflow</td><td>Scripts, references, repeatable procedures</td></tr>
             <tr><td>MCP configuration</td><td>External context and tools</td><td>Only the access required for the task</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          Avoid copying the same rule into every layer. Repository instructions should be short, universal, and actionable. Path-specific files narrow behavior where necessary. Skills package repeatable workflows. MCP expands the trust boundary and should be enabled deliberately.
+          Each layer has a different job. Our universal rules belong in .github/copilot-instructions.md; scoped rules belong in .github/instructions/NAME.instructions.md with an applyTo pattern. Duplicating the same rule in both places creates a maintenance problem. Skills package reusable procedures, while MCP gives access to external tools. We need to check support and permissions at the destination rather than assume our local configuration travels.
         </aside>
       </div>
     </section>
@@ -266,7 +267,7 @@ jobs:
         <div class="columns">
           <div class="card">
             <h3>Permit Deliberately</h3>
-            <p>Required package registries, least-privilege agent variables, approved MCP servers, and isolated runners.</p>
+            <p>Required package registries, least-privilege Agents secrets and variables, approved MCP tools, and isolated runners.</p>
           </div>
           <div class="card">
             <h3>Assume Nothing</h3>
@@ -275,11 +276,11 @@ jobs:
         </div>
         <ul>
           <li>Never expose production credentials to a learning repository</li>
-          <li>Treat content exclusions as inapplicable to cloud agent execution</li>
+          <li>Do not rely on content exclusions as an execution security boundary</li>
           <li>Use ephemeral, single-use infrastructure for self-hosted runners</li>
         </ul>
         <aside class="speaker-notes">
-          This slide prevents a common misconception: the agent firewall is a useful control, not a complete security boundary. GitHub documents that it applies to processes started through the agent's Bash tool inside the Actions appliance. Setup steps and MCP servers require their own controls.
+          The firewall is useful, but it isn't a complete security boundary. GitHub documents that it applies to processes started through the agent's Bash tool inside the Actions appliance, not directly to setup steps or MCP server processes. Configured MCP tools can run without individual approval prompts. We therefore need separate controls for those tools, narrowly scoped Agents credentials, and no production secrets in this learning environment.
         </aside>
       </div>
     </section>
@@ -305,7 +306,7 @@ Exact build, test, lint, and scan commands.
 ## Constraints and non-goals
 Security boundaries and work explicitly excluded.</code></pre>
         <aside class="speaker-notes">
-          The handoff packet can live in an issue, a planning document, or the transferred conversation. The lab stores it in docs/handoff.md so it can be validated before delegation. Ask learners to remove any requirement that cannot be objectively checked or resolved from available repository context.
+          Our handoff packet can live in an issue, a committed planning document, or a supported conversation handoff. A file such as docs/handoff.md gives us something durable to review before delegation. If a requirement cannot be checked objectively or resolved from available context, we need to clarify it now rather than leave the cloud agent to guess.
         </aside>
       </div>
     </section>
@@ -337,7 +338,7 @@ sequenceDiagram
   P-->>D: Final plan and checks
         </pre>
         <aside class="speaker-notes">
-          A local Plan agent can inspect the current workspace and ask for clarification before implementation begins. The learner should challenge assumptions, request file-level specificity, and ensure the plan names validation commands. Planning is complete when another agent can execute without relying on unstated decisions.
+          We can use the Plan agent to inspect the workspace and surface decisions before implementation. In a Copilot harness session, /plan starts that workflow. A useful plan names the affected files and the commands that will prove success. Before approving it, we can challenge assumptions and resolve anything another agent would otherwise have to guess.
         </aside>
       </div>
     </section>
@@ -349,14 +350,14 @@ sequenceDiagram
         <h2>Continue in the Cloud</h2>
         <ol>
           <li>Review the local plan and save durable repository context</li>
-          <li>Select <strong>Continue in Cloud</strong> from the Plan agent implementation control</li>
-          <li>Choose Copilot cloud agent, the appropriate model, and any custom agent</li>
-          <li>Confirm the target repository and branch context</li>
+          <li>Check the active harness and available handoff controls</li>
+          <li>In a Copilot harness session, use <code>/delegate</code> for a bounded cloud handoff</li>
+          <li>Confirm repository access, branch context, and available agent/model choices</li>
           <li>Let the session run asynchronously</li>
         </ol>
-        <p>Alternative paths: switch the active session type to Cloud, or use <code>/delegate</code> from a background agent session.</p>
+        <p><strong>Alternatives:</strong> Local Plan's <strong>Start Implementation</strong> dropdown offers supported <strong>Continue in</strong> destinations. For a new session, select <strong>Session Target → Cloud</strong> and attach the saved plan.</p>
         <aside class="speaker-notes">
-          Current VS Code supports transferring the full local chat context into a cloud session. Point out that this transfers conversation context, not local runtime state. Deep research, planning, and iteration before pull-request creation are available in the GitHub.com cloud-agent experience; some integrations create a pull request directly.
+          The controls depend on our harness and installed VS Code version. Copilot Plan has review and approval actions; the Local harness has a Start Implementation dropdown with available Continue in destinations. A supported handoff carries conversation context, while a new Cloud session with an attached plan receives that artifact rather than the whole conversation. Before starting, we need a GitHub repository, permitted cloud-agent access, durable branch content, and cloud-configured tools. Some entry points create a PR immediately, so supervision starts before we mark anything ready for review.
         </aside>
       </div>
     </section>
@@ -371,10 +372,10 @@ sequenceDiagram
           <li>Inspect commits and changed files for scope drift</li>
           <li>Confirm which build, test, and lint commands actually ran</li>
           <li>Use follow-up instructions when evidence contradicts the goal</li>
-          <li>Create the pull request only when the session is ready for review</li>
+          <li>Approve workflow runs when required; mark the PR ready only after checking evidence</li>
         </ul>
         <aside class="speaker-notes">
-          Supervision should be evidence-driven. Avoid prescribing every edit after delegation. Instead, compare the agent's observable work to the handoff packet. Cloud sessions are visible in VS Code when they originate from GitHub issues or pull requests, which gives the developer a unified place to monitor them.
+          We can supervise without prescribing every edit by comparing the session's evidence with our handoff packet. By default, workflows on a cloud-agent PR wait for a write-access person to select Approve and run workflows, unless automatic running is configured. A missing check may mean approval is pending, not that tests passed. The agent cannot mark its PR ready for review, approve it, or merge it; those decisions stay with people.
         </aside>
       </div>
     </section>
@@ -396,7 +397,7 @@ sequenceDiagram
           </tbody>
         </table>
         <aside class="speaker-notes">
-          Do not compensate for a broken repository with a longer prompt. Fix environment failures in environment configuration, context failures in durable instructions, and planning failures in task scope. This makes the next session better as well as the current one.
+          A longer prompt won't repair a broken dependency setup. We get a more durable improvement by fixing each failure where it starts: environment configuration, repository guidance, or task scope. A focused follow-up is enough for a small implementation mistake, but a fundamentally wrong plan is a reason to return local and rethink it.
         </aside>
       </div>
     </section>
@@ -407,7 +408,7 @@ sequenceDiagram
         <span class="badge badge--green">4. Secure</span>
         <h2>Turn Findings into Agent Work</h2>
         <aside class="speaker-notes">
-          Security now becomes another structured handoff. CodeQL detects and explains a data-flow or control-flow problem. Copilot cloud agent can receive that finding as the task context and attempt a validated remediation.
+          Security findings give us a new task, but the alert's location changes the handoff. A finding introduced on our PR needs a fix on that PR. An eligible existing default-branch alert can instead be assigned to agentic autofix for a separate remediation PR. In either case, we need fresh analysis and tests rather than a promise that the fix worked.
         </aside>
       </div>
     </section>
@@ -416,19 +417,19 @@ sequenceDiagram
     <section class="slide slide--content">
       <div class="slide-inner">
         <span class="badge badge--purple">Lab Checkpoint</span>
-        <h2>From Pull Request to Security Agent</h2>
+        <h2>Route the Finding by Branch</h2>
         <pre class="mermaid">
 graph LR
-  A[Cloud agent PR] --> B[CodeQL scan]
-  B --> C{Alert?}
-  C -->|No| D[Review gates]
-  C -->|Yes| E[Assign to Copilot]
-  E --> F[Agentic remediation]
-  F --> G[Rerun analysis]
+  A[PR-only alert] --> B[Fix same PR]
+  B --> C[Rerun checks]
+  C --> D[Human review]
+  E[Default-branch alert] --> F[Assign to Copilot]
+  F --> G[Best-effort validation]
   G --> H[Draft fix PR]
+  H --> D
         </pre>
         <aside class="speaker-notes">
-          This is the central cloud-security interface. The original implementation session and the security remediation session are distinct. Agentic Autofix can also begin from an alert backlog or a security campaign, where between one and 25 selected alerts can be assigned together.
+          Here's the important fork. Agentic autofix can receive default-branch alerts, but alerts detected only on a PR or another branch cannot be assigned to it. We fix new PR findings manually or with a bounded cloud-agent follow-up on that same PR, then rerun the checks. We never merge vulnerable code just to make an alert eligible. For an existing default-branch backlog or campaign, we can assign up to 25 eligible alerts together and review the resulting fix PR.
         </aside>
       </div>
     </section>
@@ -444,13 +445,13 @@ graph LR
           <tbody>
             <tr><td>CodeQL</td><td>Deterministic static analysis</td><td>Alert and data-flow evidence</td></tr>
             <tr><td>Copilot Autofix</td><td>One-step suggested correction</td><td>Proposed fix</td></tr>
-            <tr><td>Agentic Autofix</td><td>Cloud-agent remediation loop</td><td>Validated draft pull request</td></tr>
+            <tr><td>Agentic autofix</td><td>Default-branch alert remediation</td><td>Draft PR with best-effort validation</td></tr>
             <tr><td>Copilot code review</td><td>Contextual pull-request review</td><td>Review comments</td></tr>
-            <tr><td>Code Quality</td><td>Quality, coverage, and debt controls</td><td>Findings and merge gates</td></tr>
+            <tr><td>GitHub Code Quality</td><td>Quality, coverage, and debt controls</td><td>Configured findings and merge gates</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          Use the phrase CodeQL and security agents, not CodeQL agent, when precision matters. CodeQL itself is the analysis engine. Agentic Autofix uses Copilot cloud agent to explore relevant files, implement a fix, and rerun the original analysis.
+          CodeQL is the analysis engine, not an autonomous agent. By default, cloud agent also attempts its own CodeQL, dependency, and secret checks plus a Copilot review second opinion; those built-in checks don't require separate security licensing and can be configured. They aren't a substitute for repository code-scanning setup or required checks. Agentic autofix is a separate alert-remediation workflow, and its ability to confirm a fix depends on the query and analyzer involved.
         </aside>
       </div>
     </section>
@@ -460,16 +461,16 @@ graph LR
       <div class="slide-inner">
         <h2>What Agentic Autofix Actually Does</h2>
         <ol>
-          <li>Receives one or more code-scanning alerts as task context</li>
+          <li>Receives up to 25 eligible default-branch alerts as task context</li>
           <li>Explores relevant files across the repository</li>
           <li>Generates a repository-aware correction</li>
-          <li>Reruns CodeQL or the original analysis</li>
+          <li>Attempts validation by rerunning CodeQL with its code-scanning query suite</li>
           <li>Iterates when the result still fails</li>
-          <li>Opens a draft pull request with validation evidence</li>
+          <li>Opens a draft pull request recording validation results and limitations</li>
         </ol>
-        <p><strong>Availability:</strong> public preview; requires cloud agent, Copilot Autofix, and eligible GitHub security licensing.</p>
+        <p><strong>Generally available since October 15, 2026.</strong> Check repository eligibility, administrator enablement, and billing before assignment.</p>
         <aside class="speaker-notes">
-          As of July 2026, agentic Autofix supports first-party and third-party code-scanning alerts. Typical fix generation is measured in minutes, not seconds. It consumes AI Credits and GitHub Actions minutes. Do not claim that it always fixes an alert successfully.
+          Agentic autofix and Copilot Autofix have separate access controls; enabling one is not a universal prerequisite for the other. Current documentation says agentic autofix doesn't require a Copilot license, but repository eligibility, higher-level policy, and a billing method still matter. Organizations that used the preview must enable it again. Usage consumes Code Security AI credits and runner-dependent Actions minutes. Validation is best effort: it cannot confirm fixes for custom CodeQL queries, security-extended, or third-party-tool alerts. Those cases need separate original-tool analysis; a draft PR is not proof of success.
         </aside>
       </div>
     </section>
@@ -479,7 +480,7 @@ graph LR
       <div class="slide-inner">
         <h2>Trust the Evidence, Then Review the Code</h2>
         <ul>
-          <li>Confirm the original alert is absent from the rerun</li>
+          <li>Rerun the relevant analyzer and confirm the original alert is absent</li>
           <li>Inspect the complete data flow, not only the reported line</li>
           <li>Run functional and regression tests</li>
           <li>Check for behavior changes introduced by sanitization or validation</li>
@@ -488,7 +489,7 @@ graph LR
         </ul>
         <p>Validation is best effort. An unresolved or unverifiable result must remain visible to the reviewer.</p>
         <aside class="speaker-notes">
-          Closing the CodeQL alert proves that the original query no longer detects the path. It does not prove complete application correctness. Human review should consider bypasses, alternate paths, functional regressions, and whether the remediation changed the intended behavior.
+          A successful rerun tells us that the same analysis no longer detects the original path. It doesn't prove complete application correctness, and dismissing an alert is not the same evidence as fixing it. For an unsupported validation case, we need to run the original tool separately and keep any unconfirmed result visible. Our review still needs to consider alternate paths, regressions, and changes to intended behavior.
         </aside>
       </div>
     </section>
@@ -516,13 +517,13 @@ graph LR
           <tbody>
             <tr><td>Tests and lint</td><td>Does the change behave as intended?</td><td>Required checks</td></tr>
             <tr><td>Code scanning</td><td>Did it introduce a known security path?</td><td>Severity threshold</td></tr>
-            <tr><td>Code Quality</td><td>Did quality or coverage regress?</td><td>Quality threshold</td></tr>
+            <tr><td>Code Quality, if enabled</td><td>Did quality or coverage regress?</td><td>Configured quality/coverage rules</td></tr>
             <tr><td>Copilot review</td><td>What contextual concerns remain?</td><td>Review comments</td></tr>
-            <tr><td>Human review</td><td>Should this change enter the product?</td><td>Required approval</td></tr>
+            <tr><td>Human review</td><td>Should this change enter the product?</td><td>Independent required approval</td></tr>
           </tbody>
         </table>
         <aside class="speaker-notes">
-          Rulesets can require code-scanning results and define thresholds such as critical, high or higher, medium or higher, or all. Code Quality rulesets can enforce quality and coverage criteria. Copilot code review provides comments, while required human approval remains the accountable merge decision.
+          Required tests and lint are our baseline. Code-scanning rules can then enforce severity thresholds. GitHub Code Quality needs its own licensing and enablement; coverage checks need an uploaded Cobertura XML report, not just a test run. Its PR findings are rules-based, while Copilot review adds contextual comments rather than an approval. The person who requested the agent-created PR cannot approve it, so we need another reviewer. Additional approval can apply to unattributed agent PRs. We check the repository's actual rules instead of bypassing them to finish.
         </aside>
       </div>
     </section>
@@ -542,7 +543,7 @@ graph LR
   G --> B
         </pre>
         <aside class="speaker-notes">
-          A return handoff is not a failure. Local debugging is appropriate when the task needs interactive inspection, unavailable hardware, private test environments, or rapid experimentation. Preserve the same pull request when possible so the review and security record stays coherent.
+          Returning local isn't a failure. We may need interactive inspection, unavailable hardware, or a private test environment to resolve the remaining gap. Keeping the same PR where possible preserves its review and security history. After pushing a correction, we wait for fresh checks and any required reapproval rather than treating earlier evidence as current.
         </aside>
       </div>
     </section>
@@ -553,14 +554,14 @@ graph LR
         <h2>Operate the Loop Deliberately</h2>
         <ul>
           <li>One cloud session changes one repository and one branch</li>
-          <li>One task produces exactly one pull request</li>
+          <li>A task can open at most one new PR; it may update an existing PR or open none</li>
           <li>Sessions have a maximum execution time of 59 minutes</li>
-          <li>Cloud agent and code review consume AI Credits and Actions minutes</li>
+          <li>Check product-specific AI credit budgets and runner-dependent Actions costs</li>
           <li>Repository rules must permit agent branch operations without bypassing final approval</li>
           <li>Measure merged outcomes, review cycles, time to merge, and remediation quality</li>
         </ul>
         <aside class="speaker-notes">
-          End with operating discipline. Cost is shaped by model choice, token use, setup time, validation work, and repeated sessions. GitHub provides usage metrics for cloud-agent pull-request outcomes. Teams should track whether delegation improves throughput and quality rather than counting sessions alone.
+          A bounded task still needs operating discipline. Model choice, retries, setup, and validation all affect cost. GitHub-hosted runner time can be billed, while self-hosted runners don't consume Actions minutes; code review can also fall back without its agentic capabilities. Agentic autofix uses Code Security AI credits, and Code Quality has its own licensing and usage model. We measure merged outcomes and remediation quality rather than counting sessions as success.
         </aside>
       </div>
     </section>
@@ -573,7 +574,7 @@ graph LR
         <h1>Delegate Execution, Keep Accountability</h1>
         <p class="subtitle">Prepare, hand off, inspect, secure, and decide.</p>
         <aside class="speaker-notes">
-          Recap the completed loop. The learner chose an execution surface, optimized the repository, built a handoff packet, delegated a local plan, inspected cloud evidence, used CodeQL as a security feedback source, and preserved human approval. The durable takeaway is that successful cloud-agent work begins before delegation.
+          We've connected preparation, delegation, security feedback, and human control. New PR findings stay in the PR correction loop; eligible default-branch findings can enter agentic autofix. Neither a generated fix nor a clean scan removes our responsibility to test and review the change. The most useful work often happens before delegation: making intent durable and success observable.
         </aside>
       </div>
     </section>

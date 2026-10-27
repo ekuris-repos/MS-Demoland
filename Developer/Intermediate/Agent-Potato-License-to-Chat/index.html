@@ -20,7 +20,7 @@
         <h1>Full AI Stack - Agent Potato: License to Chat</h1>
         <p class="subtitle">Follow Agent Potato on a mission to build a complete feature across a React frontend and Express backend, from first prompt to passing tests, all in one session</p>
         <aside class="speaker-notes">
-          Welcome to "Agent Potato: License to Chat." This course picks up where the beginner track left off. If you've taken "The Copilot Awakens" and "Prompts, Instructions, Skills, and Agents," you already know what agent mode is and how the customization primitives work. Today we're putting all of that into practice. You'll use agent mode to develop a real feature across a full-stack codebase: React on the front end, Express and SQLite on the back end, with tests, linting, and iterative refinement. The goal isn't to type as little as possible. The goal is to learn how to steer agent mode so the output is production-quality code you'd actually ship. Let's get started.
+          Welcome to "Agent Potato: License to Chat." We're putting the beginner track's agent and customization ideas into practice through an inventory-report scenario. The intended stack is React, Express, and SQLite. There is an important limitation: the original sample repository could not be verified, so this deck is not a verified runnable walkthrough. Before implementing, we need an accessible, approved project and must confirm its actual conventions. Until then, we can practice the planning and review decisions without pretending the application has run. The goal is to steer, validate, and review a complete feature, not simply generate more code.
         </aside>
       </div>
     </section>
@@ -54,23 +54,23 @@
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Mission Briefing</h2>
-        <p>You have been dropped into an unfamiliar full-stack codebase (React frontend + Express backend). A feature request ticket is waiting for you. Using only Copilot Agent Mode, you must deliver a working feature: a new API endpoint, a React component that consumes it, and passing tests. No manual file browsing. No copy-pasting from docs. Agent mode is your only tool.</p>
+        <p>Plan an inventory-report feature across a React frontend and Express backend. Implementation requires an accessible, approved project; the original sample repository is currently unverified. Discover actual files and commands before making changes.</p>
         <h3>Deliverables</h3>
         <ul>
           <li>A new <code>GET /api/reports/inventory</code> endpoint that returns current stock levels grouped by category</li>
-          <li>A React component at <code>frontend/src/pages/InventoryReport.tsx</code> that fetches and displays the data</li>
-          <li>Vitest tests for both the API route and the component</li>
+          <li>A React inventory-report page using the project's actual component, routing, and data-fetching conventions</li>
+          <li>API and component tests using the installed test runner; use Vitest only if the project uses it</li>
         </ul>
         <h3>Constraint</h3>
-        <p>Agent Mode only. No manual file browsing. No copy-pasting from documentation.</p>
+        <p>Agent-led discovery and implementation. Ask and Plan are allowed. Human source, diff, command, and official-documentation review are always allowed.</p>
         <h3>Success Criteria</h3>
         <ul>
-          <li>The endpoint returns data when called with <code>curl</code> or the browser</li>
-          <li>The React component renders the inventory report in the UI</li>
-          <li>All tests pass when you run <code>make test</code></li>
+          <li>The endpoint matches an agreed category/quantity contract and handles empty data</li>
+          <li>The page renders API data, loading, empty, and error states through a working navigation entry</li>
+          <li>Relevant tests, linting, and an integrated browser check pass using verified project commands</li>
         </ul>
         <aside class="speaker-notes">
-          This is your mission for today. Everything we cover from here forward is a tool you will use to complete this mission. By the end of this session, you should have a working feature that meets all three success criteria. The constraint is important: you are not allowed to manually browse files or paste code from documentation. Agent mode is your only tool. This forces you to develop the prompting and steering skills that make agent mode effective. Take a moment to read the success criteria. These are concrete and measurable. At the end, you will know whether you succeeded. Keep this slide in mind as we work through each section; every concept we cover connects directly to this mission.
+          Our target route is a proposed feature requirement, not a claim that the unavailable sample already contains it. Before coding, we agree what a category means, which quantity is aggregated, and how empty results are represented. For example, a small test fixture can put two products in one category and check the agreed total. We confirm those fields against the real schema rather than inventing them. Agent-led means the agent does the exploration and coding; it does not mean you stop reading diffs or checking documentation. If project access is unavailable, the implementation and runtime success criteria remain blocked.
         </aside>
       </div>
     </section>
@@ -93,25 +93,25 @@
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Meet the Codebase: OctoCAT Supply</h2>
+        <h2>OctoCAT Supply: Verify Before Building</h2>
         <div class="columns">
           <div class="card">
-            <h3>Frontend</h3>
-            <p>React 18 + TypeScript, Vite build, Tailwind CSS, React Query for data fetching, Axios HTTP client</p>
+            <h3>Intended Frontend</h3>
+            <p>React + TypeScript inventory-report page. Discover installed versions, styling, routing, and data-fetching libraries from an accessible project.</p>
           </div>
           <div class="card">
-            <h3>Backend</h3>
-            <p>Express.js + TypeScript, SQLite database, Swagger/OpenAPI docs, Vitest for testing</p>
+            <h3>Intended Backend</h3>
+            <p>Express + SQLite report endpoint. Verify the schema, database driver, route registration, and test environment before implementation.</p>
           </div>
         </div>
         <ul>
-          <li>Full-stack supply chain management demo application</li>
-          <li>Makefile-driven commands: <code>make dev</code>, <code>make test</code>, <code>make build</code></li>
-          <li>Docker Compose for multi-service development</li>
+          <li><strong>UNVERIFIED as of 2026-10-27:</strong> the original <code>msft-common-demos/octocat_supply-ubiquitous-octo-bassoon</code> repository returned 404 publicly</li>
+          <li>Project versions, paths, Make targets, and Docker Compose setup are not confirmed</li>
+          <li>Do not treat this as a working setup guide. Obtain approved project access and pin a revision before the hands-on build.</li>
         </ul>
 
         <aside class="speaker-notes">
-          This is OctoCAT Supply, a full-stack supply chain management application. It has a React frontend with TypeScript, Tailwind, and React Query, and an Express backend with TypeScript, SQLite, and Swagger API docs. The build system uses a Makefile as the entry point. "make dev" starts both servers, "make test" runs all tests, and "make build" produces production bundles. The key point: you probably haven't seen this codebase before. That's deliberate. One of agent mode's strongest capabilities is helping you understand an unfamiliar project. So don't go reading the README just yet. Let agent mode do the reconnaissance for you.
+          The original course used OctoCAT Supply, but its public repository and both common README branch URLs returned 404 during the slide review. That does not prove the project was deleted; it could be private or moved. It does mean we cannot certify its dependencies, directory structure, Makefile, or test behavior. We will not substitute a guessed repository or install a new stack to make the example appear to work. Once approved source is accessible, we pin the revision and ask the agent to read the README, manifests, scripts, and schema, then check those answers against the source ourselves.
         </aside>
       </div>
     </section>
@@ -123,7 +123,7 @@
       <div class="slide-inner">
         <h2>Exploring With Agent Mode</h2>
         <ul>
-          <li>Agent mode automatically indexes your workspace and searches the codebase</li>
+          <li>Agent mode uses available search and file-reading tools; semantic indexing depends on workspace support and exclusions</li>
           <li>Ask broad questions first, then narrow down as you understand the structure</li>
           <li>Agent mode reads files, checks dependencies, and explores directories on its own</li>
         </ul>
@@ -144,7 +144,7 @@ stateDiagram-v2
   Reflect --> [*] : Task complete
         </pre>
         <aside class="speaker-notes">
-          When you land in a new codebase, resist the urge to start clicking through files manually. Instead, open agent mode and start with a broad question like "What does this project do?" Agent mode will use its codebase search tool to scan the project, read key files like the README, package.json, and folder structure, and produce a coherent summary. Then you can drill down. "How is the API organized?" gets you the route structure. "What database tables exist?" gets you the schema. Each question builds your mental model incrementally, and agent mode keeps the context from your previous questions so it can give increasingly specific answers. This is how experienced developers use agent mode: not as a code generator, but as a codebase navigator.
+          Once we have an accessible project, a broad question such as "What does this project do?" is a useful starting point. Ask for the actual files supporting the answer, then narrow down to route registration, schema, and test commands. Search is not exhaustive, and an index does not put the entire repository into every request. Explicit file references help when an important convention is missed. We can use Ask for read-only reconnaissance, then switch to Agent for implementation. A convincing summary is a hypothesis to check against source, not a reason to stop reviewing.
         </aside>
       </div>
     </section>
@@ -174,11 +174,11 @@ stateDiagram-v2
             <h3>Built-in Tools</h3>
             <ul>
               <li><strong>File operations</strong> - Create, edit, read, and delete files</li>
-              <li><strong>Terminal</strong> - Run shell commands (with approval gates)</li>
+              <li><strong>Terminal</strong> - Run shell commands under the session's permissions and sandbox controls</li>
               <li><strong>Codebase search</strong> - Semantic and text-based search across your workspace</li>
               <li><strong>Diagnostics</strong> - Read compiler errors and lint warnings</li>
               <li><strong>Fetch</strong> - Retrieve content from URLs</li>
-              <li><strong>Integrated Browser</strong> (Experimental) - Drive a running web app to verify behavior end-to-end</li>
+              <li><strong>Browser tools</strong> - Use the integrated browser to check a running app; no MCP server required</li>
             </ul>
           </div>
           <div class="card">
@@ -186,14 +186,15 @@ stateDiagram-v2
             <ul>
               <li><strong>MCP servers</strong> - Connect external tools and data sources</li>
               <li>GitHub, Playwright, databases, custom APIs</li>
-              <li>Install from the MCP server gallery (<code>@mcp</code> in Extensions view) or configure in <code>.vscode/mcp.json</code></li>
-              <li>Team-shared via version control</li>
+              <li>Browse the Preview gallery with <code>@mcp</code> in Extensions, or use <strong>MCP: Add Server</strong></li>
+              <li>Copilot portable workspace configuration: <code>.mcp.json</code>; Local compatibility configuration: <code>.vscode/mcp.json</code></li>
+              <li>Review trust, authentication, and a first tool call; never commit secrets</li>
             </ul>
           </div>
         </div>
 
         <aside class="speaker-notes">
-          Agent mode has access to several built-in tools. File operations let it create, edit, read, and delete files. Terminal access lets it run shell commands, though you'll be asked to approve them first. Codebase search lets it find relevant code semantically or by text matching. Diagnostics gives it access to compiler errors and lint warnings. Fetch lets it read web content. And it uses codebase search to locate related test files. Beyond the built-in tools, agent mode is extensible through MCP, the Model Context Protocol. MCP servers are external processes that expose additional tools to the agent. The GitHub MCP server gives it access to issues, pull requests, and code search. The Playwright MCP server lets it interact with web pages. You can also build your own MCP servers for custom workflows. The easiest way to add an MCP server is from the MCP server gallery: open the Extensions view, type "@mcp", and install with one click. For team sharing, configure servers in a .vscode/mcp.json file that you commit to your repo, so the whole team gets the same tool set. If you haven't taken the "MCP for You and Me" course yet, we'll just cover the basics here. The dedicated MCP courses go much deeper.
+          Available tools depend on the session's harness and configuration. Start with built-in search, file reading, diagnostics, and browser tools rather than adding servers we do not need. MCP connects an agent to external tools, such as GitHub issues or a remote data source; servers can run locally or remotely. For shared Copilot configuration, the portable workspace file is .mcp.json with a top-level mcpServers object. Local's .vscode/mcp.json uses servers instead. They are not interchangeable formats. Sharing a file does not grant credentials or establish trust. We review the publisher, requested access, and an actual successful tool call before relying on a server. The dedicated MCP courses cover setup in more depth.
         </aside>
       </div>
     </section>
@@ -205,25 +206,24 @@ stateDiagram-v2
       <div class="slide-inner">
         <h2>Approval Gates and Control</h2>
         <ul>
-          <li><strong>Terminal commands</strong> require approval before they run by default</li>
-          <li>File edits appear as diffs you can accept or reject</li>
-          <li>You can <strong>pause and redirect</strong> the agent mid-loop by typing a follow-up</li>
-          <li>Use <strong>checkpoints</strong> to snapshot your workspace and roll back if the agent goes off track</li>
-          <li>Set a <strong>permission level</strong> in the chat input to control overall autonomy: Default Approvals, Bypass Approvals, or Autopilot</li>
+          <li><strong>Copilot permissions:</strong> Manual permissions, Assisted permissions, or Allow all, subject to policy and isolation</li>
+          <li>Common read-only commands can run automatically; risky commands normally require approval</li>
+          <li>Edits are saved to disk. Inspect diffs before integrating; review controls differ by harness.</li>
+          <li>Checkpoints restore affected files and chat history, not external services or completed command effects</li>
+          <li>Copilot <strong>Autopilot</strong> is a separate mode; in Local it is a permission level. It auto-approves tools.</li>
         </ul>
-        <pre><code>// Extend or override VS Code's built-in allow/deny list for terminal commands
-// VS Code already blocks destructive commands (rm, del) by default
-// Add to settings.json:
+        <pre><code>// Optional settings.json example: false requires approval, not a ban.
+// Prefer reviewing commands and granting narrowly scoped session approvals.
 {
   "chat.tools.terminal.autoApprove": {
-    "make test": true,
-    "make build": true,
-    "/^npm (install|run)\\b.*$/": true
+    "npm install": false,
+    "rm": false,
+    "del": false
   }
 }</code></pre>
 
         <aside class="speaker-notes">
-          You stay in control of what the agent does. Terminal commands show an approval prompt before they run. File edits surface as diffs you can keep or undo. If the agent heads in the wrong direction, type a follow-up to redirect it. VS Code creates checkpoints automatically so you can roll back to any point in the session. The permission level selector in the chat input is the highest-level control. Default Approvals respects your per-tool settings. Bypass Approvals skips all confirmation dialogs. Autopilot goes fully autonomous: it auto-approves tools, auto-responds to clarifying questions, and keeps iterating until done. Use Autopilot only when you trust the task scope. For fine-grained terminal command control, the chat.tools.terminal.autoApprove setting lets you extend or override VS Code's built-in allow and deny list. VS Code already blocks destructive commands like rm and del by default. You only need to add exceptions for commands specific to your workflow, like make test or npm run build.
+          Manual permissions is our starting point, not Allow all or Autopilot. Assisted permissions uses a model to evaluate calls and can make mistakes; availability depends on policy and the session's isolation. Under normal terminal rules, common read-only commands may proceed while risky ones ask for confirmation. A false rule means ask, not block, and these rules are not a security boundary. Do not copy a catch-all rule approving every npm install or npm run command. Scripts can execute arbitrary code. An enabled sandbox is a separate control and does not cover every tool. Review saved changes through diffs, and remember that a checkpoint cannot reverse a deployment, a database write, or another external action. If the agent drifts, stop or redirect it and inspect what has already happened.
         </aside>
       </div>
     </section>
@@ -250,20 +250,28 @@ stateDiagram-v2
         <div class="columns">
           <div class="card">
             <h3>Agent</h3>
-            <p>Autonomous execution. Plans multi-step tasks, runs commands, iterates on errors, edits files.</p>
+            <p>Implement and validate changes using enabled tools and session permissions.</p>
           </div>
           <div class="card">
             <h3>Plan</h3>
-            <p>Structured planning. Creates a step-by-step implementation plan before writing any code. Review the plan, then choose to continue in the same session or launch a background session to implement it.</p>
+            <p>Research and propose an implementation plan. Review scope and checks before approving implementation.</p>
           </div>
           <div class="card">
             <h3>Ask</h3>
             <p>Read-only exploration. Ask questions, get explanations, explore ideas. No files are modified.</p>
           </div>
         </div>
-        <p>Use the <strong>model selector</strong> next to the agent dropdown to switch models. Lighter models for quick questions; stronger reasoning models for complex multi-file builds.</p>
+        <table>
+          <thead><tr><th>Control</th><th>What it chooses</th></tr></thead>
+          <tbody>
+            <tr><td>Harness</td><td>Copilot or Local: runtime, tools, customization support</td></tr>
+            <tr><td>Agent role</td><td>Ask, Plan, or Agent: research, planning, implementation</td></tr>
+            <tr><td>Model / permissions</td><td>Reasoning model / approval behavior, chosen separately</td></tr>
+          </tbody>
+        </table>
 
-        <aside class="speaker-notes"> are Agent, Plan, and Ask. You select them from the agent picker at the top of the chat panel. Agent is the fully autonomous option. It plans multi-step tasks, creates and edits files, runs terminal commands, reads the output, and iterates. It's the most powerful agent but also the most hands-off. Plan creates a structured, step-by-step implementation plan before writing any code. Use it when you want to think through a complex feature before committing to an approach. When the plan looks right, you choose how to implement: continue in the same session, or start a new Copilot CLI session to run in the background while you work on something else. Ask is completely read-only. No files are touched, no commands are run. It's the right choice when you want to understand something, explore an idea, or get advice before acting. The question is: when do you use which? Here's a rule of thumb. If you're working on a task that spans multiple files and might need terminal commands, use Agent. If you want to break down a complex feature into steps before building, use Plan. If you're asking a question, use Ask. In this course, we'll mostly use Agent, but we'll switch to Plan and Ask when they're the better tool for the job.
+        <aside class="speaker-notes">
+          Agent, Plan, and Ask describe jobs, not permission levels or models. Our main workflow targets the Copilot harness, the default for new sessions in the current release reviewed on October 27, 2026. Ask uses read-only tools to research without implementing changes. Plan, available through /plan in Copilot, gives us an approach to review before implementation. Agent makes changes and validates them under the selected permissions. Choosing a stronger model does not switch the harness or grant more access. Local is a different harness with different customization support, not a synonym for running on your machine. The optional prompt-file example later requires Local; it cannot be run as a prompt file in the Copilot harness.
         </aside>
       </div>
     </section>
@@ -277,7 +285,7 @@ stateDiagram-v2
         <span class="badge">Part 4</span>
         <h2>Preparing the Mission</h2>
         <aside class="speaker-notes">
-          Before we start building, we need to set up our workspace. This is one of the most overlooked steps in working with agent mode: if you skip the preparation, you'll spend twice as long correcting mistakes later. Think of it as equipping your agent with the right tools and intelligence before sending it into the field. This is the most critical preparation step for your mission; skipping it means twice as many corrections later.
+          Before building, we establish the project conventions the agent needs. Preparation can reduce repeated corrections, but it does not guarantee a particular speedup. We start with existing guidance and an observed problem, such as the wrong test command, rather than generating a large set of generic rules. The useful question is which project-specific decision the agent cannot reliably infer.
         </aside>
       </div>
     </section>
@@ -291,14 +299,14 @@ stateDiagram-v2
         <ul>
           <li><strong>Repo-wide instructions</strong> - <code>.github/copilot-instructions.md</code></li>
           <li><strong>Scoped instructions</strong> - <code>.github/instructions/*.instructions.md</code> with <code>applyTo</code> globs</li>
-          <li><strong>Prompt files</strong> - <code>.github/prompts/*.prompt.md</code> for reusable tasks</li>
+          <li><strong>Prompt files (Local only)</strong> - <code>.github/prompts/*.prompt.md</code> for reusable tasks</li>
           <li><strong>Custom agents</strong> - <code>.github/agents/*.agent.md</code> for specialized personas</li>
           <li><strong>Agent skills</strong> - packaged multi-step workflows with scripts and resources (see Enterprise Grade Marmalade)</li>
         </ul>
         <p>If you've taken "Prompts, Instructions, Skills, and Agents," this should look familiar. Today we put these to work in a real codebase.</p>
 
         <aside class="speaker-notes">
-          Let's quickly review the customization primitives. Repo-wide instructions in copilot-instructions.md apply to every Copilot interaction in this workspace. Scoped instructions use applyTo globs to target specific file patterns. Prompt files capture reusable tasks you can run from the chat picker. And custom agents define specialized personas with restricted tools and focused workflows. If you took the PISA course, you created all of these from scratch. Today we're going to create them specifically for the OctoCAT Supply codebase. The difference is that now these files will target real project conventions, real frameworks, and real testing patterns. This is where customization moves from academic exercise to practical workflow.
+          Project instructions provide guidance to supported chat and agent requests; they do not apply to inline suggestions or guarantee that generated code follows every rule. Scoped instructions can attach through applyTo file patterns. Custom agents package a role and tool restrictions. Prompt files are reusable tasks for Local sessions, while skills are the reuse path for the Copilot harness. We only add a customization when it solves a real project problem. Until the original sample is accessible, we cannot claim to have generated or verified its conventions.
         </aside>
       </div>
     </section>
@@ -309,29 +317,20 @@ stateDiagram-v2
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Instructions for OctoCAT Supply</h2>
-        <pre><code># .github/copilot-instructions.md
+        <p>Generate guidance from accessible source, not assumptions about the unavailable sample.</p>
+        <pre><code>Analyze this repository and create or update
+.github/copilot-instructions.md. Preserve useful existing guidance.
+Confirm the architecture, installed dependencies, source locations,
+database driver, and build/test/lint commands from actual files.
 
-## Language &amp; Framework
-- TypeScript with strict mode for both frontend and backend
-- React 18 with functional components and hooks (no class components)
-- Express.js for the API layer
-
-## Style
-- Use Tailwind CSS utility classes for frontend styling
-- Prefer named exports over default exports
-- Use async/await, never callbacks
-
-## Testing
-- Use Vitest for all tests (not Jest)
-- Co-locate test files next to source files: `foo.test.ts`
-- Run tests with `make test`
-
-## Database
-- SQLite via better-sqlite3
-- Always use parameterized queries (never string concatenation)</code></pre>
+Record only verified project conventions. Mark unknowns explicitly.
+Require API and component tests using the existing test setup.
+Use parameterized SQL for values and validate dynamic identifiers.
+Do not install packages or replace the project stack to match an example.
+Summarize the supporting files so I can review the guidance.</code></pre>
 
         <aside class="speaker-notes">
-          Before writing instructions by hand, try the shortcut: type /init in agent mode chat and VS Code will generate a copilot-instructions.md tailored to your actual codebase. Then refine the output with the rules that matter to your team. Here's what a good final version looks like for this project. It covers language and framework choices, style conventions, testing standards, and database patterns. Notice how every rule is specific and actionable. "TypeScript with strict mode" is clear. "Use Vitest, not Jest" eliminates ambiguity. "Always use parameterized queries" prevents SQL injection. These instructions will apply to every Copilot interaction in this workspace. When agent mode creates a new API endpoint, it will use TypeScript. When it writes tests, it will use Vitest. When it queries the database, it will use parameterized queries. You write these rules once, and they shape every response going forward. The real skill is knowing what to put in this file. Start with the corrections you find yourself making over and over. If you keep telling Copilot "no, use Vitest, not Jest," that rule belongs in this file.
+          This request works without assuming a particular instruction-generation shortcut. In the Copilot harness, we ask in natural language and review the generated file. Local also has /init, but that shortcut is not available in other harnesses. We do not declare React 18, Vitest, Tailwind, or better-sqlite3 as facts until the manifests and source confirm them. If better-sqlite3 is present, its synchronous API is not something to rewrite into an invented asynchronous database interface. Parameterized values are an important SQL practice, but natural-language instructions do not enforce it. We still inspect query construction, validate identifiers, and test the behavior. A short set of verified conventions is more useful than a confident description of an inaccessible project.
         </aside>
       </div>
     </section>
@@ -359,19 +358,21 @@ stateDiagram-v2
           <li><strong>State the goal</strong> clearly in the first sentence</li>
           <li><strong>Specify constraints</strong>: frameworks, patterns, file locations</li>
           <li><strong>Define done</strong>: what does success look like?</li>
-          <li><strong>Reference existing code</strong>: "follow the pattern in <code>api/routes/products.ts</code>"</li>
+          <li><strong>Reference existing code</strong>: use route and database files found during reconnaissance</li>
         </ul>
         <pre><code>// ❌ Vague
 "Add a reports feature"
 
 // ✅ Clear
-"Create a new GET /api/reports/inventory endpoint that returns
-current stock levels grouped by category. Follow the route pattern
-in api/routes/products.ts. Include a Vitest test file.
-Use the existing database connection from api/db/index.ts."</code></pre>
+"Inspect the existing routes, schema, and database connection.
+Propose GET /api/reports/inventory with a category/quantity contract
+based on the actual schema. Agree aggregation and empty-result
+behavior before editing. Follow a verified route example.
+Add API tests with the installed runner; preserve existing assertions.
+Run the relevant checks and report commands, results, and blockers."</code></pre>
 
         <aside class="speaker-notes">
-          The quality of your agent mode output is directly proportional to the quality of your prompt. A vague prompt like "add a reports feature" leaves agent mode guessing about almost everything: file locations, naming conventions, data structure, testing approach. A good prompt has four parts. First, state the goal: "Create a GET endpoint that returns inventory data." Second, specify constraints: "Follow the route pattern in products.ts." Third, define done: "Include a Vitest test file." Fourth, reference existing code so the agent knows what conventions to follow. The reference is especially important. When you say "follow the pattern in products.ts," agent mode reads that file, extracts the conventions (middleware, error handling, response format), and applies them to the new code. This is how you get consistent, idiomatic output without writing a novel of instructions. Think of it this way: you're not programming a machine. You're briefing a new team member on a task. The more context you give in the briefing, the less back-and-forth you'll have.
+          A clear prompt reduces guessing, but it does not guarantee correct output. We give the agent a goal, constraints, a definition of done, and a real example to inspect. Here the route is a proposed feature, while the implementation files must come from reconnaissance. We agree the response shape before building the frontend, and a small fixture checks that the aggregation matches the business meaning of stock. Existing tests are evidence to preserve, not obstacles to delete to get a green result. After the run, we compare the code and reported commands with the agreed criteria. If the schema or test setup cannot be verified, that is a blocker to report rather than fill in.
         </aside>
       </div>
     </section>
@@ -385,18 +386,20 @@ Use the existing database connection from api/db/index.ts."</code></pre>
         <h2>Building the Frontend</h2>
         <ul>
           <li><strong>Step 1</strong> - Ask agent mode to create a React component that calls the new API endpoint</li>
-          <li><strong>Step 2</strong> - Reference an existing component for styling and data fetching patterns</li>
+          <li><strong>Step 2</strong> - Reference a verified component and the agreed API contract</li>
           <li><strong>Step 3</strong> - Let it add the route and navigation entry</li>
           <li><strong>Tip</strong> - Attach a screenshot of an existing page as context to set visual expectations for the new component</li>
         </ul>
-        <pre><code>"Create a React component at frontend/src/pages/InventoryReport.tsx
-that fetches data from GET /api/reports/inventory and displays it
-in a table. Use the same data fetching pattern as ProductList.tsx.
-Add a route for /reports/inventory in the router config and a
-navigation link in the sidebar."</code></pre>
+        <pre><code>"Find the project's page, data-fetching, routing, and navigation patterns.
+Propose locations for an InventoryReport page and component tests.
+Use the agreed GET /api/reports/inventory contract.
+Render a table plus loading, empty, and failed-request states.
+Wire a /reports/inventory route and navigation entry using existing
+conventions. Add component tests and run the verified checks.
+Do not invent ProductList.tsx, router.tsx, or Sidebar.tsx paths."</code></pre>
 
         <aside class="speaker-notes">
-          The frontend build follows the same pattern. Write a clear prompt with a specific file path, a reference to existing code, and a definition of done. In this case, we're telling agent mode where to create the file, which API endpoint to call, which existing component to use as a pattern reference, and that it should wire up routing and navigation. Agent mode will read ProductList.tsx to understand the data fetching pattern, create the new component using the same conventions, add the route to the router config file, add a navigation link in the sidebar, and then check for any diagnostic errors. The reference to ProductList.tsx is doing a lot of heavy lifting here. Instead of describing the entire data fetching pattern in your prompt, you point to the example and let agent mode extract the pattern itself. This works because agent mode reads files, not just prompt text.
+          Now the frontend consumes the same contract the backend agreed to provide. We discover an existing page and use its real styling and data-fetching patterns. The original sample's component and router paths are unverified, so they are not instructions to create a parallel application structure. Loading, empty, and failed-request states are part of the feature, not optional polish. Component tests check those states, while the browser check later verifies that routing, navigation, and the actual endpoint work together. An attractive table backed by mock data does not satisfy the mission.
         </aside>
       </div>
     </section>
@@ -408,17 +411,17 @@ navigation link in the sidebar."</code></pre>
       <div class="slide-inner">
         <h2>Parallelizing Agent Work</h2>
         <ul>
-          <li>Inference is slow. A single session means <strong>idle time</strong> while the model generates output.</li>
-          <li>Open the <strong>Agents Window</strong> (select "Open in Agents" in the VS Code title bar) to run multiple sessions in parallel across projects</li>
-          <li>Run agents in parallel: one builds the backend route while another scaffolds the React component</li>
-          <li><strong>You are the manager.</strong> Each agent is an employee. Assign clear, non-overlapping tasks.</li>
-          <li><strong>Conflict risk:</strong> if two agents edit the same file, you get conflicts. Scope prompts to separate files or directories.</li>
-          <li>When overlap is unavoidable, use <strong>git worktrees</strong>: <code>git worktree add ../feature-branch feature-branch</code></li>
-          <li>Each worktree is an independent working directory. Agents cannot collide. Merge when both are done.</li>
+          <li>Parallel work is optional: first agree the API contract and file ownership</li>
+          <li>Use <strong>Open in Agents</strong> for supported Agent Host sessions; Local sessions remain editor-only</li>
+          <li>Split independent backend and frontend tasks; do not have both edit shared routing or configuration</li>
+          <li>Illustrative new-branch command: <code>git worktree add -b inventory-ui ../inventory-ui</code></li>
+          <li>Requires a Git repository, an unused branch/path, and reviewed baseline changes</li>
+          <li>Worktrees isolate working files, not ports, databases, external services, or merge conflicts</li>
+          <li>Review each result, integrate deliberately, then rerun the combined checks</li>
         </ul>
 
         <aside class="speaker-notes">
-          Before we move into quality assurance, let's talk about a technique that doubles or triples your throughput. Inference is slow. Every prompt waits in a queue and takes time to generate. Running sessions sequentially means idle time while you wait. Instead, open the Agents Window from the VS Code title bar by selecting "Open in Agents." This is a dedicated, purpose-built surface for running multiple agent sessions in parallel across your projects. You can have one agent building the inventory API route while a second scaffolds the React component, and a third writes migrations. You manage the agents like a team lead: assign clear, non-overlapping tasks. The critical thing to understand is that you are responsible for coordination. If two agents edit the same file at the same time, you will get merge conflicts. The simplest prevention is scoping each agent's prompt to specific files or directories. When overlap is unavoidable, use git worktrees. Run "git worktree add" to create a separate working directory on a feature branch. Open that directory in a new VS Code window and run your second agent there. Each worktree has its own file state, so agents cannot collide. When both are done, merge the branches and resolve any conflicts in one pass.
+          Parallel sessions can help when tasks are genuinely independent, but they add coordination and integration work. We keep the single-session build as our default. If we split frontend and backend, both need the agreed response contract and clear ownership of shared files. The Agents window supports Copilot Agent Host sessions, not Local sessions; moving a Local prompt-file workflow there is not a supported handoff. The worktree command shown explicitly creates a new branch, so it requires an unused branch name and directory. Worktrees share repository metadata, and they can still use the same database or port unless we configure isolation. Review and test both changes after integration; separate green test runs do not prove the combined feature works.
         </aside>
       </div>
     </section>

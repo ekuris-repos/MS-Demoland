@@ -60,7 +60,7 @@
           <li>Supported on <strong>Linux</strong>, <strong>macOS</strong>, and <strong>Windows</strong> (PowerShell and WSL)</li>
         </ul>
         <aside class="speaker-notes">
-          The important change is not the command name. The old extension produced an answer for you to run. The standalone CLI can take a sequence of actions and use the result of one action to decide the next. In the default permission mode, operations that need authority prompt for approval, but preapproved tools and more autonomous modes change that behavior. Control comes from the permission policy you choose, not from assuming every action will pause.
+          The important change is not the command name. The old extension produced an answer for you to run. The standalone CLI can take a sequence of actions and use the result of one action to decide the next. With manual permissions, unresolved requests prompt for approval in an interactive session. Assisted permissions can approve eligible requests through a model review. Autopilot controls continuation, not permission grants. Control comes from the policy you choose, not from assuming every action will pause.
         </aside>
       </div>
     </section>
@@ -92,21 +92,22 @@
         <h2>How Copilot CLI Works</h2>
         <p>Copilot CLI follows an agentic loop: you describe a task, Copilot selects tools, the permission policy is applied, and results inform the next step.</p>
         <pre class="mermaid">
-flowchart LR
-  A["You describe a task"] --> B["Copilot analyzes"]
-  B --> C{"Tool needed?"}
-  C -- Yes --> D{"Already permitted?"}
-  D -- No --> E["Request approval"]
-  D -- Yes --> F["Execute tool"]
-  E -- Approved --> F
-  E -- Rejected --> H["Redirect or stop"]
-  F --> G["Show result"]
-  C -- No --> G
-  G --> A
-  H --> A
+        flowchart LR
+          A["You describe a task"] --> B["Copilot analyzes"]
+          B --> C{"Tool needed?"}
+          C -- Yes --> D{"Permission policy"}
+          D -- Allowed --> F["Execute tool"]
+          D -- Denied --> H["Redirect or stop"]
+          D -- Needs approval --> E["Ask if interactive"]
+          E -- Approved --> F
+          E -- Rejected or unattended --> H
+          F --> G["Show result"]
+          C -- No --> G
+          G --> A
+          H --> A
         </pre>
         <aside class="speaker-notes">
-          Each turn can contain several model calls and tool calls. When Copilot selects a tool, the CLI checks the current permission rules. It prompts only when the action is neither allowed nor denied already. The result then becomes evidence for the next decision. This is why a narrow permission such as one Git subcommand is more meaningful than a general instruction to be careful.
+          Each turn can contain several model calls and tool calls. Existing rules resolve allowed and denied requests first. With assisted permissions, a model can approve eligible unresolved requests that it judges safe. Anything still needing your approval prompts in a standard interactive session, but is denied in autopilot or a non-interactive run. The result becomes evidence for the next decision. A narrow Git subcommand permission is more meaningful than a general instruction to be careful, but command matching is not a sandbox.
         </aside>
       </div>
     </section>
@@ -149,7 +150,7 @@ brew install --cask copilot-cli
 copilot --version</code></pre>
         <ul>
           <li>Multiple install methods: <strong>npm</strong>, <strong>WinGet</strong>, <strong>Homebrew</strong>, install script, or direct download</li>
-          <li>To update later, run the same install command again or use <code>copilot update</code></li>
+          <li>To update later, use <code>copilot update</code> where supported or your package manager's upgrade procedure</li>
         </ul>
         <aside class="speaker-notes">
           Pick one installation route and keep its update path consistent. npm is portable when Node.js is already part of your toolchain. WinGet and the Homebrew cask install the native package without adding a Node.js dependency. Direct downloads are useful for controlled environments. Whichever route you choose, verify with <code>copilot --version</code> and use <code>copilot update</code> when the installed channel supports it.
@@ -174,10 +175,10 @@ copilot --version</code></pre>
             </ul>
           </li>
           <li>If you are not authenticated, use the <code>/login</code> slash command and follow the prompts</li>
-          <li>In GitHub Actions, prefer the built-in <code>GITHUB_TOKEN</code> with <code>copilot-requests: write</code>; use a fine-grained token only when another environment requires it</li>
+          <li>In GitHub Actions, prefer <code>GITHUB_TOKEN</code> with <code>copilot-requests: write</code>; organization repositories also need the organization-billed CLI policy</li>
         </ul>
         <aside class="speaker-notes">
-          Folder trust is a decision about which repository may influence the session. It is not a security verdict on every file in that tree, and GitHub describes path protection as heuristic rather than airtight isolation. Interactive users can sign in with <code>/login</code>. In GitHub Actions, the built-in token avoids a long-lived personal secret. Grant <code>copilot-requests: write</code> plus only the repository permissions the workflow needs.
+          Folder trust is a decision about which repository may influence the session. It is not a security verdict on every file in that tree, and GitHub describes path protection as heuristic rather than airtight isolation. Interactive users can sign in with <code>/login</code>. In Actions, the built-in token avoids a long-lived personal secret. Organization-owned repositories need the "Allow use of Copilot CLI billed to the organization" policy; usage is billed to the organization, not an individual user's budget. Personally owned repositories use the owner's Copilot entitlement. Grant only the workflow permissions needed. GitHub recommends <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli-in-actions">Agentic Workflows for most automation</a>; review triggers carefully, especially untrusted fork pull requests.
         </aside>
       </div>
     </section>
@@ -193,10 +194,10 @@ copilot --version</code></pre>
           <li>Describe tasks in <strong>natural language</strong>: "refactor the error handler to use async/await"</li>
           <li>Include specific files with <code>@</code> followed by a relative path: <code>Explain @src/app.js</code> (Tab completion supported)</li>
           <li>Copilot responds by reading files, proposing changes, and executing commands</li>
-          <li>You <strong>approve or redirect</strong> when an action is not already covered by the current permission policy</li>
+          <li>With manual permissions, <strong>approve or redirect</strong> unresolved requests; assisted permissions can approve eligible requests automatically</li>
           <li>Send follow-up messages while Copilot is thinking to <strong>steer the conversation</strong></li>
           <li>Resume a previous session with <code>/resume</code> or <code>copilot --continue</code> for the most recent</li>
-          <li>Continue until you exit with <code>/exit</code> or <kbd>Ctrl+D</kbd>; <kbd>Ctrl+C</kbd> cancels the current operation or input</li>
+          <li>Close the current session with <code>/exit</code>; it quits the CLI when no other session remains. <kbd>Ctrl+C</kbd> cancels the current operation or input</li>
         </ul>
         <aside class="speaker-notes">
           Interactive mode is useful when the task is still changing as you learn. Mention a file with <code>@</code> when you know the evidence you want Copilot to inspect, and steer the turn when its approach drifts. A rejected permission is also feedback: explain the safer route instead of merely saying no. Sessions are durable, so <code>/resume</code> can reopen a selected session and <code>copilot --continue</code> can reopen the most recent one for the current directory.
@@ -212,14 +213,14 @@ copilot --version</code></pre>
         <h2>Interaction Modes</h2>
         <ul>
           <li>Press <kbd>Shift+Tab</kbd> to cycle between three modes: <strong>standard</strong>, <strong>plan</strong>, and <strong>autopilot</strong></li>
-          <li><strong>Standard (ask/execute):</strong> Copilot acts immediately and prompts when a tool is not already allowed or denied</li>
-          <li><strong>Plan mode:</strong> Copilot analyzes the request and blocks direct project edits while building a plan; connected external tools need separate controls</li>
-          <li><strong>Autopilot mode:</strong> Copilot completes multi-step tasks autonomously without requiring approval at each step (use <code>--autopilot</code> on the command line)</li>
+          <li><strong>Standard (ask/execute):</strong> work interactively; the selected permission mode decides which actions need approval</li>
+          <li><strong>Plan mode:</strong> collaborate on an implementation plan before execution; review the plan, and keep tool permissions and isolation separate</li>
+          <li><strong>Autopilot mode:</strong> continue working without another user prompt (<code>--autopilot</code>); requests still needing human approval are denied</li>
           <li>Review and approve plans before execution; use <code>--max-autopilot-continues</code> to limit autonomous runs</li>
           <li>Use plan mode when intent is uncertain; use autopilot only with clear scope, permissions, isolation, and verification</li>
         </ul>
         <aside class="speaker-notes">
-          Standard mode is the right baseline while you are exploring because permission decisions remain visible. Plan mode protects project files from clear, direct edits while Copilot researches and drafts a plan, but GitHub describes that protection as a safety net rather than airtight isolation. Autopilot removes the turn-by-turn pause, so confidence in the prompt is not enough. Bound its tools, environment, continuation count, and verification before you delegate the work.
+          Standard mode with manual permissions is a useful baseline while you explore. Plan mode helps us agree on scope and approach before implementation; we should not treat it as a verified security boundary or a guarantee about every connected tool. Autopilot controls continuation. It does not grant tool permissions, and requests that still need your approval are denied rather than pausing for an answer. Broad approval with <code>--allow-all</code> is a separate choice, as is suppressing questions with <code>--no-ask-user</code>. Bound the tools, environment, continuation count, and verification before delegating autonomous work.
         </aside>
       </div>
     </section>
@@ -230,15 +231,20 @@ copilot --version</code></pre>
     <section class="slide slide--content">
       <div class="slide-inner">
         <h2>Tool Approval</h2>
-        <p>When Copilot needs a tool that is not already allowed or denied, it requests your approval:</p>
-        <ul>
-          <li><strong>Yes:</strong> allow this tool once; Copilot asks again next time</li>
-          <li><strong>Yes, and approve <em>TOOL</em> for the rest of the session:</strong> blanket approval for this tool type during the current session</li>
-          <li><strong>No, and tell Copilot what to do differently (Esc):</strong> reject the action and redirect Copilot</li>
-        </ul>
-        <p>Be cautious with session-wide approvals. Approving <code>rm</code> for the session allows Copilot to delete any file in the trusted directory without further prompts.</p>
+        <p>Inspect or change the permission mode with <code>/permissions</code>. Existing deny rules and enterprise restrictions still apply.</p>
+        <table>
+          <thead>
+            <tr><th>Mode</th><th>Unresolved requests</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Manual</td><td>Ask for approval in a standard interactive session</td></tr>
+            <tr><td>Assisted</td><td>A model approves eligible requests judged safe; otherwise ask</td></tr>
+            <tr><td>Allow-all</td><td>Broad approval without individual prompts or a model safety review</td></tr>
+          </tbody>
+        </table>
+        <p>When asked, approve once, approve the tool for this session, or reject and redirect. Autopilot and non-interactive runs deny requests still needing human approval.</p>
         <aside class="speaker-notes">
-          Approval is about the permission pattern, not only the command currently displayed. A one-time approval covers one request. A session approval can cover later commands with the same tool pattern and any options the agent chooses. That distinction is easy to miss with commands such as <code>rm</code> or <code>git</code>. Read the scope of the approval, then reject and redirect when the requested authority is broader than the task.
+          Approval is about the permission pattern, not only the command currently displayed. A one-time approval covers one request; a session approval can cover later commands with the same pattern and any options. Approving <code>rm</code> broadly can therefore authorize later deletions. Assisted permissions became generally available on October 26, 2026. You can enable them with <code>/permissions assisted</code>, subject to policy. The review model can make mistakes, so this is not a replacement for sandboxing or least privilege. Read the approval scope and inspect the resulting changes, whichever mode you choose.
         </aside>
       </div>
     </section>

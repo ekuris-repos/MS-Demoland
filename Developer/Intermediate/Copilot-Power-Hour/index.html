@@ -112,7 +112,7 @@
         <div class="columns">
           <div class="card">
             <h3>IDE</h3>
-            <p>Inline completions, Chat, Agent mode, and Next Edit Suggestions inside VS Code, JetBrains, Neovim, and Visual Studio.</p>
+            <p>Inline completions across supported editors. Chat, Agent mode, and Next Edit Suggestions vary by IDE; this session uses VS Code.</p>
           </div>
           <div class="card">
             <h3>CLI</h3>
@@ -120,7 +120,7 @@
           </div>
           <div class="card">
             <h3>github.com</h3>
-            <p>Copilot Chat on github.com, the GitHub Coding Agent that works in Issues and Pull Requests, and automated code review.</p>
+            <p>Copilot Chat on github.com, Copilot cloud agent for delegated development tasks, and Copilot code review.</p>
           </div>
           <div class="card">
             <h3>SDK</h3>
@@ -128,7 +128,7 @@
           </div>
         </div>
         <aside class="speaker-notes">
-          Four surfaces, four different jobs. The IDE is the most familiar: inline ghost-text completions, Chat for conversation and code generation, Agent mode for multi-step autonomous tasks. The CLI is newer and more powerful than most people realize. It is a fully agentic tool that can read your project files, write code, run shell commands, and file pull requests directly from your terminal. GitHub.com has its own Copilot surfaces: Chat on the site itself, the Coding Agent that can pick up a task from an Issue and open a PR when it is done, and automated code review. And then there is the SDK for teams building AI capabilities into their own products and pipelines. This session focuses on the IDE and CLI surfaces.
+          Four surfaces, four different jobs. In VS Code, we can combine completions, Chat, Agent mode, and Next Edit Suggestions. Other editors have different support; Neovim, for example, supports completions but not those chat and agent features. The CLI can read project files, write code, run commands, and work with GitHub from the terminal, subject to permissions. GitHub.com adds Chat, cloud agent tasks that can produce pull requests, and code review. The SDK lets teams embed the agent runtime in their own applications. We will focus on VS Code and CLI, not assume every client behaves identically.
         </aside>
       </div>
     </section>
@@ -141,9 +141,9 @@
         <h2>One Product, Many Models</h2>
         <ul>
           <li>Copilot is backed by a <strong>catalog of large language models</strong> from OpenAI, Anthropic, Google, and more</li>
-          <li>Switch models mid-conversation using the <strong>model selector</strong> in the Chat panel or CLI</li>
+          <li>Choose <strong>Auto or a supported model</strong> in your client's model selector; availability depends on plan and policy</li>
           <li>Different models have different strengths: <strong>speed</strong>, <strong>reasoning depth</strong>, <strong>context window</strong>, and <strong>credit cost</strong></li>
-          <li>The model selector shows the <strong>credit cost per message</strong> so you can make an informed choice</li>
+          <li>Check <strong>published per-token rates</strong> and measured usage; an agent task is not a fixed-price message</li>
           <li>Rule of thumb: fast model for simple questions, reasoning model for complex debugging or architecture</li>
         </ul>
 
@@ -151,13 +151,13 @@
 graph LR
   A["Your prompt + context"] --> B["GitHub infrastructure"]
   B --> C{"Model selector"}
-  C --> D["GPT-4o (fast)"]
-  C --> E["o3 (reasoning)"]
-  C --> F["Claude Sonnet (balanced)"]
-  C --> G["Gemini (large context)"]
+  C --> D["Fast and efficient"]
+  C --> E["Deeper reasoning"]
+  C --> F["Balanced coding"]
+  C --> G["Extended context"]
         </pre>
         <aside class="speaker-notes">
-          The model selector is one of the most underused levers in Copilot. Every paid plan gives you access to models from OpenAI, Anthropic, and Google. They are not all the same, and the differences matter. A fast model like GPT-4o will answer a simple "what does this function do" question in a second. A reasoning model like o3 will spend more time and more credits thinking through a complex refactoring problem but produce a significantly better result. Premium models cost more credits per message, and the selector shows you the cost before you send. Building the habit of choosing the right model for the task at hand is one of the simplest ways to improve both output quality and credit efficiency.
+          Model names and availability change, but the choice we are making is durable. A narrow question often needs a fast, efficient model; architectural decisions may justify deeper reasoning. Auto can route a task to an appropriate available model. Your plan, client, and organization policies determine the choices you see. Actual cost depends on token usage and the model's rates, not a flat price for each message. Choose deliberately at the start of a coherent task, because switching models can lose the benefit of cached context. We will return to that tradeoff in the optimization section.
         </aside>
       </div>
     </section>
@@ -167,7 +167,7 @@ graph LR
          ============================================================ -->
     <section class="slide slide--content">
       <div class="slide-inner">
-        <h2>Plans at a Glance</h2>
+        <h2>Selected Plans at a Glance</h2>
         <table>
           <thead>
             <tr>
@@ -187,26 +187,26 @@ graph LR
             <tr>
               <td><strong>Pro</strong></td>
               <td>$10/user/mo</td>
-              <td>$15</td>
-              <td>$15 AI credits/mo; unlimited code completions; cloud agent, code review, model picker</td>
+              <td>1,500 ($15 equivalent)</td>
+              <td>1,000 base + 500 variable flex credits; unlimited completions</td>
             </tr>
             <tr>
               <td><strong>Business</strong></td>
               <td>$19/seat/mo</td>
-              <td>$19 pooled/seat</td>
-              <td>$19 pooled AI credits/seat; org management, audit logs, IP indemnity, no code retention</td>
+              <td>1,900/seat pooled ($19 equivalent)</td>
+              <td>Organization management and Copilot policy controls</td>
             </tr>
             <tr>
               <td><strong>Enterprise</strong></td>
               <td>$39/seat/mo</td>
-              <td>$39 pooled/seat</td>
-              <td>$39 pooled AI credits/seat; content exclusion, org-wide custom instructions</td>
+              <td>3,900/seat pooled ($39 equivalent)</td>
+              <td>Enterprise management and Copilot policy controls</td>
             </tr>
           </tbody>
         </table>
-        <p style="font-size:0.6rem;opacity:0.5;margin-top:0.5em">1 AI credit = $0.01 USD. Completions and Next Edit Suggestions remain included. Pricing as of June 2026. Check github.com/features/copilot for current rates.</p>
+        <p style="font-size:0.6rem;opacity:0.5;margin-top:0.5em">1 AI credit = $0.01 USD. Selected plans, verified October 27, 2026; flex allotments can change. Paid-plan completions and Next Edit Suggestions do not consume credits. <a href="https://docs.github.com/en/copilot/get-started/plans">Current plans and allowances</a>.</p>
         <aside class="speaker-notes">
-          Quick plan reference. I want to highlight two things. First, completions and Next Edit Suggestions are included in paid plans; they do not draw from your credit pool. The credit pool is consumed by Chat, CLI, cloud agent, and code review interactions. Second, Business and Enterprise plans pool credits across all seats, so one heavy user does not immediately hit a wall. The Enterprise plan also gives admins content exclusion controls and organization-wide custom instructions, which we will touch on in the Context Engineering section. If you are a solo developer, Pro is almost always the right entry point.
+          This is a selected-plan reference, not the complete catalog. Pro currently includes 1,500 credits: 1,000 base credits plus a variable 500-credit flex allotment. The dollar equivalents help with budgeting, but dollars and credit counts are different units. Business and Enterprise pool included credits at the billing entity, while user budgets can still limit an individual. Paid-plan completions and Next Edit Suggestions do not consume those credits. Additional paid usage is enabled by default for organizations unless an administrator disables it, so a pool is not automatically a spending cap. Check current plan details, budgets, and model-specific data terms rather than treating this table as a contractual guarantee.
         </aside>
       </div>
     </section>
@@ -235,16 +235,16 @@ graph LR
       <div class="slide-inner">
         <h2>What Is Context Engineering?</h2>
         <ul>
-          <li>Every Copilot response is generated from a <strong>context window</strong>: a fixed-size payload of text sent to the model</li>
+          <li>A model's <strong>context window</strong> limits how much input and conversation it can work with at once</li>
           <li>Context engineering is the practice of <strong>deliberately filling that window with the right information</strong></li>
-          <li>Inputs to the context window include: open files, selected code, chat history, instruction files, skills, MCP tool results, and your prompt</li>
+          <li>Context can include selected or retrieved code, chat history, applicable instructions, loaded skills, MCP tool results, and your prompt</li>
           <li>More relevant context = better output; irrelevant or missing context = vague, generic, or wrong output</li>
-          <li>You do not need to type everything into the chat. <strong>Files and instructions do the work for you, automatically.</strong></li>
+          <li><strong>Attach decisive evidence explicitly.</strong> Applicable instructions and agent retrieval can supply additional context.</li>
         </ul>
         <pre class="mermaid">
 graph TD
   A["copilot-instructions.md"] --> Z["Context Window"]
-  B["Open files and selection"] --> Z
+  B["Selected or retrieved code"] --> Z
   C["Instruction files (.instructions.md)"] --> Z
   D["Skills (SKILL.md)"] --> Z
   E["MCP tool outputs"] --> Z
@@ -252,7 +252,7 @@ graph TD
   Z --> G["Model response"]
         </pre>
         <aside class="speaker-notes">
-          The context window is the fundamental constraint. Every model has a maximum number of tokens it can process at once. That window is filled by everything Copilot knows about your current situation: the files you have open, the code you have selected, your chat history, any instruction files in your repo, and your actual prompt. The art of context engineering is making sure that window contains the most useful signal and the least noise. The good news: most of the heavy lifting can be automated. You write instruction files and skills once, commit them to your repo, and they are automatically injected into every relevant interaction. You do not have to remember to include context; the files do it for you.
+          The window is a limit, not a promise that every open file has been attached. Copilot gathers context differently across clients and agent harnesses. We can make the important evidence explicit: attach the function, requirements, or failing test that should drive the answer. Applicable instructions provide standing guidance, while skills load relevant expertise on demand. Discovery metadata can still take space even when a skill's full content is not loaded. The goal is useful signal, not filling the window. Inspect the attached context and tool results rather than assuming an open tab or a file in the repository has been read.
         </aside>
       </div>
     </section>
@@ -266,19 +266,19 @@ graph TD
         <div class="columns">
           <div class="card">
             <h3>Prompts</h3>
-            <p><code>.prompt.md</code> files that capture reusable tasks. Run them from chat like saved commands. Share them with your team by committing to <code>.github/prompts/</code>.</p>
+            <p><code>.prompt.md</code> files capture reusable tasks in VS Code's Local harness. Invoke them from chat and share them in <code>.github/prompts/</code>.</p>
           </div>
           <div class="card">
             <h3>Instructions</h3>
-            <p><code>.instructions.md</code> files that automatically shape every Copilot response in your workspace. Write once, applies everywhere. No effort per-prompt.</p>
+            <p>Repository guidance in <code>copilot-instructions.md</code>, with targeted <code>.instructions.md</code> files for matching work. Support depends on client and harness.</p>
           </div>
           <div class="card">
             <h3>Skills</h3>
-            <p><code>SKILL.md</code> files that package domain knowledge agents can invoke on demand. Only loaded when relevant, so complex knowledge does not add cost to unrelated tasks.</p>
+            <p><code>SKILL.md</code> folders package instructions, scripts, and resources. Compatible agents load relevant content on demand rather than loading every guide in full.</p>
           </div>
           <div class="card">
             <h3>Hooks</h3>
-            <p><code>.json</code> configurations that run commands at defined agent lifecycle events. Use them for deterministic validation, logging, and policy checks.</p>
+            <p><code>.json</code> configurations run commands at supported lifecycle events. VS Code hooks are Preview; event coverage and formats depend on the harness.</p>
           </div>
           <div class="card">
             <h3>Agents</h3>
@@ -286,7 +286,7 @@ graph TD
           </div>
         </div>
         <aside class="speaker-notes">
-          Five primitives, all committed to your repo. Prompts are things you actively run, like saved chat commands for recurring tasks. Instructions are passive and automatic, shaping responses without extra work each session. Skills are domain knowledge packages that agents pull in when a task is relevant. Hooks are different from those Markdown-based primitives: a JSON configuration runs a command at a defined lifecycle event, so validation, logging, or policy checks do not depend on the model remembering them. Agents are the orchestrators, with their own role, tool access, and available skills. Here is the key insight: these primitives compose. An agent can follow instructions, invoke a skill, use tools, and receive the result of a deterministic hook. The interesting work happens when you combine them.
+          These are five useful customization concepts, not five universally interchangeable file formats. Check your selected client and agent harness first. Prompt files are a VS Code Local example; skills provide reusable workflows across compatible agents, including CLI. Instructions guide supported chat and agent requests, not inline suggestions. Hooks run commands at supported events without relying on the model to remember, but their schemas vary and the VS Code experience is Preview. Custom agents combine a role with instructions and allowed tools. Plugins can package several customizations together. Start with the smallest mechanism that solves a repeated problem, and remember that instructions or hooks alone are not a security boundary.
         </aside>
       </div>
     </section>
@@ -300,9 +300,9 @@ graph TD
         <ul>
           <li><strong>Model Context Protocol (MCP)</strong> is an open standard for connecting AI agents to external tools and data sources</li>
           <li>MCP servers expose <strong>tools, resources, and prompts</strong> that Copilot can call during a conversation</li>
-          <li>Copilot ships pre-configured with the <strong>GitHub MCP server</strong> (Issues, PRs, repos, code search)</li>
-          <li>Add third-party MCP servers in VS Code settings or the Copilot CLI config file to connect databases, Jira, Slack, internal APIs, and more</li>
-          <li>Each tool call returns real data into the context window; Copilot can reason over live information, not just static files</li>
+          <li><strong>Copilot CLI</strong> includes the GitHub MCP server for authorized GitHub interactions</li>
+          <li>Use <strong>MCP: Add Server</strong> in VS Code or <code>/mcp add</code> in CLI; configuration and authentication depend on the server and client</li>
+          <li>Tools can retrieve live data or change external systems. Review the publisher, access, requested action, and returned evidence.</li>
         </ul>
         <pre class="mermaid">
 graph LR
@@ -314,7 +314,7 @@ graph LR
   B --> E[Grounded response]
         </pre>
         <aside class="speaker-notes">
-          MCP is arguably the biggest force multiplier in the current Copilot ecosystem. The core idea: instead of pasting data into your prompt, you connect an MCP server that Copilot can query in real time. Ask Copilot to review a PR and it can fetch the actual diff, the CI status, and the related issue thread, all without you copying anything. Connect a database MCP server and Copilot can query your schema directly when you ask it to write a migration. Connect a Jira server and it can read the requirements ticket while it writes the implementation. Every tool call adds fresh, specific data to the context window. VS Code and Copilot CLI both support MCP configuration. In VS Code you add servers in your settings JSON. In the CLI you edit a configuration file. The process takes about five minutes per server.
+          Instead of pasting a pull request into chat, we can let an authorized GitHub tool retrieve its diff and related issue. That is useful grounding, but a tool response is still evidence to inspect, not an instruction to trust blindly. MCP also supports resources and user-invoked prompts; client support determines what is exposed. In VS Code, start with MCP: Add Server and choose the appropriate configuration destination. CLI includes GitHub MCP and offers /mcp add for other servers, with user configuration in ~/.copilot/mcp-config.json. External integrations need their own server, credentials, and permissions. Review access before enabling them, especially tools that write data or run local commands.
         </aside>
       </div>
     </section>
@@ -340,12 +340,12 @@ graph LR
 - Use single quotes for strings
 - Maximum line length: 100 characters</code></pre>
         <ul>
-          <li>Copilot reads this file and applies the rules to <strong>every interaction in the repo</strong>, automatically</li>
-          <li>Use <code>applyTo</code> in scoped <code>.instructions.md</code> files to activate rules only for specific file patterns</li>
-          <li>Enterprise orgs can define <strong>organization-wide instructions</strong> that apply across all repositories</li>
+          <li>Repository instructions guide <strong>supported chat and agent requests</strong>, not inline suggestions; review generated changes</li>
+          <li>Use <code>applyTo</code> in targeted <code>.instructions.md</code> files for matching files in supported clients</li>
+          <li><strong>Organization instructions</strong> currently support GitHub.com Chat, code review, and cloud agent, not a universal local IDE/CLI baseline</li>
         </ul>
         <aside class="speaker-notes">
-          This is the highest-ROI change most teams can make today. Create a file called copilot-instructions.md in your .github directory and Copilot reads it before every response in that repo. You are encoding your team's coding standards into a file the AI actually respects. Every developer gets consistent guidance from day one without having to know what to ask for. The scoped variant, an .instructions.md file with an applyTo glob pattern, lets you be more targeted. Testing rules only activate for test files. React component rules only activate for component files. This keeps instructions focused and avoids loading irrelevant content. For Enterprise customers, organization-wide instructions let admins set baseline expectations across every repo in the org. A practical tip: start with five to ten rules, commit them, and add more as you discover places where Copilot's default behavior does not match your team's preferences.
+          This sample describes one team's TypeScript, React, and testing choices; it is not a claim that other tools or patterns are obsolete. Put shared project guidance in .github/copilot-instructions.md, then use targeted files for rules that apply only to matching work. In VS Code, applyTo can match files the agent creates or modifies; check the selected harness's discovery rules rather than assuming a topic alone activates a file. These instructions guide supported chat and agent requests, not inline suggestions, and they do not enforce compliance. Organization instructions have a narrower GitHub.com scope. Start with a few relevant rules, then verify the resulting diff and tests.
         </aside>
       </div>
     </section>
@@ -368,22 +368,22 @@ graph LR
             <tr>
               <td>You type the same detailed prompt every morning</td>
               <td><strong>Prompt file</strong></td>
-              <td>Save it once, share it with your team, run it from the picker</td>
+              <td>Invoke a saved task in VS Code Local; check client support</td>
             </tr>
             <tr>
               <td>Copilot keeps generating code that breaks your team's conventions</td>
               <td><strong>Instruction file</strong></td>
-              <td>Always-on, zero per-session effort, applies to every response</td>
+              <td>Standing or targeted guidance for supported chat and agent requests</td>
             </tr>
             <tr>
               <td>Your deployment procedure is a 20-step wiki nobody reads</td>
               <td><strong>Skill</strong></td>
-              <td>Agents pull it in on demand; it is only loaded when relevant</td>
+              <td>Compatible agents load relevant workflow content on demand</td>
             </tr>
             <tr>
               <td>A validation or policy check must run at a specific lifecycle event</td>
               <td><strong>Hook</strong></td>
-              <td>Runs a deterministic command instead of relying on the model to remember</td>
+              <td>Runs a command at a supported event; verify the harness and configuration</td>
             </tr>
             <tr>
               <td>You want a security reviewer who uses your specific standards</td>
@@ -398,7 +398,7 @@ graph LR
           </tbody>
         </table>
         <aside class="speaker-notes">
-          The framework in one slide. Repeating a task? Prompt file. Guiding a standard? Instruction file. Packaging expertise? Skill. Need a command to run at a guaranteed lifecycle event? Hook. Need a specialist? Agent. Need live data? MCP server. The first five are customization primitives, while MCP connects Copilot to external tools and data. The most common mistake I see is people trying to solve every one of these needs with longer prompts typed directly into chat. That works once. It does not scale. Choosing the right mechanism is how you turn a personal productivity tool into a team productivity platform.
+          The framework starts with the problem, not the file extension. Repeating a task in a client that supports prompt files? Save a prompt. Packaging a workflow for compatible agents? Use a skill. Guiding project conventions? Instructions. Running a command at a supported event? A hook, with its configuration tested in that harness. Need a specialist? A custom agent. Need external data or actions? MCP. These mechanisms can work together, but adding more is not automatically better. We want focused guidance and the fewest tools needed for the task, with tests and permissions doing the enforcement that prose alone cannot provide.
         </aside>
       </div>
     </section>
@@ -427,9 +427,9 @@ graph LR
       <div class="slide-inner">
         <h2>What Drives Credit Spend</h2>
         <ul>
-          <li><strong>1 AI credit = $0.01 USD.</strong> Every billed interaction consumes input, output, and sometimes cached tokens.</li>
+          <li><strong>1 AI credit = $0.01 USD.</strong> Model usage is priced by input, output, cached input, and any applicable cache-write tokens.</li>
           <li>Token usage is converted to credits at the <strong>model's published rate</strong>. Premium models cost more per token.</li>
-          <li><strong>What is billed:</strong> Chat messages, CLI sessions, cloud agent tasks, code review</li>
+          <li><strong>Agent work is not one fixed-price message:</strong> Chat, CLI, and cloud agent tasks can involve multiple model calls</li>
           <li><strong>What is not billed from credits:</strong> Inline completions and Next Edit Suggestions (included in paid plans)</li>
           <li>Business and Enterprise seats contribute to a <strong>shared, pooled credit balance</strong></li>
         </ul>
@@ -440,7 +440,7 @@ graph LR
   D["Model tier"] --> C
         </pre>
         <aside class="speaker-notes">
-          One credit is one cent. Every interaction that consumes tokens draws from that pool. Input tokens are what you send: your prompt, your open files, your instruction files, your chat history. Output tokens are what the model returns. Both cost credits, and the rate varies by model. This means your context engineering decisions from Part 2 directly affect your spending. More context is not always better. The right context is better. If your instruction file is three thousand words of guidance that only fifteen percent of it applies to the current task, you are burning tokens on noise. That is the central insight of token optimization: precision is cheaper than volume.
+          One credit is one cent, but input, output, and cached tokens do not all have the same price. Published rates depend on the model and sometimes the context tier. An agent may make several model calls while exploring, editing, and testing, so a short user prompt does not guarantee a small final charge. Context engineering helps by reducing irrelevant input and corrective work. Stable context can also be reused from cache at a different rate. Our goal is not to starve the task of evidence; it is to provide the smallest reliable context that lets the work succeed, then inspect actual usage.
         </aside>
       </div>
     </section>
@@ -452,14 +452,14 @@ graph LR
       <div class="slide-inner">
         <h2>Context Hygiene</h2>
         <ul>
-          <li><strong>Close irrelevant tabs.</strong> Copilot reads neighboring open files as context. Every unnecessary tab adds noise and costs tokens.</li>
-          <li><strong>Select before you ask.</strong> Highlight the specific function or block you are asking about instead of leaving the entire file in context.</li>
+          <li><strong>Inspect attached context.</strong> An open tab is not proof its contents were sent; remove irrelevant attachments and attach decisive evidence.</li>
+          <li><strong>Select before you ask.</strong> Attach the relevant function or block when a whole file is unnecessary.</li>
           <li><strong>Start a new chat for unrelated tasks.</strong> Chat history accumulates. An old debugging conversation pollutes context for a documentation request.</li>
-          <li><strong>Keep instruction files focused.</strong> Scoped <code>applyTo</code> patterns prevent testing instructions from loading during an architecture discussion.</li>
-          <li><strong>Avoid pasting large blobs.</strong> Use <code>@workspace</code> or <code>#file:</code> references so Copilot can fetch precisely what it needs.</li>
+          <li><strong>Keep instruction files focused.</strong> Targeted <code>applyTo</code> patterns match relevant files in supported clients.</li>
+          <li><strong>Avoid pasting large blobs.</strong> In VS Code use file <code>#</code>-mentions, Add Context, or <code>#codebase</code> for a relevant workspace search.</li>
         </ul>
         <aside class="speaker-notes">
-          Context hygiene is not glamorous but it is effective. Think of your context window as a whiteboard in a meeting room. If the whiteboard is covered with notes from twelve previous meetings, the current meeting suffers. The simplest habit: before you ask a complex question, close the tabs that are not relevant, select the specific code you care about, and start a fresh chat thread. Thirty seconds of setup saves tokens and usually gets you a better answer on the first try rather than two or three follow-ups. The tab closure point is frequently underestimated. In a busy VS Code session with twenty files open, a significant fraction of your context window is consumed by files you opened an hour ago and forgot about.
+          Think of context as a shared whiteboard. Old assumptions and irrelevant attachments make the current problem harder to see. Opening a file does not guarantee its full contents are included, and closing a tab does not prove a specific credit saving. Attach the evidence you need and inspect what the client actually includes. In VS Code, use the context picker or file mentions; #codebase requests a search, not an upload of the entire repository. Start a new chat for unrelated work. If we are continuing the same task, compaction can retain important decisions while reducing old conversation history.
         </aside>
       </div>
     </section>
@@ -505,7 +505,7 @@ graph LR
           </div>
           <div class="card">
             <h3>Request the format you need</h3>
-            <p>Ask for a function, not an explanation of a function. Ask for a diff, not a description of what changed. Output tokens cost just as much as input tokens.</p>
+            <p>Ask for the artifact and explanation you actually need. Output tokens are billed too, often at a higher rate than input; check the model's rates.</p>
           </div>
           <div class="card">
             <h3>One task per prompt</h3>
@@ -513,7 +513,7 @@ graph LR
           </div>
         </div>
         <aside class="speaker-notes">
-          Prompt discipline is about respecting both your time and your credit balance. Vague prompts produce long, hedging responses that require follow-up, which means you are paying for the correction round-trip on top of the original vague answer. The four disciplines on this slide are worth turning into a checklist until they become habit. Scope: what exactly, in which file. Constraints: what versions, patterns, and frameworks are in play. Format: ask for the artifact you actually need. Atomicity: one task, one prompt. I have seen teams cut their credit spend by thirty percent with nothing other than prompt discipline. The output quality went up at the same time.
+          Prompt discipline is about reducing avoidable retries, not chasing an unsupported savings percentage. Scope tells the agent what it may change. Constraints prevent an implementation built on the wrong framework or version. Format helps us get a reviewable artifact without pages of unnecessary narration. A focused task also gives us a clear stopping condition. Input and output have different prices, and a concise answer is not useful if it omits evidence we need to review the change. Compare quality, retries, and measured usage on representative tasks instead of promising a fixed percentage improvement.
         </aside>
       </div>
     </section>
@@ -535,29 +535,29 @@ graph LR
           <tbody>
             <tr>
               <td>Quick syntax question, code lookup</td>
-              <td>Fast and efficient (GPT-5.4 mini, Claude Haiku 4.5, MAI-Code-1-Flash)</td>
+              <td>Fast and efficient</td>
               <td>Optimize for latency and credit efficiency when the task is narrow</td>
             </tr>
             <tr>
               <td>Refactoring, feature implementation</td>
-              <td>Balanced (GPT-5.4, Claude Sonnet 5)</td>
+              <td>Balanced coding</td>
               <td>Strong coding and reasoning for most daily development work</td>
             </tr>
             <tr>
               <td>Agentic coding, architecture review, complex debugging</td>
-              <td>Coding and reasoning (GPT-5.3-Codex, Claude Opus 5)</td>
+              <td>Deeper coding and reasoning</td>
               <td>Use deeper reasoning when multi-step decisions justify additional credits</td>
             </tr>
             <tr>
               <td>Large repository or long-document analysis</td>
               <td>Supported model with extended context</td>
-              <td>Enable the one-million-token context window only when the task needs it</td>
+              <td>Check supported context limits and any long-context pricing before use</td>
             </tr>
           </tbody>
         </table>
-        <p style="margin-top:1em;opacity:0.85">Availability varies by client, plan, and organization policy. Check the current model picker and credit rate before starting.</p>
+        <p style="margin-top:1em;opacity:0.85">Auto can match capability to the task. Availability varies by client, plan, and policy. Check <a href="https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing">current per-token rates</a> and preserve cached context within a coherent task.</p>
         <aside class="speaker-notes">
-          Model names change quickly, so the durable skill is matching capability to the task. For a syntax lookup or narrow edit, start with a fast, efficient model. For daily implementation, choose a balanced coding model. Move to a coding-specialized or deeper-reasoning model when the task spans files, requires architectural judgment, or has expensive failure modes. Extended context and higher reasoning levels are options on supported models, not defaults you need for every request. Both consume more tokens and credits. Check the model picker because availability depends on your client, plan, and organization policy, and use the current credit rate rather than memorizing a multiplier that may change.
+          Match capability to the task rather than memorizing model names that may retire. Auto is a useful starting point where supported; manual selection is still useful when we have a specific requirement. Narrow edits usually need less reasoning than architectural decisions or complex debugging. Extended context and higher reasoning levels are model-specific options, not universal defaults. Configure them deliberately before the task. Switching models or changing reasoning and tool configuration mid-session can invalidate cached context, so repeated switching may cost more than it saves. Use the supported-model list, published rates, and actual task results to guide the choice.
         </aside>
       </div>
     </section>
@@ -571,12 +571,12 @@ graph LR
         <ul>
           <li><strong>Conversational sprawl:</strong> Using a single chat thread all day accumulates history that is irrelevant to your current task. Start fresh threads for new tasks.</li>
           <li><strong>Overkill model selection:</strong> Running every request through a premium reasoning model. Match the model to the complexity of the task.</li>
-          <li><strong>Over-loaded instruction files:</strong> A five-thousand-word copilot-instructions.md injected into every single interaction. Scope long guides to skills or agents where they are only loaded when relevant.</li>
+          <li><strong>Over-loaded instruction files:</strong> Long project-wide guidance burdens supported chat and agent requests. Keep the baseline lean and package detailed workflows as skills.</li>
           <li><strong>Undirected agent mode:</strong> Asking an agent to "improve my code" without a defined scope. Agents loop, generating significant token spend without a clear stopping condition.</li>
-          <li><strong>Redundant context:</strong> Pasting code into chat that is already in an open file Copilot can already see. Use <code>#file:</code> references instead.</li>
+          <li><strong>Redundant context:</strong> Pasting the same code repeatedly. Attach the relevant file or selection once and let the agent retrieve additional evidence as needed.</li>
         </ul>
         <aside class="speaker-notes">
-          These are the five anti-patterns I see most often in team rollouts. Conversational sprawl is the sneakiest: a developer starts a session at 9am and is still in the same chat thread at 5pm. By afternoon, the context is full of morning work that has nothing to do with the current task. The model is spending tokens processing irrelevant history. The fix is trivially easy: Ctrl+L to start a new thread. Over-loaded instruction files are also common. Teams write a comprehensive guide for Copilot and put it all in copilot-instructions.md. That file is injected into every single interaction, including quick inline completions. The right structure is a lean copilot-instructions.md with the fundamentals, and Skills for the detailed domain knowledge that only needs to load when it is actually relevant.
+          A long conversation is not automatically bad, but carrying unrelated work forward can make it harder to find the important facts. In VS Code, use New Chat or Chat: New Chat. In CLI, /new starts a fresh conversation; Ctrl+L only clears the screen. If we need to keep working on the same task, /compact summarizes older conversation instead. Neither action removes saved files or applicable instructions. Keep repository instructions focused on shared fundamentals and skills focused on detailed workflows. Instructions do not affect inline suggestions, and skill discovery metadata is not literally free context even when full instructions load only on demand.
         </aside>
       </div>
     </section>
@@ -588,14 +588,14 @@ graph LR
       <div class="slide-inner">
         <h2>Quick Optimization Checklist</h2>
         <ul>
-          <li>Before asking: <strong>close irrelevant tabs, select the relevant code block, start a new thread if context is stale</strong></li>
+          <li>Before asking: <strong>attach decisive evidence, remove irrelevant context, start a new chat for an unrelated task</strong></li>
           <li>When writing a prompt: <strong>scope it to a specific file and task, state your constraints, specify the output format</strong></li>
-          <li>When choosing a model: <strong>default to a balanced tier; upgrade to reasoning only when the task needs it</strong></li>
+          <li>When choosing a model: <strong>try Auto or a suitable capability tier; avoid unnecessary mid-task switching that loses cache reuse</strong></li>
           <li>For team scale: <strong>keep copilot-instructions.md lean; move deep expertise into Skills; use scoped applyTo patterns</strong></li>
-          <li>For agent tasks: <strong>describe a clear stopping condition; review plans in plan mode before execution</strong></li>
+          <li>For agent tasks: <strong>define done, review plans and permissions, inspect <code>/usage</code> and <code>/context</code> in CLI</strong></li>
         </ul>
         <aside class="speaker-notes">
-          Five habits. Before asking: clean your context. When writing: be specific. When choosing a model: match complexity to cost. For the team: keep instructions lean and use skills for depth. For agent tasks: define what done looks like before you start. Print this slide, put it next to your monitor, and follow it for two weeks. Your output quality will go up and your credit consumption will go down. Those two outcomes are not in tension; they are the same outcome. Better context produces better results in fewer tokens.
+          These habits give us something we can test rather than a guaranteed savings claim. Start with a clear task and decisive evidence, choose enough capability, and inspect what the session actually consumed. In CLI, /usage reports credits and token breakdowns, while /context shows context usage. Use /compact when continuing a long task, not as a substitute for preserving the right evidence. Check organization budgets too: a stopping condition is not a financial cap. CLI also offers Preview session soft limits, which can overshoot while a response finishes; they do not replace monthly budgets. The goal is lower rework with results we can still verify.
         </aside>
       </div>
     </section>
@@ -612,7 +612,7 @@ graph LR
         <span class="badge badge--purple">Part 4 · 15 min</span>
         <h2>Live Demo: Copilot CLI</h2>
         <aside class="speaker-notes">
-          Demo time. We are going to use Copilot CLI to show three things in fifteen minutes: terminal-native development without opening an editor, parallel workstreams using the Open in Editor technique, and a GitHub integration task. Everything I do here you can replicate on your own machine tonight.
+          We will connect the ideas in one focused terminal workflow: a bounded edit with tests, a second independent task, and a read-only GitHub query. The parallel tasks need separate ownership and code isolation, not just separate chat windows. VS Code has an equivalent new-chat workflow, but the main demo stays in CLI. Before running it yourself, check your client version, subscription, organization policy, and repository permissions. The file paths on the following slide are illustrative, so choose real targets and the configured test command in your own project.
         </aside>
       </div>
     </section>
@@ -630,18 +630,18 @@ npm install -g @github/copilot
 winget install GitHub.Copilot
 
 # Verify
-copilot --version
+copilot version
 
 # Navigate to your project and launch
 cd my-project
 copilot</code></pre>
         <ul>
           <li>On first launch, Copilot asks you to <strong>trust the current directory</strong>. Confirm if you want it to read and write files there.</li>
-          <li>Sign in with <code>/login</code> if prompted</li>
-          <li>Press <kbd>Shift+Tab</kbd> to cycle between <strong>standard</strong>, <strong>plan</strong>, and <strong>autopilot</strong> modes</li>
+          <li>Sign in with <code>/login</code>; Windows needs PowerShell 6+ and your subscription and organization policy must allow CLI</li>
+          <li>Use <code>/help</code> for current controls and <kbd>Shift+Tab</kbd> for plan mode. <strong>Task mode and tool permissions are separate.</strong></li>
         </ul>
         <aside class="speaker-notes">
-          Install takes about thirty seconds. npm install -g @github/copilot, then copilot to launch. You will be asked to trust the directory the first time. This is a meaningful security prompt: in the trusted directory, Copilot can read, write, and execute files. Only trust directories you are comfortable with. The three interaction modes are important. Standard mode is like chat: you prompt, it acts, it asks for approval before each tool use. Plan mode is deliberate: Copilot analyzes the task, asks clarifying questions, and builds a step-by-step plan for you to review before touching a single file. Autopilot completes multi-step tasks without stopping for approval at each step. Use plan mode when you are not certain about scope. Use autopilot only in trusted, well-understood workflows.
+          The npm route requires Node.js 22 or later; WinGet is an alternative on Windows. After installation, check the version, launch in a trusted project, and sign in. Trusting a directory means the agent may attempt to read, modify, or execute its contents; it is not permission to stop reviewing actions. Plan mode helps establish scope before implementation. Autopilot can continue a multi-step task, but it does not mean every tool is automatically allowed. Permissions depend on grants, the selected permission mode, and organization policy. Manual permissions are a good demo baseline; assisted permissions can approve assessed-safe requests and ask about others. Neither is a guarantee that every action produces a new prompt. Check /help and /permissions on your installed client, and keep broad allow-all access out of this demo.
         </aside>
       </div>
     </section>
@@ -653,28 +653,28 @@ copilot</code></pre>
       <div class="slide-inner">
         <h2>Demo: Terminal-Native Development</h2>
         <ul>
-          <li>Reference specific files with <code>@</code>: <code>Explain the error handling in @src/api/routes.ts</code></li>
-          <li>Ask Copilot to make changes: <code>Add input validation to the createUser handler in @src/api/users.ts</code></li>
-          <li>Copilot shows the proposed edit, asks for approval, then writes the file</li>
-          <li>Run your tests from the same session: <code>Run the test suite and fix any failures</code></li>
-          <li>Copilot executes the test command, reads the output, diagnoses failures, and proposes fixes</li>
+          <li>Use real project paths; these are illustrative. Reference a file with <code>@</code>: <code>Explain the error handling in @src/api/routes.ts</code></li>
+          <li>Bound the change: <code>Add input validation to createUser in @src/api/users.ts using the existing request schema. Add focused tests; do not change unrelated handlers.</code></li>
+          <li>Review edits and permission requests. Whether a tool asks for approval depends on its existing grants and permission mode.</li>
+          <li>Validate the target: <code>Run the configured focused tests for createUser. Report unrelated failures instead of expanding scope. Stop after the diff and results are summarized.</code></li>
+          <li>Inspect the diff and test evidence, then check <code>/usage</code> and <code>/context</code>. A plausible summary is not a passing test.</li>
         </ul>
         <pre class="mermaid">
 sequenceDiagram
   participant Dev as You
   participant CLI as Copilot CLI
   participant FS as File System
-  Dev->>CLI: "Add input validation to @src/api/users.ts"
+  Dev->>CLI: "Validate createUser; add focused tests"
   CLI->>FS: Read users.ts
-  CLI->>Dev: Propose edit (approval required)
-  Dev->>CLI: Approve
+  CLI->>Dev: Request permission if needed
+  Dev->>CLI: Review and approve when requested
   CLI->>FS: Write updated file
-  Dev->>CLI: "Run the test suite and fix any failures"
-  CLI->>FS: Execute npm test
-  CLI->>Dev: Diagnose failures, propose fixes
+  Dev->>CLI: "Run configured focused tests"
+  CLI->>FS: Execute configured test command
+  CLI->>Dev: Summarize diff and test evidence
         </pre>
         <aside class="speaker-notes">
-          This is the core workflow. You describe what you want in plain English, reference files with the @ prefix, and Copilot handles the rest. The critical difference from the old CLI is that it can iterate. If the test suite fails after it writes the code, it reads the failure output and keeps going. You do not have to copy error messages into a chat window and ask what they mean; it already knows. Tab completion works for file paths in the @ references, which makes navigation fast. One important note: Copilot requests approval before each tool use in standard mode. You are always in control of what actually runs. Only approve tool calls that look correct.
+          We begin with an existing handler and request schema, not an invitation to redesign the project. Replace these illustrative paths with real files and let the existing schema define what valid input means. The @ mention attaches a file in CLI; it is different from VS Code's file context picker. Ask for focused tests and a clear stopping condition so a failure elsewhere does not turn into unrelated repairs. Permissions may already cover some tools, so inspect the settings and any requests rather than expecting an approval prompt for every read or edit. Finally, read the diff and the actual test result. Check usage to connect the cost discussion to work we can evaluate.
         </aside>
       </div>
     </section>
@@ -686,11 +686,11 @@ sequenceDiagram
       <div class="slide-inner">
         <h2>Demo: Parallel Workstreams</h2>
         <ul>
-          <li>LLM inference has inherent latency: queue time plus token generation time</li>
-          <li>A single Chat panel means idle time while the model works</li>
-          <li>In VS Code: click <strong>"Open in Editor"</strong> (pencil icon at top of Chat) to pop the current session into a tab</li>
-          <li>Open Chat again: you now have a <strong>second, independent session</strong> running in parallel</li>
-          <li>In the CLI: open a <strong>second terminal window</strong> and launch <code>copilot</code> from a different directory or with a focused task</li>
+          <li>Overlap waiting time only for <strong>genuinely independent tasks</strong>; the timeline below is illustrative, not a measured speedup</li>
+          <li>Give each writing task a <strong>separate Git worktree or project copy</strong>, or explicitly disjoint files with clear ownership</li>
+          <li>In VS Code: use <strong>New Chat (+) &gt; New Chat Editor</strong> or <strong>Chat: New Chat Editor</strong>; choose isolation separately</li>
+          <li>In CLI: open a second terminal and launch <code>copilot</code> in its isolated worktree or project directory</li>
+          <li><strong>A second chat is not code isolation.</strong> Review and integrate each result, run combined tests, and account for aggregate usage and limits.</li>
         </ul>
         <pre class="mermaid">
 gantt
@@ -699,17 +699,17 @@ gantt
   axisFormat %s
 
   section Sequential
-  Write tests          :a1, 0, 3
-  Scaffold component   :a2, after a1, 3
-  Draft docs           :a3, after a2, 3
+  Fix module A         :a1, 0, 3
+  Fix module B         :a2, after a1, 3
+  Review module C      :a3, after a2, 3
 
   section Parallel
-  Write tests          :b1, 0, 3
-  Scaffold component   :b2, 0, 3
-  Draft docs           :b3, 0, 3
+  Fix module A         :b1, 0, 3
+  Fix module B         :b2, 0, 3
+  Review module C      :b3, 0, 3
         </pre>
         <aside class="speaker-notes">
-          This is one of the most practical productivity techniques in this entire session. Copilot is fast, but it is not instant. While it is writing your unit tests, you can open a second session and ask it to scaffold the component those tests will cover. While that one is running, open a third and draft the documentation. Three tasks run in roughly the same time as one. The pattern works in VS Code using the Open in Editor button to create independent editor-tab sessions. It works in Copilot CLI by opening multiple terminal windows. The only cost is managing the output from all three streams. Start small: two parallel sessions. Once that feels natural, add a third. This is particularly powerful for the "write code, write tests, write docs" cycle that usually runs sequentially.
+          Parallelism helps when tasks do not depend on each other's unfinished output. For example, fix two unrelated modules in separate worktrees while a read-only session reviews a third. Writing tests for a component another agent is still designing is not automatically independent. A new chat can share the same working tree, so give write tasks isolation and explicit ownership before starting. Separate directories only help if they really separate the files being modified. We still need to review each diff, integrate deliberately, and run tests together. The chart illustrates overlap, not a three-times speed guarantee. Credits, rate limits, integration effort, and review all remain part of the cost.
         </aside>
       </div>
     </section>
@@ -721,24 +721,25 @@ gantt
       <div class="slide-inner">
         <h2>Demo: GitHub Integration via MCP</h2>
         <ul>
-          <li>Copilot CLI ships with the <strong>GitHub MCP server pre-configured</strong></li>
-          <li>From the terminal, ask it to interact with your GitHub repositories directly:</li>
+          <li>Copilot CLI includes the <strong>GitHub MCP server</strong>; sign-in, repository access, allowed tools, and policies still apply</li>
+          <li>Start with read-only queries. Replace these example repository and PR values with ones you can access:</li>
         </ul>
         <pre><code># List open PRs needing review
-What pull requests are open in my-org/my-repo that are ready for review?
+List open, non-draft pull requests in my-org/my-repo. Do not change any records.
 
 # Investigate a failing CI run
-The latest CI run on PR #142 failed. Diagnose the failure and suggest a fix.
+Inspect the latest CI run on PR #142 in my-org/my-repo.
+Summarize the failure evidence without changing files or records.
 
-# Create a PR from local changes
-I've made the changes we discussed. Create a PR with a descriptive title and body
-summarizing what changed and why.</code></pre>
+# Draft a PR description from local changes
+Draft a pull request title and body from the local diff.
+Do not commit, push, or create a pull request.</code></pre>
         <ul>
-          <li>No browser switching required: everything stays in the terminal</li>
-          <li>Copilot fetches live GitHub data via the MCP server and reasons over it alongside your local files</li>
+          <li>Once authenticated, many GitHub tasks stay in the terminal; review the actual tool output</li>
+          <li>Creating a PR is a separate authorized write action after local review, tests, and any required branch publishing</li>
         </ul>
         <aside class="speaker-notes">
-          The GitHub MCP server is configured out of the box. That means Copilot CLI can query Issues, Pull Requests, your repo, and your CI results the moment you install it. Ask it to find open PRs that need review and it will list them with summaries. Ask it to diagnose a failed CI run and it will fetch the log, identify the root cause, and suggest a fix. Ask it to create a PR from your local changes and it will write a title and body based on the diff. This is the "stay in the terminal" promise made concrete: the feedback loop between local development and GitHub never requires you to open a browser tab.
+          Built-in GitHub MCP saves setup, but installation is not authorization. Sign in, check repository access, and confirm the relevant tools are available. We start with listing pull requests and reading failure evidence, then compare the answer with the returned data. Logs may be inaccessible or incomplete; the agent should report that instead of inventing a root cause. Drafting a title and body from the local diff needs no remote write. Actually creating a pull request is a separate step that requires permission and a suitable published branch. Authentication may use a browser, even though much of the development feedback loop can stay in the terminal.
         </aside>
       </div>
     </section>
@@ -769,12 +770,12 @@ summarizing what changed and why.</code></pre>
         <ul>
           <li><strong>Copilot is not just an IDE plugin anymore.</strong> The CLI, SDK, and github.com surfaces each unlock different workflows; know which one fits your task.</li>
           <li><strong>Context engineering is the core skill.</strong> Instruction files, skills, agents, and MCP servers let you automate the context that previously lived in your head.</li>
-          <li><strong>Precision beats volume.</strong> A focused prompt on the right model with clean context outperforms a vague prompt on a premium model every time.</li>
-          <li><strong>Parallelize deliberately.</strong> Multiple independent Copilot sessions running concurrently collapse the time for tasks that used to be sequential.</li>
+          <li><strong>Precision beats volume.</strong> Focused evidence, suitable capability, and clear stopping conditions can reduce retries; measure quality and usage.</li>
+          <li><strong>Parallelize deliberately.</strong> Isolate independent write tasks, review and integrate results, and account for aggregate costs.</li>
           <li><strong>Start small, iterate fast.</strong> Create one instruction file this week. Add one prompt file. Try the CLI on one task. Build the habit before adding complexity.</li>
         </ul>
         <aside class="speaker-notes">
-          Five takeaways to close. Copilot is a platform now, not a plugin. Context engineering is the skill that separates effective users from exceptional ones. Precision beats volume, both in output quality and credit spend. Parallelism is free if you build the habit. And start small: one instruction file, one prompt file, one CLI session. Those three changes are achievable this week and will make a measurable difference by Friday.
+          Copilot has several surfaces, but we do not need to adopt all of them at once. Choose one useful task, provide authoritative context, and use the smallest customization that helps. Match capability to the work and inspect actual usage rather than assuming a short prompt is cheap. Parallel work can reduce waiting, but it still consumes credits and needs isolation, integration, and review. Start with one shared instruction file and one reusable workflow supported by your client, then try a bounded CLI session. Judge the result by the diff, tests, and cost, not by how confidently the agent describes it.
         </aside>
       </div>
     </section>
@@ -789,7 +790,7 @@ summarizing what changed and why.</code></pre>
           <div class="card">
             <h3>Go deeper on Context Engineering</h3>
             <p><strong>Copilot Primitives - Prompts, Instructions, Skills, and Agents</strong> (Beginner, 30 min)</p>
-            <p>Master all four primitives with step-by-step examples.</p>
+            <p>Explore customization workflows with step-by-step examples; check the current client and harness support.</p>
           </div>
           <div class="card">
             <h3>Master the CLI</h3>
